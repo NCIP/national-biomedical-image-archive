@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+	<ice:form id="qcToolSearchCritForm">
+		<f:subview id="qcToolTitleView" rendered="#{not qcToolBean.superRole}">
+			<table>
+				<tr>
+					<td>
+						<div class="submissionReportTitleContainer">
+							<span class="submissionReportTitle"> QC Tool </span>
+						</div>
+					</td>
+					<td>
+						<div align="right">
+							<ncia:help label="images/help_icon.png" helpId="QC_tool_help" />
+						</div>
+					</td>
+				</tr>
+			</table>
+		</f:subview>
+
+		<f:subview id="qcToolDeleteTitleView"
+			rendered="#{qcToolBean.superRole}">
+			<table>
+				<tr>
+					<td>
+						<div class="submissionReportTitleContainer">
+							<span class="submissionReportTitle"> Approve Deletions</span>
+						</div>
+					</td>
+					<td>
+						<div align="right">
+							<ncia:help label="images/help_icon.png"
+								helpId="deletion_approval_help" />
+						</div>
+					</td>
+				</tr>
+			</table>
+		</f:subview>
+
+		<div id="collectionAndDateRangeControls">
+			<ice:panelGroup id="noCollectionsMsg"
+				rendered="#{empty submissionReportsBean.authorizedProjectsSitesSelectItems}">
+				<span>Not authorized for any collection//sites</span>
+			</ice:panelGroup>
+
+			<ice:panelCollapsible id="statusSearchControlPanel" expanded="true">
+				<f:facet name="header">
+					<ice:panelGroup>
+						<ice:outputText id="formHeader" value="Search Controls" />
+					</ice:panelGroup>
+				</f:facet>
+				<center>
+					<table class="topBorderOnly qcToolControlsTable" cellpadding="3"
+						cellspacing="0" summary="criteria section">
+						<tr>
+							<td colspan="2" class="submissionReportFormTitle">
+								#{msg.search_criteria}
+							</td>
+						</tr>
+						<f:subview id="qcToolDeleteView"
+							rendered="#{not qcToolBean.superRole}">
+							<tr>
+								<td width="12%" class="formLabel">
+									#{msg.qcTool_qcStatus}
+								</td>
+								<td class="formField">
+									<ice:selectManyCheckbox id="slctQcStatus"
+										value="#{qcToolBean.selectedQcStatus}" partialSubmit="false"
+										style="white-space:nowrap; ">
+										<f:selectItems id="slctStatisItms"
+											value="#{qcToolBean.qcStatusItems}" />
+									</ice:selectManyCheckbox>
+								</td>
+							</tr>
+						</f:subview>
+						<tr>
+							<td width="12%" class="formLabel">
+								<h:outputText value="#{msg.criteria_CollectionCriteria}" />
+								<br />
+							</td>
+							<td class="formField">
+								<ice:selectOneMenu id="collectionSiteMenu"
+									value="#{qcToolBean.selectedCollectionSite}"
+									style="font-size:1em" partialSubmit="false">
+									<f:selectItems value="#{qcToolBean.collectionItems}" />
+								</ice:selectOneMenu>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="12%" class="formLabel">
+								#{msg.qcTool_patientId}
+							</td>
+							<td class="formField">
+								<ice:inputTextarea id="patientID"
+									value="#{qcToolBean.selectedPatients}" cols="20" rows="4"
+									partialSubmit="false"
+									style="width:720px;height:60px;overflow: auto;">
+								</ice:inputTextarea>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" class="formLabel" style="text-align: right">
+								<ice:commandButton id="qcToolSearch" partialSubmit="true"
+									action="#{qcToolSearchBean.submit}" image="/images/submit.gif"
+									onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});" />
+							</td>
+						</tr>
+					</table>
+				</center>
+				<div id="notification" style="display: none;">
+					<!--  the title is so this will go away if there is validation error -->
+					<img src="images/ajax_indicator.gif" width="16" height="16"
+						title="#{qcToolSearchBean.notificationHack}" alt="" />
+					<f:verbatim>&amp;nbsp;</f:verbatim>
+					Searching...
+				</div>
+			</ice:panelCollapsible>
+			<ice:messages id="noQCStatusError" for="slctQcStatus"
+				showDetail="false" layout="table" errorClass="errorLabel"
+				infoClass="infoLabel" />
+		</div>
+	</ice:form>
+</ui:composition>

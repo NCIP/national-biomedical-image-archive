@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+  <div class="submissionReportTitleContainer">
+    <span class="submissionReportTitle">
+      Submission Reports             
+    </span>
+  </div>
+  
+  <div id="collectionAndDateRangeControls" >
+    <ice:panelGroup id="noCollectionsMsg" 
+                    rendered="#{empty submissionReportsBean.authorizedProjectsSitesSelectItems}">
+      <span>Not authorized for any collection//sites</span>                    
+    </ice:panelGroup>
+    
+    <ice:form id="submissionReportCriteriaForm" 
+              rendered="#{not empty submissionReportsBean.authorizedProjectsSitesSelectItems}">
+     
+      <table class="topBorderOnly submissionReportControlsTable" 
+             cellpadding="3" 
+             cellspacing="0" 
+             summary="criteria section">
+        <tr>
+          <td colspan="3" class="submissionReportFormTitle">           
+            #{msg.search_criteria}
+          </td>
+        </tr>  
+        <tr>
+          <td width="24%" class="formLabel">
+            #{msg.collection_site}
+          </td>
+          <td colspan="2" class="formField">
+            <ice:selectOneMenu id="collectionSiteMenu"                        
+                               value="#{submissionReportsBean.selectedCollectionSite}"
+                               style="font-size:1em"
+                               partialSubmit="false">
+              <f:selectItems value="#{submissionReportsBean.authorizedProjectsSitesSelectItems}" />
+            </ice:selectOneMenu>
+          </td>
+        </tr>
+        <tr>
+          <td width="24%" class="formLabel">
+            #{msg.verify_sub_date}
+          </td>
+          <td width="38%" class="formField" >
+            #{msg.date_from}
+
+            <ice:selectInputDate id="fromDate"
+                                 value="#{submissionReportsBean.dateFrom}" 
+                                 popupDateFormat="MM/dd/yyyy"
+                                 renderAsPopup="true"
+                                 partialSubmit="false"
+                                 style="display:inline">
+              <f:convertDateTime pattern="MM/dd/yyyy"
+                                 timeZone="#{submissionReportsBean.defaultTimeZone}"/>
+            </ice:selectInputDate>                                                 
+          </td>
+          <td width="38%" class="formField"> 
+            #{msg.date_to}
+         
+            <ice:selectInputDate id="toDate"
+                                 value="#{submissionReportsBean.dateTo}" 
+                                 popupDateFormat="MM/dd/yyyy"
+                                 renderAsPopup="true"
+                                 partialSubmit="false"
+                                 style="display:inline">
+              <f:convertDateTime pattern="MM/dd/yyyy"
+                                 timeZone="#{submissionReportsBean.defaultTimeZone}"/>
+            </ice:selectInputDate>
+          </td>                  
+        </tr>  
+        <tr>
+          <td colspan="3" class="submissionReportFormTitle">           
+            REPORT GENERATION
+          </td>
+        </tr>             
+        <tr>
+          <td colspan="3" class="formLabel" style="text-align:center">
+            <ice:commandButton id="accrualReportSubmit"
+                               action="#{accrualReportSubmissionBean.submit}" 
+                               image="/images/accrualreport.png"
+                               style="margin-right: 15px"/>
+            <ice:commandButton id="imageReportSubmit"
+                               action="#{imageSubmissionReportBean.submit}" 
+                               image="/images/imgreport.png"
+                               style="margin-right: 15px"/>                                       
+            <ice:commandButton id="annotationReportSubmit"
+                               action="#{annotationSubmissionReportBean.submit}" 
+                               image="/images/annoreport.png"/>                                                                    
+          </td>
+        </tr>   
+        <tr>
+          <td colspan="3"> 
+            <ice:messages id="submissionReportErrorField"
+                          showDetail="false"
+                          layout="table"
+                          errorClass="errorLabel" 
+                          infoClass="infoLabel" />                       
+          </td>
+        </tr>                
+      </table>
+    </ice:form>    
+  </div>  
+   
+</ui:composition>                

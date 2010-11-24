@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+<f:subview id="ncicb" 
+           rendered="#{securityBean.installationSite}">
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="500">
+  <tr>
+    <td>
+      <fieldset style="border: 1px solid #000066;width:700px">
+        <legend style="text-align:center;background-color:#ffffff">              
+          <h2>
+            <h:outputText value="#{msg.account_support_header}" />
+          </h2>
+        </legend>
+        <p style="text-align:left">  
+          <h:outputText value="#{msg.account_support_intro}"/>
+          <br/>
+          <br/>
+          <h:outputText value="#{msg.account_support_forgotPwd} "/>
+          <h:outputLink value="#{msg.account_support_NCIPwdStation}"  
+                        target="blank">
+            <h:outputText value="here "  />
+          </h:outputLink>
+          <h:outputText value="#{msg.account_support_forgetPwd1}"/>
+          <br/>
+          <br/>
+          <h:outputText value="#{msg.account_support_additional_support}"/>
+          <ul>
+            <li>
+              <h:outputText value="#{msg.account_support_appSupportPhone}" />
+            </li>
+            <li>
+              <h:outputText value="Email: " />
+              <h:outputLink value="#{msg.account_support_appSupportEmailLink}" >
+                <h:outputText value="#{msg.account_support_appSupportEmail}"/>  
+              </h:outputLink>                  
+            </li>
+          </ul>  
+        </p>
+        <p style="text-align:left">          
+          <h:outputText value="#{msg.account_support_appSupportHours}"/>
+          <br/>
+          <h:outputText value="#{msg.account_support_appSupportHours1}"/>
+          <br/>
+          <br/>
+          <h:outputText value="#{msg.account_support_submitRequest}"/>
+          <ul>
+            <li>
+              <h:outputText value="#{msg.account_support_submitRequest0}" />
+            </li>  
+            <li>
+              <h:outputText value="#{msg.account_support_submitRequest1}" />
+            </li>                
+            <li>
+              <h:outputText value="#{msg.account_support_submitRequest2}" />
+            </li>
+            <li>
+              <h:outputText value="#{msg.account_support_submitRequest3}" />
+            </li>
+          </ul>
+          <br/>                
+          <br/>
+          <br/>            
+        </p>
+      </fieldset>
+    </td>    
+  </tr>
+</table>
+
+</f:subview>
+
+<f:subview id="othersite" rendered="#{!securityBean.installationSite}">
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="500">
+  <tr>
+    <td>
+      <fieldset style="border: 1px solid #000066;width:700px">
+        <legend style="text-align:center;background-color:#ffffff">              
+          <h2>
+            <h:outputText value="#{msg.account_support_header}" />
+          </h2>
+        </legend>
+        <p style="text-align:left">  
+          <h:outputText value="Please contact application administrator at "/>
+          <h:outputText value="#{securityBean.adminEmailAddress}"/>
+          <h:outputText value=" for assistance."/>
+          <br/>                
+          <br/>
+          <br/>
+        </p>
+      </fieldset>
+    </td>
+  </tr>
+</table>  
+
+</f:subview>
+</ui:composition>

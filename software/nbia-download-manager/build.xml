@@ -1,0 +1,146 @@
+<!--
+  Expecting following properties from caller:
+    signjar.alias
+    signjar.storepass
+    signjar.keystore
+  -->  
+<project name="nbia-download-manager" 
+         default="run" 
+         basedir="." 
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <!-- Properties -->
+  <property name="src.java.dir" location="src"/>
+  <property name="build" location="bin"/>
+  <property name="resources.dir" location="resources" />
+  <property name="dist.jar" value="NBIADownloadManager.jar"/>  
+  <property name="user.name" value="NBIA" />
+  <property name="common.dir" value="${basedir}/../" />  
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
+  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
+  
+  <!-- define this for unittesting.xml import -->
+  <property name="classes.to.test.dir" value="${build}"/>
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-download-manager"/>
+  <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>  
+  
+  <path id="classpath">
+    <fileset dir="${project.lib.dir}/compile/">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+  
+  
+  <import file="../common/unittesting.xml"/>
+  
+  <!-- Targets -->
+  <target name="ivy-settings">
+    <ivy:settings file="${global.ivy.settings.file}"/>
+  </target>
+        
+  <target name="ivy-compile" depends="ivy-settings">
+    <ivy:resolve file="ivy.xml"
+                 conf="compile" />
+    <ivy:retrieve conf="compile" 
+                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+                  
+    <move todir="${project.lib.dir}/compile">
+      <fileset dir="${project.lib.dir}/compile">
+        <include name="*-working@*.jar"/>
+      </fileset>
+      <mapper type="regexp" 
+              from="^(.*)\-working\@(.*)\.jar$" 
+              to="\1.jar"/>
+    </move>                   
+  </target>
+  
+  <target name="ivy-runtime" depends="ivy-settings">
+    <ivy:resolve file="ivy.xml"
+                 conf="runtime" />
+    <ivy:retrieve conf="runtime" 
+                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />                 
+                  
+    <move todir="${project.lib.dir}/runtime">
+      <fileset dir="${project.lib.dir}/runtime">
+        <include name="*-working@*.jar"/>
+      </fileset>
+      <mapper type="regexp" 
+        from="^(.*)\-working\@(.*)\.jar$" 
+        to="\1.jar"/>
+
+    </move>                  
+  </target> 
+  
+   
+  <target name="-init" depends="-pre-clean, init-test">
+    <mkdir dir="${target.dir}" />
+    <mkdir dir="${project.lib.dir}"/> 
+    <mkdir dir="${build}"/>
+  </target>
+  
+  <target name="compile" depends="ivy-compile">
+    
+    <javac srcdir="${src.java.dir}"
+           destdir="${build}"
+           debug="on"
+           deprecation = "on"
+           optimize="off"
+           includes="**">
+      <classpath refid="classpath"/>
+    </javac>
+   </target>
+
+
+  <target name="dist" 
+          depends="compile, ivy-runtime"
+          description="generate the distribution">
+       
+    <jar jarfile="${dist.jar}">
+      <fileset dir="${build}" includes="**/*.*" />
+      <fileset dir="${resources.dir}" includes="**/*.properties" />
+      <manifest>
+        <attribute name="Built-By" value="${user.name}" />
+        <attribute name="Main-Class" value="gov.nih.nci.nbia.Application" />
+      </manifest>
+    </jar>
+    <copy file="${dist.jar}" toDir="${target.dir}" />
+    
+    <!--
+    <copy todir="${target.dir}">
+      <fileset dir="${project.lib.dir}/runtime">
+        <include name="*.jar" />
+      </fileset>      
+    </copy>
+    -->
+    <delete file="${dist.jar}"/>
+  </target>
+    
+  <!--  
+  <target name="sign-jars">
+    <echoproperties prefix="jar-signing"/>
+    <if>
+      <equals arg1="${jar-signing.execution.time}" arg2="build"/>
+      <then>
+        <echo message="jar-signing.execution.time set to build, signing jars"/>
+        <sign-jars jars.dir="${target.dir}"/>
+      </then>
+      <else>
+        <echo message="jar-signing.execution.time not set to build, not signing jars"/>
+      </else>
+    </if>    
+  </target>
+  -->
+  
+  <target name="-pre-clean" description="Performs all necessary clean-up before a build">
+ 
+  </target>
+  
+  <target name="post-clean" depends="post-clean-test">
+    <delete dir="${build}" quiet="false" />   
+  </target>  
+
+  <!-- old depends: sign-jars, -->
+  <target name="run" 
+          depends="-pre-clean, -init, dist,  test, inspect, post-clean" 
+          description="Default target" />
+</project>

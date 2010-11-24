@@ -1,0 +1,12 @@
+<project name="run-tools file" basedir="." default="runClient">
+     <target name="runClient" depends="checkGlobus, defineClasspaths" description="Run the sample Client">
+        <property name="service.url" value="http://localhost:8080/wsrf/services/cagrid/NCIACoreService" />
+        <property name="runclasspath" refid="run.classpath"/>
+        <echo message="Connecting to service: ${service.url}" />
+        <java failonerror="true" classname="gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient" classpathref="run.classpath" fork="yes">
+            <jvmarg value="-DGLOBUS_LOCATION=${ext.globus.dir}" />
+            <arg value="-url" />
+            <arg value="${service.url}" />
+        </java>
+    </target>
+</project>

@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN" "http://www.w3.org/TR/REC-html40/frameset.dtd">
+<html>
+ <!-- Copyright (c) 2000-2006 Quadralay Corporation.  All rights reserved. -->
+
+ <head>
+  <meta http-equiv="content-type" content="text/html">
+  <meta http-equiv="charset"      content="UTF-8">
+  <!-- MOTW-DISABLED saved from url=(0014)about:internet -->
+
+  <title>content.htm</title>
+
+  <script type="text/javascript" language="JavaScript1.2">
+   <!--
+    // Set reference to top level help frame
+    //
+    var  WWHFrame = eval("parent");
+
+
+    // Netscape Resize Fix
+    //
+    function  WWHContentFrame_HandleResize()
+    {
+      if (WWHFrame.WWHBrowser.mBrowser == 1)  // Shorthand for Netscape
+      {
+        WWHFrame.WWHHelp.fReloadLocation("WWHDocumentFrame");
+      }
+    }
+
+    function  WWHContentFrame_HandleKeyDown(ParamEvent)
+    {
+      return WWHFrame.WWHHelp.fHandleKeyDown(ParamEvent);
+    }
+
+    function  WWHContentFrame_HandleKeyPress(ParamEvent)
+    {
+      return WWHFrame.WWHHelp.fHandleKeyPress(ParamEvent);
+    }
+
+    function  WWHContentFrame_HandleKeyUp(ParamEvent)
+    {
+      return WWHFrame.WWHHelp.fHandleKeyUp(ParamEvent);
+    }
+   // -->
+  </script>
+ </head>
+
+ <frameset rows="36,*" border="0" frameborder="0" framespacing="0" onResize="WWHContentFrame_HandleResize();" onKeyDown="WWHContentFrame_HandleKeyDown((document.all||document.getElementById||document.layers)?event:null);" onKeyPress="WWHContentFrame_HandleKeyPress((document.all||document.getElementById||document.layers)?event:null);" onKeyUp="WWHContentFrame_HandleKeyUp((document.all||document.getElementById||document.layers)?event:null);">
+  <frame name="" src="pagenav.htm" scrolling="no">
+  <frame name="" src="blank.htm" scrolling="auto">
+
+  <noframes>
+   <body>
+    <p>This page uses frames, but your browser doesn't support them.</p>
+   </body>
+  </noframes>
+ </frameset>
+</html>

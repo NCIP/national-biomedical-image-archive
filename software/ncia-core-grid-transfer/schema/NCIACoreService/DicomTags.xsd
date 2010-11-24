@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" 
+           xmlns:tns="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags"
+           targetNamespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" 
+           elementFormDefault="qualified">
+           
+<xs:element name="DicomTagDTO" type="DicomTagDTO" /> 
+
+
+<xs:complexType name="DicomTagDTO">
+  <xs:sequence />
+
+  <xs:attribute name="name" type="xs:string" />
+  <xs:attribute name="element" type="xs:string" />
+  <xs:attribute name="data" type="xs:string" />
+</xs:complexType>
+</xs:schema>

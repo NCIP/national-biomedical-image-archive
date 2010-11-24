@@ -1,0 +1,38 @@
+<!--
+$Id: ivy-test.xml 2332 2009-12-17 19:19:20Z saksass $
+$HeadURL: https://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.6.6/software/bda-build-template/software/common/ivy/ivy-test.xml $
+
+This is the definition of a virtual module called bda-download that has a dependency of bda-utils.  This virtual project causes the download of bda-utils from the NCICB Ivy Repository.  This file currently points to the 1.0 version of bda-utils if you want to use another version change the rev="1.0" to the desired version.
+-->
+<ivy-module version="1.0">
+	<info organisation="ncicb" module="bda-download"
+		/>
+  <configurations>
+    <conf name="default" />          
+    <conf name="compile" />     
+    <conf name="default" />          
+    <conf name="test" extends="default" />
+    <conf name="test-pmd"/>
+    <conf name="test-selenium"/>
+    <conf name="test-junit"/>
+    <conf name="test-cobertura"/>
+    <conf name="test-javancss"/>
+    <conf name="test-checkstyle"/>
+    <conf name="test-findbugs"/>
+    <conf name="test-simian"/>
+    <conf name="test-jdepend" />
+  </configurations>
+  <publications>    
+  </publications>
+  <dependencies>
+	<dependency org="redhill" name="simian" rev="2.2.4" conf="test-simian->default" />
+    <dependency org="openqa" name="selenium-server" rev="1.0-beta-2" conf="test-selenium->default"/>
+    <dependency org="junit" name="junit" rev="4.6" conf="test-junit->default"/>
+    <dependency org="cobertura" name="cobertura" rev="1.9.1" conf="test-cobertura->default"/>  
+    <!--<dependency org="javancss" name="javancss" rev="29.50" conf="test-javancss->default"/>-->
+    <dependency org="javancss" name="javancss" rev="29.50" conf="test-javancss->default"/>
+    <dependency org="checkstyle" name="checkstyle" rev="5.0" conf="test-checkstyle->default"/>
+    <dependency org="pmd" name="pmd" rev="4.2.5" conf="test-pmd->default"/>
+    <dependency org="jdepend" name="jdepend" rev="2.9.1" conf="test-jdepend->default" />
+  </dependencies>
+</ivy-module>

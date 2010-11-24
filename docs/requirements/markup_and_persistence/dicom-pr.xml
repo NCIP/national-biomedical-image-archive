@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="utf-8"?>
+<infoset name="urn:openeyes.data.dicom.Dicom/Dicom.xml">
+
+  <set name="PRComposite" base="dicom:Composite">
+    <module name="dicom:SOPCommon" rank="M" />
+    <module name="dicom:Patient" rank="M" />
+    <module name="dicom:GeneralStudy" rank="M" />
+    <module name="dicom:GeneralSeries" rank="M" />
+    <module name="dicom:Overlay_CurveActivation" rank="C" />
+    <module name="dicom:GraphicAnnotationSequence" rank="C" />
+    <module name="dicom:GeneralEquipment" rank="M" />
+    <module name="dicom:DisplayedAreaSequence" rank="M" />
+    <module name="dicom:BitmapDisplayShutter" rank="C" />
+    <module name="dicom:SoftcopyVOILUTSequence" rank="C" />
+    <module name="dicom:PresentationState" rank="M" />
+    <module name="dicom:SoftcopyPresentationLUT" rank="M" />
+    <module name="dicom:OverlayPlane" rank="C" />
+    <module name="dicom:PreprocessingSequence" rank="C" />
+    <module name="dicom:SpatialTransformation" rank="C" />
+    <module name="dicom:GraphicLayerSequence" rank="C" />
+    <module name="dicom:DisplayShutter" rank="C" />
+    <module name="dicom:Mask" rank="C" />
+    <module name="dicom:PresentationSeries" rank="M" />
+    <module name="dicom:ModalityLUT" rank="C" />
+    <module name="dicom:PatientStudy" rank="U" />
+  </set>
+
+  <attribute name="accessionNumber" tag="0008,0050" occurs="1" vr="SH" />
+  <attribute name="additionalPatientHistory" tag="0010,21b0" occurs="1" vr="LT" />
+  <attribute name="admittingDiagnosesDescription" tag="0008,1080" occurs="1-n" vr="LO" />
+  <attribute name="anchorPoint" tag="0070,0014" occurs="2" vr="FL" />
+  <attribute name="anchorPointAnnotationUnits" tag="0070,0004" occurs="1" vr="CS" />
+  <attribute name="anchorPointVisibility" tag="0070,0015" occurs="1" vr="CS" />
+  <attribute name="applicableFrameRange" tag="0028,6102" occurs="2-n" vr="US" />
+  <attribute name="bitsAllocated" tag="0028,0100" occurs="1" vr="US" />
+  <attribute name="bitsStored" tag="0028,0101" occurs="1" vr="US" />
+  <attribute name="bluePaletteColorLookupTableData" tag="0028,1203" occurs="1-n" vr="US;SS;OW" />
+  <attribute name="bluePaletteColorLookupTableDescriptor" tag="0028,1103" occurs="3" vr="US;SS" />
+  <attribute name="bodyPartExamined" tag="0018,0015" occurs="1" vr="CS" />
+  <attribute name="boundingBoxAnnotationUnits" tag="0070,0003" occurs="1" vr="CS" />
+  <attribute name="boundingBoxBottomRightHandCorner" tag="0070,0011" occurs="2" vr="FL" />
+  <attribute name="boundingBoxTextHorizontalJustification" tag="0070,0012" occurs="1" vr="CS" />
+  <attribute name="boundingBoxTopLeftHandCorner" tag="0070,0010" occurs="2" vr="FL" />
+  <attribute name="centerOfCircularShutter" tag="0018,1610" occurs="2" vr="IS" />
+  <attribute name="codeMeaning" tag="0008,0104" occurs="1" vr="LO" />
+  <attribute name="codeSetExtensionCreatorUid" tag="0008,010d" occurs="1" vr="UI" />
+  <attribute name="codeSetExtensionFlag" tag="0008,010b" occurs="1" vr="CS" />
+  <attribute name="codeValue" tag="0008,0100" occurs="1" vr="SH" />
+  <attribute name="codeViewModifier" tag="0040,a195" occurs="0-n" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="codingSchemeDesignator" tag="0008,0102" occurs="1" vr="SH" />
+  <attribute name="codingSchemeVersion" tag="0008,0103" occurs="1" vr="SH" />
+  <attribute name="columns" tag="0028,0011" occurs="1" vr="US" />
+  <attribute name="commentsOnThePerformedProcedureSteps" tag="0040,0280" occurs="1" vr="ST" />
+  <attribute name="conceptCodeSequence" tag="0040,a168" occurs="1" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="conceptNameCodeSequence" tag="0040,a043" occurs="1" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="contentItemModifierSequence" tag="0040,0441" occurs="1-n" vr="SQ">
+    <set name="ContentItemMacro" />
+  </attribute>
+  <attribute name="contextGroupLocalVersion" tag="0008,0107" occurs="1" vr="DT" />
+  <attribute name="contextGroupVersion" tag="0008,0106" occurs="1" vr="DT" />
+  <attribute name="contextIdentifier" tag="0008,010f" occurs="1" vr="CS" />
+  <attribute name="contourFillColor" ptag="2001,103d" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="contourFillStyle" ptag="2001,1057" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="contourFillTransparency" ptag="2001,1054" creator="Cedara_Openeyes_1_1" occurs="1" vr="FL" />
+  <attribute name="contourFillTransparencyColor" ptag="2001,1056" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="contrastFrameAveraging" tag="0028,6112" occurs="1" vr="US" />
+  <attribute name="curveActivationLayer" tag="5000,1001" occurs="1" vr="CS" />
+  <attribute name="date" tag="0040,a121" occurs="1" vr="DA" />
+  <attribute name="dateOfLastCalibration" tag="0018,1200" occurs="1-n" vr="DA" />
+  <attribute name="dateTime" tag="0040,a120" occurs="1" vr="DT" />
+  <attribute name="deviceSerialNumber" tag="0018,1000" occurs="1" vr="LO" />
+  <attribute name="displayedAreaBottomRightHandCorner" tag="0070,0053" occurs="2" vr="SL" />
+  <attribute name="displayedAreaBottomRightHandCornerOffset" ptag="2007,5093" creator="Cedara_Openeyes_1_4" occurs="2" vr="FL" />
+  <attribute name="displayedAreaSelectionSequence" tag="0070,005a" occurs="1-n" vr="SQ">
+    <set name="DisplayedAreaSelection" />
+  </attribute>
+  <attribute name="displayedAreaTopLeftHandCorner" tag="0070,0052" occurs="2" vr="SL" />
+  <attribute name="displayedAreaTopLeftHandCornerOffset" ptag="2007,5092" creator="Cedara_Openeyes_1_4" occurs="2" vr="FL" />
+  <attribute name="displayedAreaZoomInterpolationMeth" ptag="2001,103f" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="enhancementGainFactor" ptag="2001,1029" creator="Cedara_Openeyes_1_1" occurs="1" vr="FL" />
+  <attribute name="enhancementGainFactorSub" ptag="2001,1028" creator="Cedara_Openeyes_1_1" occurs="1" vr="FL" />
+  <attribute name="enhancementGainTaste" ptag="2001,107e" creator="Cedara_Openeyes_1_1" occurs="1" vr="US" />
+  <attribute name="enhancementGainTasteSub" ptag="2001,107f" creator="Cedara_Openeyes_1_1" occurs="1" vr="US" />
+  <attribute name="enhancementKernelSize" ptag="2001,1027" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="enhancementTasteAdapt" ptag="2001,102b" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="enhancementTasteAdaptSub" ptag="2001,102a" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="ethnicGroup" tag="0010,2160" occurs="1" vr="SH" />
+  <attribute name="generatedDA" ptag="2001,1081" creator="Cedara_Openeyes_1_1" occurs="1" vr="IS" />
+  <attribute name="generatedVOIGlTrafo" ptag="2001,1078" creator="Cedara_Openeyes_1_1" occurs="1" vr="IS" />
+  <attribute name="graphicAngleArcOutside" ptag="2007,5016" creator="Cedara_Openeyes_1_4" occurs="1" vr="LO" />
+  <attribute name="graphicAngleArcRadius" ptag="2007,5015" creator="Cedara_Openeyes_1_4" occurs="1" vr="DS" />
+  <attribute name="graphicAnnotationId" ptag="2001,1048" creator="Cedara_Openeyes_1_1" occurs="1" vr="SS" />
+  <attribute name="graphicAnnotationLabel" ptag="2001,109c" creator="Cedara_Openeyes_1_1" occurs="1" vr="LO" />
+  <attribute name="graphicAnnotationModel" ptag="2001,105a" creator="Cedara_Openeyes_1_1" occurs="1" vr="ST" />
+  <attribute name="graphicAnnotationParentId" ptag="2001,1005" creator="Cedara_Openeyes_1_1" occurs="1" vr="SS" />
+  <attribute name="graphicAnnotationSequence" tag="0070,0001" occurs="1-n" vr="SQ">
+    <set name="GraphicAnnotation" />
+  </attribute>
+  <attribute name="graphicAnnotationUnits" tag="0070,0005" occurs="1" vr="CS" />
+  <attribute name="graphicAnnotationVisibility" ptag="2007,5001" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="graphicConstraint" ptag="2001,1071" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="graphicData" tag="0070,0022" occurs="2-n" vr="FL" />
+  <attribute name="graphicDimensions" tag="0070,0020" occurs="1" vr="US" />
+  <attribute name="graphicFilled" tag="0070,0024" occurs="1" vr="CS" />
+  <attribute name="graphicInterpolationDimensions" ptag="2007,5013" creator="Cedara_Openeyes_1_4" occurs="1" vr="UL" />
+  <attribute name="graphicInterpolationOrder" ptag="2007,5012" creator="Cedara_Openeyes_1_4" occurs="1" vr="US" />
+  <attribute name="graphicLayer" tag="0070,0002" occurs="1" vr="CS" />
+  <attribute name="graphicLayerDescription" tag="0070,0068" occurs="1" vr="LO" />
+  <attribute name="graphicLayerOrder" tag="0070,0062" occurs="1" vr="IS" />
+  <attribute name="graphicLayerRecommendedDisplayGrayscaleValue" tag="0070,0066" occurs="1" vr="US" />
+  <attribute name="graphicLayerRecommendedDisplayRgbValue" tag="0070,0067" occurs="3" vr="US" />
+  <attribute name="graphicLayerSequence" tag="0070,0060" occurs="1-n" vr="SQ">
+    <set name="GraphicLayer" />
+  </attribute>
+  <attribute name="graphicLineColor" ptag="2001,1055" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="graphicLineStyle" ptag="2001,1046" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="graphicLineWidth" ptag="2001,1047" creator="Cedara_Openeyes_1_1" occurs="1" vr="FL" />
+  <attribute name="graphicMarkerHotspot" ptag="2007,5011" creator="Cedara_Openeyes_1_4" occurs="2" vr="US" />
+  <attribute name="graphicMarkerType" ptag="2001,1050" creator="Cedara_Openeyes_1_1" occurs="1" vr="LO" />
+  <attribute name="graphicMarkerVisibility" ptag="2007,5014" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="graphicNumber" ptag="2001,109b" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="graphicObjectSequence" tag="0070,0009" occurs="1-n" vr="SQ">
+    <set name="Graphic" />
+  </attribute>
+  <attribute name="graphicTransformation" ptag="2007,50ac" creator="Cedara_Openeyes_1_4" occurs="0-n" vr="FL" />
+  <attribute name="graphicTransformationOrder" ptag="2007,50ad" creator="Cedara_Openeyes_1_4" occurs="0-1" vr="ST" />
+  <attribute name="graphicType" tag="0070,0023" occurs="1" vr="CS" />
+  <attribute name="graphicVisibility" ptag="2007,5010" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="greenPaletteColorLookupTableData" tag="0028,1202" occurs="1-n" vr="US;SS;OW" />
+  <attribute name="greenPaletteColorLookupTableDescriptor" tag="0028,1102" occurs="3" vr="US;SS" />
+  <attribute name="highBit" tag="0028,0102" occurs="1" vr="US" />
+  <attribute name="iconImageSequence" tag="0088,0200" occurs="1-n" vr="SQ">
+    <set name="IconImage" />
+  </attribute>
+  <attribute name="imageHorizontalFlip" tag="0070,0041" occurs="1" vr="CS" />
+  <attribute name="imageRotation" tag="0070,0042" occurs="1" vr="US" />
+  <attribute name="imageRotationOffset" ptag="2007,5094" creator="Cedara_Openeyes_1_4" occurs="3" vr="FD" />
+  <attribute name="instanceCreationDate" tag="0008,0012" occurs="1" vr="DA" />
+  <attribute name="instanceCreationTime" tag="0008,0013" occurs="1" vr="TM" />
+  <attribute name="instanceCreatorUid" tag="0008,0014" occurs="1-n" vr="UI" />
+  <attribute name="instanceNumber" tag="0020,0013" occurs="1" vr="IS" />
+  <attribute name="institutionAddress" tag="0008,0081" occurs="1" vr="ST" />
+  <attribute name="institutionName" tag="0008,0080" occurs="1" vr="LO" />
+  <attribute name="institutionalDepartmentName" tag="0008,1040" occurs="1" vr="LO" />
+  <attribute name="interpolationMethod" ptag="2001,104b" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="issuerOfPatientId" tag="0010,0021" occurs="1" vr="LO" />
+  <attribute name="largestImagePixelValue" tag="0028,0107" occurs="1" vr="US;SS" />
+  <attribute name="largestPixelValueInSeries" tag="0028,0109" occurs="1" vr="US;SS" />
+  <attribute name="laterality" tag="0020,0060" occurs="1" vr="CS" />
+  <attribute name="lutData" tag="0028,3006" occurs="1-n" vr="US;SS;OW" />
+  <attribute name="lutDescriptor" tag="0028,3002" occurs="3" vr="US;SS" />
+  <attribute name="lutExplanation" tag="0028,3003" occurs="1" vr="LO" />
+  <attribute name="manufacturer" tag="0008,0070" occurs="1" vr="LO" />
+  <attribute name="manufacturersModelName" tag="0008,1090" occurs="1" vr="LO" />
+  <attribute name="mappingResource" tag="0008,0105" occurs="1" vr="CS" />
+  <attribute name="maskFrameNumbers" tag="0028,6110" occurs="1-n" vr="US" />
+  <attribute name="maskOperation" tag="0028,6101" occurs="1" vr="CS" />
+  <attribute name="maskOperationExplanation" tag="0028,6190" occurs="1" vr="ST" />
+  <attribute name="maskSubPixelShift" tag="0028,6114" occurs="2" vr="FL" />
+  <attribute name="maskSubtractionSequence" tag="0028,6100" occurs="0-n" vr="SQ">
+    <set name="MaskSubtraction" />
+  </attribute>
+  <attribute name="measurementTextType" ptag="2001,105e" creator="Cedara_Openeyes_1_1" occurs="1" vr="ST" />
+  <attribute name="measurementTextUnits" ptag="2001,105d" creator="Cedara_Openeyes_1_1" occurs="1" vr="ST" />
+  <attribute name="measurementUnitsCodeSequence" tag="0040,08ea" occurs="1" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="modality" tag="0008,0060" occurs="1" vr="CS" />
+  <attribute name="modalityLutSequence" tag="0028,3000" occurs="1" vr="SQ">
+    <set name="ModalityLUTReference" />
+  </attribute>
+  <attribute name="modalityLutType" tag="0028,3004" occurs="1" vr="LO" />
+  <attribute name="nameOfPhysiciansReadingStudy" tag="0008,1060" occurs="1-n" vr="PN" />
+  <attribute name="numberOfGraphicPoints" tag="0070,0021" occurs="1" vr="US" />
+  <attribute name="numericValue" tag="0040,a30a" occurs="1-n" vr="DS" />
+  <attribute name="occupation" tag="0010,2180" occurs="1" vr="SH" />
+  <attribute name="operatorsName" tag="0008,1070" occurs="1-n" vr="PN" />
+  <attribute name="originalSpecializedSOPClassUid" tag="0008,001b" occurs="1" vr="UI" />
+  <attribute name="otherPatientIds" tag="0010,1000" occurs="1-n" vr="LO" />
+  <attribute name="otherPatientNames" tag="0010,1001" occurs="1-n" vr="PN" />
+  <attribute name="overlayActivationLayer" tag="6000,1001" occurs="1" vr="CS" />
+  <attribute name="overlayBitPosition" tag="6000,0102" occurs="1" vr="US" />
+  <attribute name="overlayBitsAllocated" tag="6000,0100" occurs="1" vr="US" />
+  <attribute name="overlayColumns" tag="6000,0011" occurs="1" vr="US" />
+  <attribute name="overlayData" tag="6000,3000" occurs="1" type="bulk" vr="OW;OB" />
+  <attribute name="overlayDescription" tag="6000,0022" occurs="1" vr="LO" />
+  <attribute name="overlayLabel" tag="6000,1500" occurs="1" vr="LO" />
+  <attribute name="overlayOrigin" tag="6000,0050" occurs="2" vr="SS" />
+  <attribute name="overlayPlaneId" ptag="2001,1051" creator="Cedara_Openeyes_1_1" occurs="1" vr="IS" />
+  <attribute name="overlayRows" tag="6000,0010" occurs="1" vr="US" />
+  <attribute name="overlaySubtype" tag="6000,0045" occurs="1" vr="LO" />
+  <attribute name="overlayType" tag="6000,0040" occurs="1" vr="CS" />
+  <attribute name="patientAge" tag="0010,1010" occurs="1" vr="AS" />
+  <attribute name="patientBirthDate" tag="0010,0030" occurs="1" vr="DA" />
+  <attribute name="patientBirthTime" tag="0010,0032" occurs="1" vr="TM" />
+  <attribute name="patientComments" tag="0010,4000" occurs="1" vr="LT" />
+  <attribute name="patientId" tag="0010,0020" occurs="1" vr="LO" />
+  <attribute name="patientName" tag="0010,0010" occurs="1" vr="PN" />
+  <attribute name="patientPosition" tag="0018,5100" occurs="1" vr="CS" />
+  <attribute name="patientSex" tag="0010,0040" occurs="1" vr="CS" />
+  <attribute name="patientSize" tag="0010,1020" occurs="1" vr="DS" />
+  <attribute name="patientWeight" tag="0010,1030" occurs="1" vr="DS" />
+  <attribute name="performedActionItemSequence" tag="0040,0260" occurs="0-n" vr="SQ">
+    <set name="ActionItemCode" />
+  </attribute>
+  <attribute name="performedLocation" tag="0040,0243" occurs="1" vr="SH" />
+  <attribute name="performedProcedureStepDescription" tag="0040,0254" occurs="1" vr="LO" />
+  <attribute name="performedProcedureStepEndDate" tag="0040,0250" occurs="1" vr="DA" />
+  <attribute name="performedProcedureStepEndTime" tag="0040,0251" occurs="1" vr="TM" />
+  <attribute name="performedProcedureStepId" tag="0040,0253" occurs="1" vr="SH" />
+  <attribute name="performedProcedureStepStartDate" tag="0040,0244" occurs="1" vr="DA" />
+  <attribute name="performedProcedureStepStartTime" tag="0040,0245" occurs="1" vr="TM" />
+  <attribute name="performedProcedureStepStatus" tag="0040,0252" occurs="1" vr="CS" />
+  <attribute name="performedProcedureTypeDescription" tag="0040,0255" occurs="1" vr="LO" />
+  <attribute name="performedStationAeTitle" tag="0040,0241" occurs="1" vr="AE" />
+  <attribute name="performedStationName" tag="0040,0242" occurs="1" vr="SH" />
+  <attribute name="performingPhysicianName" tag="0008,1050" occurs="1-n" vr="PN" />
+  <attribute name="personName" tag="0040,a123" occurs="1" vr="PN" />
+  <attribute name="photometricInterpretation" tag="0028,0004" occurs="1" vr="CS" />
+  <attribute name="physiciansOfRecord" tag="0008,1048" occurs="1-n" vr="PN" />
+  <attribute name="pixelAspectRatio" tag="0028,0034" occurs="2" vr="IS" />
+  <attribute name="pixelData" tag="7fe0,0010" occurs="1" type="bulk" vr="OW;OB" />
+  <attribute name="pixelPaddingValue" tag="0028,0120" occurs="1" vr="US;SS" />
+  <attribute name="pixelProcessingKernelSize" ptag="2001,109f" creator="Cedara_Openeyes_1_1" occurs="2" vr="US" />
+  <attribute name="pixelRepresentation" tag="0028,0103" occurs="1" vr="US" />
+  <attribute name="planarConfiguration" tag="0028,0006" occurs="1" vr="US" />
+  <attribute name="polyLineBeginPointStyle" ptag="2001,104c" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="polyLineEndPointStyle" ptag="2001,104d" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="preprocessingDouble" ptag="2007,520d" creator="Cedara_Openeyes_1_3" occurs="1" vr="DS" />
+  <attribute name="preprocessingDoubles" ptag="2007,520e" creator="Cedara_Openeyes_1_3" occurs="1-n" vr="DS" />
+  <attribute name="preprocessingExceptionName" ptag="2007,5207" creator="Cedara_Openeyes_1_3" occurs="1" vr="LO" />
+  <attribute name="preprocessingExceptionPolicy" ptag="2007,5208" creator="Cedara_Openeyes_1_3" occurs="1" vr="LO" />
+  <attribute name="preprocessingExceptionSequence" ptag="2007,5206" creator="Cedara_Openeyes_1_3" occurs="0-n" vr="SQ">
+    <set name="PreprocessingException" />
+  </attribute>
+  <attribute name="preprocessingExtension" ptag="2007,5203" creator="Cedara_Openeyes_1_3" occurs="1" vr="LO" />
+  <attribute name="preprocessingFloat" ptag="2007,520b" creator="Cedara_Openeyes_1_3" occurs="1" vr="FL" />
+  <attribute name="preprocessingFloats" ptag="2007,520c" creator="Cedara_Openeyes_1_3" occurs="1-n" vr="FL" />
+  <attribute name="preprocessingHalfx" ptag="2007,5201" creator="Cedara_Openeyes_1_3" occurs="1" vr="IS" />
+  <attribute name="preprocessingHalfy" ptag="2007,5202" creator="Cedara_Openeyes_1_3" occurs="1" vr="IS" />
+  <attribute name="preprocessingInteger" ptag="2007,5209" creator="Cedara_Openeyes_1_3" occurs="1" vr="IS" />
+  <attribute name="preprocessingIntegers" ptag="2007,520a" creator="Cedara_Openeyes_1_3" occurs="1-n" vr="IS" />
+  <attribute name="preprocessingOperation" ptag="2007,5200" creator="Cedara_Openeyes_1_3" occurs="1" vr="LO" />
+  <attribute name="preprocessingParameterIndex" ptag="2007,5205" creator="Cedara_Openeyes_1_3" occurs="1" vr="US" />
+  <attribute name="preprocessingParameterSequence" ptag="2007,5204" creator="Cedara_Openeyes_1_3" occurs="0-n" vr="SQ">
+    <set name="PreprocessingParameter" />
+  </attribute>
+  <attribute name="preprocessingSequence" ptag="2001,106b" creator="Cedara_Openeyes_1_1" occurs="1-n" vr="SQ">
+    <set name="Preprocessing" />
+  </attribute>
+  <attribute name="presentationBackgroundColor" ptag="2007,5095" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="presentationCreationDate" tag="0070,0082" occurs="1" vr="DA" />
+  <attribute name="presentationCreationTime" tag="0070,0083" occurs="1" vr="TM" />
+  <attribute name="presentationCreatorName" tag="0070,0084" occurs="1" vr="PN" />
+  <attribute name="presentationDescription" tag="0070,0081" occurs="1" vr="LO" />
+  <attribute name="presentationLabel" tag="0070,0080" occurs="1" vr="CS" />
+  <attribute name="presentationLutSequence" tag="2050,0010" occurs="1" vr="SQ">
+    <set name="LUT" />
+  </attribute>
+  <attribute name="presentationLutShape" tag="2050,0020" occurs="1" vr="CS" />
+  <attribute name="presentationPixelAspectRatio" tag="0070,0102" occurs="2" vr="IS" />
+  <attribute name="presentationPixelMagnificationRatio" tag="0070,0103" occurs="1" vr="FL" />
+  <attribute name="presentationPixelSpacing" tag="0070,0101" occurs="2" vr="DS" />
+  <attribute name="presentationSizeMode" tag="0070,0100" occurs="1" vr="CS" />
+  <attribute name="presentationStateSequence" ptag="2001,9000" creator="Cedara_Openeyes_1_2" occurs="1" vr="SQ" />
+  <attribute name="presentationStateSubtractionActive" ptag="2001,1026" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="presentationStateXRayContrastTransferTaste" ptag="2001,1076" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="privateCodingSchemeCreatorUid" tag="0008,010c" occurs="1" vr="UI" />
+  <attribute name="procedureCodeSequence" tag="0008,1032" occurs="1-n" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="processingOrderSpecialization" ptag="2001,1094" creator="Cedara_Openeyes_1_1" occurs="1" vr="LO" />
+  <attribute name="protocolContextSequence" tag="0040,0440" occurs="1-n" vr="SQ">
+    <set name="ProtocolContext" />
+  </attribute>
+  <attribute name="protocolName" tag="0018,1030" occurs="1" vr="LO" />
+  <attribute name="purposeOfReferenceCodeSequence" tag="0040,a170" occurs="1" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="radiusOfCircularShutter" tag="0018,1612" occurs="1" vr="IS" />
+  <attribute name="reasonForRequestedProcedure" tag="0040,1002" occurs="1" vr="LO" />
+  <attribute name="reasonForRequestedProcedureCodeSequence" tag="0040,100a" occurs="1" vr="SQ">
+    <set name="Code" />
+  </attribute>
+  <attribute name="recommendedViewingMode" tag="0028,1090" occurs="1" vr="CS" />
+  <attribute name="redPaletteColorLookupTableData" tag="0028,1201" occurs="1-n" vr="US;SS;OW" />
+  <attribute name="redPaletteColorLookupTableDescriptor" tag="0028,1101" occurs="3" vr="US;SS" />
+  <attribute name="referencedFrameNumber" tag="0008,1160" occurs="1-n" vr="IS" />
+  <attribute name="referencedImageSequence" tag="0008,1140" occurs="0-n" vr="SQ">
+    <set name="ImageReference" />
+  </attribute>
+  <attribute name="referencedPatientSequence" tag="0008,1120" occurs="1" vr="SQ">
+    <set name="Reference" />
+  </attribute>
+  <attribute name="referencedPerformedProcedureStepSequence" tag="0008,1111" occurs="0-n" vr="SQ">
+    <set name="Reference" />
+  </attribute>
+  <attribute name="referencedPseudoImageSequence" ptag="2007,510b" creator="Cedara_Openeyes_1_5" occurs="0-n" vr="SQ">
+    <set name="PseudoImageReference" />
+  </attribute>
+  <attribute name="referencedPseudoSeriesSequence" ptag="2007,510a" creator="Cedara_Openeyes_1_5" occurs="0-n" vr="SQ">
+    <set name="PseudoImagesPerSeriesReference" />
+  </attribute>
+  <attribute name="referencedSeriesSequence" tag="0008,1115" occurs="0-n" vr="SQ">
+    <set name="ImagesPerSeriesReference" />
+  </attribute>
+  <attribute name="referencedSopClassUid" tag="0008,1150" occurs="1" vr="UI" />
+  <attribute name="referencedSopInstanceUid" tag="0008,1155" occurs="1" vr="UI" />
+  <attribute name="referencedSopSequence" tag="0008,1199" occurs="1-n" vr="SQ">
+    <set name="ReferencedSOP" />
+  </attribute>
+  <attribute name="referencedStudySequence" tag="0008,1110" occurs="0-n" vr="SQ">
+    <set name="Reference" />
+  </attribute>
+  <attribute name="referencedWaveformChannels" tag="0040,a0b0" occurs="2-n" vr="US" />
+  <attribute name="referringPhysicianName" tag="0008,0090" occurs="1" vr="PN" />
+  <attribute name="relatedGeneralSOPClassUid" tag="0008,001a" occurs="1-n" vr="UI" />
+  <attribute name="relatedSeriesSequence" tag="0008,1250" occurs="0-n" vr="SQ">
+    <set name="RelatedSeries" />
+  </attribute>
+  <attribute name="requestAttributesSequence" tag="0040,0275" occurs="1-n" vr="SQ">
+    <set name="RequestAttributesReference" />
+  </attribute>
+  <attribute name="requestedProcedureId" tag="0040,1001" occurs="1" vr="SH" />
+  <attribute name="rescaleIntercept" tag="0028,1052" occurs="1" vr="DS" />
+  <attribute name="rescaleSlope" tag="0028,1053" occurs="1" vr="DS" />
+  <attribute name="rescaleType" tag="0028,1054" occurs="1" vr="LO" />
+  <attribute name="retrieveAeTitle" tag="0008,0054" occurs="1-n" vr="AE" />
+  <attribute name="roiArea" tag="6000,1301" occurs="1" vr="IS" />
+  <attribute name="roiMean" tag="6000,1302" occurs="1" vr="DS" />
+  <attribute name="roiStandardDeviation" tag="6000,1303" occurs="1" vr="DS" />
+  <attribute name="rows" tag="0028,0010" occurs="1" vr="US" />
+  <attribute name="samplesPerPixel" tag="0028,0002" occurs="1" vr="US" />
+  <attribute name="scheduledActionItemCodeSequence" tag="0040,0008" occurs="1-n" vr="SQ">
+    <set name="ActionItemCode" />
+  </attribute>
+  <attribute name="scheduledProcedureStepDescription" tag="0040,0007" occurs="1" vr="LO" />
+  <attribute name="scheduledProcedureStepId" tag="0040,0009" occurs="1" vr="SH" />
+  <attribute name="seriesDate" tag="0008,0021" occurs="1" vr="DA" />
+  <attribute name="seriesDescription" tag="0008,103e" occurs="1" vr="LO" />
+  <attribute name="seriesInstanceUid" tag="0020,000e" occurs="1-n" vr="UI" />
+  <attribute name="seriesNumber" tag="0020,0011" occurs="1" vr="IS" />
+  <attribute name="seriesTime" tag="0008,0031" occurs="1" vr="TM" />
+  <attribute name="shutterLeftVerticalEdge" tag="0018,1602" occurs="1" vr="IS" />
+  <attribute name="shutterLowerHorizontalEdge" tag="0018,1608" occurs="1" vr="IS" />
+  <attribute name="shutterOverlayGroup" tag="0018,1623" occurs="1" vr="US" />
+  <attribute name="shutterPresentationValue" tag="0018,1622" occurs="1" vr="US" />
+  <attribute name="shutterRightVerticalEdge" tag="0018,1604" occurs="1" vr="IS" />
+  <attribute name="shutterShape" tag="0018,1600" occurs="1-3" vr="CS" />
+  <attribute name="shutterUpperHorizontalEdge" tag="0018,1606" occurs="1" vr="IS" />
+  <attribute name="smallestImagePixelValue" tag="0028,0106" occurs="1" vr="US;SS" />
+  <attribute name="smallestPixelValueInSeries" tag="0028,0108" occurs="1" vr="US;SS" />
+  <attribute name="softcopyVoiLutSequence" tag="0028,3110" occurs="1-n" vr="SQ">
+    <set name="VOIGLTrafo" />
+  </attribute>
+  <attribute name="softwareVersions" tag="0018,1020" occurs="1-n" vr="LO" />
+  <attribute name="sopClassUid" tag="0008,0016" occurs="1-n" vr="UI" />
+  <attribute name="sopInstanceUid" tag="0008,0018" occurs="1-n" vr="UI" />
+  <attribute name="spatialResolution" tag="0018,1050" occurs="1" vr="DS" />
+  <attribute name="specificCharacterSet" tag="0008,0005" occurs="1-n" vr="CS" />
+  <attribute name="stationName" tag="0008,1010" occurs="1" vr="SH" />
+  <attribute name="storageMediaFileSetId" tag="0088,0130" occurs="1" vr="SH" />
+  <attribute name="storageMediaFileSetUid" tag="0088,0140" occurs="1" vr="UI" />
+  <attribute name="studyDate" tag="0008,0020" occurs="1" vr="DA" />
+  <attribute name="studyDescription" tag="0008,1030" occurs="1" vr="LO" />
+  <attribute name="studyId" tag="0020,0010" occurs="1" vr="SH" />
+  <attribute name="studyInstanceUid" tag="0020,000d" occurs="1-n" vr="UI" />
+  <attribute name="studyTime" tag="0008,0030" occurs="1" vr="TM" />
+  <attribute name="textAnchorPointAlignment" ptag="2001,1080" creator="Cedara_Openeyes_1_1" occurs="1" vr="LO" />
+  <attribute name="textAnchorPointSpacing" ptag="2007,5036" creator="Cedara_Openeyes_1_4" occurs="1" vr="FL" />
+  <attribute name="textAttachmentClip" ptag="2007,5031" creator="Cedara_Openeyes_1_4" occurs="1" vr="LO" />
+  <attribute name="textAttachmentOrder" ptag="2007,5032" creator="Cedara_Openeyes_1_4" occurs="1" vr="LO" />
+  <attribute name="textAttachmentSpacing" ptag="2007,5034" creator="Cedara_Openeyes_1_4" occurs="1" vr="IS" />
+  <attribute name="textBackingMode" ptag="2007,5033" creator="Cedara_Openeyes_1_4" occurs="1" vr="US" />
+  <attribute name="textBoundingBoxVisibility" ptag="2007,5037" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="textColorBackground" ptag="2001,10a4" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="textColorForeground" ptag="2001,10a3" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="textColorShadow" ptag="2001,10a5" creator="Cedara_Openeyes_1_1" occurs="1" vr="UL" />
+  <attribute name="textCursorIncrement" ptag="2001,10a6" creator="Cedara_Openeyes_1_1" occurs="2" vr="CS" />
+  <attribute name="textFont" ptag="2001,106d" creator="Cedara_Openeyes_1_1" occurs="1" vr="LO" />
+  <attribute name="textFontAutoScale" ptag="2007,5039" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="textObjectSequence" tag="0070,0008" occurs="1-n" vr="SQ">
+    <set name="Text" />
+  </attribute>
+  <attribute name="textStyle" ptag="2001,1093" creator="Cedara_Openeyes_1_1" occurs="1" vr="LO" />
+  <attribute name="textType" ptag="2001,1064" creator="Cedara_Openeyes_1_1" occurs="1" vr="SH" />
+  <attribute name="textValue" tag="0040,a160" occurs="1" vr="UT" />
+  <attribute name="textVisibility" ptag="2007,5030" creator="Cedara_Openeyes_1_4" occurs="1" vr="CS" />
+  <attribute name="tidOffset" tag="0028,6120" occurs="1" vr="SS" />
+  <attribute name="time" tag="0040,a122" occurs="1" vr="TM" />
+  <attribute name="timeOfLastCalibration" tag="0018,1201" occurs="1-n" vr="TM" />
+  <attribute name="uid" tag="0040,a124" occurs="1" vr="UI" />
+  <attribute name="unformattedTextValue" tag="0070,0006" occurs="1" vr="ST" />
+  <attribute name="valueType" tag="0040,a040" occurs="1" vr="CS" />
+  <attribute name="verticesOfThePolygonalShutter" tag="0018,1620" occurs="2-n" vr="IS" />
+  <attribute name="voiLutSequence" tag="0028,3010" occurs="1-n" vr="SQ">
+    <set name="LUT" />
+  </attribute>
+  <attribute name="windowCenter" tag="0028,1050" occurs="1-n" vr="DS" />
+  <attribute name="windowCenterAndWidthExplanation" tag="0028,1055" occurs="1-n" vr="LO" />
+  <attribute name="windowCenterSub" ptag="2001,1074" creator="Cedara_Openeyes_1_1" occurs="1-n" vr="DS" />
+  <attribute name="windowRoundingFactor" ptag="2001,107a" creator="Cedara_Openeyes_1_1" occurs="1" vr="FL" />
+  <attribute name="windowSmoothingTaste" ptag="2001,104e" creator="Cedara_Openeyes_1_1" occurs="1" vr="CS" />
+  <attribute name="windowWidth" tag="0028,1051" occurs="1-n" vr="DS" />
+  <attribute name="windowWidthSub" ptag="2001,1075" creator="Cedara_Openeyes_1_1" occurs="1-n" vr="DS" />
+  <module name="BitmapDisplayShutter">
+    <attribute name="dicom:shutterOverlayGroup" mandatoriness="1" />
+    <attribute name="dicom:shutterShape" mandatoriness="1" />
+    <attribute name="dicom:shutterPresentationValue" mandatoriness="1" />
+  </module>
+  <module name="Code">
+    <attribute name="dicom:privateCodingSchemeCreatorUid" mandatoriness="3" />
+    <attribute name="dicom:codeMeaning" mandatoriness="1C" />
+    <attribute name="dicom:codingSchemeDesignator" mandatoriness="1C" />
+    <attribute name="dicom:contextGroupVersion" mandatoriness="1C" />
+    <attribute name="dicom:codingSchemeVersion" mandatoriness="1C" />
+    <attribute name="dicom:mappingResource" mandatoriness="1C" />
+    <attribute name="dicom:conceptCodeSequence" mandatoriness="1" />
+    <attribute name="dicom:codeSetExtensionCreatorUid" mandatoriness="1C" />
+    <attribute name="dicom:codeSetExtensionFlag" mandatoriness="3" />
+    <attribute name="dicom:codeViewModifier" mandatoriness="1C" />
+    <attribute name="dicom:codeValue" mandatoriness="1C" />
+    <attribute name="dicom:contextIdentifier" mandatoriness="3" />
+    <attribute name="dicom:contextGroupLocalVersion" mandatoriness="1C" />
+  </module>
+  <module name="ContentItemMacro">
+    <attribute name="dicom:time" mandatoriness="1C" />
+    <attribute name="dicom:measurementUnitsCodeSequence" mandatoriness="1C" />
+    <attribute name="dicom:dateTime" mandatoriness="1C" />
+    <attribute name="dicom:conceptNameCodeSequence" mandatoriness="1" />
+    <attribute name="dicom:uid" mandatoriness="1C" />
+    <attribute name="dicom:numericValue" mandatoriness="1C" />
+    <attribute name="dicom:conceptCodeSequence" mandatoriness="1C" />
+    <attribute name="dicom:textValue" mandatoriness="1C" />
+    <attribute name="dicom:personName" mandatoriness="1C" />
+    <attribute name="dicom:date" mandatoriness="1C" />
+    <attribute name="dicom:valueType" mandatoriness="1" />
+  </module>
+  <module name="ContentItemModifier">
+    <attribute name="dicom:contentItemModifierSequence" mandatoriness="1" />
+  </module>
+  <module name="ContourFillStyle">
+    <attribute name="dicom:contourFillStyle" mandatoriness="3" />
+    <attribute name="dicom:contourFillTransparencyColor" mandatoriness="3" />
+    <attribute name="dicom:contourFillTransparency" mandatoriness="3" />
+    <attribute name="dicom:contourFillColor" mandatoriness="3" />
+  </module>
+  <module name="DisplayShutter">
+    <attribute name="dicom:shutterUpperHorizontalEdge" mandatoriness="1C" />
+    <attribute name="dicom:verticesOfThePolygonalShutter" mandatoriness="1C" />
+    <attribute name="dicom:shutterLeftVerticalEdge" mandatoriness="1C" />
+    <attribute name="dicom:shutterRightVerticalEdge" mandatoriness="1C" />
+    <attribute name="dicom:radiusOfCircularShutter" mandatoriness="1C" />
+    <attribute name="dicom:shutterShape" mandatoriness="1" />
+    <attribute name="dicom:centerOfCircularShutter" mandatoriness="1C" />
+    <attribute name="dicom:shutterLowerHorizontalEdge" mandatoriness="1C" />
+    <attribute name="dicom:shutterPresentationValue" mandatoriness="3" />
+  </module>
+  <module name="DisplayedAreaSelection">
+    <attribute name="dicom:displayedAreaBottomRightHandCorner" mandatoriness="1" />
+    <attribute name="dicom:displayedAreaTopLeftHandCorner" mandatoriness="1" />
+    <attribute name="dicom:presentationSizeMode" mandatoriness="1" />
+    <attribute name="dicom:displayedAreaBottomRightHandCornerOffset" mandatoriness="3" />
+    <attribute name="dicom:presentationPixelSpacing" mandatoriness="1C" />
+    <attribute name="dicom:presentationPixelMagnificationRatio" mandatoriness="1C" />
+    <attribute name="dicom:displayedAreaTopLeftHandCornerOffset" mandatoriness="3" />
+    <attribute name="dicom:presentationPixelAspectRatio" mandatoriness="1C" />
+    <attribute name="dicom:displayedAreaZoomInterpolationMeth" mandatoriness="3" />
+    <attribute name="dicom:referencedImageSequence" mandatoriness="1C" />
+  </module>
+  <module name="DisplayedAreaSequence">
+    <attribute name="dicom:displayedAreaSelectionSequence" mandatoriness="1" />
+  </module>
+  <module name="GeneralEquipment">
+    <attribute name="dicom:manufacturersModelName" mandatoriness="3" />
+    <attribute name="dicom:pixelPaddingValue" mandatoriness="3" />
+    <attribute name="dicom:stationName" mandatoriness="3" />
+    <attribute name="dicom:deviceSerialNumber" mandatoriness="3" />
+    <attribute name="dicom:institutionName" mandatoriness="3" />
+    <attribute name="dicom:timeOfLastCalibration" mandatoriness="3" />
+    <attribute name="dicom:spatialResolution" mandatoriness="3" />
+    <attribute name="dicom:dateOfLastCalibration" mandatoriness="3" />
+    <attribute name="dicom:manufacturer" mandatoriness="2" />
+    <attribute name="dicom:institutionalDepartmentName" mandatoriness="3" />
+    <attribute name="dicom:institutionAddress" mandatoriness="3" />
+    <attribute name="dicom:softwareVersions" mandatoriness="3" />
+  </module>
+  <module name="GeneralSeries">
+    <attribute name="dicom:laterality" mandatoriness="2C" />
+    <attribute name="dicom:performedProcedureStepStartTime" mandatoriness="3" />
+    <attribute name="dicom:modality" mandatoriness="1" />
+    <attribute name="dicom:protocolName" mandatoriness="3" />
+    <attribute name="dicom:performingPhysicianName" mandatoriness="3" />
+    <attribute name="dicom:seriesTime" mandatoriness="3" />
+    <attribute name="dicom:largestPixelValueInSeries" mandatoriness="3" />
+    <attribute name="dicom:performedProcedureStepId" mandatoriness="3" />
+    <attribute name="dicom:seriesNumber" mandatoriness="2" />
+    <attribute name="dicom:seriesInstanceUid" mandatoriness="1" />
+    <attribute name="dicom:performedLocation" mandatoriness="3" />
+    <attribute name="dicom:performedProcedureStepEndTime" mandatoriness="3" />
+    <attribute name="dicom:performedStationAeTitle" mandatoriness="3" />
+    <attribute name="dicom:operatorsName" mandatoriness="3" />
+    <attribute name="dicom:seriesDescription" mandatoriness="3" />
+    <attribute name="dicom:performedProcedureStepStatus" mandatoriness="3" />
+    <attribute name="dicom:referencedPerformedProcedureStepSequence" mandatoriness="3" />
+    <attribute name="dicom:bodyPartExamined" mandatoriness="3" />
+    <attribute name="dicom:performedProcedureStepEndDate" mandatoriness="3" />
+    <attribute name="dicom:requestAttributesSequence" mandatoriness="3" />
+    <attribute name="dicom:patientPosition" mandatoriness="2C" />
+    <attribute name="dicom:performedProcedureStepStartDate" mandatoriness="3" />
+    <attribute name="dicom:relatedSeriesSequence" mandatoriness="3" />
+    <attribute name="dicom:performedActionItemSequence" mandatoriness="3" />
+    <attribute name="dicom:performedStationName" mandatoriness="3" />
+    <attribute name="dicom:performedProcedureTypeDescription" mandatoriness="3" />
+    <attribute name="dicom:smallestPixelValueInSeries" mandatoriness="3" />
+    <attribute name="dicom:performedProcedureStepDescription" mandatoriness="3" />
+    <attribute name="dicom:commentsOnThePerformedProcedureSteps" mandatoriness="3" />
+    <attribute name="dicom:seriesDate" mandatoriness="3" />
+  </module>
+  <module name="GeneralStudy">
+    <attribute name="dicom:studyId" mandatoriness="2" />
+    <attribute name="dicom:studyDate" mandatoriness="2" />
+    <attribute name="dicom:physiciansOfRecord" mandatoriness="3" />
+    <attribute name="dicom:accessionNumber" mandatoriness="2" />
+    <attribute name="dicom:nameOfPhysiciansReadingStudy" mandatoriness="3" />
+    <attribute name="dicom:procedureCodeSequence" mandatoriness="3" />
+    <attribute name="dicom:referencedStudySequence" mandatoriness="3" />
+    <attribute name="dicom:studyTime" mandatoriness="2" />
+    <attribute name="dicom:referringPhysicianName" mandatoriness="2" />
+    <attribute name="dicom:studyInstanceUid" mandatoriness="1" />
+    <attribute name="dicom:studyDescription" mandatoriness="3" />
+  </module>
+  <module name="Graphic">
+    <attribute name="dicom:graphicLineColor" mandatoriness="3" />
+    <attribute name="dicom:graphicLineWidth" mandatoriness="3" />
+    <attribute name="dicom:graphicLineStyle" mandatoriness="1" />
+    <attribute name="dicom:numberOfGraphicPoints" mandatoriness="3" />
+    <attribute name="dicom:graphicAnnotationUnits" mandatoriness="3" />
+    <attribute name="dicom:graphicType" mandatoriness="3" />
+    <attribute name="dicom:graphicMarkerType" mandatoriness="3" />
+    <attribute name="dicom:graphicConstraint" mandatoriness="3" />
+    <attribute name="dicom:graphicFilled" mandatoriness="3" />
+    <attribute name="dicom:graphicData" mandatoriness="3" />
+    <attribute name="dicom:graphicDimensions" mandatoriness="3" />
+  </module>
+  <module name="GraphicAnnotation">
+    <attribute name="dicom:graphicAnnotationId" mandatoriness="3" />
+    <attribute name="dicom:overlayPlaneId" mandatoriness="3" />
+    <attribute name="dicom:graphicObjectSequence" mandatoriness="1C" />
+    <attribute name="dicom:graphicTransformation" mandatoriness="1C" />
+    <attribute name="dicom:graphicAnnotationLabel" mandatoriness="3" />
+    <attribute name="dicom:textObjectSequence" mandatoriness="1C" />
+    <attribute name="dicom:graphicAnnotationModel" mandatoriness="3" />
+    <attribute name="dicom:graphicLayer" mandatoriness="1" />
+    <attribute name="dicom:referencedImageSequence" mandatoriness="1C" />
+    <attribute name="dicom:graphicAnnotationParentId" mandatoriness="3" />
+    <attribute name="dicom:graphicTransformationOrder" mandatoriness="1C" />
+    <attribute name="dicom:graphicAnnotationVisibility" mandatoriness="3" />
+  </module>
+  <module name="GraphicAnnotationSequence">
+    <attribute name="dicom:graphicAnnotationSequence" mandatoriness="1" />
+  </module>
+  <module name="GraphicEx">
+    <attribute name="dicom:graphicNumber" mandatoriness="3" />
+    <attribute name="dicom:graphicMarkerHotspot" mandatoriness="3" />
+    <attribute name="dicom:graphicMarkerVisibility" mandatoriness="3" />
+    <attribute name="dicom:graphicVisibility" mandatoriness="3" />
+    <attribute name="dicom:graphicAngleArcRadius" mandatoriness="3" />
+    <attribute name="dicom:graphicAngleArcOutside" mandatoriness="3" />
+  </module>
+  <module name="GraphicLayer">
+    <attribute name="dicom:graphicLayerOrder" mandatoriness="1" />
+    <attribute name="dicom:graphicLayer" mandatoriness="1" />
+    <attribute name="dicom:graphicLayerRecommendedDisplayRgbValue" mandatoriness="3" />
+    <attribute name="dicom:graphicLayerDescription" mandatoriness="3" />
+    <attribute name="dicom:graphicLayerRecommendedDisplayGrayscaleValue" mandatoriness="3" />
+  </module>
+  <module name="GraphicLayerSequence">
+    <attribute name="dicom:graphicLayerSequence" mandatoriness="1" />
+  </module>
+  <module name="ImagePixel">
+    <attribute name="dicom:photometricInterpretation" mandatoriness="1" />
+    <attribute name="dicom:pixelData" mandatoriness="1" />
+    <attribute name="dicom:redPaletteColorLookupTableDescriptor" mandatoriness="1C" />
+    <attribute name="dicom:bluePaletteColorLookupTableDescriptor" mandatoriness="1C" />
+    <attribute name="dicom:columns" mandatoriness="1" />
+    <attribute name="dicom:greenPaletteColorLookupTableDescriptor" mandatoriness="1C" />
+    <attribute name="dicom:samplesPerPixel" mandatoriness="1" />
+    <attribute name="dicom:highBit" mandatoriness="1" />
+    <attribute name="dicom:pixelRepresentation" mandatoriness="1" />
+    <attribute name="dicom:bluePaletteColorLookupTableData" mandatoriness="1C" />
+    <attribute name="dicom:planarConfiguration" mandatoriness="1C" />
+    <attribute name="dicom:pixelAspectRatio" mandatoriness="1C" />
+    <attribute name="dicom:bitsStored" mandatoriness="1" />
+    <attribute name="dicom:smallestImagePixelValue" mandatoriness="3" />
+    <attribute name="dicom:largestImagePixelValue" mandatoriness="3" />
+    <attribute name="dicom:rows" mandatoriness="1" />
+    <attribute name="dicom:greenPaletteColorLookupTableData" mandatoriness="1C" />
+    <attribute name="dicom:bitsAllocated" mandatoriness="1" />
+    <attribute name="dicom:redPaletteColorLookupTableData" mandatoriness="1C" />
+  </module>
+  <module name="ImageReference">
+    <attribute name="dicom:purposeOfReferenceCodeSequence" mandatoriness="3" />
+    <attribute name="dicom:referencedFrameNumber" mandatoriness="3" />
+  </module>
+  <module name="ImagesPerSeriesReference">
+    <attribute name="dicom:storageMediaFileSetId" mandatoriness="3" />
+    <attribute name="dicom:retrieveAeTitle" mandatoriness="3" />
+    <attribute name="dicom:storageMediaFileSetUid" mandatoriness="3" />
+    <attribute name="dicom:referencedImageSequence" mandatoriness="1C" />
+    <attribute name="dicom:seriesTime" mandatoriness="2C" />
+    <attribute name="dicom:seriesDate" mandatoriness="2C" />
+    <attribute name="dicom:seriesInstanceUid" mandatoriness="1" />
+    <attribute name="dicom:referencedSopSequence" mandatoriness="1C" />
+  </module>
+  <module name="LUT">
+    <attribute name="dicom:lutDescriptor" mandatoriness="1C" />
+    <attribute name="dicom:lutData" mandatoriness="1C" />
+    <attribute name="dicom:lutExplanation" mandatoriness="3" />
+  </module>
+  <module name="LinearVOIGLTrafo">
+    <attribute name="dicom:windowCenter" mandatoriness="1C" />
+    <attribute name="dicom:windowWidth" mandatoriness="1C" />
+    <attribute name="dicom:windowSmoothingTaste" mandatoriness="3" />
+    <attribute name="dicom:windowRoundingFactor" mandatoriness="3" />
+    <attribute name="dicom:windowCenterAndWidthExplanation" mandatoriness="3" />
+  </module>
+  <module name="LinearVOIGLTrafoSub">
+    <attribute name="dicom:windowWidthSub" mandatoriness="1C" />
+    <attribute name="dicom:windowCenterSub" mandatoriness="1" />
+  </module>
+  <module name="Mask">
+    <attribute name="dicom:recommendedViewingMode" mandatoriness="2" />
+    <attribute name="dicom:maskSubtractionSequence" mandatoriness="1" />
+  </module>
+  <module name="MaskSubtraction">
+    <attribute name="dicom:contrastFrameAveraging" mandatoriness="3" />
+    <attribute name="dicom:maskOperation" mandatoriness="1" />
+    <attribute name="dicom:tidOffset" mandatoriness="2C" />
+    <attribute name="dicom:applicableFrameRange" mandatoriness="3" />
+    <attribute name="dicom:maskOperationExplanation" mandatoriness="3" />
+    <attribute name="dicom:maskFrameNumbers" mandatoriness="1C" />
+    <attribute name="dicom:maskSubPixelShift" mandatoriness="3" />
+  </module>
+  <module name="MeasurementText">
+    <attribute name="dicom:measurementTextType" mandatoriness="1" />
+    <attribute name="dicom:measurementTextUnits" mandatoriness="1" />
+  </module>
+  <module name="ModalityLUT">
+    <attribute name="dicom:modalityLutSequence" mandatoriness="1C" />
+    <attribute name="dicom:rescaleIntercept" mandatoriness="1C" />
+    <attribute name="dicom:rescaleType" mandatoriness="1C" />
+    <attribute name="dicom:rescaleSlope" mandatoriness="1C" />
+  </module>
+  <module name="ModalityLUTReference">
+    <attribute name="dicom:modalityLutType" mandatoriness="1C" />
+  </module>
+  <module name="OverlayPlane">
+    <attribute name="dicom:overlayColumns" mandatoriness="1" />
+    <attribute name="dicom:roiMean" mandatoriness="3" />
+    <attribute name="dicom:roiStandardDeviation" mandatoriness="3" />
+    <attribute name="dicom:overlayType" mandatoriness="1" />
+    <attribute name="dicom:overlaySubtype" mandatoriness="3" />
+    <attribute name="dicom:roiArea" mandatoriness="3" />
+    <attribute name="dicom:overlayBitsAllocated" mandatoriness="1" />
+    <attribute name="dicom:overlayOrigin" mandatoriness="1" />
+    <attribute name="dicom:overlayData" mandatoriness="1C" />
+    <attribute name="dicom:overlayBitPosition" mandatoriness="1" />
+    <attribute name="dicom:overlayDescription" mandatoriness="3" />
+    <attribute name="dicom:overlayLabel" mandatoriness="3" />
+    <attribute name="dicom:overlayRows" mandatoriness="1" />
+  </module>
+  <module name="Overlay_CurveActivation">
+    <attribute name="dicom:curveActivationLayer" mandatoriness="2C" />
+    <attribute name="dicom:overlayActivationLayer" mandatoriness="2C" />
+  </module>
+  <module name="Patient">
+    <attribute name="dicom:patientId" mandatoriness="2" />
+    <attribute name="dicom:patientBirthTime" mandatoriness="3" />
+    <attribute name="dicom:otherPatientNames" mandatoriness="3" />
+    <attribute name="dicom:otherPatientIds" mandatoriness="3" />
+    <attribute name="dicom:patientSex" mandatoriness="2" />
+    <attribute name="dicom:patientBirthDate" mandatoriness="2" />
+    <attribute name="dicom:issuerOfPatientId" mandatoriness="3" />
+    <attribute name="dicom:patientName" mandatoriness="2" />
+    <attribute name="dicom:referencedPatientSequence" mandatoriness="3" />
+    <attribute name="dicom:patientComments" mandatoriness="3" />
+    <attribute name="dicom:ethnicGroup" mandatoriness="3" />
+  </module>
+  <module name="PatientStudy">
+    <attribute name="dicom:occupation" mandatoriness="3" />
+    <attribute name="dicom:patientSize" mandatoriness="3" />
+    <attribute name="dicom:patientWeight" mandatoriness="3" />
+    <attribute name="dicom:additionalPatientHistory" mandatoriness="3" />
+    <attribute name="dicom:admittingDiagnosesDescription" mandatoriness="3" />
+    <attribute name="dicom:patientAge" mandatoriness="3" />
+  </module>
+  <module name="PolyLineInterpolation">
+    <attribute name="dicom:graphicInterpolationDimensions" mandatoriness="3" />
+    <attribute name="dicom:graphicInterpolationOrder" mandatoriness="3" />
+    <attribute name="dicom:interpolationMethod" mandatoriness="1" />
+  </module>
+  <module name="PolyLinePointStyle">
+    <attribute name="dicom:polyLineEndPointStyle" mandatoriness="1" />
+    <attribute name="dicom:polyLineBeginPointStyle" mandatoriness="1" />
+  </module>
+  <module name="Preprocessing">
+    <attribute name="dicom:preprocessingHalfx" mandatoriness="1" />
+    <attribute name="dicom:preprocessingHalfy" mandatoriness="1" />
+    <attribute name="dicom:preprocessingExtension" mandatoriness="3" />
+    <attribute name="dicom:preprocessingExceptionSequence" mandatoriness="3" />
+    <attribute name="dicom:preprocessingParameterSequence" mandatoriness="3" />
+    <attribute name="dicom:preprocessingOperation" mandatoriness="1" />
+  </module>
+  <module name="PreprocessingEx">
+    <attribute name="dicom:enhancementTasteAdapt" mandatoriness="1" />
+    <attribute name="dicom:enhancementTasteAdaptSub" mandatoriness="1" />
+    <attribute name="dicom:enhancementGainFactorSub" mandatoriness="1" />
+    <attribute name="dicom:enhancementGainTaste" mandatoriness="3" />
+    <attribute name="dicom:enhancementGainTasteSub" mandatoriness="3" />
+    <attribute name="dicom:pixelProcessingKernelSize" mandatoriness="1C" />
+    <attribute name="dicom:referencedImageSequence" mandatoriness="3" />
+    <attribute name="dicom:enhancementKernelSize" mandatoriness="3" />
+    <attribute name="dicom:enhancementGainFactor" mandatoriness="1" />
+  </module>
+  <module name="PreprocessingException">
+    <attribute name="dicom:preprocessingExceptionPolicy" mandatoriness="3" />
+    <attribute name="dicom:preprocessingExceptionName" mandatoriness="3" />
+  </module>
+  <module name="PreprocessingParameter">
+    <attribute name="dicom:preprocessingDoubles" mandatoriness="3" />
+    <attribute name="dicom:preprocessingFloats" mandatoriness="3" />
+    <attribute name="dicom:preprocessingDouble" mandatoriness="3" />
+    <attribute name="dicom:preprocessingFloat" mandatoriness="3" />
+    <attribute name="dicom:preprocessingIntegers" mandatoriness="3" />
+    <attribute name="dicom:preprocessingParameterIndex" mandatoriness="3" />
+    <attribute name="dicom:preprocessingInteger" mandatoriness="3" />
+  </module>
+  <module name="PreprocessingSequence">
+    <attribute name="dicom:preprocessingSequence" mandatoriness="1" />
+  </module>
+  <module name="PresentationSeries">
+    <attribute name="dicom:modality" mandatoriness="1" />
+  </module>
+  <module name="PresentationState">
+    <attribute name="dicom:processingOrderSpecialization" mandatoriness="3" />
+    <attribute name="dicom:recommendedViewingMode" mandatoriness="1C" />
+    <attribute name="dicom:presentationCreatorName" mandatoriness="2" />
+    <attribute name="dicom:presentationCreationTime" mandatoriness="1" />
+    <attribute name="dicom:referencedSeriesSequence" mandatoriness="1" />
+    <attribute name="dicom:presentationDescription" mandatoriness="2" />
+    <attribute name="dicom:maskSubtractionSequence" mandatoriness="1C" />
+    <attribute name="dicom:presentationCreationDate" mandatoriness="1" />
+    <attribute name="dicom:instanceNumber" mandatoriness="1" />
+    <attribute name="dicom:generatedVOIGlTrafo" mandatoriness="3" />
+    <attribute name="dicom:generatedDA" mandatoriness="3" />
+    <attribute name="dicom:presentationStateXRayContrastTransferTaste" mandatoriness="3" />
+    <attribute name="dicom:referencedPseudoSeriesSequence" mandatoriness="3" />
+    <attribute name="dicom:presentationStateSequence" mandatoriness="3" />
+    <attribute name="dicom:presentationStateSubtractionActive" mandatoriness="1C" />
+    <attribute name="dicom:presentationBackgroundColor" mandatoriness="3" />
+    <attribute name="dicom:presentationLabel" mandatoriness="1" />
+    <attribute name="dicom:shutterPresentationValue" mandatoriness="1C" />
+  </module>
+  <module name="ProtocolContextSequence">
+    <attribute name="dicom:protocolContextSequence" mandatoriness="1" />
+  </module>
+  <module name="PseudoImageReference">
+    <attribute name="dicom:instanceNumber" mandatoriness="1" />
+    <attribute name="dicom:columns" mandatoriness="3" />
+    <attribute name="dicom:rows" mandatoriness="3" />
+  </module>
+  <module name="PseudoImagesPerSeriesReference">
+    <attribute name="dicom:seriesInstanceUid" mandatoriness="1" />
+    <attribute name="dicom:referencedPseudoImageSequence" mandatoriness="1" />
+  </module>
+  <module name="Reference">
+    <attribute name="dicom:referencedSopClassUid" mandatoriness="1" />
+    <attribute name="dicom:referencedSopInstanceUid" mandatoriness="1" />
+  </module>
+  <module name="ReferencedImageSequence">
+    <attribute name="dicom:referencedImageSequence" mandatoriness="3" />
+  </module>
+  <module name="ReferencedSOP">
+    <attribute name="dicom:iconImageSequence" mandatoriness="3" />
+    <attribute name="dicom:referencedWaveformChannels" mandatoriness="1C" />
+    <attribute name="dicom:referencedSopSequence" mandatoriness="3" />
+    <attribute name="dicom:referencedFrameNumber" mandatoriness="1C" />
+  </module>
+  <module name="RelatedSeries">
+    <attribute name="dicom:purposeOfReferenceCodeSequence" mandatoriness="2" />
+    <attribute name="dicom:studyInstanceUid" mandatoriness="1" />
+    <attribute name="dicom:seriesInstanceUid" mandatoriness="1" />
+  </module>
+  <module name="RequestAttributesReference">
+    <attribute name="dicom:reasonForRequestedProcedure" mandatoriness="3" />
+    <attribute name="dicom:reasonForRequestedProcedureCodeSequence" mandatoriness="3" />
+    <attribute name="dicom:scheduledProcedureStepId" mandatoriness="1C" />
+    <attribute name="dicom:scheduledActionItemCodeSequence" mandatoriness="3" />
+    <attribute name="dicom:requestedProcedureId" mandatoriness="1C" />
+    <attribute name="dicom:scheduledProcedureStepDescription" mandatoriness="3" />
+  </module>
+  <module name="SOPCommon">
+    <attribute name="dicom:instanceNumber" mandatoriness="3" />
+    <attribute name="dicom:instanceCreationDate" mandatoriness="3" />
+    <attribute name="dicom:sopInstanceUid" mandatoriness="1" />
+    <attribute name="dicom:originalSpecializedSOPClassUid" mandatoriness="3" />
+    <attribute name="dicom:specificCharacterSet" mandatoriness="1C" />
+    <attribute name="dicom:instanceCreationTime" mandatoriness="3" />
+    <attribute name="dicom:sopClassUid" mandatoriness="1" />
+    <attribute name="dicom:relatedGeneralSOPClassUid" mandatoriness="3" />
+    <attribute name="dicom:instanceCreatorUid" mandatoriness="3" />
+  </module>
+  <module name="SoftcopyPresentationLUT">
+    <attribute name="dicom:presentationLutShape" mandatoriness="1C" />
+    <attribute name="dicom:presentationLutSequence" mandatoriness="1C" />
+  </module>
+  <module name="SoftcopyVOILUTSequence">
+    <attribute name="dicom:softcopyVoiLutSequence" mandatoriness="1" />
+  </module>
+  <module name="SpatialTransformation">
+    <attribute name="dicom:imageHorizontalFlip" mandatoriness="1" />
+    <attribute name="dicom:imageRotationOffset" mandatoriness="3" />
+    <attribute name="dicom:imageRotation" mandatoriness="1" />
+  </module>
+  <module name="TextObject">
+    <attribute name="dicom:boundingBoxTextHorizontalJustification" mandatoriness="1C" />
+    <attribute name="dicom:boundingBoxTopLeftHandCorner" mandatoriness="1C" />
+    <attribute name="dicom:unformattedTextValue" mandatoriness="1" />
+    <attribute name="dicom:anchorPoint" mandatoriness="1C" />
+    <attribute name="dicom:boundingBoxAnnotationUnits" mandatoriness="1C" />
+    <attribute name="dicom:anchorPointVisibility" mandatoriness="1C" />
+    <attribute name="dicom:anchorPointAnnotationUnits" mandatoriness="1C" />
+    <attribute name="dicom:boundingBoxBottomRightHandCorner" mandatoriness="1C" />
+  </module>
+  <module name="TextObjectEx">
+    <attribute name="dicom:textAttachmentSpacing" mandatoriness="3" />
+    <attribute name="dicom:textCursorIncrement" mandatoriness="3" />
+    <attribute name="dicom:textFont" mandatoriness="3" />
+    <attribute name="dicom:textBackingMode" mandatoriness="3" />
+    <attribute name="dicom:textType" mandatoriness="3" />
+    <attribute name="dicom:textAttachmentClip" mandatoriness="3" />
+    <attribute name="dicom:textColorBackground" mandatoriness="3" />
+    <attribute name="dicom:textAttachmentOrder" mandatoriness="3" />
+    <attribute name="dicom:textStyle" mandatoriness="3" />
+    <attribute name="dicom:graphicNumber" mandatoriness="3" />
+    <attribute name="dicom:textVisibility" mandatoriness="3" />
+    <attribute name="dicom:textBoundingBoxVisibility" mandatoriness="3" />
+    <attribute name="dicom:textAnchorPointAlignment" mandatoriness="3" />
+    <attribute name="dicom:textAnchorPointSpacing" mandatoriness="3" />
+    <attribute name="dicom:textColorShadow" mandatoriness="3" />
+    <attribute name="dicom:textColorForeground" mandatoriness="3" />
+    <attribute name="dicom:textFontAutoScale" mandatoriness="3" />
+  </module>
+  <module name="VOILUTSequence">
+    <attribute name="dicom:voiLutSequence" mandatoriness="1C" />
+  </module>
+  <set name="ActionItemCode" base="dicom:Code">
+    <module name="dicom:ProtocolContextSequence" rank="M" />
+  </set>
+  <set name="Code">
+    <module name="dicom:Code" rank="M" />
+  </set>
+  <set name="ContentItemMacro">
+    <module name="dicom:ContentItemMacro" rank="M" />
+  </set>
+  <set name="DisplayedAreaSelection">
+    <module name="dicom:DisplayedAreaSelection" rank="M" />
+  </set>
+  <set name="Graphic">
+    <module name="dicom:PolyLineInterpolation" rank="C" />
+    <module name="dicom:PolyLinePointStyle" rank="C" />
+    <module name="dicom:GraphicEx" rank="C" />
+    <module name="dicom:ContourFillStyle" rank="C" />
+    <module name="dicom:Graphic" rank="M" />
+  </set>
+  <set name="GraphicAnnotation">
+    <module name="dicom:GraphicAnnotation" rank="C" />
+  </set>
+  <set name="GraphicLayer">
+    <module name="dicom:GraphicLayer" rank="M" />
+  </set>
+  <set name="IconImage">
+    <module name="dicom:ImagePixel" rank="M" />
+  </set>
+  <set name="ImageReference" base="dicom:Reference">
+    <module name="dicom:ImageReference" rank="M" />
+  </set>
+  <set name="ImagesPerSeriesReference">
+    <module name="dicom:ImagesPerSeriesReference" rank="M" />
+  </set>
+  <set name="LUT">
+    <module name="dicom:LUT" rank="M" />
+  </set>
+  <set name="MaskSubtraction">
+    <module name="dicom:MaskSubtraction" rank="M" />
+  </set>
+  <set name="ModalityLUTReference" base="dicom:LUT">
+    <module name="dicom:ModalityLUTReference" rank="M" />
+  </set>
+  <set name="Preprocessing">
+    <module name="dicom:Preprocessing" rank="M" />
+    <module name="dicom:PreprocessingEx" rank="C" />
+  </set>
+  <set name="PreprocessingException">
+    <module name="dicom:PreprocessingException" rank="M" />
+  </set>
+  <set name="PreprocessingParameter">
+    <module name="dicom:PreprocessingParameter" rank="M" />
+  </set>
+  <set name="ProtocolContext" base="dicom:ContentItemMacro">
+    <module name="dicom:ContentItemModifier" rank="M" />
+  </set>
+  <set name="PseudoImageReference">
+    <module name="dicom:PseudoImageReference" rank="M" />
+  </set>
+  <set name="PseudoImagesPerSeriesReference">
+    <module name="dicom:PseudoImagesPerSeriesReference" rank="M" />
+  </set>
+  <set name="Reference">
+    <module name="dicom:Reference" rank="M" />
+  </set>
+  <set name="ReferencedSOP" base="dicom:Reference">
+    <module name="dicom:ReferencedSOP" rank="M" />
+  </set>
+  <set name="RelatedSeries">
+    <module name="dicom:RelatedSeries" rank="M" />
+  </set>
+  <set name="RequestAttributesReference">
+    <module name="dicom:RequestAttributesReference" rank="M" />
+  </set>
+  <set name="Text">
+    <module name="dicom:TextObjectEx" rank="C" />
+    <module name="dicom:TextObject" rank="M" />
+    <module name="dicom:MeasurementText" rank="C" />
+  </set>
+  <set name="VOIGLTrafo" base="dicom:GLTrafo">
+    <module name="dicom:LinearVOIGLTrafoSub" rank="C" />
+    <module name="dicom:LinearVOIGLTrafo" rank="C" />
+    <module name="dicom:VOILUTSequence" rank="C" />
+    <module name="dicom:ReferencedImageSequence" rank="C" />
+  </set>
+</infoset>

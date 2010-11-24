@@ -1,0 +1,224 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Manage_QA_Status_TestCase</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Manage_QA_Status_TestCase</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ncia/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=CLICKING HERE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>MAINbody:loginForm:uName</td>
+	<td>addepald</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>MAINbody:loginForm:uName</td>
+	<td>addepald@mail.nih.gov</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>MAINbody:loginForm:_id127</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=QA Tool</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>SUBmenu:treeForm:lazyAjaxTree:0:0:t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Collection:&nbsp;&nbsp;IDRI')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Patient:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.0001')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:0:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:1:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>MAINbody:mainForm:changeStatusView:_id41</td>
+	<td>label=Visible</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>MAINbody:mainForm:changeStatusView:_id44</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Patient:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.0002')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:0:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:1:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>MAINbody:mainForm:changeStatusView:_id41</td>
+	<td>label=Not Visible</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>MAINbody:mainForm:changeStatusView:_id44</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>SUBmenu:treeForm:lazyAjaxTree:0:0:0:t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>SUBmenu:treeForm:lazyAjaxTree:0:1:t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@onclick="document.forms['SUBmenu:treeForm']['SUBmenu:treeForm:_idcl'].value='SUBmenu:treeForm:lazyAjaxTree:0:1:0:_id6'; document.forms['SUBmenu:treeForm'].submit(); return false;"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Patient:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.0002')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:0:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:1:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>MAINbody:mainForm:changeStatusView:_id41</td>
+	<td>label=Not Yet Reviewed</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>MAINbody:mainForm:changeStatusView:_id44</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>SUBmenu:treeForm:lazyAjaxTree:0:2:t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@onclick="document.forms['SUBmenu:treeForm']['SUBmenu:treeForm:_idcl'].value='SUBmenu:treeForm:lazyAjaxTree:0:2:0:_id6'; document.forms['SUBmenu:treeForm'].submit(); return false;"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Patient:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.0001')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:0:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>MAINbody:mainForm:studyView:resultTable:1:_id88</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>MAINbody:mainForm:changeStatusView:_id41</td>
+	<td>label=Not Yet Reviewed</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>MAINbody:mainForm:changeStatusView:_id44</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>SUBmenu:treeForm:lazyAjaxTree:0:0:t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Not Yet Reviewed</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Collection:&nbsp;&nbsp;IDRI')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Study:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.22488')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Series:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.22489')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Patient:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.0002')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Study:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.1207')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[contains(text(),'Series:&nbsp;&nbsp;1.3.6.1.4.1.9328.50.10.1218')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=LOGOUT</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

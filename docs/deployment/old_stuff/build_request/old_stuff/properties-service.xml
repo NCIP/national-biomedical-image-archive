@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE server>
+<!-- $Id: properties-service.xml,v 1.12 2008/02/27 20:51:18 blakec Exp $ -->
+
+<server>
+
+  <!-- ==================================================================== -->
+  <!-- PropertyEditorManager Service                                        -->
+  <!-- ==================================================================== -->
+
+  <!--
+     | Allows access to the PropertyEditorManager, which is used when setting
+     | MBean attribute values from configuration.
+   -->
+
+  <mbean code="org.jboss.varia.property.PropertyEditorManagerService" 
+	 name="jboss:type=Service,name=PropertyEditorManager">
+
+    <!-- 
+       | Register and editor for each of the type_name=editor_type_name listed
+       | in properties file style convetion.
+
+    <attribute name="Editors">
+      java.net.URL=my.project.editors.URLPropertyEditor
+    </attribute>
+
+    -->
+
+  </mbean>
+
+
+  <!-- ==================================================================== -->
+  <!-- System Properties Service                                            -->
+  <!-- ==================================================================== -->
+
+  <!--
+     | Allows rich access to system properties.
+   -->
+
+  <mbean code="org.jboss.varia.property.SystemPropertiesService" 
+	 name="jboss:type=Service,name=SystemProperties">
+
+<!--
+<attribute name="Properties">
+gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityConfig.xml
+</attribute>
+-->
+
+    <!-- 
+       | Load properties from each of the given comma seperated URLs
+
+    <attribute name="URLList">
+      http://somehost/some-location.properties,
+      ./conf/somelocal.properties
+    </attribute>
+
+    -->
+
+    <!-- 
+       | Set raw properties file style properties.
+
+    <attribute name="Properties">
+
+      my.project.property=This is the value of my property
+      my.project.anotherProperty=This is the value of my other property
+
+    </attribute>
+     
+    -->
+    
+    <!--Image server location, must be SSL to hostname  -->
+	 <attribute name="Properties">gov.nih.nci.ncia.imaging.server.url= https://imaging-qa.nci.nih.gov </attribute>
+	 <!-- Where to place was quarantined images -->
+	 <attribute name="Properties">gov.nih.nci.ncia.quarantine.directory=/data/ncia_data/webapps/NCICBIMAGE/trial/quarantine </attribute>
+	 <!-- Mapped image file path in IGS machine -->
+	 <attribute name="Properties">gov.nih.nci.ncia.mapped.image.path.head=\\\\cbiofs502\\nciaimages\\</attribute>
+	 <!-- Pattern of the image file path -->
+	 <attribute name="Properties">gov.nih.nci.ncia.image.path.pattern=NCICBIMAGE/documents/</attribute>
+	 <!-- Cedara I-Response Workstation Address and Port -->
+	 <attribute name="Properties">gov.nih.nci.ncia.irw.address=http://localhost:8889</attribute>
+	 <!-- Cedara I-Response Workstation Port -->
+	<attribute name="Properties">gov.nih.nci.ncia.irw.port=8889</attribute>
+	 <!-- Cedara Frontier Port -->
+	<attribute name="Properties">gov.nih.nci.ncia.frontier.http.port=8080</attribute>
+	 <!-- Cedara Frontier Address -->
+	<attribute name="Properties">gov.nih.nci.ncia.frontier.http.address=137.187.182.190</attribute>
+	 <!--JBoss Message Queue Address -->
+	<attribute name="Properties">gov.nih.nci.ncia.jboss.mq.url=localhost:51099</attribute>
+	 <!-- Location to place zipped files -->
+	<attribute name="Properties">gov.nih.nci.ncia.zip.location=/data/ncia_data/ncia_ftp</attribute>
+	<attribute name="Properties">gov.nih.nci.ncia.ftp.location=/data/ncia_data/ncia_ftp</attribute>
+	<!-- Required Identification of the local instance of NCIA -->
+	<attribute name="Properties">gov.nih.nci.ncia.grid.local.node.name=NCI-1</attribute>
+	<!-- Determines the max character length of data representation in the UI tier-->
+	<attribute name="Properties">gov.nih.nci.ncia.ui.uid.display.length=100</attribute>
+	<!-- ftp server url -->
+	<attribute name="Properties">gov.nih.nci.ncia.ftp.url=imaging-dev.nci.nih.gov</attribute>
+   	<!-- This Cedara IRW Link is used to detect if IRW is operating on the client -->
+	<attribute name="Properties">
+	gov.nih.nci.ncia.mapped.IRW.link=http://localhost:8889/ping
+	</attribute> 
+	<!-- This is the Cedara IRW version that the client should be using -->
+	<attribute name="Properties">
+	gov.nih.nci.ncia.mapped.IRW.version=http://localhost:8889/version/1.1.0.0
+	</attribute>
+	<!-- JBoss Publicly Accessible URL, hostname, used by the Cedara IRW client --> 
+	<attribute name="Properties">
+	gov.nih.nci.ncia.JBoss.publicUrl=http://imaging-stage.nci.nih.gov/ncia/
+	</attribute>
+	<!-- Email address used by application to notify LDAP Admin of newly registered user -->
+	<attribute name="Properties">gov.nih.nci.ncia.admin.email=ncicbmb@mail.nih.gov</attribute>
+	<!-- Mail server host name -->
+ 	<attribute name="Properties">gov.nih.nci.ncia.mail.server.host=mailfwd.nih.gov</attribute>
+        <attribute name="Properties">gov.nih.nci.ncia.installationSite=ncicb</attribute>
+	<!-- Number of days that files are retained for FTP download -->
+	<attribute name="Properties">gov.nih.nci.ncia.fileRetentionPeriodInDays=10</attribute>
+
+ 
+  </mbean>
+
+</server>

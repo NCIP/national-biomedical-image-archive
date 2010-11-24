@@ -1,0 +1,13 @@
+<server>
+<mbean code="org.jboss.mq.server.jmx.Queue" name="jboss.mq.destination:service=Queue,name=imageQueue">
+	<depends optional-attribute-name="DestinationManager">
+		jboss.mq:service=DestinationManager
+	</depends>
+</mbean>
+<mbean code="org.jboss.mq.server.jmx.Queue" name="jboss.mq.destination:service=Queue,name=curationQueue">
+	<depends optional-attribute-name="DestinationManager">
+		jboss.mq:service=DestinationManager
+	</depends>
+</mbean>
+
+</server>

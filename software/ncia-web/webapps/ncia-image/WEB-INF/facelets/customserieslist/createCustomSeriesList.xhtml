@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<ice:form id="customSeriesListForm">
+
+<table summary="" cellpadding="5" cellspacing="0" border="0" class="contentPage" width="750">
+  <tr>
+    <td colspan="2">
+      <h2 align="center"> 
+        <ice:outputText value="Create Shared List" />
+      </h2>
+      <table border="0" cellpadding="5" cellspacing="0" width="100%" class="promptbox" style="display: block;">                 
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="name" value="Name your list: "/>
+          </td>
+          <td colspan="5">
+            <ice:inputText id="name"
+                           partialSubmit="true"
+                           value="#{customSeriesListBean.name}"
+                           validator="#{customSeriesListBean.validateName}"
+                           required="true"
+                           size="105" maxlength="200"
+                           styleClass="formField"
+                           title="Name your list. The length cannot be longer than 200 characters."/> 
+            <br/>
+            <h:message id="nameError" for="name" infoClass="errorLabel"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="comment" value="Add a description (optional):"/>
+          </td>
+          <td colspan="5">
+            <ice:inputText id="comment"
+                           tabindex="40"
+                           partialSubmit="true"
+                           rendered="true"
+                           value="#{customSeriesListBean.comment}"
+                           size="105" 
+                           maxlength="200"
+                           styleClass="formField"
+                           title="Add a comment describing your list. The length cannot be longer than 200 characters."/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="hyperlink" value="Add a URL (optional):"/>
+          </td>
+          <td colspan="5">
+            <ice:inputText id="hyperlink"
+                           tabindex="40"
+                           partialSubmit="true"
+                           rendered="true"
+                           value="#{customSeriesListBean.hyperlink}"
+                           size="105" maxlength="200"
+                           styleClass="formField"
+                           title="Add a URL which links to additional information. The length cannot be longer than 200 characters."/>
+          </td>
+        </tr>
+        <f:subview id="uploadFileView" rendered="#{!customSeriesListBean.fromBasket}">
+          <tr>
+            <td colspan="1">
+              <ice:outputLabel for="inputFileComponent" value="Upload a CSV File of Series UIDs: "/>
+            </td>
+            <td colspan="5">
+              <ice:inputFile id="inputFileComponent" 
+                             autoUpload="true"
+                             actionListener="#{customSeriesListBean.uploadActionListener}"
+                             progressListener="#{customSeriesListBean.fileUploadProgress}"/>
+              <ice:outputProgress value="#{customSeriesListBean.fileProgress}"/>
+              <ice:message for="inputFileComponent" /><br/>
+              <ice:outputText value="Please upload a comma separated value file (.csv) containing series instance UIDs." />
+            </td>
+          </tr>
+        </f:subview>
+      </table>
+      <table width="100%" border="0" cellspacing="0">
+        <tr>
+          <td colspan="5">
+            <ice:outputText value="Warning: There may be a slight delay after selecting a file to upload."
+                            style="font-size:8pt;color:red"
+                            rendered="#{!customSeriesListBean.fromBasket}"/>
+          </td>
+          <td align="right" >
+            <ice:commandButton id="creation"
+                               image="images/submit.gif" 
+                               action="#{customSeriesListBean.submit}" />
+          </td>        
+        </tr>
+        <tr>
+          <td colspan="6" align="left">
+            <h:message id="infoMsg" for="creation" infoClass="errorLabel"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <ice:outputLabel id="infoMessage" 
+                             rendered="#{customSeriesListBean.infoMessage}"  
+                             styleClass="infoLabel"
+                             infoClass="infoLabel" 
+                             value="#{customSeriesListBean.message}"/>
+          </td>
+        </tr>
+      </table>
+      <f:subview id="privateSeriesView" rendered="#{not empty customSeriesListBean.privateSeries}">
+        <table width="100%" border="0" cellspacing="0">
+          <tr>
+            <td colspan="6">
+              <ice:panelCollapsible expanded="true" rendered="true">
+                <f:facet name="header">
+                  <ice:panelGroup>
+                    <ice:outputText value="Warning: The following Series are in private collection. -- Total count: #{customSeriesListBean.privateSeriesCount}" 
+                                    style="margin-left:auto;margin-right:auto;color:red"/>
+                  </ice:panelGroup>
+                </f:facet> 
+                <ice:dataTable id="privateSeriesDataTable"
+                               width="98%"
+                               cellpadding="3" 
+                               cellspacing="0"
+                               value="#{customSeriesListBean.privateSeries}"
+                               rowClasses="dataRowLight, dataRowDark"
+                               scrollable="true" 
+                               scrollHeight="150"
+                               var="seriesInstanceUid" >
+                  <ice:column id="seriesIdColumn">
+                    <ice:outputText value="#{seriesInstanceUid}" />
+                  </ice:column>
+                </ice:dataTable>
+              </ice:panelCollapsible>
+            </td>
+          </tr>
+        </table>
+        <br/>
+      </f:subview>
+      <f:subview id="seriesUidFromDataBasketView" rendered="#{customSeriesListBean.fromBasket}">
+        <table width="100%" border="0" cellspacing="0">
+          <tr>
+            <td colspan="6">
+              <ice:panelCollapsible expanded="true" rendered="true">
+                <f:facet name="header">
+                  <ice:panelGroup>
+                    <ice:outputText value="Series Instance UIDs from the data basket. -- Total count: #{customSeriesListBean.seriesCount}" 
+                                    style="margin-left:auto;margin-right:auto"/>
+                  </ice:panelGroup>
+                </f:facet>
+                <ice:dataTable id="basketDataTable"
+                               width="98%"                               
+                               cellpadding="3" 
+                               cellspacing="0" 
+                               value="#{customSeriesListBean.seriesUidsList}"
+                               rowClasses="dataRowLight, dataRowDark"
+                               scrollable="true" 
+                               scrollHeight="150"
+                               var="seriesId" >                             
+                  <ice:column id="seriesIdColumn">
+                    <ice:outputText value="#{seriesId}" />
+                  </ice:column>                             
+                </ice:dataTable>
+              </ice:panelCollapsible>
+              <f:subview id="emptyDataView" rendered="#{empty customSeriesListBean.seriesUidsList}">
+                <table width="100%" border="1" cellpadding="3" cellspacing="0" class="dataTable">
+                  <tr>
+                    <td class="dataRowDark">
+                      <ice:outputText value="No Series to display" />
+                    </td>
+                  </tr>
+                </table>
+              </f:subview>
+            </td>
+           </tr>
+         </table>
+         <br/>
+       </f:subview>
+       <f:subview id="seriesUidCannotSeeView" rendered="#{not empty customSeriesListBean.noPermissionSeries}">
+         <table width="100%" border="0" cellspacing="0">
+           <tr>
+             <td colspan="6">
+               <ice:panelCollapsible expanded="true" rendered="true">
+                 <f:facet name="header">
+                   <ice:panelGroup>
+                     <ice:outputText value="You do not have sufficient permission to view these Series Instance UIDs or these series do not exist.
+                                            Please remove from your list or contact application support for assistance. -- Total count: #{customSeriesListBean.noPermissionSeriesCount}" 
+                                     style="margin-left:auto;margin-right:auto"/>
+                   </ice:panelGroup>
+                 </f:facet>
+                 <ice:dataTable id="seriesNoPermissionDataTable"
+                                width="98%"
+                                cellpadding="3" 
+                                cellspacing="0"
+                                value="#{customSeriesListBean.noPermissionSeries}"
+                                rowClasses="dataRowLight, dataRowDark"
+                                scrollable="true" 
+                                scrollHeight="150"
+                                var="seriesInstanceUid" > 
+                   <ice:column id="seriesIdColumn">
+                     <ice:outputText value="#{seriesInstanceUid}" />
+                   </ice:column>
+                 </ice:dataTable>
+               </ice:panelCollapsible>
+             </td>
+           </tr>
+         </table>
+         <br/>
+       </f:subview>
+       <f:subview id="seriesUidFromFileView" 
+                  rendered="#{not customSeriesListBean.fromBasket and not empty customSeriesListBean.seriesUidsList}">
+         <table width="100%" border="0" cellspacing="0">
+           <tr>
+             <td colspan="6">
+               <ice:panelCollapsible expanded="true" rendered="true">
+                 <f:facet name="header">
+                   <ice:panelGroup>
+                     <ice:outputText value="Series Instance UIDs from the uploaded file -- Total count: #{customSeriesListBean.seriesCount}" 
+                                     style="margin-left:auto;margin-right:auto"/>
+                   </ice:panelGroup>
+                 </f:facet>
+                 <ice:dataTable id="seriesDataTable"
+                                width="98%"
+                                cellpadding="3"
+                                cellspacing="0"
+                                value="#{customSeriesListBean.seriesUidsList}"
+                                rowClasses="dataRowLight, dataRowDark"
+                                scrollable="true" 
+                                scrollHeight="150"
+                                var="seriesInstanceUid"> 
+                   <ice:column id="seriesIdColumn">
+                     <ice:outputText value="#{seriesInstanceUid}" />
+                   </ice:column>
+                 </ice:dataTable>
+               </ice:panelCollapsible>
+               <f:subview id="emptyDataView" rendered="#{empty customSeriesListBean.seriesUidsList}">
+                 <table width="100%" border="1" cellpadding="3" cellspacing="0" class="dataTable">
+                   <tr>
+                     <td class="dataRowDark">
+                       <ice:outputText value="There is no series instance uid in the uploaded file" />
+                     </td>
+                   </tr>
+                 </table>
+               </f:subview>
+             </td>
+           </tr>
+         </table>
+       </f:subview>   
+       <br/>
+     </td>
+     <td valign="top">
+       <ncia:help label="images/help_icon.png" helpId="create_shared_list_help" />
+     </td>
+   </tr>
+ </table>
+</ice:form>
+</ui:composition>

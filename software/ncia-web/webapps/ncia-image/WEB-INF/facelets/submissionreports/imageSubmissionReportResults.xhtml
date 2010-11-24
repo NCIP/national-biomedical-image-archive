@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="resultsTemplate.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+  <ui:param name="helpId" value="submission_report_help"/>
+  
+  <ui:define name="banner">
+    <ice:outputText>
+      Image Submission Results for #{imageSubmissionReportBean.selectedCollectionSite} 
+      between #{imageSubmissionReportBean.dateFromString} and #{imageSubmissionReportBean.dateToString}
+    </ice:outputText>  
+  </ui:define>
+  <ui:include src="correctionWarning.xhtml"/>
+      
+  <ui:define name="overallCounts">
+    <ui:include src="imageSubmissionReportCounts.xhtml">
+      <ui:param name="affectedPatientCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.affectedPatientCount}"/>
+      <ui:param name="correctedPatientCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.correctedPatientCount}"/>
+                
+      <ui:param name="affectedStudyCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.affectedStudyCount}"/>                        
+      <ui:param name="correctedStudyCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.correctedStudyCount}"/>
+                
+      <ui:param name="affectedSeriesCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.affectedSeriesCount}"/>                        
+      <ui:param name="correctedSeriesCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.correctedSeriesCount}"/>                
+                
+      <ui:param name="newImageCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.submittedImageCount}"/>                        
+      <ui:param name="correctedImageCount" 
+                value="#{imageSubmissionReportBean.imageSubmissionReport.imageSubmissionCountReport.correctedImageCount}"/>                 
+    </ui:include>       
+  </ui:define>
+
+  <ui:define name="byDay"> 
+    <div id="imagesByDay">
+      <ice:form id="imageSubmissionsByDayForm">   
+        <ice:panelTabSet id="imageSubmissionPanelTabSet">         
+          <ice:panelTab id="tab1" label="New Images">              
+            <ice:panelGroup id="noNewImagesPanel" 
+                            rendered="#{empty imageSubmissionReportBean.dailyReportDetails}">
+              There were no submissions in this date range for this collection//site.
+            </ice:panelGroup>
+                
+            <ice:panelCollapsible expanded="true" 
+                                  rendered="#{not empty imageSubmissionReportBean.dailyReportDetails}">
+              <f:facet name="header">
+                <ice:panelGroup>
+                  <ice:outputText value="Counts by Day" style="margin-left:auto;margin-right:auto"/>
+                </ice:panelGroup>  
+              </f:facet>                   
+              <ice:dataTable id="imageSubmissionsByDayTable"
+                             value="#{imageSubmissionReportBean.dailyReportDetails}"
+                             var="detail"
+                             rendered="#{not empty imageSubmissionReportBean.dailyReportDetails}"
+                             style="margin-left: auto;margin-right:auto">
+                <ice:column style="vertical-align: top">
+                  <f:facet name="header">
+                   Day             
+                  </f:facet>
+                  <h:panelGroup>   
+                    <ice:commandLink id="dayDetailsLink"
+                                     actionListener="#{imageSubmissionReportBean.dayDetailsClicked}">
+                      <f:attribute name="day" value="#{detail.key}"/>
+                      <h:graphicImage id="collapse"
+                                      value="/xmlhttp/css/rime/css-images/tree_nav_top_close_no_siblings.gif"
+                                      rendered="#{detail.value.expanded}"
+                                      style="border:0;vertical-align:middle"/>
+                      <h:graphicImage id="expand"
+                                      value="/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
+                                      rendered="#{not detail.value.expanded}"
+                                      style="border:0;vertical-align:middle"/>                              
+                    </ice:commandLink>
+                    <h:outputText value="#{detail.key}"/>                     
+                  </h:panelGroup>                            
+                </ice:column>   
+                <ice:column>
+                  <f:facet name="header">
+                    Details
+                  </f:facet>
+                    
+                  <ice:panelGroup style="text-align:center">
+                    <h:outputText value="#{detail.value.submissionCount} submission(s)."/>                  
+                  </ice:panelGroup>            
+          
+                  <ice:panelGroup rendered="#{detail.value.expanded}">
+                    <ui:include src="patientDetails.xhtml">
+                      <ui:param name="patientDetails" 
+                                value="#{detail.value.patientDetails}"/>
+                      <ui:param name="submissionLabel"
+                                value="Images"/>                                                                                                 
+                    </ui:include>              
+                  </ice:panelGroup>
+                           
+                </ice:column>      
+              </ice:dataTable>  
+            </ice:panelCollapsible>       
+          </ice:panelTab>  
+          
+          <ice:panelTab id="tab1" label="Corrected">
+            <ice:panelGroup id="noCorrectedImagesPanel" 
+                            rendered="#{empty imageSubmissionReportBean.dailyCorrectedReportDetails}">
+              There were no submissions in this date range for this collection//site.
+            </ice:panelGroup>
+                        
+            <ice:panelCollapsible expanded="true"
+                                  rendered="#{not empty imageSubmissionReportBean.dailyCorrectedReportDetails}">
+              <f:facet name="header">
+                <ice:panelGroup>
+                  <ice:outputText value="Counts by Day"/>
+                </ice:panelGroup>  
+              </f:facet>             
+
+                  
+              <ice:dataTable id="imageSubmissionsByDayTable"
+                             value="#{imageSubmissionReportBean.dailyCorrectedReportDetails}"
+                             var="detail"
+                             rendered="#{not empty imageSubmissionReportBean.dailyCorrectedReportDetails}"
+                             style="margin-left: auto;margin-right:auto">
+                <ice:column style="vertical-align: top">
+                  <f:facet name="header">
+                   Day             
+                  </f:facet>
+                  <h:panelGroup>  
+                    <ice:commandLink id="dayDetailsLink"
+                                     actionListener="#{imageSubmissionReportBean.correctedDayDetailsClicked}">
+                      <f:attribute name="day" value="#{detail.key}"/>
+                      <h:graphicImage id="collapse"
+                                      value="/xmlhttp/css/rime/css-images/tree_nav_top_close_no_siblings.gif"
+                                      rendered="#{detail.value.expanded}"
+                                      style="border:0;vertical-align:middle"/>
+                      <h:graphicImage id="expand"
+                                      value="/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
+                                      rendered="#{not detail.value.expanded}"
+                                      style="border:0;vertical-align:middle"/>                              
+                    </ice:commandLink>
+                    <h:outputText value="#{detail.key}"/>                     
+                  </h:panelGroup>                         
+                </ice:column>   
+                <ice:column>
+                  <f:facet name="header">
+                    Details
+                  </f:facet>
+                  
+                  <ice:panelGroup style="text-align:center">
+                    <h:outputText value="#{detail.value.submissionCount} submission(s)."/>                  
+                  </ice:panelGroup>            
+          
+                  <ice:panelGroup rendered="#{detail.value.expanded}">
+                    <ui:include src="patientDetails.xhtml">
+                      <ui:param name="patientDetails" 
+                                value="#{detail.value.patientDetails}"/>
+                      <ui:param name="submissionLabel"
+                                value="Corrections"/>                                                                                                                         
+                    </ui:include>              
+                  </ice:panelGroup>
+                         
+                </ice:column>      
+              </ice:dataTable>
+            </ice:panelCollapsible>  
+          </ice:panelTab>
+        </ice:panelTabSet> 
+      </ice:form>            
+    </div>
+  </ui:define>             
+</ui:composition>                

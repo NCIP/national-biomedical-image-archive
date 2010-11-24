@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cgmm-properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cgmm-properties.xsd">
+<cgmm-information>
+		<cgmm-context-name>cgmmweb</cgmm-context-name>
+		<cgmm-login-config-file-name>cgmm.login.config</cgmm-login-config-file-name>
+		<start-auto-syncgts>false</start-auto-syncgts>
+		<cgmm-new-grid-user-creation-disabled>false</cgmm-new-grid-user-creation-disabled>
+		<cgmm-new-grid-user-creation-host-redirect-uri>/public/newGridUserCreation.jsp</cgmm-new-grid-user-creation-host-redirect-uri>
+		<cgmm-alternate-behavior>true</cgmm-alternate-behavior>
+		<cgmm-standalone-mode>false</cgmm-standalone-mode>
+	</cgmm-information>
+	<host-application-information>
+		<host-context-name>@application.context.name@-web</host-context-name>
+		<host-application-name-for-csm>@application.context.name@</host-application-name-for-csm>
+		<host-public-home-page-url>/public/publicHome.jsp</host-public-home-page-url>
+        <host-user-home-page-url>/secured/userHomePage.jsp</host-user-home-page-url>
+        <host-user-login-page-url>/protected/project/workspace.action</host-user-login-page-url>
+        <host-new-local-user-creation-url>/public/newLocalUserCreation.jsp</host-new-local-user-creation-url>
+		<host-mail-jndi-name>java:/Mail</host-mail-jndi-name>
+		<host-mail-email-id-to>DaDummy01@gmail.com</host-mail-email-id-to>
+		<host-mail-email-id-from>parmarv@mail.nih.gov</host-mail-email-id-from>	
+		<host-mail-email-subject>Requesting new Account</host-mail-email-subject>
+		<host-application-logo-url>images/appLogo.gif</host-application-logo-url>
+		<host-application-logo-alt-text>caArray Application</host-application-logo-alt-text>
+	
+	</host-application-information>
+
+	<authentication-service-list>
+		<authentication-service-information>
+			<service-name>@grid.dorian.name@</service-name>
+			<service-url>@grid.dorian.url@</service-url>
+			<dorian-information>
+				<service-url>@grid.dorian.url@</service-url>
+				<proxy-lifetime-hours>12</proxy-lifetime-hours>
+				<proxy-lifetime-minutes>0</proxy-lifetime-minutes>
+				<proxy-lifetime-seconds>0</proxy-lifetime-seconds>
+				<proxy-delegation-path-length>3</proxy-delegation-path-length>
+			</dorian-information>
+		</authentication-service-information>
+	</authentication-service-list>
+</cgmm-properties>

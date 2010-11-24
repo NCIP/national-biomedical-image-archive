@@ -1,0 +1,149 @@
+Dev:
+=============================================
+ 
+ JBoss\Globus Machine
+ ---------------------------------------------
+  DNS: nciavjbossdev5001.nci.nih.gov
+  memory available:
+  processor(s):  VM Ware AMD 32-bit (shared)
+  ports of interest:
+   59080 - JBoss HTTP listen port
+   8080  - Globus HTTP listen port
+   8443  - Globus HTTPS listen port (Grid inbound)
+  
+ Apache\VSFTPD Machine
+ ---------------------------------------------
+ OS: Linux
+ Memory Available:
+ Processor(s): VM Ware
+ 
+ Apache
+  DNS: nciavapachedev5001.nci.nih.gov 
+ VSFTPD
+  DNS: nciavftpdev5001.nci.nih.gov
+  
+ Ports of Interest:
+    20 - VSFTPD Control Port
+    21 - VSFTPD Binary Transfer
+    80 - Apache HTTP
+    443 - Apache HTTPS
+ 
+ 
+ Cedara IGS Machine:
+ ---------------------------------------------
+  OS: Linux
+  Memory Available:
+  DNS:
+  Processor(s): VM Ware
+  Ports of Interest:
+ 
+ 
+ Oracle DB Machine:
+ ---------------------------------------------
+  machine name: cbiodb2-d.nci.nih.gov
+  port:1521
+  Oracle version: 10g (?)
+  database name: CADEV
+ 
+ 
+ NFS File Servers  (These are the same for all tiers?)
+ ---------------------------------------------
+ machine names:
+ 
+ 
+ NCIA SAN Storage  (Shared by all NCIA tiers?)
+ ---------------------------------------------
+ memory available:
+ 
+ 
+ CruiseControl VM  (Shared by all NCIA tiers, for sure)
+ ---------------------------------------------
+  
+ 
+QA:
+=============================================
+JBoss Server (Globus Server)
+  machine name: nciavjbossqa5001.nci.nih.gov 
+  machine ip:
+  memory available:
+  processor(s):  VM Ware AMD 32-bit (shared)
+ 
+ Apache Server (VSFTPD Server):
+  machine name (apache): nciavapacheqa5001.nci.nih.gov 
+  machine ip:
+  memory available:
+  processor(s): VM Ware
+ 
+ Cedara IGS Server:
+  machine name:
+  machine ip:
+  memory available:
+  processor(s): VM Ware
+  
+ Oracle Database Server:
+  machine name: cbiodb30.nci.nih.gov
+  port: 1521
+  Oracle version:
+  database name: CAQA
+ 
+Stage:
+==============================================
+  JBoss Server (Globus Server)
+    machine name:
+    machine ip:
+    memory available:
+    processor(s):  VM Ware AMD 32-bit (shared)
+   
+   Apache Server (VSFTPD Server):
+    machine name:
+    machine ip:
+    memory available:
+    processor(s): VM Ware
+   
+   Cedara IGS Server:
+    machine name:
+    machine ip:
+    memory available:
+    processor(s): VM Ware
+    
+   Oracle Database Server:
+    machine name: cbiodb20.nci.nih.gov
+    port: 1521
+    oracle version:
+    database name: CASTG
+    
+Production:
+==============================================
+  JBoss Server (Globus Server)
+    machine name:
+    machine ip:
+    memory available:
+    processor(s):  VM Ware AMD 32-bit (shared)
+   
+   Apache Server (VSFTPD Server):
+    machine name:
+    machine ip:
+    memory available:
+    processor(s): VM Ware
+   
+   Cedara IGS Server:
+    machine name:
+    machine ip:
+    memory available:
+    processor(s): VM Ware
+    
+   Oracle Database Server:
+    machine name: cbiodb10.nci.nih.gov
+    port: 1521
+    oracle version:
+    database name: CAPROD
+  
+ 
+ 
+ 
+
+
+
+
+
+

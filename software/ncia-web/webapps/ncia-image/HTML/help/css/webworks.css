@@ -1,0 +1,137 @@
+/* Default style for links */
+/*                         */
+a:link:active  { color: #0000CC}
+a:link:hover   { color: #CC0033}
+a:link         {
+	color: #3366CC;
+	text-decoration : none;
+}
+a:visited      {
+	color: #9999CC;
+	text-decoration : none;
+}
+
+/*Style for popups*/
+.Popup {
+	text-decoration : none;
+}
+.Popup a:link {
+	color: #660000;
+	text-decoration : none;
+}
+.Popup a:visited {
+	color: #660000;
+	text-decoration : none;
+}
+.Popup a:hover {
+	color: #660000;
+	text-decoration : none;
+}
+.Popup a:active {
+	color: #660000;
+	text-decoration : none;
+}
+PopupTable {
+	text-decoration : none;
+}
+.PopupTable a:link {
+	color: #660000;
+	text-decoration : none;
+}
+.PopupTable a:visited {
+	color: #660000;
+	text-decoration : none;
+}
+.PopupTable a:hover {
+	color: #660000;
+	text-decoration : none;
+}
+.PopupTable a:active {
+	color: #660000;
+	text-decoration : none;
+}
+
+/* Use this style to control spacing for inline related topics tags */
+/*                                                                  */
+div.WWHInlineRelatedTopics
+{
+  margin-top:    8px;
+  margin-bottom: 4px;
+}
+
+div.WebWorks_Breadcrumbs
+{
+  color: #999999;
+  font-family: sans-serif;
+  font-size: 10pt;
+}
+
+a.WebWorks_Breadcrumb_Link
+{
+  text-decoration: none;
+}
+
+div.WebWorks_MiniTOC
+{
+  background-color: #EEEEEE;
+  border-color: #000000;
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+a.WebWorks_MiniTOC_Link
+{
+  text-decoration: none;
+}
+
+div.WebWorks_MiniTOC_Level1
+{
+  margin-left: 0pt;
+}
+
+div.WebWorks_MiniTOC_Level2
+{
+  margin-left: 12pt;
+}
+
+div.WebWorks_MiniTOC_Level3
+{
+  margin-left: 24pt;
+}
+
+div.WebWorks_MiniTOC_Level4
+{
+  margin-left: 36pt;
+}
+
+div.WebWorks_MiniTOC_Level5
+{
+  margin-left: 48pt;
+}
+
+div.WebWorks_MiniTOC_Level6
+{
+  margin-left: 60pt;
+}
+
+div.WebWorks_MiniTOC_Level7
+{
+  margin-left: 72pt;
+}
+
+div.WebWorks_MiniTOC_Level8
+{
+  margin-left: 84pt;
+}
+
+div.WebWorks_MiniTOC_Level9
+{
+  margin-left: 96pt;
+}
+
+div.WebWorks_MiniTOC_Level10
+{
+  margin-left: 108pt;
+}

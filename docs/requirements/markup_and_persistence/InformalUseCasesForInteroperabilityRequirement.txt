@@ -1,0 +1,31 @@
+Informal list of the use case scenarios discussed for the import/export of DICOM part 10 files, in regards to the interoperability requirement in the Cedara SOW. 
+
+Scenario 1:
+1.	User loads a given series with previously done markup into I-Response using the NCIA interface.
+2.	XML markup is transferred from the NCIA, where it has been persisted, to I-Response
+3.	I-Response displays the markup in the UI.
+4.	User then exports the markup to a local DICOM part 10 file, through the use of a UI control in I-Response, for import into I-SoftView.
+
+Scenario 2:
+1.	User loads a given series with no markup into I-Response using the NCIA interface.
+2.	User performs and completes markup using I-Response.
+3.	User then exports the markup to a local DICOM part 10 file, through the use of a UI control in I-Response, for import into I-SoftView.
+
+Scenario 3:
+1.	User loads a given series with no markup into I-Response using the NCIA interface.
+2.	User imports a DICOM part 10 file that contains image markup, for that particular series, into I-Response using a UI import mechanism.
+3.	I-Response translates the DICOM part 10 data into markup capable of being displayed in the series.
+4.	I-Response then displays the markup.
+5.	User reviews the markup, possibly making changes, then saves the markup in the I-Response client.
+6.	I-Response stores all the markup as XML and sends the data to the NCIA for persistence.
+
+Scenario 4:
+1.	User loads a given series with no markup into I-Response using the NCIA interface.
+2.	User imports a DICOM part 10 file that contains image markup, for that particular series, into I-Response using a UI import mechanism.
+3.	I-Response translates the DICOM part 10 data into markup capable of being displayed in the series.
+4.	I-Response then displays the markup.
+5.	User reviews the markup, possibly making changes, then saves the markup in the I-Response client.
+6.	User then exports the markup to a new DICOM part 10 file, through the use of a UI control in I-Response, for import into I-SoftView.
+
+CEDARA RESPONSE:
+Not implementing DICOM part 10 functionality.   Requirement was eliminated on April 11th. 

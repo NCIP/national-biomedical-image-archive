@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+      
+<body>
+
+This text above will not be displayed.
+
+<ui:composition template="resultsTemplate.xhtml">
+  <ui:param name="helpId" value="submission_report_help"/>
+  
+  <ui:define name="banner">
+    <ice:outputText>
+      Accrual Results for #{accrualReportSubmissionBean.selectedCollectionSite} 
+      between #{accrualReportSubmissionBean.dateFromString} and #{accrualReportSubmissionBean.dateToString}
+    </ice:outputText>  
+  </ui:define>
+  
+  <ui:define name="overallCounts">
+    <ui:include src="accrualReportCounts.xhtml">
+      <ui:param name="newPatientCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.newPatientCount}"/>
+      <ui:param name="updatedPatientCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.updatedPatientCount}"/>
+      <ui:param name="correctedPatientCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.correctedPatientCount}"/>
+                
+      <ui:param name="newStudyCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.newStudyCount}"/>
+      <ui:param name="updatedStudyCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.updatedStudyCount}"/>
+      <ui:param name="correctedStudyCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.correctedStudyCount}"/>
+                
+      <ui:param name="newSeriesCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.newSeriesCount}"/>
+      <ui:param name="updatedSeriesCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.updatedSeriesCount}"/>
+      <ui:param name="correctedSeriesCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.correctedSeriesCount}"/>
+                
+      <ui:param name="newImageCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.newImageCount}"/>
+      <ui:param name="correctedImageCount" 
+                value="#{accrualReportSubmissionBean.accrualReport.correctedImageCount}"/>                                                                                                                        
+    </ui:include>  
+  </ui:define>
+  
+  <ui:define name="byDay">
+    <div id="accrualByDay">
+      <ice:panelGroup id="accrualNoResultsMsg"
+                      rendered="#{empty accrualReportSubmissionBean.dailyReportDetails}">
+        There were no submissions in this date range for this collection//site.
+      </ice:panelGroup>
+                        
+      <ice:form id="accrualByDayForm"
+                rendered="#{not empty accrualReportSubmissionBean.dailyReportDetails}">
+                
+                
+        <ice:panelCollapsible expanded="true">
+          <f:facet name="header">
+            <ice:panelGroup>
+              <ice:outputText value="Counts by Day"/>
+            </ice:panelGroup>  
+          </f:facet>                           
+          <ice:dataTable id="accrualByDayTable"
+                         value="#{accrualReportSubmissionBean.dailyReportDetails}"
+                         var="detail"
+                         style="margin-left: auto;margin-right:auto">
+            <ice:column style="vertical-align: top">
+              <f:facet name="header">
+               Day             
+              </f:facet>
+              <h:panelGroup>  
+                <ice:commandLink id="accrualDayDetails"
+                                 actionListener="#{accrualReportSubmissionBean.dayDetailsClicked}">
+                  <f:attribute name="day" value="#{detail.key}"/>
+                  <h:graphicImage value="/xmlhttp/css/rime/css-images/tree_nav_top_close_no_siblings.gif"
+                                  rendered="#{detail.value.expanded}"
+                                  style="border:0;vertical-align:middle"/>
+                  <h:graphicImage value="/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
+                                  rendered="#{not detail.value.expanded}"
+                                  style="border:0;vertical-align:middle"/>                              
+                </ice:commandLink>
+                <h:outputText value="#{detail.key}"/>                 
+              </h:panelGroup>             
+            </ice:column>   
+            <ice:column>
+              <f:facet name="header">
+                Details
+              </f:facet>
+              
+              <ice:panelGroup style="text-align:center">
+                <h:outputText value="#{detail.value.submissionCount} submission(s)."
+                              title="New and Corrected Submission Count"/>                  
+              </ice:panelGroup>
+      
+              <ice:panelGroup id="accrualDayDetailsTableContainer"
+                              rendered="#{detail.value.expanded}">
+                <ui:include src="accrualReportCounts.xhtml">
+                  <ui:param name="newPatientCount" 
+                            value="#{detail.value.accrualReport.newPatientCount}"/>
+                  <ui:param name="updatedPatientCount" 
+                            value="#{detail.value.accrualReport.updatedPatientCount}"/>
+                  <ui:param name="correctedPatientCount" 
+                            value="#{detail.value.accrualReport.correctedPatientCount}"/>
+                            
+                  <ui:param name="newStudyCount" 
+                            value="#{detail.value.accrualReport.newStudyCount}"/>
+                  <ui:param name="updatedStudyCount" 
+                            value="#{detail.value.accrualReport.updatedStudyCount}"/>
+                  <ui:param name="correctedStudyCount" 
+                            value="#{detail.value.accrualReport.correctedStudyCount}"/>
+                            
+                  <ui:param name="newSeriesCount" 
+                            value="#{detail.value.accrualReport.newSeriesCount}"/>
+                  <ui:param name="updatedSeriesCount" 
+                            value="#{detail.value.accrualReport.updatedSeriesCount}"/>
+                  <ui:param name="correctedSeriesCount" 
+                            value="#{detail.value.accrualReport.correctedSeriesCount}"/>
+                            
+                  <ui:param name="newImageCount" 
+                            value="#{detail.value.accrualReport.newImageCount}"/>
+                  <ui:param name="correctedImageCount" 
+                            value="#{detail.value.accrualReport.correctedImageCount}"/>                                                                                                                        
+                </ui:include>              
+              </ice:panelGroup>
+                     
+            </ice:column>      
+          </ice:dataTable>
+        </ice:panelCollapsible>
+      </ice:form>
+    </div>
+  </ui:define>
+  
+</ui:composition>
+
+This text below will also not be displayed.
+
+</body>
+</html>              

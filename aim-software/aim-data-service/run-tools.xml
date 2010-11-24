@@ -1,0 +1,11 @@
+<project name="run-tools file" basedir="." default="runClient">
+     <target name="runClient" depends="checkGlobus, defineClasspaths" description="Run the sample Client">
+        <property name="service.url" value="http://localhost:8080/wsrf/services/cagrid/AIMDataService" />
+        <echo message="Connecting to service: ${service.url}" />
+        <java failonerror="true" classname="org.nih.nci.cagrid.aim.client.AIMDataServiceClient" classpathref="run.classpath" fork="yes">
+            <jvmarg value="-DGLOBUS_LOCATION=${ext.globus.dir}" />
+            <arg value="-url" />
+            <arg value="${service.url}" />
+        </java>
+    </target>
+</project>

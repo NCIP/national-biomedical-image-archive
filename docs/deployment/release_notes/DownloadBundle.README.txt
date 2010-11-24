@@ -1,0 +1,8 @@
+Please refer to the NCIA release notes available in this bundle
+
+For detailed instructions on the installation of the NCIA system, the most current documentation is maintained in Subversion (SVN), accessible through GForge here,
+https://gforge.nci.nih.gov/plugins/scmsvn/viewcvs.php/trunk/docs/guides_and_instructions/system_installation_guide/approved/?root=ncia
+
+
+
+

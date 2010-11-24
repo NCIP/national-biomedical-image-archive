@@ -1,0 +1,9 @@
+<user password="password" username="king">
+  <role>admin</role>
+  <role>delete</role>
+  <role>guest</role>
+  <role>proxy</role>
+  <role>read</role>
+  <role>qadmin</role>
+  <role>shutdown</role>
+</user>

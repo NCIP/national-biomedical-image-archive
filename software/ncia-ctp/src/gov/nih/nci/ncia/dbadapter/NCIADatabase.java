@@ -1,0 +1,75 @@
+package gov.nih.nci.ncia.dbadapter;
+
+import java.io.File;
+
+import org.apache.log4j.Logger;
+import org.rsna.ctp.objects.DicomObject;
+import org.rsna.ctp.objects.FileObject;
+import org.rsna.ctp.objects.XmlObject;
+import org.rsna.ctp.objects.ZipObject;
+import org.rsna.ctp.pipeline.Status;
+import org.rsna.ctp.stdstages.database.DatabaseAdapter;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class NCIADatabase extends DatabaseAdapter{
+    private Logger log = Logger.getLogger(NCIADatabase.class);
+	public static ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+   	public static NCIADatabaseDelegator delegator = (NCIADatabaseDelegator)ctx.getBean("nciaDelegator");
+   	
+    public Status process(DicomObject file, File storedFile,String url) {
+    	Status status = Status.OK;
+    	try{
+    		System.out.println("hashCode: " + this.hashCode());
+    		delegator.process(file, storedFile, url);
+    		status = Status.OK;
+    	}catch(RuntimeException rx){
+    		log.error("Dicom Submission Failed!");
+    		status = Status.FAIL;
+    	}
+    	return status;
+    }
+    
+    public Status process(XmlObject file,File storedFile, String url) {
+    	Status status = Status.OK;
+    	
+    	try{
+    		delegator.process(file, storedFile, url);
+    		status = Status.OK;
+    	}catch(RuntimeException rx){
+    		log.error("XML Submission Failed!");
+    		status = Status.FAIL;
+    	}
+    	return status;
+    	
+    }
+    
+    public Status process(ZipObject file, File storedFile, String url) {
+    	Status status = Status.OK;
+    	
+    	try{
+    		delegator.process(file, storedFile, url);
+    		status = Status.OK;
+    	}catch(RuntimeException rx){
+    		log.error("ZIP Submission Failed!");
+    		status = Status.FAIL;
+    	}
+    	return status;
+    	
+    }
+    
+    public Status process(FileObject file, File storedFile, String url) {
+    	Status status = Status.OK;
+    	
+    	try{
+    		delegator.process(file, storedFile, url);
+    		status = Status.OK;
+    	}catch(RuntimeException rx){
+    		log.error("File Submission Failed!");
+    		status = Status.FAIL;
+    	}
+    	return status;
+    	
+    }
+    
+}

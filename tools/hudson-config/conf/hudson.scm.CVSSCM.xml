@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.scm.CVSSCM_-DescriptorImpl>
+  <cvsExe>cvs</cvsExe>
+  <noCompression>false</noCompression>
+  <repositoryBrowser>hudson.scm.CVSRepositoryBrowser</repositoryBrowser>
+  <generation>1</generation>
+</hudson.scm.CVSSCM_-DescriptorImpl>

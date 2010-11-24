@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+	<ice:panelGroup id="qcViewPanel"
+		style="font-family: Arial, Helvetica, sans-serif; font-size: .75em;">
+		<center>
+			<div class="submissionReportTitleContainer">
+				<span class="submissionReportTitle"> Series Details </span>
+			</div>
+
+			<table>
+				<tr>
+					<td>
+						<div
+							style="width: 580px; height: 580px; overflow: auto; border: .1px solid blue; background-color: #EFF5FB;">
+							<ui:include src="slideshow.xhtml" />
+						</div>
+					</td>
+					<td>
+						<div
+							style="width: 576px; height: 580px; overflow: auto; border: .1px solid blue; background-color: #EFF5FB;">
+
+							<ui:include src="dicomTags.xhtml" />
+						</div>
+					</td>
+				</tr>
+			</table>
+		</center>
+
+		<ice:form id="qcToolViewerForm">
+			<center>
+				<ice:panelGroup id="summeryPanel">
+					<ice:dataTable id="data" first="#{qcToolUpdateBean.selectedRow}"
+						rows="1" border="1" value="#{qcToolUpdateBean.qsrDTOList}"
+						var="res" cellpadding="5">
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Collection//Site" />
+							</f:facet>
+							<ice:outputText value="#{res.collectionSite}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Patient" />
+							</f:facet>
+							<ice:outputText value="#{res.patientId}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Study" />
+							</f:facet>
+							<ice:outputText value="#{res.study}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Series" />
+							</f:facet>
+							<ice:outputText value="#{res.series}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="QC Status" />
+							</f:facet>
+							<ice:outputText value="#{res.visibilityStatus}" />
+						</ice:column>
+					</ice:dataTable>
+				</ice:panelGroup>
+			</center>
+			<ice:panelCollapsible id="statusChangePanel" expanded="true">
+				<f:facet name="header">
+					<ice:panelGroup>
+						<ice:outputText id="formHeader" value="Change QC Status" />
+					</ice:panelGroup>
+				</f:facet>
+
+				<ice:panelGrid columns="2" styleClass="verticalAlignTop">
+
+					<f:subview id="qcToolAdminView"
+						rendered="#{not qcToolBean.superRole}">
+						<ice:panelGroup styleClass="selectionRadioGroup">
+							<ice:outputLabel for="slctQcStatus" style="line-height:200%"
+								value="New Status" />
+							<br />
+							<ice:selectOneRadio id="slctQcStatus"
+								value="#{qcToolUpdateBean.selectedQcStatusSingle}"
+								partialSubmit="false" style="white-space:nowrap; width:380px;">
+								<f:selectItems id="SlctQcStatusItms"
+									value="#{qcToolBean.qcStatusItems}" />
+							</ice:selectOneRadio>
+						</ice:panelGroup>
+					</f:subview>
+					<ice:inputTextarea id="chngCmt"
+						value="#{qcToolUpdateBean.comments}" cols="140" rows="3"
+						partialSubmit="false" style="overflow: auto;">
+					</ice:inputTextarea>
+					<f:subview id="qcToolDeleteView" rendered="#{qcToolBean.superRole}">
+						<ice:outputText id="emptyLine" value="" />
+					</f:subview>
+					<ice:panelGroup id="noNewImagesPanel">
+
+						<ice:commandButton id="updateBtn"
+							value="#{qcToolUpdateBean.buttonLabel}" partialSubmit="true"
+							action="#{qcToolUpdateBean.updateSingle}" />
+						<ice:commandButton id="nextBtn" value="Skip" partialSubmit="true"
+							action="#{qcToolUpdateBean.skipToNext}"
+							rendered="#{not qcToolUpdateBean.lastRecord}" />
+
+						<input type="button" name="closeWindowBtn" value="Close Window"
+							onClick="javascript:self.close();" />
+						<br />
+						<ice:messages id="qcToolErrorField" showDetail="false"
+							layout="table" errorClass="errorLabel" infoClass="infoLabel" />
+					</ice:panelGroup>
+				</ice:panelGrid>
+
+			</ice:panelCollapsible>
+			<ice:panelCollapsible id="statusChangeHistoryPanel" expanded="false">
+				<f:facet name="header">
+					<ice:panelGroup>
+						<ice:outputText id="formHeader" value="QC Status History" />
+					</ice:panelGroup>
+				</f:facet>
+
+				<ice:panelGrid columns="2" styleClass="verticalAlignTop">
+					<ice:dataTable id="rptdata" var="res"
+						value="#{qcToolSearchBean.qshDTOList}"
+						rows="#{qcToolSearchBean.selectedHRptDispItemNum}"
+						rendered="#{not empty qcToolSearchBean.qshDTOList}">
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Time Stamp" />
+							</f:facet>
+							<ice:outputText value="#{res.dateTime}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Series ID" />
+							</f:facet>
+							<ice:outputText value="#{res.series}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Previous QC Status" />
+							</f:facet>
+							<ice:outputText value="#{res.oldVisibilityStatus}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="New QC Status" />
+							</f:facet>
+							<ice:outputText value="#{res.newVisibilityStatus}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Comment" />
+							</f:facet>
+							<ice:outputText value="#{res.comment}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="User ID" />
+							</f:facet>
+							<ice:outputText value="#{res.userId}" />
+						</ice:column>
+					</ice:dataTable>
+
+				</ice:panelGrid>
+
+			</ice:panelCollapsible>
+
+			<ice:panelPopup id="modalPnlPop" draggable="true" modal="true"
+				styleClass="corePopup" visible="#{qcToolUpdateBean.popupRendered}"
+				autoCentre="true">
+				<f:facet name="header">
+					<ice:panelGroup styleClass="popupHeaderWrapper">
+						<ice:outputText value="Alert" styleClass="popupHeaderText" />
+
+						<ice:commandButton id="modalPnlCloseBtn" type="button"
+							image="/images/cancelIcon.gif"
+							action="#{qcToolUpdateBean.cancel}" styleClass="popupHeaderImage"
+							title="Close Popup" alt="Cancel" />
+					</ice:panelGroup>
+				</f:facet>
+				<f:facet name="body">
+					<ice:panelGroup styleClass="popupBody">
+						<ice:outputText value="#{msg.qcTool_alertForSharedList}" />
+
+						<ice:dataTable id="userName" var="uname" width="100%"
+							scrollable="true" scrollHeight="100px"
+							columnWidths="125px,300px,125px"
+							value="#{qcToolUpdateBean.userNameList}"
+							rendered="#{not empty qcToolUpdateBean.userNameList}">
+							<ice:column>
+								<f:facet name="header">
+									<ice:outputText value="List Name" />
+								</f:facet>
+								<ice:outputText value="#{uname.name}" />
+							</ice:column>
+							<ice:column>
+								<f:facet name="header">
+									<ice:outputText value="Series Instance UID" />
+								</f:facet>
+								<ice:outputText value="#{uname.seriesInstanceUID}" />
+							</ice:column>
+							<ice:column>
+								<f:facet name="header">
+									<ice:outputText value="User" />
+								</f:facet>
+								<ice:outputText value="#{uname.userName}" />
+							</ice:column>
+						</ice:dataTable>
+						<br />
+						<div align="right">
+							<ice:commandButton id="modalPnlContinueButton" type="submit"
+								value="Continue"
+								action="#{qcToolUpdateBean.continueUpdateSingle}" />
+							<ice:commandButton id="modalPnlCloseButton" type="submit"
+								value="Cancel" action="#{qcToolUpdateBean.cancel}" />
+						</div>
+					</ice:panelGroup>
+				</f:facet>
+			</ice:panelPopup>
+		</ice:form>
+	</ice:panelGroup>
+</ui:composition>

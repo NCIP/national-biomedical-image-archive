@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<infoset name="urn:openeyes.imaging.volume.Renderer3D/infoset.xml">
+
+    <attribute name="ptype" ptag="2007,5149" vr="CS" occurs="1" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="geometryType" ptag="2007,5104" vr="CS" occurs="1" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="geometryInterpolation" ptag="2007,5105" vr="CS" occurs="0-1" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="geometryThickness" ptag="2007,5107" vr="DS" occurs="0-1" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="baseplaneCenter" ptag="2007,5116" vr="DS" occurs="3" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="baseplaneNormal" ptag="2007,5117" vr="DS" occurs="3" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="baseplaneUpvector" ptag="2007,5118" vr="DS" occurs="3" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="mode" ptag="2007,5110" vr="CS" occurs="1" creator="Cedara_Openeyes_1_5"/>
+    <attribute name="background" ptag="2007,5262" vr="IS" occurs="0-1" creator="Cedara_Openeyes_1_3"/>
+
+    <attribute name="render3D" ptag="2007,5101" occurs="0-1" vr="SQ" creator="Cedara_Openeyes_1_5">
+        <set name="Render3D"/>
+    </attribute>
+
+    <attribute name="geometry" ptag="2007,5102" vr="SQ" occurs="1">
+        <set name="Geometry"/>
+    </attribute>
+
+    <attribute name="geometryBaseplane" ptag="2007,5108" vr="SQ" occurs="1" creator="Cedara_Openeyes_1_5">
+        <set name="GeometryBaseplane"/>
+    </attribute>
+
+    <attribute name="volume" ptag="2007,5103" vr="SQ" occurs="1-n" creator="Cedara_Openeyes_1_5">
+        <set name="Volume"/>
+    </attribute>
+
+    <module name="Render3D">
+       <attribute name="type" mandatoriness="1"/>
+       <attribute name="geometry" mandatoriness="1"/>
+       <attribute name="volume" mandatoriness="1"/>
+   </module>
+
+    <set name="Render3D">
+        <module name="Render3D" rank="U"/>
+    </set>
+
+    <module name="Geometry">
+        <attribute name="geometryType" mandatoriness="1"/>
+        <attribute name="geometryInterpolation" mandatoriness="3"/>
+        <attribute name="geometryThickness" mandatoriness="3"/>
+        <attribute name="geometryBaseplane" mandatoriness="1"/>
+    </module>
+
+    <set name="Geometry">
+        <module name="Geometry" rank="M"/>
+    </set>
+
+    <module name="GeometryBaseplane">
+        <attribute name="baseplaneCenter" mandatoriness="1"/>
+        <attribute name="baseplaneNormal" mandatoriness="1"/>
+        <attribute name="baseplaneUpvector" mandatoriness="1"/>
+    </module>
+
+    <set name="GeometryBaseplane">
+        <module name="GeometryBaseplane" rank="M"/>
+    </set>
+
+    <module name="Volume">
+        <attribute name="mode" mandatoriness="1"/>
+        <attribute name="background" mandatoriness="3"/>
+    </module>
+
+    <set name="Volume">
+        <module name="Volume" rank="M"/>
+    </set>
+</infoset>

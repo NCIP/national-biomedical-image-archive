@@ -1,0 +1,34 @@
+<!--
+$Id$
+$HeadURL$
+
+This is the definition of a virtual module called bda-download that has a dependency of bda-utils.  This virtual project causes the download of bda-utils from the NCICB Ivy Repository.  This file currently points to the 1.0 version of bda-utils if you want to use another version change the rev="1.0" to the desired version.
+-->
+<ivy-module version="1.0">
+	<info organisation="ncicb" module="bda-download"
+		/>
+  <configurations>
+    <conf name="default" />          
+    <conf name="compile" />     
+    <conf name="runtime" />          
+    <conf name="test" extends="runtime" />
+    <conf name="test-pmd"/>
+    <conf name="test-selenium"/>
+    <conf name="test-junit"/>
+    <conf name="test-cobertura"/>
+    <conf name="test-javancss"/>
+    <conf name="test-checkstyle"/>
+    <conf name="test-findbugs"/>
+  </configurations>
+  <publications>    
+  </publications>
+  <dependencies>
+    <dependency org="openqa" name="selenium-server" rev="1.0-beta-2" conf="test-selenium->master"/>
+    <dependency org="junit" name="junit" rev="4.6" conf="test-junit->master"/>
+    <dependency org="cobertura" name="cobertura" rev="1.9.1" conf="test-cobertura->runtime"/>  
+    <dependency org="javancss" name="javancss" rev="29.50" conf="test-javancss->runtime"/>
+    <dependency org="checkstyle" name="checkstyle" rev="4.6" conf="test-checkstyle->runtime"/>
+    <dependency org="pmd" name="pmd" rev="4.2.5" conf="test-pmd->runtime"/>
+    <dependency org="ncicb" name="bda-utils" rev="${bda.version}" changing="true" conf="runtime"/>
+  </dependencies>
+</ivy-module>

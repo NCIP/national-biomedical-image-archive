@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<project name="ncia-jboss">
+
+  <!-- Wrapper target to deploy JBOSS container -->
+  <target name="install:jboss" 
+          unless="exclude.jboss"
+          depends="common:jboss:init,
+                   common:common:init,
+                   install:jboss:init,
+                   install:jboss:validation:pre-install,
+                   install:common:validation:pre-install,
+                   install:jboss:stop,
+                   install:jboss:validation:pre-install:ports,
+                   install:jboss:clean,
+                   install:jboss:binaries,
+                   install:jboss:ncia:re-configure,
+                   install:jboss:ncia,
+                   install:jboss:ncia:configure,
+                   install:jboss:configure,
+                   install:jboss:configure:log4j,
+                   install:jboss:post,
+                   install:jboss:start,
+                   install:jboss:validation:post-install" />
+
+
+  <target name="install:jboss:clean" unless="exclude.jboss">
+    <fail unless="application.base.path"/>
+    
+    <sleep seconds="5" />
+    <property name="backup.count" value="5"/>
+
+    <if>
+      <not>
+        <equals arg1="${exclude.jboss.backup}" arg2="true"/>
+      </not>
+      <then>
+        <!-- Jboss backup, do not compress until install is finished -->
+        <property name="backup.jboss.base.dir" 
+                  location="${application.base.path}/backup/jboss"/>
+
+        <!-- So these directories won't be included in the backup, they are not needed to use jboss --> 
+        <delete dir="${jboss.home}/server/${jboss.server.name}/work"/>
+        <delete dir="${jboss.home}/server/${jboss.server.name}/tmp"/>
+
+        <backup-dir
+          src.dir="${jboss.home}"
+          backup.base.dir="${backup.jboss.base.dir}"
+          backup.count="${backup.count}"
+          />
+      </then>
+    </if>
+    <delete dir="${jboss.home}"/>
+  </target>
+  
+  <target name="install:jboss:binaries" 
+          description="Unzip JBoss binary" 
+          unless="exclude.jboss"
+          depends="common:jboss:init, 
+                   common:common:init">
+          
+    <jboss-install-binaries/>
+    
+    <jboss-nci-customizations/>    
+  </target>
+    
+
+  <target name="install:jboss:ncia" 
+          description="Deploy NCIA ncia.ear, ncia-api.war and common libraries" 
+          unless="exclude.jboss"
+          depends="common:jboss:init, 
+                   common:common:init">
+          
+    <!-- added to ensure temp dirs are fresh for our install -->
+    <delete dir="${jboss.home}/server/${jboss.server.name}/tmp"/>
+    <delete dir="${jboss.home}/server/${jboss.server.name}/work"/>
+
+    <copy file="${basedir}/ncia-ear/ncia.ear" 
+          todir="${jboss.home}/server/${jboss.server.name}/deploy" 
+          overwrite="true" />
+    <copy file="${ncia-core-grid.dir.src}/${ncia-api.file.src}" 
+          tofile="${jboss.home}/server/${jboss.server.name}/deploy/${ncia-api.file.target}" 
+          overwrite="true" />
+    <copy file="${database.driver.file}" 
+          todir="${jboss.home}/server/${jboss.server.name}/lib" 
+          overwrite="true" />
+    <copy file="${bda-utils.dir}/clm-3.2.jar" 
+          todir="${jboss.home}/server/${jboss.server.name}/lib" 
+          overwrite="true" />
+  </target>
+
+  <target name="install:jboss:ncia:configure" 
+          description="Configure NCIA application" 
+          unless="exclude.jboss"
+          depends="common:jboss:init, 
+                   common:common:init">
+                   
+    <copy file="${jboss-conf.dir.dest}/properties-service.xml" 
+          todir="${jboss.home}/server/${jboss.server.name}/deploy" overwrite="true" >
+    </copy>
+    <copy file="${jboss-conf.dir.dest}/${resource.file.ds-xml}" 
+          todir="${jboss.home}/server/${jboss.server.name}/deploy" overwrite="true" >
+    </copy>
+
+    <!-- this is only necessary for remote search when secure nodes are in index service.  should be harmless otherwise -->             
+    <unzip dest="${jboss.home}/server/${jboss.server.name}/lib" 
+           src="${grid.resource.dir.src}/${resource.file.jboss-globus-lib}">             
+      <patternset>
+        <include name="**/puretls.jar"/>
+      </patternset>
+      <mapper type="flatten"/>
+    </unzip>
+           
+  </target>
+
+  <!-- only run this on a fresh install.... too hairy on upgrade.
+       just add some useful categories and let end user configure appenders etc. -->
+  <target name="install:jboss:configure:log4j" 
+          description="Configure custom entries in system wide log4j" 
+          unless="exclude.jboss" 
+          depends="common:jboss:init, 
+                   common:common:init">
+
+    <echo message="Configuring Log4J"/>
+
+    <property name="log4j.file.name" value="log4j.xml"/>
+    <copy file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}" 
+          tofile="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}.pre"/>
+
+    <replaceregexp file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      byline="true"
+      match="^(&lt;!DOCTYPE.*)"
+      replace="&lt;!\-\-\1\-\-&gt;"
+      />
+
+    <xmltask source="${jboss.home}/server/${jboss.server.name}/conf/log4j.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/conf/log4j.xml">
+      <xmlcatalog refid="bda.xml.catalog"/>
+      <insert path="/log4j:configuration/root" 
+              position="before"
+              file="${jboss-conf.dir.src}/log4j.block.xml"/>
+
+    </xmltask>
+    
+    <validate-log4j
+      log4j.file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      />                              
+
+    <replaceregexp file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      byline="true"
+      match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;"
+      replace="\1"
+      />
+  
+  </target>
+  
+  <target name="install:jboss:configure" 
+          description="Configure JBoss (bindings, login-config.xml, ect)" 
+          unless="exclude.jboss"
+          depends="common:jboss:init,
+                   common:common:init,
+                   -install:jboss:configure:jbossmq-dest,
+                   -install:jboss:remove:ejb3-deployer,
+                   -install:jboss:remove:jsf">
+    <!-- Calls the following macros
+    jboss-bindings - configures ports for jboss
+    jboss-login-config - sets up authentication
+    secure-jboss-console - adds password to jboss console apps
+    jboss-update-shutdown - updates shutdown.jar with correct jndi port so no args need to used 4 shutdown 
+    appserver-ssl-configure -  enables ssl
+    appserver-configure-external-hostname - configures jboss for use through a reverse proxy 
+    grid-secure-configure-connector - configures secure grid
+    -->
+    <jboss-configure
+      jboss.server.ports.name="${jboss.server.ports.name}"
+      jboss.server.binding.template.location="${jboss.server.binding.template.location}"
+      />
+      
+    <copy file="${jboss-conf.dir.src}/relationship.xml" 
+          tofile="${jboss.home}/server/${jboss.server.name}/data/relationship.xml" 
+          overwrite="true" />  
+    <copy file="${jboss-conf.dir.src}/DataSourceItem.xml" 
+          tofile="${jboss.home}/server/${jboss.server.name}/data/DataSourceItem.xml" 
+          overwrite="true" />       
+  </target>
+  
+  <!-- Remove JSF files that conflict with NCIA Application -->
+  <target name="-install:jboss:remove:jsf" 
+          description="Remove JSF library files from jbossweb to allow NCIA JSF to work" 
+          unless="exclude.jboss"
+          depends="common:jboss:init,
+                   common:common:init">
+                   
+    <delete file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb-tomcat55.sar/jsf-libs/myfaces-api.jar" 
+            failonerror="false" />
+    <delete file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb-tomcat55.sar/jsf-libs/myfaces-impl.jar" 
+            failonerror="false" />
+  </target>
+
+
+  <target name="-install:jboss:remove:ejb3-deployer" 
+          description="Remove ejb3 deployer which forces javassist on ncia-api" 
+          unless="exclude.jboss"
+          depends="common:jboss:init,
+                   common:common:init">
+                   
+    <delete dir="${jboss.home}/server/${jboss.server.name}/deploy/ejb3.deployer" 
+            failonerror="false" />
+
+  </target>
+
+
+  <!-- Configure NCIA MQ settings based on contents of ncia/software/resrouces/deploy/jbossmq-destinations-service.block.xml -->
+  <target name="-install:jboss:configure:jbossmq-dest" 
+          unless="exclude.jboss" 
+          depends="common:jboss:init,
+                   common:common:init">
+          
+    <property name="jboss-mq.block.file" value="${jboss-conf.dir.dest}/jbossmq-destinations-service.block.xml"/>
+
+    <xmltask source="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml">
+      <!-- no xmlcatalog necessary -->       
+      <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=imageQueue']"/>
+      <!-- in case its still there -->
+      <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=curationQueue']"/>
+    </xmltask>              
+    <xmltask failWithoutMatch="true" 
+             source="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml">
+      <!-- no xmlcatalog necessary -->                    
+      <insert path="/server" file="${jboss-mq.block.file}"/>
+    </xmltask>              
+
+  </target>
+
+
+  <!-- Calls to bda macros for basic functionality -->
+  <target name="install:jboss:stop" 
+          if="jboss.exists" 
+          unless="exclude.jboss" 
+          depends="common:jboss:init,
+                   common:common:init">
+    <jboss-stop-jboss jboss.server.jndi.port="${jboss.server.jndi.port}"/>
+    <jboss-stop-jboss />
+  </target>
+  
+  
+  <target name="install:jboss:start" 
+          unless="exclude.jboss" 
+          depends="common:jboss:init,
+                   common:common:init">
+    <if>
+      <not>
+        <isset property="exclude.start.servers"/>
+      </not>
+      <then>
+        <jboss-start-jboss />
+      </then>
+    </if>
+  </target>
+   
+  
+  <target name="-install:jboss:configure:update-shutdown" unless="exclude.jboss">
+    <jboss-update-shutdown />
+  </target>
+
+
+  <!-- Fixes hibernate dialect and other configurations in code generated at build time.  
+       This is requred because the properties/options selected at build time can be different 
+       than those used at install time. -->
+  <target name="install:jboss:ncia:re-configure" unless="exclude.jboss">
+    <!-- Clean up working area -->
+    <delete dir="${temp.dir}/ncia-ear"/>
+    <delete dir="${temp.dir}/ncia-war"/>
+    <delete dir="${temp.dir}/${ncia-api.file.src}"/>
+    <delete dir="${temp.dir}/nbia-dao-tmp"/>
+    <delete dir="${temp.dir}/imageZippingMDB-jar"/>
+
+    <!-- Make working directories -->
+    <mkdir dir="${temp.dir}/ncia-ear"/>
+    <mkdir dir="${temp.dir}/ncia-war"/>
+    <mkdir dir="${temp.dir}/${ncia-api.file.src}"/>
+    <mkdir dir="${temp.dir}/nbia-dao-tmp"/>
+    <mkdir dir="${temp.dir}/imageZippingMDB-jar"/>
+
+    <!-- Extract required archives -->
+    <unzip src="${basedir}/ncia-ear/ncia.ear" dest="${temp.dir}/ncia-ear"/>             
+    <unzip src="${temp.dir}/ncia-ear/ncia.war" dest="${temp.dir}/ncia-war"/>
+    <unzip src="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar" dest="${temp.dir}/nbia-dao-tmp"/>
+    <unzip src="${ncia-core-grid.dir.src}/${ncia-api.file.src}" dest="${temp.dir}/${ncia-api.file.src}"/>
+    <unzip src="${temp.dir}/ncia-ear/imageZippingMDB.jar" dest="${temp.dir}/imageZippingMDB-jar"/>
+    <unzip src="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar" dest="${temp.dir}/zip-dao-jar"/>
+    
+    <!-- sign jars if set to install time signing -->
+    <if>
+      <equals arg1="${jar-signing.execution.time}" arg2="install"/>
+      <then>
+        
+        <echo message="jar-signing.execution.time set to install, signing jars"/>  
+        
+        <!-- this is a hack to workaround bda trying to sign everything in a wars directory -->
+        <property name="temp.download-mgr-dependencies"
+                  location="${temp.dir}/ncia-war/download-mgr-dependencies/"/>
+        <copy file="${temp.dir}/ncia-war/NBIADownloadManager.jar"
+              todir="${temp.download-mgr-dependencies}"/>
+              
+        <unsignjar jar="${temp.download-mgr-dependencies}/bouncycastle-jdk1.3_1.25.jar"/>              
+        
+        <comma-separated-file-list directory.to.list="${temp.download-mgr-dependencies}"
+                                   property.name.to.set="jar-signing.jar.list"/>
+        <sign-jars jar-signing.execution.time="install_but_not_really"
+                   jars.dir="${temp.download-mgr-dependencies}"/>  
+                   
+        <copy file="${temp.download-mgr-dependencies}/NBIADownloadManager.jar"
+              todir="${temp.dir}/ncia-war/"
+              overwrite="true"/>
+        <delete file="${temp.download-mgr-dependencies}/NBIADownloadManager.jar"/>              
+      </then>
+      
+      <else>
+        <echo message="jar-signing.execution.time not set to install, not signing jars"/>
+      </else>
+    </if>      
+    
+    
+        <!-- Update hibernate configurations -->
+    
+    <xmltask source="${temp.dir}/nbia-dao-tmp/NCIA.csm.new.hibernate.cfg.xml"
+             dest="${temp.dir}/nbia-dao-tmp/NCIA.csm.new.hibernate.cfg.xml"
+             preservetype="true">
+      <xmlcatalog refid="bda.xml.catalog"/>
+      <replace path="//session-factory/property[@name='dialect']/text()" 
+               withtext="${database.dialect}" />
+    </xmltask>
+    <replaceregexp file="${temp.dir}/nbia-dao-tmp/hibernate.properties" 
+                   byline="true"
+                   match="^\s*hibernate.dialect\s\s*(.*)$"
+                   replace="hibernate.dialect ${database.dialect}"/>    
+    <replaceregexp file="${temp.dir}/nbia-dao-tmp/hibernate.properties" 
+                   byline="true"
+                   match="^\s*hibernate.connection.driver_class\s\s*(.*)$"
+                   replace="hibernate.connection.driver_class ${database.driver}"/>         
+             
+                   
+    <echo>Replace database type based on the deployment property. - ${database.type}</echo>
+    <replace file="${temp.dir}/ncia-war/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml" token="DB.TYPE" value="${database.type}" /> 
+      
+    <!--   add cancer center logo header if necessary -->
+    <if>
+      <or>
+        <not>
+          <isset property="cancer.center.logo"/>
+        </not>
+        <equals arg1="${cancer.center.logo}" arg2=""/>
+      </or>  
+      <then>  
+        <echo>No Cancer Center logo specified.  Substituting CCLOGO with empty string.</echo>
+        <replace file="${temp.dir}/ncia-war/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml" token="CCLOGO" value="" /> 
+      </then>
+      <else>
+        <basename property="cc.logo.filename" file="${cancer.center.logo}"/>
+        <copy file="${cancer.center.logo}" tofile="${temp.dir}/ncia-war/images/${cc.logo.filename}" />
+        <!-- in case no background image provided -->
+        <if>
+          <or>
+            <not>
+              <isset property="cancer.center.background" />
+            </not>
+            <equals arg1="${cancer.center.background}" arg2=""/>
+          </or>            
+          <then>
+            <property name="cancer.center.background" value="whitebg.jpg" />
+            <basename property="cc.bgimage.filename" file="${cancer.center.background}"/>
+          </then>
+          <else>
+            <basename property="cc.bgimage.filename" file="${cancer.center.background}"/>
+            <copy file="${cancer.center.background}" 
+                  tofile="${temp.dir}/ncia-war/images/${cc.bgimage.filename}" />
+          </else>
+        </if>
+
+        <basename property="cc.bgimage.filename" file="${cancer.center.background}"/>
+        <loadfile property="cc.logo.header" 
+                  srcFile="${temp.dir}/ncia-war/WEB-INF/facelets/layout/ccHeader.xhtml">
+          <filterchain>
+            <expandproperties/>
+           </filterchain>
+        </loadfile>
+
+        <echo>cc.logo.header=${cc.logo.header}</echo>
+        <replace file="${temp.dir}/ncia-war/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml" 
+                 token="CCLOGO" 
+                 value="${cc.logo.header}" />                      
+      </else>
+    </if>      
+    <!-- end of external cancer center logo header  -->
+    
+    
+    
+    <xmltask source="${temp.dir}/zip-dao-jar/applicationContext-hibernate.xml"
+             dest="${temp.dir}/zip-dao-jar/applicationContext-hibernate.xml"
+             preservetype="true">
+      <xmlcatalog refid="bda.xml.catalog"/>
+      <remove path="//:bean[@id='transactionManager']"/>
+      <insert path="/:beans"
+              xml="&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.transaction.jta.JtaTransactionManager&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;/&gt;"/>                             
+    </xmltask>
+    <delete file="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar"/>
+    <jar jarfile="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar" 
+         compress="false">
+      <fileset dir="${temp.dir}/zip-dao-jar/">
+        <include name="*/**" />
+      </fileset>
+    </jar>                    
+
+    <!-- Backup un-modified version of archives -->
+    <move file="${basedir}/ncia-ear/ncia.ear" 
+          tofile="${basedir}/ncia-ear/ncia.ear.orig"/>
+    <move file="${ncia-core-grid.dir.src}/${ncia-api.file.src}" 
+          tofile="${ncia-core-grid.dir.src}/${ncia-api.file.src}.orig"/>
+
+    <!-- Regenerate archives -->
+
+    
+    <delete file="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar"/>
+    <jar jarfile="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar" 
+         compress="false">
+      <fileset dir="${temp.dir}/nbia-dao-tmp">
+        <include name="*/**" />
+      </fileset>
+    </jar>
+
+    <copy file="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar"
+          tofile="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar"/>
+    <jar jarfile="${temp.dir}/ncia-ear/imageZippingMDB.jar" compress="false" manifest="${temp.dir}/imageZippingMDB-jar/META-INF/MANIFEST.MF">
+      <fileset dir="${temp.dir}/imageZippingMDB-jar">
+        <include name="*/**" />
+      </fileset>
+    </jar>    
+    
+    <war destfile="${temp.dir}/ncia-ear/ncia.war" compress="false" webxml="${temp.dir}/ncia-war/WEB-INF/web.xml" >
+      <fileset dir="${temp.dir}/ncia-war">
+        <include name="*/**" />
+      </fileset>
+    </war>
+
+    <ear compress="false" destfile="${basedir}/ncia-ear/ncia.ear" appxml="${temp.dir}/ncia-ear/META-INF/application.xml">
+      <fileset dir="${temp.dir}/ncia-ear">
+        <include name="*/**" />
+      </fileset>
+    </ear>
+
+    <war destfile="${ncia-core-grid.dir.src}/${ncia-api.file.src}" compress="false" webxml="${temp.dir}/${ncia-api.file.src}/WEB-INF/web.xml" >
+      <fileset dir="${temp.dir}/${ncia-api.file.src}">
+        <include name="*/**" />
+      </fileset>
+    </war>
+  </target>
+
+
+
+  <target name="upgrade:jboss" 
+          description="Wrapper target to call all targets required to upgrade jboss container." 
+          unless="exclude.jboss" 
+          depends="upgrade:jboss:init,
+                   common:common:init,
+                   upgrade-dac:jboss">
+  </target>
+
+          
+  <!-- Upgrade with Disposable Application Conttainer (DAC) -->
+  <target name="upgrade-dac:jboss" 
+          description="Wrapper target to call all targets required to upgrade jboss container." 
+          unless="exclude.jboss"
+          depends="upgrade:jboss:init,
+                   common:common:init, 
+                   common:jboss:init,
+                   install:jboss:validation:pre-install,
+                   install:common:validation:pre-install,
+                   install:jboss:stop,
+                   install:jboss:validation:pre-install:ports,
+                   install:jboss:clean,
+                   install:jboss:binaries,
+                   install:jboss:configure,
+                   install:jboss:ncia:re-configure,
+                   install:jboss:ncia,
+                   install:jboss:ncia:configure,
+                   upgrade:jboss:post,
+                   install:jboss:post,
+                   install:jboss:start,
+                   install:jboss:validation:post-install">              
+  </target>       
+                     
+
+  <target name="install:jboss:post" unless="exclude.jboss">
+
+
+    <if>
+      <not>
+        <equals arg1="${exclude.jboss.backup}" arg2="true"/>
+      </not>
+      <then>
+        <property name="jboss.changelogFile" location="${install-logs.dir}/changeLog-${install.time}.txt"/>
+        <property name="jboss.compare1.dir" location="${backup.jboss.base.dir}/backup/${jboss.relative.path}"/>
+        <property name="jboss.compare2.dir" location="${jboss.home}"/>
+        <report-dir-diff
+          dir1="${jboss.compare1.dir}"
+          dir2="${jboss.compare2.dir}"
+          reportFile="${jboss.changelogFile}"
+          />
+        <!-- Copy app server logs -->
+        <mkdir dir="${jboss.home}/server/${jboss.server.name}/log"/>
+        <mkdir dir="${backup.jboss.base.dir}/backup/${jboss.relative.path}/server/${jboss.server.name}/log"/>
+        <!-- so the logs wont be included in the zip --> 
+        <move todir="${jboss.home}/server/${jboss.server.name}/log">
+          <fileset dir="${backup.jboss.base.dir}/backup/${jboss.relative.path}/server/${jboss.server.name}/log">
+            <include name="*"/>
+          </fileset>
+        </move>
+
+        <!-- Compress backup and cleanup -->
+        <mkdir dir="${backup.jboss.base.dir}/backup1"/>
+        <zip destfile="${backup.jboss.base.dir}/backup1/${jboss.relative.path}.zip" basedir="${backup.jboss.base.dir}/backup" />
+        <delete dir="${backup.jboss.base.dir}/backup"/>
+      </then>
+    </if>
+  </target>
+
+  
+  <target name="upgrade:jboss:readers:custom">  
+
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.imaging.server.url"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+    
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.mapped.image.path.head"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.image.path.pattern"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.irw.address"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.irw.port"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.frontier.http.port"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.frontier.http.address"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.jboss.mq.url"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.zip.location"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>                                           
+
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.ftp.location"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>  
+
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.grid.local.node.name"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>  
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.ui.uid.display.length"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>  
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.ftp.url"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>  
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.JBoss.publicUrl"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+    <!-- this property bucks the trend.... -->
+    <var name="gov.nih.nci.ncia.jboss.public.url" value="${gov.nih.nci.ncia.JBoss.publicUrl}"/>
+    
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.admin.email"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+                                           
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.mail.server.host"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+    <!-- this property bucks the trend.... -->
+    <var name="mail.smtp.server" value="${gov.nih.nci.ncia.mail.server.host}"/>
+    
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.installationSite"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>                                            
+
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.fileRetentionPeriodInDays"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/>      
+                                           
+    <!-- for 4.2 -->
+    <read-property-from-properties-service property.name="enabled_guest_account"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+                                           
+    <read-property-from-properties-service property.name="guest_username"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+       
+    <!-- for 4.3 -->
+    <read-property-from-properties-service property.name="gov.nih.nci.ncia.download.server.url"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+    <read-property-from-properties-service property.name="enable_classic_download"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+    <read-property-from-properties-service property.name="registration.email.subject"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+                
+          
+     <!-- for 4.4 -->
+    <read-property-from-properties-service property.name="local.grid.uri"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+    <read-property-from-properties-service property.name="grid.index.url"
+                                           properties-service-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/properties-service.xml"/> 
+           
+                                           
+    <echoproperties/>
+  
+  </target>
+
+  <target name="upgrade:jboss:readers:bda">
+    <!-- Make sure the ${properties.file} has at least the following props -->
+    <properties-exist
+            properties.list="application.base.path,jboss.home,jboss.server.name"
+            />
+    <!-- Set these -->
+    <osfamily property="os.family"/>
+    <if>
+      <or>
+        <equals arg1="${os.family}" arg2="unix"/>
+        <equals arg1="${os.family}" arg2="mac"/>
+      </or>
+      <then>
+        <property name="jboss.server.hostname" value="${env.HOSTNAME}"/>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${os.family}" arg2="windows"/>
+      <then>
+        <property name="jboss.server.hostname" value="${env.COMPUTERNAME}"/>
+      </then>
+    </if>
+    <!-- Begin JBoss Readers -->
+    <var name="read.properties.list" value=""/>
+    <!-- Reader reqiures that you have only one data source defined in each *-ds.xml file -->
+    <jboss-read-dbconfig
+            jboss.ds-xml.file="${resource.file.ds-xml}"
+            />
+    <jboss-read-ldapconfig
+            />
+    <jboss-read-bindings-file-location
+            />
+    <jboss-read-ports
+            />
+                         
+    <!-- Setting this variable will cause install to copy it into place if using CM/DAC, not modified in NCM -->
+    <var name="jboss.ssl.keystore.dir" value="${working.dir}/keys/jboss"/>
+    <jboss-read-ssl
+            copied.keystore.dir="${jboss.ssl.keystore.dir}"
+            />
+    <jboss-read-external-hostname
+            />
+    <!-- for tier installs, should be done first, since it is set first it will be the one used if it exists -->
+    <jboss-read-java_opts
+            jboss.bin.dir="${jboss.home}/server/${jboss.server.name}/bin"
+            />
+    <jboss-read-java_opts
+            />
+    <!-- will have to add code to install:post:jboss to copy this back if exists -->
+    <property name="copied.jboss.log4j.dir" value="${working.dir}/copied-log4j"/>
+    <jboss-copy-log4j
+            copied.jboss.log4j.dir="${copied.jboss.log4j.dir}"
+            />
+
+    <echo message="All properties after readers"/>
+    <properties-print
+            properties.list="${read.properties.list},jboss.server.hostname"
+            />
+    <properties-exist
+            properties.list="${read.properties.list},jboss.server.hostname"
+            />
+    <properties-write
+            properties.list="${read.properties.list},jboss.server.hostname"
+            />
+  </target>
+  
+
+  <target name="install:jboss:init" 
+          depends="common:common:init:pre"> 
+          
+    <!-- determine if port configurations or port lists are being called -->
+    <if>                            
+      <isset property="jboss.ncicb-standard.port-config"/>
+      <then>                          
+        <!-- Read some port properties from standard bindings file -->
+        <echo message="Using JBoss NCICB Standard port configurations"/>
+        <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+        <jboss-read-ports                       
+          jboss.server.bindingfile.location="${jboss.server.binding.template.location}"
+          />                              
+        <echo message="http -${jboss.server.port} "/>
+        <echo message="http -${jboss.server.jndi.port} "/>
+        <properties-exist
+          properties.list="jboss.server.jndi.port,jboss.server.port,jboss.server.ports.name"
+          />                              
+        <!-- Make sure there are not unexpanded tokens and that the jboss.server.ports.name is a configuration in the bindings file. -->
+        <jboss-bindings-validate                
+          jboss.server.bindingfile.location="${jboss.server.binding.template.location}"
+          />                                      
+      </then>
+      <else>
+        <!-- else ensure that all ports are set, since these will be removed from install-properties.template we will verify here.  They have to be removed so the validator works with or without the properties or we have to change the format of the file. -->
+        <echo message="Using custom JBoss port configurations"/>
+        <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+        <properties-exist
+          properties.list="jboss.server.jndi.port,jboss.server.port,jboss.cobraorb.port,jboss.ejbinvoker.port,jboss.hajndi.port,jboss.hajrmi.port,jboss.jms.port,jboss.jmx-rmi.port,jboss.messaging.port,jboss.pooledha.port,jboss.remoting.port,jboss.server.bind.port,jboss.server.rmi.port,jboss.service.rmiobject.port,jboss.snmp.port,jboss.snmp-trapd.port,jboss.web.service.port"
+          />
+      </else>
+    </if>
+  </target>
+  
+  
+  <target name="common:jboss:init"
+          depends="common:common:init:pre, keygen" 
+          unless="exclude.jboss">
+          
+    <math result="jboss.ssl.port" operand1="${jboss.server.port}" operation="+" operand2="363" datatype="int"/>
+    
+    <property name="jboss.ssl.enable" value="false"/>
+    <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+    <property name="jboss.application.url" value="http://${jboss.server.hostname}:${jboss.server.port}/ncia"/>
+    
+    <available file="${jboss.home}/server/${jboss.server.name}/conf/jboss-service.xml" property="jboss.exists"/>
+    <basename file="${jboss.ssl.keystore.location}" property="jboss.ssl.keystore.file"/>
+    <dirname file="${jboss.ssl.keystore.location}" property="jboss.ssl.keystore.dir"/>
+    <basename file="${jboss.grid.secure.cert.location}" property="jboss.grid.secure.cert.file"/>
+    <dirname file="${jboss.grid.secure.cert.location}" property="jboss.grid.secure.dir"/>
+    <basename file="${jboss.grid.secure.key.location}" property="jboss.grid.secure.key.file"/>
+    
+    <property name="jboss.socket.ports" 
+              value="${jboss.server.port},${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}"/>
+  </target>
+
+  
+  <target name="upgrade:jboss:init" 
+          depends="upgrade:jboss:init:prep,
+                   upgrade:jboss:readers:bda,
+                   upgrade:jboss:readers:custom">              
+    <properties-print       
+      properties.list="${read.properties.list}"
+      />              
+    <properties-exist       
+      properties.list="${read.properties.list}"
+      />              
+    <properties-write       
+      properties.list="${read.properties.list}"
+      />      
+    
+    <special-copy-for-upgrade/>        
+  </target>
+  
+  
+  <target name="upgrade:jboss:init:prep" 
+          depends="common:common:init,
+                   upgrade:common:init:prep"> 
+          
+    <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+    <if>            
+      <equals arg1="${jboss.ncicb-standard.port-config}" arg2="true"/>
+      <then>                  
+        <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+      </then>                 
+      <else>                  
+        <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+      </else>                 
+    </if>           
+
+    <!-- Upgrades always use port configs -->
+    <!--
+    <property name="jboss.ncicb-standard.port-config" value="true"/>
+      -->
+    <available file="${jboss.home}" property="jboss.exists"/>
+    <property name="read.jboss.home" value="${jboss.home}"/>
+
+  </target>
+
+
+  <target name="install:jboss:validation:pre-install" 
+          description="Runs pre-install validation checks bda-utils"
+          depends="common:jboss:init,
+                   common:common:init,
+                   install:common:validation:pre-install">
+    <validate-pre-install-jboss
+      property.exclude.pattern.list="tomcat.*,grid.*,ctp.*,ncia-core-grid.*"
+      />
+  </target>
+
+
+  <target name="install:jboss:validation:pre-install:ports" 
+          description="Checks to see if configured ports are listenting and fails buld, meant to be run after jboss:stop"
+          depends="common:common:init,
+                   install:jboss:stop">
+    <validate-pre-jboss-ports
+      />
+  </target>
+  
+  <target name="install:jboss:validation:post-install" description="Run post-install checks from bda-utils"
+    depends="
+    common:jboss:init,
+    common:common:init,
+    install:jboss:start
+    ">
+    <if>
+      <not>
+        <isset property="exclude.start.servers"/>
+      </not>
+      <then>
+        <validate-post-jboss />
+      </then>
+    </if>
+  </target>
+
+
+  <target name="upgrade:jboss:post">
+    <copy file="${copied.jboss.log4j.dir}/log4j.xml" todir="${jboss.home}/server/${jboss.server.name}/conf"/>
+
+  </target>
+  
+  
+</project>

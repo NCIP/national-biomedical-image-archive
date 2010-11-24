@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- bda-build-template version 1.6.6        -->
+<!--
+$Id: build.xml 2878 2010-07-07 19:12:06Z saksass $
+$HeadURL: https://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.6.6/software/bda-build-template/software/build/build.xml $
+-->
+
+<project name="build-bda-template" default="build:all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
+  <description>
+    This build file is part of the bda-build-template project.  This is the master build file for the project.  It should be placed in project/software/.  This script wrappers sub projects to build, test and inspect code.  Additionally this project manges creation of distributions and deployment locally or remotely.  Deployments will call the install.xml from the distribution to install or upgrade the application.  Lastly this script will run include targets that require manipulation of containers (selenium tests because they require starting the application server container (and require a fully deployed application which this process is responsible for). This build script assumes two sub-projects aim-webapp and aim-api. The API targets are commented out and can be removed if not needed.  Also support for both tomcat and jboss download, install and configure are included.  These scripts require Java, Ant, Database and SVN to work.
+  </description>
+
+  <!-- Property file related properties and tasks -->
+  <property environment="env" />
+  <!-- The project.properties stores properties that are shared between both build.xml and install.xml. Typically properties that are related to the distribution directories, or files. -->
+  <property file="local.properties" />
+  <property file="project.properties" />
+  <property name="properties.file" value="install.properties"/>
+  <property name="properties.file.location" location="${properties.file}"/>
+  <property name="upgrade.properties.file" value="upgrade.properties"/>
+  <echo message="Using properties file of ${properties.file}." />
+  <available file="${properties.file}" property="properties.file.exists" />
+  <!--<fail unless="properties.file.exists" message="The properties.file ${properties.file} does not exist, please make sure that you pass in an accurate file name with the 'ant -Dproperties.file=somepath/somefile', otherwise the build will fail." /> -->
+
+  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=(.*[\w\d\/\{\}\\]+)[ \t]+\r*$" replace="\1=\2" />
+  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=[ \t]+(.*[\w\d\/\{\}\\]+)\r*$" replace="\1=\2" />
+  <property file="${properties.file}" />
+
+  <!-- Set application.base.path based on platform -->
+  <condition property="application.base.path" value="${application.base.path.linux}">
+    <or>
+    <os family="unix" />
+      <os family="mac" />
+    </or>
+  </condition>
+
+  <condition property="application.base.path" value="${application.base.path.windows}">
+    <os family="windows" />
+  </condition>
+  <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+
+
+  <!-- added for remote deployments since file is copied to root of install dir -->
+  <basename property="properties.file.name" file="${properties.file}" />
+
+  <!-- BDA standard structure -->
+  <property name="build.dir" location="." />
+  <property name="software.dir" location=".." />
+  <property name="common.dir" location="${software.dir}/common" />
+  <property name="local.repo.dir" location="${software.dir}/local-ivy-repo" />
+  <property name="target.dir" location="${software.dir}/target" />
+  <property name="bda-download.dir" location="${common.dir}/bda-download" />
+  <property name="ivy.settings.dir" location="${common.dir}/ivy" />
+  <property name="lib.dir" location="${target.dir}/lib" />
+  <property name="temp.dir" location="${target.dir}/temp" />
+  <property name="reports.dir" location="${target.dir}/reports" />
+  <property name="bda-utils.dir" location="${target.dir}/bda-utils" />
+  <property name="log.dir" location="${target.dir}/logs" />
+  <property name="dist.dir" location="${target.dir}/dist" />
+  <property name="download.dir" location="${target.dir}/download" />
+  <property name="pt.dir" location="${target.dir}/persistent-transient" />
+  <property name="working.dir" location="${target.dir}/working" />
+
+
+  <!-- Ivy Related props -->
+  <property name="ivy.settings.file" value="ivy-settings.xml" />
+
+  <!-- Properties that relate to how to call build targets from sub-projects-->
+  <!-- Working directory passed to Ant tasks -->
+  <property name="grid.base.dir" value="${software.dir}/aim-data-service" />
+
+  <!-- Build file names relative working dir above, if the basedir of the sub-project ant script is ".." you should set the *.basdir to and the build file should include the dir and build file name from the *.base.dir -->
+  <property name="grid.build.file" value="build.xml" />
+
+  <!-- The target name that should be called from the sub-project build file -->
+  <property name="grid.build.target" value="deployJBoss" />
+
+  <!-- Maven comamnd line arguments, bda profile is inside profiles.xml that gets copied to ear folder before build to override exiting properties -->
+
+  <!-- Added to make sure that it works with both absolute and relative paths, this property is handed to sub-project scripts in absolute format. -->
+  <property name="jar-signing.keystore.abs-location" location="${jar-signing.keystore.location}"/>
+
+  <!-- Used by dist:*:prep to determin list of files to use for incremental build process.
+    Directory and files must be in svn to work.
+  -->
+  <property name="db.src.dir" value="${software.dir}/db" />
+  <!--
+  <property name="db-install.src.dir" value="${db.src.dir}/db-install" />
+  <property name="db-upgrade.src.dir" value="${db.src.dir}/db-upgrade" />
+  -->
+  <property name="grid.dist.relative.dir" value="grid" />
+
+  <!-- Distribution Structure properties, used to copy files into the distribution area.
+           Use project.propertie relative dir names becasue they are used by install also-->
+  <property name="dist.exploded.dir" value="${dist.dir}/exploded" />
+  <property name="grid.dist.dir" value="${dist.exploded.dir}/${grid.dist.relative.dir}"/>  
+  <property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
+  <property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}" />
+  <property name="db.dist.dir" value="${dist.exploded.dir}/db" />
+  <!--
+  <property name="db-install.dist.dir" value="${dist.exploded.dir}/${db-install.dist.relative.dir}" />
+  <property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/${db-upgrade.dist.relative.dir}" />
+  -->
+  <property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
+
+  <!-- Selenium settings -->
+  <property name="selenium.jar" value="${lib.dir}/test-selenium/selenium-server-1.0-beta-1.jar" />
+  <property name="selenium.browser" value="*iexplore" />
+  <!--  What you would need for a ci server, recommend setting in local.properties
+  <property name="selenium.browser" value="*firefox /usr/lib64/firefox-1.5.0.12/firefox-bin"/>
+  -->
+  <property name="selenium.proxy.port" value="4444" />
+  <property name="selenium.report.dir" value="${reports.dir}/selenium" />
+  <property name="selenium.report.file" value="selenium-rpt.html" />
+  <property name="selenium.test.dir" value="${software.dir}/tests/functional/selenium" />
+  <property name="selenium.test.suite" value="${selenium.test.dir}/bdaTestSuite.html" />
+  <property name="selenium.url" value="http://${jboss.server.hostname}:${jboss.server.port}" />
+
+  <!-- Where to write files retrieved by get, into the distribution area.  The file names come from project.properties  -->
+  <property name="jboss.dest.file" value="${download.dir}/${jboss.binaries.file}" />
+  <property name="jbosscp.dest.file" value="${download.dir}/${jbosscp.binaries.file}" />
+  <property name="cagrid-libs.dest.file" value="${download.dir}/${cagrid-libs.binaries.file}" />
+  <property name="cagrid-base-war.dest.file" value="${download.dir}/${cagrid-base-war.binaries.file}" />
+  <property name="cagrid-console.dest.file" value="${download.dir}/${cagrid-console.binaries.file}" />
+  <property name="cagrid.target.co.dir" location="${target.dir}/cagrid-target"/>
+
+  <!-- Default install time targets passed by deploy targets to the installer, can be overridden by being set on the command line if different target is desitred.  -->
+  <property name="install.target" value="install" />
+  <property name="upgrade.target" value="upgrade" />
+
+  <!-- Where grand stores it's outputed pdf reports of build files -->
+  <property name="grand.rpt.dir" value="${common.dir}/grand" />
+  <!-- Hot deploy variables -->
+  <property name="jboss.deploy.dir"  value="${jboss.home}/server/${jboss.server.name}/deploy"/>
+  <property name="aim.name"  value="aim"/>
+
+  <property name="resource.artifact.dir" value="${software.dir}/common/resources" />
+
+  <!-- retrive ivy.jar.files then retrieve bda files and librarires -->
+  <condition property="commonlibrary.dir" value="">
+    <or>
+    <os family="unix" />
+      <os family="mac" />
+    </or>
+  </condition>
+
+  <condition property="commonlibrary.dir" value="c:/">
+    <os family="windows" />
+  </condition>
+
+  <condition property="local.cbiit-ivy-repo.dir" value="">
+    <or>
+    <os family="unix" />
+      <os family="mac" />
+    </or>
+  </condition>
+
+  <condition property="local.cbiit-ivy-repo.dir" value="c:/">
+    <os family="windows" />
+  </condition>
+
+  <property name="bda-download.file" value="bda-ivy-2.0.0-build.xml" />
+  <!--
+  <mkdir dir="${bda-download.dir}" />
+  <property name="bda-download.src.url" value="http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/${bda-download.file}" />
+  <get src="${bda-download.src.url}" dest="${bda-download.dir}/${bda-download.file}" />
+  -->
+  <ant inheritAll="false" inheritRefs="false" antfile="${bda-download.file}" target="retrieve-bda" dir="${bda-download.dir}">
+    <property name="bda.version" value="${bda.version}" />
+    <property name="bda-utils.dir" location="${bda-utils.dir}" />
+    <property name="lib.dir" location="${lib.dir}" />
+    <property name="software.dir" location="${software.dir}" />
+    <property name="commonlibrary.dir" location="${commonlibrary.dir}" />
+    <!-- Use below for old ivy repo -->
+    <!--<property name="ivy.settings.file" value="ivy-bda-settings.xml"/>-->
+    <!-- Use below for new ivy repo -->
+    <property name="ivy.settings.file" value="cbiit-ivy-bda-settings.xml"/>
+    <property name="target.dir" location="${target.dir}"/>
+    <property name="local.cbiit-ivy-repo.dir" value="${local.cbiit-ivy-repo.dir}"/>
+  </ant>
+  
+  <!-- Paths -->
+  <path id="bda-utils.classpath">
+    <fileset dir="${bda-utils.dir}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+  <path id="ivy.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Task definitions -->
+  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath" />
+  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="bda-utils.classpath"/>
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="bda-utils.classpath"/>
+
+  <!-- Includes- include BDA marcos -->
+  <if>
+    <equals arg1="${bda.debug}" arg2="true"/>
+    <then>
+      <echoproperties > <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+    </then>
+  </if>
+  <import file="${bda-utils.dir}/bda-build-utils-${bda.version}.xml" />
+
+  <!-- Start logging -->
+  <mkdir dir="${log.dir}" />
+  <tstamp>
+    <format property="install.time" pattern="yyyy-MM-dd-HH-mm-ss" />
+  </tstamp>
+  <record name="${log.dir}/install-${install.time}.log" action="start" />
+  
+  <!-- Echo properties to catch AHP variables at build time-->
+  <if>
+    <equals arg1="${bda.debug}" arg2="true"/>
+    <then>
+      <echoproperties > <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+    </then>
+  </if>
+  <!-- Fix first time build issue -->
+  <mkdir dir="${download.dir}"/>
+
+  <!-- Targets -->
+
+
+  <target name="diagnostics" description="diagnostics">
+    <echoproperties  > <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+    <diagnostics />
+  </target>
+
+  <target name="clean">
+    <delete dir="${dist.dir}" />
+    <delete dir="${temp.dir}" />
+  </target>
+
+  <target name="init" description="Sets up build are and initalizes variables">
+    <echo message=" ______   ______   _______ " />
+    <echo message="(____  \ (______) (_______)" />
+    <echo message=" ____)  ) _     _  _______ " />
+    <echo message="|  __  ( | |   | ||  ___  |" />
+    <echo message="| |__)  )| |__/ / | |   | |" />
+    <echo message="|______/ |_____/  |_|   |_|" />
+    <mkdir dir="${target.dir}" />
+    <mkdir dir="${dist.dir}" />
+    <mkdir dir="${dist.exploded.dir}" />
+    <mkdir dir="${grid.dist.dir}"/>
+    <mkdir dir="${common.dist.dir}" />
+    <mkdir dir="${tools.dist.dir}" />
+    <mkdir dir="${temp.dir}" />
+    <mkdir dir="${download.dir}" />
+    <mkdir dir="${pt.dir}" />
+
+    <available file="${jboss.dest.file}" property="jboss.tools.exists" />
+    <available file="${jbosscp.dest.file}" property="jbosscp.tools.exists" />
+    <available file="${cagrid-libs.dest.file}" property="cagrid-libs.tools.exists" />
+    <available file="${cagrid-base-war.dest.file}" property="cagrid-base-war.tools.exists" />
+    <available file="${cagrid-console.dest.file}" property="cagrid-console.tools.exists" />
+    <!-- If jboss is required to build, then check for jboss in jboss.home, then check for in jboss in working directory, if not found then download it into this that directory.  If found at any point set local.jboss.home to where it is found.  This can be passed to sub-projects so then can compile code against distribution.  This is especially important on AntHillPro server which will not have jboss present, thus will have to use a copy in the working area.  This also makes it easier to start the project, if the developer does not yet have jboss installed, build will download it and install it so build can proceed. -->
+    <if>
+      <equals arg1="${require.jboss}" arg2="true" />
+      <then>
+        <available file="${jboss.home}/lib/commons-httpclient.jar" property="rt.jboss.exists" />
+        <if>
+          <isset property="rt.jboss.exists" />
+          <then>
+            <property name="local.jboss.home" location="${jboss.home}" />
+            <echo message="JBOSS_HOME exists ${jboss.home}" />
+          </then>
+          <else>
+            <property name="local.jboss.home" location="${pt.dir}/${jboss.binaries.relative.dir}" />
+            <available file="${local.jboss.home}/lib/commons-httpclient.jar" property="local.jboss.exists" />
+            <echo message="JBOSS_HOME does not exist checking for LOCAL_JBOSS_HOME ${local.jboss.home}" />
+            <if>
+              <not>
+                <isset property="local.jboss.exists" />
+              </not>
+              <then>
+                <echo message="LOCAL_JBOSS_HOME not found downloading." />
+                <antcall target="dist:tools:retrieve:jboss" />
+                <java jar="${tools.dir}/${jboss.binaries.file}" fork="true">
+                  <arg line="-installGroup ejb3 installpath=${local.jboss.home}" />
+                </java>
+              </then>
+              <else>
+                <echo message="LOCAL_JBOSS_HOME found ${local.jboss.home}" />
+              </else>
+            </if>
+          </else>
+        </if>
+
+      </then>
+    </if>
+  </target>
+
+  <target name="ivy:clean" description="Cleans up the ivy cache of this project and all sub-projects">
+    <ivy:settings file="${ivy.settings.dir}/${ivy.settings.file}" />
+    <ivy:cleancache />
+    <ant inheritAll="false" inheritRefs="false" antfile="bda-ivy-2.0.0-build.xml" target="ivy-cleancache" dir="${bda-download.dir}">
+      <property name="bda-utils.dir" value="${bda-utils.dir}" />
+      <property name="lib.dir" value="${lib.dir}" />
+      <property name="software.dir" value="${software.dir}" />
+    </ant>
+    <!--
+    <ant inheritAll="false" inheritRefs="false" antfile="${aim-webapp.build.file}" target="ivy-clean" dir="${aim-webapp.base.dir}" />
+    -->
+  </target>
+
+  <target name="validate:pre:build">
+    <validate-pre-build/>
+  </target>
+
+  <target name="build:all" 
+          description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" 
+          depends="validate:pre:build,
+                   clean,
+                   init,
+                   keygen,
+                   build:grid">
+  </target>
+
+
+  <target name="build:grid">
+
+    <delete dir="${grid.base.dir}/build"/>
+    <delete dir="${grid.base.dir}/target"/>
+    <mkdir dir="${grid.base.dir}/target"/>
+    
+    <ant inheritAll="false"
+         inheritRefs="false" 
+         antfile="${grid.build.file}"
+         target="${grid.build.target}"
+         dir="${grid.base.dir}">
+      <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
+      <property name="env.JBOSS_HOME" value="${grid.base.dir}/target"/>
+      <property name="jboss.dir" value="${grid.base.dir}/target"/>    
+      <property name="no.deployment.validation" value="true"/>
+    </ant>
+    
+   
+    <!-- 
+      this is necessary to get cagrid patched versions of wsrf core
+      see: http://www.cagrid.org/display/knowledgebase/Manually+Configure+JBoss+Container 
+      -->
+    <ant inheritAll="false" 
+         inheritRefs="false" 
+         antfile="jboss.xml"
+         target="deployJBoss"
+         dir="${resource.artifact.dir}/grid/jboss">
+      <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
+      <property name="env.JBOSS_HOME" value="${grid.base.dir}/target"/>
+      <property name="jboss.dir" value="${grid.base.dir}/target"/>     
+      <property name="no.deployment.validation" value="true"/>
+    </ant>
+ 
+    
+    <zip update="false" 
+         destfile="${grid.dist.dir}/${grid.artifact.file}">
+      <zipfileset dir="${grid.base.dir}/target/server/default/deploy/wsrf.war/"/>
+    </zip>    
+
+       
+  </target>
+
+
+  <target name="dist" 
+          description="Makes all distributions: installer, upgrader and source" 
+          depends="build:all,
+                   dist:installer,
+                   dist:upgrader">
+  </target>
+
+
+  <target name="dist:tools:retrieve" description="Downloads binary applications from commonlibrary repository" depends="
+    init,
+     dist:tools:retrieve:jboss,
+     dist:tools:retrieve:jbosscp,
+     dist:tools:retrieve:jboss-bindings,
+     dist:tools:retrieve:cagrid,
+     dist:tools:retrieve:cagrid-console,
+     dist:tools:retrieve:cagrid-target,
+     dist:tools:retrieve:grid:cgmm,
+     dist:tools:retrieve:grid:sync-gts
+    " >
+  </target>
+
+  <target name="dist:tools:retrieve:jbosscp" unless="jbosscp.tools.exists" description="Downloads JBOSS Cumulative Patch from binary repository and verifies checksum">
+    <echoproperties  prefix="jbosscp"> <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+    <if>
+      <isset property="jbosscp.src.url"/>
+      <then>
+        <get src="${jbosscp.src.url}" dest="${jbosscp.dest.file}" />
+      </then>
+      <else>
+        <echo message="jbosscp.src.url not set skipping download of jboss cumulative patch"/>
+      </else>
+    </if>
+  </target>
+
+  <target name="dist:tools:retrieve:jboss" unless="jboss.tools.exists" description="Downloads JBOSS from binary repository and verifies checksum">
+    <get src="${jboss.src.url}" dest="${jboss.dest.file}" />
+    <get src="${jboss.src.url}.MD5" dest="${jboss.dest.file}.MD5" />
+    <checksum file="${jboss.dest.file}" verifyProperty="jboss.cksum.ok" />
+    <if>
+      <equals arg1="${jboss.cksum.ok}" arg2="true" />
+      <then>
+        <echo message="Downloaded jboss sucessfully" />
+      </then>
+      <else>
+        <fail message="Failed to download jboss file sucessfully." />
+      </else>
+    </if>
+  </target>
+
+  <target name="dist:tools:retrieve:cagrid" unless="cagrid-libs.tools.exists" description="Downloads JBOSS from binary repository and verifies checksum">
+    <get src="${cagrid-libs.src.url}" dest="${cagrid-libs.dest.file}" />
+    <get src="${cagrid-base-war.src.url}" dest="${cagrid-base-war.dest.file}" />
+  </target>
+
+  <target name="dist:tools:retrieve:cagrid-console" description="Downloads JBOSS from binary repository and verifies checksum">
+    <if>
+      <not>
+        <available file="${cagrid-console.dest.file}"/>
+      </not>
+      <then>
+        <get src="${cagrid-console.src.url}" dest="${cagrid-console.dest.file}" />
+      </then>
+    </if>
+    <property name="cagrid-console.dist.dir" location="${dist.exploded.dir}/${cagrid-console.dist.relative.dir}"/>
+    <unzip src="${cagrid-console.dest.file}" dest="${dist.exploded.dir}"/>
+    <replaceregexp file="${cagrid-console.dist.dir}/ivy-build.xml" byline="true"
+      match="override=.true."
+      replace=""
+      />
+    <replaceregexp file="${cagrid-console.dist.dir}/ivy-build.xml" byline="true"
+      match="id=.ivy.instance."
+      replace=""
+      />
+    <!--
+    <ant inheritAll="false" inheritRefs="false" 
+      antfile="build.xml"
+      target="deployJBoss"
+      dir="${cagrid-console.dist.dir}"
+      >
+      <property name="jboss.dir" value="${tmp.jboss.dir}"/>
+    </ant>
+    -->
+  </target>
+
+  <target name="dist:tools:retrieve:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
+    <get src="${jboss-bindings.src.url}" dest="${dist.exploded.dir}/${jboss-bindings.file}" />
+  </target>
+
+  <target name="dist:tools:retrieve:grid:sync-gts"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum" depends="dist:tools:retrieve:cagrid-target">
+    <if>
+      <not>
+        <available file="${download.dir}/${sync-gts.binaries.file}"/>
+      </not>
+      <then>
+        <get src="${sync-gts.src.url}" dest="${download.dir}/${sync-gts.binaries.file}" />
+      </then>
+    </if>
+    <property name="sync-gts.dist.dir" location="${dist.exploded.dir}/${sync-gts.dist.relative.dir}"/>
+    <unzip src="${download.dir}/${sync-gts.binaries.file}" dest="${sync-gts.dist.dir}"/>
+    <!--
+    <ant inheritAll="false" inheritRefs="false" 
+      antfile="build.xml"
+      target="all"
+      dir="${sync-gts.dist.dir}/syncgts"
+      />
+    -->
+  </target>
+
+  <target name="dist:tools:retrieve:cagrid-target">
+    <mkdir dir="${cagrid.target.co.dir}"/>
+    <if>
+      <not>
+        <available file="${cagrid-target.src.url}"/>
+      </not>
+      <then>
+        <mkdir dir="${cagrid.target.co.dir}"/>
+        <svn-co
+          svn.checkout.url="${cagrid-target.src.url}"
+          svn.checkout.dir="${cagrid.target.co.dir}"
+          delete="false"
+          />
+      </then>
+    </if>
+    <copy todir="${dist.exploded.dir}/cagrid-target">
+      <fileset dir="${cagrid.target.co.dir}"/>
+    </copy>
+  </target>
+
+  <target name="dist:tools:retrieve:grid:cgmm" if="jboss.cgmm.enable">
+    <ivy-retrieve-cgmm
+      />
+    <copy todir="${dist.exploded.dir}/cgmm-libs">
+      <fileset dir="${lib.dir}">
+        <include name="cgmm/*"/>
+        <include name="jboss-default-lib/*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="dist:installer:prep" 
+          depends="build:all,
+                   dist:tools:retrieve,
+                   dist:tools:retrieve:jboss-bindings" 
+          description="Copies artifacts not generated by sub-project builds into the install distribution area">
+
+    <copy todir="${db.dist.dir}" overwrite="true">
+      <fileset dir="${db.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. Because of this fact these files were not moved to the macro. -->
+    <!--
+    <copy todir="${db-install.dist.dir}" overwrite="true">
+      <fileset dir="${db-install.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <copy todir="${db-upgrade.dist.dir}" overwrite="true">
+      <fileset dir="${db-upgrade.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    -->
+    <dist-prep />
+    <copy todir="${tools.dist.dir}">
+      <fileset dir="${download.dir}">
+        <include name="cagrid*"/>
+      </fileset>
+    </copy>
+    <if>
+      <equals arg1="${jar-signing.execution.time}" arg2="install"/>
+      <then>
+        <copy file="${jar-signing.keystore.abs-location}" todir="${dist.exploded.dir}"/>
+      </then>
+    </if>
+  </target>
+
+  <target name="dist:installer" depends="dist:installer:prep" description="Produces zip file based on installer distribution area. Zip is used by deploy:remote:* or external installations">
+    <delete file="${dist.dir}/${aim-webapp.install.zip.file}" />
+    <!-- Set environment name to external -->
+    <delete file="${dist.exploded.dir}/upgrade.properties"/>
+    <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true" match="^(env.name)=.*" replace="\1=external" />
+    <obfuscate-properties-file
+      properties.file="${dist.exploded.dir}/install.properties"
+      required.property.list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname"
+      optional.property.list="ldap.url,ldap.basedn"
+      delete.property.list="exclude.jboss.backup"
+      />
+    <zip destfile="${dist.dir}/${aim-webapp.install.zip.file}" basedir="${dist.exploded.dir}" />
+  </target>
+
+  <target name="dist:upgrader:prep" depends="build:all,dist:tools:retrieve" description="Copies artifacts not generated by sub-project builds into the install distribution area">
+  <!-- for DAC Upgrades (above)  -->
+  <!-- For non DAC upgrades (below)
+  <target name="dist:upgrader:prep" depends="build:all,dist:tools:retrieve:jboss-bindings" description="Copies artifacts not generated by sub-project builds into the install distribution area">
+  -->
+    <!-- Copy db-upgrade scripts from source into distribution area. The db files need to be under db-upgrade/${database.type}. This has not been moved to the macro because the source and dest structure may not be the same and thus this would need to be custom. -->
+    <!--
+    <copy todir="${db-upgrade.dist.dir}" overwrite="true">
+      <fileset dir="${db-upgrade.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    -->
+    <!-- For non DAC upgrades
+    <dist-prep
+      copy.tools.flag="N"
+      default.target="upgrade"
+      />
+    -->
+    <!-- For DAC upgrades -->
+    <dist-prep
+      copy.tools.flag="Y"
+      default.target="upgrade"
+      />
+    <if>
+      <equals arg1="${jar-signing.execution.time}" arg2="install"/>
+      <then>
+        <copy file="${jar-signing.keystore.abs-location}" todir="${dist.exploded.dir}"/>
+      </then>
+    </if>
+  </target>
+
+  <target name="dist:upgrader" depends="dist:upgrader:prep" description="Produces zip file based on installer distribution area. Zip is used by deploy:remote:* or external installations">
+    <delete file="${dist.dir}/${aim-webapp.upgrade.zip.file}" />
+    <!-- Set environment name to external -->
+    <copy todir="${dist.exploded.dir}" overwrite="true">
+      <fileset dir="${build.dir}">
+        <include name="upgrade.properties" />
+      </fileset>              
+    </copy>         
+    <delete file="${dist.exploded.dir}/install.properties"/>
+    <replaceregexp file="${dist.exploded.dir}/upgrade.properties" byline="true" match="^(env.name)=.*" replace="\1=external" />
+
+    <obfuscate-properties-file
+      properties.file="${dist.exploded.dir}/upgrade.properties"
+      comment.property.list="application.base.path.windows,application.base.path.linux,jboss.relative.path"
+      uncomment.property.list="application.base.path,jboss.home"
+      required.property.list="application.base.path,jboss.home,jboss.server.name"
+      optional.property.list=""
+      delete.property.list=""
+      />
+    <replaceregexp file="${dist.exploded.dir}/build.xml" byline="true" match="(&lt;property name=&quot;properties.file&quot;\s+value=&quot;).*(&quot;\s*\/&gt;)" replace="\1upgrade.properties\2" />
+    <zip destfile="${dist.dir}/${aim-webapp.upgrade.zip.file}" basedir="${dist.exploded.dir}" />
+
+  </target>
+
+  <target name="dist:upgrade:tier:db" depends="dist:installer:prep">
+    <delete file="${dist.dir}/${aim-webapp.install.name}_${aim-webapp.version}-db.zip"/>
+    <zip destfile="${dist.dir}/${aim-webapp.install.name}_${aim-webapp.version}-db.zip">
+      <zipfileset dir="${db-install.dist.dir}" prefix="${db-install.dist.relative.dir}" />
+      <zipfileset dir="${db-upgrade.dist.dir}" prefix="${db-upgrade.dist.relative.dir}" />
+      <!-- not needed for this target
+      <zipfileset dir="${aim-webapp.dist.dir}" prefix="${aim-webapp.dist.relative.dir}"/>
+      <zipfileset dir="${grid.dist.dir}" prefix="${grid.dist.relative.dir}"/>
+      <zipfileset dir="${tools.dist.dir}" prefix="${tools.dist.relative.dir}"/>
+      <zipfileset dir="${common.dist.dir}" prefix="${common.dist.relative.dir}"/>
+      -->
+      <zipfileset dir="${bda-utils.dir}" prefix="bda-utils"/>
+      <zipfileset dir="${dist.exploded.dir}">
+        <include name="build.xml" />
+        <include name="install.properties" />
+        <include name="properties.template" />
+        <include name="project.properties" />
+      </zipfileset>
+      <!--  might want to add this
+      <zipfileset dir="${build.dir}">
+        <include name="local.properties" />
+      </zipfileset>
+      -->
+    </zip>          
+  </target>
+
+  <target name="dist:upgrade:tier:jboss" depends="dist:installer:prep">
+    <delete file="${dist.dir}/${aim-webapp.install.name}_${aim-webapp.version}-jboss.zip"/>
+    <zip destfile="${dist.dir}/${aim-webapp.install.name}_${aim-webapp.version}-jboss.zip">
+      <zipfileset dir="${aim-webapp.dist.dir}" prefix="${aim-webapp.dist.relative.dir}"/>
+      <zipfileset dir="${grid.dist.dir}" prefix="${grid.dist.relative.dir}"/>
+      <zipfileset dir="${tools.dist.dir}" prefix="${tools.dist.relative.dir}">
+        <include name="*jboss*"/>
+      </zipfileset>
+      <zipfileset dir="${common.dist.dir}" prefix="${common.dist.relative.dir}"/>
+      <zipfileset dir="${bda-utils.dir}" prefix="bda-utils"/>
+      <zipfileset dir="${dist.exploded.dir}">
+        <include name="build.xml" />
+        <include name="install.properties" />
+        <include name="properties.template" />
+        <include name="project.properties" />
+      </zipfileset>
+    </zip>          
+  </target>
+
+  <target name="dist:upgrade:tier"
+    depends="
+    dist:upgrade:tier:db,
+     dist:upgrade:tier:jboss
+    "/>
+
+  <target name="deploy:local:install" depends="build:all,dist:installer:prep" description="Installs and configures the application and required binaries and re-creates the datbase  on the local machine. Used for developer desktops and ci environments.">
+    <!--
+      * Requires a database installation.
+      * Will use the target from install.xml specified in ${install.target} (defaults to install unless passed in on command line).
+      * If you want properties to be used at install time they must be included in a proeprties file.
+      * Calls ant from exec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install.
+      * This target will use differnt properties based on linux (linux-install.properties) or windows (windows-install.properties) installs.
+      * It only supports using those properties files for now, so if you want to change install time properites edit these files.
+    -->
+    <deploy-local
+      target.name="${install.target}"
+      />
+  </target>
+
+  <target name="deploy:local:upgrade" depends="build:all,dist:upgrader:prep" description="Upgrades and configures the application and database  on the local machine. Used for developer desktops and ci environments.">
+    <!--
+      * Requires a database installation.
+      * Will use the target from install.xml specified in ${upgrade.target} (defaults to install unless passed in on command line).
+      * Calls ant from exec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install, if you want properties to be used at install time they must be included in a proeprties file.
+      * This target will use differnt properties based on linux (linux-upgrade.properties) or windows (windows-upgrade.properties) installs.
+      * It only supports using those properties files for now, so if you want to change install time properites edit these files.
+    -->
+    <deploy-local
+      target.name="${upgrade.target}"
+      properties.file="${upgrade.properties.file}"
+      />
+  </target>
+
+  <target name="deploy:remote:install" description="Installs and configures the application and required binaries and re-creates the datbase  on a remote machine. Used for NCI tiers (dev, qa, stg, prod)" depends="
+    build:all,
+    dist:installer
+    ">
+    <!--
+      * Will use the target from install.xml specified in ${install.target} (defaults to install unless passed in on command line).
+      * Requires specifying -Dproperties.file=@file@ on the command line to point installer to correct enviornment to install into.
+      * Calls ant from exec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install, if you want properties to be used at install time they must be included in a proeprties file.
+    -->
+    <!-- Call macro to deploy files on desired server -->
+    <deploy-files dist.file="${aim-webapp.install.zip.file}" />
+    <!-- SSH to machine ant run ant command line to install application -->
+    <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${install.target}" />
+  </target>
+
+  <target name="deploy:remote:upgrade" description="Installs and configures the application and required binaries and re-creates the datbase  on a remote machine. Used for NCI tiers (dev, qa, stg, prod)" depends="
+    build:all,
+    dist:upgrader
+    ">
+    <!--
+      * Will use the target from install.xml specified in ${upgrade.target} (defaults to upgrade unless passed in on command line).
+      * Requires specifying -Dproperties.file=@file@ on the command line to point installer to correct enviornment to install into.
+      * Calls ant from exec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install, if you want properties to be used at install time they must be included in a proeprties file.
+    -->
+    <!-- Call macro to deploy files on desired server -->
+    <deploy-files dist.file="${aim-webapp.upgrade.zip.file}" />
+    <!-- SSH to machine ant run ant command line to install application -->
+    <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${upgrade.target}" />
+  </target>
+
+  <target name="deploy:remote:upgrade:db"
+         depends="
+    build:all,
+    dist:upgrade:tier:db
+    ">
+    <deploy-files 
+      ssh.user="${db.ssh.server.username}"
+      ssh.host="${db.ssh.server.hostname}"
+      remote.directory.property.name="db.ssh.dir.temp"
+      dist.file="${aim-webapp.install.name}_${aim-webapp.version}-db.zip"
+           />
+  </target>
+
+  <target name="deploy:remote:upgrade:jboss"
+         depends="
+    build:all,
+    dist:upgrade:tier:jboss
+    ">
+    <deploy-files 
+      ssh.user="${jboss.ssh.server.username}"
+      ssh.host="${jboss.ssh.server.hostname}"
+      remote.directory.property.name="jboss.ssh.dir.temp"
+      dist.file="${aim-webapp.install.name}_${aim-webapp.version}-jboss.zip"
+           />
+  </target>
+
+  <target name="usage" description="Explains how to use this build script">
+    <echo message="To run a remote upgrade type: ant deploy:remote:upgrade -Dproperties.file=[path to environment proeprty file]" />
+  </target>
+
+  <target name="report:grand" depends="dist:installer:prep" description="Generates target flow diagrams for build files">
+    <!-- Temporary fix to make grand work for install.xml -->
+
+    <report-grand 
+      build.file.location="build.xml" 
+      output.file.dir="${grand.rpt.dir}" 
+      output.file.name="generic-root-build.xml" />
+    <report-grand 
+      build.file.location="${dist.exploded.dir}/build.xml" 
+      output.file.dir="${grand.rpt.dir}" 
+      output.file.name="generic-root-install.xml" />
+  </target>
+
+  <target name="test:all" description="Runs test target for all sub-projects" depends="
+    clean,
+    init,
+    test:aim
+    " >
+  </target>
+
+
+  <target name="test:aim" depends="init" description="Calls test target for sub-project">
+    <ant inheritAll="false" inheritRefs="false" antfile="${aim.test.file}" target="test" dir="${aim.base.dir}">
+      <property name="dist.dir" value="${aim.dist.dir}" />
+    </ant>
+  </target>
+
+  <target name="static-analysis:all" description="Runs static-analysis target for all sub-projects" depends="
+    clean,
+    init,
+    static-analysis:aim
+    " >
+  </target>
+
+
+  <target name="static-analysis:aim" depends="init" description="Calls static-analysis target for sub-project">
+    <ant inheritAll="false" inheritRefs="false" antfile="${aim.build.file}" target="static-analysis" dir="${aim.base.dir}">
+      <property name="dist.dir" value="${aim.dist.dir}" />
+    </ant>
+  </target>
+
+  <target name="continuous-integration" description="calls wrapper targets for continuous integration build" depends="
+    build:all,
+    static-analysis:all
+    " >
+  </target>
+
+  <target name="init:ivy" description="Initializes ivy-repo.based on ivy definition file and ivy settings file">
+    <mkdir dir="${local.repo.dir}" />
+    <property name="ivy.dep.file" value="${ivy.settings.dir}/ivy-test.xml" />
+    <ivy:settings file="${ivy.settings.dir}/ivy.settings.xml" />
+  </target>
+
+
+
+
+  <target name="ivy-resolve-all" depends="init:ivy" description="Downloads all libraries included in the ivy definition file from ivy into local lib directory">
+    <ivy:resolve refresh="true" />
+  </target>
+
+  <target name="report:ivy" description="Runs ivy reports on all dependencies in the ivy defnintion file, also produces dependency diagrams" depends="
+    ivy-resolve-all
+    ">
+    <property name="ivy.report.dir" value="${reports.dir}/ivy" />
+    <delete dir="${ivy.report.dir}" />
+    <mkdir dir="${ivy.report.dir}" />
+    <ivy:report outputpattern="target/reports/ivy/[organisation]-[module]-[conf].[ext]" dot="true" graph="false" />
+    <util-dot-on-dir dot-file.dir="target/reports/ivy" />
+  </target>
+
+
+
+  <target name="database:prep" description="Copies db files with filtering">
+    <!-- set some db variables -->
+    <!--
+    <switch value="${database.type}">
+      <case value="oracle">
+        <property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/ojdbc14-10.2.0.3.0.jar"/>
+        <property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="database.schema" value="${database.user}"/>
+      </case>
+      <case value="mysql">
+        <property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.0.8.jar"/>
+        <property name="database.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="database.schema" value="${database.name}"/>
+      </case>
+      <case value="postgresql">
+        <property name="database.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/postgresql-8.3-603.jdbc3.jar"/>
+        <property name="database.driver" value="org.postgresql.Driver"/>
+        <property name="database.schema" value="public"/>
+      </case>
+      <default>
+        <fail message="Invalid database type ${database.type}"/>
+      </default>
+    </switch>
+    <path id="jdbc.driver.classpath">
+      <pathelement location="${database.driver.file}"/>
+    </path>
+    -->
+    <echoproperties  prefix="database"> 
+      <propertyset negate="yes" > 
+        <propertyref regex="passw" /> 
+      </propertyset> 
+    </echoproperties>
+    
+    <copy todir="${working.dir}/" filtering="true"  overwrite="true">
+      <fileset dir="${db.src.dir}">
+        <!--
+        <include name="**/db-upgrade/**/*"/>
+        -->
+        <include name="*"/>
+      </fileset>
+      <filterset>
+        <filtersfile file="${properties.file}"/>
+        <filtersfile file="project.properties"/>
+        <!--
+        <filter token="db-upgrade.run.dir" value="${working.dir}/db-upgrade/${database.type}"/>
+        -->
+      </filterset>
+    </copy>
+  </target>
+
+  <target name="database:gencl" description="Upgrades database using BDA Datbase Upgrade process." unless="exclude.database"
+    depends="
+      database:prep
+      ">
+      <database-genchangelog
+        database.changelog.file="${target.dir}/generated-change-log.xml"
+        />
+  </target>
+
+  <target name="database:diff" description="Upgrades database using BDA Datbase Upgrade process." unless="exclude.database"
+    depends="
+      database:prep
+      ">
+      <database-diff
+        output.file.txt="${target.dir}/generated-diff-log.txt"
+        output.file.xml="${target.dir}/generated-diff-log.xml"
+        />
+  </target>
+
+  <target name="database:doc" description="Generates database documentation." unless="exclude.database"
+    depends="
+      database:prep
+      ">
+    <mkdir dir="${reports.dir}/db"/>
+    <database-doc
+      output.dir="${reports.dir}/db"
+      database.changelog.file="${working.dir}/db-upgrade/db-upgrade.xml"
+      />
+  </target>
+
+  <target name="report:erd">
+    <generate-erd   
+      schemaspy.jar="schemaspy-4.1.1.jar"
+      />                      
+  </target>
+
+  <target name="report:uml">
+    <property name="uml.dir" value="${reports.dir}/uml"/>
+    <path id="aim.classpath.ref">
+      <fileset dir="${lib.dir}/runtime">
+        <include name="**/*.jar" />     
+      </fileset>              
+    </path>         
+    <generate-uml   
+      uml.dir="${uml.dir}"    
+      src.java.dir="${aim-webapp.base.dir}/src/java"
+      uml.source.path="aim.classpath.ref"
+      />                      
+  </target>
+
+  <target name="deploy:remote:upgrade:ahp" description="Installs and configures the application and required binaries and re-creates the datbase  on a remote machine. Used for NCI tiers (dev, qa, stg, prod)" >
+    <!--
+      * Will use the target from install.xml specified in ${upgrade.target} (defaults to upgrade unless passed in on command line).
+      * Requires specifying -Dproperties.file=@file@ on the command line to point installer to correct enviornment to install into.
+      * Calls ant from exec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install, if you want properties to be used at install time they must be included in a proeprties file.
+    -->
+    <!-- Call macro to deploy files on desired server -->
+    <echoproperties  prefix="ssh"> <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+    <deploy-files dist.file="${aim-webapp.upgrade.zip.file}" />
+    <override-properties-prep
+      override.properties="@{override.properties}"
+      override.properties.string.property.name="override.properties.string"
+      />
+    <!-- SSH to machine ant run ant command line to install application -->
+    <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${override.properties.string} ${upgrade.target}" />
+  </target>
+
+  <target name="keygen">
+    <generate-jar-signing-keystore
+      />
+  </target>
+</project>

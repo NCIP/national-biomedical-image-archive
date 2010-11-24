@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://gov.nih.nci.cagrid.data.bdt/BDTDataService/types"
+            xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:tns="http://gov.nih.nci.cagrid.data.bdt/BDTDataService/types" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsrbf="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <element name="BDTDataServiceReference">
+    <complexType>
+      <sequence >
+        <element ref="wsa:EndpointReference"></element>
+      </sequence>
+    </complexType>
+  </element>
+
+</schema>

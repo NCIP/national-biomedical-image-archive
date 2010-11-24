@@ -1,0 +1,47 @@
+<!--
+$Id: ivy-bda-settings.xml 1729 2009-05-28 17:59:23Z saksass $
+$HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-build-template/software/common/bda-download/ivy-bda-settings.xml $
+
+This file is the is the settings file used by IVY.  It is a good starting point for most projects to use IVY.  It has two resolvers, the ncicb-ivy-repo resolver points to the NCICB Ivy Repository.  The other resolver is to a local filesystem repository where temporary artifacts can be published as part of a project or where you can test out your ivy definitions before they are added to official NCICB Ivy Repository.  There are notes below for sepcial configuraitons.
+-->
+
+<ivysettings>
+	<property name="ivy.project.repo" value="${target.dir}/local-repo-dir"/>
+	<property name="ivy.system.repo" value="${bda.local.repo.dir}"/>
+
+	<settings defaultResolver="ncicb-chain" />
+	<!-- defaultCacheDir causes the bda-utils module to use it's own cache directory -->
+	<!-- useOrigin causes avoiding the copy of local artifacts to the cache and use directly their original location -->
+	<caches defaultCacheDir="${user.home}/.ivy2-bda-utils-cbiit" useOrigin="true"/>
+	<resolvers>
+		<!-- this is where you read from -->
+		<chain name="ncicb-chain">
+			<filesystem name="local-project-repo" local="true">
+				<!-- Local project level repo -->
+				<artifact pattern="${ivy.project.repo}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<ivy pattern="${ivy.project.repo}/[organisation]/[module]/[revision]/ivy.xml" />
+			</filesystem>
+			<filesystem name="local-system-repo" local="true">
+				<!-- Local system level repo, to share chagnes ammong multiple projects-->
+				<artifact pattern="${ivy.system.repo}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<ivy pattern="${ivy.system.repo}/[organisation]/[module]/[revision]/ivy.xml" />
+			</filesystem>      
+			<filesystem name="local-cbiit-ivy-repo" local="true">
+				<!-- local enterprise repository checkout, best used when working remote or network disconnected -->
+				<artifact pattern="${local.cbiit-ivy-repo.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<ivy pattern="${local.cbiit-ivy-repo.dir}/[organisation]/[module]/[revision]/ivy.xml" />
+			</filesystem>           
+			<url name="cbiit-ivy-repo">
+				<!-- remote enterprise repository -->
+				<artifact pattern="https://ncisvn.nci.nih.gov/svn/cbiit-ivy-repo/trunk/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<ivy pattern="https://ncisvn.nci.nih.gov/svn/cbiit-ivy-repo/trunk/[organisation]/[module]/[revision]/ivy.xml" />
+			</url>  
+			<!--<ibiblio name="cbiit-maven-mirror" m2compatible="true" root="https://ncisvn.nci.nih.gov/svn/maven-mirror/trunk" changingPattern=".*SNAPSHOT" />-->
+			<url name="cbiit-maven-mirror" m2compatible="true">
+				<artifact pattern="https://ncisvn.nci.nih.gov/svn/maven-mirror/trunk/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+			</url>
+
+			<!-- this is where you can publish to, either your own code or for testing new thirdparty files -->
+		</chain>
+	</resolvers>
+</ivysettings>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+$Id: $
+$HeadURL:  $
+-->
+<project name="ncia-hudson-manager" default="save-hudson-configs" basedir=".">
+        <description>
+		This build file will update or deploy hudson configuraitons between working directory and svn repository.  This process assumes it is starting with an existing configuration in the repository.
+	</description>
+
+	<property environment="env"/>
+	<property name="hudson.dir" value="${user.home}/hudson" />
+	<property name="svn.conf.dir" value="conf" />
+	<property name="bda-utils.dir" value="bda-utils" />
+	<property name="lib.dir" value="lib" />
+
+
+	<mkdir dir="${lib.dir}"/>
+	<ant inheritAll="false" inheritRefs="false" antfile="bda-ivy-build.xml"
+		target="retrieve-bda">
+		<property name="bda-utils.dir" value="${bda-utils.dir}"/>
+		<property name="lib.dir" value="${lib.dir}"/>
+	</ant>
+
+	<path id="macrodef.classpath">
+		<fileset dir="bda-utils">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<taskdef name="svn" classpathref="macrodef.classpath" classname="org.tigris.subversion.svnant.SvnTask" />
+	<import file="${bda-utils.dir}/bda-build-utils-1.0.xml" />
+
+	<target name="init">
+		<property name="prop.list" value="svn.user.name,svn.user.pass"/>
+		<for list="${prop.list}" param="prop.list.item" delimiter=",">
+			<sequential>
+				<echo message="Checking for existence of @{prop.list.item}"/>
+				<if>    
+					<not>   
+						<isset property="@{prop.list.item}"/>
+					</not>  
+					<then>  
+						<fail message="Usage is 'ant -Dsvn.user.name=svnusername -Dsvn.user.pass=svnpassword'."/>
+					</then> 
+				</if>   
+			</sequential>
+		</for>  
+
+	</target>
+	<target name="copy2repo">
+		<copy todir="${svn.conf.dir}" overwrite="true">
+			<fileset dir="${hudson.dir}">
+				<exclude name="**/builds/**"/>
+				<exclude name="**/workspace/**"/>
+			</fileset>
+		</copy>
+	</target>
+	<target name="deploy2hudson">
+		<copy todir="${hudson.dir}">
+			<fileset dir="${svn.conf.dir}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		
+	</target>
+	<target name="svn-add">
+		<exec os="Linux" executable="svn" spawn="false">
+			<arg line="--force add ${svn.conf.dir}"/>
+		</exec>
+	</target>
+	<target name="svn-commit">
+		<exec os="Linux" executable="svn" spawn="false">
+			<arg line="--username ${svn.user.name} --password ${svn.user.pass} commit -m 'Added by automated process' ${svn.conf.dir}"/>
+		</exec>
+	</target>
+	<target name="save-hudson-configs"
+		depends="
+		init,
+		copy2repo,
+		svn-add,
+		svn-commit
+		"/>
+</project>

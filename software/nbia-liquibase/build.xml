@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="../common/ant2html.xsl"?>
+                 
+<project name="nbia-liquibase" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+  <property name="common.dir" value="${basedir}/../" />
+  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
+  
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-liquibase"/> 
+  <property name="base.lib.dir" value="${common.dir}/target/lib" />
+
+  <property name="src.java.dir" value="${basedir}/src" />
+  <property name="classes.dir" value="${basedir}/classes" />  
+
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-liquibase" /> 
+  <property name="java.jar.name" value="nbia-liquibase.jar" />
+  
+
+  <!-- Paths -->
+  <path id="compile.classpath">
+    <fileset dir="${project.lib.dir}/compile">
+      <include name="*.jar" />
+    </fileset>
+  </path>  
+  
+  <path id="common.classpath">
+    <fileset dir="${base.lib.dir}">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Task definitions -->
+  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
+        
+  <!-- Targets -->
+
+  <target name="ivy-settings">
+    <ivy:settings file="${global.ivy.settings.file}" />
+  </target>
+  
+  <target name="ivy-compile" depends="ivy-settings" description="Updates the local ivy repository">   
+    <ivy:resolve refresh="true" conf="compile" />
+    <ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="compile" />
+  </target> 
+
+  <target name="-pre-clean" description="Performs all necessary clean-up before a build">
+    <delete dir="${classes.dir}" quiet="false" />
+    <delete file="${target.dir}/${java.jar.name}" quiet="false" />
+    <delete dir="${project.lib.dir}" />
+  </target>
+
+  <target name="-init" description="Initializes the system before a build">
+    <mkdir dir="${classes.dir}" />
+    <mkdir dir="${target.dir}" />
+  </target>
+
+  <target name="compile" depends="-pre-clean, -init, ivy-compile" description="Compiles the Java source code">
+    <javac srcdir="${src.java.dir}" destdir="${classes.dir}" debug="true">
+      <classpath refid="compile.classpath" />
+    </javac>
+  </target>
+  
+
+  <target name="jar" depends="compile">
+    <jar jarfile="${target.dir}/${java.jar.name}" compress="false">
+      <fileset dir="${classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </jar>
+    
+    <copy todir="${target.dir}">
+      <fileset dir="${project.lib.dir}/compile">
+        <include name="ant-classloadertask*.jar" />
+      </fileset>      
+    </copy>
+  </target>
+
+
+
+  <target name="-post-clean">
+    <delete dir="${classes.dir}" quiet="false" />
+  </target>
+
+  <target name="run" depends="jar, -post-clean" />
+
+</project>

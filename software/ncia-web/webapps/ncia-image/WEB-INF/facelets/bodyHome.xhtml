@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+
+
+<table summary="" cellpadding="0" cellspacing="0" border="0"
+       width="730" style="height:100%">
+  <!-- banner begins -->
+  <tr>
+    <td class="bannerHome">
+      <div align="right">
+        <img src="images/bannerHome.gif" 
+             width="100%" 
+             height="140"
+             alt="Banner"/>
+      </div>
+    </td>
+    <td valign="top">
+      <f:verbatim>&amp;nbsp;</f:verbatim>
+      <ncia:help label="images/help_icon.png" 
+                 helpId="welcome_post_login_help" />
+    </td>
+  </tr>
+  <!-- banner begins -->
+  <tr>
+    <td height="100%">
+      <table summary="" cellpadding="0" cellspacing="0" border="0"
+             style="height:100%">
+        <tr>
+          <td style="vertical-align: top"><!-- welcome begins -->
+            <table summary="" cellpadding="0" cellspacing="0" border="0"
+                   width="520" style="height:100%">
+              <tr>
+                <td class="welcomeTitle" height="20">
+                  <h:outputText value="#{msg.home_welcome}"/>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">
+                  <h:form id="navigationForm">
+                
+                    <table width="100%" border="0" align="left" cellpadding="8"
+                           cellspacing="0" class="contentPage">
+                      <tr valign="top">
+                        <td valign="middle" class="bottomBorderOnly">
+                          <div align="center">
+                            <h:commandLink id="searchLinkIcon"
+                                           action="#{searchWorkflowBean.newSimpleSearch}">
+                              <h:graphicImage value="/images/magnifying-glass.gif" style="border:0px" />
+                            </h:commandLink>
+                          </div>
+                        </td>
+
+                        <td height="53" valign="middle"
+                            class="leftAndBottomBorderOnly">
+                          <strong>
+                            <h:commandLink id="searchLink"
+                                           action="#{searchWorkflowBean.newSimpleSearch}"
+                                           value="#{msg.common_searchImages}" />
+                          </strong> 
+                          <br/>
+                          <h:outputText value="#{msg.home_chooseSearch}"/>
+                          <h:commandLink action="#{searchWorkflowBean.newSimpleSearch}"
+                                         value="#{msg.common_simpleSearch}" />
+                          <h:outputText value=", "/>
+                          <h:commandLink action="#{searchWorkflowBean.newAdvSearch}"
+                                         value="#{msg.common_advSearch}" />
+                          <h:outputText value=" or "/>
+						  <h:commandLink action="#{searchWorkflowBean.newDynamicSearch}"
+                                         value="Dynamic Search" />
+                        </td>
+                      </tr>
+   
+                      
+                      <tr valign="top">
+                        <td width="49" valign="middle" class="bottomBorderOnly">
+                          <div align="center">
+                            <a href="dataBasketDisplay.jsf">
+                              <img src="images/cart-big.gif" 
+                                   width="49" 
+                                   height="48"
+                                   border="0"
+                                   alt=""/>
+                            </a>
+                          </div>
+                        </td>
+                        <td width="326" height="47" valign="middle"
+                            class="leftAndBottomBorderOnly">
+                          <a href="dataBasketDisplay.jsf">
+                            <strong>
+                              <h:outputText value="#{msg.common_manageBasket}"/>
+                              <br/>
+                            </strong>
+                          </a> 
+                          <h:outputText value="#{msg.home_manageInfo}"/>
+                        </td>
+                      </tr>
+                    </table>
+                  </h:form>                       
+                </td>
+              </tr>
+            </table>
+          </td>
+
+          <td valign="top" class="sidebarBackground"><!-- sidebar begins -->
+            <table summary="" cellpadding="0" cellspacing="0" border="0"
+                   style="height:100%" width="210">
+              <!-- login begins -->
+              <!-- login ends -->
+              <!-- what's new begins -->
+              <tr>
+                <td valign="top">                                  
+                  <table summary="" 
+                         cellpadding="0" 
+                         cellspacing="0" 
+                         border="0"
+                         width="100%" class="sidebarSection">
+                    <tr>
+                      <td class="sidebarTitle" height="20">
+                        <h:outputText value="#{msg.home_updates}"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sidebarContent">
+                        <h:outputText value="#{msg.home_newImages} "/>
+                        <h:outputText value="#{searchLookupBean.newImagesDate}" />
+                        <br/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sidebarTitle" height="20">
+                        <h:outputText value="#{msg.home_appSupport}"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="sidebarContent">
+                        <h:outputText value="#{msg.home_supportContact}"/>
+                        <f:verbatim>&amp;nbsp;</f:verbatim>
+                        <h:outputLink value="#{msg.account_support_appSupportEmailLink}" >
+                          <h:outputText value="#{msg.account_support_appSupportEmail}"/>
+                        </h:outputLink>                     
+                        <f:verbatim>&amp;nbsp;</f:verbatim>
+                        <h:outputText value="#{msg.home_supportQuestions}"/>
+                        <br/>
+                        <br/>
+                      </td>
+                    </tr>                   
+                  </table>         
+                </td>
+              </tr>
+              <!-- what's new ends -->             
+            </table>
+            <!-- sidebar ends -->
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</ui:composition>

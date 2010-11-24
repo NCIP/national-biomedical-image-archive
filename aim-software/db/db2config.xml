@@ -1,0 +1,13 @@
+<db2>
+  <xmldburi>@database.url@</xmldburi>
+  <database>@database.name@</database>
+  <username>@database.system.user@</username>
+	<password>@database.system.password@</password>
+	<collection>
+		<schema>XMLDS</schema>	
+		<xmltable>XMLTABLE</xmltable>
+		<docidcolumn>DOCID</docidcolumn>
+		<xmlcolumn>XMLCOLUMN</xmlcolumn>
+		<metadatacolumn>METADATA</metadatacolumn>
+	</collection>
+</db2>

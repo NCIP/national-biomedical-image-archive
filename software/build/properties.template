@@ -1,0 +1,196 @@
+##############################################################
+#
+# $Id: linux-install.properties 4582 2008-04-28 22:06:12Z kascice $
+# $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-build-template/software/build/install.properties $
+#
+# This properties file template for all .properties to adhere (The "interface")
+# 
+##############################################################
+##############################
+###  APPLICATION SETTINGS  ###
+##############################
+# install/build.xml set application.base.path to correct path based on os type
+#application.base.path.linux=The base path where all files are stored for this application on linux. Example: ${user.home}/apps/bda-blueprints-webapp
+#application.base.path.windows=The base path where all files are stored for this application on windows. Example: c:/apps/bda-blueprints-webapp
+authentication.type=Used for setting up the login-config.xml. Acceptable values are ldap|db.
+#application.url=The URL to access the application. Example: http://${jboss.server.hostname}:${jboss.server.port}/bda-blueprints-webapp
+###########################
+###  DATABASE SETTINGS  ###
+###########################
+# Required for local installs
+# Require for all installs
+database.type=Type of database current database types supported by BDA Templates are Oracle, MySQL or PostgreSQL. Acceptable values are oracle|mysql|postgresql.
+database.server=The hostname where the database resides. Example: ncidbhostname.nci.nih.gov.
+database.port=The port the database listens on. Example: 3306.
+database.name=The database name on the database server. Example: cagwasdb.
+database.user=The user the application uses to connect to the database. cagwasuser.
+database.password=The password for the above user. Example: cAgwASpaSS.
+database.url=The JDBC url for that user above, value referes to other properties and should not be changed. Example: jdbc:mysql://${database.server}:${database.port}/${database.name}
+# Only one of the two properties below can be set at a time.
+#database.drop-schema=This property will drop all the objects under the database.name
+#database.re-create=This property when set will drop and recreate the database.user and database.name
+#database.system.user=If you set database.re-create you need to have a privileged user who can drop and create users and databases.
+#database.system.password=The above user's password.
+#database.system.url=The JDBC connection url for the system user. Example: jdbc:mysql://${database.server}:${database.port}/
+########################
+###  JBOSS SETTINGS  ###
+########################
+# jboss.home will be generated as ${application.base.path}/${jboss.relative.path}
+jboss.relative.path=This is the part of the path after application.base.path which will form the jboss.home. Example: ${jboss.binaries.relative.dir}
+jboss.server.hostname=The server name where jboss will be running. Example: localhost
+jboss.server.name=The jboss server instance name, $JBOSS_HOME/server/${jboss.server.name}. Example: default
+jboss.web.user=The account name to log into the JBoss web consoles.  Example: admin
+jboss.web.password=The password to the access the jboss web console and jmx console. Example: blueprint123!. The user is admin. 
+#jboss.port.config=This is the NCICB port configuration scheme used by this application server.  If this is set the other ports except for jboss.server.port and jboss.server.jndi.port are igored (those are used by the install process). Having this set also causes pre and post installation validation to not check ports.
+# Ports used by JBoss. Must not conflict with other LSD applications. Check with BDA or Systems teams.
+jboss.server.jndi.port=Port used to connect when shutting down jboss.
+jboss.server.port=The port used to connect to the jboss instance via http.
+#jboss.cobraorb.port=
+#jboss.ejbinvoker.port=
+#jboss.hajndi.port=
+#jboss.hajrmi.port=
+#jboss.jms.port=
+#jboss.jmx-rmi.port=
+#jboss.messaging.port=
+#jboss.pooledha.port=
+#jboss.remoting.port=
+#jboss.server.bind.port=
+#jboss.server.rmi.port=
+#jboss.service.rmiobject.port=
+#jboss.service.rmiobject.port=
+#jboss.snmp.port=
+#jboss.snmp-trapd.port=
+#jboss.web.service.port=
+
+#jboss.ssl.enable=A flag to determine where JBoss is configured with SSL, see https://wiki.nci.nih.gov/x/7xWy
+#jboss.ssl.keystore.location=The keystore file location, dir/filename recommend projectroot/software/common/security
+#jboss.ssl.keystore.pass=The password for that keystore file
+#jboss.ssl.keystore.alias=The alias for that keystore file
+#jboss.ssl.fullyqualified.hostname=The fully qualified hostname (www.nci.nih.gov) that the cert is for.  This url is verified within the cert.
+#jboss.external.http.host=Set this if you are using external hostnames for http,  see https://wiki.nci.nih.gov/x/8hWy
+#jboss.external.http.port=Set this if you are using a different port with the external hostname above for http
+#jboss.external.ssl.host=Set this if you are using external hostnames for ssl, see https://wiki.nci.nih.gov/x/8hWy
+#jboss.external.ssl.port=Set this if you are using a different port with the external hostname above for ssl
+
+##############
+### TOMCAT ###
+##############
+ncia-core-grid.tempZipLocation=
+ncia-core-grid.jboss.web.user=The account name to log into the JBoss web consoles.  Example: admin
+ncia-core-grid.jboss.web.password=The password to the access the jboss web console and jmx console. Example: blueprint123!. The user is admin. 
+
+ncia-core-grid.jboss.server.port=
+ncia-core-grid.jboss.server.jndi.port=
+
+ncia-core-grid.jboss.relative.path=This is the part of the path after application.base.path which will form the jboss.home. Example: ${jboss.binaries.relative.dir}
+ncia-core-grid.jboss.server.hostname=The server name where jboss will be running. Example: localhost
+ncia-core-grid.jboss.server.name=
+
+
+#############
+####  CTP  ###
+##############
+ctp.server.port=
+ctp.server.http_import_service.port=
+ctp.server.storage_service.port=
+ctp.server.admin.password=
+ctp.server.storage_service.root=
+
+ctp.client.port=
+ctp.client.http_import_service.port=
+ctp.client.export_service.port=
+ctp.client.admin.password=
+
+##############
+###  LDAP  ###
+##############
+ldap.url=The fully qulified url to the ldap instance. Example: ldaps://ncids4a.nci.nih.gov:636
+ldap.basedn=The base DN to search for records. Example: ldap.basedn=ou=nci,o=nih
+###############
+###  Log4J  ###
+###############
+#These properties are used in a template file included in projectname/software/common/resources/jboss.  The filtered file is then checked by a macro to ensure that the maxFileSize and maxDays are set and not to large. This macro also ensures that all appenders (except console are rolling appenders).
+#log4j.maxFileSize=Size of log file before it is roled, should it grow to this size before being roled by the daily roll appender.
+#log4j.maxDays=Number of days of files to keep.
+#log4j.level=Log4j log level, set for gov.nih.nci and hibernate messages.
+
+###############################
+## NCIA Application Properties # 
+################################
+gov.nih.nci.ncia.imaging.server.url=
+gov.nih.nci.ncia.mapped.image.path.head=
+gov.nih.nci.ncia.image.path.pattern=
+gov.nih.nci.ncia.zip.location=
+gov.nih.nci.ncia.ftp.location=
+gov.nih.nci.ncia.grid.local.node.name=
+gov.nih.nci.ncia.ui.uid.display.length=
+gov.nih.nci.ncia.ftp.url=
+gov.nih.nci.ncia.jboss.mq.url=
+gov.nih.nci.ncia.frontier.http.address=
+gov.nih.nci.ncia.installationSite=
+gov.nih.nci.ncia.admin.email=
+gov.nih.nci.ncia.jboss.public.url=
+enabled_guest_account=
+guest_username=
+gov.nih.nci.ncia.download.server.url=
+
+##################################
+#  Grid Service registration URL #
+##################################
+# Production Grid
+#    grid.index.url=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService
+# QA Grid
+#    grid.index.url=http://cagrid-index-qa.nci.nih.gov:8080/wsrf/services/DefaultIndexService
+# Training Grid
+grid.index.url=The url of the grid index server. Example: http://training03.cagrid.org:6080/wsrf/services/DefaultIndexService
+# The information that will display in he Grid Portal
+# The research center information, most fields are self explanitory
+grid.poc.tech.researchCenter.displayname=Example: bdarc
+grid.poc.tech.researchCenter.shortname=Example: bda
+grid.poc.tech.addr.country=Example: USA
+grid.poc.tech.addr.locality=Example: Vienna
+grid.poc.tech.addr.postalCode=Example: 22180
+grid.poc.tech.addr.stateProvince=Example=VA
+grid.poc.tech.addr.street1=Example=1234 Someplace Lane
+grid.poc.tech.addr.street2=
+# The tech contact info
+grid.poc.tech.affiliation=Example: BDA
+grid.poc.tech.name.last=Example: Buildand
+grid.poc.tech.name.first=Example=DeploymentAutomation
+grid.poc.tech.phone=Example: 0124567890
+grid.poc.tech.email=Example: buildanddeployment@mail.nih.gov
+grid.poc.tech.role=Example: sysadmin
+# The science contact info
+grid.poc.science.affiliation=Example: Test
+grid.poc.science.name.last=Example: Smith
+grid.poc.science.name.first=Example: John
+grid.poc.science.phone=Example: 0124567890
+grid.poc.science.email=Example: john.smith@mail.com
+grid.poc.science.role=Example: sysadmin
+# The external host an IP to access the grid service from the internet.  For security reasons Network Address Translation (NAT) is often used to allow traffic from the internet into the local network.  With NAT an IP address and port are configured on the seucrity device facing the internet and are mapped back to the IP and port of the server running the application.  The name in DNS for access from the intenet is often different than the server it's self.  So you would want to put the NAT IP or NAT hostname and the NAT port in the fileds below.
+#grid.secure.enable=Flag whether to deploy secure grid, see https://wiki.nci.nih.gov/x/8BWy
+#grid.secure.port=The port to be used for the secure grid listener
+#grid.secure.cert.location=Location (patt/file) of caGrid issued Cert File
+#grid.secure.key.location=Location (patt/file) of caGrid issued key File
+#tomcat.external.http.host=Set this if you are using external hostnames for http, see https://wiki.nci.nih.gov/x/8hWy
+#tomcat.external.http.port=Set this if you are using a different port with the external hostname above for http
+#grid.external.secure.host=Set this if you are using external hostnames for secure grid, see https://wiki.nci.nih.gov/x/8hWy
+#grid.external.secure.port=Set this if you are using a different port with the external hostname above for secure grid
+
+########################
+###  MAIL  SETTINGS  ###
+########################
+mail.smtp.server=The SMTP relay host name. Example: mailfwd.nih.gov
+###################################
+#  PRE-POST VALIDATION PROPERTIES #
+###################################
+#Properties used in testing the the installed JBOSS server.
+validation.pre.port.list=Example: ${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.server.port},${jboss.web.service.port}
+validation.post.http.list=Example: ${jboss.server.port}
+validation.post.socket.list=Example: ${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}
+
+######################################
+###  External Cancer Center Logo  ####
+######################################
+#cancer.center.logo=Example: c:/Temp/mylogo.gif
+#cancer.center.background=Example: c:/Temp/mybg.jpg

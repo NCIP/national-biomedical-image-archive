@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <builders class="vector">
+    <hudson.tasks.Ant>
+      <targets>ivy:clean build-all deploy:local:install test:selenium</targets>
+      <antName>ant-1.7.0</antName>
+      <properties>properties.file=ci-install.properties&#x0D;
+selenium.browser=*firefox /usr/lib64/firefox-1.5.0.12/firefox-bin&#x0D;
+ci.server.install=T</properties>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers class="vector">
+    <hudson.tasks.Mailer>
+      <recipients>saksass@mail.nih.gov blakec@mail.nih.gov lethai@mail.nih.gov panq@mail.nih.gov zengje@mail.nih.gov</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers class="vector"/>
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+      <hudson.scm.SubversionSCM_-ModuleLocation>
+        <remote>http://gforge.nci.nih.gov/svnroot/ncia/branches/NCIA-DB-REENGINEER-4_0/software</remote>
+        <local>ncia</local>
+      </hudson.scm.SubversionSCM_-ModuleLocation>
+    </locations>
+    <useUpdate>false</useUpdate>
+  </scm>
+  <quietPeriod>60</quietPeriod>
+  <canRoam>true</canRoam>
+  <disabled>true</disabled>
+  <triggers class="vector">
+    <hudson.triggers.TimerTrigger>
+      <spec>0 6 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <logRotator>
+    <daysToKeep>10</daysToKeep>
+    <numToKeep>10</numToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <description></description>
+  <actions class="vector"/>
+</project>

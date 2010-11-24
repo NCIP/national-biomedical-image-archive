@@ -1,0 +1,52 @@
+  <method name="query" xmlns="http://www.globus.org">
+    <auth-method>
+      <GSITransport>
+        <protection-level>
+          <privacy/>
+          <integrity/>
+        </protection-level>
+      </GSITransport>
+    </auth-method>
+    <run-as>
+      <system-identity/>
+    </run-as>
+  </method>
+  <method name="submit" xmlns="http://www.globus.org">
+    <auth-method>
+      <GSITransport>
+        <protection-level>
+          <privacy/>
+          <integrity/>
+        </protection-level>
+      </GSITransport>
+    </auth-method>
+    <run-as>
+      <system-identity/>
+    </run-as>
+  </method>
+  <method name="queryByTransfer" xmlns="http://www.globus.org">
+    <auth-method>
+      <GSITransport>
+        <protection-level>
+          <privacy/>
+          <integrity/>
+        </protection-level>
+      </GSITransport>
+    </auth-method>
+    <run-as>
+      <system-identity/>
+    </run-as>
+  </method>
+  <method name="submitByTransfer" xmlns="http://www.globus.org">
+    <auth-method>
+      <GSITransport>
+        <protection-level>
+          <privacy/>
+          <integrity/>
+        </protection-level>
+      </GSITransport>
+    </auth-method>
+    <run-as>
+      <system-identity/>
+    </run-as>
+  </method>

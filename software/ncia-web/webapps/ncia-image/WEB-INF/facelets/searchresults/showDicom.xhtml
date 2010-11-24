@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+<head>
+  <ice:outputDeclaration doctypeRoot="html" 
+                         doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN" 
+                         doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />
+  <link rel="stylesheet" type="text/css" href="css/styleSheet.css" />
+</head>
+
+<body>
+  <f:loadBundle basename="ncia_messages" var="msg" />
+  <div align="center">
+    <h:outputText value="#{msg.qcTool_dicom} #{seriesSearchResultBean.currDicomSopId}" 
+                  styleClass="historyItemTitle"/>
+    <br/>
+    <br/>
+    <h:dataTable id="tagData" 
+                 value="#{seriesSearchResultBean.tagInfo}" 
+                 var="tag" 
+                 cellpadding="0" 
+                 cellspacing="0" 
+                 width="90%" 
+                 styleClass="dataTable"
+                 style="font-size: 0.7em" 
+                 border="1" 
+                 rowClasses="dicomDataRowDark, dicomDataRowLight" 
+                 headerClass="dataTableHeader"
+                 rendered="#{seriesSearchResultBean.tagInfo != null}">
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.qcTool_element}"/>
+        </f:facet>
+        <h:outputText value="#{tag.element}" 
+                      style="padding-left: .5em"/>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.qcTool_name}"/>
+        </f:facet>
+        <h:outputText value="#{tag.name}" 
+                      style="padding-left: .5em"/>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+      </h:column>
+      <h:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg.qcTool_data}"/>
+        </f:facet>
+        <h:outputText value="#{tag.data}" 
+                      style="padding-left: .5em"/>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+      </h:column>
+    </h:dataTable>
+    <br/>
+    <br/>
+    <br/>
+  </div>
+</body>
+
+</html>

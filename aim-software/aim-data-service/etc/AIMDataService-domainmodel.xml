@@ -1,0 +1,1635 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DomainModel xmlns="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" xmlns:ns2="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common" projectVersion="TCGA" projectShortName="aim" projectLongName="AIM" projectDescription="AIM Data Model">
+    <exposedUMLAssociationCollection>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="segmentation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="75"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="72"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="dataCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="86"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="85"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="geometricShapeCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="104"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="97"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="96"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImagingObservationCharacteristic" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="70"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="74"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Series" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="119"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="123"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="103"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="102"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="inferenceCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="95"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="73"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="72"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="100"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="99"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="calculationCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="51"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="TextAnnotation" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="109"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="108"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImagingObservation" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="72"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="81"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="dimensionCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="90"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="85"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="110"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="60"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="77"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="57"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="110"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="109"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Study" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="117"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="120"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="anatomicEntity" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="66"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="65"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Study" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="117"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="116"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="53"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="equipment" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="58"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageReferenceCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="98"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="annotationRole" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="113"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="112"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="multiPoint" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="111"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="109"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Rating" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="68"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="79"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Segmentation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="76"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="75"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Inference" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="96"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="95"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="series" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="123"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="122"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImagingObservationCharacteristic" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="70"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="69"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="60"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="59"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imagingObservationCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="81"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="series" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="118"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="117"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="AnatomicEntityCharacteristic" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="65"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="64"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="study" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="116"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="115"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="user" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="55"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Equipment" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="59"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="58"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="63"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="62"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="49"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="105"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="CalculationResult" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="85"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="84"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="77"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="76"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="anatomicEntityCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="61"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="anatomicEntityCharacteristic" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="80"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="68"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="DICOMImageReference" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="115"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="124"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="63"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="rating" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="67"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="65"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="57"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="56"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="rating" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="79"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="70"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="spatialCoordinateCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="106"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="105"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="SpatialCoordinate" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="107"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="106"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImagingObservation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="72"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="78"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Calculation" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="52"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="51"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="textAnnotationCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="108"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="referencedAnnotationCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="127"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="126"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Patient" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="102"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="101"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="MultiPoint" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="48"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="111"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="calculationResultCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="84"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="52"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="54"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="73"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="segmentationCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="94"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="coordinateCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="88"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="87"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImagingObservation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="72"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="71"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Data" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="87"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="86"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imagingObservation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="71"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="70"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imagingObservation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="78"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="76"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imageCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="121"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="119"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="User" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="56"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="55"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="AnatomicEntity" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="62"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="66"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="dicomImageReference" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="124"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="117"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageReference" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="99"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="98"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="AnatomicEntityCharacteristic" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="65"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="80"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="patient" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="101"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="study" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="120"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="119"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Image" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="122"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="121"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Dimension" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="91"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="90"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Rating" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="68"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="67"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="referencedCalculationCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="82"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="52"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ReferencedCalculation" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="83"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="82"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="100"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="AnnotationRole" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="114"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="113"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="97"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="anatomicEntityCharacteristicCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="64"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="1" maxCardinality="1">
+                    <UMLClassReference refid="62"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Segmentation" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="76"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="94"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="referencedGeometricShapeCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="92"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="52"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="annotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="53"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="52"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="49"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imagingObservationCharacteristic" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="69"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="68"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="imagingObservationCharacteristicCollection" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="74"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="0">
+                    <UMLClassReference refid="72"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ReferencedAnnotation" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="112"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="127"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="AnatomicEntity" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="62"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="61"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="GeometricShape" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="105"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="104"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Series" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="119"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="118"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ReferencedGeometricShape" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="93"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="92"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="Coordinate" minCardinality="0" maxCardinality="-1">
+                    <UMLClassReference refid="89"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="88"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+        <UMLAssociation bidirectional="false">
+            <targetUMLAssociationEdge>
+                <UMLAssociationEdge roleName="ImageAnnotation" minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="50"/>
+                </UMLAssociationEdge>
+            </targetUMLAssociationEdge>
+            <sourceUMLAssociationEdge>
+                <UMLAssociationEdge minCardinality="0" maxCardinality="1">
+                    <UMLClassReference refid="103"/>
+                </UMLAssociationEdge>
+            </sourceUMLAssociationEdge>
+        </UMLAssociation>
+    </exposedUMLAssociationCollection>
+    <exposedUMLClassCollection>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="54" description="" className="Annotation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="name" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="dateTime" description="" dataTypeName="dateTime"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="uniqueIdentifier" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="aimVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="comment" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="89" description="" className="Coordinate">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="dimensionIndex" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="position" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="106" description="" className="GeometricShape.spatialCoordinateCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="63" description="" className="AnatomicEntity.annotation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="103" description="" className="Patient.imageAnnotation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="88" description="" className="Data.coordinateCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="61" description="" className="Annotation.anatomicEntityCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="53" description="" className="Calculation.annotation"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="85" description="" className="CalculationResult">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="numberOfDimensions" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="unitOfMeasure" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="type" description="" dataTypeName="edu.northwestern.radiology.aim.CalculationResultIdentifier">
+                    <ns2:ValueDomain unitOfMeasure="" longName="edu.northwestern.radiology.aim.CalculationResultIdentifier">
+                        <ns2:enumerationCollection>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Scalar"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Vector"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Histogram"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Matrix"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Array"/>
+                        </ns2:enumerationCollection>
+                    </ns2:ValueDomain>
+                </ns2:UMLAttribute>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="83" description="" className="ReferencedCalculation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="uniqueIdentifier" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="70" description="" className="ImagingObservationCharacteristic">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="comment" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="confidence" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="78" description="" className="Segmentation.imagingObservation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="116" description="" className="DICOMImageReference.study"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="60" description="" className="Equipment.annotation"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="132" description="" className="Ellipse">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="includeFlag" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="shapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineThickness" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="107" description="" className="SpatialCoordinate">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="coordinateIndex" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="117" description="" className="Study">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="studyTime" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="instanceUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="studyDate" description="" dataTypeName="dateTime"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="111" description="" className="TextAnnotation.multiPoint"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="77" description="" className="Segmentation.imageAnnotation"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="68" description="" className="Rating">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="max" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="value" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="min" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="name" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="119" description="" className="Series">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="instanceUID" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="99" description="" className="ImageReference">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="50" description="" className="ImageAnnotation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="name" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="dateTime" description="" dataTypeName="dateTime"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="uniqueIdentifier" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="aimVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="comment" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="48" description="" className="MultiPoint">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="includeFlag" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="shapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineThickness" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="58" description="" className="Annotation.equipment"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="108" description="" className="ImageAnnotation.textAnnotationCollection"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="59" description="" className="Equipment">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="softwareVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="manufacturerModelName" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="manufacturer" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="128" description="" className="Point">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="includeFlag" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="shapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineThickness" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="64" description="" className="AnatomicEntity.anatomicEntityCharacteristicCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="104" description="" className="ImageAnnotation.geometricShapeCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="100" description="" className="ImageReference.imageAnnotation"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="112" description="" className="ReferencedAnnotation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="referencedAnnotationUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="47" description="" className="SegmentationIdentifier"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="125" description="" className="WebImageReference">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="uri" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="76" description="" className="Segmentation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="sopClassUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="sopInstanceUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="type" description="" dataTypeName="edu.northwestern.radiology.aim.SegmentationIdentifier">
+                    <ns2:ValueDomain unitOfMeasure="" longName="edu.northwestern.radiology.aim.SegmentationIdentifier">
+                        <ns2:enumerationCollection>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Binary"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Fractional_Probability"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Fractional_Occupancy"/>
+                            <ns2:Enumeration valueMeaning="" permissibleValue="Surface"/>
+                        </ns2:enumerationCollection>
+                    </ns2:ValueDomain>
+                </ns2:UMLAttribute>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="referencedSopInstanceUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="segmentNumber" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="130" description="" className="Circle">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="includeFlag" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="shapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineThickness" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="91" description="" className="Dimension">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="index" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="label" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="size" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="93" description="" className="ReferencedGeometricShape">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="referencedShapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="110" description="" className="TextAnnotation.imageAnnotation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="75" description="" className="ImagingObservation.segmentation"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="114" description="" className="AnnotationRole">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="roleSequenceNumber" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="82" description="" className="Calculation.referencedCalculationCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="124" description="" className="Study.dicomImageReference"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="113" description="" className="ReferencedAnnotation.annotationRole"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="73" description="" className="ImagingObservation.annotation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="84" description="" className="Calculation.calculationResultCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="67" description="" className="AnatomicEntityCharacteristic.rating"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="90" description="" className="CalculationResult.dimensionCollection"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="87" description="" className="Data">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="value" description="" dataTypeName="double"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="56" description="" className="User">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="numberWithinRoleOfClinicalTrial" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="roleInTrial" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="loginName" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="name" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="126" description="" className="AnnotationOfAnnotation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="name" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="dateTime" description="" dataTypeName="dateTime"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="uniqueIdentifier" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="aimVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="comment" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="102" description="" className="Patient">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="ethnicGroup" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="name" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="sex" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="birthDate" description="" dataTypeName="dateTime"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="patientID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="123" description="" className="Image.series"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="49" description="" className="GeometricShape.imageAnnotation"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="109" description="" className="TextAnnotation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="text" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="textJustify" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="fontStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="fontSize" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="fontOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="fontColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="fontEffect" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="font" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="72" description="" className="ImagingObservation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="comment" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="confidence" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="69" description="" className="Rating.imagingObservationCharacteristic"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="66" description="" className="AnatomicEntityCharacteristic.anatomicEntity"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="74" description="" className="ImagingObservation.imagingObservationCharacteristicCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="127" description="" className="AnnotationOfAnnotation.referencedAnnotationCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="94" description="" className="ImageAnnotation.segmentationCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="97" description="" className="Inference.imageAnnotation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="121" description="" className="Series.imageCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="55" description="" className="Annotation.user"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="65" description="" className="AnatomicEntityCharacteristic">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="confidence" description="" dataTypeName="double"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="98" description="" className="ImageAnnotation.imageReferenceCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="51" description="" className="Annotation.calculationCollection"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="105" description="" className="GeometricShape">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="includeFlag" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="shapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineThickness" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="81" description="" className="Annotation.imagingObservationCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="86" description="" className="CalculationResult.dataCollection"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="57" description="" className="User.annotation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="46" description="" className="CalculationResultIdentifier"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="95" description="" className="ImageAnnotation.inferenceCollection"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="62" description="" className="AnatomicEntity">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="confidence" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="118" description="" className="Study.series"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="92" description="" className="Calculation.referencedGeometricShapeCollection"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="122" description="" className="Image">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="sopClassUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="sopInstanceUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="80" description="" className="Rating.anatomicEntityCharacteristic"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="71" description="" className="ImagingObservationCharacteristic.imagingObservation"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="101" description="" className="ImageAnnotation.patient"/>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="" id="38" description="" className="string"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="115" description="" className="DICOMImageReference">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="133" description="" className="TwoDimensionSpatialCoordinate">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="imageReferenceUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="y" description="" dataTypeName="double"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="referencedFrameNumber" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="x" description="" dataTypeName="double"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="coordinateIndex" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="79" description="" className="ImagingObservationCharacteristic.rating"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="96" description="" className="Inference">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="confidence" description="" dataTypeName="double"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="truth" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="52" description="" className="Calculation">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="mathML" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="description" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeDesignator" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codingSchemeVersion" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeMeaning" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="uid" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="codeValue" description="" dataTypeName="string"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="false" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="120" description="" className="Series.study"/>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="129" description="" className="Polyline">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="includeFlag" description="" dataTypeName="boolean"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="shapeIdentifier" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineColor" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineStyle" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineOpacity" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="lineThickness" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+        <UMLClass allowableAsTarget="true" projectVersion="TCGA" projectName="AIM" packageName="edu.northwestern.radiology.aim" id="131" description="" className="ThreeDimensionSpatialCoordinate">
+            <ns2:umlAttributeCollection>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="id" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="y" description="" dataTypeName="double"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="frameOfReferenceUID" description="" dataTypeName="string"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="coordinateIndex" description="" dataTypeName="integer"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="x" description="" dataTypeName="double"/>
+                <ns2:UMLAttribute version="0.0" publicID="0" name="z" description="" dataTypeName="double"/>
+            </ns2:umlAttributeCollection>
+        </UMLClass>
+    </exposedUMLClassCollection>
+    <umlGeneralizationCollection>
+        <UMLGeneralization>
+            <subClassReference refid="132"/>
+            <superClassReference refid="105"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="50"/>
+            <superClassReference refid="54"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="48"/>
+            <superClassReference refid="105"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="128"/>
+            <superClassReference refid="105"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="47"/>
+            <superClassReference refid="38"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="125"/>
+            <superClassReference refid="99"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="130"/>
+            <superClassReference refid="105"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="126"/>
+            <superClassReference refid="54"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="46"/>
+            <superClassReference refid="38"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="115"/>
+            <superClassReference refid="99"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="133"/>
+            <superClassReference refid="107"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="129"/>
+            <superClassReference refid="105"/>
+        </UMLGeneralization>
+        <UMLGeneralization>
+            <subClassReference refid="131"/>
+            <superClassReference refid="107"/>
+        </UMLGeneralization>
+    </umlGeneralizationCollection>
+</DomainModel>

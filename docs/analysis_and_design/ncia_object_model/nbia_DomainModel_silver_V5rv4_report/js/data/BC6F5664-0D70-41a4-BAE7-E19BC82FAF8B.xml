@@ -1,0 +1,5 @@
+tocTab[tocTab.length] = new Array("2.1:1", "", "Boolean", "EARoot/EA2/EA1/EA22.htm", "5.png", "403", "0", "", "Class0","{EDECF5C2-2D3A-4627-B2BC-E92489317BC5}");
+tocTab[tocTab.length] = new Array("2.1:2", "", "Double", "EARoot/EA2/EA1/EA23.htm", "5.png", "402", "0", "", "Class0","{DB801EA3-E9FF-4ef7-BC1D-420AB3021C21}");
+tocTab[tocTab.length] = new Array("2.1:3", "", "Integer", "EARoot/EA2/EA1/EA24.htm", "5.png", "400", "0", "", "Class0","{0C91B6AB-FEF0-4e1f-9552-D3235254701D}");
+tocTab[tocTab.length] = new Array("2.1:4", "", "Long", "EARoot/EA2/EA1/EA25.htm", "5.png", "404", "0", "", "Class0","{FC6256C8-A7F0-47f6-836C-373865DAB6E1}");
+tocTab[tocTab.length] = new Array("2.1:5", "", "String", "EARoot/EA2/EA1/EA26.htm", "5.png", "401", "0", "", "Class0","{266CD0BC-E352-446f-9E35-A729043FFF63}");

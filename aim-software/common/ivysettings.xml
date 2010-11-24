@@ -1,0 +1,18 @@
+<ivysettings>
+	<property name="nci.ivy.repo" value="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo" />
+	<settings defaultResolver="nci-chain" />
+	<caches defaultCacheDir="${user.home}/.ivy2-${ant.project.name}" useOrigin="true"/>
+	<resolvers>
+		<chain name="nci-chain">
+			<!-- this is where you can publish to, either your own code or for testing new thirdparty files -->
+			<filesystem name="local-repo" local="true">
+				<artifact pattern="${local.repo.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<ivy pattern="${local.repo.dir}/[organisation]/[module]/[revision]/ivy.xml" />
+			</filesystem> 
+			<url name="ncicb-ivy-repo" m2compatible="false">
+				<ivy pattern="${nci.ivy.repo}/[organisation]/[module]/[revision]/ivy.xml" />
+				<artifact pattern="${nci.ivy.repo}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+		</chain>
+	</resolvers>
+</ivysettings>

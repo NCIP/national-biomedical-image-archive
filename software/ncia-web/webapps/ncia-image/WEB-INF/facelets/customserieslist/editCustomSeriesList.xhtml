@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<br/>
+<br/>
+<table summary="" cellpadding="5" cellspacing="0" border="0" class="contentPage" width="750">
+  <tr>
+    <td colspan="2">
+      <h2 align="center">
+        <ice:outputText value="Edit My Shared List(s)" />
+      </h2>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td>   
+            <f:subview id="selectedCustomList" rendered="#{editCustomSeriesListBean.showSelected}">
+              <ice:form id="selectedListForm">
+                <table width="100%" border="0" cellspacing="0" cellpadding="5" class="promptbox" style="display: block;">
+                  <tr>
+                    <td> 
+                      <ice:outputLabel value="List Name:"/> 
+                    </td>
+                    <td> 
+                      <ice:outputLabel value="#{editCustomSeriesListBean.selectedList.name} "/> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td> 
+                      <ice:outputLabel for="comment" value="Edit the description (optional):"/> 
+                    </td>
+                    <td>
+                      <ice:inputText id="comment"  
+                                     tabindex="40"  
+                                     partialSubmit="false"  
+                                     rendered="true" 
+                                     maxlength="200"
+                                     value="#{editCustomSeriesListBean.selectedList.comment}"  
+                                     size="105"  
+                                     styleClass="formField"
+                                     title="Edit the comment describing your list. The length cannot be longer than 200 characters."/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td> 
+                      <ice:outputLabel for="hyperlink" value="Edit the URL (optional):"/> 
+                    </td>
+                    <td>
+                      <ice:inputText id="hyperlink"  
+                                     tabindex="40"  
+                                     partialSubmit="false"  
+                                     rendered="true" 
+                                     maxlength="200"
+                                     value="#{editCustomSeriesListBean.selectedList.hyperlink}" 
+                                     size="105"  
+                                     styleClass="formField"
+                                     title="Edit the URL which links to additional information. The length cannot be longer than 200 characters."/>
+                    </td>
+                  </tr>
+                          
+                  <tr>
+                    <td> 
+                      <ice:outputLabel for="inputFileComponent" value="Upload a CSV File of Series UIDs: "/>
+                    </td>
+                    <td>
+                      <ice:inputFile id="inputFileComponent" 
+                                     width="600" 
+                                     autoUpload="true" 
+                                     progressListener="#{editCustomSeriesListBean.fileUploadProgress}"
+                                     actionListener="#{editCustomSeriesListBean.uploadActionListener}"/>
+                      <ice:outputProgress value="#{editCustomSeriesListBean.fileProgress}"/>
+                                       
+                      <ice:outputText value="Please upload a comma separated value of series instance uid file (.csv)" />
+                      <br/>
+                      <h:message id="inputFileMessage" for="inputFileComponent" errorClass="errorLabel"/>
+                    </td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0">
+                  <f:subview id="noPermissonSeriesView" rendered="#{not empty editCustomSeriesListBean.noPermissionSeries}">
+                    <tr>
+                      <td colspan="2"> 
+                        <ice:panelCollapsible expanded="true" rendered="true">
+                          <f:facet name="header">
+                            <ice:panelGroup>
+                              <ice:outputText value="You do not have sufficient permission to view these Series Instance UIDs or these series do not exist.
+                                                     Please remove from your list or contact application support for assistance. -- Total count: 
+                                                     #{editCustomSeriesListBean.noPermissionSeriesCount}" 
+                                              style="margin-left:auto;margin-right:auto"/>
+                            </ice:panelGroup>
+                          </f:facet>
+                          <ice:dataTable id="noPermissionseriesUidsTable"
+                                         value="#{editCustomSeriesListBean.noPermissionSeries}"
+                                         var="detail" 
+                                         width="750"
+                                         scrollable="true" 
+                                         scrollFooter="false" 
+                                         scrollHeight="150"
+                                         style="margin-left: auto;margin-right:auto">
+                            <ice:column style="vertical-align: top">
+                              <ice:panelGroup style="text-align:left">
+                                <h:outputText value="#{detail}"/>
+                              </ice:panelGroup>
+                            </ice:column>
+                          </ice:dataTable>
+                        </ice:panelCollapsible> 
+                      </td>
+                    </tr>
+                    <br/>
+                  </f:subview>
+                  <f:subview id="privateSeriesView" rendered="#{not empty editCustomSeriesListBean.privateSeries}">
+                    <tr>
+                      <td colspan="2">
+                        <ice:panelCollapsible expanded="false" rendered="true">
+                          <f:facet name="header">
+                            <ice:panelGroup>
+                              <ice:outputText value="Warning: The following series belong to private collection. -- Total count: 
+                                                    #{editCustomSeriesListBean.privateSeriesCount}" 
+                                              style="margin-left:auto;margin-right:auto;color:red"/>
+                            </ice:panelGroup>
+                          </f:facet>
+                          <ice:dataTable id="privateSeriesUidsTable" 
+                                         value="#{editCustomSeriesListBean.privateSeries}" 
+                                         scrollable="true" 
+                                         scrollFooter="false" 
+                                         scrollHeight="150"
+                                         var="detail" 
+                                         width="750"
+                                         style="margin-left: auto;margin-right:auto" >
+                            <ice:column style="vertical-align: top">
+                              <ice:panelGroup style="text-align:left">
+                                <h:outputText value="#{detail}" align="left"/>
+                              </ice:panelGroup>
+                            </ice:column>
+                          </ice:dataTable>
+                        </ice:panelCollapsible>
+                      </td>
+                    </tr>
+                    <br/>
+                    <br/>
+                  </f:subview>
+                  <tr>
+                    <td colspan="2">
+                      <ice:panelCollapsible expanded="true" rendered="true">
+                        <f:facet name="header">
+                          <ice:panelGroup>
+                            <ice:outputText value="Series Instance UID List. -- Total count: #{editCustomSeriesListBean.seriesCount}" 
+                                            style="margin-left:auto;margin-right:auto"/>
+                          </ice:panelGroup>
+                        </f:facet>
+                        <ice:dataTable id="seriesUidsTable" 
+                                       value="#{editCustomSeriesListBean.seriesInstanceUidsList}"
+                                       var="detail" 
+                                       rendered="#{not empty editCustomSeriesListBean.seriesInstanceUidsList}" 
+                                       style="margin-left: auto;margin-right:auto" 
+                                       width="750" 
+                                       scrollable="true" 
+                                       scrollFooter="false" 
+                                       scrollHeight="150">
+                          <ice:column style="vertical-align: top">
+                            <ice:panelGroup style="text-align:left">
+                              <h:outputText value="#{detail.seriesInstanceUid}"/>
+                            </ice:panelGroup>
+                          </ice:column>
+                        </ice:dataTable>
+                      </ice:panelCollapsible>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" align="right" >
+                      <ice:commandButton id="edit" 
+                                         image="images/submit.gif"  
+                                         action="#{editCustomSeriesListBean.edit}"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" align="left">
+                      <h:message id="editMessage" for="edit" errorClass="errorLabel" infoClass="infoLabel"/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <ice:outputLabel id="infoMessage" 
+                                       rendered="#{editCustomSeriesListBean.infoMessage}"
+                                       styleClass="infoLabel" 
+                                       infoClass="infoLabel" 
+                                       value="#{editCustomSeriesListBean.message}"/>
+                    </td>
+                  </tr>
+                </table>
+              </ice:form>
+            </f:subview>
+            
+            <f:subview rendered="#{not empty editCustomSeriesListBean.customList}">
+              <ice:form id="sharedListForm">
+                <table width="100%" border="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <ice:outputLabel for="SlctDispItemNum"  value="Results Per Page: "/>
+                      <ice:selectOneMenu id="SlctDispItemNum"
+                                         valueChangeListener="#{editCustomSeriesListBean.numberChangeListener}"
+                                         value="#{editCustomSeriesListBean.selectedDispItemNum}"
+                                         partialSubmit="true">
+                        <f:selectItems id="SlctDispItemNums" value="#{editCustomSeriesListBean.dispItemNums}"/>
+                      </ice:selectOneMenu>
+                    </td>
+                    <td align="right">
+                      <ice:dataPaginator id="scroll_2"
+                                         for="data"
+                                         rowsCountVar="rowsCount"
+                                         displayedRowsCountVar="displayedRowsCountVar"
+                                         firstRowIndexVar="firstRowIndex"
+                                         lastRowIndexVar="lastRowIndex"
+                                         pageCountVar="pageCount"
+                                         pageIndexVar="pageIndex">
+                        <ice:outputFormat value="{0} list found, displaying {1} records, from {2} to {3}. Page {4} / {5}" 
+                                          styleClass="standard" >
+                          <f:param value="#{rowsCount}" />
+                          <f:param value="#{displayedRowsCountVar}" />
+                          <f:param value="#{firstRowIndex}" />
+                          <f:param value="#{lastRowIndex}" />
+                          <f:param value="#{pageIndex}" />
+                          <f:param value="#{pageCount}" />
+                        </ice:outputFormat>
+                      </ice:dataPaginator>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="6">
+                      <ice:dataTable id="data" 
+                                     resizable="true" 
+                                     rendered="#{not empty editCustomSeriesListBean.customList}"
+                                     width="100%" 
+                                     border="1" 
+                                     cellpadding="0" 
+                                     cellspacing="0" 
+                                     styleClass="dataTable" 
+                                     headerClass="dataTableHeader" 
+                                     value="#{editCustomSeriesListBean.customList}"
+                                     binding="#{editCustomSeriesListBean.table}"
+                                     rowClasses="dataRowLight, dataRowDark" 
+                                     var="item" 
+                                     rows="#{editCustomSeriesListBean.selectedDispItemNum}">
+                        <ice:column id="name">
+                          <f:facet name="header">
+                            <ice:outputText value="Name" />  
+                          </f:facet>
+                          <ice:commandLink value="#{item.name}" 
+                                           actionListener="#{editCustomSeriesListBean.namedDetailsClicked}" />
+                        </ice:column>
+                        <ice:column id="comment">
+                          <f:facet name="header">  
+                            <ice:outputText value="Comment" /> 
+                          </f:facet>
+                          <ice:outputText value="#{item.comment}" />
+                        </ice:column>
+                        <ice:column id="date">
+                          <f:facet name="header">  
+                            <ice:outputText value="Date" /> 
+                          </f:facet>
+                          <ice:outputText value="#{item.dateString}" />
+                        </ice:column>
+                        <ice:column id="link">
+                          <f:facet name="header"> 
+                            <ice:outputText value="Hyperlink" />
+                          </f:facet>
+                          <ice:outputLink value="#{item.hyperlink}" target="_blank">
+                            <ice:outputText value="#{item.hyperlink}" />
+                          </ice:outputLink>
+                        </ice:column>
+                      </ice:dataTable>
+                      <center>
+                        <ice:panelGrid columns="1" 
+                                       styleClass="scrollerTable2" 
+                                       columnClasses="standardTable_ColumnCentered">
+                          <ice:dataPaginator id="scroll_1"
+                                             for="data"
+                                             fastStep="#{editCustomSeriesListBean.selectedDispItemNum}"
+                                             pageCountVar="pageCount"
+                                             pageIndexVar="pageIndex"
+                                             paginator="true"
+                                             renderFacetsIfSinglePage="false"
+                                             paginatorMaxPages="20">
+                            <f:facet name="first">
+                              <ice:graphicImage url="images/arrow-first.gif" style="border:none;"/>
+                            </f:facet> 
+                            <f:facet name="last">
+                              <ice:graphicImage url="images/arrow-last.gif" style="border:none;"/>
+                            </f:facet> 
+                            <f:facet name="previous">
+                              <ice:graphicImage url="images/arrow-previous.gif" style="border:none;" />
+                            </f:facet> 
+                            <f:facet name="next">
+                              <ice:graphicImage url="images/arrow-next.gif" style="border:none;" />
+                            </f:facet> 
+                            <f:facet name="fastforward">
+                              <ice:graphicImage url="images/arrow-ff.gif" style="border:none;" />
+                            </f:facet> 
+                            <f:facet name="fastrewind">
+                              <ice:graphicImage url="images/arrow-fr.gif" style="border:none;" /> 
+                            </f:facet> 
+                          </ice:dataPaginator>
+                        </ice:panelGrid>
+                      </center>
+                    </td>
+                  </tr>
+                </table>
+              </ice:form>
+            </f:subview>
+            <f:subview id="emptyDataView"  rendered="#{empty editCustomSeriesListBean.customList}">
+              <tr>
+                <td class="dataRowDark">  
+                  <ice:outputText value="No list to edit" /> 
+                </td>
+              </tr>
+            </f:subview>
+          </td>
+        </tr>
+      </table>
+    </td>    
+    <td valign="top">
+      <ncia:help label="images/help_icon.png" helpId="edit_shared_list_help" />
+    </td>
+  </tr>
+</table>
+
+</ui:composition>

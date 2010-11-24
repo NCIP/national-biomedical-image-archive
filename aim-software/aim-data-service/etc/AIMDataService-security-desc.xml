@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<securityConfig xmlns="http://www.globus.org">
+  <method name="getServiceSecurityMetadata">
+    <auth-method>
+      <none />
+    </auth-method>
+  </method>
+  <auth-method>
+    <none />
+  </auth-method>
+  <authz value="none" />
+  <method name="getMultipleResourceProperties">
+    <auth-method>
+      <none />
+    </auth-method>
+  </method>
+  <method name="getResourceProperty">
+    <auth-method>
+      <none />
+    </auth-method>
+  </method>
+  <method name="queryResourceProperties">
+    <auth-method>
+      <none />
+    </auth-method>
+  </method>
+</securityConfig>
+
+

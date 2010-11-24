@@ -1,0 +1,48 @@
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces-xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces-xsd http://ocpsoft.com/xml/ns/prettyfaces/pretty-1.0.xsd">
+
+  <url-mapping id="databasket">
+    <pattern> /externalDataBasketDisplay.jsf</pattern>
+
+    
+    <query-param name="patients">#{dataBasketPopulatorMgBean.patients}</query-param>
+    <query-param name="studies">#{dataBasketPopulatorMgBean.studies}</query-param>
+    <query-param name="serieses">#{dataBasketPopulatorMgBean.serieses}</query-param>
+
+    <view-id> /dataBasketDisplay.jsf </view-id>
+    <action>#{dataBasketPopulatorMgBean.populate}</action>
+  </url-mapping>
+    
+  <!--  this is a little uh... difficult to follow, but ICEfaces
+        doesn't seem to deal well with opening a new browser window
+        and doing a navigation action to fill that window.  instead
+        must open new browser window pointed to document... and here
+        we are doing what amounts to a page load action -->  
+  <url-mapping id="dicomTagViewer">
+    <pattern> /showDicom.jsf</pattern>
+
+    <view-id> /showDicom.jsf </view-id>
+    <action>#{dicomTagViewerPopulatorMgBean.populate}</action>
+  </url-mapping> 
+   
+  <url-mapping id="viewSeries">
+    <pattern> /viewSeriesPopup.jsf</pattern>
+    
+    <query-param name="seriesId">#{viewSeriesPopulatorMgBean.seriesId}</query-param>
+
+    <view-id> /viewSeriesImages.jsf </view-id>
+    <action>#{viewSeriesPopulatorMgBean.populate}</action>
+  </url-mapping> 
+  
+  <url-mapping id="qcToolSlideShowView">
+    <pattern> /qcViewSeries.jsf</pattern>
+    
+    <query-param name="seriesId">#{viewSeriesPopulatorQCBean.seriesId}</query-param>
+
+    <view-id> /qcToolSlideShow.jsf </view-id>
+    <action>#{viewSeriesPopulatorQCBean.populate}</action>
+  </url-mapping> 
+  
+       
+</pretty-config>

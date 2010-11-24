@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <!-- MOTW-DISABLED saved from url=(0014)about:internet -->
+    <title>Creating a New NBIA Grid User</title>
+    <link rel="StyleSheet" href="css/NBIA%20admin.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="css/webworks.css" type="text/css" media="all" />
+    <script type="text/javascript" language="JavaScript1.2" src="wwhdata/common/context.js"></script>
+    <script type="text/javascript" language="JavaScript1.2" src="wwhdata/common/towwhdir.js"></script>
+    <script type="text/javascript" language="JavaScript1.2" src="wwhdata/common/wwhpagef.js"></script>
+    <script type="text/javascript" language="JavaScript1.2">
+      <!--
+        var  WebWorksRootPath = "";
+      // -->
+    </script>
+    <script type="text/javascript" language="JavaScript1.2">
+      <!--
+        // Set reference to top level help frame
+        //
+        var  WWHFrame = WWHGetWWHFrame("", true);
+      // -->
+    </script>
+    <script type="text/javascript" language="JavaScript1.2" src="scripts/expand.js"></script>
+  </head>
+  <body style="" onLoad="WWHUpdate();" onUnload="WWHUnload();" onKeyDown="WWHHandleKeyDown((document.all||document.getElementById||document.layers)?event:null);" onKeyPress="WWHHandleKeyPress((document.all||document.getElementById||document.layers)?event:null);" onKeyUp="WWHHandleKeyUp((document.all||document.getElementById||document.layers)?event:null);">
+    <br />
+    <div class="WebWorks_Breadcrumbs" style="text-align: left;">
+      <a class="WebWorks_Breadcrumb_Link" href="NBIA%20admin.7.1.html#1135457">NBIA Administration</a> &gt; Creating a New NBIA Grid User</div>
+    <hr align="left" />
+    <blockquote>
+      <div class="Heading1"><a name="1135457">Creating a New NBIA Grid User</a></div>
+      <div class="Body_Text"><a name="1135484">The NBIA Grid interface can be configured for public access or for secure access.</a></div>
+      <div class="Bullet_outer" style="margin-left: 18pt;">
+        <table border="0" cellspacing="0" cellpadding="0" id="SummaryNotRequired_np1135486">
+          <tr style="vertical-align: baseline;">
+            <td>
+              <div class="Bullet_inner" style="width: 18pt; white-space: nowrap;">•</div>
+            </td>
+            <td width="100%">
+              <div class="Bullet_inner"><a name="1135486">If configured for public use (at deployment time), there is no need to create any </a>users for grid access.</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="Bullet_outer" style="margin-left: 18pt;">
+        <table border="0" cellspacing="0" cellpadding="0" id="SummaryNotRequired_np1135488">
+          <tr style="vertical-align: baseline;">
+            <td>
+              <div class="Bullet_inner" style="width: 18pt; white-space: nowrap;">•</div>
+            </td>
+            <td width="100%">
+              <div class="Bullet_inner"><a name="1135488">If configured for secure access (at deployment time), each grid user that will </a>access the system must be created.</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="Body_Text"><a name="1135490">Only an NBIA administrator can create new grid users for NBIA, and this must be done </a>in the separate Common Security Module (CSM) User Provisioning Tool (UPT) application. NBIA, as do other applications, installs with its own CSM schema that has sample/default users and a role/permissions structure. </div>
+      <div class="Note_Main_Body_outer" style="margin-left: 13px;">
+        <table border="0" cellspacing="0" cellpadding="0" id="SummaryNotRequired_np1135491">
+          <tr style="vertical-align: baseline;">
+            <td>
+              <div class="Note_Main_Body_inner" style="width: 15px; white-space: nowrap;">
+                <span style="left: -20px; position: relative; top: 15px;">
+                  <img src="note_NCI.gif" alt="*" id="bullet1135491" border="0" width="30" height="30" />
+                </span>
+              </div>
+            </td>
+            <td width="100%">
+              <div class="Note_Main_Body_inner"><a name="1135491">While the name of NCIA (National Cancer Imaging Archive) has been changed to </a>NBIA (National Biomedical Imaging Archive), until notified otherwise, the acronym in the UPT configuration remains “NCIA”.</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="Body_Text"><a name="1135493">The process for creating a grid user mirrors the process for webapp user creation (see </a><span class="Emphasis" style="color: #515186;"><a href="javascript:WWHClickedPopup('NBIA_Online_Help', 'NBIA%20admin.7.3.html#1104462', '');">Creating a New NBIA User</a></span>). The important difference is that the&nbsp;name for the user must be the X.509 identifier for the grid user within the target grid that NBIA is configured to use.</div>
+      <div class="Body_Text"><a name="1135495">For example, a grid identifier from the NCI staging grid for joesmith would look like this:</a></div>
+      <div class="Code"><span class="Code"><a name="1135497">/O=caBIG/OU=caGrid/OU=Stage LOA1/OU=NCI STAGE/CN=joesmith</a></span></div>
+      <div class="Body" style="color: #000000; font-family: &quot;Courier New&quot;; font-size: 11.0pt; font-style: normal; font-variant: normal; font-weight: normal; margin-top: 0.0pt; text-align: Left; text-transform: none; vertical-align: baseline;"><a name="1135672">&nbsp;</a></div>
+      <div class="Body_Text"><a name="1135667">The O and OU elements will be different depending on the target grid (NCI production </a>grid, or some other private grid).</div>
+      <div class="Body_Text"><a name="1135458">For more information on grid credentials, see: </a><span class="HTTP"><a href="http://cagrid.org/display/dorian/Overview" target="_window">http://cagrid.org/display/dorian/Overview.</a></span></div>
+      <script type="text/javascript" language="JavaScript1.2">
+        <!--
+          // Clear related topics
+          //
+          WWHClearRelatedTopics();
+
+          document.writeln(WWHRelatedTopicsInlineHTML());
+        // -->
+      </script>
+    </blockquote>
+    <script type="text/javascript" language="JavaScript1.2">
+      <!--
+        document.write(WWHRelatedTopicsDivTag() + WWHPopupDivTag() + WWHALinksDivTag());
+      // -->
+    </script>
+  </body>
+</html>

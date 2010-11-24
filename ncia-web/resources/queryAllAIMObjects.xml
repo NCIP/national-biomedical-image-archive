@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CQLQuery xmlns="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery ..\..\schema\Data\1_gov.nih.nci.cagrid.CQLQuery.xsd">
+	<Target name="edu.northwestern.radiology.aim.ImageAnnotation"></Target>
+</CQLQuery>

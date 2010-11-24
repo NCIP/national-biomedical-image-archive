@@ -1,0 +1,1 @@
+This should be only the classes and resources necessary for the image-zipping-mdb deployment unit.

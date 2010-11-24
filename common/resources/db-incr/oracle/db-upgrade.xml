@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+
+  <preConditions> 
+    <or>
+      <dbms type="oracle" />
+    </or>
+  </preConditions>
+
+  <changeSet id="5.0.test" author="kascice">        
+    <comment>Need to have at least one changeset to allow tagging to work.</comment>
+    <sql>select 'new_american_gospel_by_lamb_of_god_rules' from dual</sql>
+  </changeSet>
+
+
+</databaseChangeLog>

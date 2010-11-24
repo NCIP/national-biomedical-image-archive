@@ -1,0 +1,429 @@
+<link rel="stylesheet" type="text/css" href="css/styleSheet.css" />
+<script src="js/script.js" type="text/javascript"></script>
+<script src="js/moveElements.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="js/overlib.js"></script>
+<script type="text/javascript" src="js/overlib_hideform.js"></script>
+<html>
+	<head>
+		<title>NBIA - National Biomedical Imaging Archive</title>
+	</head>
+	<body>
+		<div id="overDiv"
+			style="position:absolute; visibility:hidden; z-index:1000;"></div>
+		<table summary="" cellpadding="0" cellspacing="0" border="0"
+			width="100%" height="100%">
+
+			<!-- nci hdr begins -->
+			<tr>
+				<td>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0"
+						class="hdrBG">
+						<tr>
+							<td width="283" height="37" align="left">
+								<a href="http://www.cancer.gov"><img
+										alt="National Cancer Institute" src="images/logotype.gif"
+										width="283" height="37" border="0"> </a>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+							<td width="295" height="37" align="right">
+								<a href="http://www.cancer.gov"><img
+										alt="U.S. National Institutes of Health | www.cancer.gov"
+										src="images/tagline.gif" width="295" height="37" border="0">
+								</a>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<!-- nci hdr ends -->
+			<tr>
+				<!-- application hdr begins -->
+				<td height="100%" valign="top">
+					<table summary="" cellpadding="0" cellspacing="0" border="0"
+						width="100%" height="100%">
+						<tr>
+							<td colspan="2" height="45">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0"
+									class="subhdrBG">
+									<tr>
+										<td height="40" align="left" valign=top>
+											<table border="0" cellpadding="0" cellspacing="0"
+												width="100%" height="45">
+												<tr>
+													<td bgcolor="4C5D87">
+														<img src="images/Logo-NCIA.jpg" width="500" height="53">
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- application hdr ends -->
+						<tr>
+							<td width="130" height="100%" valign="top" class="subMenu">
+								<!-- submenu begins -->
+								<table summary="" cellpadding="0" cellspacing="0" border="0"
+									width="130" height="100%">
+
+									<tr>
+										<td height="22" colspan="2" class="subMenuPrimaryTitle">
+											TOOLS
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="subMenuPrimaryItems">
+											<div>
+												<img src="images/subMenuArrow.gif" width="5" height="5"
+													alt="" />
+												<a href="#" class="subMenuPrimary"
+													onclick="window.open('/ncia/faces/imageViewers.tiles', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=550,height=500,scrollbars=yes,resizable=yes')";>DICOM
+													Image Viewers</a>
+											</div>
+											<div></div>
+										</td>
+									</tr>
+									<form id="SUBmenu:sideMenuForm" method="post"
+										action="/ncia/faces/studyDisplay.tiles"
+										enctype="application/x-www-form-urlencoded">
+									<tr>
+										<td height="22" valign="middle" class="subMenuPrimaryTitle">
+											MY DATA BASKET
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" class="subMenuPrimaryItems">
+											<div>
+												<img src="images/subMenuArrow.gif" width="5" height="5"
+													alt="" />
+												<a href="#"
+													onclick="document.forms['SUBmenu:sideMenuForm']['SUBmenu:sideMenuForm:_idcl'].value='SUBmenu:sideMenuForm:loginView:_id8'; document.forms['SUBmenu:sideMenuForm'].submit(); return false;"
+													class="subMenuPrimary">View Contents</a>
+												<br>
+												&nbsp; (0&nbsp;Series in Basket)
+											</div>
+
+										</td>
+									</tr>
+
+									<input type="hidden" name="com.sun.faces.VIEW"
+										value="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" />
+									<input type="hidden" name="SUBmenu:sideMenuForm"
+										value="SUBmenu:sideMenuForm" />
+									<input type="hidden" name="SUBmenu:sideMenuForm:_idcl" />
+									</form>
+									<tr>
+										<td height="21" colspan="2" class="subMenuPrimaryTitle">
+											QUICK LINKS
+											<!-- anchor to skip sub menu -->
+											<a href="#content"><img src="images/shim.gif"
+													alt="Skip Menu" width="1" height="1" border="0" /> </a>
+										</td>
+									</tr>
+									<tr>
+										<td height="20" class="subMenuSecondaryTitle"
+											onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+											onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
+											onclick="window.open('http://ncia.nci.nih.gov', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+											&nbsp;&nbsp;
+											<a class="footerMenuLink" href="#">NBIA PORTAL</a>&nbsp;&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td height="20" class="subMenuSecondaryTitle"
+											onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+											onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+											&nbsp;
+											<a class="footerMenuLink"
+												href="HTML/help/NCIA_Users_Guide.pdf" target="_blank">NBIA
+												USER'S GUIDE</a>&nbsp;&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td height="20" class="subMenuSecondaryTitle"
+											onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+											onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
+											onclick="window.open('http://www.cancer.gov', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+											&nbsp;&nbsp;
+											<a class="footerMenuLink" href="#">NCI HOME</a>&nbsp;&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td height="20" class="subMenuSecondaryTitle"
+											onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+											onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
+											onclick="window.open('http://ncicb.nci.nih.gov/', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+											&nbsp;&nbsp;
+											<a class="footerMenuLink" href="#">NCICB HOME</a>&nbsp;&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td height="100%" colspan="2" valign="top" class="subMenuFill">
+											<div align="center">
+												<table width="100%" height="100%" border="0"
+													cellpadding="10" cellspacing="0">
+													<tr>
+														<td>
+															<div align="center">
+																<img src="images/caBIG_logo.jpg" width="107" height="37">
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div align="center">
+																<img src="images/cancerimaging.gif" width="107"
+																	height="37">
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div align="center">
+																<img src="images/NCICBLOGO.gif" width="126" height="43">
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div align="center">
+																<img src="images/RSNA.gif" width="63" height="33">
+															</div>
+														</td>
+													</tr>
+												</table>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height="22" colspan="2" class="subMenuFooter">
+											&nbsp;
+										</td>
+									</tr>
+								</table>
+								<!-- submenu ends -->
+							</td>
+							<td valign="top" width="100%">
+								<table summary="" cellpadding="0" cellspacing="0" border="0"
+									width="100%" height="100%">
+									<tr>
+										<form id="MAINbody:mainMenuForm" method="post"
+											action="/ncia/faces/studyDisplay.tiles"
+											enctype="application/x-www-form-urlencoded">
+										<td height="10" width="100%" class="mainMenu">
+											<table summary="" cellpadding="0" cellspacing="0" border="0"
+												height="20">
+												<tr>
+													<td width="1">
+														<!-- anchor to skip main menu -->
+														<a href="#content"><img src="images/shim.gif"
+																alt="Skip Menu" width="1" height="1" border="0" /> </a>
+													</td>
+													<!-- link 1 begins -->
+													<td height="20" class="mainMenuItem"
+														onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+														onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+														<a class="mainMenuLink" href="baseDef.tiles">HOME</a>
+													</td>
+													<!-- link 1 ends -->
+													<td>
+														<img src="images/mainMenuSeparator.gif" width="1"
+															height="16" alt="" />
+													</td>
+													<!-- link 2 begins -->
+													<td height="20" class="mainMenuItem"
+														onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+														onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+														<a href="#"
+															onclick="document.forms['MAINbody:mainMenuForm']['MAINbody:mainMenuForm:_idcl'].value='MAINbody:mainMenuForm:_id54'; document.forms['MAINbody:mainMenuForm'].submit(); return false;"
+															class="mainMenuLink">SEARCH IMAGES</a>
+													</td>
+
+													<td>
+														<img src="images/mainMenuSeparator.gif" width="1"
+															height="16" alt="" />
+													</td>
+													<!-- link 5 begins -->
+													<td height="20" class="mainMenuItem"
+														onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+														onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+														<a class="mainMenuLink" style="color:#fff"
+															onclick="window.open('/ncia/HTML/help/index.html', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=750,height=700,scrollbars=yes,resizable=yes')";>HELP</a>
+													</td>
+													<!-- link 5 ends -->
+													<td>
+														<img src="images/mainMenuSeparator.gif" width="1"
+															height="16" alt="" />
+													</td>
+													<!-- link 5 begins -->
+
+
+												</tr>
+											</table>
+										</td>
+									</tr>
+									<input type="hidden" name="com.sun.faces.VIEW"
+										value="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" />
+									<input type="hidden" name="MAINbody:mainMenuForm"
+										value="MAINbody:mainMenuForm" />
+									<input type="hidden" name="MAINbody:mainMenuForm:_idcl" />
+									</form>
+									<tr>
+										<td width="100%" valign="top">
+											<br>
+
+											<!-- target of anchor to skip menus -->
+											<a name="content" />
+
+												<table summary="" cellpadding="0" cellspacing="0" border="0"
+													class="contentPage" width="650">
+												    <tr>
+														<td>
+															<br>
+															<br>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="2" align="center">
+															<h2>
+																Search Results (Image 799 for Subject 13614193285010001)
+																<ahref=/ncia/HTML/help/index.html?single=true&context=NCIA_Online_Help&topic=search_results_studies_for_subject_help	target=_blank>
+
+																<img src='images/help_icon.png'	border='0' /> </a>
+															</h2>
+															<TABLE width="100%" border=0 cellPadding="0"
+																cellSpacing=0>
+																<TBODY>
+																	<TR valign="bottom">
+																		<TD colspan="9">
+																		  <tr align="center">
+																			<img src="images/01020569761245.jpg">
+
+																			<br>
+																			Date: 02/10/2007
+																			<br>
+																			<br>
+																			<br>
+
+																			</tr>
+
+																	 <tr>
+																		<td height="20" width="100%" class="footerMenu">
+																			<!-- application ftr begins -->
+																			<table summary="" cellpadding="0" cellspacing="0"
+																				border="0">
+																				<tr>
+																					<td height="20" class="footerMenuItem"
+																						onmouseover="changeMenuStyle(this,'footerMenuItemOver'),showCursor()"
+																						onmouseout="changeMenuStyle(this,'footerMenuItem'),hideCursor()"
+																						onclick="document.location.href='#'">
+																						&nbsp;&nbsp;
+																						<a class="footerMenuLink"
+																							href="mailto:ncicb@pop.nci.nih.gov?subject=NCIA - National Cancer Imaging Archive">CONTACT
+																							US</a>&nbsp;&nbsp;
+																					</td>
+																					<td>
+																						<img src="images/mainMenuSeparator.gif" width="1"
+																							height="16" alt="" />
+																					</td>
+																					<td height="20" class="footerMenuItem"
+																						onmouseover="changeMenuStyle(this,'footerMenuItemOver'),showCursor()"
+																						onmouseout="changeMenuStyle(this,'footerMenuItem'),hideCursor()"
+																						onclick="window.open('http://www.hhs.gov/Privacy.html', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+																						&nbsp;&nbsp;
+																						<a class="footerMenuLink" href="#">PRIVACY
+																							NOTICE</a>&nbsp;&nbsp;
+																					</td>
+																					<td>
+																						<img src="images/mainMenuSeparator.gif" width="1"
+																							height="16" alt="" />
+																					</td>
+																					<td height="20" class="footerMenuItem"
+																						onmouseover="changeMenuStyle(this,'footerMenuItemOver'),showCursor()"
+																						onmouseout="changeMenuStyle(this,'footerMenuItem'),hideCursor()"
+																						onclick="window.open('/ncia/faces/legalRules.tiles', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+																						&nbsp;&nbsp;
+																						<a class="footerMenuLink" href="#">DISCLAIMER</a>&nbsp;&nbsp;
+																					</td>
+																					<td>
+																						<img src="images/mainMenuSeparator.gif" width="1"
+																							height="16" alt="" />
+																					</td>
+																					<td height="20" class="footerMenuItem"
+																						onmouseover="changeMenuStyle(this,'footerMenuItemOver'),showCursor()"
+																						onmouseout="changeMenuStyle(this,'footerMenuItem'),hideCursor()"
+																						onclick="window.open('http://www3.cancer.gov/accessibility/nci508.htm', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+																						&nbsp;&nbsp;
+																						<a class="footerMenuLink" href="#">ACCESSIBILITY</a>&nbsp;&nbsp;
+																					</td>
+																					<td>
+																						<img src="images/mainMenuSeparator.gif" width="1"
+																							height="16" alt="" />
+																					</td>
+																					<td height="20" class="footerMenuItem"
+																						onmouseover="changeMenuStyle(this,'footerMenuItemOver'),showCursor()"
+																						onmouseout="changeMenuStyle(this,'footerMenuItem'),hideCursor()"
+																						onclick="window.open('http://ncicb.nci.nih.gov/NCICB/support', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')";>
+																						&nbsp;&nbsp;
+																						<a class="footerMenuLink" href="#">SUPPORT</a>&nbsp;&nbsp;
+																					</td>
+																					<td>
+																						<img src="images/mainMenuSeparator.gif" width="1"
+																							height="16" alt="" />
+																					</td>
+																				</tr>
+																			</table>
+																			<!-- application ftr ends -->
+																		</td>
+																	</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+										</td>
+									</tr>
+
+
+
+
+
+									<tr>
+										<td>
+											<!-- footer begins -->
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0" class="ftrTable">
+												<tr>
+													<td valign="top">
+														<div align="center">
+															<a href="http://www.cancer.gov/"><img
+																	src="images/footer_nci.gif" width="63" height="31"
+																	alt="National Cancer Institute" border="0"> </a>
+															<a href="http://www.dhhs.gov/"><img
+																	src="images/footer_hhs.gif" width="39" height="31"
+																	alt="Department of Health and Human Services"
+																	border="0"> </a>
+															<a href="http://www.nih.gov/"><img
+																	src="images/footer_nih.gif" width="46" height="31"
+																	alt="National Institutes of Health" border="0"> </a>
+															<a href="http://www.firstgov.gov/"><img
+																	src="images/footer_firstgov.gif" width="91" height="31"
+																	alt="FirstGov.gov" border="0"> </a>
+														</div>
+													</td>
+												</tr>
+											</table>
+											<!-- footer ends -->
+										</td>
+									</tr>
+								</table>
+	</body>
+</html>
+
+
+
+
+

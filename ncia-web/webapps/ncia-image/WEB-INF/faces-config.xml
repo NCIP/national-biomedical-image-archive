@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+  <application>
+    <locale-config>
+      <default-locale>en</default-locale>
+      <supported-locale>en</supported-locale>
+      <supported-locale>en_US</supported-locale>
+    </locale-config>
+    <message-bundle>ncia_messages</message-bundle>
+
+
+    <view-handler>
+      com.icesoft.faces.facelets.D2DFaceletViewHandler
+    </view-handler>
+    <variable-resolver>  
+        org.springframework.web.jsf.DelegatingVariableResolver 
+     </variable-resolver>  
+ 
+  </application>
+  
+  <!-- *************************************************-->
+  <!--     NAVIGATION RULES start here          -->
+  <!-- *************************************************-->
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>logout</from-outcome>
+      <to-view-id>/logout.jsp</to-view-id>
+      <redirect />      
+    </navigation-case>
+  </navigation-rule>
+  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>welcome</from-outcome>
+      <to-view-id>/login.jsf</to-view-id>
+      <redirect />      
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>home</from-outcome>
+      <to-view-id>/home.jsf</to-view-id> 
+      <redirect />
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>search</from-outcome>
+      <to-view-id>/searchMain.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>searchReset</from-outcome>
+      <to-view-id>/searchMain.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>dynamicSearch</from-outcome>
+      <to-view-id>/dynamicSearch.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule> 
+    <navigation-rule>
+    <navigation-case>
+      <from-outcome>onlineDeletion</from-outcome>
+      <to-view-id>/onlineDeletion.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule> 
+    <navigation-rule>
+    <navigation-case>
+      <from-outcome>confirmDeletion</from-outcome>
+      <to-view-id>/confirmDeletion.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>   
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>submitSearch</from-outcome>
+      <to-view-id>/searchResultMain.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>register</from-outcome>
+      <to-view-id>/registerMain.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>registerConfirm</from-outcome>
+      <to-view-id>/registerConfirm.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>searchCurationData</from-outcome>
+      <to-view-id>/searchCurationData.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>displayStudy</from-outcome>
+      <to-view-id>/studyDisplay.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+    <navigation-rule>
+    <navigation-case>
+      <from-outcome>displayDataBasket</from-outcome>
+      <to-view-id>/dataBasketDisplay.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>dataBasket</from-outcome>
+      <to-view-id>/dataBasketDisplay.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>loginFail</from-outcome>
+      <to-view-id>/login.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>viewImages</from-outcome>
+      <to-view-id>/imageDisplay.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <from-view-id>/searchMain.jsf</from-view-id>
+    <navigation-case>
+      <from-outcome>resetPage</from-outcome>
+      <to-view-id>/searchMain.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>displaySavedQueries</from-outcome>
+      <to-view-id>/savedQueries.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+ 
+   
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>referencedImages</from-outcome>
+      <to-view-id>/referencedImages.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>showStatusHistory</from-outcome>
+      <to-view-id>/showStatusHistory.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>showFullJpeg</from-outcome>
+      <to-view-id>/showFullJpeg.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>showDicomTags</from-outcome>
+      <to-view-id>/showDicomTags.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>showDicom</from-outcome>
+      <to-view-id>/showDicom.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>submissionReports</from-outcome>
+      <to-view-id>/submissionReports.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>displayVSResults</from-outcome>
+      <to-view-id>/feedback.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>displayAccrualResults</from-outcome>
+      <to-view-id>/accrualReport.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>   
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>displayAnnotationReport</from-outcome>
+      <to-view-id>/annotationSubmissionReport.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>    
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>displayImageSubmissionReport</from-outcome>
+      <to-view-id>/imageSubmissionReport.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>   
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>createCustomSeriesList</from-outcome>
+      <to-view-id>/createCustomList.jsf</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>editCustomSeriesList</from-outcome>
+      <to-view-id>/editCustomList.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>searchCustomSeriesList</from-outcome>
+      <to-view-id>/searchCustomList.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>editCollectionDescriptions</from-outcome>
+      <to-view-id>/editCollectionDesc.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>remoteSearch</from-outcome>
+      <to-view-id>/remoteSearch.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+      <navigation-case>
+      <from-outcome>checkIRW</from-outcome>
+      <to-view-id>/checkIRW.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+      <navigation-case>
+      <from-outcome>checkIRWFromDataBasket</from-outcome>
+      <to-view-id>/checkIRWFromDataBasket.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+    <navigation-rule>
+      <navigation-case>
+      <from-outcome>popupForViewSeriesImage</from-outcome>
+      <to-view-id>/viewSeriesImages.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>qcToolMain</from-outcome>
+      <to-view-id>/qcToolMain.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+   <navigation-rule>
+    <navigation-case>
+      <from-outcome>qcTooStatusRpt</from-outcome>
+      <to-view-id>/qcToolStatusRpt.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+    <navigation-rule>
+    <navigation-case>
+      <from-outcome>qcTool</from-outcome>
+      <to-view-id>/qcTool.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule> 
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>qcToolSlideShow</from-outcome>
+      <to-view-id>/qcToolSlideShow.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule>       
+  
+  
+  <component>
+      <component-type>help</component-type>
+      <component-class>gov.nih.nci.ncia.components.HelpComponent</component-class>
+  </component>  
+  <component>
+      <component-type>pager</component-type>
+      <component-class>gov.nih.nci.ncia.components.UIPager</component-class>
+  </component>
+  <component>
+      <component-type>thumbnailImage</component-type>
+      <component-class>gov.nih.nci.ncia.components.UIThumbnail</component-class>
+  </component>
+  <component>
+      <component-type>imageDataTable</component-type>
+      <component-class>gov.nih.nci.ncia.components.UIImageTable</component-class>
+  </component>        
+  <component>
+    <component-type>ProgressBar</component-type>
+    <component-class>com.sun.j2ee.blueprints.bpcatalog.ajax.progressbar.components.ProgressBarComponent</component-class>
+    <component-extension>
+      <component-family>ProgressBar</component-family>
+    </component-extension>
+  </component>
+
+  
+  <managed-bean>
+    <description>Bean for the QC Tool</description>
+    <managed-bean-name>qcToolBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcToolBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean> 
+    <managed-bean>
+    <description>Bean for the QC Tool</description>
+    <managed-bean-name>qcUtil</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcUtil</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean> 
+  <managed-bean>
+    <description>QC Tool Search Bean </description>
+    <managed-bean-name>qcToolSearchBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcToolSearchBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>qcToolBean</property-name>   
+      <value>#{qcToolBean}</value>   
+    </managed-property>    
+  </managed-bean>
+  <managed-bean>
+    <description>QC Tool Update Bean </description>
+    <managed-bean-name>qcToolUpdateBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcToolUpdateBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>qcToolSearchBean</property-name>   
+      <value>#{qcToolSearchBean}</value>   
+    </managed-property>    
+  </managed-bean>
+  <managed-bean>
+    <description>Populates the view series page for a page load action</description>
+    <managed-bean-name>viewSeriesPopulatorQCBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorQCBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>    
+  <managed-bean>
+    <description>Populates the view series page for a page load action</description>
+    <managed-bean-name>viewSeriesPopulatorMgBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorMgBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean> 
+  <managed-bean>
+    <description>Populates the dicom tag view page for a page load action</description>
+    <managed-bean-name>dicomTagViewerPopulatorMgBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.populator.DicomTagViewerPopulatorMgBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>    
+
+  
+  <managed-bean>
+    <description>Populates the databasket page for direct bookmarking</description>
+    <managed-bean-name>dataBasketPopulatorMgBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.populator.DataBasketPopulatorMgBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Create Customized Image Series List</description>
+    <managed-bean-name>customSeriesListBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.customserieslist.CustomSeriesListBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Edit Customized Image Series List</description>
+    <managed-bean-name>editCustomSeriesListBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.customserieslist.EditCustomSeriesListBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Search Customized Image Series List</description>
+    <managed-bean-name>searchCustomSeriesListBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.customserieslist.SearchCustomSeriesListBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Edit Collection Descriptions</description>
+    <managed-bean-name>collectionDescBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.collectiondescriptions.CollectionDescBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Bean for Search Page to display collection description</description>
+    <managed-bean-name>displayCollectionDescBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.collectiondescriptions.DisplayCollectionDescBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Lookup Bean for Search Page</description>
+    <managed-bean-name>searchLookupBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.SearchLookupBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Workflow Bean for Search Page</description>
+    <managed-bean-name>searchWorkflowBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Bean holding search results</description>
+    <managed-bean-name>searchResultBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.SearchResultBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    
+    <managed-property>   
+      <property-name>studiesSearchResultBean</property-name>   
+      <value>#{studiesSearchResultBean}</value>   
+    </managed-property>     
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>ispyBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.ISPYBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>studiesSearchResultBean</property-name>   
+      <value>#{studiesSearchResultBean}</value>   
+    </managed-property>    
+    <managed-property>   
+      <property-name>searchResultBean</property-name>   
+      <value>#{searchResultBean}</value>   
+    </managed-property> 
+    <managed-property>   
+      <property-name>searchWorkflowBean</property-name>   
+      <value>#{searchWorkflowBean}</value>   
+    </managed-property>     
+  </managed-bean>   
+  <managed-bean>
+    <description>for Cedara UI</description>
+    <managed-bean-name>cedaraBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.CedaraBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>studiesSearchResultBean</property-name>   
+      <value>#{studiesSearchResultBean}</value>   
+    </managed-property>    
+    <managed-property>   
+      <property-name>basketBean</property-name>   
+      <value>#{basketBean}</value>   
+    </managed-property>      
+  </managed-bean>   
+  
+  <managed-bean>
+    <managed-bean-name>seriesSearchResultBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.SeriesSearchResultBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+  </managed-bean> 
+  
+  <managed-bean>
+    <managed-bean-name>studiesSearchResultBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.StudiesSearchResultBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>seriesSearchResultBean</property-name>   
+      <value>#{seriesSearchResultBean}</value>   
+    </managed-property>      
+  </managed-bean>   
+  
+  <managed-bean>
+    <description>Bean to register new users</description>
+    <managed-bean-name>registerBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.RegisterBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Bean to manage the current user who is logged in</description>
+    <managed-bean-name>securityBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.security.SecurityBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Bean to manage the Data Basket</description>
+    <managed-bean-name>basketBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.basket.BasketBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Bean to manage the Saved Queries</description>
+    <managed-bean-name>savedQueryBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.savedquery.SavedQueryBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+ 
+  
+  <managed-bean>
+    <description>Submission Report input controls beans</description>
+    <managed-bean-name>submissionReportsBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.SubmissionReportsBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>  
+  <managed-bean>
+    <description>Accrual Report Bean </description>
+    <managed-bean-name>accrualReportSubmissionBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.AccrualReportSubmissionBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>submissionReportsBean</property-name>   
+      <value>#{submissionReportsBean}</value>   
+    </managed-property>    
+  </managed-bean>  
+  
+  <managed-bean>
+    <description>Annotation Submission Report Bean</description>
+    <managed-bean-name>annotationSubmissionReportBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.AnnotationSubmissionReportBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>submissionReportsBean</property-name>   
+      <value>#{submissionReportsBean}</value>   
+    </managed-property>    
+  </managed-bean>   
+  
+  
+  
+  <managed-bean>
+    <description>for VerifySubmission Page</description>
+    <managed-bean-name>imageSubmissionReportBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.ImageSubmissionReportBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    
+    <managed-property>   
+      <property-name>submissionReportsBean</property-name>   
+      <value>#{submissionReportsBean}</value>   
+    </managed-property>    
+  </managed-bean>  
+  <!--
+  <managed-bean>
+    <description>Bean for the Upload Annotation</description>
+    <managed-bean-name>UploadAnnotationBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.UploadAnnotationBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean> 
+  -->
+  <managed-bean>
+    <description>Bean to manage the current guest user who is logged in</description>
+    <managed-bean-name>anonymousLoginBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.security.AnonymousLoginBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <description>Bean to manage the dynamic search GUI compenent</description>
+    <managed-bean-name>dynamicSearchBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.DynamicSearchBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+<!--   <managed-bean>
+        <description>Bean to manage the Series Deletion compenent</description>
+        <managed-bean-name>seriesDeletionBean</managed-bean-name>
+        <managed-bean-class>gov.nih.nci.ncia.beans.SeriesDeletionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    -->
+  <managed-bean>
+    <description>Available Search Terms Bean</description>
+    <managed-bean-name>availabelSearchTermsBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.AvailableSearchTermsBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  
+  <render-kit>
+    <renderer>
+      <component-family>javax.faces.Data</component-family>
+      <renderer-type>gov.nih.nci.ncia.components.ImageDataTable</renderer-type>
+      <renderer-class>gov.nih.nci.ncia.components.ImageTableRenderer</renderer-class>
+    </renderer>
+  </render-kit>
+
+
+</faces-config>
+

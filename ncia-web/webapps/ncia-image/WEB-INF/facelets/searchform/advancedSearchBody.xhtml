@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+  <tbody>
+    <tr>
+      <td>
+        <table cellspacing="0" cellpadding="3" width="100%" border="0">
+          <tbody>
+            <tr>
+              <td colspan="2"
+                  class="formTitle">
+                <h:outputText value="#{msg.search_modalityManufacturer}" />
+              </td>
+            </tr>
+            <tr>
+              <td class="formLabel" width="25%">
+                <h:outputText value="#{msg.criteria_ManufacturerCriteria}" />
+                <br/>
+                <h:outputText value="#{msg.criteria_ModelCriteria}" />
+                <br/>
+                <h:outputText value="#{msg.criteria_SoftwareVersionCriteria}" />
+                <br/>
+              </td>
+              <td class="formField">
+                <h:panelGroup id="treeDiv">
+                  <ice:tree id="equipmentTree"
+                            value="#{searchLookupBean.manufacturerTree}"
+                            var="node"
+                            hideRootNode="false"
+                            hideNavigation="false"
+                            imageDir="./xmlhttp/css/xp/css-images/" >
+                    <ice:treeNode style="border:0px">
+                      <f:facet name="content">
+                        <ice:panelGroup style="display:inline;border:0px">
+                          <!--  otherwise other checkboxes wont update -->              
+                          <ice:setEventPhase events="ValueChangeEvent"
+                                             phase="INVOKE_APPLICATION">                                                    
+                            <ice:selectBooleanCheckbox id="equipmentTreeNode"
+                                                       styleClass="formLabel"
+                                                       style="border:0px"    
+                                                       partialSubmit="true"                                                           
+                                                       value="#{node.userObject.selected}"
+                                                       valueChangeListener="#{node.userObject.select}" /> 
+                          </ice:setEventPhase>
+                          <h:outputText styleClass="formLabel" 
+                                        style="border:0px" 
+                                        value="#{node.userObject.text} (#{node.childCount})"
+                                        rendered="#{not node.userObject.leaf}"/>  
+                          <h:outputText styleClass="formLabel" 
+                                        style="border:0px" 
+                                        value="#{node.userObject.text}"
+                                        rendered="#{node.userObject.leaf}"/>                                                     
+                                                                                          
+                        </ice:panelGroup>
+                      </f:facet>
+                    </ice:treeNode>                             
+                  </ice:tree>
+                </h:panelGroup>                                 
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+        <br/>
+        <table cellspacing="0" cellpadding="0" width="100%" border="1">
+          <tbody>
+            <tr>
+              <td>
+                <table cellspacing="0" cellpadding="3" width="100%" border="0">
+                  <tbody>
+                    <tr>
+                      <td colspan="4" class="formTitle">
+                        <h:outputText value="#{msg.common_dicom}" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="29" class="formLabel">0008</td>
+                      <td class="formField" width="28">103E</td>
+                      <td class="formField" width="143">
+                        <h:outputText value="#{msg.criteria_SeriesDescriptionCriteria}" />
+                      </td>
+                      <td width="376" class="formField">
+                        <span class="formFieldWhite"> 
+                          <h:inputText value="#{searchWorkflowBean.seriesDescription}"
+                                       maxlength="64" />
+                        </span>   
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="formLabel">0018</td>
+                      <td class="formField" width="28">1210</td>
+                      <td class="formField" width="143">
+                        <h:outputText value="#{msg.criteria_ConvolutionKernelCriteria}" />
+                      </td>
+                      <td width="63%" class="formField">
+                        <table width="90%" border="0" align="left"
+                               cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td width="26%">
+                              <div align="center">
+                                <span class="formMessage">
+                                  <h:outputText value="#{msg.search_available}" />
+                                </span>
+                              </div>
+                            </td>
+                            <td width="44%" align="center" valign="middle">
+                              <f:verbatim>&amp;nbsp;</f:verbatim>
+                            </td>
+                            <td width="26%">
+                              <div align="center">
+                                <span class="formMessage">
+                                  <h:outputText value="#{msg.search_selected}" />
+                                </span>
+                              </div>
+                            </td>
+                            <td width="4%" valign="bottom">
+                              <f:verbatim>&amp;nbsp;</f:verbatim>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <div id="kernelDiv"
+                                   class="searchFormSelector">
+                                                                                                                            
+                                <h:dataTable id="kernelCheckboxesTable"
+                                             width="100%" 
+                                             border="0" 
+                                             cellpadding="0" 
+                                             cellspacing="0" 
+                                             value="#{searchWorkflowBean.kernelItems}"
+                                             var="kernelItem">
+                                  <h:column id="kernelItemsColumn">
+                                    <ice:selectBooleanCheckbox value="#{kernelItem.value}" 
+                                                               partialSubmit="true" /> 
+                                    <h:outputText value="#{kernelItem.label}"/>                                      
+                                  </h:column>    
+                                </h:dataTable> 
+      
+                              </div>
+                            </td>
+                            <td align="center" valign="middle">
+                              <h:commandButton id="selectAllKernels" 
+                                                image="images/SELECTall-noarrow.gif" 
+                                                action="#{searchWorkflowBean.selectAllKernels}" />                            
+                              <br/>
+                              <h:commandButton id="unselectAllKernels"
+                                               image="images/REMOVE-all-noarrow.gif"
+                                               action="#{searchWorkflowBean.unselectAllKernels}" /> 
+                            </td>
+                            <td valign="top">
+                              <div class="searchFormSelector">
+                                <h:dataTable id="selectedKernelsTable"
+                                             width="100%" 
+                                             border="0" 
+                                             cellpadding="0" 
+                                             cellspacing="0" 
+                                             value="#{searchWorkflowBean.selectedKernelNames}"
+                                             var="item">
+                                  <h:column id="selectedKernelColumn">
+                                    <h:outputText value="#{item}"/> 
+                                  </h:column>    
+                                </h:dataTable>                            
+                              </div>
+                            </td>
+                 
+                          
+                          </tr>
+                        </table>
+                        <div align="left"></div>
+                      </td>
+                    </tr>
+                    <!-- Criteria Kilovoltage Peak Distribution Start Here -->
+                    <tr>
+                      <td class="formLabel">0018</td>
+                      <td class="formField">0060</td>
+                      <td class="formField">
+                        <h:outputText value="#{msg.criteria_KilovoltagePeakDistribution}" />
+                      </td>
+                      <td class="formField">
+                        <span class="formFieldWhite"></span>
+                        <table>
+                          <tr>
+                            <td>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr valign="middle">
+                                  <td width="79%">
+                                    <h:selectOneMenu id="kvLeftCompareSelectOneMenu"
+                                                     value="#{searchWorkflowBean.kvLeftCompare}">
+                                      <f:selectItems id="kvCmpLeftSelectItems"
+                                                     value="#{searchLookupBean.imageLeftCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="kvPeakLeftInputText"
+                                                 value="#{searchWorkflowBean.kvPeakLeft}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>               
+                                  </td>
+                                </tr>
+                              </table>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td width="21%" class="formMessage">
+                                    <div align="left">
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <h:outputText value="#{msg.search_and}" />
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                    </div>
+                                  </td>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="kvRightCompareSelectOneMenu"
+                                                     value="#{searchWorkflowBean.kvRightCompare}">
+                                      <f:selectItems id="kvCmpRightSelectItems"
+                                                     value="#{searchLookupBean.imageRightCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="kvPeakRightInputText"
+                                                 value="#{searchWorkflowBean.kvPeakRight}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange/>
+                                    </h:inputText>               
+                                  </td>
+                                  <td valign="top"></td>
+                                </tr>
+                              </table>
+            
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top"> 
+                              <h:inputHidden id="kvValid"
+                                             value="needed" 
+                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
+                                <f:attribute name="cmpLeftId"
+                                             value="kvLeftCompareSelectOneMenu" />
+                                <f:attribute name="cmpLeftValue"
+                                             value="kvPeakLeftInputText" />
+                                <f:attribute name="cmpRightId"
+                                             value="kvRightCompareSelectOneMenu" />
+                                <f:attribute name="cmpRightValue"                                                                                          
+                                             value="kvPeakRightInputText" />                              
+                              </h:inputHidden>
+                                                          
+                              <h:message for="kvValid" styleClass="errorLabel" />
+                              <h:message for="kvPeakLeftInputText" styleClass="errorLabel" />
+                              <h:message for="kvPeakRightInputText" styleClass="errorLabel" />
+                            </td> 
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <!-- Criteria Kilovoltage Peak Distribution End Here -->
+            
+                    <!-- Criteria DataCollectionDiameter Start Here-->
+                    <tr>
+                      <td class="formLabel">0018</td>
+                      <td class="formField">0090</td>
+                      <td class="formField">
+                        <h:outputText value="#{msg.criteria_DataCollectionDiameterCriteria}" />
+                      </td>
+                      <td class="formField">
+                        <span class="formFieldWhite"></span>
+                        <table>
+                          <tr>
+                            <td>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr valign="middle">
+                                  <td width="79%">
+                                    <h:selectOneMenu id="dcdCriteriaCmpLeftSelectOneMenu" 
+                                                     value="#{searchWorkflowBean.dcdSearchBean.criteriaLeftCompare}">
+                                      <f:selectItems id="dcdCriteriaCmpLeftSelectItems" 
+                                                     value="#{searchLookupBean.imageLeftCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="dcdCriteriaCmpLeftInputText"
+                                                 value="#{searchWorkflowBean.dcdSearchBean.criteriaLeft}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>                
+                                  </td>
+                                </tr>
+                              </table>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td width="21%" class="formMessage">
+                                    <div align="left">
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <h:outputText value="#{msg.search_and}" />
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                    </div>
+                                  </td>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="dcdCriteriaCmpRightSelectOneMenu"
+                                                     value="#{searchWorkflowBean.dcdSearchBean.criteriaRightCompare}">
+                                      <f:selectItems id="dcdCriteriaCmpRightSelectItems" 
+                                                     value="#{searchLookupBean.imageRightCompareItems}" />
+                                    </h:selectOneMenu>
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="dcdCriteriaCmpRightInputText"
+                                                 value="#{searchWorkflowBean.dcdSearchBean.criteriaRight}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>                
+                                  </td>
+                                  <td valign="top"></td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <h:inputHidden id="dcdValid"
+                                             value="needed" 
+                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
+                                <f:attribute name="cmpLeftId"
+                                             value="dcdCriteriaCmpLeftSelectOneMenu" />
+                                <f:attribute name="cmpLeftValue"
+                                             value="dcdCriteriaCmpLeftInputText" />
+                                <f:attribute name="cmpRightId"
+                                             value="dcdCriteriaCmpRightSelectOneMenu" />
+                                <f:attribute name="cmpRightValue"                                                                                          
+                                             value="dcdCriteriaCmpRightInputText" />                              
+                              </h:inputHidden>
+                              
+                              <h:message for="dcdValid" styleClass="errorLabel" />
+                              <h:message for="dcdCriteriaCmpLeftInputText" styleClass="errorLabel" />
+                              <h:message for="dcdCriteriaCmpRightInputText" styleClass="errorLabel" />
+                            </td>  
+                          </tr>
+                        </table>
+                      </td>
+                    </tr> 
+                    <!-- Criteria DataCollectionDiameter End Here -->
+              
+                    <!-- Criteria ReconstructionDiameter Start Here-->
+                    <tr>
+                      <td class="formLabel">0018</td>
+                      <td class="formField">1100</td>
+                      <td class="formField">
+                        <h:outputText value="#{msg.criteria_ReconstructionDiameterCriteria}" />
+                      </td>
+                      <td class="formField">
+                        <span class="formFieldWhite"></span>
+                        <table>
+                          <tr>
+                            <td>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr valign="middle">
+                                  <td width="79%">
+                                    <h:selectOneMenu id="rcdCriteriaCmpLeftSelectOneMenu" 
+                                                     value="#{searchWorkflowBean.rcdSearchBean.criteriaLeftCompare}">
+                                      <f:selectItems id="rcdCriteriaCmpLeftSelectItems"
+                                                     value="#{searchLookupBean.imageLeftCompareItems}" />
+                                    </h:selectOneMenu>
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="rcdCriteriaCmpLeftInputText" 
+                                                 value="#{searchWorkflowBean.rcdSearchBean.criteriaLeft}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>                
+                                  </td>
+                                </tr>
+                              </table>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td width="21%" class="formMessage">
+                                    <div align="left">
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <h:outputText value="#{msg.search_and}" />
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                    </div>
+                                  </td>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="rcdCriteriaCmpRightSelectOneMenu"
+                                                     value="#{searchWorkflowBean.rcdSearchBean.criteriaRightCompare}">
+                                      <f:selectItems id="rcdCriteriaCmpRightSelectItems"
+                                                     value="#{searchLookupBean.imageRightCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="rcdCriteriaCmpRightInputText" 
+                                                 value="#{searchWorkflowBean.rcdSearchBean.criteriaRight}" 
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>                
+                                  </td>
+                                  <td valign="top"></td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <h:inputHidden id="rcdValid"
+                                             value="needed" 
+                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
+                                <f:attribute name="cmpLeftId"
+                                             value="rcdCriteriaCmpLeftSelectOneMenu" />
+                                <f:attribute name="cmpLeftValue"
+                                             value="rcdCriteriaCmpLeftInputText" />
+                                <f:attribute name="cmpRightId"
+                                             value="rcdCriteriaCmpRightSelectOneMenu" />
+                                <f:attribute name="cmpRightValue"                                                                                          
+                                             value="rcdCriteriaCmpRightInputText" />                              
+                              </h:inputHidden>
+                              
+                              <h:message for="rcdValid" styleClass="errorLabel" />
+                              <h:message for="rcdCriteriaCmpLeftInputText" styleClass="errorLabel" />
+                              <h:message for="rcdCriteriaCmpRightInputText" styleClass="errorLabel" />                                 
+                            </td> 
+                          </tr>
+                        </table>
+                      </td>
+                    </tr> 
+                    <!-- Criteria ReconstructionDiameter End Here -->
+                                            
+                    <!-- Criteria AcquisitionMatrix Start Here-->
+                    <tr>
+                      <td class="formLabel">0018</td>
+                      <td class="formField">1310</td>
+                      <td class="formField">
+                        <h:outputText value="#{msg.criteria_AcquisitionMatrixCriteria}" />
+                      </td>
+                      <td class="formField">
+                        <span class="formFieldWhite"></span>
+                        <table>
+                          <tr>
+                            <td>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr valign="middle">
+                                  <td width="79%">
+                                    <h:selectOneMenu id="amCriteriaCmpLeftSelectOneMenu" 
+                                                     value="#{searchWorkflowBean.amSearchBean.criteriaLeftCompare}">
+                                      <f:selectItems id="amCriteriaCmpLeftSelectItems" 
+                                                     value="#{searchLookupBean.imageLeftCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="amCriteriaCmpLeftInputText" 
+                                                 value="#{searchWorkflowBean.amSearchBean.criteriaLeft}" 
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>                
+                                  </td>
+                                </tr>
+                              </table>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td width="21%" class="formMessage">
+                                    <div align="left">
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <h:outputText value="#{msg.search_and}" />
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                    </div>
+                                  </td>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="amCriteriaCmpRightSelectOneMenu"
+                                                     value="#{searchWorkflowBean.amSearchBean.criteriaRightCompare}">
+                                      <f:selectItems id="amCriteriaCmpRightSelectItems"
+                                                     value="#{searchLookupBean.imageRightCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                     <h:inputText id="amCriteriaCmpRightInputText"
+                                                  value="#{searchWorkflowBean.amSearchBean.criteriaRight}"
+                                                  size="5"
+                                                  maxlength="10">
+                                       <f:validateDoubleRange minimum="0"/>
+                                     </h:inputText>                
+                                  </td>
+                                  <td valign="top"></td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <h:inputHidden id="amValid" 
+                                             value="needed" 
+                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
+                                <f:attribute name="cmpLeftId"
+                                             value="amCriteriaCmpLeftSelectOneMenu" />
+                                <f:attribute name="cmpLeftValue"
+                                             value="amCriteriaCmpLeftInputText" />
+                                <f:attribute name="cmpRightId"
+                                             value="amCriteriaCmpRightSelectOneMenu" />
+                                <f:attribute name="cmpRightValue"                                                                                          
+                                             value="amCriteriaCmpRightInputText" />  
+                              </h:inputHidden>                    
+                              <h:message for="amValid" styleClass="errorLabel" />
+                              <h:message for="amCriteriaCmpLeftInputText" styleClass="errorLabel" />
+                              <h:message for="amCriteriaCmpRightInputText" styleClass="errorLabel" />                               
+                            </td>  
+                          </tr>
+                        </table>
+                      </td>
+                    </tr> 
+        
+                    <!-- Criteria AcquisitionMatrix End Here -->                              
+                    <!-- Criteria DxDataCollectionDiameter Start Here-->
+                    <tr>
+                      <td class="formLabel">0050</td>
+                      <td class="formField">0016</td>
+                      <td class="formField">
+                        <h:outputText value="#{msg.criteria_DxDataCollectionDiameterCriteria}" />
+                      </td>
+                      <td class="formField">
+                        <span class="formFieldWhite"></span>
+                        <table>
+                          <tr>
+                            <td>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr valign="middle">
+                                  <td width="79%">
+                                    <h:selectOneMenu id="dxDcdCriteriaCmpLeftSelectOneMenu"
+                                                     value="#{searchWorkflowBean.dxDcdSearchBean.criteriaLeftCompare}">
+                                      <f:selectItems id="dxDcdCriteriaCmpLeftSelectItems" 
+                                                     value="#{searchLookupBean.imageLeftCompareItems}" />
+                                     </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="dxDcdCriteriaCmpLeftInputText"
+                                                 value="#{searchWorkflowBean.dxDcdSearchBean.criteriaLeft}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>                
+                                  </td>
+                                </tr>
+                              </table>
+                              <table width="40" border="0" align="left"
+                                     cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td width="21%" class="formMessage">
+                                    <div align="left">
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <h:outputText value="#{msg.search_and}" />
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                      <f:verbatim>&amp;nbsp;</f:verbatim>
+                                    </div>
+                                  </td>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="dxDcdCriteriaCmpRightSelectOneMenu" 
+                                                     value="#{searchWorkflowBean.dxDcdSearchBean.criteriaRightCompare}">
+                                      <f:selectItems id="dxDcdCriteriaCmpRightSelectItems" 
+                                                     value="#{searchLookupBean.imageRightCompareItems}" />
+                                    </h:selectOneMenu> 
+                                  </td>
+                                  <td width="79%">
+                                    <h:inputText id="dxDcdCriteriaCmpRightInputText" 
+                                                 value="#{searchWorkflowBean.dxDcdSearchBean.criteriaRight}"
+                                                 size="5"
+                                                 maxlength="10">
+                                      <f:validateDoubleRange minimum="0"/>
+                                    </h:inputText>  
+                                                   
+                                  </td>
+                                  <td valign="top"></td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <h:inputHidden id="dxDcdValid"
+                                             value="needed" 
+                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
+                                <f:attribute name="cmpLeftId"
+                                             value="dxDcdCriteriaCmpLeftSelectOneMenu" />
+                                <f:attribute name="cmpLeftValue"
+                                             value="dxDcdCriteriaCmpLeftInputText" />
+                                <f:attribute name="cmpRightId"
+                                             value="dxDcdCriteriaCmpRightSelectOneMenu" />
+                                <f:attribute name="cmpRightValue"                                                                                          
+                                             value="dxDcdCriteriaCmpRightInputText" />  
+                              </h:inputHidden>               
+                              <h:message for="dxDcdValid" styleClass="errorLabel" />
+                              <h:message for="dxDcdCriteriaCmpLeftInputText" styleClass="errorLabel" />
+                              <h:message for="dxDcdCriteriaCmpRightInputText" styleClass="errorLabel" />                               
+                            </td>   
+                          </tr>
+                        </table>
+                      </td>
+                    </tr> 
+                    <!-- Criteria DxDataCollectionDiameter End Here -->
+                                                    
+                  </tbody>
+                </table>
+              </td>
+            </tr>                        
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>               
+</table>
+
+</ui:composition>

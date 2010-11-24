@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- # {imageSeriesJavascript} is expected to come from calling template
+     it is the array of thumbnails to show as a movie -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ice="http://www.icesoft.com/icefaces/component" 
+      xmlns:f="http://java.sun.com/jsf/core">
+      
+<head>
+  <ice:outputDeclaration doctypeRoot="html" 
+                         doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN" 
+                         doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />
+  <title>
+    <h:outputText value="#{msg.slideshow_Series}"/> 
+    <h:outputText value="#{seriesSearchResultBean.series.seriesInstanceUid}"/>
+  </title>
+  
+  <link type="text/css" rel="stylesheet" href="css/slideshow.css"/>
+  
+  <script type="text/javascript" src="js/prototype-1.4.0.js"></script>
+  <script type="text/javascript" src="js/slider.js"></script>
+  <script type="text/javascript" src="js/imageSeriesSlideshow.js"></script>
+  <script type="text/javascript">
+    //interface point to get the image URLs from the backend
+    var slideShowImagesArray = #{imageSeriesJavascript};
+    
+    function dropProgressIndicator() {
+        $('loadingDiv').style.display = 'none'; 
+        setControlsVisible(true);    
+    }
+    
+    function prefetchAllWithProgress() {
+        stopPlayback();
+        setControlsVisible(false);
+        $('loadingDiv').style.display = 'block';
+
+        prefetchAll(dropProgressIndicator);                  
+    }
+    
+    function setControlsVisible(b) {
+        if(b) {
+            $('slideShowControlBarDiv').style.display = 'block';
+            $('prefetchButtonDiv').style.display = 'block';
+        }
+        else {
+            $('slideShowControlBarDiv').style.display = 'none';
+            $('prefetchButtonDiv').style.display = 'none';            
+        }           
+    }
+    
+
+  </script>
+</head>
+
+<body>             
+  <f:loadBundle basename="ncia_messages" var="msg"/>                  
+  <div id="slideShowDiv">
+    <div>
+      <!--  javascript will initialize this img src -->
+      <img id="slideShowFrame" alt=""/>
+    </div>
+  
+    <div id="slideShowControlBarDiv">
+      <table>
+        <tbody>
+          <tr>
+            <td rowspan="2">
+              <img id="navigateToBeginButton"
+                   src="images/begin.gif"
+                   title="#{msg.slideshow_First_Image}"
+                   onclick="navigateToBegin();"
+                   alt="#{msg.slideshow_First_Image}"/>
+              <img id="playBackwardButton"
+                   src="images/play_backward.gif"
+                   title="#{msg.slideshow_Play_Backward}"
+                   onclick="playBackward();"
+                   alt="#{msg.slideshow_Play_Backward}"/>        
+              <img id="backOneButton"
+                   src="images/prev.gif"
+                   title="#{msg.slideshow_Previous_Image}"
+                   onclick="backOne();"
+                   alt="#{msg.slideshow_Previous_Image}"/>   
+            </td>
+            <td>
+              <img src="images/reset.png"
+                   title="Reset start and end"
+                   onclick="resetBeginEndSlider();"
+                   alt="Reset start and end"/>
+            </td>
+            <td>          
+              <div id="beginEndSlider">     
+                <div id="beginHandle" 
+                     class="handle"
+                     title="#{msg.slideshow_Adjust_start}">
+                </div>
+                <div id="endHandle" 
+                     class="handle"
+                     title="#{msg.slideshow_Adjust_end}">
+                </div>           
+                
+                <div id="highlightedSpan"></div>
+  
+              </div>
+            </td>
+            <td rowspan="2">
+              <img id="forwardOneButton"
+                   src="images/next.gif"
+                   title="#{msg.slideshow_Next_Image}"
+                   onclick="forwardOne();"
+                   alt="#{msg.slideshow_Next_Image}"/>
+              <img id="playForwardButton"
+                   src="images/play_forward.gif"
+                   title="#{msg.slideshow_Play_Forward}"
+                   onclick="playForward();"
+                   alt="#{msg.slideshow_Play_Forward}"/>        
+              <img id="navigateToEndButton"
+                   src="images/end.gif"
+                   title="#{msg.slideshow_Last_Image}"
+                   onclick="navigateToEnd();"
+                   alt="#{msg.slideshow_Last_Image}"/>
+                   
+              <img id="loopBackAndForthButton"
+                   src="images/curve.gif"
+                   title="#{msg.slideshow_Loop}"
+                   onclick="loopBackAndForth();"
+                   alt="#{msg.slideshow_Loop}"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+            </td>
+            <td>
+              <div id="slideShowSlider">     
+                <div id="currentHandle"></div>           
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>                            
+    </div>
+    
+    <div id="firefoxWarningDiv">
+      <span>
+        <h:outputText value="#{msg.slideshow_bandwidth_warning}" />
+      </span> 
+    </div>
+    
+    <div id="prefetchButtonDiv">
+      <h:outputText value="#{msg.slideshow_Click} " />
+      <a href="javascript:prefetchAllWithProgress()">
+        <h:outputText value="#{msg.slideshow_here}" />
+      </a>   
+      <h:outputText value=" #{msg.slideshow_to_preload_entire_show}" />
+    </div>
+    
+    <div id="loadingDiv">
+      <img src="images/ajax_indicator.gif"
+           width="16" 
+           height="16"
+           alt=""/>
+      <h:outputText value="#{msg.slideshow_preloading}" />
+    </div>              
+  </div>
+
+<script type="text/javascript">
+//this block of code must come after the DIV elements
+//that actually are the slider 
+
+initSlideShow(slideShowImagesArray, 
+              'slideShowFrame');   
+                  
+//this array needs to match up with indexes for handles
+//in imageSeriesSlideshow.js
+var handles = ['currentHandle'];
+var beginEndHandles = ['beginHandle', 'endHandle'];
+
+initSlider('slideShowSlider', 
+           handles, 
+           slideShowImagesArray.length,
+           'beginEndSlider',
+           beginEndHandles,
+           'highlightedSpan');                    
+</script>
+
+</body>
+
+</html>

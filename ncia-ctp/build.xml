@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="ncia-ctp" 
+         default="build-jar" 
+         basedir="." 
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <property name="ctp.dir.name" value="tempCTPX42"/>
+   
+  <property name="src.dir" value="src"/>
+  <property name="conf.dir" value="conf"/>
+  <property name="output.dir" value="target"/>
+  <property name="build.dir" value="classes/"/>
+  <property name="xml.dir" value="gov/nih/nci/ncia/internaldomain/"/>
+  <property name="ctp.library.dir" value="${ctp.dir.name}/CTP/libraries" />
+
+  <!-- define this for unittesting.xml import -->
+  <property name="classes.to.test.dir" value="tmp_for_unit_tests/"/>  
+  
+  <property name="common.dir" value="${basedir}/../" />
+  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
+  <property name="src.java.dir" value="${basedir}/src" />
+  <property name="project.lib.dir" value="${common.dir}/target/lib/ncia-ctp" />
+   
+  <property name="ncia-domain.dir" value="${common.dir}/target/dist/exploded/ncia-domain" />
+  <property name="ncia-domain.jar" value="${ncia-domain.dir}/ncia-domain.jar" />
+  
+  <available file="${ncia-domain.jar}" property="ncia-domain.jar.present"/>
+   
+  <fail unless="ncia-domain.jar.present"
+        message="ncia-domain.jar must be built first and and in the target/dist dir"/>
+        
+  <import file="../common/unittesting.xml"/>
+
+  <target name="-pre-clean">
+  </target>
+
+  <target name="-init" depends="init-test" description="Initializes the system before a build">
+  </target>  
+  
+  <target name="ivy-settings">
+    <ivy:settings file="${global.ivy.settings.file}" />
+  </target>   
+  
+  
+  <target name="ivy-compile" depends="ivy-settings">    
+    <ivy:resolve refresh="true" conf="compile" />
+    <ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="compile" />
+  </target>   
+  
+  <target name="ivy-runtime" depends="ivy-settings">    
+      <ivy:resolve refresh="true" conf="runtime" />
+      <ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="runtime" />
+      <move todir="${project.lib.dir}/runtime">
+        <fileset dir="${project.lib.dir}/runtime">
+          <include name="*-working@*.jar"/>
+        </fileset>
+      <mapper type="regexp" 
+        from="^(.*)\-working\@(.*)\.jar$" 
+        to="\1.jar"/>
+    </move>
+  </target>
+  
+  <target  name="copy-runtime" depends="ivy-runtime">
+    <copy overwrite="true" todir="${ctp.library.dir}">
+      <fileset dir="${project.lib.dir}/runtime/" includes="*.jar" />
+    </copy> 
+    
+    <!-- wipe out this jar which conflicts with CTP classloader -->
+    <delete>
+      <fileset dir="${ctp.library.dir}">
+        <include name="xml-apis-1.0.b2.jar"/>
+      </fileset>    
+    </delete>
+    
+    <!-- put this one if same classloader as CTP to avoid conflicts -->
+    <copy overwrite="true" todir="${ctp.dir.name}/CTP/">
+      <fileset dir="${project.lib.dir}/runtime/" includes="xml*.jar" />
+    </copy>   
+
+  </target> 
+  <!-- This will delete all of the files created by the build process -->
+  <target name="clean">
+    <echo message="************************************************"/>
+    <echo message="*        cleanning           *"/>
+    <echo message="************************************************"/>
+    <delete dir="${build.dir}" quiet="true" />
+    <delete dir="${output.dir}" quiet="true" />
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp>
+      <format property="today" pattern="dd-MMMM-yyyy" />
+      <format property="now" pattern="HH:mm:ss" />
+    </tstamp>
+    <echo message="Time now ${now}" />
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${output.dir}" />
+    <mkdir dir="${classes.to.test.dir}" />
+    <copy overwrite="true" file="${conf.dir}/dicom.properties" tofile="${build.dir}/dicom.properties" />
+   
+  </target>
+
+  <target name="compile" depends="clean,init, ivy-compile">
+  
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true">
+      <classpath>
+      <fileset dir="${project.lib.dir}/compile">
+          <include name="*.jar" /> 
+        </fileset>
+      </classpath>
+    </javac>
+
+    <echo message="********************************************************"/>
+    <echo message="*                unzip ctp-installer.jar               *"/>
+    <echo message="********************************************************"/>
+    <mkdir dir="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X42.jar" dest="${ctp.dir.name}"/>
+  </target>
+    
+  <target name="config-db">
+    <copy overwrite="true" file="${conf.dir}/hibernate.properties.template" tofile="${build.dir}/hibernate.properties" />
+    <copy overwrite="true" file="${conf.dir}/applicationContext.xml" tofile="${build.dir}/applicationContext.xml" />
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_URL@" replace="${database.url}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_USER@" replace="${database.user}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_PASS@" replace="${database.password}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_DRIVER@" replace="${database.driver}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_DIALECT@" replace="${database.dialect}" flags="g"/>    
+  </target>
+  
+  <target name="config-log4j">
+    <copy overwrite="true" 
+          file="${conf.dir}/log4j.properties.template" 
+          tofile="${ctp.dir.name}/CTP/log4j.properties" />
+  </target>
+  
+  <target name="config-version">
+    <copy overwrite="true" 
+          file="${conf.dir}/example-index.html.template" 
+          tofile="${ctp.dir.name}/CTP/ROOT/example-index.html" />  
+    <replaceregexp file="${ctp.dir.name}/CTP/ROOT/example-index.html" 
+                   match="\{NCIA_RELEASE_VERSION\}" 
+                   replace="${ncia.version}" 
+                   flags="g" />
+    <replaceregexp file="${ctp.dir.name}/CTP/ROOT/example-index.html" 
+                   match="\{NCIA_PROD_BUILD_TAG\}" 
+                   replace="${ncia_prod_build_tag.final}" 
+                   flags="g" />
+    
+  </target>
+
+  <target name="build-dbadapter-jar" depends="config-db">
+    
+    <echo message="************************************************"/>
+    <echo message="*      building jar file         *"/>
+    <echo message="************************************************"/>
+    <copy overwrite="true" todir="${build.dir}/${xml.dir}">
+      <fileset dir="${src.dir}/${xml.dir}" includes="*.xml"/>
+    </copy>
+    
+    <echo message="${output.dir}"/>
+    <jar destfile="${output.dir}/ncia.jar">
+      <manifest>
+        <attribute name="Implementation-Version" value="${today} @ ${now}"/>
+      </manifest>
+      <fileset dir="${build.dir}/" 
+               includes="gov/nih/nci/ncia/**,
+                         dicom.properties,
+                         hibernate.properties,
+                         applicationContext.xml"/>
+    </jar>
+    
+    <!-- if the ncia.jar had any extra runtime depedencies over and above what
+         is already in ctp... copy here too so its wrapped up in the ctp installer -->
+    <copy overwrite="true" todir="${ctp.library.dir}">
+      <fileset dir="${output.dir}/" includes="ncia.jar" />
+      <fileset file="${ncia-domain.jar}"/>
+    </copy> 
+  </target>
+  
+  <target name="build-ctp-jar">
+    <jar jarfile="${output.dir}/CTP-installer.jar" basedir="${ctp.dir.name}"/>
+  </target>
+
+  <target name="pre-test" if="unit.testing">
+    <!-- sorry this is a little hack.... the properties files in assembly/classes screw up running unit
+         tests.  copy without the files in root class dir -->
+         
+    <!-- copy OUT to fresh directory -->     
+    <copy todir="${classes.to.test.dir}">
+      <fileset dir="${build.dir}">
+        <include name="**" />
+      </fileset>
+    </copy>  
+    <!-- delete stuff at the top level, like properties files etc. -->
+    <delete>
+      <fileset dir="${classes.to.test.dir}" includes="*.*"/>
+    </delete>    
+    <!-- copy all the root test stuff to where the OUT are...to replace the real properties files -->
+    <copy todir="${classes.to.test.dir}">
+      <fileset dir="${src.test.dir}" includes="*.*"/>
+    </copy>   
+  </target>
+  
+  <target name="all" depends="compile, 
+                              copy-runtime, 
+                              build-dbadapter-jar,                               
+                              config-log4j,
+                              config-version, 
+                              build-ctp-jar, 
+                              pre-test,
+                              test, 
+                              inspect"/>
+</project>

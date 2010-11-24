@@ -1,0 +1,1274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+  
+  
+  <preConditions>            
+    <or>
+      <dbms type="oracle" />                     
+      <dbms type="mysql" />                     
+      <dbms type="postgresql" />                     
+    </or>
+  </preConditions>                                       
+  <changeSet id="1" author="ssaksa">        
+    <comment>Need to have at least one changeset to allow tagging to work.</comment>
+    <sql>select now()</sql>
+  </changeSet>
+  
+  <changeSet id="4.1" author="kascice">          
+    <comment>Store encrypted values for PII fields</comment>
+    
+    <!--
+    <addColumn tableName="general_image">
+      <column name="encrypted_accession_number" type="varchar(128)"/>
+      <column name="encrypted_study_instance_uid" type="varchar(128)"/>   
+      <column name="encrypted_sop_instance_uid" type="varchar(128)"/> 
+      <column name="encrypted_series_instance_uid" type="varchar(128)"/>  
+      <column name="encrypted_patient_id" type="varchar(128)"/>
+    </addColumn>
+    -->
+    
+    <createTable tableName="group9_dicom_tags">
+      <column name="group9_dicom_tags_pk_id" type="bigint(20)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>   
+      <column name="image_pk_id" type="bigint(20)">
+        <constraints foreignKeyName="fk_group9_dicom_tags_general_image"
+                     references="general_image(image_pk_id)" 
+                     nullable="false"/>
+      </column>
+      
+      <column name="encrypted_accession_number" type="varchar(128)"/>
+      <column name="encrypted_study_instance_uid" type="varchar(128)"/>   
+      <column name="encrypted_sop_instance_uid" type="varchar(128)"/> 
+      <column name="encrypted_series_instance_uid" type="varchar(128)"/>  
+      <column name="encrypted_patient_id" type="varchar(128)"/>
+    </createTable>     
+    
+  </changeSet>
+  
+  <changeSet id="4.1.transfer" author="lethai">          
+    <comment>Optimizations for grid transfer</comment>
+    
+    <createIndex tableName="general_image" indexName="PATIENT_ID_IDX">
+      <column name="patient_id"/>
+    </createIndex>    
+    
+    <createIndex tableName="general_image" indexName="STUDY_INSTANCE_UID_IDX">
+      <column name="study_instance_uid"/>
+    </createIndex>    
+    
+  </changeSet>  
+  
+  <changeSet id="4.2.databasket" author="kascice">          
+    <comment>general_series.patient_id is null in legacy database</comment>
+    
+    <sql>
+      update general_series g
+      set g.patient_id = (select patient_id from patient where patient_pk_id = g.patient_pk_id)
+    </sql>    
+
+  </changeSet>   
+  
+  <changeSet id="4.2.mirc_doc_uri_cleanup" author="kascice">          
+    <comment>The column mirc_doc_uri is old garbage.  Drop it.</comment>
+    
+    <dropColumn tableName="general_image" columnName="mirc_doc_uri"/> 
+
+  </changeSet>   
+  <changeSet id="4.2.mirc_doc_uri_cleanup.part2" author="kascice">          
+    <comment>The column mirc_doc_uri is old garbage.  Drop it in the views too.</comment>
+    <dropView viewName="image"/>
+    <dropView viewName="dicom_image"/>
+    <sql>
+      CREATE VIEW `image` AS 
+      select `gi`.`image_pk_id` AS `IMAGE_PK_ID`,
+       `gi`.`instance_number` AS `INSTANCE_NUMBER`,
+       `gi`.`content_date` AS `CONTENT_DATE`,
+       `gi`.`content_time` AS `CONTENT_TIME`,
+       `gi`.`image_type` AS `IMAGE_TYPE`,
+       `gi`.`acquisition_date` AS `ACQUISITION_DATE`,
+       `gi`.`acquisition_time` AS `ACQUISITION_TIME`,
+       `gi`.`acquisition_number` AS `ACQUISITION_NUMBER`,
+       `gi`.`lossy_image_compression` AS `LOSSY_IMAGE_COMPRESSION`,
+       `gi`.`pixel_spacing` AS `PIXEL_SPACING`,
+       `gi`.`image_orientation_patient` AS `IMAGE_ORIENTATION_PATIENT`,
+       `gi`.`image_position_patient` AS `IMAGE_POSITION_PATIENT`,
+       `gi`.`slice_thickness` AS `SLICE_THICKNESS`,
+       `gi`.`slice_location` AS `SLICE_LOCATION`,
+       `gi`.`i_rows` AS `I_ROWS`,
+       `gi`.`i_columns` AS `I_COLUMNS`,
+       `gi`.`contrast_bolus_agent` AS `CONTRAST_BOLUS_AGENT`,
+       `gi`.`contrast_bolus_route` AS `CONTRAST_BOLUS_ROUTE`,
+       `gi`.`sop_class_uid` AS `SOP_CLASS_UID`,
+       `gi`.`sop_instance_uid` AS `SOP_INSTANCE_UID`,
+       `gi`.`general_series_pk_id` AS `GENERAL_SERIES_PK_ID`,
+       `gi`.`patient_position` AS `PATIENT_POSITION`,
+       `gi`.`source_to_detector_distance` AS `SOURCE_TO_DETECTOR_DISTANCE`,
+       `gi`.`source_subject_distance` AS `SOURCE_SUBJECT_DISTANCE`,
+       `gi`.`focal_spot_size` AS `FOCAL_SPOT_SIZE`,
+       `gi`.`storage_media_file_set_uid` AS `STORAGE_MEDIA_FILE_SET_UID`,
+       `gi`.`dicom_file_uri` AS `DICOM_FILE_URI`,
+       `gi`.`acquisition_datetime` AS `ACQUISITION_DATETIME`,
+       `gi`.`image_comments` AS `IMAGE_COMMENTS`,
+       `gi`.`image_receiving_timestamp` AS `IMAGE_RECEIVING_TIMESTAMP`,
+       `gi`.`curation_status` AS `CURATION_STATUS`,
+       `gi`.`curation_timestamp` AS `CURATION_TIMESTAMP`,
+       `gi`.`visibility` AS `VISIBILITY`,
+       `gi`.`annotation` AS `ANNOTATION`,
+       `gi`.`submission_date` AS `SUBMISSION_DATE`,
+       `gi`.`dicom_size` AS `DICOM_SIZE`,
+       `gi`.`image_laterality` AS `IMAGE_LATERALITY`,
+       `gi`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+       `gi`.`patient_id` AS `PATIENT_ID`,
+       `gi`.`study_instance_uid` AS `STUDY_INSTANCE_UID`,
+       `gi`.`series_instance_uid` AS `SERIES_INSTANCE_UID`,
+       `gi`.`patient_pk_id` AS `PATIENT_PK_ID`,
+       `gi`.`study_pk_id` AS `STUDY_PK_ID`,
+       `gi`.`project` AS `PROJECT`,
+       `gi`.`version` AS `VERSION`,
+       `gi`.`acquisition_matrix` AS `ACQUISITION_MATRIX`,
+       `gi`.`dx_data_collection_diameter` AS `DX_DATA_COLLECTION_DIAMETER`,
+       `cti`.`kvp` AS `KVP`,
+       `cti`.`scan_options` AS `SCAN_OPTIONS`,
+       `cti`.`data_collection_diameter` AS `DATA_COLLECTION_DIAMETER`,
+       `cti`.`reconstruction_diameter` AS `RECONSTRUCTION_DIAMETER`,
+       `cti`.`gantry_detector_tilt` AS `GANTRY_DETECTOR_TILT`,
+       `cti`.`exposure_time` AS `EXPOSURE_TIME`,
+       `cti`.`x_ray_tube_current` AS `X_RAY_TUBE_CURRENT`,
+       `cti`.`exposure` AS `EXPOSURE`,
+       `cti`.`exposure_in_microas` AS `EXPOSURE_IN_MICROAS`,
+       `cti`.`convolution_kernel` AS `CONVOLUTION_KERNEL`,
+       `cti`.`revolution_time` AS `REVOLUTION_TIME`,
+       `cti`.`single_collimation_width` AS `SINGLE_COLLIMATION_WIDTH`,
+       `cti`.`total_collimation_width` AS `TOTAL_COLLIMATION_WIDTH`,
+       `cti`.`table_speed` AS `TABLE_SPEED`,
+       `cti`.`table_feed_per_rotation` AS `TABLE_FEED_PER_ROTATION`,
+       `cti`.`ct_pitch_factor` AS `CT_PITCH_FACTOR`,
+       `cti`.`anatomic_region_seq` AS `ANATOMIC_REGION_SEQ` 
+           from (`general_image` `gi` join `ct_image` `cti`) 
+           where (`gi`.`image_pk_id` = `cti`.`image_pk_id`);    
+    </sql>
+    <sql>
+      CREATE OR REPLACE VIEW dicom_image AS SELECT 
+        `gi`.`image_pk_id` AS `IMAGE_PK_ID`,
+        `gi`.`instance_number` AS `INSTANCE_NUMBER`,
+        `gi`.`content_date` AS `CONTENT_DATE`,
+        `gi`.`content_time` AS `CONTENT_TIME`,
+        `gi`.`image_type` AS `IMAGE_TYPE`,
+        `gi`.`acquisition_date` AS `ACQUISITION_DATE`,
+        `gi`.`acquisition_time` AS `ACQUISITION_TIME`,
+        `gi`.`acquisition_number` AS `ACQUISITION_NUMBER`,
+        `gi`.`lossy_image_compression` AS `LOSSY_IMAGE_COMPRESSION`,
+        `gi`.`pixel_spacing` AS `PIXEL_SPACING`,
+        `gi`.`image_orientation_patient` AS `IMAGE_ORIENTATION_PATIENT`,
+        `gi`.`image_position_patient` AS `IMAGE_POSITION_PATIENT`,
+        `gi`.`slice_thickness` AS `SLICE_THICKNESS`,
+        `gi`.`slice_location` AS `SLICE_LOCATION`,
+        `gi`.`i_rows` AS `I_ROWS`,
+        `gi`.`i_columns` AS `I_COLUMNS`,
+        `gi`.`contrast_bolus_agent` AS `CONTRAST_BOLUS_AGENT`,
+        `gi`.`contrast_bolus_route` AS `CONTRAST_BOLUS_ROUTE`,
+        `gi`.`sop_class_uid` AS `SOP_CLASS_UID`,
+        `gi`.`sop_instance_uid` AS `SOP_INSTANCE_UID`,
+        `gi`.`general_series_pk_id` AS `GENERAL_SERIES_PK_ID`,
+        `gi`.`patient_position` AS `PATIENT_POSITION`,
+        `gi`.`source_to_detector_distance` AS `SOURCE_TO_DETECTOR_DISTANCE`,
+        `gi`.`source_subject_distance` AS `SOURCE_SUBJECT_DISTANCE`,
+        `gi`.`focal_spot_size` AS `FOCAL_SPOT_SIZE`,
+        `gi`.`storage_media_file_set_uid` AS `STORAGE_MEDIA_FILE_SET_UID`,
+        `gi`.`dicom_file_uri` AS `DICOM_FILE_URI`,
+        `gi`.`acquisition_datetime` AS `ACQUISITION_DATETIME`,
+        `gi`.`image_comments` AS `IMAGE_COMMENTS`,
+        `gi`.`image_receiving_timestamp` AS `IMAGE_RECEIVING_TIMESTAMP`,
+        `gi`.`curation_status` AS `CURATION_STATUS`,
+        `gi`.`curation_timestamp` AS `CURATION_TIMESTAMP`,
+        `gi`.`visibility` AS `VISIBILITY`,
+        `gi`.`annotation` AS `ANNOTATION`,
+        `gi`.`submission_date` AS `SUBMISSION_DATE`,
+        `gi`.`dicom_size` AS `DICOM_SIZE`,
+        `gi`.`image_laterality` AS `IMAGE_LATERALITY`,
+        `gi`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+        `gi`.`patient_id` AS `PATIENT_ID`,
+        `gi`.`study_instance_uid` AS `STUDY_INSTANCE_UID`,
+        `gi`.`series_instance_uid` AS `SERIES_INSTANCE_UID`,
+        `gi`.`patient_pk_id` AS `PATIENT_PK_ID`,
+        `gi`.`study_pk_id` AS `STUDY_PK_ID`,
+        `gi`.`project` AS `PROJECT`,
+        `gi`.`version` AS `VERSION`,
+        `gi`.`acquisition_matrix` AS `ACQUISITION_MATRIX`,
+        `gi`.`dx_data_collection_diameter` AS `DX_DATA_COLLECTION_DIAMETER`,
+        `cti`.`kvp` AS `KVP`,`cti`.`scan_options` AS `SCAN_OPTIONS`,
+        `cti`.`data_collection_diameter` AS `DATA_COLLECTION_DIAMETER`,
+        `cti`.`reconstruction_diameter` AS `RECONSTRUCTION_DIAMETER`,
+        `cti`.`gantry_detector_tilt` AS `GANTRY_DETECTOR_TILT`,
+        `cti`.`exposure_time` AS `EXPOSURE_TIME`,
+        `cti`.`x_ray_tube_current` AS `X_RAY_TUBE_CURRENT`,
+        `cti`.`exposure` AS `EXPOSURE`,
+        `cti`.`exposure_in_microas` AS `EXPOSURE_IN_MICROAS`,
+        `cti`.`convolution_kernel` AS `CONVOLUTION_KERNEL`,
+        `cti`.`revolution_time` AS `REVOLUTION_TIME`,
+        `cti`.`single_collimation_width` AS `SINGLE_COLLIMATION_WIDTH`,
+        `cti`.`total_collimation_width` AS `TOTAL_COLLIMATION_WIDTH`,
+        `cti`.`table_speed` AS `TABLE_SPEED`,
+        `cti`.`table_feed_per_rotation` AS `TABLE_FEED_PER_ROTATION`,
+        `cti`.`ct_pitch_factor` AS `CT_PITCH_FACTOR`,
+        `cti`.`anatomic_region_seq` AS `ANATOMIC_REGION_SEQ` 
+      FROM (`general_image` `gi` JOIN `ct_image` `cti`) 
+      WHERE (`gi`.`image_pk_id` = `cti`.`image_pk_id`) and gi.visibility='1';    
+    </sql>
+  </changeSet>  
+  
+  <changeSet id="4.1.1.project.cleanup" author="lethai" dbms="mysql">          
+    <comment>
+      Some code in the core grid transfer needs the project field in general_image
+      to actually match up with the project field in trial_data_provenance.  Some
+      of the values include a -TRIAL* suffix whose meaning and origin is lost in
+      the mists of time.  This change set strips the suffix.
+    </comment>
+    
+    <sql>
+      update general_image
+      set project = substring(project from 1 for (instr(project,'-TRIAL')-1))
+      where project like '%-TRIAL%'                           
+    </sql>    
+        
+  </changeSet>
+  
+  <changeSet id="group9.cleanup" author="kascice" dbms="mysql">          
+    <comment>
+      The db adapter code in 4.1 that inserted the group9 tags.... was totally
+      broken for the "update" use case.  The group9 stuff is replaced by
+      idmap on the client side in 4.2, but clean up any possible junk.
+    </comment>
+    
+    <sql>
+      create table group9Temp as 
+        select min(group9_dicom_tags_pk_id) group9_dicom_tags_pk_id     
+        from group9_dicom_tags  
+        group by image_pk_id   
+        having count(*) > 1;    
+    
+      delete g1
+      from group9_dicom_tags g1, group9Temp g2 
+      where g1.group9_dicom_tags_pk_id = g2.group9_dicom_tags_pk_id;
+    
+      drop table group9Temp;                         
+    </sql>    
+        
+  </changeSet>  
+  
+  <changeSet id="doc_location.cleanup" author="kascice">          
+    <comment>
+      This was something MIRC specific.... empty table and wasnt being used, so get rid of it
+    </comment>
+    
+    <dropTable tableName="doc_location"/> 
+        
+  </changeSet>   
+  
+  <changeSet id="dicom_tag_info.cleanup" author="kascice">          
+    <comment>
+      No clue what was supposed to be in this table.  But it's not used anymore.
+    </comment>
+    
+    <dropTable tableName="dicom_tag_info"/> 
+        
+  </changeSet>   
+  
+  <changeSet id="old.bda.cleanup" author="kascice" dbms="mysql">          
+    <comment>
+      The old bda (pre 0.6) used a custom db migration scheme instead of liquibase.
+      Wipe it from the database if its present.
+    </comment>
+    
+    <sql>
+      drop table if exists build_control;                        
+    </sql>    
+        
+  </changeSet>  
+  
+  <changeSet id="old.view.cleanup" author="kascice" dbms="mysql">          
+    <comment>
+      These views aren't used by the software anymore.  Clean things up
+      to keep stuff as simple as possible.
+    </comment>
+    
+    <sql>
+      DROP VIEW IF EXISTS quarantine;  
+      DROP VIEW IF EXISTS all_logins;
+    </sql>    
+        
+  </changeSet>    
+  
+  <changeSet id="submission.history" author="kascice" dbms="mysql">          
+    <comment>
+      This table is needed for the new submission reports.  Since the general_image
+      table can be messed with, it doesn't provide a true history capability.
+    </comment>
+    
+    <sql>
+      create table submission_history (
+             submission_history_pk_id bigint(20)  not null auto_increment,
+             patient_id varchar(64),
+             study_instance_uid varchar(500),
+             series_instance_uid varchar(64),
+             sop_instance_uid varchar(64),
+             submission_date date NOT NULL,
+             project varchar(200),
+             site varchar(40),
+             operation_type smallint NOT NULL, unique(submission_history_pk_id));
+             
+      insert into submission_history 
+              (patient_id, study_instance_uid, series_instance_uid, submission_date, sop_instance_uid, project, site, operation_type)
+              select g.patient_id, g.study_instance_uid, g.series_instance_uid, g.submission_date, g.sop_instance_uid, g.project, tdp.dp_site_name, 0
+              from general_image g, trial_data_provenance tdp
+              where g.trial_dp_pk_id = tdp.trial_dp_pk_id;
+                         
+              
+      insert into submission_history 
+              (patient_id, study_instance_uid, series_instance_uid, submission_date, sop_instance_uid, project, site, operation_type)
+              select gs.patient_id, s.study_instance_uid, gs.series_instance_uid, a.submission_date, '', tdp.project, tdp.dp_site_name, 2
+              from annotation a, general_series gs, study s, patient p, trial_data_provenance tdp
+              where a.general_series_pk_id = gs.general_series_pk_id and
+                    gs.study_pk_id = s.study_pk_id and
+                    s.patient_pk_id = p.patient_pk_id and
+                    p.trial_dp_pk_id = tdp.trial_dp_pk_id; 
+                    
+      create index project_side_idx on submission_history (project, site);                    
+    </sql>    
+        
+  </changeSet>   
+  
+  <changeSet id="curation.cleanup" author="kascice" dbms="mysql">
+    <comment>
+      Wipe out the saved queries and query history that include a curation criteria.
+      Leave the curation tables because the grid service used them.
+      Dont bother with csm_role NCIA.CURATE.... its harmless for now and can be
+      cleaned up if we ever redo the security model.
+    </comment>
+    
+   <!-- this wasnt used by anything in the first place -->    
+   <dropColumn tableName="general_image" columnName="curation_status"/>
+  
+   <sql>
+     create table attr_tmp as
+       select distinct query_history_pk_id
+       from query_history_attribute
+       where attribute_name like '%Curat%';
+
+     delete qha.*
+     from query_history_attribute qha, attr_tmp a 
+     where qha.query_history_pk_id = a.query_history_pk_id;
+     
+     delete qh.*
+     from query_history qh, attr_tmp a 
+     where qh.query_history_pk_id = a.query_history_pk_id;     
+     
+     drop table attr_tmp;
+          
+     create table attr_tmp as
+       select distinct saved_query_pk_id
+       from saved_query_attribute
+       where attribute_name like '%Curat%';
+
+     delete qha.*
+     from query_history_attribute qha, query_history qh, attr_tmp a 
+     where qh.saved_query_pk_id = a.saved_query_pk_id and
+           qha.query_history_pk_id = qh.query_history_pk_id;     
+           
+     delete qh.*
+     from query_history qh, attr_tmp a 
+     where qh.saved_query_pk_id = a.saved_query_pk_id;  
+           
+     drop table attr_tmp;           
+   </sql>
+   
+   <sql>
+     create table attr_tmp as
+       select distinct saved_query_pk_id
+       from saved_query_attribute
+       where attribute_name like '%Curat%';
+
+     delete sqa.*
+     from saved_query_attribute sqa, attr_tmp a 
+     where sqa.saved_query_pk_id = a.saved_query_pk_id;
+     
+     delete sq.*
+     from saved_query sq, attr_tmp a 
+     where sq.saved_query_pk_id = a.saved_query_pk_id;
+     
+     drop table attr_tmp;
+   </sql>
+  </changeSet>  
+  
+  
+  <changeSet id="4.3.curation_status_cleanup.part2" author="kascice">          
+    <comment>The column curation_status is old garbage.  Drop it in the views too.</comment>
+    <dropView viewName="image"/>
+    <dropView viewName="dicom_image"/>
+    <sql>
+      CREATE VIEW `image` AS 
+      select `gi`.`image_pk_id` AS `IMAGE_PK_ID`,
+       `gi`.`instance_number` AS `INSTANCE_NUMBER`,
+       `gi`.`content_date` AS `CONTENT_DATE`,
+       `gi`.`content_time` AS `CONTENT_TIME`,
+       `gi`.`image_type` AS `IMAGE_TYPE`,
+       `gi`.`acquisition_date` AS `ACQUISITION_DATE`,
+       `gi`.`acquisition_time` AS `ACQUISITION_TIME`,
+       `gi`.`acquisition_number` AS `ACQUISITION_NUMBER`,
+       `gi`.`lossy_image_compression` AS `LOSSY_IMAGE_COMPRESSION`,
+       `gi`.`pixel_spacing` AS `PIXEL_SPACING`,
+       `gi`.`image_orientation_patient` AS `IMAGE_ORIENTATION_PATIENT`,
+       `gi`.`image_position_patient` AS `IMAGE_POSITION_PATIENT`,
+       `gi`.`slice_thickness` AS `SLICE_THICKNESS`,
+       `gi`.`slice_location` AS `SLICE_LOCATION`,
+       `gi`.`i_rows` AS `I_ROWS`,
+       `gi`.`i_columns` AS `I_COLUMNS`,
+       `gi`.`contrast_bolus_agent` AS `CONTRAST_BOLUS_AGENT`,
+       `gi`.`contrast_bolus_route` AS `CONTRAST_BOLUS_ROUTE`,
+       `gi`.`sop_class_uid` AS `SOP_CLASS_UID`,
+       `gi`.`sop_instance_uid` AS `SOP_INSTANCE_UID`,
+       `gi`.`general_series_pk_id` AS `GENERAL_SERIES_PK_ID`,
+       `gi`.`patient_position` AS `PATIENT_POSITION`,
+       `gi`.`source_to_detector_distance` AS `SOURCE_TO_DETECTOR_DISTANCE`,
+       `gi`.`source_subject_distance` AS `SOURCE_SUBJECT_DISTANCE`,
+       `gi`.`focal_spot_size` AS `FOCAL_SPOT_SIZE`,
+       `gi`.`storage_media_file_set_uid` AS `STORAGE_MEDIA_FILE_SET_UID`,
+       `gi`.`dicom_file_uri` AS `DICOM_FILE_URI`,
+       `gi`.`acquisition_datetime` AS `ACQUISITION_DATETIME`,
+       `gi`.`image_comments` AS `IMAGE_COMMENTS`,
+       `gi`.`image_receiving_timestamp` AS `IMAGE_RECEIVING_TIMESTAMP`,
+       `gi`.`curation_timestamp` AS `CURATION_TIMESTAMP`,
+       `gi`.`visibility` AS `VISIBILITY`,
+       `gi`.`annotation` AS `ANNOTATION`,
+       `gi`.`submission_date` AS `SUBMISSION_DATE`,
+       `gi`.`dicom_size` AS `DICOM_SIZE`,
+       `gi`.`image_laterality` AS `IMAGE_LATERALITY`,
+       `gi`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+       `gi`.`patient_id` AS `PATIENT_ID`,
+       `gi`.`study_instance_uid` AS `STUDY_INSTANCE_UID`,
+       `gi`.`series_instance_uid` AS `SERIES_INSTANCE_UID`,
+       `gi`.`patient_pk_id` AS `PATIENT_PK_ID`,
+       `gi`.`study_pk_id` AS `STUDY_PK_ID`,
+       `gi`.`project` AS `PROJECT`,
+       `gi`.`version` AS `VERSION`,
+       `gi`.`acquisition_matrix` AS `ACQUISITION_MATRIX`,
+       `gi`.`dx_data_collection_diameter` AS `DX_DATA_COLLECTION_DIAMETER`,
+       `cti`.`kvp` AS `KVP`,
+       `cti`.`scan_options` AS `SCAN_OPTIONS`,
+       `cti`.`data_collection_diameter` AS `DATA_COLLECTION_DIAMETER`,
+       `cti`.`reconstruction_diameter` AS `RECONSTRUCTION_DIAMETER`,
+       `cti`.`gantry_detector_tilt` AS `GANTRY_DETECTOR_TILT`,
+       `cti`.`exposure_time` AS `EXPOSURE_TIME`,
+       `cti`.`x_ray_tube_current` AS `X_RAY_TUBE_CURRENT`,
+       `cti`.`exposure` AS `EXPOSURE`,
+       `cti`.`exposure_in_microas` AS `EXPOSURE_IN_MICROAS`,
+       `cti`.`convolution_kernel` AS `CONVOLUTION_KERNEL`,
+       `cti`.`revolution_time` AS `REVOLUTION_TIME`,
+       `cti`.`single_collimation_width` AS `SINGLE_COLLIMATION_WIDTH`,
+       `cti`.`total_collimation_width` AS `TOTAL_COLLIMATION_WIDTH`,
+       `cti`.`table_speed` AS `TABLE_SPEED`,
+       `cti`.`table_feed_per_rotation` AS `TABLE_FEED_PER_ROTATION`,
+       `cti`.`ct_pitch_factor` AS `CT_PITCH_FACTOR`,
+       `cti`.`anatomic_region_seq` AS `ANATOMIC_REGION_SEQ` 
+           from (`general_image` `gi` join `ct_image` `cti`) 
+           where (`gi`.`image_pk_id` = `cti`.`image_pk_id`);    
+    </sql>
+    <sql>
+      CREATE OR REPLACE VIEW dicom_image AS SELECT 
+        `gi`.`image_pk_id` AS `IMAGE_PK_ID`,
+        `gi`.`instance_number` AS `INSTANCE_NUMBER`,
+        `gi`.`content_date` AS `CONTENT_DATE`,
+        `gi`.`content_time` AS `CONTENT_TIME`,
+        `gi`.`image_type` AS `IMAGE_TYPE`,
+        `gi`.`acquisition_date` AS `ACQUISITION_DATE`,
+        `gi`.`acquisition_time` AS `ACQUISITION_TIME`,
+        `gi`.`acquisition_number` AS `ACQUISITION_NUMBER`,
+        `gi`.`lossy_image_compression` AS `LOSSY_IMAGE_COMPRESSION`,
+        `gi`.`pixel_spacing` AS `PIXEL_SPACING`,
+        `gi`.`image_orientation_patient` AS `IMAGE_ORIENTATION_PATIENT`,
+        `gi`.`image_position_patient` AS `IMAGE_POSITION_PATIENT`,
+        `gi`.`slice_thickness` AS `SLICE_THICKNESS`,
+        `gi`.`slice_location` AS `SLICE_LOCATION`,
+        `gi`.`i_rows` AS `I_ROWS`,
+        `gi`.`i_columns` AS `I_COLUMNS`,
+        `gi`.`contrast_bolus_agent` AS `CONTRAST_BOLUS_AGENT`,
+        `gi`.`contrast_bolus_route` AS `CONTRAST_BOLUS_ROUTE`,
+        `gi`.`sop_class_uid` AS `SOP_CLASS_UID`,
+        `gi`.`sop_instance_uid` AS `SOP_INSTANCE_UID`,
+        `gi`.`general_series_pk_id` AS `GENERAL_SERIES_PK_ID`,
+        `gi`.`patient_position` AS `PATIENT_POSITION`,
+        `gi`.`source_to_detector_distance` AS `SOURCE_TO_DETECTOR_DISTANCE`,
+        `gi`.`source_subject_distance` AS `SOURCE_SUBJECT_DISTANCE`,
+        `gi`.`focal_spot_size` AS `FOCAL_SPOT_SIZE`,
+        `gi`.`storage_media_file_set_uid` AS `STORAGE_MEDIA_FILE_SET_UID`,
+        `gi`.`dicom_file_uri` AS `DICOM_FILE_URI`,
+        `gi`.`acquisition_datetime` AS `ACQUISITION_DATETIME`,
+        `gi`.`image_comments` AS `IMAGE_COMMENTS`,
+        `gi`.`image_receiving_timestamp` AS `IMAGE_RECEIVING_TIMESTAMP`,
+        `gi`.`curation_timestamp` AS `CURATION_TIMESTAMP`,
+        `gi`.`visibility` AS `VISIBILITY`,
+        `gi`.`annotation` AS `ANNOTATION`,
+        `gi`.`submission_date` AS `SUBMISSION_DATE`,
+        `gi`.`dicom_size` AS `DICOM_SIZE`,
+        `gi`.`image_laterality` AS `IMAGE_LATERALITY`,
+        `gi`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+        `gi`.`patient_id` AS `PATIENT_ID`,
+        `gi`.`study_instance_uid` AS `STUDY_INSTANCE_UID`,
+        `gi`.`series_instance_uid` AS `SERIES_INSTANCE_UID`,
+        `gi`.`patient_pk_id` AS `PATIENT_PK_ID`,
+        `gi`.`study_pk_id` AS `STUDY_PK_ID`,
+        `gi`.`project` AS `PROJECT`,
+        `gi`.`version` AS `VERSION`,
+        `gi`.`acquisition_matrix` AS `ACQUISITION_MATRIX`,
+        `gi`.`dx_data_collection_diameter` AS `DX_DATA_COLLECTION_DIAMETER`,
+        `cti`.`kvp` AS `KVP`,`cti`.`scan_options` AS `SCAN_OPTIONS`,
+        `cti`.`data_collection_diameter` AS `DATA_COLLECTION_DIAMETER`,
+        `cti`.`reconstruction_diameter` AS `RECONSTRUCTION_DIAMETER`,
+        `cti`.`gantry_detector_tilt` AS `GANTRY_DETECTOR_TILT`,
+        `cti`.`exposure_time` AS `EXPOSURE_TIME`,
+        `cti`.`x_ray_tube_current` AS `X_RAY_TUBE_CURRENT`,
+        `cti`.`exposure` AS `EXPOSURE`,
+        `cti`.`exposure_in_microas` AS `EXPOSURE_IN_MICROAS`,
+        `cti`.`convolution_kernel` AS `CONVOLUTION_KERNEL`,
+        `cti`.`revolution_time` AS `REVOLUTION_TIME`,
+        `cti`.`single_collimation_width` AS `SINGLE_COLLIMATION_WIDTH`,
+        `cti`.`total_collimation_width` AS `TOTAL_COLLIMATION_WIDTH`,
+        `cti`.`table_speed` AS `TABLE_SPEED`,
+        `cti`.`table_feed_per_rotation` AS `TABLE_FEED_PER_ROTATION`,
+        `cti`.`ct_pitch_factor` AS `CT_PITCH_FACTOR`,
+        `cti`.`anatomic_region_seq` AS `ANATOMIC_REGION_SEQ` 
+      FROM (`general_image` `gi` JOIN `ct_image` `cti`) 
+      WHERE (`gi`.`image_pk_id` = `cti`.`image_pk_id`) and gi.visibility='1';    
+    </sql>
+  </changeSet>    
+  
+  <changeSet id="4.3.add.time.to.submission.history" author="kascice">          
+    <comment>The need to see the exact submission time is anticipated (in 4.4 qc tool) so add it in now.</comment>  
+  
+    <modifyColumn tableName="submission_history">
+      <column name="SUBMISSION_DATE" type="datetime"/>
+    </modifyColumn>
+  </changeSet>
+  
+  <changeSet id="4.3.submission.history.timestamp.convention" author="kascice">          
+    <comment>almost all the other datetimes in the schema end in _timestamp</comment>  
+  
+    <renameColumn tableName="submission_history"
+                  oldColumnName="SUBMISSION_DATE"
+                  newColumnName="submission_timestamp"
+                  columnDataType="datetime"/>
+  </changeSet>  
+  
+  <changeSet id="4.3.download.history" author="lethai">          
+    <comment>start tracking download history better to make decision about whether to drop old classic download</comment>  
+    
+    <createTable tableName="download_data_history">
+      <column name="download_data_history_pk_id" type="bigint(20)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>   
+      
+      <column name="series_instance_uid" type="varchar(64)"/>
+      <column name="login_name" type="varchar(100)"/>   
+      <column name="download_timestamp" type="date"/> 
+      <column name="download_type" type="varchar(20)"/>  
+      <column name="size" type="decimal(22,2)"/>
+  
+    </createTable>    
+  </changeSet>
+
+  <changeSet id="4.3.dynamicSearch.indexIssue" author="zhoujim">
+    <dropIndex indexName="study_date_idx" tableName="study"/>
+    <dropIndex indexName="series_date_idx" tableName="general_series"/>
+  </changeSet>
+
+  <changeSet id="4.4.remote.search.cleanup" author="kascice" dbms="mysql">
+    <comment>
+      Wipe out the saved queries and query history that include a remote node criteria.
+    </comment>
+    
+ 
+   <sql>
+     create table attr_tmp as
+       select distinct query_history_pk_id
+       from query_history_attribute
+       where attribute_name like '%RemoteNode%';
+
+     delete qha.*
+     from query_history_attribute qha, attr_tmp a 
+     where qha.query_history_pk_id = a.query_history_pk_id;
+     
+     delete qh.*
+     from query_history qh, attr_tmp a 
+     where qh.query_history_pk_id = a.query_history_pk_id;     
+     
+     drop table attr_tmp;
+          
+     create table attr_tmp as
+       select distinct saved_query_pk_id
+       from saved_query_attribute
+       where attribute_name like '%RemoteNode%';
+
+     delete qha.*
+     from query_history_attribute qha, query_history qh, attr_tmp a 
+     where qh.saved_query_pk_id = a.saved_query_pk_id and
+           qha.query_history_pk_id = qh.query_history_pk_id;     
+           
+     delete qh.*
+     from query_history qh, attr_tmp a 
+     where qh.saved_query_pk_id = a.saved_query_pk_id;  
+           
+     drop table attr_tmp;           
+   </sql>
+   
+   <sql>
+     create table attr_tmp as
+       select distinct saved_query_pk_id
+       from saved_query_attribute
+       where attribute_name like '%RemoteNode%';
+
+     delete sqa.*
+     from saved_query_attribute sqa, attr_tmp a 
+     where sqa.saved_query_pk_id = a.saved_query_pk_id;
+     
+     delete sq.*
+     from saved_query sq, attr_tmp a 
+     where sq.saved_query_pk_id = a.saved_query_pk_id;
+     
+     drop table attr_tmp;
+   </sql>
+  </changeSet>
+  
+  <changeSet id="4.4.series.visibility.cleanup" author="kascice" dbms="mysql">
+    <comment>
+      Patient, Study, Image and CT_Image visibility exist no longer.  This percolates through
+      different views.... modify the views to depend on series visibility or no visibility if it doesn't make sense anymore.
+    </comment> 
+    <sql>
+      CREATE OR REPLACE VIEW number_month AS 
+      SELECT s.patient_pk_id AS PATIENT_ID,
+             round(timestampdiff(MONTH,min(s.study_date), max(s.study_date)),0) AS NUMBER_MONTH 
+      FROM study s 
+      GROUP BY s.patient_pk_id
+    </sql>
+  </changeSet>
+  <changeSet id="4.4.grid.service.visibility" author="lethai" dbms="mysql">
+    <comment>
+     remove image view - not use anymore, modified dicom_image, dicom_patient, dicom_study views to use general_series.visibility column
+    </comment>  
+
+    <sql>
+    DROP VIEW IF EXISTS image;
+    
+    CREATE OR REPLACE VIEW `dicom_image` AS select 
+     `gi`.`image_pk_id` AS `IMAGE_PK_ID`,
+     `gi`.`instance_number` AS `INSTANCE_NUMBER`,
+     `gi`.`content_date` AS `CONTENT_DATE`,
+     `gi`.`content_time` AS `CONTENT_TIME`,
+     `gi`.`image_type` AS `IMAGE_TYPE`,
+     `gi`.`acquisition_date` AS `ACQUISITION_DATE`,
+     `gi`.`acquisition_time` AS `ACQUISITION_TIME`,
+     `gi`.`acquisition_number` AS `ACQUISITION_NUMBER`,
+     `gi`.`lossy_image_compression` AS `LOSSY_IMAGE_COMPRESSION`,
+     `gi`.`pixel_spacing` AS `PIXEL_SPACING`,
+     `gi`.`image_orientation_patient` AS `IMAGE_ORIENTATION_PATIENT`,
+   `gi`.`image_position_patient` AS `IMAGE_POSITION_PATIENT`,
+   `gi`.`slice_thickness` AS `SLICE_THICKNESS`,
+   `gi`.`slice_location` AS `SLICE_LOCATION`,
+     `gi`.`i_rows` AS `I_ROWS`,
+     `gi`.`i_columns` AS `I_COLUMNS`,
+     `gi`.`contrast_bolus_agent` AS `CONTRAST_BOLUS_AGENT`,
+     `gi`.`contrast_bolus_route` AS `CONTRAST_BOLUS_ROUTE`,
+     `gi`.`sop_class_uid` AS `SOP_CLASS_UID`,
+     `gi`.`sop_instance_uid` AS `SOP_INSTANCE_UID`,
+     `gi`.`general_series_pk_id` AS `GENERAL_SERIES_PK_ID`,
+     `gi`.`patient_position` AS `PATIENT_POSITION`,
+     `gi`.`source_to_detector_distance` AS `SOURCE_TO_DETECTOR_DISTANCE`,
+     `gi`.`source_subject_distance` AS `SOURCE_SUBJECT_DISTANCE`,
+     `gi`.`focal_spot_size` AS `FOCAL_SPOT_SIZE`,
+     `gi`.`storage_media_file_set_uid` AS `STORAGE_MEDIA_FILE_SET_UID`,
+     `gi`.`dicom_file_uri` AS `DICOM_FILE_URI`,
+     `gi`.`acquisition_datetime` AS `ACQUISITION_DATETIME`,
+     `gi`.`image_comments` AS `IMAGE_COMMENTS`,
+     `gi`.`image_receiving_timestamp` AS `IMAGE_RECEIVING_TIMESTAMP`,
+     `gi`.`curation_timestamp` AS `CURATION_TIMESTAMP`,
+   `gi`.`annotation` AS `ANNOTATION`,
+     `gi`.`submission_date` AS `SUBMISSION_DATE`,
+     `gi`.`dicom_size` AS `DICOM_SIZE`,
+     `gi`.`image_laterality` AS `IMAGE_LATERALITY`,
+     `gi`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+     `gi`.`patient_id` AS `PATIENT_ID`,
+     `gi`.`study_instance_uid` AS `STUDY_INSTANCE_UID`,
+     `gi`.`series_instance_uid` AS `SERIES_INSTANCE_UID`,
+     `gi`.`patient_pk_id` AS `PATIENT_PK_ID`,
+     `gi`.`study_pk_id` AS `STUDY_PK_ID`,
+     `gi`.`project` AS `PROJECT`,
+     `gi`.`version` AS `VERSION`,
+     `gi`.`acquisition_matrix` AS `ACQUISITION_MATRIX`,
+     `gi`.`dx_data_collection_diameter` AS `DX_DATA_COLLECTION_DIAMETER`,
+     `cti`.`kvp` AS `KVP`,`cti`.`scan_options` AS `SCAN_OPTIONS`,
+     `cti`.`data_collection_diameter` AS `DATA_COLLECTION_DIAMETER`,
+     `cti`.`reconstruction_diameter` AS `RECONSTRUCTION_DIAMETER`,
+     `cti`.`gantry_detector_tilt` AS `GANTRY_DETECTOR_TILT`,
+     `cti`.`exposure_time` AS `EXPOSURE_TIME`,
+     `cti`.`x_ray_tube_current` AS `X_RAY_TUBE_CURRENT`,
+     `cti`.`exposure` AS `EXPOSURE`,
+     `cti`.`exposure_in_microas` AS `EXPOSURE_IN_MICROAS`,
+     `cti`.`convolution_kernel` AS `CONVOLUTION_KERNEL`,
+     `cti`.`revolution_time` AS `REVOLUTION_TIME`,
+     `cti`.`single_collimation_width` AS `SINGLE_COLLIMATION_WIDTH`,
+     `cti`.`total_collimation_width` AS `TOTAL_COLLIMATION_WIDTH`,
+     `cti`.`table_speed` AS `TABLE_SPEED`,
+     `cti`.`table_feed_per_rotation` AS `TABLE_FEED_PER_ROTATION`,
+     `cti`.`ct_pitch_factor` AS `CT_PITCH_FACTOR`,
+     `cti`.`anatomic_region_seq` AS `ANATOMIC_REGION_SEQ` 
+   from `general_image` `gi` join `ct_image` `cti`
+   where `gi`.`image_pk_id` = `cti`.`image_pk_id`;
+    </sql>
+  <sql>
+     CREATE OR REPLACE VIEW `dicom_patient` AS select
+      _utf8'PATIENT' AS `AFFILIATION_ROLE`,
+      `patient`.`patient_pk_id` AS `PATIENT_PK_ID`,
+      `patient`.`patient_id` AS `PATIENT_ID`,
+      `patient`.`ethnic_group` AS `ETHNIC_GROUP`,
+      `patient`.`patient_birth_date` AS `PATIENT_BIRTH_DATE`,
+      `patient`.`patient_sex` AS `PATIENT_SEX`,
+      `patient`.`patient_name` AS `PATIENT_NAME`,
+      `patient`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+      `patient`.`trial_site_pk_id` AS `TRIAL_SITE_PK_ID` 
+         from `patient`;
+  </sql>
+  <sql>
+    CREATE OR REPLACE VIEW dicom_study AS
+      select study.study_pk_id AS STUDY_PK_ID,
+      study.study_instance_uid AS STUDY_INSTANCE_UID,
+      study.additional_patient_history AS ADDITIONAL_PATIENT_HISTORY,
+      study.study_date AS STUDY_DATE,
+      study.study_desc AS STUDY_DESC,
+      study.admitting_diagnoses_desc AS ADMITTING_DIAGNOSES_DESC,
+      study.admitting_diagnoses_code_seq AS ADMITTING_DIAGNOSES_CODE_SEQ,
+      study.occupation AS OCCUPATION,
+      study.patient_age AS PATIENT_AGE, 
+      study.patient_size AS PATIENT_SIZE,
+      study.patient_weight AS PATIENT_WEIGHT,
+      study.study_id AS STUDY_ID,
+      study.study_time AS STUDY_TIME,
+      study.trial_time_point_id AS TRIAL_TIME_POINT_ID,
+      study.trial_time_point_desc AS TRIAL_TIME_POINT_DESC,
+      study.patient_pk_id AS PATIENT_PK_ID
+    from study;
+  </sql>
+  </changeSet>
+  
+  <changeSet id="4.4.deletion.audit.trail.table.creation" author="zhoujim" dbms="mysql"> 
+  <validCheckSum>c587ab0f627db1c88b93a13339094f7</validCheckSum>
+    <comment>
+    This table is needed to audit trail for series deletion, study deletion, and patient deletion.
+    
+    bda upgraded to liquibase 1.9 a while back.... there seems to be a problem with md5 sums after the upgrade? but not sure.  
+    this forces an md5sum to get around problem.
+    </comment> 
+    
+    
+    <sql>      
+      CREATE TABLE `deletion_audit_trail` (     
+                            `deletion_pk_id` bigint(20) NOT NULL,   
+                            `data_id` varchar(64) default NULL,     
+                            `data_type` varchar(50) default NULL,   
+                            `total_image` bigint(20) default NULL,  
+                            `user_name` varchar(50) default NULL,   
+                            `time_stamp` datetime default NULL,         
+                            PRIMARY KEY  (`deletion_pk_id`)         
+                      ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+    </sql>
+ </changeSet> 
+ <changeSet id="4.4.custom.series.list.tables.creation" author="lethai" dbms="mysql">
+    <comment>
+    Create tables to support custom series list feature
+    </comment>    
+    
+    <sql> 
+    CREATE TABLE CUSTOM_SERIES_LIST (
+        CUSTOM_SERIES_LIST_PK_ID BIGINT NOT NULL,
+        NAME VARCHAR(200),
+        COMMENT VARCHAR(200),
+        HYPERLINK VARCHAR(200),
+        CUSTOM_SERIES_LIST_TIMESTAMP DATE,
+        USER_NAME VARCHAR(20),
+        PRIMARY KEY (CUSTOM_SERIES_LIST_PK_ID),
+        UNIQUE KEY (CUSTOM_SERIES_LIST_PK_ID)
+    ) ENGINE = InnoDB DEFAULT CHARSET=latin1;
+
+    CREATE TABLE CUSTOM_SERIES_LIST_ATTRIBUTE (
+        CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID BIGINT NOT NULL,
+        SERIES_INSTANCE_UID VARCHAR(200),
+        CUSTOM_SERIES_LIST_PK_ID BIGINT NOT NULL,
+        PRIMARY KEY (CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID),
+        UNIQUE KEY(CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID),
+        CONSTRAINT FK_CUSTOM_SERIES_LIST_PK_ID FOREIGN KEY (CUSTOM_SERIES_LIST_PK_ID) 
+            REFERENCES custom_series_list (CUSTOM_SERIES_LIST_PK_ID) ON DELETE CASCADE
+    ) ENGINE = InnoDB DEFAULT CHARSET=latin1;
+    </sql>
+  </changeSet>  
+  <changeSet id="4.4.super.curator.creation.in.csm_role.table" author="zhoujim" dbms="mysql">
+    <comment>
+      This role is needed for QC Tool
+    </comment>
+    <sql>
+    insert into csm_role 
+  select max(role_id)+1, 'NCIA.SUPER_CURATOR','Super Admin for approving deletion',(select application_id from csm_application where application_name = 'NCIA'), 0,'2009-11-11' from csm_role;
+    </sql>
+  </changeSet>
+  <changeSet id="4.4.deletion.admin.in.csm_role.table" author="zhoujim" dbms="mysql">
+      <comment>
+        This role is needed for QC tool deletion
+      </comment>
+      <sql>
+      insert into csm_role 
+    select max(role_id)+1, 'NCIA.DELETE_ADMIN','Super Admin for deletion',(select application_id from csm_application where application_name = 'NCIA'), 0,'2009-11-11' from csm_role;
+      </sql>
+  </changeSet>
+  
+  <changeSet id="4.4.deletion.pe.pg" author="zhoujim" dbms="mysql">
+    <customChange class="gov.nih.nci.ncia.liquibase.AddDeletionProtectionElementChange"/>
+  </changeSet>
+  
+  <changeSet id="4.4.QcTool.cleanup" author="Q. Pan">          
+    <comment>The column visibility will not be needed.  Drop it.</comment>
+    
+     <dropColumn tableName="study" columnName="visibility"/>
+     <dropColumn tableName="patient" columnName="visibility"/>
+     <dropColumn tableName="general_image" columnName="visibility"/>      
+
+  </changeSet>
+
+  <changeSet id="4.4.QcTool.new_series_based_history_table" author="Q.Pan" dbms="mysql">          
+    <comment>
+      QC status history will be logged on the series level and we need to keep the old history 
+      so new table is created.
+    </comment>
+    
+    <sql>
+     CREATE TABLE qc_status_history (
+       qc_status_history_pk_id bigint(20) NOT NULL,
+       series_instance_uid varchar(64)NOT NULL,
+       user_id varchar(100) default NULL,
+       comment varchar(4000) character set latin1 collate latin1_bin default NULL,
+       history_timestamp datetime default NULL,
+       new_value varchar(100) character set latin1 collate latin1_bin default NULL,
+       old_value varchar(100) character set latin1 collate latin1_bin default NULL,
+       PRIMARY KEY  (qc_status_history_pk_id),
+       UNIQUE KEY PK_QC_STATUS_HISTORY_PK_ID (qc_status_history_pk_id),
+       KEY genseries_qcsts_id_idx (series_instance_uid)
+) 
+    </sql>    
+  </changeSet> 
+  
+  <changeSet id="4.4.QcTool.new_index_for_submission_history" author="Q.Pan" dbms="mysql">          
+    <comment>
+      QC status history will be logged on the series level and we need to keep the old history 
+      so new table is created.
+    </comment>
+      
+    <sql>
+    ALTER TABLE submission_history ADD INDEX series_instance_uid_idx (series_instance_uid);
+    </sql>    
+   </changeSet>  
+   
+  <changeSet id="4.4.cleanup.old.submission.count.view" author="kascice" dbms="mysql">
+    <comment>
+     this was used by older submission report tool.  kill it.
+    </comment>  
+
+    <sql>
+    DROP VIEW IF EXISTS submission_count_by_month; 
+    </sql>
+  </changeSet>
+
+   <changeSet id="4.4.QcTool.drop_qa_status_summary" author="Q.Pan" dbms="mysql">          
+      <comment>
+       Drop view qa_status_summary
+      </comment>
+  		
+      <sql>
+  		DROP VIEW IF EXISTS qa_status_summary;
+  		DROP VIEW IF EXISTS qa_status_summary_tmp;
+      </sql>		
+   </changeSet>
+   <changeSet id="4.4.CollectionDescription.create" author="lethai" dbms="mysql">          
+      <comment>
+       create new table and role to support collection description feature
+      </comment>
+  		
+      <sql>        
+        insert into csm_role
+        select max(role_id)+1, 'NCIA.MANAGE_COLLECTION_DESCRIPTION','Manage collection description',
+        (select application_id from csm_application where application_name = 'NCIA'), 0,'2009-12-11' from csm_role;
+      </sql>
+      <sql>
+        CREATE TABLE collection_descriptions (
+           collection_descriptions_pk_id bigint(20) NOT NULL,
+           collection_name varchar(64) character set latin1 collate latin1_bin default NULL,
+           user_name varchar(20) character set latin1 collate latin1_bin default NULL,
+           description mediumtext character set latin1 collate latin1_bin,
+           collection_descriptions_timestamp date default NULL,
+           PRIMARY KEY  (collection_descriptions_pk_id),
+           UNIQUE KEY PK_COLLECTION_DESC_PK_ID (collection_descriptions_pk_id)
+		 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+      </sql>	
+   </changeSet> 
+   
+  <changeSet id="4.4.add.uniqueKey.for.studyInstanceUID.in.studyTable" author="J.Zhou" dbms="mysql">          
+    <comment>
+      Add a unique constrains on Study Instance UID in Study Table
+    </comment>
+    <sql>
+    ALTER TABLE Study ADD UNIQUE (study_instance_uid);
+    </sql>    
+  </changeSet> 
+  
+ <changeSet id="4.4.add.uniqueKey.for.seriesInstanceUID.in.seriesTable" author="J.Zhou" dbms="mysql">          
+    <comment>
+      Add a unique constrains on Series Instance UID in series Table
+    </comment>
+    <sql>
+    ALTER TABLE general_series ADD UNIQUE (series_instance_uid);
+    </sql>    
+  </changeSet> 
+ 
+ <changeSet id="4.4.add.uniqueKey.for.SOPInstanceUID.in.imageTable" author="J.Zhou" dbms="mysql">          
+    <comment>
+      Add a unique constrains on SOP Instance UID in generalImage Table
+    </comment>
+    <sql>
+    ALTER TABLE general_image ADD UNIQUE (sop_instance_uid);
+    </sql>    
+  </changeSet>     
+  
+   <changeSet id="4.4.add.not.null.for.modality.in.GeneralSeriesTable" author="J.Zhou" dbms="mysql">          
+      <comment>
+        Add a Not NULL constrains on Modality in generalSeries Table
+      </comment>
+      <sql>
+      	alter table general_series modify modality varchar(16) not null;
+      </sql>    
+  </changeSet> 
+   
+  <changeSet id="4.4.add.index.for_custom_series_list_attribute" author="lethai" dbms="mysql">
+     <comment>
+        Add index for series_instance_uid column to improve performance
+     </comment>
+     <sql>
+        ALTER TABLE custom_series_list_attribute ADD INDEX series_instance_uid_idx (series_instance_uid);
+     </sql>
+  </changeSet>
+
+ 
+  <changeSet id="4.4.save.old.qa.history" author="kascice" dbms="mysql">
+    <comment>
+      The new QC tool isnt compatible with the old status change data.  Keep around for
+      six months per John Freymann's request.  Convert foreign keys to image table to values
+      (which also allows deletion to work properly).
+    </comment>
+    <sql>
+      ALTER TABLE qa_status_history
+      ADD sop_instance_uid varchar(64);
+      
+      UPDATE qa_status_history q, general_image g
+      SET q.sop_instance_uid = g.sop_instance_uid
+      WHERE q.general_image_pk_id = g.image_pk_id;
+
+      ALTER TABLE qa_status_history
+      DROP FOREIGN KEY fk_qa_image_pk_id;
+
+      ALTER TABLE qa_status_history
+      DROP general_image_pk_id;
+
+      ALTER TABLE qa_status_history
+      RENAME TO qa_status_history_old;
+    </sql>
+  </changeSet>  
+  
+  <changeSet id="4.4.grid_node_cleanup" author="kascice">          
+    <comment>
+      This was from the old remote search.  We use the index service now and cache in memory.
+    </comment>
+    
+    <dropTable tableName="grid_node"/> 
+        
+  </changeSet>   
+  
+  <changeSet id="4.4.patient_view_cleanup" author="kascice">          
+    <comment>
+      This was necessary for the grid data service... to map DICOM model to our tables.  Can now
+      map directly to patient table.
+    </comment>
+    
+    <sql>
+      DROP VIEW IF EXISTS dicom_patient;  
+    </sql>
+        
+  </changeSet>   
+  
+  <changeSet id="4.4.ct_image.remove_visibility" author="kascice">          
+    <comment>The column visibility will not be needed.  Drop it.</comment>
+    
+     <dropColumn tableName="ct_image" columnName="visibility"/>  
+
+  </changeSet>  
+  
+  <changeSet id="4.4.ct_image.add.series.fk" author="kascice" dbms="mysql">          
+    <comment>
+      Having the visibility bit in series only makes ct_image visibility checks expensive
+      esp since it means joining ct_image to image to series
+    </comment>
+    
+    <sql>
+    ALTER TABLE ct_image
+    ADD COLUMN general_series_pk_id bigint(20);
+
+    ALTER TABLE ct_image
+    ADD FOREIGN KEY (general_series_pk_id)
+    REFERENCES general_series(general_series_pk_id); 
+    
+    UPDATE ct_image ct, general_image g
+    SET ct.general_series_pk_id = g.general_series_pk_id
+    WHERE ct.image_pk_id = g.image_pk_id;
+    
+    </sql>
+  </changeSet>
+  <changeSet id="4.4.general_series.patient_pk_id_index" author="lethai">          
+    <comment>Add patient_pk_id_idx to general_series.. to improve query performance on grid service.</comment>
+    <sql>
+	ALTER TABLE general_series
+    ADD INDEX patient_pk_id_idx (patient_pk_id);
+    </sql>
+  </changeSet>  
+  
+  <changeSet id="4.4.fix_qc_tool_search" author="kascice" dbms="mysql">
+    <comment>
+      Denormalize data into the general_series table to optimize qc tool... 
+      plus add max submission date to avoid join with submission_history which also causes incorrect
+      results with resubmitted data 
+    </comment>
+    
+    <sql>
+      ALTER TABLE general_series
+      ADD COLUMN project varchar(200);
+      
+      ALTER TABLE general_series
+      ADD COLUMN site varchar(40);          
+      
+      ALTER TABLE general_series
+      ADD COLUMN study_instance_uid varchar(500); 
+      
+      ALTER TABLE general_series
+      ADD COLUMN max_submission_timestamp datetime;      
+
+      UPDATE general_series gs, study s
+      SET gs.study_instance_uid = s.study_instance_uid
+      WHERE gs.study_pk_id = s.study_pk_id;
+      
+      UPDATE general_series gs, patient p, trial_data_provenance tdp
+      SET gs.project = tdp.project, gs.site = tdp.dp_site_name
+      WHERE gs.patient_pk_id = p.patient_pk_id and p.trial_dp_pk_id = tdp.trial_dp_pk_id;          
+      
+      CREATE TABLE temp_submission AS
+        SELECT sh.series_instance_uid, MAX(sh.submission_timestamp) AS max_submission_timestamp
+        FROM submission_history sh
+        GROUP BY sh.series_instance_uid;   
+      
+      UPDATE general_series gs, temp_submission ts
+      SET gs.max_submission_timestamp = ts.max_submission_timestamp
+      WHERE gs.series_instance_uid = ts.series_instance_uid;
+
+      DROP TABLE temp_submission;
+
+      CREATE TABLE temp_submission2 AS
+        SELECT g.series_instance_uid, MAX(g.submission_date) AS max_submission_timestamp
+        FROM general_image g
+        GROUP BY g.series_instance_uid; 
+    
+      UPDATE general_series gs, temp_submission2 ts
+      SET gs.max_submission_timestamp = ts.max_submission_timestamp
+      WHERE gs.series_instance_uid = ts.series_instance_uid;
+
+      DROP TABLE temp_submission2;
+    </sql>
+  </changeSet>
+  
+  <changeSet id="4.5.clean.nciadevtest.email" author="kascice" dbms="mysql">
+    <comment>
+      No point in having anyone's email address in here.
+    </comment>  
+    
+    <sql>
+      UPDATE csm_user
+      SET email_id=''
+      WHERE login_name='nciadevtest';
+    </sql>
+  </changeSet>  
+  
+  <changeSet id="4.5.Fill.in.DummyData.in.Study.Table.That.Study.Date.Is.NULL" author="zhouj" dbms="mysql">
+      <comment>
+        In Study Table, there are some study_date is null, which will crash NBIA Application. This query will fill in
+        some dummy data '9999-09-9' for study_date column to replace NULL value 
+      </comment>  
+      
+      <sql>
+	 update study  set study_date = '9999-09-9' where study_date is null;
+      </sql>
+  </changeSet> 
+
+  <changeSet id="4.5.Alter.Study.Table.To.Make.Study_Date.Column.Cannot.be.NULL" author="zhouj" dbms="mysql">
+      <comment>
+	Study Date in Study Table cannot be NULL.
+      </comment>  
+      <sql>
+	alter table study modify study_date Date not null;
+      </sql>
+  </changeSet> 
+  
+  <changeSet id="4.5.CTP.add.MD5.Hashcode.into.general_image.Table" author="zhouj" dbms="mysql">
+        <comment>
+          Add a MD5 hashcode field into NBIA database for datasubmission
+        </comment>  
+        
+        <sql>
+  	alter table general_image add md5_digest varchar(50);
+        </sql>
+  </changeSet> 
+  
+  <changeSet id="4.5.drop.version.columns" author="kascice" dbms="mysql">
+    <comment>
+      This version field appears to serve no purpose.
+    </comment>  
+     
+    <sql>
+      ALTER TABLE general_image
+      DROP COLUMN version;
+
+      ALTER TABLE general_series
+      DROP COLUMN version;
+
+      ALTER TABLE patient
+      DROP COLUMN version;
+
+      ALTER TABLE study
+      DROP COLUMN version;
+    </sql>
+  </changeSet>   
+  
+  
+<changeSet id="4.5.drop.version.column.from.view" author="kascice">          
+    <comment>The column version is dead.  Drop it in the views too.</comment>
+
+    <dropView viewName="dicom_image"/>
+
+    <sql>
+      CREATE OR REPLACE VIEW `dicom_image` AS select 
+     `gi`.`image_pk_id` AS `IMAGE_PK_ID`,
+     `gi`.`instance_number` AS `INSTANCE_NUMBER`,
+     `gi`.`content_date` AS `CONTENT_DATE`,
+     `gi`.`content_time` AS `CONTENT_TIME`,
+     `gi`.`image_type` AS `IMAGE_TYPE`,
+     `gi`.`acquisition_date` AS `ACQUISITION_DATE`,
+     `gi`.`acquisition_time` AS `ACQUISITION_TIME`,
+     `gi`.`acquisition_number` AS `ACQUISITION_NUMBER`,
+     `gi`.`lossy_image_compression` AS `LOSSY_IMAGE_COMPRESSION`,
+     `gi`.`pixel_spacing` AS `PIXEL_SPACING`,
+     `gi`.`image_orientation_patient` AS `IMAGE_ORIENTATION_PATIENT`,
+     `gi`.`image_position_patient` AS `IMAGE_POSITION_PATIENT`,
+     `gi`.`slice_thickness` AS `SLICE_THICKNESS`,
+     `gi`.`slice_location` AS `SLICE_LOCATION`,
+     `gi`.`i_rows` AS `I_ROWS`,
+     `gi`.`i_columns` AS `I_COLUMNS`,
+     `gi`.`contrast_bolus_agent` AS `CONTRAST_BOLUS_AGENT`,
+     `gi`.`contrast_bolus_route` AS `CONTRAST_BOLUS_ROUTE`,
+     `gi`.`sop_class_uid` AS `SOP_CLASS_UID`,
+     `gi`.`sop_instance_uid` AS `SOP_INSTANCE_UID`,
+     `gi`.`general_series_pk_id` AS `GENERAL_SERIES_PK_ID`,
+     `gi`.`patient_position` AS `PATIENT_POSITION`,
+     `gi`.`source_to_detector_distance` AS `SOURCE_TO_DETECTOR_DISTANCE`,
+     `gi`.`source_subject_distance` AS `SOURCE_SUBJECT_DISTANCE`,
+     `gi`.`focal_spot_size` AS `FOCAL_SPOT_SIZE`,
+     `gi`.`storage_media_file_set_uid` AS `STORAGE_MEDIA_FILE_SET_UID`,
+     `gi`.`dicom_file_uri` AS `DICOM_FILE_URI`,
+     `gi`.`acquisition_datetime` AS `ACQUISITION_DATETIME`,
+     `gi`.`image_comments` AS `IMAGE_COMMENTS`,
+     `gi`.`image_receiving_timestamp` AS `IMAGE_RECEIVING_TIMESTAMP`,
+     `gi`.`curation_timestamp` AS `CURATION_TIMESTAMP`,
+     `gi`.`annotation` AS `ANNOTATION`,
+     `gi`.`submission_date` AS `SUBMISSION_DATE`,
+     `gi`.`dicom_size` AS `DICOM_SIZE`,
+     `gi`.`image_laterality` AS `IMAGE_LATERALITY`,
+     `gi`.`trial_dp_pk_id` AS `TRIAL_DP_PK_ID`,
+     `gi`.`patient_id` AS `PATIENT_ID`,
+     `gi`.`study_instance_uid` AS `STUDY_INSTANCE_UID`,
+     `gi`.`series_instance_uid` AS `SERIES_INSTANCE_UID`,
+     `gi`.`patient_pk_id` AS `PATIENT_PK_ID`,
+     `gi`.`study_pk_id` AS `STUDY_PK_ID`,
+     `gi`.`project` AS `PROJECT`,
+     `gi`.`acquisition_matrix` AS `ACQUISITION_MATRIX`,
+     `gi`.`dx_data_collection_diameter` AS `DX_DATA_COLLECTION_DIAMETER`,
+     `cti`.`kvp` AS `KVP`,`cti`.`scan_options` AS `SCAN_OPTIONS`,
+     `cti`.`data_collection_diameter` AS `DATA_COLLECTION_DIAMETER`,
+     `cti`.`reconstruction_diameter` AS `RECONSTRUCTION_DIAMETER`,
+     `cti`.`gantry_detector_tilt` AS `GANTRY_DETECTOR_TILT`,
+     `cti`.`exposure_time` AS `EXPOSURE_TIME`,
+     `cti`.`x_ray_tube_current` AS `X_RAY_TUBE_CURRENT`,
+     `cti`.`exposure` AS `EXPOSURE`,
+     `cti`.`exposure_in_microas` AS `EXPOSURE_IN_MICROAS`,
+     `cti`.`convolution_kernel` AS `CONVOLUTION_KERNEL`,
+     `cti`.`revolution_time` AS `REVOLUTION_TIME`,
+     `cti`.`single_collimation_width` AS `SINGLE_COLLIMATION_WIDTH`,
+     `cti`.`total_collimation_width` AS `TOTAL_COLLIMATION_WIDTH`,
+     `cti`.`table_speed` AS `TABLE_SPEED`,
+     `cti`.`table_feed_per_rotation` AS `TABLE_FEED_PER_ROTATION`,
+     `cti`.`ct_pitch_factor` AS `CT_PITCH_FACTOR`,
+     `cti`.`anatomic_region_seq` AS `ANATOMIC_REGION_SEQ` 
+     from `general_image` `gi` join `ct_image` `cti`
+     where `gi`.`image_pk_id` = `cti`.`image_pk_id`;    
+    </sql>
+  </changeSet>  
+
+  <changeSet id="4.6.drop.trial_site.FK.From.patient.Table" author="kascice">          
+    <comment>This FK is a waste of space.  Noone ever uses trial_site in Patient table.</comment>
+
+    <dropForeignKeyConstraint constraintName="fk_trial_site_pk_id"
+                              baseTableName="patient"/>
+   </changeSet>  
+   
+  <changeSet id="5.0.oracle.tweaks" author="kascice">          
+    <comment>To support Oracle, some schema changes are necessary.</comment>
+
+    <sql>
+      ALTER TABLE collection_descriptions
+      CHANGE COLUMN collection_descriptions_timestamp collection_descriptions_timest DATE;
+      
+      ALTER TABLE download_data_history
+      CHANGE COLUMN size size_ DECIMAL(22,2);      
+      
+      ALTER TABLE custom_series_list
+      CHANGE COLUMN comment comment_ VARCHAR(200);
+      
+      ALTER TABLE custom_series_list_attribute
+      CHANGE COLUMN custom_series_list_attribute_pk_id custom_series_list_attribute_p BIGINT(20);
+    </sql>  
+   </changeSet>   
+   
+  <changeSet id="5.0.oracle.tweaks.pt.2" author="kascice">          
+    <comment>To support Oracle, some schema changes are necessary.</comment>
+
+    <sql>
+      ALTER TABLE qc_status_history
+      CHANGE COLUMN comment comment_ VARCHAR(4000);
+    </sql>  
+   </changeSet>   
+
+</databaseChangeLog>

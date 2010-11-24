@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"                
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+  <tr>
+    <td>
+      <h:form id="goBackForm">
+        <h:commandButton image="images/back_to_search_results.jpg" 
+                         action="submitSearch" 
+                         rendered="#{not empty searchResultBean.nodeTablesWrappers}" />                                                                
+      </h:form>
+    </td>
+  </tr>
+</table>
+  
+<h:form id="basketForm">
+    
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+  <tr>
+    <td colspan="2">
+      <h2>
+        <h:outputText value="#{msg.dataBasket_myBasket}" />
+      </h2>              
+      <h:outputText value="#{msg.dataBasket_validText}" />
+      <br/>
+      <br/>
+      <h:outputText value="#{msg.dataBasket_sizeText}" />
+      <br/>
+      <br/>      
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <table width="100%" border="0" cellspacing="0">
+              <tr>
+                <td colspan="2">                  
+                  <f:subview id="popupWarning" 
+                             rendered="#{basketBean.sizeBelowHttpDownloadThreshold}">
+                    <br/>
+                    <b>
+                      <h:outputText styleClass="formMessage" 
+                                    value="#{msg.dataBasket_popupBlocker}" />
+                    </b>
+                    <br/>
+                    <br/>
+                  </f:subview>
+                  <f:subview id="remotePauseWarning">
+                    <span>If there are remote series in the basket, there will be a pause per series as it is downloaded from the remote machine.</span>
+                    <br/>
+                    <br/>                 
+                  </f:subview>                  
+                  <h:panelGroup rendered="#{not empty basketBean.seriesItems}">
+                    <span>In order to use the Download Manager, a JRE must be installed on the client machine.</span>
+                    
+                    <span>To download the JRE, click</span>
+                    <a href="http://www.java.com/en/download" 
+                       target="_blank">here</a>
+                    <span>.</span>
+                  </h:panelGroup>
+                            
+                  <!--  only relevant when done zipping... but harmless to "show" -->
+                  <!--  updates the server state that downloading is done
+                        and shows popup to actually get the zipped file -->
+                  <!-- since this button will fire an action in the current window
+                       the focus will come back to main window which we dont want
+                       so delay the popup a few seconds -->   
+                  <!-- the server knows when it is done... so this is contorted
+                       but dont want to set downloading bit low until
+                       the js on this page gets a chance to fire. if server
+                       sets it, button will never fire -->        
+                  <h:commandButton id="completeDownloadButton"
+                                   style="display:none"
+                                   action="#{basketBean.finishDownloading}"
+                                   onclick="setTimeout(doDownloadPopup,1500);" />
+                                                                                     
+                  <f:subview id="progressView" 
+                             rendered="#{basketBean.downloading}">
+                    <h:outputText styleClass="formMessage" 
+                                  value="#{msg.dataBasket_zippingMessage}" />
+                    <br/>
+                    <br/>
+                    <br/>
+                    
+                    <ice:outputProgress id="progressBar" 
+                                        value="#{basketBean.percentage}"
+                                        indeterminate="false"/>
+                      
+                    <ice:panelGroup rendered="#{basketBean.percentage eq 100}">
+                     
+                      <script type="text/javascript">
+                        //autodownload hack                                             
+                        var completeDownloadButton = document.getElementById("MAINbody:basketForm:completeDownloadButton");                       
+                        completeDownloadButton.click();                                                  
+                      </script>
+                    </ice:panelGroup>                       
+                  </f:subview>
+                  <f:subview id="ftpView" rendered="#{basketBean.ftpDownload}">
+                    <br/>
+                    <h:outputText styleClass="formMessage" value="#{msg.dataBasket_ftpMessage}" />
+                    <br/>
+                    <br/>
+                    <h:outputText styleClass="formMessage" 
+                                  value="#{msg.dataBasket_emailMessage} "/>
+
+
+                    <h:outputLink styleClass="formMessage" 
+                                  target="_blank" 
+                                  value="/ncia/ftpInfo.jsf">
+                      <h:outputText value="#{msg.dataBasket_here}" />
+                    </h:outputLink>
+                    <f:verbatim>&amp;nbsp;</f:verbatim>
+                    <h:outputText styleClass="formMessage" value="#{msg.dataBasket_moreInfo}" />
+                    <br/>
+                    <br/>
+                  </f:subview>
+                  <f:subview id="customListView" rendered="#{basketBean.customListSearch}">
+                    <br/><br/>
+                    <fieldset style="border: 1px dashed #000099;width:750px">
+                       <legend style="text-align:center;background-color:#ffffff">
+                          <b><h:outputText styeClass="formMessage" value="Shared List Information: " /></b>
+                       </legend>
+                       <p>
+                       <b><h:outputText styleClass="formMessage" value="Name:"/></b><h:outputText styleClass="formMessage" value="#{basketBean.customListName}" />
+                       <br/>
+                       <b><h:outputText styleClass="formMessage" value="Comment:"/></b><h:outputText styleClass="formMessage" 
+                                  value=" #{basketBean.customListComment} "/><br/>
+                       <b><ice:outputText value="Link: "/></b>
+                       <ice:outputLink value="#{basketBean.customListLink}" target="_blank"> <ice:outputText value="#{basketBean.customListLink}" /></ice:outputLink>
+                       </p>
+                       <br/>
+                     </fieldset>
+                  </f:subview>
+                </td>
+                <td>
+                  <h:inputHidden id="downloadError" value="true" />
+                  <h:message for="downloadError" styleClass="errorLabel" />
+                </td>
+              </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="5">
+              <tr>
+                <td align="left">                                             
+                  <h:selectBooleanCheckbox value="#{basketBean.includeAnnotation}" 
+                                           onclick="javascript:setChanged(document.getElementById('MAINbody:basketForm:basketChanged'),'yes')"/>
+                          
+                  <h:outputText styleClass="formMessage" value="#{msg.dataBasket_includeAnnotation}" />
+                </td>
+              </tr>
+            </table> 
+
+            <div>
+              <h:message for="visualizeImages" 
+                         errorClass="errorLabel" 
+                         infoClass="infoLabel" />             
+            </div>
+            
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>
+                  <ice:panelGroup styleClass="iceMnuBarItem" 
+                                  rendered="#{basketBean.enableClassicDownload}"> 
+                    <ice:commandLink styleClass="iceLink iceMnuBarItemLabel"
+                                     action="#{basketBean.downloadBasket}"
+                                     value="Download All Items"/>   
+                  </ice:panelGroup>
+                </td>
+                <td>
+                  <ice:panelGroup styleClass="iceMnuBarItem">  
+                    <ice:outputResource id="launchDownload"
+                                        label="Download Manager"
+                                        resource="#{basketBean.launchDownloadManager}"                                                                              
+                                        fileName="#{basketBean.jnlpFileName}" 
+                                        mimeType="application/x-java-jnlp-file" 
+                                        attachment="false"/>  
+                  </ice:panelGroup> 
+                </td>
+                <td>              
+                  <ice:panelGroup styleClass="iceMnuBarItem" 
+                                  rendered="#{basketBean.enableCreateAList}"> 
+                    <ice:commandLink styleClass="iceMnuBarItemLabel"
+                                     action="#{customSeriesListBean.createListFromBasket}"
+                                     value="Create a Shared List"/> 
+
+                  </ice:panelGroup>
+                </td>
+                <td>              
+                  <ice:panelGroup styleClass="iceMnuBarItem"> 
+                    <ice:outputResource id="export"
+                                        label="Export Series ID"
+                                        resource="#{basketBean.export}"                                                                              
+                                        fileName="#{basketBean.exportFileName}" 
+                                        mimeType="text/csv" 
+                                        attachment="true"/>              
+                  </ice:panelGroup> 
+                </td>
+                <td style="display:inline;margin-left: s0px;">              
+                  <ice:panelGroup styleClass="iceMnuBarItem" 
+                                  rendered="#{basketBean.ncicb}">               
+                    <ice:commandLink value="Visualize Images"
+                                     id="visualizeImages"
+                                     onclick="if(!countDataBasketSelection(this.form)){return false;};"
+                                     action="#{cedaraBean.initiateCedaraAgainstSelectedBasketItems}"/>
+                  </ice:panelGroup>  
+                </td>
+                <td align="right" width="100%" style="padding-left: 10px">                                                                                     
+                  <ice:panelGroup styleClass="iceMnuBarItem" style="float:right">   
+                    <ice:commandLink styleClass="iceMnuBarItemLabel"
+                                     action="#{basketBean.removeSelectedSeries}">                                          
+                      <ice:graphicImage value="images/checkbox.gif"
+                                        style="border:none;display:inline;"/>
+                      <ice:outputText value="Remove Selected Items"
+                                      style="display:inline"/>                                      
+                    </ice:commandLink>
+                  </ice:panelGroup>                       
+                </td>
+              </tr>
+            </table>
+
+
+            <table width="100%" border="0" cellspacing="0">
+              <tr>
+                <td colspan="7">
+                  <h:dataTable id="dataBasketDataTable"
+                               width="100%" 
+                               border="1" 
+                               cellpadding="3" 
+                               cellspacing="0" 
+                               styleClass="dataTable" 
+                               headerClass="dataTableHeader" 
+                               value="#{basketBean.seriesItems}"
+                               rowClasses="dataRowLight, dataRowDark" 
+                               var="item" 
+                               binding="#{basketBean.basketData}">
+                    <h:column id="viewColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.common_view_image}" />
+                      </f:facet>
+                      <!-- 
+                      action="#{basketBean.viewSeriesData}"  -->
+                      <h:commandLink target="newWin"
+                                     onclick="doViewSeriesPopup('#{item.seriesId}'); return false;">
+                        <h:graphicImage value="images/old_new_magnifying_glass.png"
+                                        style="border: none;"/>
+                      </h:commandLink> 
+                    </h:column>
+                    <h:column id="subjectIdColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.common_subjectId}" />
+                      </f:facet>
+                      <h:outputText value="#{item.patientId}" />
+                    </h:column>
+                    <h:column id="studyIdColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.common_studyId}" />
+                      </f:facet>
+                      <h:outputText value="#{item.studyId}" />
+                    </h:column>
+                    <h:column id="seriesIdColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.common_seriesId}" />
+                      </f:facet>
+                      <h:outputText value="#{item.seriesId}" />
+                    </h:column>
+                    <h:column id="availableImagesColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.dataBasket_availableImages}" />
+                      </f:facet>
+                      <h:outputText value="#{item.totalImagesSelectedFromSeries} / #{item.totalImagesInSeries}" />
+                    </h:column>
+                    <h:column id="dataBasketSizeColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.dataBasket_size}" />
+                      </f:facet>
+                      <h:outputText value="#{item.imageSize}"/>
+                    </h:column>
+                    <h:column id="annotationsSizeColumn">
+                      <f:facet name="header">
+                        <h:outputText value="#{msg.annotations_size}"/>
+                      </f:facet>
+                      <h:outputText value="#{item.annotationSize3Digits}" escape="false"/>
+                    </h:column>  
+                    <h:column id="dataBasketDeleteColumn">
+                      <f:facet name="header">
+                        <span class="formFieldWhite"> 
+                          Select
+                          <input name="checkAllBox" 
+                                 type="checkbox" 
+                                 onclick="checkUncheckAll(this);"/> 
+                        </span>
+                      </f:facet>
+                      <div align="center">
+                        <h:selectBooleanCheckbox id="selectBox" value="#{item.selected}" />
+                      </div>
+                    </h:column>
+                    <h:column id="locationColumn">
+                      <f:facet name="header">
+                        <h:outputText value="Location"/>
+                      </f:facet>
+                      <h:outputText value="#{item.locationDisplayName}" />
+                    </h:column>                                
+                  </h:dataTable>
+                  
+                  <f:subview id="emptyDataView" 
+                             rendered="#{basketBean.basketSeriesCount == 0}">
+                    <table width="100%" border="1" cellpadding="3" cellspacing="0" class="dataTable">
+                      <tr>
+                        <td class="dataRowDark">
+                          <h:outputText value="#{msg.dataBasket_emptyBasket}" />
+                        </td>
+                      </tr>
+                    </table>
+                  </f:subview>
+                </td>
+              </tr>
+              <tr class="dataTable">
+                <td class="dataCellText">
+                  <div align="left">
+                    <em>
+                      <h:outputText value="#{msg.dataBasket_t1Time} #{basketBean.t1Download}" />
+                      <br/>
+                      <h:outputText value="#{msg.dataBasket_dslTime} #{basketBean.dslDownload}" />
+                    </em>
+                  </div>
+                  <div align="center"></div>
+                </td>
+                <td class="dataCellText" colspan="1">
+                  <div align="center">
+                    <b><h:outputText value="#{msg.dataBasket_totalSize}" /></b>
+                  </div>
+                </td>
+                <td class="dataCellText" colspan="1">
+                  <div align="center">
+                    <h:outputText value="#{basketBean.imageSize}" />
+                  </div>
+                </td>
+                <td class="dataCellText" colspan="1">
+                  <div align="center">
+                    <b><h:outputText value="#{msg.annotation_totalSize}" /></b>
+                  </div>
+                </td>
+                <td class="dataCellText" colspan="1">
+                  <div align="center">
+                    <h:outputText value="#{basketBean.annotationSize}"/>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <br/>
+    </td>
+    <td valign="top">
+      <ncia:help label="images/help_icon.png" helpId="data_basket_help" />
+    </td>
+  </tr>
+</table>
+<h:inputHidden id="basketChanged" 
+               binding="#{basketBean.basketChanged}" />
+</h:form>
+    
+</ui:composition>

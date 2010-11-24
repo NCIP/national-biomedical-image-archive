@@ -1,0 +1,64 @@
+<Configuration>
+  <Server port="8001" />
+  <Pipeline name="DICOM Pipeline">
+
+    <ImportService 
+            name="HTTP Import"
+            class="org.rsna.ctp.stdstages.HttpImportService"
+            root="roots/http-import"
+            ssl="yes"
+            port="1204" 
+            acceptDicomObjects="yes"
+            acceptXmlObjects="yes"
+            acceptZipObjects="yes"
+            acceptFileObjects="no"
+            quarantine="quarantines/http-import"/>
+    <ImportService
+            name="DICOM Import"
+            class="org.rsna.ctp.stdstages.DicomImportService"
+            root="roots/dicom-import"
+            port="1205" 
+            timeTag="00120050"/>
+    <Anonymizer
+            name="Anonymizer"
+            class="org.rsna.ctp.stdstages.DicomAnonymizer"
+            root="roots/anonymizer"
+            script="roots/anonymizer/scripts/da.script"
+            quarantine="quarantines/anonymizer" />
+    <Anonymizer
+            name="xmlAnonymizer"
+            id="xmlAnonymizer"
+            class="org.rsna.ctp.stdstages.XmlAnonymizer"
+            root="roots/xml-anonymizer" 
+            script="roots/anonymizer/scripts/xml-anonymizer.script" 
+            quarantine="quarantines/xml-anonymizer" />  
+    <Anonymizer name="zipAnonymizer"
+                id="zipAnonymizer"
+                class="org.rsna.ctp.stdstages.ZipAnonymizer"
+                root="roots/zip-anonymizer" 
+                script="roots/anonymizer/scripts/xml-anonymizer.script" 
+                quarantine="quarantines/zip-anonymizer" />            
+   <Processor 
+      name="IDMap" 
+      id="idmap"
+      class="org.rsna.ctp.stdstages.IDMap" 
+      root="IDMap" />
+    <Processor
+    	       id="databaseverifier"
+               name="databaseverifier"
+               class="org.rsna.ctp.stdstages.DatabaseVerifier"
+               root="roots"
+               url="http://localhost:23104"
+               username=""
+               password=""
+               maxAge="2"
+               interval="10000" />  
+    <ExportService
+            name="HTTP Export"
+            class="org.rsna.ctp.stdstages.HttpExportService"
+            root="roots/http-export"
+            url="http://localhost:23104" />
+  </Pipeline>
+
+</Configuration>
+

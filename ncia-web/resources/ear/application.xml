@@ -1,0 +1,22 @@
+<!DOCTYPE application 
+          PUBLIC "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+          "http://java.sun.com/dtd/application_1_3.dtd">
+    
+<application>
+  <display-name>NCIA</display-name>
+  <module>
+    <ejb>imageZippingMDB.jar</ejb>
+  </module>          
+  <module>
+    <web>
+      <web-uri>ncia.war</web-uri>
+      <context-root>ncia</context-root>
+    </web>
+  </module>  
+  <module>
+    <web>
+      <web-uri>nbia-download.war</web-uri>
+      <context-root>nbia-download</context-root>
+    </web>
+  </module>  
+</application>

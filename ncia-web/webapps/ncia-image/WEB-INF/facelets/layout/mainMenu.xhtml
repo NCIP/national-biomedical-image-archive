@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<table summary="" 
+       cellpadding="0" 
+       cellspacing="0" 
+       border="0"
+       height="20">
+  <tr>
+    <td width="1">
+      <!-- anchor to skip main menu --> 
+      <a href="#content">
+        <img src="images/shim.gif" 
+             alt="Skip Menu" 
+             width="1" 
+             height="1"
+             border="0" />
+      </a>
+    </td>
+
+    <!-- link 1 begins -->
+    <f:subview id="homeLinkSubview" rendered="#{securityBean.loggedIn}">
+      <td height="20" class="mainMenuItem"
+          onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+          onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+        <h:commandLink styleClass="mainMenuLink"  
+                       action="#{securityBean.logout}"
+                       rendered="#{anonymousLoginBean.guestLoggedIn}" 
+		       onclick="if(!confirm('You are about to login as a registered user.  Any data in the basket will be lost.  Are you sure you wish to continue?')) {return true;}" >
+          <h:outputText value="#{msg.menu_login}"/>
+        </h:commandLink>
+        <h:commandLink styleClass="mainMenuLink"  
+                       action="home"
+                       rendered="#{not anonymousLoginBean.guestLoggedIn}">
+          <h:outputText value="#{msg.menu_home}"/>
+        </h:commandLink>      
+      </td>
+      
+      <td>
+        <img src="images/mainMenuSeparator.gif" 
+             width="1" 
+             height="16"
+             alt="" />
+      </td>      
+    </f:subview>
+    <!-- link 1 ends -->
+    
+
+    
+    <!-- link 2 begins -->
+    <f:subview id="simpleSearchSubview" rendered="#{securityBean.loggedIn}">
+      <td height="20" class="mainMenuItem"
+          onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+          onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+        <h:commandLink action="#{searchWorkflowBean.newSimpleSearch}"
+                       value="#{msg.common_searchImages}" 
+                       styleClass="mainMenuLink" /> 
+      </td>
+      
+      <!-- link 2 ends -->
+      
+      <td>
+        <img src="images/mainMenuSeparator.gif" 
+             width="1" 
+             height="16"
+             alt="" />
+      </td>
+    </f:subview>
+ 
+    <f:subview id="simpleSearchForGuestSubview" 
+               rendered="#{anonymousLoginBean.simpleSearchView and empty sessionScope.originalRequest}">
+      <td height="20" class="mainMenuItem"
+          onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+          onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+        <h:commandLink action="#{anonymousLoginBean.login}"
+                       value="#{msg.common_searchImages}" 
+                       styleClass="mainMenuLink" /> 
+      </td>
+      
+      <!-- link 2 ends -->
+      
+      <td>
+        <img src="images/mainMenuSeparator.gif" 
+             width="1" 
+             height="16"
+             alt="" />
+      </td>
+    </f:subview>
+    
+    <!-- link 4 begins -->
+    <f:subview id="databasketSubview" rendered="#{securityBean.loggedIn}">
+      <td height="20" class="mainMenuItem"
+          onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+          onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+        <h:commandLink action="#{basketBean.viewBasket}"
+                       value="#{msg.common_manageBasket}"
+                       styleClass="mainMenuLink" /> 
+      </td>
+      
+      <td>
+        <img src="images/mainMenuSeparator.gif" 
+             width="1" 
+             height="16"
+             alt="" />
+      </td>      
+    </f:subview>
+    <!-- link 4 ends -->
+    
+
+    
+    <!-- link 5 begins -->
+    <td height="20" class="mainMenuItem"
+        onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+        onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+      <a class="mainMenuLink" 
+         style="color:#fff" 
+         onclick="window.open('/ncia/HTML/help/index.html', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=750,height=700,scrollbars=yes,resizable=yes')">
+        <h:outputText value="#{msg.menu_help}"/>
+      </a>
+    </td>
+    <!-- link 5 ends -->
+    <td>
+      <img src="images/mainMenuSeparator.gif" width="1" height="16"
+           alt="" />
+    </td>
+
+    <f:subview id="logout" 
+               rendered="#{securityBean.loggedIn and not anonymousLoginBean.guestLoggedIn}">
+      <!-- link  begins -->
+      <td height="10"
+          class="mainMenuItem"
+          onmouseover="changeMenuStyle(this,'mainMenuItemOver'),showCursor()"
+          onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
+ 
+        <h:commandLink action="#{securityBean.logout}" 
+                       value="#{msg.menu_logout}"
+                       styleClass="mainMenuLink" />
+  
+      </td>
+      <!-- link  ends -->
+
+      <td>
+        <img src="images/mainMenuSeparator.gif" 
+             width="1" 
+             height="16"
+             alt="" />
+      </td>     
+    </f:subview>
+    
+    <f:subview id="loggedInAsView" 
+               rendered="#{securityBean.loggedIn and not anonymousLoginBean.guestLoggedIn}">
+      <!-- link  begins -->
+      <td height="10"
+          class="mainMenuText">
+ 
+        <h:outputText value="#{msg.loggedInAs} #{securityBean.userNameForUI}"  />
+  
+      </td>
+      <!-- link  ends -->
+   
+    </f:subview>
+  </tr>
+</table>
+
+
+</ui:composition>
+

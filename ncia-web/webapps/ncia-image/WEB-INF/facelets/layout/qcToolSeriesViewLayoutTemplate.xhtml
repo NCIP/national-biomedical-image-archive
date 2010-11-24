@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+      
+<head>
+  <ice:outputDeclaration doctypeRoot="html" 
+                         doctypePublic="-//W3C//DTD HTML 4.01 Transitional//EN" 
+                         doctypeSystem="http://www.w3.org/TR/html4/loose.dtd" />              
+  <ice:outputStyle href="./xmlhttp/css/rime/rime.css"/>          
+  <link rel="stylesheet" type="text/css" href="css/styleSheet.css" />
+  <link rel="shortcut icon" href="images/favicon.ico"/>  
+  <!-- IE seems to not like having this in here too, but FF will read shortcut icon
+  <link rel="icon" href="images/favicon.ico"/>
+  -->
+  <link type="text/css" rel="stylesheet" href="css/slideshow.css"/>
+  <!-- 
+   dont think these js are neceesary? 
+  
+  <script src="js/script.js" type="text/javascript"></script>
+  <script type="text/javascript" src="js/overlib.js"></script>
+  <script type="text/javascript" src="js/overlib_hideform.js"></script>
+  
+  <script language="javascript" 
+          src="js/imageViewer.js" 
+          type="text/javascript"></script>
+  -->        
+  <script type="text/javascript" src="js/prototype-1.4.0.js"></script>
+  <script type="text/javascript" src="js/slider.js"></script>
+  <script type="text/javascript" src="js/imageSeriesSlideshow.js"></script>          
+                    
+  <title><ui:insert name="title">NBIA - National Biomedical Imaging Archive</ui:insert></title>
+
+  <script type="text/javascript">
+    //interface point to get the image URLs from the backend
+    var slideShowImagesArray = #{qcToolUpdateBean.imageSeriesJavascript};
+    var currentSliderValue= #{qcToolUpdateBean.imageCount+1};
+    
+    function dropProgressIndicator() {
+        $('loadingDiv').style.display = 'none'; 
+        setControlsVisible(true);    
+    }
+    
+    function prefetchAllWithProgress() {
+        stopPlayback();
+        setControlsVisible(false);
+        $('loadingDiv').style.display = 'block';
+
+        prefetchAll(dropProgressIndicator);                  
+    }
+    
+    function setControlsVisible(b) {
+        if(b) {
+            $('slideShowControlBarDiv').style.display = 'block';
+            $('prefetchButtonDiv').style.display = 'block';
+        }
+        else {
+            $('slideShowControlBarDiv').style.display = 'none';
+            $('prefetchButtonDiv').style.display = 'none';            
+        }           
+    }
+  </script>  
+</head>
+<body>
+<ui:insert name="body">Default Body</ui:insert>
+</body>
+
+</html>
+
+
+
+

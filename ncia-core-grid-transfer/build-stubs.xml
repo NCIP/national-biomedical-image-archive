@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<!-- 
+  Portions of this file Copyright 1999-2005 University of Chicago
+  Portions of this file Copyright 1999-2005 The University of Southern California.
+  
+  This file or a portion of this file is licensed under the
+  terms of the Globus Toolkit Public License, found at
+  http://www.globus.org/toolkit/download/license.html.
+  If you redistribute this file, with or without
+  modifications, you must include this notice in the file.
+-->
+
+<project name="globus_wsrf_tools_stub_utils" basedir="." default="generateStubs">
+    <description>
+        Utility targets for generating invoking various wsdl
+        processing tools:
+
+           * Porttype composition
+           * WSDL binding generation
+           * Java stubs from WSDL
+
+        The targets in this script honor the following parameters:
+        
+        flatten:
+
+           - deploy.dir    The installation directory. Used to build
+                           the classpath used when invoking this
+                           target. Defaults to $GLOBUS_LOCATION if
+                           set and the current directory if not set.      
+           - source.flatten.dir The directory containing the WSDL file
+                           to process.
+           - target.flatten.dir The directory to which to write the
+                           processed file.
+           - wsdl.source   The name of the WSDL file to process
+           - wsdl.target   The name of file to which to write the
+                           processed WSDL.
+           - wsdl.porttype The name of the porttype to process.
+
+        generateBinding:
+
+           - deploy.dir    The installation directory. Used to build
+                           the classpath used when invoking this
+                           target. Defaults to $GLOBUS_LOCATION if
+                           set and the current directory if not set.
+           - source.binding.dir The directory containing the WSDL file
+                           to create a binding for.
+           - target.binding.dir The directory to which to write the
+                           binding and service WSDL files.
+           - porttype.wsdl The WSDL file containing the porttype
+                           definition for which to create a binding.
+           - binding.root  The root name to use for the binding
+                           files. The created files will look like
+                           &lt;root&gt;_bindings.wsdl and
+                           &lt;root&gt;_service.wsdl
+           - binding.protocol The protocol to use when generating the
+                           binding. Defaults to http.
+
+        generateStubs:
+
+           - deploy.dir    The installation directory. Used to build
+                           the classpath used when invoking this
+                           target and to find the Java WS Core mapping
+                           file if no other mapping file was
+                           specified. Defaults to $GLOBUS_LOCATION if
+                           set and the current directory if not set.
+           - mapping.file  The namespace to package name mapping file
+                           to use. Defaults to 
+                           $deploy.dir/share/globus_wsrf_core/NStoPkg.properties
+           - server.side   If this property is set then server-side
+                           bindings will be emitted. You generally
+                           only need to generate client-side stubs.
+           - wsdl.tool     The class name of the WSDL2Java
+                           tool. Defaults to
+                           org.globus.wsrf.tools.wsdl.WSDL2Java
+           - wsdl.file     The WSDL file for which to generate the stubs
+           - source.stubs.dir The directory containing the WSDL file.
+           - target.stubs.dir The directory to which to write the
+                           generated stub code.
+           - ns.excludes   A list of namespace for which stubs should
+                           not be created. The default value for this
+                           property can be found in the build
+                           file. You should generally not change the
+                           default.
+           - stubs.timeout The timeout to use when generating
+                           stubs. Defaults to three minutes.
+
+        mergePackageMapping:
+           
+           - deploy.dir    The installation directory. Used to find
+                           the Java WS Core mapping file. Defaults to
+                           $GLOBUS_LOCATION if set and the current
+                           directory if not set.
+           - mapping.src   The full path to the mapping file that is
+                           to be merged.
+           - mapping.dst   The full path to a file to which to write
+                           the result of the merge. 
+        
+    </description>
+
+    <!--
+    Give user a chance to override without editing this file
+    (and without typing -D each time it compiles it)
+    -->
+
+    <property environment="env"/>
+
+    <property file="build.properties"/>
+    <property file="${user.home}/build.properties"/>
+
+    <property name="env.GLOBUS_LOCATION" value="."/>
+    <property name="deploy.dir" location="${env.GLOBUS_LOCATION}"/>
+    <property name="abs.deploy.dir" location="${deploy.dir}"/>
+
+    <property name="wsdl.tool" value="org.globus.wsrf.tools.wsdl.WSDL2Java"/>
+    <property name="target.flatten.dir" location="."/>
+    <property name="source.flatten.dir" location="."/>
+    <property name="target.stubs.dir" location="."/>
+    <property name="source.stubs.dir" location="."/>
+    <property name="target.binding.dir" location="."/>
+    <property name="source.binding.dir" location="."/>
+    <property name="binding.protocol" value="http"/>
+    <property name="stubs.timeout" value="180"/>
+    <property name="ns.excludes" value="-x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.xsd -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceLifetime-1.2-draft-01.xsd -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceLifetime-1.2-draft-01.wsdl -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.xsd -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ServiceGroup-1.2-draft-01.xsd -x http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ServiceGroup-1.2-draft-01.wsdl -x http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.xsd -x http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.wsdl -x http://schemas.xmlsoap.org/ws/2004/04/trust -x http://schemas.xmlsoap.org/ws/2002/12/policy -x http://schemas.xmlsoap.org/ws/2002/07/utility -x http://schemas.xmlsoap.org/ws/2004/04/sc -x http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd -x http://www.w3.org/2000/09/xmldsig# -x http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd -x http://schemas.xmlsoap.org/ws/2004/09/enumeration"/>
+
+    <path id="fullclasspath">
+        <pathelement location="."/>
+        <pathelement location="${java.home}/../lib/tools.jar"/>
+        <fileset dir="${abs.deploy.dir}/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${java.class.path}"/>
+    </path>
+
+    <path id="classpath">
+        <pathelement location="."/>
+        <fileset dir="${abs.deploy.dir}/lib">
+            <include name="common/*.jar"/>
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- ================================================================== -->
+    <!-- Resolve operation dependencies                                     -->
+    <!-- ================================================================== -->
+
+    <target name="WSDLUptodate">
+        <uptodate property="wsdl.uptodate"
+            targetfile="${target.flatten.dir}/${wsdl.target}"
+            srcfile="${source.flatten.dir}/${wsdl.source}"/>
+    </target>
+
+    <target 
+        name="flatten" 
+        depends="WSDLUptodate"
+        unless="wsdl.uptodate" 
+        description="Invoke the WSDL pre-processor on the supplied WSDL porttype definitions">
+        <echo message="Processing WSDL in ${wsdl.source}"/>
+        <java classname="org.globus.wsrf.tools.wsdl.WSDLPreprocessor"
+            dir="${source.flatten.dir}" fork="yes"
+            classpathref="classpath" failonerror="true" >
+            <arg value="-i"/>
+            <arg file="${source.flatten.dir}/${wsdl.source}"/>
+            <arg value="-o"/>
+            <arg file="${target.flatten.dir}/${wsdl.target}"/>
+            <arg value="-p"/>
+            <arg value="${wsdl.porttype}"/>
+        </java>
+        <fixcrlf srcdir="${target.flatten.dir}"
+            eol="lf"
+            includes="${wsdl.target}"/>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Generate bindings for porttype                                     -->
+    <!-- ================================================================== -->
+
+    <target name="bindingUptodate">
+        <uptodate property="binding.uptodate"
+            targetfile="${target.binding.dir}/${binding.root}_service.wsdl"
+            srcfile="${source.binding.dir}/${porttype.wsdl}"/>
+    </target>
+
+    <target 
+        name="generateBinding" 
+        depends="bindingUptodate"
+        unless="binding.uptodate"
+        description="Generate WSDL binding and service elements for the supplied WSDL porttype definitions">
+        <echo message="Generating bindings for ${porttype.wsdl}"/>
+        <java classname="org.globus.wsrf.tools.wsdl.GenerateBinding"
+            dir="${source.binding.dir}" fork="yes"
+            classpathref="classpath" failonerror="true" >
+            <arg value="-i"/>
+            <arg file="${source.binding.dir}/${porttype.wsdl}"/>
+            <arg value="-o"/>
+            <arg file="${target.binding.dir}/${binding.root}"/>
+            <arg value="-p"/>
+            <arg value="${binding.protocol}"/>
+        </java>
+    </target>
+
+    <!-- ================================================================== -->
+    <!-- Generate stubs from WSDL                                           -->
+    <!-- ================================================================== -->
+
+    <target 
+        name="mergePackageMapping" 
+        description="Merge a namespace to package name mapping file with the one provided by Java WS Core">
+      <echo message="Merging ${mapping.src}"/>
+
+      <basename property="mapping.base" file="${mapping.src}"/>
+      <dirname property="mapping.dir" file="${mapping.src}"/>
+
+      <concat destfile="${mapping.dst}">
+        <filelist dir="${abs.deploy.dir}/share/globus_wsrf_core"
+                  files="NStoPkg.properties"/>
+        <filelist dir="${mapping.dir}"
+                  files="${mapping.base}"/>
+      </concat>
+    </target>
+
+    <target name="generateStubs" 
+        description="Generate Java stubs for the supplied WSDL">
+
+        <!-- handle ${ns.file} property -->
+        <condition property="arg1" value="-f '${mapping.file}'">
+           <isset property="mapping.file"/>
+        </condition>
+        <condition property="arg1" value="-f '${abs.deploy.dir}/share/globus_wsrf_core/NStoPkg.properties'">
+          <not><isset property="mapping.file"/></not>
+        </condition>
+
+        <!-- handle ${server.side} property -->
+        <condition property="arg2" value="-s">
+           <istrue value="${server.side}"/>
+        </condition>
+        <condition property="arg2" value="">
+          <isfalse value="${server.side}"/>
+        </condition>
+
+        <echo message=" Generating stubs from ${wsdl.file}" />
+        <java classname="${wsdl.tool}" dir="${source.stubs.dir}" fork="yes"
+            classpathref="fullclasspath" failonerror="true" >
+            <sysproperty key="java.protocol.handler.pkgs"
+                value="org.globus.net.protocol" />
+            <arg value="-a"/>
+			<arg value="-o"/>
+            <arg value="${target.stubs.dir}"/>
+            <arg value="-W"/>
+            <arg line="${ns.excludes}"/>
+            <arg value="-x"/>
+            <arg value="http://schemas.xmlsoap.org/ws/2004/03/addressing"/>
+            <arg value="--noTypeCollisionProtection"/>
+            <arg line="${arg1} ${arg2}"/>
+            <arg value="-O"/>
+            <arg value="${stubs.timeout}"/>
+            <arg file="${source.stubs.dir}/${wsdl.file}"/>
+        </java>
+        <delete
+            file="${target.stubs.dir}/org/oasis/wsn/TopicExpressionType.java"
+            quiet="yes"/>
+    </target>
+
+</project>

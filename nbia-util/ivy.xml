@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-xsl/ivy.xsl"?>
+       
+<ivy-module version="1.0">
+  <info organisation="ncicb" module="nbia-util" />
+
+  <configurations>
+    <conf name="default" />
+    <conf name="test" extends="runtime" />
+    <conf name="test-pmd" extends="runtime" />
+    <conf name="test-findbugs" />
+    <conf name="master" extends="default" />
+    <conf name="compile" extends="default" />
+    <conf name="runtime" extends="compile" />
+  </configurations>
+
+  <publications>
+    <artifact name="nbia-util" type="jar" conf="default" />
+  </publications>
+
+  <dependencies>
+
+    <dependency org="log4j" name="log4j" rev="1.2.15" conf="*->master" />  
+
+    <dependency org="javancss" name="javancss" rev="29.50" conf="test->default"/>
+    <dependency org="junit" name="junit" rev="3.8.1" conf="test->master"/>
+    
+    <dependency org="cobertura" name="cobertura" rev="1.9.3-asmhack" conf="test->default"/>
+    
+      
+    <dependency org="checkstyle" name="checkstyle" rev="4.4" conf="test->default"/>
+    <dependency org="checkstyle" name="checkstyle-optional" rev="4.4" conf="test->default"/>
+    <!--
+    <dependency org="findbugs" name="findbugs-ant" rev="1.0.0" conf="test-findbugs->master"/>
+    -->
+    <dependency org="pmd" name="pmd" rev="4.2.1" conf="test-pmd->default"/>
+ 
+     <!-- garbage from log4j as second order dependency -->
+     <exclude org="javax.jms" module="jms"/>
+     <exclude org="com.sun.jdmk" module="jmxtools"/>
+     <exclude org="com.sun.jmx" module="jmxri"/>
+  </dependencies>
+
+</ivy-module>

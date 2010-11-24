@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+<tr>
+  <td width="100%" valign="top" class="homePageContent">
+    <fieldset style="border: 1px solid #000066; width: 700px">
+	  <legend style="text-align: center; background-color: #ffffff">
+        <h:outputText value="#{msg.viewer_links}" />
+      </legend>
+      <p style="text-align: left">
+        <h:outputText value="#{msg.viewer_content}" />
+        <br/>
+        <br/>
+        <h:outputText value="#{msg.viewer_note}" />
+        <ul>
+          <li>
+            <a href="http://rsb.info.nih.gov/ij/" target="_blank">
+              <h:outputText value="#{msg.viewer_imagej}" />
+            </a>
+          </li>
+          <li>
+            <a href="http://fusionviewer.sourceforge.net/index.html"
+               target="_blank">
+              <h:outputText value="#{msg.viewer_fusion}" />
+            </a>
+            <f:verbatim>&amp;nbsp;</f:verbatim>
+            <h:outputText value="#{msg.viewer_fusionText}" />
+          </li>
+          <li>
+            <a href="http://www.osirix-viewer.com/"
+               target="_blank">
+              <h:outputText value="#{msg.viewer_osirix}" />
+            </a>
+          </li>
+          <li>
+            <a href="http://www.clearcanvas.ca/dnn/Creations/PACSWorkstation/tabid/64/Default.aspx" target="_blank">
+              <h:outputText value="#{msg.viewer_clearCanvas}" />
+            </a>
+          </li>
+          <li>
+            <a href="http://www.slicer.org/" target="_blank">
+              <h:outputText value="#{msg.viewer_3DSlicer}" />
+            </a>
+          </li>
+        </ul>
+      </p>
+    </fieldset>
+  </td>
+</tr>
+
+</ui:composition>

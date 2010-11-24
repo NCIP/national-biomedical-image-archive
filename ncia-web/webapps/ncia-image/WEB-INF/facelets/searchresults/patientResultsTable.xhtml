@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<f:subview id="notWaitingView">
+ 
+<!--  ensure this is in naming container so resultTable isnt dupe -->  
+<ice:panelGroup id="patientResultsPanelGroup"
+                rendered="#{not empty perNodeResult.patients and not perNodeResult.errorState}">
+
+  <div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="5">
+      <tr>
+        <td class="formMessage" style="text-align:left">
+          <h:commandButton image="images/checkall.gif" 
+                           action="#{perNodeResult.checkAllPatients}" />
+          <h:commandButton image="images/uncheckall.gif"
+                           action="#{perNodeResult.uncheckAllPatients}" />
+        </td>
+        <td>
+          <div align="right">
+            <h:commandButton id="addPatientToBasketButton"
+                             image="images/add2basket.gif" 
+                             action="#{perNodeResult.addPatientToBasket}" />
+            <br/>
+            <h:message for="addPatientToBasketButton" 
+                       errorClass="errorLabel" 
+                       infoClass="infoLabel" />
+          </div>
+        </td>
+      </tr>                
+    </table>
+  </div>
+
+  <ice:dataTable id="patientResultsTable" 
+                 value="#{perNodeResult.patients}" 
+                 var="result" 
+                 rows="#{searchResultBean.resultsPerPage}" 
+                 width="100%">
+               
+    <h:column id="viewPatientLinkColumn">
+      <f:facet name="header">
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:commandLink id="viewPatientLink"
+                       value="#{msg.search_showStudies}"
+                       action="#{perNodeResult.navPatient}"
+                       actionListener="#{perNodeResult.viewPatient}" />
+      </div>
+    </h:column>
+    <h:column id="collectionIdColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_trialId}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.patient.project}" />
+      </div>
+    </h:column>
+    <h:column id="subjectIdColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_subjectId}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.patient.subjectId}" />
+      </div>
+    </h:column>
+    <h:column id="studiesCountColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_studies}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.studyCounts}"  />
+      </div>
+    </h:column>
+    <h:column id="seriesCountColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_series}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.seriesCounts}" />
+      </div>
+    </h:column>
+    <h:column id="addToBasketColumn">
+      <f:facet name="header">
+        <img src="images/cart_black.gif" 
+             alt="Add to Data Basket" 
+             width="26" 
+             height="20"/>
+        <br/>
+        <span class="formFieldWhite"> 
+          <input name="checkAllBox" 
+                 type="checkbox" 
+                 onclick="checkAllInContainingTable(this);"/> 
+        </span>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <div align="center" class="formFieldWhite">
+          <h:selectBooleanCheckbox id="addPatientToBasketCheckbox"
+                                   value="#{result.checked}" />
+        </div>
+      </div>
+    </h:column>                   
+  </ice:dataTable>
+  
+  <ice:panelGroup style="text-align: center">
+    <!--  since multiple tables on this page, have to carefully discriminate for value -->
+    <ice:dataPaginator id="dataScroll_1"
+                       for="patientResultsTable"
+                       fastStep="2"
+                       paginator="true"
+                       paginatorMaxPages="5"
+                       renderFacetsIfSinglePage="false"
+                       style="margin-left:auto;margin-right:auto">
+      <f:facet name="first">
+        <ice:graphicImage id="firstpage_1"
+                          url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="last">
+        <ice:graphicImage id="lastpage_1"
+                          url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="previous">
+        <ice:graphicImage id="previouspage_1"
+                          url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="next">
+        <ice:graphicImage id="nextpage_1"
+                          url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="fastforward">
+        <ice:graphicImage id="fastforward_1"
+                          url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="fastrewind">
+        <ice:graphicImage id="fastrewind_1"
+                          url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+                          style="border:none;"/>
+      </f:facet>
+    </ice:dataPaginator>
+    <ice:dataPaginator id="dataScroll_2"
+                       for="patientResultsTable"
+                       rowsCountVar="rowsCount"
+                       pageCountVar="pageCount"
+                       pageIndexVar="pageIndex">
+      <ice:outputFormat styleClass="standard"
+                        value="{0} patients found, displaying Page {1} / {2}.">
+        <f:param value="#{rowsCount}"/>
+        <f:param value="#{pageIndex}"/>
+        <f:param value="#{pageCount}"/>
+      </ice:outputFormat>
+    </ice:dataPaginator>  
+  </ice:panelGroup>
+
+</ice:panelGroup>
+
+<f:subview id="noResultView" 
+           rendered="#{empty perNodeResult.patients and not perNodeResult.errorState}">
+  <table width="100%" cellpadding="3" cellspacing="0" border="1" class="formLabel">
+    <tr>
+      <td>
+        <h:outputText value="#{msg.search_noResults}" />
+      </td>
+    </tr>
+  </table>
+</f:subview>                  
+
+<f:subview id="errorView" 
+           rendered="#{perNodeResult.errorState}">
+  <h:outputText value="There was an error retrieving the results from this node.  The node may be down.  Please try again later."/>
+</f:subview>
+ 
+</f:subview>
+</ui:composition>

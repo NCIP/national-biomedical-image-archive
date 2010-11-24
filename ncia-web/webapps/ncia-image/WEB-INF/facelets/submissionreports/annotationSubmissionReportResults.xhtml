@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="resultsTemplate.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+  <ui:param name="helpId" value="submission_report_help"/>
+  
+  <ui:define name="banner">
+    <ice:outputText>
+      Annotation Submission Results for #{annotationSubmissionReportBean.selectedCollectionSite} 
+      between #{annotationSubmissionReportBean.dateFromString} and #{annotationSubmissionReportBean.dateToString}
+    </ice:outputText>  
+  </ui:define>
+  
+  <ui:define name="overallCounts">
+    <ui:include src="annotationSubmissionReportCounts.xhtml">
+      <ui:param name="submissionCount" 
+                value="#{annotationSubmissionReportBean.annotationReport.annotationCountReport.annotationSubmissionCount}"/>
+      <ui:param name="affectedPatientCount" 
+                value="#{annotationSubmissionReportBean.annotationReport.annotationCountReport.affectedPatientCount}"/>
+      <ui:param name="affectedStudyCount" 
+                value="#{annotationSubmissionReportBean.annotationReport.annotationCountReport.affectedStudyCount}"/>                        
+      <ui:param name="affectedSeriesCount" 
+                value="#{annotationSubmissionReportBean.annotationReport.annotationCountReport.affectedSeriesCount}"/>                                                                                                           
+    </ui:include> 
+  </ui:define>
+        
+  <ui:define name="byDay">        
+    <div id="annotationByDay">
+      <ice:panelGroup id="annotationNoResultsMsg"
+                      rendered="#{empty annotationSubmissionReportBean.dailyReportDetails}">
+        There were no submissions in this date range for this collection//site.
+      </ice:panelGroup>
+      <ice:form id="annotationByDayForm"
+                rendered="#{not empty annotationSubmissionReportBean.dailyReportDetails}">
+                
+        <ice:panelCollapsible expanded="true">
+          <f:facet name="header">
+            <ice:panelGroup>
+              <ice:outputText value="Counts by Day"/>
+            </ice:panelGroup>  
+          </f:facet>                               
+          <ice:dataTable id="annotationByDayTable"
+                         value="#{annotationSubmissionReportBean.dailyReportDetails}"
+                         var="detail"
+                         style="margin-left: auto;margin-right:auto">
+            <ice:column style="vertical-align: top">
+              <f:facet name="header">
+               Day             
+              </f:facet>
+              <h:panelGroup>  
+                <ice:commandLink id="dayDetailsLink"
+                                 actionListener="#{annotationSubmissionReportBean.dayDetailsClicked}">
+                  <f:attribute name="day" value="#{detail.key}"/>
+                  <h:graphicImage id="collapse"
+                                  value="/xmlhttp/css/rime/css-images/tree_nav_top_close_no_siblings.gif"
+                                  rendered="#{detail.value.expanded}"
+                                  style="border:0;vertical-align:middle"/>
+                  <h:graphicImage id="expand"
+                                  value="/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
+                                  rendered="#{not detail.value.expanded}"
+                                  style="border:0;vertical-align:middle"/>                              
+                </ice:commandLink>
+                <h:outputText value="#{detail.key}"/>                 
+              </h:panelGroup>                              
+                     
+            </ice:column>   
+            <ice:column>
+              <f:facet name="header">
+                Details
+              </f:facet>
+              
+              <ice:panelGroup style="text-align:center">
+                <h:outputText value="#{detail.value.submissionCount} submission(s)."/>                  
+              </ice:panelGroup>            
+      
+              <ice:panelGroup rendered="#{detail.value.expanded}">
+                <ui:include src="patientDetails.xhtml">
+                  <ui:param name="patientDetails" 
+                            value="#{detail.value.patientDetails}"/>  
+                  <ui:param name="submissionLabel"
+                            value="Annotations"/>                                                                                                                    
+                </ui:include>              
+              </ice:panelGroup>
+                     
+            </ice:column>      
+          </ice:dataTable>
+        </ice:panelCollapsible>          
+      </ice:form>
+    </div>
+  </ui:define>          
+</ui:composition>                

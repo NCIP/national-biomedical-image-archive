@@ -64,7 +64,7 @@ Features Addressed in This Release
 [NBIA-280] AntHillPro 3 support for build promotion.
 [NBIA-241] Upgrade CTP to X42 
 
-Defects from 4.4 Addressed in This Release
+Defects from 4.5 Addressed in This Release
 ------------------------------------------
 [NBIA-245] Decouple service and DAO objects within deletion feature 
 [NBIA-254] When saving a query, there is no message if the save is successful, or if the name is a duplicate
@@ -73,6 +73,8 @@ Defects from 4.4 Addressed in This Release
 [NBIA-270] For External Data Basket, patient+series or study+series only returns series from the first part
 [NBIA-274] Command-line upgrader fails unless all properties are specified like for an install
 [NBIA-279] Add warning text to GUI installer about potential to wipe out CTP storage system
+[NBIA-287] NCIA grid service port number updating from 21080 to 8080 
+
 
 
 Known Issues/Defects

@@ -21,8 +21,16 @@ cat *sql file* | tr -d \` > *sql file 2*
 4. For all files, replace \' with '' (This is in custom_series_list, csm_protection_group, csm_user, saved_query on DEV tier)
 sed 's/\\\\\'/\\\'\\\'/g' < *sql file* > *sql file 2*
 
+On Linux:
+
+sed "s/'/''/g" < *sql file* > *sql file 2*
+
 5. For all files, replace '0000-00-00' with '1950-01-01' (This is in csm_pg_pe on DEV tier).
 sed 's/\'0000-00-00\'/\'1950-01-01\'/g' < *sql file* > *sql file 2*
+
+On Linux:
+
+sed "s/'0000-00-00'/'1950-01-01'/g" < *sql file* > *sql file 2*
 
 6. In download_data_history, size -> size_ (WATCH THE CASE)
 sed 's/size/size_/g' < download_data_history.sql > temp.sql

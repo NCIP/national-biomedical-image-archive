@@ -47,7 +47,19 @@
     <dependency org="ncicb" 
                 name="nbia-remote-search" 
                 rev="latest.integration"
-                conf="runtime"/>                
+                conf="runtime"/>   
+                
+                
+    <dependency org="rsna" 
+                name="mircutil" 
+                rev="T32" 
+                conf="runtime"/>    
+                
+    <dependency org="ncicb" 
+                name="ncia-services-grid" 
+                rev="latest.integration"
+                conf="runtime->master"/>                 
+                
 
   </dependencies>
   

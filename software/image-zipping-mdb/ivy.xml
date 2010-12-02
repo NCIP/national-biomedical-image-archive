@@ -53,7 +53,7 @@
     <dependency org="rsna" 
                 name="mircutil" 
                 rev="T32" 
-                conf="runtime"/>    
+                conf="runtime->master"/>    
                 
     <dependency org="ncicb" 
                 name="ncia-services-grid" 

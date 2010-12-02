@@ -108,12 +108,12 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
         } catch (Exception e) {
             throw new EJBException("Failed to init ImageZippingMDB");
         }
-        
+
         //initialize spring so that nbia-dao stuff will work correctly.
         //not sure if there is an extra-special way to do this by
-        //configuration or convention but this works 
+        //configuration or convention but this works
         ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext-hibernate.xml");
-        new SpringApplicationContext().setApplicationContext(appContext);        
+        new SpringApplicationContext().setApplicationContext(appContext);
     }
 
     /**
@@ -134,7 +134,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             log.debug("Unexception exception: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
 
     }
 
@@ -169,7 +169,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
 
         ImageZippingMessage izm = null;
 
-        // List of paths to zip files generated 
+        // List of paths to zip files generated
         // There can be more than one for very large data sets
         List<String> listOfZipFiles;
 
@@ -178,7 +178,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             izm = (ImageZippingMessage) om.getObject();
 
             // Prevents a file from being zipped twice.
-            // If the file exists (even only a part of it), don't try to zip 
+            // If the file exists (even only a part of it), don't try to zip
             // again.   This handles a situation where the bean times out, gets put back
             // on the queue and then is run again
             // In the future, we could use izm.getZipHistoryId() and Hibernate to load up the download
@@ -186,8 +186,8 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             if ((new File(izm.getZipFilename())).exists()) {
                 return;
             }
-            
-            // Because a lot of data can be zipped, the EJB transaction timeout must be 
+
+            // Because a lot of data can be zipped, the EJB transaction timeout must be
             // set appropriately
             // To set the timeout ourselves, bean managed transactions must be used
             //  (see ejb-jar.xml)
@@ -197,7 +197,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             ctx.getUserTransaction().setTransactionTimeout(NCIAConfig.getImageZippingMDBTimeout());
 
             // Begin the transaction
-            ctx.getUserTransaction().begin();            
+            ctx.getUserTransaction().begin();
 
 
 
@@ -210,7 +210,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             listOfZipFiles = zipper.zip();
 
             log.info("Finish zipping file " + izm.getZipFilename());
-        } catch (Exception e) {
+        } catch (Throwable e) {
         	e.printStackTrace();
             log.error("Error zipping file " + izm.getZipFilename(), e);
 
@@ -218,7 +218,8 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             // Commit the transaction so that it won't run over and over again
             try {
                 ctx.getUserTransaction().commit();
-            } catch (Exception ee) {
+            }
+            catch (Throwable ee) {
                 log.error("While handling an exception in the MDB, could not commit the transaction",
                     ee);
             }
@@ -227,24 +228,26 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             return;
         }
 
+
         try {
             // send an email to user
             log.info("FTP_DOWNLOAD: " + izm.getEmailAddress());
 
-            MailManager.sendFTPMail(izm.getEmailAddress(), 
-            		                izm.getUserName(), 
-            		                listOfZipFiles, 
+            MailManager.sendFTPMail(izm.getEmailAddress(),
+            		                izm.getUserName(),
+            		                listOfZipFiles,
             		                izm.getNodeName());
 
 
             log.info("Finish sending email ... ");
-        } catch (Exception e) {
+        } catch (Throwable e) {
             log.error("Error while sending email");
         } finally {
             // Commit the transaction so that it won't run over and over again
             try {
                 ctx.getUserTransaction().commit();
-            } catch (Exception ee) {
+            }
+            catch (Throwable ee) {
                 log.error("While handling an exception in the MDB, could not commit the transaction",
                     ee);
             }

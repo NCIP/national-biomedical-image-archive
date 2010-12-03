@@ -351,7 +351,14 @@ $HeadURL$
     <!-- i dont understand what is going on with globus... this may have something to do
          with tweaking the target dependencies for ahp3.  for now just force this unzip so build will
          work without globus_location being set --> 
-    <unzip dest="${application.base.path}" src="${download.dir}/${wscore.file.name}"/>      
+    <if>
+      <not>
+        <isset property="env.GLOBUS_LOCATION"/>
+      </not>
+      <then>         
+        <unzip dest="${application.base.path}" src="${download.dir}/${wscore.file.name}"/>      
+      </then>
+    </if>
   </target>
 
   <!-- Wrapper build target, call appropriate builds for sub-projects -->

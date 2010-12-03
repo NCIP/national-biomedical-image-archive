@@ -578,6 +578,14 @@
     
     <echo file="${pre-install.dir}/install.properties" message=""/>
 
+    <!-- i dont understand what is going on with globus... this may have something to do
+         with tweaking the target dependencies for ahp3.  for now just force  globus into
+         the dist jar --> 
+    <mkdir dir="${pre-install.dir}/tools"/>
+    <copy file="${dist.location}/exploded/tools/ws-core-enum-4.0.3.zip" 
+          todir="${pre-install.dir}/tools" 
+          overwrite="true"/>
+          
     <copy todir="${pre-install.dir}/bda-utils" overwrite="true">
       <fileset dir="${bda-utils.dir}">
         <include name="**/*" />                 

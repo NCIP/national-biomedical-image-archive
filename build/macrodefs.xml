@@ -1,5 +1,102 @@
 <project name="nbia-macrodefs">
 
+  <macrodef name="patch-properties">
+    <attribute name="file"/>
+    <attribute name="property.name"/>
+    <attribute name="property.value"/>
+    
+    <sequential>
+      <replaceregexp file="@{file}" 
+                     byline="true"
+                     match="^\s*@{property.name}\s*=(.*)$"
+                     replace="@{property.name}=@{property.value}"/>
+    </sequential>   
+  </macrodef>
+  
+  
+  <macrodef name="patch-hibernate-cfg-jndi">
+    <attribute name="file"/>
+    <attribute name="datasource.name"/>
+
+    
+    <sequential>
+      <xmltask source="@{file}"   
+               dest="@{file}"  
+               preservetype="true">
+        <!--       
+        <xmlcatalog refid="bda.xml.catalog"/> 
+          -->
+          
+        <replace path="//property[@name='connection.datasource']/text()" 
+                 withtext="@{datasource.name}" />                  
+      </xmltask>   
+    </sequential>   
+  </macrodef>
+  
+    
+  <macrodef name="patch-hibernate-cfg-direct">
+    <attribute name="file"/>
+    <attribute name="database.url" default="${database.url}"/>
+    <attribute name="database.user" default="${database.user}"/>
+    <attribute name="database.password" default="${database.password}"/>
+    <attribute name="database.driver" default="${database.driver}"/>
+    <attribute name="database.dialect" default="${database.dialect}"/>
+    
+    <sequential>
+      <xmltask source="@{file}"   
+               dest="@{file}"  
+               preservetype="true">
+        <!--       
+        <xmlcatalog refid="bda.xml.catalog"/> 
+          -->
+        
+        <replace path="//property[@name='hibernate.connection.url']/text()" 
+                 withtext="@{database.url}" />   
+        <replace path="//property[@name='hibernate.connection.username']/text()" 
+                 withtext="@{database.user}" /> 
+        <replace path="//property[@name='hibernate.connection.password']/text()" 
+                 withtext="@{database.password}" /> 
+        <replace path="//property[@name='hibernate.connection.driver_class']/text()" 
+                 withtext="@{database.driver}" /> 
+        <replace path="//property[@name='dialect']/text()" 
+                 withtext="@{database.dialect}" /> 
+               
+      </xmltask>   
+    </sequential>   
+  </macrodef>
+  
+  <macrodef name="patch-hibernate-properties">
+    <attribute name="file"/>
+    <attribute name="database.url" default="${database.url}"/>
+    <attribute name="database.user" default="${database.user}"/>
+    <attribute name="database.password" default="${database.password}"/>
+    <attribute name="database.driver" default="${database.driver}"/>
+    <attribute name="database.dialect" default="${database.dialect}"/>
+    
+    <sequential>
+      <replaceregexp file="@{file}" 
+                     byline="true"
+                     match="^\s*hibernate.connection.url\s+(.*)$"
+                     replace="hibernate.connection.url @{database.url}"/>
+      <replaceregexp file="@{file}" 
+                     byline="true"
+                     match="^\s*hibernate.connection.username\s+(.*)$" 
+                     replace="hibernate.connection.username @{database.user}"/>
+      <replaceregexp file="@{file}" 
+                     byline="true"
+                     match="^\s*hibernate.connection.password\s+(.*)$" 
+                     replace="hibernate.connection.password @{database.password}"/>
+      <replaceregexp file="@{file}" 
+                     byline="true"
+                     match="^\s*hibernate.connection.driver_class\s+(.*)$" 
+                     replace="hibernate.connection.driver_class @{database.driver}"/>
+      <replaceregexp file="@{file}" 
+                     byline="true"    
+                     match="^\s*hibernate.dialect\s+(.*)$" 
+                     replace="hibernate.dialect @{database.dialect}"/>                                     
+    </sequential>   
+  </macrodef>
+  
   <macrodef name="comma-separated-file-list">
     <attribute name="directory.to.list"/>
     <attribute name="property.name.to.set"/>

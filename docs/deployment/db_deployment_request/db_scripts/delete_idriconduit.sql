@@ -3,8 +3,7 @@ select p.patient_pk_id
 from patient p, trial_data_provenance tdp
 where p.trial_dp_pk_id = tdp.trial_dp_pk_id and
       tdp.trial_dp_pk_id = 297402368;
-      
-323649536      
+        
       
 create temporary table study_temp as select study_pk_id from study where patient_pk_id in (select * from patient_temp);
 

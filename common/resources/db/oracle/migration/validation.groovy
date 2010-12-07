@@ -3,11 +3,11 @@ import java.sql.*;
 
 mySqlUser = "nciaadmin"
 mySqlPassword = ""
-mySqlUrl = "jdbc:mysql://cbiodb590.nci.nih.gov:3638/nciadev"
+mySqlUrl = "jdbc:mysql://cbiodb580.nci.nih.gov:3638/nciaqa"
 
 oracleUser = "nbia"
 oraclePassword =""
-oracleUrl = "jdbc:oracle:thin:@ncidb-nci-d.nci.nih.gov:1564:ncidev"
+oracleUrl = "jdbc:oracle:thin:@ncidb-nci-q.nci.nih.gov:1564:nciqa"
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -65,6 +65,10 @@ tableNames = ['annotation',
 
 //findMissingRows('csm_protection_group', 'protection_group_id', 'protection_group_id');
 
+//findMissingRows('general_image', 'image_pk_id', 'image_pk_id');
+
+findMissingRowsBackward('submission_history', 'submission_history_pk_id', 'submission_history_pk_id');
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -101,6 +105,31 @@ def findMissingRows(tableName, mySqlPkIdColumn, oraclePkIdColumn) {
         def oraclePkId = oracleInstance.firstRow("select "+oraclePkIdColumn+" from "+tableName+" where "+oraclePkIdColumn+"="+pkId)
         if(oraclePkId==null) {
             println "In "+tableName+" couldnt find "+oraclePkIdColumn+"="+pkId;
+        }
+    }    
+ 
+    resultSet.close();
+    statement.close();
+    con.close();  
+}
+
+def findMissingRowsBackward(tableName, mySqlPkIdColumn, oraclePkIdColumn) {
+    def query = "select "+oraclePkIdColumn+" from "+tableName;
+    
+    Class.forName("com.mysql.jdbc.Driver")
+    def con = DriverManager.getConnection(oracleUrl,oracleUser,oraclePassword);
+
+    def statement = con.createStatement(); 
+    statement.setFetchSize(1000)
+    def resultSet = statement.executeQuery(query);
+
+    while (resultSet.next()) {
+        
+        Integer pkId   = resultSet.getInt(oraclePkIdColumn);
+    
+        def mySqlPkId = mySqlInstance.firstRow("select "+mySqlPkIdColumn+" from "+tableName+" where "+mySqlPkIdColumn+"="+pkId)
+        if(mySqlPkId==null) {
+            println "In "+tableName+" couldnt find "+mySqlPkIdColumn+"="+pkId;
         }
     }    
  

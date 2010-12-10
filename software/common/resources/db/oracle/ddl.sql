@@ -1,119 +1,4 @@
 
-
-
-
-CREATE SEQUENCE  csm_filter_clause_FILTER_CLAUS  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_group_GROUP_ID_SEQ  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE 
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_pg_pe_PG_PE_ID_SEQ  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE 
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_privilege_PRIVILEGE_ID_SEQ  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE 
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_protection_element_PROTECT  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE 
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_protection_group_PROTECTIO  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE 
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_role_ROLE_ID_SEQ  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_role_privilege_ROLE_PRIVIL  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_user_USER_ID_SEQ  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE 
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_user_group_USER_GROUP_ID_S  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_user_group_role_pg_USER_GR  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_user_pe_USER_PROTECTION_EL  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  submission_history_submission_  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
-CREATE SEQUENCE  csm_application_APPLICATION_ID  
-  MINVALUE 1 MAXVALUE 999999999999999999999999 INCREMENT BY 1  NOCYCLE
-;
-
-
-
-
-
 CREATE TABLE saved_query_attribute (
   saved_query_attribute_pk_id NUMBER(24,0) NOT NULL,
   attribute_name VARCHAR2(300 CHAR),
@@ -1739,5 +1624,136 @@ CREATE INDEX saved_query_user_idx ON saved_query
 (
   user_id
 ) 
+;
+
+CREATE SEQUENCE CSM_APPLICATI_APPLICATION__SEQ
+increment by 1
+start with 3
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+CREATE SEQUENCE CSM_GROUP_GROUP_ID_SEQ
+increment by 1
+start with 2
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+
+CREATE SEQUENCE CSM_PG_PE_PG_PE_ID_SEQ
+increment by 1
+start with 1
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+
+CREATE SEQUENCE CSM_PRIVILEGE_PRIVILEGE_ID_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+CREATE SEQUENCE CSM_PROTECTIO_PROTECTION_E_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+
+CREATE SEQUENCE CSM_PROTECTIO_PROTECTION_G_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+CREATE SEQUENCE CSM_ROLE_ROLE_ID_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+CREATE SEQUENCE CSM_ROLE_PRIV_ROLE_PRIVILE_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+CREATE SEQUENCE CSM_USER_USER_ID_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+CREATE SEQUENCE CSM_USER_GROU_USER_GROUP_I_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+CREATE SEQUENCE CSM_USER_GROU_USER_GROUP_R_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
+;
+
+
+CREATE SEQUENCE CSM_USER_PE_USER_PROTECTIO_SEQ
+increment by 1
+start with 10
+NOMAXVALUE
+minvalue 1
+nocycle
+nocache
+noorder
 ;
 

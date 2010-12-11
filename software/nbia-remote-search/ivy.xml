@@ -54,7 +54,7 @@
     <dependency org="ncicb" 
                 name="ncia-services-commons" 
                 rev="latest.integration"
-                conf="compile->master;test->runtime"/> 
+                conf="compile,runtime->master;test->runtime"/> 
         
     <!-- leave runtime to a higher power to make a decision about runtime -->        
     <dependency org="rsna" 

@@ -80,8 +80,8 @@ Defects from 4.5 Addressed in This Release
 Known Issues/Defects
 ------------------------
 
-1.  IE8 will not be supported for this release.  
-
+[NBIA-227] IE8 will not be supported for this release.  
+[NBIA-310] Download mgr remote series have completed downloading, but progress bar shows 99%.
 
  
 See the Jira tracker for the latest use cases (implemented 

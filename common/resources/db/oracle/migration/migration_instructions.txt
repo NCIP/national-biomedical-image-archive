@@ -43,12 +43,12 @@ rm qc_status_history.sql
 mv temp.sql qc_status_history.sql
 
 8. In custom_series_list_attribute CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID->CUSTOM_SERIES_LIST_ATTRIBUTE_P (WATCH THE CASE)
-sed 's/custom_series_list_attribute_pk_id/custom_series_list_attribute_p/g' < custom_series_list_attribute.sql > temp.sql
+sed 's/CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID/custom_series_list_attribute_p/g' < custom_series_list_attribute.sql > temp.sql
 rm custom_series_list_attribute.sql
 mv temp.sql custom_series_list_attribute.sql
 
 9. In custom_series_list, comment->comment_ (WATCH THE CASE)
-sed 's/comment/comment_/g' < custom_series_list.sql > temp.sql
+sed 's/COMMENT/comment_/g' < custom_series_list.sql > temp.sql
 rm custom_series_list.sql
 mv temp.sql custom_series_list.sql
 

@@ -149,7 +149,6 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/asm.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/axis-1.2RC2.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/axis-url.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/axis.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/axis2-saaj-1.1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/bootstrap.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/bouncycastle-jdk1.3_1.25.jar"/>
@@ -190,26 +189,16 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-Transfer-tests-1.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-wsEnum-1.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-wsEnum-stubs-1.3.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/castor-0.9.9.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/castor-1.0.2.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ccl-29.50.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cglib-2.1_3.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cglib-2.1.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/checkstyle-4.4.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/checkstyle-optional-4.4.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/clibwrapper_jiio-1.2_pre-dr-b04.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/clm-4.0.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/clm.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cobertura-1.9.3-asmhack.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cog-axis.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cog-jglobus.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cog-tomcat.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cog-url.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commonj.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-beanutils-1.6.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-beanutils-core-1.7.0.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-beanutils.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-cli-1.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-cli-2.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-codec-1.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-collections-3.0.jar"/>
@@ -217,26 +206,19 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-digester-1.5.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-digester.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-discovery-0.2-dev.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-discovery.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-httpclient-3.0.1.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-httpclient-3.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-io-1.3.2.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-lang-1.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-logging.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/concurrent.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix-1.2.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix-asn1-0.1.11.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix-asn1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix32-3.2.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix32.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/csm-4.0.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/csmapi.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/dbunit-2.4.8.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/dcm4che-1.4.20.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/dcm4che-imageio-rle-2.0.17.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/dom4j-1.4.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ehcache-1.2.2.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ehcache-1.2.jar"/>
@@ -254,12 +236,8 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/globus_wsrf_servicegroup.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/globus_wsrf_tools_test.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/hibernate-3.2.0.ga.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/hibernate3.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ivi-core-1.2.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/iviCore-1.2dev.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jai_imageio-1.2_pre-dr-b04.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jasciidammit-1.1.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/javancss-29.50.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jaxrpc-api-1.1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jaxrpc.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jce-jdk13-125.jar"/>
@@ -268,32 +246,21 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jdom-1.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jgss.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jhbasic-29.50.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jsf-api-1.2_12.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jta-1.0.1B.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/jta.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/junit-4.3.1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/junit.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/log4j-1.2.15.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/mail-1.4.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/mircutil-T32.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/mockejb-0.6-beta2.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/mockrunner-0.4.1.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/mysql-connector-java-3.1.13-bin.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/naming-common.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/naming-factory.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/naming-java.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/naming-resources.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/nbia-dao.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/nbia-util.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ncia-beans.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ncia-config.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ncia-domain.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ncia-services-commons.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ncia-services-grid.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/opensaml.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/oro-2.0.8.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/puretls.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/README.txt"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/resolver.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/saaj.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/sdk-client-framework.jar"/>
@@ -303,7 +270,6 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/slf4j-log4j12-1.4.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/slf4j-nop-1.4.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-2.5.6.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/spring.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/ws-addressing-1.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsdl4j-1.5.1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsdl4j.jar"/>
@@ -321,18 +287,12 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_core-4.0.3.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_core.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_provider_jce.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_test_interop_stubs.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_test_interop.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_test_unit_stubs.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_test_unit.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_test.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wsrf_tools.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wss4j-noversion.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/wss4j.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xalan-2.6.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xalan.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xercesImpl-2.6.2.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xercesImpl.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xml-apis.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xmlsec.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/xstream-1.3.1.jar"/>

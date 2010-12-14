@@ -1,6 +1,9 @@
 package gov.nih.nci.ncia.dbadapter;
 
 import java.io.File;
+import java.util.Map;
+import java.util.Set;
+
 
 import org.apache.log4j.Logger;
 import org.rsna.ctp.objects.DicomObject;
@@ -10,6 +13,7 @@ import org.rsna.ctp.objects.ZipObject;
 import org.rsna.ctp.pipeline.Status;
 import org.rsna.ctp.stdstages.database.DatabaseAdapter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.rsna.ctp.stdstages.database.UIDResult;
 
 
 public class NCIADatabase extends DatabaseAdapter{
@@ -70,6 +74,11 @@ public class NCIADatabase extends DatabaseAdapter{
     	}
     	return status;
     	
+    }
+    
+    public Map<String, UIDResult> uidQuery(Set<String> uidSet)
+    {
+    	return delegator.uidQuery(uidSet);
     }
     
 }

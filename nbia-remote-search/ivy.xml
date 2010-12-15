@@ -62,6 +62,11 @@
                 rev="T32" 
                 conf="compile,runtime->master;test->runtime"/> 
                 
+    <dependency org="dcm4che" 
+                name="dcm4che" 
+                rev="1.4.20" 
+                conf="runtime->master"/>
+                
     <!-- leave runtime to a higher power to make a decision about runtime -->                
     <dependency org="ncicb" 
                 name="nbia-download-manager" 

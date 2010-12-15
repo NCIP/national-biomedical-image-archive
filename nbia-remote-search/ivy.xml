@@ -60,7 +60,7 @@
     <dependency org="rsna" 
                 name="mircutil" 
                 rev="T32" 
-                conf="compile->master;test->runtime"/> 
+                conf="compile,runtime->master;test->runtime"/> 
                 
     <!-- leave runtime to a higher power to make a decision about runtime -->                
     <dependency org="ncicb" 

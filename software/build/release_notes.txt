@@ -81,7 +81,9 @@ Known Issues/Defects
 ------------------------
 
 [NBIA-227] IE8 will not be supported for this release.  
-[NBIA-310] Download mgr remote series have completed downloading, but progress bar shows 99%.
+[NBIA-310] NBIA Download Manager remote series have completed downloading, but progress bar shows 99%.
+[NBIA-316] NBIA Download Manager cannot download annotations when NBIA server is running on Windows.
+[NBIA-317] NBIA Download Manager stops up on some Windows XP clients when download directory contains non-8.3 names.
 
  
 See the Jira tracker for the latest use cases (implemented 

@@ -25,21 +25,21 @@ import org.globus.wsrf.encoding.ObjectSerializer;
  */
 public class NCIAQueryProcessor extends SDK4QueryProcessor {
 	/*
-	 * This method modifies the CQLQuery to apply the filtering 
+	 * This method modifies the CQLQuery to apply the filtering
 	 * @see gov.nih.nci.cagrid.sdkquery4.processor.SDK4QueryProcessor#processQuery(gov.nih.nci.cagrid.cqlquery.CQLQuery)
 	 */
-	public CQLQueryResults processQuery(CQLQuery cqlQuery) throws MalformedQueryException, 
+	public CQLQueryResults processQuery(CQLQuery cqlQuery) throws MalformedQueryException,
 	                                                              QueryProcessingException {
 		try {
 			String userDN = SecurityUtils.getCallerIdentity();
-			                              
+
 			System.out.println("userDN:"+userDN);
 			if(userDN==null) {
 				return processQuery(cqlQuery,
-						            new PublicTrialDataProvenance());	
+						            new PublicTrialDataProvenance());
 			}
 			else {
-				return processQuery(cqlQuery, 
+				return processQuery(cqlQuery,
 						            new AuthenticatedTrialDataProvenance(userDN));
 			}
 		}
@@ -54,11 +54,15 @@ public class NCIAQueryProcessor extends SDK4QueryProcessor {
 	/**
 	 * Process a CQL query according to the authorization level of the
 	 * specified user i.e. through a secure grid connection with an authenticated user
-	 */	
-	private CQLQueryResults processQuery(CQLQuery cqlQuery, 
+	 */
+	private CQLQueryResults processQuery(CQLQuery cqlQuery,
 			                             TrialDataProvenanceFilter trialDataProvenanceFilter) throws Exception {
-		
-					
+
+        gov.nih.nci.cagrid.cqlquery.Object cqlTarget = cqlQuery.getTarget();
+		if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
+			return super.processQuery(cqlQuery);
+		}
+
 		List<TrialDataProvenance> authorizedTdpList = trialDataProvenanceFilter.getDataFilter();
 		dumpList(authorizedTdpList);
   		if(authorizedTdpList.size() > 0){
@@ -72,14 +76,14 @@ public class NCIAQueryProcessor extends SDK4QueryProcessor {
   		else {
   			return new CQLQueryResults();
   		}
-	  					
-		return super.processQuery(cqlQuery);	
-	}	
-	
+
+		return super.processQuery(cqlQuery);
+	}
+
 
 	private static void dumpList(List<TrialDataProvenance> list) {
 		System.out.println("Authorized TDP*************");
-		for(TrialDataProvenance o : list) {			
+		for(TrialDataProvenance o : list) {
 			System.out.println(o.getProject()+"//"+o.getSiteName());
 		}
 	}
@@ -87,25 +91,25 @@ public class NCIAQueryProcessor extends SDK4QueryProcessor {
 		public List<TrialDataProvenance> getDataFilter() throws Exception;
 
 	}
-	
+
 	private static class AuthenticatedTrialDataProvenance implements TrialDataProvenanceFilter {
 		public AuthenticatedTrialDataProvenance(String theUsername) {
-			this.username = theUsername;			
+			this.username = theUsername;
 		}
-		
+
 		public List<TrialDataProvenance> getDataFilter() throws Exception {
-		
+
 			return NCIAQueryFilter.getDataFilterByUserName(username);
 		}
-		
+
 		private String username;
 	}
-	
+
 	private static class PublicTrialDataProvenance implements TrialDataProvenanceFilter {
-		
+
 		public List<TrialDataProvenance> getDataFilter() throws Exception {
 			String publicGroupName = NCIACoreServiceConfiguration.getConfiguration().getNciaPublicGroup();
 			return NCIAQueryFilter.getDataFilterByGroupName(publicGroupName);
 		}
-	}	
+	}
 }

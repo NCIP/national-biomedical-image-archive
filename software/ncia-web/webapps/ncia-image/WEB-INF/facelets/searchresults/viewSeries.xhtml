@@ -76,6 +76,11 @@
                       <h:outputText value="#{msg.search_modality}" />
                     </div>
                   </th>
+                  <th width="97" class="formTitleII" scope="col">
+		    <div align="left">
+		      <h:outputText value="#{msg.search_frameNum}" />
+		    </div>
+                  </th>
                   <th class="formTitleII" scope="col">
                     <div align="left">
                       <h:outputText value="#{msg.criteria_ManufacturerCriteria}" />
@@ -102,6 +107,9 @@
                   <td class="formField">
                     <h:outputText value="#{seriesSearchResultBean.series.modality}" />
                   </td>
+                  <td class="formField">
+                    <h:outputText value="#{seriesSearchResultBean.frameNum}" />
+		  </td>
                   <td class="formField">
                     <f:verbatim>&amp;nbsp;</f:verbatim>
                     <h:outputText value="#{seriesSearchResultBean.series.manufacturer}" />
@@ -175,7 +183,7 @@
                                    rows="4"> 
                       <ice:columns id="imageTableOneColumn" 
                                    value="#{seriesSearchResultBean.columnDataModel}">
-                        <ice:panelGroup>
+			<ice:panelGroup>
                           <div style="text-align:center"
                                class="#{empty basketBean.inBasketMap[seriesSearchResultBean.cellValue.basketKey] ? '' : 'highlightedData'}">
                             <ice:outputText value="#{seriesSearchResultBean.imageLabel}" 
@@ -186,7 +194,15 @@
                                               style="border:none;"
                                               width="100"
                                               height="100"
-                                              rendered="#{seriesSearchResultBean.cellVisibility}"/>    
+                                              rendered="#{seriesSearchResultBean.showThumbnail}"/> 
+                             <br/><br/>                 
+                                              <ui:include src="../usSlideshowLink.xhtml">
+                <ui:param name="rendered" 
+                          value="#{seriesSearchResultBean.frameNum gt 1}"/>
+                <ui:param name="slideshowTemplate"
+                          value="slideShowViewSeries.xhtml"/>                           
+              </ui:include> 
+   
                           </div>
                         </ice:panelGroup>    
                       </ice:columns>

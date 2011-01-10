@@ -49,12 +49,12 @@ public class SearchLookupBean {
         annotationOptionItems = new ArrayList<SelectItem>();
         numFrameOptionItems = new ArrayList<SelectItem>();
         colorModeOptionItems = new ArrayList<SelectItem>();
-        
+
         populateConstrastAgents();
         populateAnnotationOptions();
         populateNumFrameOptions();
         populateColorModeOptions();
-        
+
         // Populate Image Slice Thicknesses
         imageLeftThicknessItems.add(new SelectItem(""));
         imageLeftThicknessItems.add(new SelectItem("0 mm"));
@@ -115,11 +115,11 @@ public class SearchLookupBean {
     public List<SelectItem> getAnnotationOptionItems() {
         return annotationOptionItems;
     }
-    
+
     public List<SelectItem> getNumFrameOptionItems() {
         return numFrameOptionItems;
     }
-    
+
     public List<SelectItem> getColorModeOptionItems() {
         return colorModeOptionItems;
     }
@@ -183,7 +183,7 @@ public class SearchLookupBean {
         annotationOptionItems.add(new SelectItem(AnnotationOptionCriteria.NoAnnotation,
                                                  "Non-Annotated"));
     }
-    
+
     private void populateNumFrameOptions() {
         //The "value" is usually used as the "label" that shows up in
         //the UI.  the customer wants a different label than the value,
@@ -192,18 +192,18 @@ public class SearchLookupBean {
         numFrameOptionItems.add(new SelectItem(NumFrameOptionCriteria.SingleFrameOnly,
                                                  "Single Frame"));
         numFrameOptionItems.add(new SelectItem(NumFrameOptionCriteria.MultiFrame,
-                                                 "Multile Frame"));
+                                                 "Mulit-frame (Cine Loop)"));
     }
-    
+
     private void populateColorModeOptions() {
         //The "value" is usually used as the "label" that shows up in
         //the UI.  the customer wants a different label than the value,
         //but changing the value would affect saved queries, so keep
         //the value but change the label in the ui
         colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.BMode,
-                                                 "B-Mode"));
+                                                 "B-mode"));
         colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.ColorMode,
-                                                 "Color"));
+                                                 "With Color Doppler"));
     }
 
     private void buildTree() {
@@ -216,9 +216,9 @@ public class SearchLookupBean {
         rootObject.setExpanded(false);
         rootTreeNode.setUserObject(rootObject);
 
-        Map<String, Map<String, Set<String>>> 
+        Map<String, Map<String, Set<String>>>
             manufacturerMap = lookupManager.getManufacturerModelSoftwareItems();
-    
+
 
         Set<String> manufacturers = manufacturerMap.keySet();
 

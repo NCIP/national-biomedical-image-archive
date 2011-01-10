@@ -27,7 +27,7 @@ public class ImageDAOImpl extends AbstractDAO
      * Return all the images for a given series.  Optionally exclude
      * sop instance uid's from the returned list.
      */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public List<ImageDTO> findImagesBySeriesUid(String seriesUid,
     		                                    String exclusionSopUidList) throws DataAccessException {
     	String query="";
@@ -37,7 +37,7 @@ public class ImageDAOImpl extends AbstractDAO
     	}
     	else {
     		query = "select distinct gimg from GeneralImage gimg join gimg.dataProvenance dp where gimg.seriesInstanceUID = '"+
-                    seriesUid + 
+                    seriesUid +
                     "' and gimg.SOPInstanceUID not in (" + exclusionSopUidList + ")";
     	}
 
@@ -57,7 +57,7 @@ public class ImageDAOImpl extends AbstractDAO
         			gi.getDicomSize(),
         			tdp.getProject(),
         			tdp.getDpSiteName(),
-        			ssg);
+        			ssg, Integer.parseInt(gi.getUsFrameNum()));
         	imageResults.add(image);
         }
         return imageResults;

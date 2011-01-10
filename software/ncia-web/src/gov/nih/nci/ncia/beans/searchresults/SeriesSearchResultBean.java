@@ -32,19 +32,19 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	public SeriesSearchResult getSeries() {
 		return series;
 	}
-	
+
 	/**
 	 * Drill down method from study to series.
 	 */
 	public void viewSeries(SeriesSearchResult theSeries) throws Exception {
 		this.series = theSeries;
-		
+
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
 		imageSearchResults = drillDown.retrieveImagesForSeries(theSeries);
 		setImageList(Arrays.asList(imageSearchResults));
 		icefacesDataModel = new IcefacesRowColumnDataModel(computeWrapperList(Arrays.asList(imageSearchResults)));
 	}
-	
+
 
 	public DataModel getImageList() {
 		return imageList;
@@ -54,7 +54,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	public void setImageList(List<ImageSearchResult> imageList) {
 		this.imageList = new ListDataModel(computeWrapperList(imageList));
 	}
-	
+
 	/**
 	 * better to put in component that accepts collection and spits out js
 	 * but being as writing components is a big pain in the #$%^#$....
@@ -72,35 +72,40 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	 * The number of images in the found series
 	 */
 	public int getImagesInSeriesCount() {
+		System.out.println("!!!!Get modality="+getSeries().getModality());
+		if (getSeries().getModality().equals("US")){
+			return 0;
+		}
+
 		return getImages().size();
-	}	
-	
-   
+	}
+
+
 	/**
 	 * Adds the series for all the images shown on viewSeries.xhtml
 	 * to the data basket.
 	 */
 	public String addCurrentSeriesToBasket() throws Exception {
 		if(!testBasketLimitsForGuest()) {
-			return null;		
+			return null;
 		}
-		
+
 		BasketBean dataBasket = BeanManager.getBasketBean();
-		
+
 		dataBasket.getBasket().addSeries(Collections.singletonList(series));
-	
+
 		return null;
 	}
-	
-	
+
+
     /**
      * This is called a by a populator bean for the showDicom page
      */
     public void setTagInfo(List<DicomTagDTO> dicomTagInfoList) {
     	this.tagInfo = dicomTagInfoList;
     }
-    
-    
+
+
     /**
      * This is called by showDicom page
      */
@@ -108,19 +113,19 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
         return tagInfo;
     }
 
-       
+
     /**
      * This is called by showDicom page.  Return the SOP instance UID
      * of the first image being displayed.
-     */    
-    public String getCurrDicomSopId() {   	
+     */
+    public String getCurrDicomSopId() {
         return getImages().get(0).getSopInstanceUid();
-    }	
-    
+    }
+
 	public List<ImageResultWrapper> getImages() {
 		return (List<ImageResultWrapper>)imageList.getWrappedData();
-	}    
-	
+	}
+
 	//////////////////////////////////////// icefaces image table for series image displaying ////////
 
     public ImageResultWrapper getCellValue() {
@@ -130,6 +135,29 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 
     public boolean getCellVisibility() {
     	return icefacesDataModel.getCellVisibility();
+    }
+
+    public boolean getShowThumbnail() {
+    	if (icefacesDataModel.getCellVisibility()){
+    		if (!(getSeries().getModality().equals("US"))){
+    			System.out.println("!!!!!!!!!show thumb nail");
+    			return true;
+    		}
+
+    		else return true;
+    	}
+    	return false;
+    }
+
+    public int getFrameNum() {
+    	if (icefacesDataModel.getCellVisibility()){
+    		if ((getSeries().getModality().equals("US"))){
+    			System.out.println("!!!!!!!Frame number="+getCellValue().getImage().getFrameNum());
+    			return (getCellValue().getImage().getFrameNum());
+    		}
+
+    	}
+    	return 0;
     }
 
 
@@ -147,25 +175,25 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 
 	public boolean getShowPaginator() {
 		return icefacesDataModel.getShowPaginator();
-	}	
+	}
 	///////////////////////////////////////////PRIVATE/////////////////////////////////
-	
+
     private List<DicomTagDTO> tagInfo;
 
 	private SeriesSearchResult series;
-	
+
 
 	/**
 	 * This is the model used for presenting the
 	 * thumbnails.
 	 */
-	private DataModel imageList;	
-	
+	private DataModel imageList;
+
 	/**
 	 * Logger for the class.
 	 */
 	private static Logger logger = Logger.getLogger(SeriesSearchResultBean.class);
-		
+
 	/**
 	 * show warning message when data basket and selected are not http for anonymous login
 	 * @param fieldId
@@ -180,18 +208,18 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		MessageUtil.addErrorMessage(fieldId,
 		                            "downloadWarningForGuest",
 		                            param );
-	}	
-	
+	}
 
-	
+
+
 	private List<ImageSearchResult> getUnwrappedImages() {
 		List<ImageSearchResult> results = new ArrayList<ImageSearchResult>();
 		for(ImageResultWrapper wrapper : getImages()) {
 			results.add(wrapper.getImage());
-		}		
+		}
 		return results;
 	}
-	
+
 	private boolean testBasketLimitsForGuest() {
 		BasketBean dataBasket = BeanManager.getBasketBean();
 		List<ImageSearchResult> data = getUnwrappedImages();
@@ -199,11 +227,11 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		long size=0;
 		double currentBasketSize = dataBasket.getBasket().calculateSizeInMB();
 		double selectedSeriesSize=0;
-		double ftpLimit = NCIAConfig.getFtpThreshold();		
+		double ftpLimit = NCIAConfig.getFtpThreshold();
 		AnonymousLoginBean anonymousLoginBean = BeanManager.getAnonymousLoginBean();
 		if(anonymousLoginBean.getGuestLoggedIn()){
 			Integer seriesId = data.get(0).getSeriesId();
-			if(!dataBasket.getBasket().isSeriesInBasket(seriesId, 
+			if(!dataBasket.getBasket().isSeriesInBasket(seriesId,
 					                                    data.get(0).associatedLocation().getURL())){
 				for(int i=0; i<data.size(); i++){
 					size +=data.get(i).getSize();
@@ -219,18 +247,18 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 					return false;
 				}
 			}
-		}	
+		}
 		return true;
-	}	
-	
+	}
+
     public int getTotalImageCount()
     {
     	return imageSearchResults.length;
     }
 	private IcefacesRowColumnDataModelInterface icefacesDataModel;
-	
+
 	private ImageSearchResult[] imageSearchResults;
-	
+
 	private static List<ImageResultWrapper> computeWrapperList(List<ImageSearchResult> imageList) {
 		List<ImageResultWrapper> wrappers = new ArrayList<ImageResultWrapper>();
 		for(ImageSearchResult result : imageList) {
@@ -238,6 +266,6 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		}
 		return wrappers;
 	}
-	
+
 
 }

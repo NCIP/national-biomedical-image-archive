@@ -4,11 +4,13 @@ import gov.nih.nci.ncia.dto.CustomSeriesDTO;
 import gov.nih.nci.ncia.dto.CustomSeriesListAttributeDTO;
 import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
 import gov.nih.nci.ncia.dto.QcCustomSeriesListDTO;
+import gov.nih.nci.ncia.internaldomain.Annotation;
 import gov.nih.nci.ncia.internaldomain.CustomSeriesList;
 import gov.nih.nci.ncia.internaldomain.CustomSeriesListAttribute;
 import gov.nih.nci.ncia.internaldomain.GeneralSeries;
 import gov.nih.nci.ncia.security.NCIAUser;
 import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -127,35 +129,29 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 	 * @param seriesUids
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)	
-	public List<QcCustomSeriesListDTO> findSharedListBySeriesInstanceUids(List<String> seriesUids) throws DataAccessException{
+	public List<QcCustomSeriesListDTO> findSharedListBySeriesInstanceUids(List<String> seriesUids) throws DataAccessException
+	{
 		List<QcCustomSeriesListDTO> returnList = new ArrayList<QcCustomSeriesListDTO>();
-	
-		if (seriesUids != null && seriesUids.size() != 0){
-
-	        DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesListAttribute.class);
-
-			ProjectionList projectionList = Projections.projectionList();
-
-			projectionList.add(Projections.property("csl.userName"));
-			projectionList.add(Projections.property("csl.name"));
-			projectionList.add(Projections.property("seriesInstanceUid"));
-
-			criteria.setProjection(Projections.distinct(projectionList));
+		List<Object[]> results = new ArrayList<Object[]>();
 		
-			criteria.createAlias("parent", "csl");
-
-			criteria.add(Restrictions.in("seriesInstanceUid", seriesUids));
-
-			List<Object[]> results = getHibernateTemplate().findByCriteria(criteria);
+		List<List<String>> breakdownList = Util.breakListIntoChunks(seriesUids, 900);
 		
-			 for (Object[] row : results){
+		for (List<String> unitList : breakdownList)
+		{
+			List<Object[]> temp = getSharedListResult(unitList);
+			for (Object[] obj : temp)
+			{
+				results.add(obj);
+			}
+		}
+		
+		for (Object[] row : results){
 				String uName = (String) row[0];
 				String name = (String) row[1];
 				String series = (String) row[2];			
 				String email = findEmailByUserName(uName);				
 				returnList.add(new QcCustomSeriesListDTO(uName, name, series, email));
 			}
-		}
 		
 		return returnList;
 	}
@@ -438,4 +434,34 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		}
 		criteria.add(disjunction);
 	}
+	
+	private List<Object[]> getSharedListResult (List<String> seriesUids)
+	{
+		List<Object[]> results = new ArrayList<Object[]>();
+		
+		if (seriesUids != null && seriesUids.size() != 0){
+
+	        DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesListAttribute.class);
+
+			ProjectionList projectionList = Projections.projectionList();
+
+			projectionList.add(Projections.property("csl.userName"));
+			projectionList.add(Projections.property("csl.name"));
+			projectionList.add(Projections.property("seriesInstanceUid"));
+
+			criteria.setProjection(Projections.distinct(projectionList));
+		
+			criteria.createAlias("parent", "csl");
+			
+			List<List<String>> breakDownList = Util.breakListIntoChunks(seriesUids, 900);
+		
+		
+			
+			criteria.add(Restrictions.in("seriesInstanceUid", seriesUids));
+			
+			results = getHibernateTemplate().findByCriteria(criteria);
+		}
+		return results;
+	}
+	
 }

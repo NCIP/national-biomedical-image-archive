@@ -18,8 +18,9 @@ public class ImageDTOTestCase extends TestCase {
 		String project="RIDER";
 		String site="RIDER";
 		String ssg="test";
+		int frameNum = 0;
         
-        ImageDTO imageDTO = new ImageDTO(SOPInstanceUID, fileName, dicomSize, project, site, ssg);
+        ImageDTO imageDTO = new ImageDTO(SOPInstanceUID, fileName, dicomSize, project, site, ssg, 0);
 
         assertTrue(imageDTO.getSOPInstanceUID().equals("1.2.3.4.5.6"));
         assertTrue(imageDTO.getFileName().equals("1.2.3.4.5.6.7.dcm"));        

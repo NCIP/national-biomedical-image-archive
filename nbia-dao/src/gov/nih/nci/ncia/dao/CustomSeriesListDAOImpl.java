@@ -4,7 +4,6 @@ import gov.nih.nci.ncia.dto.CustomSeriesDTO;
 import gov.nih.nci.ncia.dto.CustomSeriesListAttributeDTO;
 import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
 import gov.nih.nci.ncia.dto.QcCustomSeriesListDTO;
-import gov.nih.nci.ncia.internaldomain.Annotation;
 import gov.nih.nci.ncia.internaldomain.CustomSeriesList;
 import gov.nih.nci.ncia.internaldomain.CustomSeriesListAttribute;
 import gov.nih.nci.ncia.internaldomain.GeneralSeries;

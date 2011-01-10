@@ -9,6 +9,7 @@ import gov.nih.nci.ncia.internaldomain.CustomSeriesListAttribute;
 import gov.nih.nci.ncia.internaldomain.GeneralSeries;
 import gov.nih.nci.ncia.security.NCIAUser;
 import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Date;

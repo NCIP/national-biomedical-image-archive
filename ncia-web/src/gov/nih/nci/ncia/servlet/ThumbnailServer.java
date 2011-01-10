@@ -14,24 +14,46 @@ import org.apache.log4j.Logger;
 
 public class ThumbnailServer extends HttpServlet {
 
-    public void service(HttpServletRequest request,
-    		            HttpServletResponse response) throws ServletException, 
-    		                                                 IOException {
-        // Get the file path ID from the request
-        String location = request.getParameter("location");
-        HttpSession session = request.getSession();
-        logger.debug("ThumbnailServer has been called");
-        // Lookup the actual file path from the security bean using the ID
-        String filePath = lookupFilePath(location, session);
-        if (filePath == null) {
-            logger.error("Registered ID " + location + " was not registered");
-            response.setStatus(400);
-            return;
-        }
+	public void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Get the file path ID from the request
+		String location = request.getParameter("location");
+		System.out.println("!!!!!!!!!!!!!!!server get regist id=" + location);
+		int indx = location.indexOf("-");
+		System.out.println("!!!indx=" + indx);
+		String locPart1 = location;
+		String locPart2 = null;
+		if (indx != -1) {
+			locPart1 = location.substring(0, indx);
+			locPart2 = location.substring(indx + 1);
+			System.out.println("!!!!!!!!!!!!!!!part 1 and part 2=" + locPart1
+					+ " and " + locPart2);
+		}
+		HttpSession session = request.getSession();
+		logger.debug("ThumbnailServer has been called");
+		// Lookup the actual file path from the security bean using the ID
+		String filePath;
+		if (indx != -1) {
+			filePath = lookupFilePath(locPart1, session);
+		} else {
+			filePath = lookupFilePath(location, session);
+		}
+		if (filePath == null) {
+			logger.error("Registered ID " + location + " was not registered");
+			response.setStatus(400);
+			return;
+		}
+		File thumbnailFile;
+		if (locPart2 != null) {
+			thumbnailFile = ThumbnailUtil.deduceThumbnailFromDicomFile(
+					new File(filePath), locPart2);
+		} else {
+			thumbnailFile = ThumbnailUtil
+					.deduceThumbnailFromDicomFile(new File(filePath));
+		}
+		ThumbnailUtil.writeJpegFile(thumbnailFile, response);
+	}
 
-        File thumbnailFile = ThumbnailUtil.deduceThumbnailFromDicomFile(new File(filePath));
-        ThumbnailUtil.writeJpegFile(thumbnailFile, response);
-    }
     
     ///////////////////////////////////////PRIVATE////////////////////////////////////
     

@@ -49,6 +49,9 @@
 		<property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
 		<property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
 		<property name="md5Digest" type="string" column="MD5_DIGEST"/>
+		<property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
+		<property name="usBMode" type="string" column="US_B_MODE"/>
+    		<property name="usImageType" type="string" column="US_IMAGE_TYPE"/>
 		<!-- Associations mapping for the GeneralImage class -->
 		<many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" insert="false" update="false"/>
 		<many-to-one name="generalSeries" class="gov.nih.nci.ncia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>

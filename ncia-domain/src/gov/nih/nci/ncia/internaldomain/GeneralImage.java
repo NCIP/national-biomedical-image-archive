@@ -957,6 +957,58 @@ public class GeneralImage  implements Serializable
 		this.ctimage = ctimage;
 	}
 
+
+
+		private String usFrameNum;
+		public String getUsFrameNum() {
+			return usFrameNum;
+		}
+
+		public void setUsFrameNum(String usframeNum) {
+			this.usFrameNum = usFrameNum;
+		}
+
+	/**
+	* Text to capture B-mode  as specified in a DICOM tag.	**/
+	private String usBMode ;
+	/**
+	* Retreives the value of B-mode attribute
+	* @return bMode
+	**/
+
+	public String getUsBMode(){
+		return usBMode;
+	}
+
+	/**
+	* Sets the value of B-mode  attribue
+	**/
+
+	public void setUsBMode(String usBMode){
+		this.usBMode = usBMode;
+	}
+
+/**
+	* ultrasound image type.	**/
+	private String usImageType;
+	/**
+	* Retreives the value of imageType attribute
+	* @return imageType
+	**/
+
+	public String getUsImageType(){
+		return usImageType;
+	}
+
+	/**
+	* Sets the value of imageType attribue
+	**/
+
+	public void setUsImageType(String usImageType){
+		this.usImageType = usImageType;
+	}
+
+
 	/**
 	* An associated gov.nih.nci.ncia.domain.TrialDataProvenance object
 	**/
@@ -1024,5 +1076,4 @@ public class GeneralImage  implements Serializable
 			return getId().hashCode();
 		return 0;
 	}
-
 }

@@ -54,7 +54,32 @@ public class ThumbnailUtil {
 		}
 
 	}
+    /**
+     * For a given DICOM file path, look on the file system to see if
+     * the MIRC thumbnail exists.  If so, pass it back.  If not, look
+     * for a CTP thumbnail and pass it back.
+     */
+	public static File deduceThumbnailFromDicomFile(File dicomFile, String frameNum) {
+		String dicomFilePath = dicomFile.getAbsolutePath();
+		assert dicomFilePath.endsWith(".dcm");
 
+		String mircThumbnailFilePath = dicomFilePath.substring(0,
+				                                               dicomFilePath.lastIndexOf(".dcm")) + "_base.jpeg";
+
+        File mircThumbnailFile = new File(mircThumbnailFilePath);
+		if (!mircThumbnailFile.exists()) {
+			//this isn't necessarily the thumbanil string
+			//512, 512, and -1 can be configured in CTP's config.xml
+			String ctpThumbnailFilePath = mircThumbnailFilePath.substring(0,
+					                                                      mircThumbnailFilePath.indexOf("_base"))+
+					                                                      ".dcm[512;512;-1]["+frameNum+"].jpeg";
+			return new File(ctpThumbnailFilePath);
+		}
+		else {
+			return mircThumbnailFile;
+		}
+
+	}
 	/**
 	 * Returns the local File for the specified sop instance uid.
 	 *

@@ -28,13 +28,13 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-public class ImageDAOImpl extends AbstractDAO 
+public class ImageDAOImpl extends AbstractDAO
                           implements ImageDAO{
-	
+
 	/**
 	 * Copied down from ImageServlet in ncia-web and made generic
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public Collection<ImageSecurityDTO> findImageSecurityBySeriesInstanceUID(String seriesInstanceUid) throws DataAccessException {
         String query = "select distinct gimg "+
                        "from GeneralImage gimg "+
@@ -43,19 +43,20 @@ public class ImageDAOImpl extends AbstractDAO
 
         Collection<ImageSecurityDTO> dtos = new ArrayList<ImageSecurityDTO>();
         List<GeneralImage> results = getHibernateTemplate().find(query);
-        for (GeneralImage gi : results) {               
+        for (GeneralImage gi : results) {
             ImageSecurityDTO imageSecurityDTO = new ImageSecurityDTO(gi.getSOPInstanceUID(),
                                                                      gi.getFilename(),
                                                                      gi.getProject(),
                                                                      gi.getDataProvenance().getDpSiteName(),
                                                                      gi.getGeneralSeries().getSecurityGroup(),
-                                                                     gi.getGeneralSeries().getVisibility().equals("1"));
+                                                                     gi.getGeneralSeries().getVisibility().equals("1"),
+                                                                     Integer.parseInt(gi.getUsFrameNum()));
             dtos.add(imageSecurityDTO);
         }
-        return dtos;    
+        return dtos;
     }
-    
-	@Transactional(propagation=Propagation.REQUIRED)	
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public String findImagePath(Integer imagePkId)throws DataAccessException {
 
         GeneralImage generalImage = (GeneralImage) getHibernateTemplate().load(GeneralImage.class,
@@ -66,8 +67,8 @@ public class ImageDAOImpl extends AbstractDAO
         return generalImage.getFilename();
 
 	}
-	
-	@Transactional(propagation=Propagation.REQUIRED)	
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public ImageSecurityDTO findImageSecurity(final String imageSopInstanceUid)throws DataAccessException {
 
 		return (ImageSecurityDTO)getHibernateTemplate().execute(new HibernateCallback() {
@@ -80,9 +81,10 @@ public class ImageDAOImpl extends AbstractDAO
                 projectionList.add(Projections.property("gs.securityGroup"));
                 projectionList.add(Projections.property("tdp.project"));
                 projectionList.add(Projections.property("tdp.dpSiteName"));
-                                                           
+                projectionList.add(Projections.property("i.frameNum"));
+
                 criteria = criteria.createCriteria("generalSeries","gs");
-                criteria = criteria.createCriteria("study","s"); 
+                criteria = criteria.createCriteria("study","s");
                 criteria = criteria.createCriteria("patient","p");
                 criteria = criteria.createCriteria("dataProvenance","tdp");
                 criteria.setProjection(projectionList);
@@ -91,7 +93,7 @@ public class ImageDAOImpl extends AbstractDAO
                 //criteria.setResultTransformer(resultTransformer)
                 Collection<Object[]> imageResults = (Collection<Object[]>)criteria.list();
                 assert imageResults.size() <= 1;
-                
+
                 if(imageResults.size()==0) {
                 	return null;
                 }
@@ -99,26 +101,28 @@ public class ImageDAOImpl extends AbstractDAO
                 	Object[] imageResult = imageResults.iterator().next();
                 	String fileName = (String)imageResult[0];
                 	String seriesVisibility = (String)imageResult[1];
-                	
+
                 	String securityGroup = (String)imageResult[2];
                 	String project = (String)imageResult[3];
                 	String dpSiteName = (String)imageResult[4];
-                	
+                	String fn = (String)imageResult[5];
+
         	        ImageSecurityDTO imageSecurityDTO = new ImageSecurityDTO(imageSopInstanceUid,
-        	        		                                                 fileName, 
-        	        		                                                 project, 
-        	        		                                                 dpSiteName, 
+        	        		                                                 fileName,
+        	        		                                                 project,
+        	        		                                                 dpSiteName,
         	        		                                                 securityGroup,
-        	        		                                                 seriesVisibility.equals("1"));
-        	        return imageSecurityDTO;            	
-                }  
+        	        		                                                 seriesVisibility.equals("1"),
+        	        		                                                 Integer.parseInt(fn));
+        	        return imageSecurityDTO;
+                }
             }
         });
 
-     
+
 	}
-	
-	@Transactional(propagation=Propagation.REQUIRED)	
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Collection<String> findDistinctConvolutionKernels()throws DataAccessException {
 
         DetachedCriteria criteria = DetachedCriteria.forClass(CTImage.class, "ct");
@@ -132,7 +136,7 @@ public class ImageDAOImpl extends AbstractDAO
         return (Collection<String>)getHibernateTemplate().findByCriteria(criteria);
 	}
 
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
     public Map<Integer, List<ImageDTO>> findKeyedImagesBySeriesPkId(List<Integer> seriesIds)throws DataAccessException {
 
@@ -162,7 +166,7 @@ public class ImageDAOImpl extends AbstractDAO
     /**
      * Retrieve the maximum curation timestamp from the database
      */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public Date findLastCurationDate()throws DataAccessException {
         // Submit the search
         long start = System.currentTimeMillis();
@@ -192,23 +196,23 @@ public class ImageDAOImpl extends AbstractDAO
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<ImageDTO> findImagesbySeriesPkID(Collection<Integer> seriesPkIds)throws DataAccessException {
 		String whereStmt = HqlUtils.buildInClauseUsingIntegers(" image.seriesPKId in ", seriesPkIds);
-        return searchImagesbyHql(whereStmt);		                                        
+        return searchImagesbyHql(whereStmt);
     }
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<ImageDTO> findImagesbySeriesInstandUid(Collection<String> seriesInstanceUids)throws DataAccessException {
 		String whereStmt = HqlUtils.buildInClause(" image.seriesInstanceUID in ",seriesInstanceUids);
-		return searchImagesbyHql(whereStmt);	
+		return searchImagesbyHql(whereStmt);
 	}
 
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public ImageDTO getGeneralImageByImagePkId(Integer imagePkId) throws DataAccessException {
 
 		ImageDTO imageDto = null;
         DetachedCriteria criteria = DetachedCriteria.forClass(GeneralImage.class);
 		criteria.add(Restrictions.eq("id", imagePkId));
-		
+
 		List<GeneralImage> result = getHibernateTemplate().findByCriteria(criteria);
 		if (result != null && result.size() > 0)
 		{
@@ -220,7 +224,7 @@ public class ImageDAOImpl extends AbstractDAO
 
 		return imageDto;
 	}
-	
+
 
 	//////////////////////////////////////PRIVATE///////////////////////////////////////////
 
@@ -228,17 +232,17 @@ public class ImageDAOImpl extends AbstractDAO
 
     private static final String LAST_CURATION_DATE_HQL = "select max(gi.curationTimestamp) from GeneralImage gi";
 
-	private static final String SQL_QUERY_SELECT = "SELECT image.id, image.contentDate, image.contentTime, image.filename, image.seriesPKId, image.dicomSize, image.instanceNumber, image.seriesInstanceUID, image.SOPInstanceUID ";
+	private static final String SQL_QUERY_SELECT = "SELECT image.id, image.contentDate, image.contentTime, image.filename, image.seriesPKId, image.dicomSize, image.instanceNumber, image.seriesInstanceUID, image.SOPInstanceUID, image.usFrameNum ";
     private static final String SQL_QUERY_FROM = "FROM GeneralImage image ";
     private static final String SQL_QUERY_WHERE = "WHERE ";
-    
+
 	private List<ImageDTO> searchImagesbyHql(String whereCondi) throws DataAccessException {
         String selectStmt = SQL_QUERY_SELECT;
         String fromStmt = SQL_QUERY_FROM;
         String whereStmt = SQL_QUERY_WHERE;
         List<ImageDTO> imageList = new ArrayList<ImageDTO>();
         whereStmt += whereCondi;
-       
+
 
         // Submit the search
         long start = System.currentTimeMillis();
@@ -246,7 +250,7 @@ public class ImageDAOImpl extends AbstractDAO
 
         List seriesQuery = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt);
         long end = System.currentTimeMillis();
-        logger.debug("total query time: " + (end - start) + " ms");	        
+        logger.debug("total query time: " + (end - start) + " ms");
 
         for (Object item : seriesQuery) {
             Object[] row = (Object[]) item;
@@ -257,13 +261,19 @@ public class ImageDAOImpl extends AbstractDAO
             ImageDTO thumbnailDTO = new ImageDTO();
             thumbnailDTO.setImagePkId((Integer) row[0]);
             thumbnailDTO.setContentDate((Date) row[1]);
-            thumbnailDTO.setContentTime(Util.nullSafeString(row[2]));	            
+            thumbnailDTO.setContentTime(Util.nullSafeString(row[2]));
             thumbnailDTO.setSeriesPkId((Integer) row[4]);
             thumbnailDTO.setInstanceNumber((Integer) row[6]);
             thumbnailDTO.setSeriesInstanceUid(row[7].toString());
             thumbnailDTO.setSopInstanceUid(row[8].toString());
             thumbnailDTO.setFileURI(imageFileName);
             thumbnailDTO.setSize((Long) row[5]);
+             if (row[9]== null) {
+			            	thumbnailDTO.setFrameNum(1);
+			            }
+			            else {
+			            	thumbnailDTO.setFrameNum(Integer.parseInt((String) row[9]));
+            }
             imageList.add(thumbnailDTO);
         }
 

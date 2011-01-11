@@ -451,12 +451,11 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 			criteria.createAlias("parent", "csl");
 
-			List<List<String>> breakDownList = Util.breakListIntoChunks(seriesUids, 900);
-
 			criteria.add(Restrictions.in("seriesInstanceUid", seriesUids));
 
 			results = getHibernateTemplate().findByCriteria(criteria);
 		}
+		
 		return results;
 	}
 

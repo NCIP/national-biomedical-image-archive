@@ -69,7 +69,7 @@ public interface ImageSearchResult extends Comparable<ImageSearchResult>  {
 	/**
      * The frame size of the DICOM .
      */
-	public Integer getFrameSize();
+	public Integer getFrameNum();
 
 	
     /**

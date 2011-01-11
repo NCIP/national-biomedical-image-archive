@@ -70,13 +70,33 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<CustomSeriesDTO> findSeriesForPublicCollection(List<String> seriesUids,
 									                           List<SiteData> authorizedPublicSites) throws DataAccessException {
-		List<GeneralSeries> seriesList = null;
+		List<GeneralSeries> seriesList = new ArrayList<GeneralSeries>();
 		List<CustomSeriesDTO> seriesDTOList = null;
 
 		if (seriesUids == null || seriesUids.size() <= 0) {
 			return new ArrayList<CustomSeriesDTO>();
 		}
 
+		List<List<String>> breakdownList = Util.breakListIntoChunks(seriesUids, 900);
+		for (List<String> unitList : breakdownList)
+		{
+			List<GeneralSeries> temp = getSeriesList(unitList, authorizedPublicSites);
+			for (GeneralSeries series : temp)
+			{
+				seriesList.add(series);
+			}
+		}
+		
+		System.out.println("total series for public count: " + seriesList.size());
+		seriesDTOList = convertHibernateObjectToCustomSeriesDTO(seriesList);
+		System.out.println("total seriesDTO for public count: " + seriesDTOList.size());
+
+		return seriesDTOList;
+	}
+
+	private List<GeneralSeries> getSeriesList(List<String> seriesUids, List<SiteData> authorizedPublicSites)
+	{
+		
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
 		criteria.add(Restrictions.in("seriesInstanceUID", seriesUids));
 		criteria.add(Restrictions.eq("visibility", "1"));
@@ -87,15 +107,12 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			setAuthorizedSiteData(criteria,
 					authorizedPublicSites);
 		}
-
-		seriesList = getHibernateTemplate().findByCriteria(criteria);
-		System.out.println("total series for public count: " + seriesList.size());
-		seriesDTOList = convertHibernateObjectToCustomSeriesDTO(seriesList);
-		System.out.println("total seriesDTO for public count: " + seriesDTOList.size());
-
-		return seriesDTOList;
+		
+		List<GeneralSeries> seriesList = getHibernateTemplate().findByCriteria(criteria);
+		
+		return seriesList;
 	}
-
+	
 	/**
 	 * find all series that contains all the seriesuids and user has permission
 	 * to see

@@ -31,25 +31,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * handle all database transactions for the custom series list
- * 
+ *
  * @author lethai
- * 
+ *
  */
 /**
  * @author lethai
  *
  */
-public class CustomSeriesListDAOImpl extends AbstractDAO 
+public class CustomSeriesListDAOImpl extends AbstractDAO
                                      implements CustomSeriesListDAO {
 
 	private static Logger logger = Logger.getLogger(CustomSeriesListDAO.class);
-	
+
 	/**
 	 * query database table to check for existence of name
-	 * 
+	 *
 	 * @param name
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean isDuplicateName(String name) throws DataAccessException {
 		List<CustomSeriesList> customList = null;
 
@@ -67,7 +67,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 	 * @param seriesUids
 	 * @param authorizedPublicSites
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<CustomSeriesDTO> findSeriesForPublicCollection(List<String> seriesUids,
 									                           List<SiteData> authorizedPublicSites) throws DataAccessException {
 		List<GeneralSeries> seriesList = null;
@@ -99,12 +99,12 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 	/**
 	 * find all series that contains all the seriesuids and user has permission
 	 * to see
-	 * 
+	 *
 	 * @param seriesUids
 	 * @param authorizedSites
 	 * @param authorizedSeriesSecurityGroups
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<CustomSeriesDTO> findSeriesBySeriesInstanceUids(List<String> seriesUids,
 			                                                    List<SiteData> authorizedSites,
 			                                                    List<String> authorizedSeriesSecurityGroups) throws DataAccessException {
@@ -116,25 +116,25 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		}
 		GeneralSeriesDAOImpl generalSeriesDAO = new GeneralSeriesDAOImpl();
 		seriesList = generalSeriesDAO.getSeriesFromSeriesInstanceUIDs(seriesUids,
-						                                              authorizedSites, 
+						                                              authorizedSites,
 						                                              authorizedSeriesSecurityGroups);
 		seriesDTOList = convertHibernateObjectToCustomSeriesDTO(seriesList);
 
 		return seriesDTOList;
 	}
-	
+
 	/**
 	 * Find all shared list by a given list of series instance uids
 	 * @param seriesUids
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcCustomSeriesListDTO> findSharedListBySeriesInstanceUids(List<String> seriesUids) throws DataAccessException
 	{
 		List<QcCustomSeriesListDTO> returnList = new ArrayList<QcCustomSeriesListDTO>();
 		List<Object[]> results = new ArrayList<Object[]>();
-		
+
 		List<List<String>> breakdownList = Util.breakListIntoChunks(seriesUids, 900);
-		
+
 		for (List<String> unitList : breakdownList)
 		{
 			List<Object[]> temp = getSharedListResult(unitList);
@@ -143,27 +143,27 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 				results.add(obj);
 			}
 		}
-		
+
 		for (Object[] row : results){
 				String uName = (String) row[0];
 				String name = (String) row[1];
-				String series = (String) row[2];			
-				String email = findEmailByUserName(uName);				
+				String series = (String) row[2];
+				String email = findEmailByUserName(uName);
 				returnList.add(new QcCustomSeriesListDTO(uName, name, series, email));
 			}
-		
+
 		return returnList;
 	}
-	
-	@Transactional(propagation=Propagation.REQUIRED)	
-	public String findEmailByUserName(String uName) throws DataAccessException { 
+
+	@Transactional(propagation=Propagation.REQUIRED)
+	public String findEmailByUserName(String uName) throws DataAccessException {
         DetachedCriteria criteria = DetachedCriteria.forClass(NCIAUser.class);
 		criteria.setProjection(Projections.property("email"));
-	
+
 		criteria.add(Restrictions.eq("loginName", uName.trim()));
 		List<String> results = getHibernateTemplate().findByCriteria(criteria);
 		if (results != null && results.size() > 0)
-		{	
+		{
 			return results.get(0);
 		}
 		else
@@ -174,11 +174,11 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 	/**
 	 * update database with data in the dto
-	 * 
+	 *
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
-	public long update(CustomSeriesListDTO editList, 
-			           String userName, 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public long update(CustomSeriesListDTO editList,
+			           String userName,
 			           Boolean updatedSeries) throws DataAccessException {
 		CustomSeriesList seriesList = new CustomSeriesList();
 		seriesList.setName(editList.getName());
@@ -189,11 +189,11 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		seriesList.setUserName(userName);
 		List<CustomSeriesListAttributeDTO> attributeDtos = editList
 				.getSeriesInstanceUidsList();
-				
+
 		if(updatedSeries){
 			logger.debug("updatedSeries = " + updatedSeries + "  ... delete then insert... ");
 			CustomSeriesList existingList = (CustomSeriesList)getHibernateTemplate().load(CustomSeriesList.class, editList.getId());
-			Set<CustomSeriesListAttribute> children = existingList.getCustomSeriesListAttributes();				
+			Set<CustomSeriesListAttribute> children = existingList.getCustomSeriesListAttributes();
 			logger.debug("total children to delete: " + children.size());
 			existingList.getCustomSeriesListAttributes().removeAll(children);
 			for(Iterator<CustomSeriesListAttribute> itr = children.iterator(); itr.hasNext();){
@@ -205,7 +205,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			existingList.setHyperlink(editList.getHyperlink());
 			existingList.setCustomSeriesListTimestamp(new Date());
 			existingList.setUserName(userName);
-			
+
 			for (CustomSeriesListAttributeDTO dto : attributeDtos) {
 				CustomSeriesListAttribute attr = new CustomSeriesListAttribute();
 				attr.setSeriesInstanceUid(dto.getSeriesInstanceUid());
@@ -216,7 +216,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		}
 		else{
 			logger.debug("updatedSeries = " + updatedSeries + " ... updating..");
-			getHibernateTemplate().update(seriesList);		
+			getHibernateTemplate().update(seriesList);
 		}
 
 		return 1L;
@@ -224,10 +224,10 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 	/**
 	 * insert a new record for the custom series list
-	 * 
+	 *
 	 * @param customList
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public long insert(CustomSeriesListDTO customList,
 			           String username) throws DataAccessException {
 		CustomSeriesList seriesList = new CustomSeriesList();
@@ -248,12 +248,12 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		return seriesList.getId();
 	}
 
-	
+
 	/**
 	 * find all the shared list for a given user
 	 * @param username
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<CustomSeriesListDTO> findCustomSeriesListByUser(String username) throws DataAccessException {
 		List<CustomSeriesList> customSeriesList = null;
 		List<CustomSeriesListDTO> returnList = null;
@@ -267,11 +267,11 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		return returnList;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public CustomSeriesListDTO findCustomSeriesListByName(String name) throws DataAccessException {
 		List<CustomSeriesList> customSeriesList = null;
 		CustomSeriesListDTO returnList = null;
-		
+
         DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesList.class);
 		criteria.add(Expression.eq("name",name).ignoreCase());
 		customSeriesList = getHibernateTemplate().findByCriteria(criteria);
@@ -284,12 +284,12 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 		return returnList;
 	}
-	
-	@Transactional(propagation=Propagation.REQUIRED)	
+
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<CustomSeriesListDTO> findCustomSeriesListByNameLikeSearch(String name)  throws DataAccessException {
 		List<CustomSeriesList> customSeriesList = null;
 		List<CustomSeriesListDTO> returnList = null;
-        
+
 		DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesList.class);
 		criteria.add(Restrictions.ilike("name","%" + name +"%"));
 		customSeriesList = getHibernateTemplate().findByCriteria(criteria);
@@ -303,7 +303,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		return returnList;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<CustomSeriesListAttributeDTO> findCustomSeriesListAttribute(
 			Integer customSeriesListPkId)  throws DataAccessException {
 		List<CustomSeriesListAttribute> customSeriesListAttribute = null;
@@ -319,7 +319,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 	}
 
 	//////////////////////////////////PRIVATE/////////////////////////////////////////////////
-	
+
 	private List<CustomSeriesListDTO> convertHibernateObjectToCustomSeriesListDTOList(List<CustomSeriesList> daos) {
 		List<CustomSeriesListDTO> returnList = new ArrayList<CustomSeriesListDTO>();
 		if (daos != null) {
@@ -343,7 +343,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 				dto.setSeriesInstanceUIDs(seriesUidsList);
 				returnList.add(dto);
 			}
-		} 
+		}
 		return returnList;
 	}
 
@@ -361,7 +361,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 						.iterator(); iter.hasNext();) {
 					CustomSeriesListAttribute attr = iter.next();
 					String seriesInstanceUid = attr.getSeriesInstanceUid();
-					seriesUidsList.add(seriesInstanceUid);					
+					seriesUidsList.add(seriesInstanceUid);
 				}
 				dto.setName(series.getName());
 				dto.setComment(series.getComment());
@@ -433,11 +433,11 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		}
 		criteria.add(disjunction);
 	}
-	
+
 	private List<Object[]> getSharedListResult (List<String> seriesUids)
 	{
 		List<Object[]> results = new ArrayList<Object[]>();
-		
+
 		if (seriesUids != null && seriesUids.size() != 0){
 
 	        DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesListAttribute.class);
@@ -449,18 +449,15 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			projectionList.add(Projections.property("seriesInstanceUid"));
 
 			criteria.setProjection(Projections.distinct(projectionList));
-		
+
 			criteria.createAlias("parent", "csl");
-			
-			List<List<String>> breakDownList = Util.breakListIntoChunks(seriesUids, 900);
-		
-		
-			
+
+
 			criteria.add(Restrictions.in("seriesInstanceUid", seriesUids));
-			
+
 			results = getHibernateTemplate().findByCriteria(criteria);
 		}
 		return results;
 	}
-	
+
 }

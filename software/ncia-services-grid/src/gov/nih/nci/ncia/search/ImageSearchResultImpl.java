@@ -162,13 +162,15 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
 		this.thumbnailURL = thumbnailURL;
 	}
 	
-    public Integer getFrameSize() {
-		return frameSize;
+	public Integer getFrameNum() {
+		return frameNum;
 	}
 
-	public void setFrameSize(Integer frameSize) {
-		this.frameSize = frameSize;
+	public void setFrameNum(Integer frameSize) {
+		this.frameNum = frameSize;
 	}
+	
+
 	
 	
     ///////////////////////////////////////////////PRIVATE///////////////////////////////////
@@ -181,5 +183,5 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
     private Long size;   
     private NBIANode location;  
     private String thumbnailURL;
-    private Integer frameSize;
+    private Integer frameNum;
 }

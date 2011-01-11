@@ -235,7 +235,7 @@ public class LocalDrillDown implements DrillDown {
 		result.setSize(imageDTO.getSize());
 		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
-		result.setFrameNum(imageDTO.getFrameNum());
+		result.setFrameSize(imageDTO.getFrameNum());
 		return result;
 	}
 

@@ -19,7 +19,7 @@ public class ThumbnailServer extends HttpServlet {
 		// Get the file path ID from the request
 		String location = request.getParameter("location");
 		System.out.println("!!!!!!!!!!!!!!!server get regist id=" + location);
-		int indx = location.indexOf("-");
+		int indx = location.indexOf('-');
 		System.out.println("!!!indx=" + indx);
 		String locPart1 = location;
 		String locPart2 = null;

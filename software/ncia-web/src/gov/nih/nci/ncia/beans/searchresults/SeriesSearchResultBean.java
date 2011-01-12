@@ -143,20 +143,18 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     			System.out.println("!!!!!!!!!show thumb nail");
     			return true;
     		}
-
-    		else return true;
+    		else {
+    			return true;
+    		}
     	}
     	return false;
     }
 
     public int getFrameNum() {
-    	if (icefacesDataModel.getCellVisibility()){
-    		if ((getSeries().getModality().equals("US"))){
-    			System.out.println("!!!!!!!Frame number="+getCellValue().getImage().getFrameNum());
-    			return (getCellValue().getImage().getFrameNum());
-    		}
-
-    	}
+    	if (icefacesDataModel.getCellVisibility() && (getSeries().getModality().equals("US"))){
+    		//System.out.println("!!!!!!!Frame number="+getCellValue().getImage().getFrameNum());
+    		return (getCellValue().getImage().getFrameNum());
+       	}
     	return 0;
     }
 

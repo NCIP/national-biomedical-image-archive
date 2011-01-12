@@ -21,12 +21,13 @@ public class ThumbnailUtil {
      * the MIRC thumbnail exists.  If so, pass it back.  If not, look
      * for a CTP thumbnail and pass it back.
      */
+	static final String FileType=".dcm";
 	public static File deduceThumbnailFromDicomFile(File dicomFile) {
 		String dicomFilePath = dicomFile.getAbsolutePath();
-		assert dicomFilePath.endsWith(".dcm");
+		assert dicomFilePath.endsWith(FileType);
 
 		String mircThumbnailFilePath = dicomFilePath.substring(0,
-				                                               dicomFilePath.lastIndexOf(".dcm")) + "_base.jpeg";
+				                                               dicomFilePath.lastIndexOf(FileType)) + "_base.jpeg";
 		//this isn't necessarily the thumbanil string
 		//512, 512, and -1 can be configured in CTP's config.xml
 		String ctpThumbnailFilePath = mircThumbnailFilePath.substring(0,
@@ -61,10 +62,10 @@ public class ThumbnailUtil {
      */
 	public static File deduceThumbnailFromDicomFile(File dicomFile, String frameNum) {
 		String dicomFilePath = dicomFile.getAbsolutePath();
-		assert dicomFilePath.endsWith(".dcm");
+		assert dicomFilePath.endsWith(FileType);
 
 		String mircThumbnailFilePath = dicomFilePath.substring(0,
-				                                               dicomFilePath.lastIndexOf(".dcm")) + "_base.jpeg";
+				                                               dicomFilePath.lastIndexOf(FileType)) + "_base.jpeg";
 
         File mircThumbnailFile = new File(mircThumbnailFilePath);
 		if (!mircThumbnailFile.exists()) {

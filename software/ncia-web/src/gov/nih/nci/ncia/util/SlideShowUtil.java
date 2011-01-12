@@ -14,7 +14,8 @@ public class SlideShowUtil {
 			int frameSize = 30;
 			// js.append("'"+image.getThumbnailURL()+"'");
 			if (frameSize <= 1) {
-				js.append("'" + image.getThumbnailURL());
+				String tnURL = image.getThumbnailURL();
+				js.append("'" + tnURL);
 			}
 			for (int j = 0; j < frameSize; ++j) {
 				if (frameSize > 1) {

@@ -1270,5 +1270,14 @@
       CHANGE COLUMN comment comment_ VARCHAR(4000);
     </sql>  
    </changeSet>   
+   
+  <changeSet id="5.1.ultrasound.general.image" author="Q.PAN">          
+    <comment>Add frame number field.</comment>
+    <addColumn tableName="general_image">
+      <column name="US_FRAME_NUMBER" type="varchar(50)"/>
+      <column name="US_B_MODE" type="varchar(50)"/>
+      <column name="US_IMAGE_TYPE" type="varchar(50)"/>
+    </addColumn>
+  </changeSet>    
 
 </databaseChangeLog>

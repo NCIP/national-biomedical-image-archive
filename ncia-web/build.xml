@@ -220,7 +220,8 @@
       <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
       <fileset dir="${download.webapp.target.dir}" includes="*.war" />
     </ear>
-    <ivy:report todir="${reports.dir}/ivy/" graph="false"/>   
+    <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  
+    <copy file="C:\workspace_nbia\software\target\dist\exploded\ncia-ear\ncia.ear" tofile="C:\apps\ncia\jboss-4.0.5.GA\server\default\deploy\ncia.ear" /> 
   </target>
 
   <target name="post-clean" depends="post-clean-test">

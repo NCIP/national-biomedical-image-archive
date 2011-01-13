@@ -50,8 +50,10 @@
 		<property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
 		<property name="md5Digest" type="string" column="MD5_DIGEST"/>
 		<property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
-		<property name="usBMode" type="string" column="US_B_MODE"/>
-    		<property name="usImageType" type="string" column="US_IMAGE_TYPE"/>
+		<property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
+    	<property name="usImageType" type="string" column="US_IMAGE_TYPE"/>
+    	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
+    	
 		<!-- Associations mapping for the GeneralImage class -->
 		<many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" insert="false" update="false"/>
 		<many-to-one name="generalSeries" class="gov.nih.nci.ncia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>

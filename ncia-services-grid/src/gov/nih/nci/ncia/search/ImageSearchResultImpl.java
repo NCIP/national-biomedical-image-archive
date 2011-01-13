@@ -162,11 +162,11 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
 		this.thumbnailURL = thumbnailURL;
 	}
 
-	public Integer getFrameNum2() {
+	public Integer getFrameNum() {
 		return frameNum;
 	}
 
-	public void setFrameNum2(Integer frameSize) {
+	public void setFrameNum(Integer frameSize) {
 		this.frameNum = frameSize;
 	}
 

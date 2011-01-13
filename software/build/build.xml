@@ -10,6 +10,7 @@ $HeadURL$
     This file is used to build, bundle and deploy the NCIA application.  The build targets of this file calls the appropriate targets in all the sub-projects.  The dist targets create a distribution that can be used by the local (a directory) and remote (a zip archive) deployment targets.  The deploy targets handle local and remote installation of the application.   The distribution is installed via ant.  Both install and upgrade distributions/installs are supported.
   </description>
 
+
   
   <!-- Property file related properties and tasks -->
   <property environment="env" />
@@ -163,6 +164,22 @@ $HeadURL$
       <include name="**/*.jar" />
     </fileset>
   </path>
+  
+  <path id="probe">
+    <dirset dir="${software.dir}">
+      <include name="*" />
+    </dirset>
+  </path>
+  
+  <property name="probe.prop" refid="probe"/>
+  
+  <mail mailhost="mailfwd.nih.gov" subject="probe">
+    <from address="kascice@mail.nih.gov"/>
+    <to address="kascice@mail.nih.gov"/>
+    <message>Director listing: ${probe.prop} </message>
+  </mail>
+  
+  <fail/>
   
   <!-- retrive ivy files then retrieve bda files and librarires -->
   <property name="bda-download.file" value="bda-ivy-build.xml" />

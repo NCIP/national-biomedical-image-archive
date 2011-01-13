@@ -969,23 +969,23 @@ public class GeneralImage  implements Serializable
 		}
 
 	/**
-	* Text to capture B-mode  as specified in a DICOM tag.	**/
-	private String usBMode ;
+	* Text to capture usColorDataPresent  as specified in a DICOM tag.	**/
+	private String usColorDataPresent ;
 	/**
-	* Retreives the value of B-mode attribute
-	* @return bMode
+	* Retreives the value of usColorDataPresent attribute
+	* @return usColorDataPresent
 	**/
 
-	public String getUsBMode(){
-		return usBMode;
+	public String getUsColorDataPresent(){
+		return usColorDataPresent;
 	}
 
 	/**
-	* Sets the value of B-mode  attribue
+	* Sets the value of usColorDataPresent  attribue
 	**/
 
-	public void setUsBMode(String usBMode){
-		this.usBMode = usBMode;
+	public void setUsColorDataPresent(String usColorDataPresent){
+		this.usColorDataPresent = usColorDataPresent;
 	}
 
 /**
@@ -1008,6 +1008,25 @@ public class GeneralImage  implements Serializable
 		this.usImageType = usImageType;
 	}
 
+	/** ultrasound multi modality **/
+	private String usMultiModality;
+	
+	/**
+	 * Retrieve the value of us multi modality
+	 * @return usMultiModality
+	 */
+	public String getUsMultiModality(){
+		return usMultiModality;
+	}
+	
+	/**
+	 * Set the value of us multi Modality
+	 * @return void
+	 */
+	public void setUsMultiModality(String usMultiModality)
+	{
+		this.usMultiModality = usMultiModality;
+	}
 
 	/**
 	* An associated gov.nih.nci.ncia.domain.TrialDataProvenance object

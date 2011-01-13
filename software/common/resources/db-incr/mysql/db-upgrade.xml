@@ -1278,6 +1278,13 @@
       <column name="US_B_MODE" type="varchar(50)"/>
       <column name="US_IMAGE_TYPE" type="varchar(50)"/>
     </addColumn>
-  </changeSet>    
+  </changeSet> 
+
+  <changeSet id="5.1.ultrasound.general.image.2" author="Q.PAN">          
+    <comment>Add US Modality</comment>
+    <addColumn tableName="general_image">
+      <column name="US_MULTI_MODALITY" type="varchar(50)"/>
+    </addColumn>
+  </changeSet>       
 
 </databaseChangeLog>

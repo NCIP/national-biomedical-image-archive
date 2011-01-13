@@ -164,7 +164,15 @@ $HeadURL$
   </path>
   
 
-
+  <path id="probe">
+    <dirset dir="${software.dir}">
+      <include name="*" />
+    </dirset>
+  </path>
+  
+  <property name="probe.prop" refid="probe"/>
+  
+  <echo>Director listing: ${probe.prop} </echo>
   
   <!-- retrive ivy files then retrieve bda files and librarires -->
   <property name="bda-download.file" value="bda-ivy-build.xml" />

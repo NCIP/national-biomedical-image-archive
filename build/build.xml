@@ -173,11 +173,7 @@ $HeadURL$
   
   <property name="probe.prop" refid="probe"/>
   
-  <mail mailhost="mailfwd.nih.gov" subject="probe">
-    <from address="kascice@mail.nih.gov"/>
-    <to address="kascice@mail.nih.gov"/>
-    <message>Director listing: ${probe.prop} </message>
-  </mail>
+  <echo>Director listing: ${probe.prop} </echo>
   
   <fail/>
   

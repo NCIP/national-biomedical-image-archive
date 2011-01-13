@@ -50,7 +50,10 @@
     <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
     <property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
     <property name="frameNum" type="string" column="FRAME_NUMBER"/>
-
+	<property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
+    <property name="usImageType" type="string" column="US_IMAGE_TYPE"/>
+	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
+	
     <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID" update="false" insert="false"/>
     <property name="patientPkId" type="integer" column="PATIENT_PK_ID" insert="false" update="false"/>
     <property name="md5Digest" type="string" column="MD5_DIGEST"/>  

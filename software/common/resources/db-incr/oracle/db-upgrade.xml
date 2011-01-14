@@ -21,7 +21,7 @@
     <comment>Add frame number field.</comment>
     <addColumn tableName="general_image">
       <column name="US_FRAME_NUMBER" type="varchar(50)"/>
-      <column name="US_B_MODE" type="varchar(50)"/>
+      <column name="US_COLOR_DATA_PRESENT" type="varchar(50)"/>
       <column name="US_IMAGE_TYPE" type="varchar(50)"/>
     </addColumn>
   </changeSet> 

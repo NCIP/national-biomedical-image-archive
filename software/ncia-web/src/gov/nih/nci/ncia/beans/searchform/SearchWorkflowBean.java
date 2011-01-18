@@ -11,6 +11,7 @@ package gov.nih.nci.ncia.beans.searchform;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
+import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
@@ -100,11 +101,11 @@ public class SearchWorkflowBean {
         List<String> anatomicSites = lookupMgr.getAnatomicSite();
         Collections.sort(anatomicSites);
         anatomicalSiteItems = JsfUtil.getBooleanSelectItemsFromStrings(anatomicSites);
-        
+
         List<String> imageTypes = lookupMgr.getImageType();
         Collections.sort(imageTypes);
         imageTypeItems = JsfUtil.getBooleanSelectItemsFromStrings(imageTypes);
-        
+
         List<String> kernels = lookupMgr.getDICOMKernelType();
         Collections.sort(kernels);
         kernelItems = JsfUtil.getBooleanSelectItemsFromStrings(kernels);
@@ -114,6 +115,8 @@ public class SearchWorkflowBean {
         searchableNodes = new ArrayList<NBIANode>(searchableNodeMap.keySet());
         Collections.sort(searchableNodes);
         remoteNodeItems = JsfUtil.constructNodeSelectItems(searchableNodes);
+
+        this.aimSearchWorkflowBean.loggedIn();
 
         setDefaultValues();
     }
@@ -332,7 +335,7 @@ public class SearchWorkflowBean {
     	return selectedAnatomicalSiteNames;
     }
     ///////////////////////////////////END ANATOMICAL SITE ITEMS////////////////////
-    
+
     //////////////////////////////////BEGIN Image Type ITEMS//////////////////////
     public List<SelectItem> getImageTypeItems() {
         return imageTypeItems;
@@ -541,7 +544,7 @@ public class SearchWorkflowBean {
     public void setAdvanced(boolean advanced) {
         this.advanced = advanced;
     }
-    
+
     public boolean getUsSearch() {
         return usSearch;
     }
@@ -836,7 +839,7 @@ public class SearchWorkflowBean {
     public void setNumFrameOptions(String[] theNumFrameOptions) {
         this.numFrameOptions = theNumFrameOptions;
     }
-    
+
     public String[] getColorModeOptions() {
         return colorModeOptions;
     }
@@ -970,7 +973,18 @@ public class SearchWorkflowBean {
 		return (notificationHack+=1);
 	}
 
+
+	public AimSearchWorkflowBean getAimSearchWorkflowBean() {
+		return aimSearchWorkflowBean;
+	}
+
+	public void setAimSearchWorkflowBean(AimSearchWorkflowBean aimSearchWorkflowBean) {
+		this.aimSearchWorkflowBean = aimSearchWorkflowBean;
+	}
+
 	////////////////////////////////PRIVATE/////////////////////////////////////////
+
+	private AimSearchWorkflowBean aimSearchWorkflowBean;
 
 	private int notificationHack = 0;
 
@@ -1251,7 +1265,7 @@ public class SearchWorkflowBean {
         selectedManufacturers.clear();
         selectedModels.clear();
         selectedSoftwareVersions.clear();
-        
+
         DefaultTreeModel manufacturerTree = lookupBean.getManufacturerTree();
         Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
 
@@ -1455,7 +1469,7 @@ public class SearchWorkflowBean {
         }
         return matchedNodes;
     }
-    
+
     public void modalityChangeListener(ValueChangeEvent event) {
 		for (SelectItem selectItem : modalityItems) {
 			if (selectItem.getLabel().equals("US")) {
@@ -1470,5 +1484,6 @@ public class SearchWorkflowBean {
 			}
 		}
 	}
+
 
 }

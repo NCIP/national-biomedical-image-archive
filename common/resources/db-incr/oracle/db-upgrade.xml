@@ -32,5 +32,56 @@
       <column name="US_MULTI_MODALITY" type="varchar(50)"/>
     </addColumn>
   </changeSet>   
+  
+  <changeSet id="aim.prototype.1" author="kascice">          
+    <createTable tableName="aim_img_obs_characteristic">
+      <column name="aim_img_obs_characteristic_pk_id" type="bigint(20)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>   
+      <column name="general_series_pk_id" type="bigint(20)">
+        <constraints foreignKeyName="FK_AIM_IMG_OBS_SERIES_PK_ID"
+                     references="general_series(general_series_pk_id)" 
+                     nullable="false"/>
+      </column>
+      
+      <column name="code_meaning_name" type="varchar(128)">
+        <constraints nullable="false"/>
+      </column>
+      
+      <column name="code_schema_designator" type="varchar(128)"> 
+        <constraints nullable="false"/>
+      </column>
+      
+      <column name="code_value" type="varchar(128)"> 
+        <constraints nullable="false"/>
+      </column>
+      
+    </createTable>  
+    
+    <createTable tableName="aim_quantification">
+      <column name="aim_quantification_pk_id" type="bigint(20)">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>   
+      <column name="aim_img_obs_characteristic_pk_id" type="bigint(20)">
+        <constraints foreignKeyName="FK_AIM_IMG_OBS_CHARACTERISTIC_PK_ID"
+                     references="aim_img_obs_characteristic(aim_img_obs_characteristic_pk_id)" 
+                     nullable="false"/>
+      </column>
+      
+      <column name="type" type="varchar(10)">
+        <constraints nullable="false"/>
+      </column>
+      
+      <column name="name" type="varchar(255)">   
+        <constraints nullable="false"/>
+      </column>
+      
+      <column name="value" type="varchar(255)"> 
+        <constraints nullable="false"/>
+      </column>      
+
+    </createTable>      
+    
+   </changeSet>  
 
 </databaseChangeLog>

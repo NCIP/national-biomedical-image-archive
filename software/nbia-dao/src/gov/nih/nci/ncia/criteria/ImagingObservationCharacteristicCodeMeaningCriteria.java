@@ -2,7 +2,6 @@ package gov.nih.nci.ncia.criteria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
 
 
@@ -19,7 +18,7 @@ public class ImagingObservationCharacteristicCodeMeaningCriteria extends Multipl
 
     public void setImagingObservationCharacteristicCodeMeaningNames(Collection<String> codeMeaningNames) {
         for (String codeMeaningName : codeMeaningNames) {
-            getCreateCollectionObjects().add(codeMeaningName);            
+            getCreateCollectionObjects().add(codeMeaningName);
         }
     }
 
@@ -28,22 +27,22 @@ public class ImagingObservationCharacteristicCodeMeaningCriteria extends Multipl
     	this.getCreateCollectionObjects().add(attr.getAttributeValue());
     }
 
-    
+
     /////////////////////////////////PROTECTED//////////////////////////////////////
-    
+
     protected Collection<String> getMultipleValues() {
         return getImagingObservationCharacteristicCodeMeaningNames();
     }
-    
+
     /////////////////////////////PRIVATE//////////////////////////////////
     private Collection<String> imagingObservationCharacteristicCodeMeaningNames;
-    
+
     private Collection<String> getCreateCollectionObjects() {
         if (imagingObservationCharacteristicCodeMeaningNames == null) {
         	imagingObservationCharacteristicCodeMeaningNames = new ArrayList<String>();
         }
 
         return imagingObservationCharacteristicCodeMeaningNames;
-    }    
-    
+    }
+
 }

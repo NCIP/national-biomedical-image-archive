@@ -77,7 +77,7 @@
           </table>         
                               
           <ui:include src="remoteNodes.xhtml"/>         
-
+          
           <table cellspacing="0" cellpadding="0" width="100%" border="0">
             <tbody>
               <tr>
@@ -718,36 +718,11 @@
 
             </tbody>
           </table>
+          <p/>
+          <br/>          
+          <ui:include src="aimCriteria.xhtml"/>          
           <p></p>
           <br/>
-           <!--f:subview id="usSearch" rendered="true">                     
-           <table width="90%" border="0" align="left" cellpadding="0"
-                               cellspacing="0">
-                          <tr>
-                            <td width="30%">
-                              <div align="center">
-                                <span class="formMessage">
-                                  <h:outputText value="#{msg.search_available}" />
-                                </span>
-                              </div>
-                            </td>
-                            <td width="40%" align="center" valign="middle">
-                              <f:verbatim>&amp;nbsp;</f:verbatim>
-                            </td>
-                            <td width="30%">
-                              <div align="center">
-                                <span class="formMessage">
-                                  <h:outputText value="#{msg.search_selected}*" />
-                                </span>
-                              </div>
-                            </td>
-                            <td width="4%" valign="bottom">
-                              <f:verbatim>&amp;nbsp;</f:verbatim>
-                            </td>
-                          </tr>!!!!!
-                          </table>   
-          </f:subview--> 
-          
           <f:subview id="advSubView2"
                      rendered="#{searchWorkflowBean.advanced}">
             <ui:include src="advancedSearchBody.xhtml"/>                      

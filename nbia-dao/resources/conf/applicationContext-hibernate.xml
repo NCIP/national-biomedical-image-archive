@@ -80,6 +80,9 @@
         <value>gov/nih/nci/ncia/internaldomain/SavedQueryAttribute.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/SavedQueryLastExec.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value>
+        
+        <value>gov/nih/nci/ncia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
+        <value>gov/nih/nci/ncia/internaldomain/AimQuantification.hbm.xml</value>        
       </list>
     </property>
         
@@ -94,6 +97,14 @@
 
   <bean id="springApplicationContext" class="gov.nih.nci.ncia.util.SpringApplicationContext"/>
   
+  
+  
+  <bean id="aimImgObsCharacteristicDAO" class="gov.nih.nci.ncia.dao.AimImgObsCharacteristicDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+    
   <bean id="imageDAO2" class="gov.nih.nci.nbia.dao.ImageDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>

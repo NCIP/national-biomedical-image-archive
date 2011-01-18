@@ -20,13 +20,14 @@ public class AnnotationRecognizerImpl implements AnnotationRecognizer {
 
 	public AnnotationSubmissionProcessor recognizeAnnotation(ZipObject file,
 	  	                                                     File storedFile) {
+		System.out.println("zip:"+file+", stored:"+storedFile);
         return traditionalAnnotationSubmissionProcessor;
     }
 
 	public AnnotationSubmissionProcessor recognizeAnnotation(XmlObject file,
 			                                                 File storedFile) {
 
-        if(isAIMAnnotation(file, storedFile)) {
+        if(isAIMAnnotation(file)) {
         	System.out.println("AIM annotation is recognized:"+aimAnnotationSubmissionProcessor);
         	return aimAnnotationSubmissionProcessor;
 		}
@@ -44,7 +45,7 @@ public class AnnotationRecognizerImpl implements AnnotationRecognizer {
 	@Qualifier("traditionalAnnotationSubmissionProcessor")
 	private AnnotationSubmissionProcessor  traditionalAnnotationSubmissionProcessor;
 
-	private boolean isAIMAnnotation(XmlObject file, File storedFile) {
+	private boolean isAIMAnnotation(XmlObject file) {
 		Document document = file.getDocument();
 		Element documentElement = document.getDocumentElement();
 

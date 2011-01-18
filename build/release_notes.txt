@@ -2,8 +2,8 @@ Release Notes
 =============
  
   #Product:#	NBIA
-  #Version:#	5.0
-  #Date:#	December, 2010
+  #Version:#	5.0.1
+  #Date:#	February, 2010
 
 Contents
 --------
@@ -41,6 +41,7 @@ to confident clinical decisions in patient care.
 
 Release History
 ------------------------
+    * NBIA v5.0.1       -- February 2010
     * NBIA v5.0         -- December 2010
     * NBIA v4.5         -- September2010
     * NBIA v4.4.1       -- June     2010
@@ -59,22 +60,12 @@ Release History
 
 Features Addressed in This Release
 ----------------------------------
-[NBIA-281] NBIA-CTP Database Adapter performance enhancements.
-[NBIA-253] Support Oracle as well as MySQL.
-[NBIA-280] AntHillPro 3 support for build promotion.
-[NBIA-241] Upgrade CTP to X42 
+None
 
-Defects from 4.5 Addressed in This Release
+Defects from 5.0 Addressed in This Release
 ------------------------------------------
-[NBIA-245] Decouple service and DAO objects within deletion feature 
-[NBIA-254] When saving a query, there is no message if the save is successful, or if the name is a duplicate
-[NBIA-267] Move NBIA configuration properties into JBoss properties-service.xml so administrators can alter them.
-[NBIA-268] Allow administrators to customize the number of series/results per page in the QC Tool
-[NBIA-270] For External Data Basket, patient+series or study+series only returns series from the first part
-[NBIA-274] Command-line upgrader fails unless all properties are specified like for an install
-[NBIA-279] Add warning text to GUI installer about potential to wipe out CTP storage system
-[NBIA-287] NCIA grid service port number updating from 21080 to 8080 
-
+[NBIA-322] Shared List creation can fail when greater than 1000 series elements
+[NBIA-318] Deleting > 1000 series when they are referenced by shared list causes exception
 
 
 Known Issues/Defects
@@ -84,6 +75,7 @@ Known Issues/Defects
 [NBIA-310] NBIA Download Manager remote series have completed downloading, but progress bar shows 99%.
 [NBIA-316] NBIA Download Manager cannot download annotations when NBIA server is running on Windows.
 [NBIA-317] NBIA Download Manager stops up on some Windows XP clients when download directory contains non-8.3 names.
+[NBIA-321] Performance issue with deleting a large amount series with online deletion
 
  
 See the Jira tracker for the latest use cases (implemented 

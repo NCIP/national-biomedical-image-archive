@@ -35,11 +35,13 @@
     <property name="instanceNumber" type="integer" column="INSTANCE_NUMBER"/>
     <property name="lossyImageCompression" type="string" column="LOSSY_IMAGE_COMPRESSION"/>
     <property name="patientId" type="string" column="PATIENT_ID"/>
+    <property name="patientPkId" type="integer" column="PATIENT_PK_ID" insert="false" update="false"/>    
     <property name="patientPosition" type="string" column="PATIENT_POSITION"/>
     <property name="pixelSpacing" type="double" column="PIXEL_SPACING"/>
     <property name="project" type="string" column="PROJECT"/>
     <property name="rows" type="integer" column="I_ROWS"/>
     <property name="seriesInstanceUID" type="string" column="SERIES_INSTANCE_UID"/>
+    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID" update="false" insert="false"/>    
     <property name="sliceLocation" type="double" column="SLICE_LOCATION"/>
     <property name="sliceThickness" type="double" column="SLICE_THICKNESS"/>
     <property name="SOPClassUID" type="string" column="SOP_CLASS_UID"/>
@@ -49,20 +51,18 @@
     <property name="storageMediaFileSetUID" type="string" column="STORAGE_MEDIA_FILE_SET_UID"/>
     <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
     <property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
-    <property name="frameNum" type="string" column="FRAME_NUMBER"/>
-	<property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
+    <property name="md5Digest" type="string" column="MD5_DIGEST"/>    
+    <property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
+	  <property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
     <property name="usImageType" type="string" column="US_IMAGE_TYPE"/>
-	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
+  	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
 	
-    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID" update="false" insert="false"/>
-    <property name="patientPkId" type="integer" column="PATIENT_PK_ID" insert="false" update="false"/>
-    <property name="md5Digest" type="string" column="MD5_DIGEST"/>  
+  
   
     <!-- Associations mapping for the GeneralImage class -->
     <many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
     <many-to-one name="generalSeries" class="gov.nih.nci.ncia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" />
-    <one-to-one name="ctimage" class="gov.nih.nci.ncia.internaldomain.CTImage" property-ref="generalImage" />
-    <one-to-one name="usimage" class="gov.nih.nci.ncia.internaldomain.USImage" property-ref="generalImage" />
+    <one-to-one name="ctimage" class="gov.nih.nci.ncia.internaldomain.CTImage" property-ref="generalImage" />    
     <many-to-one name="dataProvenance" class="gov.nih.nci.ncia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
     <many-to-one name="study" class="gov.nih.nci.ncia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
   </class>

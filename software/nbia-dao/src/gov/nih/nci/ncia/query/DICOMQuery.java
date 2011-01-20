@@ -53,6 +53,7 @@ import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
@@ -76,11 +77,11 @@ import java.util.List;
 /**
  * This bundles up all the criteria selected from the simple and advanced
  * "classic" search.
- * 
+ *
  * <p>If adding a new criteria, be sure to add setCriteria(xCriteria) so that
  * the grid service can properly set criteria.  The grid service uses reflection
  * to do this.
- * 
+ *
  * @author Prashant Shah, Ajay - NCICB/SAIC
  */
 public class DICOMQuery extends Query {
@@ -111,6 +112,7 @@ public class DICOMQuery extends Query {
     private DateRangeCriteria dateRangeCriteria;
     private boolean queryFromUrl = false;
     private ImagingObservationCharacteristicCodeMeaningCriteria imagingObservationCharacteristicCodeMeaningCriteria;
+    private ImagingObservationCharacteristicCodeValuePairCriteria imagingObservationCharacteristicCodeValuePairCriteria;
 
     // The number of milliseconds it took to run this query
     private long elapsedTimeInMillis;
@@ -134,7 +136,7 @@ public class DICOMQuery extends Query {
         criteriaList = new ArrayList<Criteria>();
     }
 
-    
+
     public ImagingObservationCharacteristicCodeMeaningCriteria getImagingObservationCharacteristicCodeMeaningCriteria() {
         return imagingObservationCharacteristicCodeMeaningCriteria;
     }
@@ -145,12 +147,23 @@ public class DICOMQuery extends Query {
             this.imagingObservationCharacteristicCodeMeaningCriteria = imagingObservationCharacteristicCodeMeaningCriteria;
         }
     }
-    
+
+    public ImagingObservationCharacteristicCodeValuePairCriteria getImagingObservationCharacteristicCodeValuePairCriteria() {
+        return imagingObservationCharacteristicCodeValuePairCriteria;
+    }
+
+    public void setCriteria(ImagingObservationCharacteristicCodeValuePairCriteria imagingObservationCharacteristicCodeValuePairCriteria) {
+        if (imagingObservationCharacteristicCodeValuePairCriteria != null) {
+            criteriaList.add(imagingObservationCharacteristicCodeValuePairCriteria);
+            this.imagingObservationCharacteristicCodeValuePairCriteria = imagingObservationCharacteristicCodeValuePairCriteria;
+        }
+    }
+
     public NodeCriteria getNodeCriteria() {
     	return this.remoteNodeCriteria;
     }
-    
-    
+
+
     /**
      */
     public void setCriteria(NodeCriteria nodeCriteria) {
@@ -159,7 +172,7 @@ public class DICOMQuery extends Query {
             this.remoteNodeCriteria = nodeCriteria;
         }
     }
-    
+
     /**
      * @return Returns the getSoftwareVersionC
      */
@@ -177,7 +190,7 @@ public class DICOMQuery extends Query {
     }
 
     /**
-     * 
+     *
      */
     public ModalityAndedSearchCriteria getModalityAndedSearchCriteria() {
         return modalityAndedSearchCriteria;
@@ -282,7 +295,7 @@ public class DICOMQuery extends Query {
     }
 
     /**
-     * 
+     *
      */
     public void setCriteria(
         ManufacturerCriteria manufacturerCriteria) {
@@ -297,7 +310,7 @@ public class DICOMQuery extends Query {
     }
 
     /**
-     * 
+     *
      */
     public void setCriteria(ModelCriteria modelCriteria) {
         if (modelCriteria != null) {
@@ -411,7 +424,7 @@ public class DICOMQuery extends Query {
     }
 
     /**
-     * 
+     *
      */
     public void setCriteria(KilovoltagePeakDistribution kilovoltagePeakDistribution) {
         criteriaList.add(kilovoltagePeakDistribution);
@@ -426,7 +439,7 @@ public class DICOMQuery extends Query {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void setCriteria(ReconstructionDiameterCriteria reconstructionDiameterCriteria) {
         criteriaList.add(reconstructionDiameterCriteria);
@@ -441,7 +454,7 @@ public class DICOMQuery extends Query {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void setCriteria(AcquisitionMatrixCriteria acquisitionMatrixCriteria) {
 		criteriaList.add(acquisitionMatrixCriteria);
@@ -456,7 +469,7 @@ public class DICOMQuery extends Query {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void setCriteria(DataCollectionDiameterCriteria dataCollectionDiameterCriteria) {
 		criteriaList.add(dataCollectionDiameterCriteria);
@@ -471,7 +484,7 @@ public class DICOMQuery extends Query {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void setCriteria(DxDataCollectionDiameterCriteria dxDataCollectionDiameterCriteria) {
 		criteriaList.add(dxDataCollectionDiameterCriteria);

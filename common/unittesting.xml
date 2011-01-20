@@ -114,7 +114,7 @@
 	</target>
 	<target name="-java-ncss" if="static.analysis">
 		<taskdef name="javancss" classpathref="project.test.classpath" classname="javancss.JavancssAntTask"/>
-		<javancss srcdir="${src.java.dir}" includes="${inspection.includes}" generatereport="true" outputfile="${reports.dir}/javancss/javancss_metrics_${ant.project.name}.xml" abortOnFail="true" ccnPerFuncMax="31" format="xml"/>
+		<javancss srcdir="${src.java.dir}" includes="${inspection.includes}" generatereport="true" outputfile="${reports.dir}/javancss/javancss_metrics_${ant.project.name}.xml" abortOnFail="true" ccnPerFuncMax="35" format="xml"/>
 		<xslt taskname="javancss" in="${reports.dir}/javancss/javancss_metrics_${ant.project.name}.xml" out="${reports.dir}/javancss/javancss_report_${ant.project.name}.html" style="../common/javancss/javancss2methodhtml.xsl"/>
 	</target>
 	<target name="-pmd" if="static.analysis" depends="ivy-test-pmd">

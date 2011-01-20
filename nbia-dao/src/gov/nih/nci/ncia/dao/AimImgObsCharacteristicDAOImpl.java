@@ -14,21 +14,21 @@ public class AimImgObsCharacteristicDAOImpl extends AbstractDAO
                                             implements AimImgObsCharacteristicDAO {
 
 	public Collection<ImgObsCharacteristicDTO> findAllCodeMeaningNamesAndValuePairs() throws DataAccessException {
-		
+
         DetachedCriteria criteria = DetachedCriteria.forClass(AimImagingObservationCharacteristic.class, "ct");
-        
+
         ProjectionList projectionList = Projections.projectionList();
-        projectionList.add(Projections.property("codeValue"));        
+        projectionList.add(Projections.property("codeValue"));
         projectionList.add(Projections.property("codeMeaningName"));
         projectionList.add(Projections.property("codeSchemaDesignator"));
 
-        criteria.setProjection(projectionList);
-        
+        criteria.setProjection(Projections.distinct(projectionList));
+
         Collection<ImgObsCharacteristicDTO> dtos = new ArrayList<ImgObsCharacteristicDTO>();
-        
+
         Collection<Object[]> results = getHibernateTemplate().findByCriteria(criteria);
         for(Object[] result : results) {
-        	ImgObsCharacteristicDTO dto = new ImgObsCharacteristicDTO((String)result[0], 
+        	ImgObsCharacteristicDTO dto = new ImgObsCharacteristicDTO((String)result[0],
         			                                                  (String)result[1],
         			                                                  (String)result[2]);
         	dtos.add(dto);

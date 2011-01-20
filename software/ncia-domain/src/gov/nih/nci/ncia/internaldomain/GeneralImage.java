@@ -964,7 +964,7 @@ public class GeneralImage  implements Serializable
 			return usFrameNum;
 		}
 
-		public void setUsFrameNum(String usframeNum) {
+		public void setUsFrameNum(String usFrameNum) {
 			this.usFrameNum = usFrameNum;
 		}
 
@@ -986,26 +986,6 @@ public class GeneralImage  implements Serializable
 
 	public void setUsColorDataPresent(String usColorDataPresent){
 		this.usColorDataPresent = usColorDataPresent;
-	}
-
-/**
-	* ultrasound image type.	**/
-	private String usImageType;
-	/**
-	* Retreives the value of imageType attribute
-	* @return imageType
-	**/
-
-	public String getUsImageType(){
-		return usImageType;
-	}
-
-	/**
-	* Sets the value of imageType attribue
-	**/
-
-	public void setUsImageType(String usImageType){
-		this.usImageType = usImageType;
 	}
 
 	/** ultrasound multi modality **/

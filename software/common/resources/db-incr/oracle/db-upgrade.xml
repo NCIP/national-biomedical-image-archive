@@ -33,6 +33,11 @@
     </addColumn>
   </changeSet>   
   
+  <changeSet id="5.1.ultrasound.general.image.3" author="J.ZHOU">
+    	<comment>drop column US_IMAGE_TYPE (duplicate column)</comment>
+    	<dropColumn ColumnName="US_IMAGE_TYPE" tableName="general_image"/>
+  </changeSet>
+  
   <changeSet id="aim.prototype.1" author="kascice">          
     <createTable tableName="aim_img_obs_characteristic">
       <column name="aim_img_obs_characteristic_pk_id" type="bigint(20)">

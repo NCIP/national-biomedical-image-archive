@@ -54,7 +54,6 @@
     <property name="md5Digest" type="string" column="MD5_DIGEST"/>    
     <property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
 	  <property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
-    <property name="usImageType" type="string" column="US_IMAGE_TYPE"/>
   	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
 	
   

@@ -64,6 +64,9 @@
         <value>gov/nih/nci/ncia/internaldomain/Annotation.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/DeletionAuditTrail.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value>
+        <value>gov/nih/nci/ncia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
+        <value>gov/nih/nci/ncia/internaldomain/AimQuantification.hbm.xml</value>
+        
    		</list>
 		</property>
 
@@ -88,12 +91,25 @@
  	<bean id="adapterUtil" class="gov.nih.nci.ncia.util.AdapterUtil">
 		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
  	</bean>	
- 	<bean id="imageStorage" class="gov.nih.nci.ncia.dbadapter.ImageStorage">
-		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
- 	</bean>	
- 	<bean id="annotationStorage" class="gov.nih.nci.ncia.dbadapter.AnnotationStorage">
-		<property name="sessionFactory"><ref bean="sessionFactory"/></property>
- 	</bean>	
+   <bean id="imageStorage" class="gov.nih.nci.ncia.dbadapter.ImageStorage">
+    <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+   </bean>  
+   
+   <bean id="annotationStorage" class="gov.nih.nci.ncia.annotations.AnnotationStorageImpl"/>
+
+   <bean id="annotationRecognizer" class="gov.nih.nci.ncia.annotations.AnnotationRecognizerImpl"/>
+      
+   <bean id="aimAnnotationSubmissionProcessor" class="gov.nih.nci.ncia.annotations.AimAnnotationSubmissionProcessor">
+     <property name="sessionFactory">
+       <ref bean="sessionFactory"/>
+     </property>
+   </bean>
+   
+   <bean id="traditionalAnnotationSubmissionProcessor" class="gov.nih.nci.ncia.annotations.TraditionalAnnotationSubmissionProcessor">
+     <property name="sessionFactory">
+       <ref bean="sessionFactory"/>
+     </property>
+   </bean>   
  	<bean id="sopQuery" class="gov.nih.nci.ncia.query.DicomSOPInstanceUIDQuery">
   	<property name="sessionFactory"><ref bean="sessionFactory"/></property>
  	</bean>	

@@ -23,7 +23,7 @@
 
     <many-to-one name="aimImagingObservationCharacteristic" 
                  class="gov.nih.nci.ncia.internaldomain.AimImagingObservationCharacteristic" 
-                 column="aim_img_obs_characteristic_pk_id" />
+                 column="aim_img_obs_characteristic_pk_" />
                  
   </class>
 </hibernate-mapping>

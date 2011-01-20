@@ -1294,10 +1294,10 @@
   
   <changeSet id="aim.prototype.1" author="kascice">          
     <createTable tableName="aim_img_obs_characteristic">
-      <column name="aim_img_obs_characteristic_pk_" type="bigint(20)">
+      <column name="aim_img_obs_characteristic_pk_" type="BIGINT">
         <constraints primaryKey="true" nullable="false"/>
       </column>   
-      <column name="general_series_pk_id" type="bigint(20)">
+      <column name="general_series_pk_id" type="BIGINT">
         <constraints foreignKeyName="FK_AIM_IMG_OBS_SERIES_PK_ID"
                      references="general_series(general_series_pk_id)" 
                      nullable="false"/>
@@ -1318,10 +1318,10 @@
     </createTable>  
     
     <createTable tableName="aim_quantification">
-      <column name="aim_quantification_pk_id" type="bigint(20)">
+      <column name="aim_quantification_pk_id" type="BIGINT">
         <constraints primaryKey="true" nullable="false"/>
       </column>   
-      <column name="aim_img_obs_characteristic_pk_" type="bigint(20)">
+      <column name="aim_img_obs_characteristic_pk_" type="BIGINT">
         <constraints foreignKeyName="FK_AIM_IMG_OBS_CHARACTERISTIC_PK_ID"
                      references="aim_img_obs_characteristic(aim_img_obs_characteristic_pk_)" 
                      nullable="false"/>

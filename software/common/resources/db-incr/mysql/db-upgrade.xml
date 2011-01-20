@@ -1322,7 +1322,7 @@
         <constraints primaryKey="true" nullable="false"/>
       </column>   
       <column name="aim_img_obs_characteristic_pk_" type="BIGINT">
-        <constraints foreignKeyName="FK_AIM_IMG_OBS_CHARACTERISTIC_PK_ID"
+        <constraints foreignKeyName="FK_AIM_IMG_OBS_CHARACTERISTIC_"     
                      references="aim_img_obs_characteristic(aim_img_obs_characteristic_pk_)" 
                      nullable="false"/>
       </column>

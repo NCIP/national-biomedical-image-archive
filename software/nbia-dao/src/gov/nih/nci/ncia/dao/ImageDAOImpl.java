@@ -50,7 +50,7 @@ public class ImageDAOImpl extends AbstractDAO
                                                                      gi.getDataProvenance().getDpSiteName(),
                                                                      gi.getGeneralSeries().getSecurityGroup(),
                                                                      gi.getGeneralSeries().getVisibility().equals("1"),
-                                                                     Integer.parseInt(gi.getUsFrameNum()));
+                                                                     gi.getUsFrameNum());
             dtos.add(imageSecurityDTO);
         }
         return dtos;

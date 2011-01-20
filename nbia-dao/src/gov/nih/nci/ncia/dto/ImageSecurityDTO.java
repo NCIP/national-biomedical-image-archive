@@ -18,6 +18,24 @@ public class ImageSecurityDTO {
 		this.seriesVisibility = seriesVisibility;
 		this.frameNum = frameNum;
 	}
+	
+	public ImageSecurityDTO(String SOPInstanceUID, String fileName,
+			String project, String site, String ssg, boolean seriesVisibility,
+			String frameNum) {
+		this.SOPInstanceUID = SOPInstanceUID;
+		this.fileName = fileName;
+		this.project = project;
+		this.site = site;
+		this.ssg = ssg;
+		this.seriesVisibility = seriesVisibility;
+		if (frameNum == null) {
+			this.frameNum = 0;
+		}
+		else {
+			this.frameNum = Integer.parseInt(frameNum);
+		}
+	}
+
 
 
 	public String getSOPInstanceUID() {

@@ -35,9 +35,7 @@
   
   <changeSet id="5.1.ultrasound.general.image.3" author="J.ZHOU">
     	<comment>drop column US_IMAGE_TYPE (duplicate column)</comment>
-    	<dropColumn tableName="general_image">
-    		<column name="US_IMAGE_TYPE"/>
-    	</dropColumn>
+    	<dropColumn tableName="general_image" columnName="US_IMAGE_TYPE" />
   </changeSet>
   
   <changeSet id="aim.prototype.1" author="kascice">          

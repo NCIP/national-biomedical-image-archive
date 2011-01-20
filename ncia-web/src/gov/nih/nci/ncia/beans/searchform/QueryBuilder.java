@@ -18,9 +18,12 @@ import gov.nih.nci.ncia.criteria.NumOfMonthsCriteria;
 import gov.nih.nci.ncia.criteria.PatientCriteria;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.util.StringUtil;
+import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
 
 import java.util.Date;
 import java.util.List;
@@ -44,15 +47,47 @@ class QueryBuilder {
         	addAdvancedCriteria(searchBean, query);
         }
 
+        addAIMCriteria(searchBean.getAimSearchWorkflowBean(), query);
+
         return query;
 	}
-	
+
 	////////////////////////////////////PRIVATE////////////////////////////////////////////////
-	
+
+    private static void addAIMCriteria(AimSearchWorkflowBean searchBean, DICOMQuery query) {
+    	List<String> codeMeaningNames = searchBean.getSelectedCodeMeaningNames();
+
+        if(codeMeaningNames.size()>0) {
+			for(String cm : codeMeaningNames) {
+				System.out.println("cm:"+cm);
+			}
+
+			ImagingObservationCharacteristicCodeMeaningCriteria crit =
+				new ImagingObservationCharacteristicCodeMeaningCriteria();
+			crit.setImagingObservationCharacteristicCodeMeaningNames(codeMeaningNames);
+
+			query.setCriteria(crit);
+		}
+
+    	List<String> codeValuePairs = searchBean.getSelectedCodeValuePairNames();
+
+        if(codeValuePairs.size()>0) {
+			for(String cm : codeValuePairs) {
+				System.out.println("cm:"+cm);
+			}
+
+			ImagingObservationCharacteristicCodeValuePairCriteria crit =
+				new ImagingObservationCharacteristicCodeValuePairCriteria();
+			crit.setImagingObservationCharacteristicCodeValuePairs(codeValuePairs);
+
+			query.setCriteria(crit);
+		}
+    }
+
     private static void addSimpleCriteria(SearchWorkflowBean searchBean,DICOMQuery query) {
     	buildNodeCriteria(searchBean, query);
 
-    	
+
         DateRangeCriteria drc = buildDateCrit(searchBean);
         if (drc != null) {
         	query.setCriteria(drc);
@@ -106,12 +141,12 @@ class QueryBuilder {
 
         // Setup image slice thickness criteria here
         if (!StringUtil.isEmpty(searchBean.getThicknessLeftCompare()) && searchBean.getShowThickness()) {
-            ImageSliceThickness ist = new ImageSliceThickness(searchBean.getThicknessLeftCompare(), 
-            		                                          searchBean.getImageThicknessLeft(), 
-            		                                          searchBean.getThicknessRightCompare(), 
+            ImageSliceThickness ist = new ImageSliceThickness(searchBean.getThicknessLeftCompare(),
+            		                                          searchBean.getImageThicknessLeft(),
+            		                                          searchBean.getThicknessRightCompare(),
             		                                          searchBean.getImageThicknessRight());
             query.setCriteria(ist);
-        }    	
+        }
     }
 
     private static void addAdvancedCriteria(SearchWorkflowBean searchBean,DICOMQuery query) {
@@ -125,7 +160,7 @@ class QueryBuilder {
 
         // Setup number of months criteria here
         if (!StringUtil.isEmpty(searchBean.getMonthCompare()) && !StringUtil.isEmpty(searchBean.getNumberMonths())) {
-            NumOfMonthsCriteria nm = new NumOfMonthsCriteria(searchBean.getMonthCompare(), 
+            NumOfMonthsCriteria nm = new NumOfMonthsCriteria(searchBean.getMonthCompare(),
             		                                         searchBean.getNumberMonths());
             query.setCriteria(nm);
         }
@@ -146,9 +181,9 @@ class QueryBuilder {
 
         // Setup kv peak criteria here
         if (!StringUtil.isEmpty(searchBean.getKvLeftCompare()) && !searchBean.getKvPeakLeft().equals("")) {
-            KilovoltagePeakDistribution kvp = new KilovoltagePeakDistribution(searchBean.getKvLeftCompare(), 
+            KilovoltagePeakDistribution kvp = new KilovoltagePeakDistribution(searchBean.getKvLeftCompare(),
             		                                                          searchBean.getKvPeakLeft(),
-            		                                                          searchBean.getKvRightCompare(), 
+            		                                                          searchBean.getKvRightCompare(),
             		                                                          searchBean.getKvPeakRight());
             query.setCriteria(kvp);
         }
@@ -176,7 +211,7 @@ class QueryBuilder {
         }
 
         // Setup model criteria here
-        List<String> selectedModels = searchBean.getSelectedModels();        
+        List<String> selectedModels = searchBean.getSelectedModels();
         if ((selectedModels != null) && (selectedModels.size() > 0)) {
             ModelCriteria modC = new ModelCriteria();
             modC.setCollectionObjects(selectedModels);
@@ -184,7 +219,7 @@ class QueryBuilder {
         }
 
         // Setup software version criteria here
-        List<String> selectedSoftwareVersions = searchBean.getSelectedSoftwareVersions();                
+        List<String> selectedSoftwareVersions = searchBean.getSelectedSoftwareVersions();
         if ((selectedSoftwareVersions != null) && (selectedSoftwareVersions.size() > 0)) {
             SoftwareVersionCriteria svc = new SoftwareVersionCriteria();
             svc.setSoftwareVersionObjects(selectedSoftwareVersions);
@@ -192,9 +227,9 @@ class QueryBuilder {
         }
     }
 
-   
+
 	private static void buildNodeCriteria(SearchWorkflowBean searchBean, DICOMQuery query) {
-		
+
 		List<NBIANode> selectedRemoteNodes = searchBean.getSelectedNodes();
 		if(selectedRemoteNodes.size()==0) {
 			return;
@@ -211,7 +246,7 @@ class QueryBuilder {
 		}
     }
 
-	
+
 	private static DateRangeCriteria buildDateCrit(SearchWorkflowBean searchBean) {
     	DateRangeCriteria drc = new DateRangeCriteria();
 		if ((searchBean.getDateFrom() != null) && (searchBean.getDateTo() != null)) {
@@ -220,12 +255,12 @@ class QueryBuilder {
 	        drc.setToDate(searchBean.getDateTo());
 	        return drc;
 		}
-		else 
+		else
 		if ((searchBean.getDateFrom() != null) && (searchBean.getDateTo() == null)) {
 			drc.setFromDate(searchBean.getDateFrom());
 			drc.setToDate(new Date());
 			return drc;
-		}	
+		}
 		else {
 			return null;
 		}
@@ -245,5 +280,5 @@ class QueryBuilder {
 		else {
 			return null;
 		}
-    }	    
+    }
 }

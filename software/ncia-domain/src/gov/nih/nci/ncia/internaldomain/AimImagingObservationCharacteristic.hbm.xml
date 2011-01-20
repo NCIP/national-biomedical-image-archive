@@ -8,7 +8,7 @@
          lazy="true" 
          polymorphism="explicit">
 
-    <id name="id" type="integer" column="aim_img_obs_characteristic_pk_id">
+    <id name="id" type="integer" column="aim_img_obs_characteristic_pk_">
       <generator class="org.hibernate.id.TableHiLoGenerator">
         <param name="table">hibernate_unique_key</param>
         <param name="column">next_hi</param>

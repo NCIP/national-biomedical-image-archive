@@ -18,9 +18,19 @@ import org.rsna.ctp.stdstages.database.UIDResult;
 
 public class NCIADatabase extends DatabaseAdapter{
     private Logger log = Logger.getLogger(NCIADatabase.class);
-	public static ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-   	public static NCIADatabaseDelegator delegator = (NCIADatabaseDelegator)ctx.getBean("nciaDelegator");
-   	
+	public static ClassPathXmlApplicationContext ctx = null;
+   	public static NCIADatabaseDelegator delegator = null;
+   	static {
+   		try{
+   			ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+   			System.out.println("Stage 1 completed!");
+   			delegator = (NCIADatabaseDelegator)ctx.getBean("nciaDelegator");
+   			System.out.println("Stage 2 completed!");
+   		}catch(Exception e){
+   			System.out.println("Could not initialize Application Context");
+   			e.printStackTrace();
+   		}
+   	}
     public Status process(DicomObject file, File storedFile,String url) {
     	Status status = Status.OK;
     	try{

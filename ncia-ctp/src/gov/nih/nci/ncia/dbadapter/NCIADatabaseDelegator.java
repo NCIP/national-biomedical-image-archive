@@ -199,7 +199,7 @@ public class NCIADatabaseDelegator {
     }
 
     private static boolean isMultiStringFieldThatWeCareAbout(String propname) {
-        return propname.equals("00200037") || propname.equals("00200032");
+        return propname.equals("00200037") || propname.equals("00200032")||propname.equals("00080008");
     }
 
 

@@ -205,7 +205,7 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
      */
     private static void populateGeneralImageFromNumbers(Map numbers,
                                                         GeneralImage gi) throws Exception {
-        String temp;
+    	String temp;
         if ((temp = (String) numbers.get(DicomConstants.INSTANCE_NUMBER)) != null) {
             gi.setInstanceNumber(Integer.valueOf(temp.trim()));
         }
@@ -217,7 +217,11 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
             gi.setContentTime(temp.trim());
         }
         if ((temp = (String) numbers.get(DicomConstants.IMAGE_TYPE)) != null) {
-            gi.setImageType(temp.trim());
+        	String first = getFirstValueOfImageType(temp);
+            gi.setImageType(first.trim());
+            
+            String multi_modality = getMultiModalityEelement(temp);
+        	gi.setUsMultiModality(multi_modality);
         }
         if ((temp = (String) numbers.get(DicomConstants.ACQUISITION_NUMBER)) != null) {
             gi.setAcquisitionNumber(Integer.valueOf(temp.trim()));
@@ -298,7 +302,35 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
         if ((temp = (String) numbers.get(DicomConstants.IMAGE_LATERALITY)) != null) {
             gi.setImageLaterality(temp.trim());
         }
+        if ((temp = (String)numbers.get(DicomConstants.US_COLOR_DATA_PRESENT)) != null){
+        	gi.setUsColorDataPresent(temp.trim());
+        }
+        if ((temp = (String)numbers.get(DicomConstants.US_NUM_FRAME)) != null) {
+        	gi.setUsFrameNum(temp.trim());
+        }
     }
+    private static String getFirstValueOfImageType(String temp)
+    {
+    	String returnStr = null;
+    	String[] token = temp.split("\\\\");
+    	
+    	if (token.length > 0){
+    		returnStr = token[0];
+    	}
+    	
+    	return returnStr;
+    }
+    
+    private static String getMultiModalityEelement(String temp){
+    	String returnStr = null;
+    	String[] token = temp.split("\\\\");
+    	if (token.length == 4){
+    		returnStr = token[3];
+    	}
+    	
+    	return returnStr;
+    }
+    
 
     private static String getTrimmedSopInstanceUid(Map numbers) throws Exception {
         String sopInstanceUid = (String) numbers.get(DicomConstants.SOP_INSTANCE_UID);

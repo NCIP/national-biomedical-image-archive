@@ -115,4 +115,6 @@ public class DicomConstants {
     public static final String TRIAL_VISIBILITY = "110";
     public static final String ACQUISITION_MATRIX = "111";
     public static final String DX_DATA_COLLECTION_DIAMETER = "112";   
+    public static final String US_COLOR_DATA_PRESENT = "113";
+    public static final String US_NUM_FRAME = "114";
 }

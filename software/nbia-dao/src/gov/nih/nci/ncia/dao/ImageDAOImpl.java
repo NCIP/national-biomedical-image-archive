@@ -81,7 +81,7 @@ public class ImageDAOImpl extends AbstractDAO
                 projectionList.add(Projections.property("gs.securityGroup"));
                 projectionList.add(Projections.property("tdp.project"));
                 projectionList.add(Projections.property("tdp.dpSiteName"));
-                projectionList.add(Projections.property("i.frameNum"));
+                projectionList.add(Projections.property("i.usFrameNum"));
 
                 criteria = criteria.createCriteria("generalSeries","gs");
                 criteria = criteria.createCriteria("study","s");

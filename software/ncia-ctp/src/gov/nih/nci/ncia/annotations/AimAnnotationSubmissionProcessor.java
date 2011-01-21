@@ -1,7 +1,6 @@
 package gov.nih.nci.ncia.annotations;
 
 import gov.nih.nci.ncia.internaldomain.AimImagingObservationCharacteristic;
-import gov.nih.nci.ncia.internaldomain.AimQuantification;
 import gov.nih.nci.ncia.internaldomain.GeneralSeries;
 
 import java.io.File;

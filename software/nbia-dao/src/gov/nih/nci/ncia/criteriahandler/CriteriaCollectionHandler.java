@@ -21,6 +21,7 @@ import gov.nih.nci.ncia.criteria.CollectionCriteria;
 import gov.nih.nci.ncia.criteria.PatientCriteria;
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.ModelCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
@@ -98,6 +99,9 @@ public class CriteriaCollectionHandler implements CriteriaHandler {
 
         if (criteria instanceof ImageModalityCriteria) {
             tempCollection = ((ImageModalityCriteria) criteria).getImageModalityObjects();
+        }
+        else if (criteria instanceof UsMultiModalityCriteria) {
+            tempCollection = ((UsMultiModalityCriteria) criteria).getUsMultiModalityObjects();
         }
         else if (criteria instanceof CollectionCriteria) {
             tempCollection = ((CollectionCriteria) criteria).getCollectionObjects();

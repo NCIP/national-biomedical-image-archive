@@ -47,7 +47,7 @@ public interface LookupManager {
 	 * 
 	 * <p>This should be an aggregation of all values from getSearchableNodes
      */
-    public List<String> getImageType();
+    public List<String> getUsMultiModality();
 
     /**
      * Return all collections or projects that could be searched on.... in no particular order

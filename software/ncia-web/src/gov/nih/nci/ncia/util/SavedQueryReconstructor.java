@@ -25,6 +25,7 @@ import gov.nih.nci.ncia.criteria.RangeData;
 import gov.nih.nci.ncia.criteria.ReconstructionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 
 import java.util.ArrayList;
@@ -71,7 +72,11 @@ public class SavedQueryReconstructor {
             } else if (krit instanceof ContrastAgentCriteria) {
                 repopulateContrastAgentCriteria((ContrastAgentCriteria) krit,
                         swb, query);
-            } else if (krit instanceof ConvolutionKernelCriteria) {
+            } else if (krit instanceof NumFrameOptionCriteria) {
+                repopulateNumFrameOptionCriteria((NumFrameOptionCriteria) krit,
+                        swb, query);
+            } 
+            else if (krit instanceof ConvolutionKernelCriteria) {
                 repopulateConvolutionKernelCriteria(
                         (ConvolutionKernelCriteria) krit, swb, query);
             }else if (krit instanceof DataCollectionDiameterCriteria) {
@@ -155,28 +160,51 @@ public class SavedQueryReconstructor {
         query.setCriteria(asc);
     }
 
-    private static void repopulateAnnotationOptionCriteria(AnnotationOptionCriteria aoc, 
+    private static void repopulateNumFrameOptionCriteria(NumFrameOptionCriteria noc, 
                                                            SearchWorkflowBean swb,
                                                            DICOMQuery query) {
-        if (aoc != null) {
+        if (noc != null) {
             if (swb != null) {
-                String annotationOptionValue = aoc.getAnnotationOptionValue();
-                String[] annotationOptions = null;
-                if(annotationOptionValue.equals(AnnotationOptionCriteria.NoCondition)) {
-                    annotationOptions = new String[2];
+                String numFrameOptionValue = noc.getNumFrameOptionValue();
+                String[] numFrameOptions = null;
+                if(numFrameOptionValue.equals(NumFrameOptionCriteria.NoCondition)) {
+                	numFrameOptions = new String[2];
 
-                    annotationOptions[0] = AnnotationOptionCriteria.NoAnnotation;
-                    annotationOptions[1] = AnnotationOptionCriteria.AnnotationOnly;
+                	numFrameOptions[0] = NumFrameOptionCriteria.SingleFrameOnly;
+                	numFrameOptions[1] = NumFrameOptionCriteria.MultiFrame;
                 }
                 else {
-                    annotationOptions = new String[1];
-                    annotationOptions[0] = annotationOptionValue;
+                	numFrameOptions = new String[1];
+                	numFrameOptions[0] = numFrameOptionValue;
                 }
-                swb.setAnnotationOptions(annotationOptions);
+                swb.setNumFrameOptions(numFrameOptions);
             }
-            query.setCriteria(aoc);
+            query.setCriteria(noc);
         }
     }
+    
+    private static void repopulateAnnotationOptionCriteria(AnnotationOptionCriteria aoc, 
+            SearchWorkflowBean swb,
+            DICOMQuery query) {
+if (aoc != null) {
+if (swb != null) {
+String annotationOptionValue = aoc.getAnnotationOptionValue();
+String[] annotationOptions = null;
+if(annotationOptionValue.equals(AnnotationOptionCriteria.NoCondition)) {
+annotationOptions = new String[2];
+
+annotationOptions[0] = AnnotationOptionCriteria.NoAnnotation;
+annotationOptions[1] = AnnotationOptionCriteria.AnnotationOnly;
+}
+else {
+annotationOptions = new String[1];
+annotationOptions[0] = annotationOptionValue;
+}
+swb.setAnnotationOptions(annotationOptions);
+}
+query.setCriteria(aoc);
+}
+}
 
     private static void repopulateCollectionCriteria(CollectionCriteria cc,
                                                      SearchWorkflowBean swb, 

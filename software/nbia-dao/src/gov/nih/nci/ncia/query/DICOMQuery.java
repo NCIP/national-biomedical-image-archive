@@ -44,6 +44,7 @@ import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;
 import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ConvolutionKernelCriteria;
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
@@ -51,6 +52,8 @@ import gov.nih.nci.ncia.criteria.DataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.DateRangeCriteria;
 import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
+import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
@@ -86,12 +89,15 @@ import java.util.List;
  */
 public class DICOMQuery extends Query {
     private ImageModalityCriteria imageModalityCriteria;
+    private UsMultiModalityCriteria usMultiModalityCriteria;
     private KilovoltagePeakDistribution kilovoltagePeakDistribution;
     private ReconstructionDiameterCriteria reconstructionDiameterCriteria;
     private AcquisitionMatrixCriteria acquisitionMatrixCriteria;
     private DataCollectionDiameterCriteria dataCollectionDiameterCriteria;
     private DxDataCollectionDiameterCriteria dxDataCollectionDiameterCriteria;
     private ContrastAgentCriteria contrastAgentCriteria;
+    private NumFrameOptionCriteria numFrameOptionCriteria;
+    private ColorModeOptionCriteria colorModeOptionCriteria;
     private AnnotationOptionCriteria annotationOptionCriteria;
     private AnatomicalSiteCriteria anatomicalSiteCriteria;
     private MinNumberOfStudiesCriteria minNumberOfStudiesCriteria;
@@ -333,6 +339,40 @@ public class DICOMQuery extends Query {
         criteriaList.add(contrastAgentCriteria);
         this.contrastAgentCriteria = contrastAgentCriteria;
     }
+    
+    /**
+     * @return Returns the numFrameOptionCriteria.
+     */
+    public NumFrameOptionCriteria getNumFrameOptionCriteria() {
+        return numFrameOptionCriteria;
+    }
+
+    /**
+     * @param numFrameOptionCriteria The numFrameOptionCriteriato set.
+     */
+    public void setCriteria(NumFrameOptionCriteria numFrameOptionCriteria) {
+    	if (numFrameOptionCriteria != null){
+    		criteriaList.add(numFrameOptionCriteria);
+    		this.numFrameOptionCriteria = numFrameOptionCriteria;
+    	}
+    }  
+    
+    /**
+     * @return Returns the numFrameOptionCriteria.
+     */
+    public ColorModeOptionCriteria getColorModeOptionCriteria() {
+        return colorModeOptionCriteria;
+    }
+
+    /**
+     * @param ColorModeOptionCriteria The ColorModeOptionCriteria to set.
+     */
+    public void setCriteria(ColorModeOptionCriteria colorModeOptionCriteria) {
+    	if (colorModeOptionCriteria != null){
+    		criteriaList.add(colorModeOptionCriteria);
+    		this.colorModeOptionCriteria = colorModeOptionCriteria;
+    	}
+    } 
 
     /**
 	 * @return Returns the annotationOptionCriteria.
@@ -363,6 +403,23 @@ public class DICOMQuery extends Query {
         if (imageModalityCriteria != null) {
             criteriaList.add(imageModalityCriteria);
             this.imageModalityCriteria = imageModalityCriteria;
+        }
+    }
+    
+	/**
+     * @return Returns the usMultiModalityCriteria.
+     */
+    public UsMultiModalityCriteria getUsMultiModalityCriteria() {
+        return usMultiModalityCriteria;
+    }
+
+    /**
+     * @param usMultiModalityCriteria The usMultiModalityCriteria to set.
+     */
+    public void setCriteria(UsMultiModalityCriteria usMultiModalityCriteria) {
+        if (usMultiModalityCriteria != null) {
+            criteriaList.add(usMultiModalityCriteria);
+            this.usMultiModalityCriteria = usMultiModalityCriteria;
         }
     }
 

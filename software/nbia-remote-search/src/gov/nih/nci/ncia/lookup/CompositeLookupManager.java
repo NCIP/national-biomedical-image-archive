@@ -80,15 +80,15 @@ public class CompositeLookupManager implements LookupManager {
         /**
 		 * {@inheritDoc}
 		 */
-	    public List<String> getImageType() {
+	    public List<String> getUsMultiModality() {
 
-	    	Set<String> allImageTypes = new HashSet<String>();
+	    	Set<String> allUsMultiModalities = new HashSet<String>();
 
 	    	for(LookupManager lookupManager : lookupManagers) {
-	    	    allImageTypes.addAll(lookupManager.getImageType());
+	    	    allUsMultiModalities.addAll(lookupManager.getUsMultiModality());
 	    	}
 
-	    	return new ArrayList<String>(allImageTypes);
+	    	return new ArrayList<String>(allUsMultiModalities);
     }
 
 

@@ -102,9 +102,9 @@ public class SearchWorkflowBean {
         Collections.sort(anatomicSites);
         anatomicalSiteItems = JsfUtil.getBooleanSelectItemsFromStrings(anatomicSites);
 
-        List<String> imageTypes = lookupMgr.getImageType();
-        Collections.sort(imageTypes);
-        imageTypeItems = JsfUtil.getBooleanSelectItemsFromStrings(imageTypes);
+        List<String> usMultiModalities = lookupMgr.getUsMultiModality();
+        Collections.sort(usMultiModalities);
+        usMultiModalityItems = JsfUtil.getBooleanSelectItemsFromStrings(usMultiModalities);
 
         List<String> kernels = lookupMgr.getDICOMKernelType();
         Collections.sort(kernels);
@@ -334,22 +334,23 @@ public class SearchWorkflowBean {
     	}
     	return selectedAnatomicalSiteNames;
     }
+    
     ///////////////////////////////////END ANATOMICAL SITE ITEMS////////////////////
 
     //////////////////////////////////BEGIN Image Type ITEMS//////////////////////
-    public List<SelectItem> getImageTypeItems() {
-        return imageTypeItems;
+    public List<SelectItem> getUsMultiModalityItems() {
+        return usMultiModalityItems;
     }
 
-    public String selectAllImageTypes() {
-    	for(SelectItem selectItem : imageTypeItems) {
+    public String selectAllUsMultiModalityItems() {
+    	for(SelectItem selectItem : usMultiModalityItems) {
     		selectItem.setValue(true);
     	}
     	return null;
     }
 
-    public String unselectAllImageTypes() {
-    	for(SelectItem selectItem : imageTypeItems) {
+    public String unselectAllUsMultiModalityItems() {
+    	for(SelectItem selectItem : usMultiModalityItems) {
     		selectItem.setValue(false);
     	}
     	return null;
@@ -357,23 +358,23 @@ public class SearchWorkflowBean {
 
 
     //called by saved query
-    public void selectImageTypeNames(Collection<String> selectedImageTypeNames) {
-    	for(String imageTypeName : selectedImageTypeNames) {
-    		SelectItem item = JsfUtil.findSelectItemByLabel(imageTypeItems, imageTypeName);
+    public void selectUsMultiModalityNames(Collection<String> selectedUsMultiModalityNames) {
+    	for(String usMultiModalityName : selectedUsMultiModalityNames) {
+    		SelectItem item = JsfUtil.findSelectItemByLabel(usMultiModalityItems, usMultiModalityName);
     		if(item!=null) {
     			item.setValue(true);
     		}
     	}
     }
 
-    public List<String> getSelectedImageTypeNames() {
-    	List<String> selectedImageTypeNames = new ArrayList<String>();
-    	for(SelectItem item : imageTypeItems) {
+    public List<String> getSelectedUsMultiModalityNames() {
+    	List<String> selectedUsMultiModalityNames = new ArrayList<String>();
+    	for(SelectItem item : usMultiModalityItems) {
     		if(item.getValue().equals(true)) {
-    			selectedImageTypeNames.add(item.getLabel());
+    			selectedUsMultiModalityNames.add(item.getLabel());
     		}
     	}
-    	return selectedImageTypeNames;
+    	return selectedUsMultiModalityNames;
     }
     ///////////////////////////////////END ANATOMICAL SITE ITEMS////////////////////
 
@@ -1065,7 +1066,7 @@ public class SearchWorkflowBean {
     private List<SelectItem> collectionItems = new ArrayList<SelectItem>();
     private List<SelectItem> modalityItems = new ArrayList<SelectItem>();
     private List<SelectItem> anatomicalSiteItems = new ArrayList<SelectItem>();
-    private List<SelectItem> imageTypeItems = new ArrayList<SelectItem>();
+    private List<SelectItem> usMultiModalityItems = new ArrayList<SelectItem>();
     private List<SelectItem> kernelItems = new ArrayList<SelectItem>();
     private List<SelectItem> remoteNodeItems = new ArrayList<SelectItem>();
 

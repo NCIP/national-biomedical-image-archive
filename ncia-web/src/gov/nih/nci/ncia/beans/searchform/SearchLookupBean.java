@@ -200,10 +200,11 @@ public class SearchLookupBean {
         //the UI.  the customer wants a different label than the value,
         //but changing the value would affect saved queries, so keep
         //the value but change the label in the ui
-        colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.BMode,
-                                                 "B-mode"));
-        colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.ColorMode,
-                                                 "With Color Doppler"));
+    	colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.ColorMode,
+        						"Yes"));
+    	colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.BMode,
+                                                 "No"));
+        
     }
 
     private void buildTree() {

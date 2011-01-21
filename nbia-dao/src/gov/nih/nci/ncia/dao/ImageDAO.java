@@ -26,7 +26,7 @@ public interface ImageDAO {
 
 	public Collection<String> findDistinctConvolutionKernels() throws DataAccessException; 
 
-
+	public Collection<String> findAllImageType();
     public Map<Integer, List<ImageDTO>> findKeyedImagesBySeriesPkId(List<Integer> seriesIds)  throws DataAccessException; 
 
 

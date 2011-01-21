@@ -91,22 +91,22 @@ public class RemoteLookupManager implements LookupManager {
      	/**
 	 	 * {@inheritDoc}
 	 	 */
-	     public List<String> getImageType()  {
+	     public List<String> getUsMultiModality()  {
 	     	RemoteNodes remoteNodes = RemoteNodes.getInstance();
 
-	     	Set<String> allImageTypes = new HashSet<String>();
+	     	Set<String> allUsMultiModalities = new HashSet<String>();
 
 	     	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
 	     	for(RemoteNode node : nodes) {
 	     		AvailableSearchTerms availableSearchTerms = node.getAvailableSearchTerms();
 
-	     		String[] imageTypes = availableSearchTerms.getImageTypes();
-	     		if(imageTypes!=null) {
-	     			allImageTypes.addAll(Arrays.asList(imageTypes));
+	     		String[] usMultiModalities = availableSearchTerms.getUsMultiModalities();
+	     		if(usMultiModalities!=null) {
+	     			allUsMultiModalities.addAll(Arrays.asList(usMultiModalities));
 	     		}
 	     	}
 
-	     	return new ArrayList<String>(allImageTypes);
+	     	return new ArrayList<String>(allUsMultiModalities);
 	     }
 
 

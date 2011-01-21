@@ -49,6 +49,7 @@ import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;
+import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
 import gov.nih.nci.ncia.criteria.ConvolutionKernelCriteria;
 import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
@@ -56,11 +57,13 @@ import gov.nih.nci.ncia.criteria.DataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.DateRangeCriteria;
 import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
 import gov.nih.nci.ncia.criteria.ModelCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.NumOfMonthsCriteria;
 import gov.nih.nci.ncia.criteria.PatientCriteria;
 import gov.nih.nci.ncia.criteria.ReconstructionDiameterCriteria;
@@ -74,6 +77,7 @@ import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.util.CrossDatabaseUtil;
 import gov.nih.nci.ncia.util.HqlUtils;
 import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.ncia.util.Ultrasound_Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -412,6 +416,27 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
         return modalityClause;
     }
+    
+    private static String processUsMultiModality(DICOMQuery theQuery){
+		UsMultiModalityCriteria ummc = theQuery.getUsMultiModalityCriteria();
+
+		String usMultiModalityClause = " ";
+		if (ummc != null) {
+        	for(String mmode:ummc.getUsMultiModalityObjects()) {
+ System.out.println("!!!!!!!us mode="+mmode);
+ 			if (usMultiModalityClause.equals(" ")){
+ 				usMultiModalityClause += "and ";
+ 			} 
+ 			else {
+ 				usMultiModalityClause += "or ";
+ 			}
+ 			usMultiModalityClause += " gi.usMultiModality like '%"+Ultrasound_Util.getCodeByGivenImageTypeLabel(mmode)+"%' ";
+        	}
+ System.out.println("!!!!!clause="+ usMultiModalityClause);       	
+		}
+		return usMultiModalityClause;
+	}
+ 
     private static String processAnatomicalSiteCriteria(DICOMQuery theQuery) {
 
         AnatomicalSiteCriteria asc = theQuery.getAnatomicalSiteCriteria();
@@ -632,10 +657,15 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         ContrastAgentCriteria cac = query.getContrastAgentCriteria();
         ImageSliceThickness ist = query.getImageSliceThickness();
         CurationStatusDateCriteria csdc = query.getCurationStatusDateCriteria();
-
-    	return (cac != null) ||
+        NumFrameOptionCriteria nfoc = query.getNumFrameOptionCriteria();
+    	UsMultiModalityCriteria ummc = query.getUsMultiModalityCriteria();
+    	ColorModeOptionCriteria cmoc = query.getColorModeOptionCriteria();
+        return (cac != null) ||
     	       (ist != null) ||
     	       (csdc != null) ||
+    	       (nfoc != null) ||
+    	       (ummc != null) ||
+    	       (cmoc != null) ||
     	       hasCtImageCritera(query);
     }
 
@@ -675,6 +705,9 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
             imageCriteriaIncluded = true;
 
             imgWhere += processContrastAgent(theQuery);
+            imgWhere += processFrameNumOption(theQuery);
+            imgWhere += processColorModeOption(theQuery);
+            imgWhere += processUsMultiModality(theQuery);
 
             imgWhere += processCurationStatusDateCriteria(theQuery);
 
@@ -799,6 +832,50 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
             }
             else {
                 throw new RuntimeException("Not supported constrast agent criteria: " + contrastAgentValue);
+            }
+        }
+        return "";
+    }
+    
+    /**
+     * Given a query, returns the where clause for the number of frame
+     * portion of the query.  Returns 0 length string if no number of frame
+     */
+    private static String processFrameNumOption(DICOMQuery theQuery) {
+    	NumFrameOptionCriteria nfoc = theQuery.getNumFrameOptionCriteria();
+
+        if (nfoc != null) {
+            String numFrameValue = nfoc.getNumFrameOptionValue();
+
+            if (numFrameValue.equalsIgnoreCase(NumFrameOptionCriteria.MultiFrame)) {
+                return GI_MULTI_FRAME;
+            }
+            else
+            if (numFrameValue.equalsIgnoreCase(NumFrameOptionCriteria.SingleFrameOnly)) {
+            	return GI_SINGLE_FRAME;
+            }
+            else {
+                throw new RuntimeException("Not supported numFrameOptionCriteria: " + numFrameValue);
+            }
+        }
+        return "";
+    }
+    
+    private static String processColorModeOption(DICOMQuery theQuery) {
+    	ColorModeOptionCriteria cmoc = theQuery.getColorModeOptionCriteria();
+
+        if (cmoc != null) {
+            String colorModeValue = cmoc.getColorModeOptionValue();
+
+            if (colorModeValue.equalsIgnoreCase(ColorModeOptionCriteria.BMode)) {
+                return GI_BMODE;
+            }
+            else
+            if (colorModeValue.equalsIgnoreCase(ColorModeOptionCriteria.ColorMode)) {
+            	return GI_COLOR_MODE;
+            }
+            else {
+                throw new RuntimeException("Not supported colorModeOptionCriteria: " + colorModeValue);
             }
         }
         return "";

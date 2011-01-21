@@ -19,7 +19,7 @@ public class ColorModeOptionCriteria extends SingleValuePersistentCriteria
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final static String BMode = "Return Only Black and White Images ";
+	public final static String BMode = "Return Only Images With No Color";
 
 	public final static String ColorMode = "Return Colored Images";
 	public final static String NoCondition = "Return All Images";

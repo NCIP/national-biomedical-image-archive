@@ -22,8 +22,8 @@ public class AvailableSearchTermsWrapper implements Comparable<AvailableSearchTe
 		return commaSeparatedList(terms.getModalities());
 	}
 	
-	public String getImageTypes() {
-		return commaSeparatedList(terms.getImageTypes());
+	public String getUsMultiModalities() {
+		return commaSeparatedList(terms.getUsMultiModalities());
 	}
 	 
 	public String getAnatomicSites()

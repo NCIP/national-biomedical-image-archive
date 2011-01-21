@@ -65,6 +65,7 @@ import gov.nih.nci.ncia.search.EquipmentUtil;
 import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.util.Ultrasound_Util;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
@@ -138,8 +139,8 @@ public class LookupManagerImpl implements LookupManager {
 	 * HEAD will be returned here if it is in the system.
 	 * <P>This impl will only return sites for images from visible series.
 	 */	    
-    public List<String> getImageType() {
-        return imageTypeList;
+    public List<String> getUsMultiModality() {
+        return usMultiModalityList;
     }
 
 
@@ -189,7 +190,7 @@ public class LookupManagerImpl implements LookupManager {
 	public AvailableSearchTerms getAvailableSearchTerms() {
 		AvailableSearchTerms availableSearchTerms = new AvailableSearchTerms();
 		availableSearchTerms.setAnatomicSites(toArray(anatomicList));
-		availableSearchTerms.setImageType(toArray(imageTypeList));	
+		availableSearchTerms.setUsMultiModalities(toArray(usMultiModalityList));	
 		availableSearchTerms.setCollections(toArray(collectionList));
 		availableSearchTerms.setConvolutionKernels(toArray(convolutionKernelList));
 		availableSearchTerms.setModalities(toArray(modalityList));
@@ -207,7 +208,7 @@ public class LookupManagerImpl implements LookupManager {
 
     private List<String> modalityList;
     private List<String> anatomicList = null;
-    private List<String> imageTypeList = null;
+    private List<String> usMultiModalityList = null;
     private List<String> convolutionKernelList = null;
     private List<String> collectionList = null;
 
@@ -228,7 +229,7 @@ public class LookupManagerImpl implements LookupManager {
             initModalities();
             
             initAnatomicSites();
-            initImageTypes();
+            initUsMultiModalities();
             initConvolutionKernels();
             
             initSearchCollections(authorizedCollections);
@@ -273,26 +274,35 @@ public class LookupManagerImpl implements LookupManager {
         anatomicList.remove(null); //one way or the other
     }
     
-    private void initImageTypes() throws Exception {
-    	imageTypeList = new ArrayList<String>();
-    	imageTypeList.add("2D Imaging");
-    	imageTypeList.add("M-Mode");
-    	imageTypeList.add("CW Doppler");
-    	imageTypeList.add("PW Doppler");
-    	imageTypeList.add("Color Doppler");
-    	imageTypeList.add("Color M-Mode");
-    	imageTypeList.add("3D Rendering");
-    	imageTypeList.add("Color Power Mode");
-    	imageTypeList.add("Tissue Characterization");
- /*   	imageTypeList = new ArrayList<String>(generalSeriesDAO.findDistinctBodyPartsFromVisibleSeries());  	      	
-
-//            
-        if(imageTypeList.contains(null) && !imageTypeList.contains(BODY_PART_EXAMINED_NOT_SPECIFIED)) {                    	
-        	imageTypeList.add(BODY_PART_EXAMINED_NOT_SPECIFIED);
+    private void initUsMultiModalities() throws Exception {
+    	usMultiModalityList = new ArrayList<String>();
+  /*  usMultiModalityList.add("2D Imaging");
+    	usMultiModalityList.add("M-Mode");
+    	usMultiModalityList.add("CW Doppler");
+    	usMultiModalityList.add("PW Doppler");
+    	usMultiModalityList.add("Color Doppler");
+    	usMultiModalityList.add("Color M-Mode");
+    	usMultiModalityList.add("3D Rendering");
+    	usMultiModalityList.add("Color Power Mode");
+    	usMultiModalityList.add("Tissue Characterization");
+  */  	
+    	ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
+    	ArrayList<String> rawList = new ArrayList<String>(imageDAO.findAllImageType());  	      	
+ 
+        rawList.remove(null); //one way or the other
+        
+        for(String umms : rawList) {
+        	String [] ummsList = umms.split(",");
         	
-        }   
-        imageTypeList.remove(null); //one way or the other
-        */
+        	for (int i = 0; i < ummsList.length; ++i){
+        		String mmlable = Ultrasound_Util.getTextByGivenImageTypeCode(ummsList[i]);
+        		if (!usMultiModalityList.contains(mmlable)){
+        			usMultiModalityList.add(mmlable);
+        		}
+        	}
+
+    	}
+
     }
     
     private void initConvolutionKernels() throws Exception {

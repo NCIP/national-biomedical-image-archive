@@ -135,28 +135,28 @@ public class AvailableSearchTerms implements Serializable {
     }
     
     /**
-     * Gets the ImageTypes value for this AvailableSearchTerms.
+     * Gets the UsMultiModalities value for this AvailableSearchTerms.
      *
-     * @return imageTypes
+     * @return UsMultiModalities
      */
-    public String[] getImageTypes() {
-        return imageTypes;
+    public String[] getUsMultiModalities() {
+        return usMultiModalities;
     }
 
 
     /**
-     * Sets the imageTypes value for this AvailableSearchTerms.
+     * Sets the usMultiModalities value for this AvailableSearchTerms.
      */
-    public void setImageType(String[] imageTypes) {
-        this.imageTypes = imageTypes;
+    public void setUsMultiModalities(String[] usMultiModalities) {
+        this.usMultiModalities = usMultiModalities;
     }
 
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
      */    
-    public String getImageTypes(int i) {
-        return this.imageTypes[i];
+    public String getUsMultiModalities(int i) {
+        return this.usMultiModalities[i];
     }
 
     
@@ -164,8 +164,8 @@ public class AvailableSearchTerms implements Serializable {
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
      */    
-    public void setImageTypes(int i, String _value) {
-        this.imageTypes[i] = _value;
+    public void setUsMultiModalities(int i, String _value) {
+        this.usMultiModalities[i] = _value;
     }      
     /**
      * This is necessary for the web services serializer to recognize
@@ -223,6 +223,6 @@ public class AvailableSearchTerms implements Serializable {
     private String[] convolutionKernels;
     private String[] modalities;
     private String[] anatomicSites;
-    private String[] imageTypes;
+    private String[] usMultiModalities;
     private Manufacturer[] equipment;
 }

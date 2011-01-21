@@ -4,9 +4,12 @@ import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;
 import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ConvolutionKernelCriteria;
 import gov.nih.nci.ncia.criteria.DateRangeCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
+import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
@@ -108,6 +111,17 @@ class QueryBuilder {
         ModalityAndedSearchCriteria masc = new ModalityAndedSearchCriteria();
         masc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
         query.setCriteria(masc);
+        
+        // Setup US Multi modality criteria here
+        List<String> selectedUsMultiModalities = searchBean.getSelectedUsMultiModalityNames();
+        if (selectedUsMultiModalities.size()>0) {
+            UsMultiModalityCriteria ummc = new UsMultiModalityCriteria();
+            ummc.setUsMultiModalityObjects(selectedUsMultiModalities);
+            query.setCriteria(ummc);
+        }
+        ModalityAndedSearchCriteria umasc = new ModalityAndedSearchCriteria();
+        umasc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
+        query.setCriteria(umasc);        
 
         List<String> selectedAnatomical = searchBean.getSelectedAnatomicalSiteNames();
 
@@ -130,6 +144,19 @@ class QueryBuilder {
             query.setCriteria(new ContrastAgentCriteria(theOneContrastAgent));
         }
         //else it is 0 or 2 in which case there is no filter to be had
+        
+        // Setup frame number criteria here
+        if(searchBean.getNumFrameOptions().length==1) {
+            String frameOption = searchBean.getNumFrameOptions()[0];
+           	query.setCriteria(new NumFrameOptionCriteria(frameOption));
+        }
+        // Setup ultra sound color criteria here
+        if(searchBean.getColorModeOptions().length==1) {
+            String colorOption = searchBean.getColorModeOptions()[0];
+           	query.setCriteria(new ColorModeOptionCriteria(colorOption));
+        }
+        
+
 
         // Setup AnnotationOption criteria here
         if(searchBean.getAnnotationOptions().length==1) {

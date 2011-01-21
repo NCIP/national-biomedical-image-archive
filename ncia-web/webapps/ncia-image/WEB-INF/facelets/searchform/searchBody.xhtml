@@ -200,7 +200,7 @@
                      <tr><td colspan="2" class="formTitleIIII"></td></tr>
                   	  <tr>
                       <td class="formLabel">
-                        <h:outputText value="Number of Frames (US)"/>                        
+                        <h:outputText value="#{msg.criteria_NumFrameOptionCriteria}"/>                        
                       </td>
                       <td class="formField">
                       <h:selectManyCheckbox id="numOfFrame"
@@ -213,7 +213,7 @@
                       </tr>    
                       <tr>
                       <td class="formLabel">
-                        <h:outputText value="Ultrasound Image Mode (US)"/>                        
+                        <h:outputText value="Ultrasound Color Data Present (US)"/>                        
                       </td>
                       <td class="formField">
                         <h:selectManyCheckbox id="colorMode"
@@ -226,7 +226,7 @@
                     </tr>  
                     <tr>
                       <td class="formLabel">
-                        <h:outputText value="Image Type (US)" />
+                        <h:outputText value="Ultrasound Image Mode (US)" />
                       </td>
                       <td width="63%" class="formField">
                         <table width="90%" border="0" align="left" cellpadding="0"
@@ -263,7 +263,7 @@
                                              border="0" 
                                              cellpadding="0" 
                                              cellspacing="0" 
-                                             value="#{searchWorkflowBean.imageTypeItems}"
+                                             value="#{searchWorkflowBean.usMultiModalityItems}"
                                              var="imageTypeItem">
                                   <h:column id="imageTypeItemsColumn">
                                     <span style="white-space:nowrap;">
@@ -279,11 +279,11 @@
                             <td align="center" valign="middle">
                               <h:commandButton id="selectAllImageTypes" 
                                                 image="images/SELECTall-noarrow.gif" 
-                                                action="#{searchWorkflowBean.selectAllImageTypes}" />                            
+                                                action="#{searchWorkflowBean.selectAllUsMultiModalityItems}" />                            
                               <br/>
                               <h:commandButton id="unselectAllImageTypes"
                                                image="images/REMOVE-all-noarrow.gif"
-                                               action="#{searchWorkflowBean.unselectAllImageTypes}" /> 
+                                               action="#{searchWorkflowBean.unselectAllUsMultiModalityItems}" /> 
                             </td>
                             <td valign="top">
                               <div class="searchFormSelector">
@@ -292,7 +292,7 @@
                                              border="0" 
                                              cellpadding="0" 
                                              cellspacing="0" 
-                                             value="#{searchWorkflowBean.selectedImageTypeNames}"
+                                             value="#{searchWorkflowBean.selectedUsMultiModalityNames}"
                                              var="item">
                                   <h:column id="selectedImageTypesColumn">
                                     <h:outputText value="#{item}"/> 

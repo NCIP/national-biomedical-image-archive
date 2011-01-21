@@ -18,8 +18,20 @@ public class Ultrasound_Util {
 		}
 	}
 	
+	public static HashMap<String, String> reverseMapping = new HashMap<String, String>();
+	static {
+		for(int index = 0; index < MULTI_M_CODE.length; index++)
+		{
+			reverseMapping.put(MULTI_M_TEXT[index], MULTI_M_CODE[index]);
+		}
+	}
+	
 	public static String getTextByGivenImageTypeCode(String code){
 		return (String)mapping.get(code);
+	}
+	
+	public static String getCodeByGivenImageTypeLabel(String label){
+		return (String)reverseMapping.get(label);
 	}
 	
 	public static void main(String[] args){

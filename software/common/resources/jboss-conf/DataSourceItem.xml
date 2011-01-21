@@ -341,6 +341,7 @@
       <sourceItem>
         <itemLabel>Ultrasound Image Mode</itemLabel>
         <itemName>usMultiModality</itemName>
+        <itemPrimaryValue>true</itemPrimaryValue>
         <itemType>java.lang.String</itemType>
       </sourceItem> 
     <sourceItem>

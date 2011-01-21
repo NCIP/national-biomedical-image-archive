@@ -57,6 +57,7 @@ import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
@@ -119,6 +120,7 @@ public class DICOMQuery extends Query {
     private boolean queryFromUrl = false;
     private ImagingObservationCharacteristicCodeMeaningCriteria imagingObservationCharacteristicCodeMeaningCriteria;
     private ImagingObservationCharacteristicCodeValuePairCriteria imagingObservationCharacteristicCodeValuePairCriteria;
+    private ImagingObservationCharacteristicQuantificationCriteria imagingObservationCharacteristicQuantificationCriteria;
 
     // The number of milliseconds it took to run this query
     private long elapsedTimeInMillis;
@@ -140,6 +142,17 @@ public class DICOMQuery extends Query {
     public DICOMQuery() {
         super();
         criteriaList = new ArrayList<Criteria>();
+    }
+
+    public ImagingObservationCharacteristicQuantificationCriteria getImagingObservationCharacteristicQuantificationCriteria() {
+        return imagingObservationCharacteristicQuantificationCriteria;
+    }
+
+    public void setCriteria(ImagingObservationCharacteristicQuantificationCriteria imagingObservationCharacteristicQuantificationCriteria) {
+        if (imagingObservationCharacteristicQuantificationCriteria != null) {
+            criteriaList.add(imagingObservationCharacteristicQuantificationCriteria);
+            this.imagingObservationCharacteristicQuantificationCriteria = imagingObservationCharacteristicQuantificationCriteria;
+        }
     }
 
 

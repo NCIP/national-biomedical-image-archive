@@ -7,7 +7,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
-<f:subview id="aimCriteria">  
+<f:subview id="aimCriteria" rendered="#{aimSearchWorkflowBean.aimVisible}">  
                             
 
   <table border="0" width="100%" cellpadding="3" cellspacing="0"
@@ -218,9 +218,14 @@
                      cellspacing="0"
                      value="#{aimSearchWorkflowBean.quantifications}"
                      var="quantification">
-          <h:column id="scaleQuantificationColumn">
-            
+          <h:column id="scaleQuantificationColumn">                              
+
             <div style="border-style: double; padding:5px">
+              <h:commandLink id="removeQuantificationLink" 
+                             actionListener="#{aimSearchWorkflowBean.removeQuantificationItem}">
+                <f:attribute name="quantificationName" value="#{quantification.name}" />
+                <h:graphicImage value="images/cancel.png" style="border:0px" />
+              </h:commandLink>               
               #{quantification.name}
               <f:subview rendered="#{quantification.scale}">
                 =              

@@ -70,7 +70,7 @@ public class AimXmlUtil {
 			imagingObservationCharacteristic.setCodeValue(codeValue);
 			imagingObservationCharacteristic.setGeneralSeries(generalSeries);
 			imagingObservationCharacteristic.setSeriesPKId(generalSeries.getId());
-			
+
 			Set<AimQuantification> quantifications = parseQuantifications(imagingObservationCharacteristicElement,
 				                                                          imagingObservationCharacteristic);
 			imagingObservationCharacteristic.setAimQuantificationCollection(quantifications);
@@ -101,7 +101,7 @@ public class AimXmlUtil {
 			AimQuantification aimQuantification = new AimQuantification();
 			aimQuantification.setName(name);
 			aimQuantification.setValue(value);
-			aimQuantification.setType(type);
+			aimQuantification.setType(filterNameSpace(type));
 			aimQuantification.setAimImagingObservationCharacteristic(aimImagingObservationCharacteristic);
 
 			results.add(aimQuantification);
@@ -112,4 +112,19 @@ public class AimXmlUtil {
 	private static String AIM_NS = "gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM";
 
 	private static String XSI_NS = "http://www.w3.org/2001/XMLSchema-instance";
+
+	private static String filterNameSpace(String nodeNameWithPossibleNameSpace) {
+		int dex = nodeNameWithPossibleNameSpace.indexOf(':');
+		if(dex!=-1) {
+			if(dex<nodeNameWithPossibleNameSpace.length()-1) {
+			    return nodeNameWithPossibleNameSpace.substring(dex+1);
+	    	}
+	    	else {
+				return nodeNameWithPossibleNameSpace;
+		    }
+	    }
+		else {
+			return nodeNameWithPossibleNameSpace;
+		}
+	}
 }

@@ -59,6 +59,9 @@ import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
@@ -78,6 +81,7 @@ import gov.nih.nci.ncia.util.CrossDatabaseUtil;
 import gov.nih.nci.ncia.util.HqlUtils;
 import gov.nih.nci.ncia.util.SiteData;
 import gov.nih.nci.ncia.util.Ultrasound_Util;
+import gov.nih.nci.ncia.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -95,25 +99,32 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author NCIA Team
  */
-public class DICOMQueryHandlerImpl extends AbstractDAO 
+public class DICOMQueryHandlerImpl extends AbstractDAO
                                    implements DICOMQueryHandler {
     private static Logger logger = Logger.getLogger(DICOMQueryHandler.class);
 
     /*
      * Constants for building non-image query Concatenate the IDs so that only
      * one column is returned (improves performance)
+     * 
+     * <p>because n AIM rows will match to 1 series, need distinct.  without AIM, distinct not necessary
      */
-    private static final String SQL_QUERY_SELECT = "SELECT p.id || '/' || study.id || '/' || series.id ";
+    private static final String SQL_QUERY_SELECT = "SELECT distinct p.id || '/' || study.id || '/' || series.id ";
 
-    private static final String SQL_QUERY_FROM_NEITHER = "FROM Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series";
-    private static final String SQL_QUERY_FROM_BOTH = "FROM StudyNumber sn, NumberMonth nm, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series";
-    private static final String SQL_QUERY_FROM_STUDY = "FROM StudyNumber sn, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series";
-    private static final String SQL_QUERY_FROM_MONTH = "FROM NumberMonth nm, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series";
+    //switch query to include aim criteria conditionally
+
+    private static final String SQL_QUERY_FROM_NEITHER = "FROM Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
+    private static final String SQL_QUERY_FROM_BOTH = "FROM StudyNumber sn, NumberMonth nm, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
+    private static final String SQL_QUERY_FROM_STUDY = "FROM StudyNumber sn, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
+    private static final String SQL_QUERY_FROM_MONTH = "FROM NumberMonth nm, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
+    private static final String SQL_QUERY_FROM_AIM = "FROM AimImagingObservationCharacteristic aimObsChar join aimObsChar.aimQuantificationCollection aimQ, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
+
 
     private static final String SQL_QUERY_WHERE_NEITHER = " WHERE series.visibility = '1' ";
     private static final String SQL_QUERY_WHERE_BOTH = " WHERE series.visibility = '1' and p.id = sn.id and p.id = nm.id ";
     private static final String SQL_QUERY_WHERE_STUDY = " WHERE series.visibility = '1' and p.id = sn.id ";
     private static final String SQL_QUERY_WHERE_MONTH = " WHERE series.visibility = '1' and p.id = nm.id ";
+    private static final String SQL_QUERY_WHERE_AIM = " WHERE series.visibility = '1' and series.id = aimObsChar.seriesPKId ";
 
     /*
      * Constants for building image criteria query Use exists clause in subquery
@@ -163,67 +174,67 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
     public List<PatientStudySeriesTriple> findTriples(DICOMQuery theQuery) throws DataAccessException {
 		try {
 	        query = theQuery;
-	
+
 	        selectStmt = SQL_QUERY_SELECT;
 	        fromStmt = SQL_QUERY_FROM_NEITHER;
 	        whereStmt = SQL_QUERY_WHERE_NEITHER;
-	
+
 	        /* List to return */
 	        List<PatientStudySeriesTriple> patientList = new ArrayList<PatientStudySeriesTriple>();
-	
+
 	        /* Process non-image criteria */
 	        this.nonImageProcess();
-	
+
 	        /* Process UrlParamCriteria if the DICOMQuery is URLType */
 	        if (query.isQueryFromUrl()) {
 	            whereStmt += urlCriteriaProcess();
 	        }
-	
+
 	        /* Process Authorization */
 	        String rc = authorizationProcess(query);
-	
+
 	        if (rc == null) {
 	            return new ArrayList<PatientStudySeriesTriple>();
 	        }
 	        else {
 	        	whereStmt += rc;
 	        }
-	
+
 	        /* Process image criteria */
 	        String imageClause = imageCriteriaProcess(this.query);
 	        String hql = selectStmt + fromStmt + whereStmt + imageClause;
-	
+
 	        /* Run the query */
-	        logger.info("Search Issuing query : " + hql);
+	        System.out.println("Search Issuing query : " + hql);
 	        long startTime = System.currentTimeMillis();
 	        List<String> results = getHibernateTemplate().find(hql);
 	        long elapsedTime = System.currentTimeMillis() - startTime;
 	        logger.info("Results returned from query in " + elapsedTime + " ms.");
-	
+
 	        /* Convert the results to PatientResultSet objects */
 	        if (results != null) {
-	
+
 	            for (String str : results) {
-	
+
 	                //Parse out the primary keys These are concatenated into one
 	                //column to improve performance The fewer columns returned, the
 	                //better that Hibernate performs
-	
+
 	                String[] ids = str.split("/");
-	
+
 	                PatientStudySeriesTriple prs = new PatientStudySeriesTriple();
 	                prs.setPatientPkId(Integer.valueOf(ids[0]));
 	                prs.setStudyPkId(Integer.valueOf(ids[1]));
 	                prs.setSeriesPkId(Integer.valueOf(ids[2]));
-	
+
 	                patientList.add(prs);
 	            }
 	        }
-	
-	
+
+
 	        return patientList;
 		}
-		catch(Exception e) {
+		catch(Throwable e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
@@ -277,6 +288,8 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 
         whereStmt += processSeriesDescriptionCriteria(query);
 
+        whereStmt += processAimCriteria(query);
+
         generateGeneralEquipmentJoinHql();
     }
 
@@ -302,8 +315,75 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
             	fromStmt = SQL_QUERY_FROM_MONTH;
             }
         }
+        
+        ImagingObservationCharacteristicCodeMeaningCriteria crit = query.getImagingObservationCharacteristicCodeMeaningCriteria();
+        ImagingObservationCharacteristicCodeValuePairCriteria crit2 = query.getImagingObservationCharacteristicCodeValuePairCriteria();
+        ImagingObservationCharacteristicQuantificationCriteria crit3 = query.getImagingObservationCharacteristicQuantificationCriteria();
+
+        if(Util.hasAtLeastOneNonNullArgument(crit, crit2, crit3)) {
+        	whereStmt = SQL_QUERY_WHERE_AIM;
+        	fromStmt = SQL_QUERY_FROM_AIM;
+        }
     }
 
+
+    private static String processAimCriteria(DICOMQuery theQuery) {
+        String aimWhereStmt = "";
+        ImagingObservationCharacteristicCodeMeaningCriteria crit = theQuery.getImagingObservationCharacteristicCodeMeaningCriteria();
+        if (crit != null) {
+        	//1000+ code meaning names will sink Oracle
+        	aimWhereStmt += " and aimObsChar.codeMeaningName in (";
+
+        	Iterator<String> iter = crit.getImagingObservationCharacteristicCodeMeaningNames().iterator();
+        	while(iter.hasNext()) {
+        		aimWhereStmt += quoteMe(iter.next());
+
+        		if(iter.hasNext()) {
+        			aimWhereStmt += ",";
+        		}
+        	}
+        	aimWhereStmt += ") ";
+        }
+
+
+        ImagingObservationCharacteristicCodeValuePairCriteria crit2 = theQuery.getImagingObservationCharacteristicCodeValuePairCriteria();
+        if (crit2 != null) {
+        	//1000+ code meaning names will sink Oracle
+        	aimWhereStmt += " and concat(aimObsChar.codeSchemaDesignator,'-',aimObsChar.codeValue) in (";
+
+        	Iterator<String> iter = crit2.getImagingObservationCharacteristicCodeValuePairs().iterator();
+        	while(iter.hasNext()) {
+        		aimWhereStmt += quoteMe(iter.next());
+
+        		if(iter.hasNext()) {
+        			aimWhereStmt += ",";
+        		}
+        	}
+        	aimWhereStmt += ") ";
+        }
+
+
+        ImagingObservationCharacteristicQuantificationCriteria crit3 = theQuery.getImagingObservationCharacteristicQuantificationCriteria();
+        if (crit3 != null) {
+        	//1000+ code meaning names will sink Oracle
+        	aimWhereStmt += " and concat(aimQ.name,'=',aimQ.value) in (";
+
+        	Iterator<String> iter = crit3.getImagingObservationCharacteristicQuantifications().iterator();
+        	while(iter.hasNext()) {
+        		aimWhereStmt += quoteMe(iter.next());
+
+        		if(iter.hasNext()) {
+        			aimWhereStmt += ",";
+        		}
+        	}
+        	aimWhereStmt += ") ";
+        }
+        return aimWhereStmt;
+    }
+
+    private static String quoteMe(String s) {
+    	return "'"+s+"'";
+    }
 
     private static String processSeriesDescriptionCriteria(DICOMQuery theQuery) {
         String seriesDescriptionWhereStmt = "";

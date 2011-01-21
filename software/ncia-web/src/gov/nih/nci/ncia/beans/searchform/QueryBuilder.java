@@ -23,10 +23,12 @@ import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
+import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.util.StringUtil;
 import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
+import gov.nih.nci.ncia.beans.searchform.aim.Quantification;
 
 import java.util.Date;
 import java.util.List;
@@ -61,9 +63,6 @@ class QueryBuilder {
     	List<String> codeMeaningNames = searchBean.getSelectedCodeMeaningNames();
 
         if(codeMeaningNames.size()>0) {
-			for(String cm : codeMeaningNames) {
-				System.out.println("cm:"+cm);
-			}
 
 			ImagingObservationCharacteristicCodeMeaningCriteria crit =
 				new ImagingObservationCharacteristicCodeMeaningCriteria();
@@ -75,13 +74,24 @@ class QueryBuilder {
     	List<String> codeValuePairs = searchBean.getSelectedCodeValuePairNames();
 
         if(codeValuePairs.size()>0) {
-			for(String cm : codeValuePairs) {
-				System.out.println("cm:"+cm);
-			}
 
 			ImagingObservationCharacteristicCodeValuePairCriteria crit =
 				new ImagingObservationCharacteristicCodeValuePairCriteria();
 			crit.setImagingObservationCharacteristicCodeValuePairs(codeValuePairs);
+
+			query.setCriteria(crit);
+		}
+
+		List<Quantification> quantifications = searchBean.getQuantifications();
+        if(quantifications.size()>0) {
+
+            List<String> shortArmQ = new ArrayList<String>();
+            for(Quantification q : quantifications) {
+				shortArmQ.add(q.getName()+"="+q.getValue());
+		    }
+			ImagingObservationCharacteristicQuantificationCriteria crit =
+				new ImagingObservationCharacteristicQuantificationCriteria();
+			crit.setImagingObservationCharacteristicQuantifications(shortArmQ);
 
 			query.setCriteria(crit);
 		}
@@ -111,7 +121,7 @@ class QueryBuilder {
         ModalityAndedSearchCriteria masc = new ModalityAndedSearchCriteria();
         masc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
         query.setCriteria(masc);
-        
+
         // Setup US Multi modality criteria here
         List<String> selectedUsMultiModalities = searchBean.getSelectedUsMultiModalityNames();
         if (selectedUsMultiModalities.size()>0) {
@@ -121,7 +131,7 @@ class QueryBuilder {
         }
         ModalityAndedSearchCriteria umasc = new ModalityAndedSearchCriteria();
         umasc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
-        query.setCriteria(umasc);        
+        query.setCriteria(umasc);
 
         List<String> selectedAnatomical = searchBean.getSelectedAnatomicalSiteNames();
 
@@ -144,7 +154,7 @@ class QueryBuilder {
             query.setCriteria(new ContrastAgentCriteria(theOneContrastAgent));
         }
         //else it is 0 or 2 in which case there is no filter to be had
-        
+
         // Setup frame number criteria here
         if(searchBean.getNumFrameOptions().length==1) {
             String frameOption = searchBean.getNumFrameOptions()[0];
@@ -155,7 +165,7 @@ class QueryBuilder {
             String colorOption = searchBean.getColorModeOptions()[0];
            	query.setCriteria(new ColorModeOptionCriteria(colorOption));
         }
-        
+
 
 
         // Setup AnnotationOption criteria here

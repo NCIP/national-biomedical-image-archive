@@ -98,6 +98,11 @@
   <bean id="springApplicationContext" class="gov.nih.nci.ncia.util.SpringApplicationContext"/>
   
   
+  <bean id="aimImgObsCharacteristicQuantificationDAO" class="gov.nih.nci.ncia.dao.AimImgObsCharacteristicQuantificationDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
   
   <bean id="aimImgObsCharacteristicDAO" class="gov.nih.nci.ncia.dao.AimImgObsCharacteristicDAOImpl">
     <property name="sessionFactory">

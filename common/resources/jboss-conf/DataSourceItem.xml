@@ -326,7 +326,22 @@
         <itemLabel>Row Count</itemLabel>
         <itemName>rows</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>             
+      </sourceItem>    
+      <sourceItem>
+        <itemLabel>Number of Frame(s)</itemLabel>
+        <itemName>usFrameNum</itemName>
+        <itemType>java.lang.String</itemType>
+      </sourceItem> 
+      <sourceItem>
+        <itemLabel>Ultrasound Color Data Present</itemLabel>
+        <itemName>usColorDataPresent</itemName>
+        <itemType>java.lang.String</itemType>
+      </sourceItem> 
+      <sourceItem>
+        <itemLabel>Ultrasound Image Mode</itemLabel>
+        <itemName>usMultiModality</itemName>
+        <itemType>java.lang.String</itemType>
+      </sourceItem> 
     <sourceItem>
       <itemLabel>KVP</itemLabel>
       <itemName>KVP</itemName>

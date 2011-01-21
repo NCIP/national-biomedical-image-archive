@@ -335,6 +335,7 @@
       <sourceItem>
         <itemLabel>Ultrasound Color Data Present</itemLabel>
         <itemName>usColorDataPresent</itemName>
+        <itemPrimaryValue>true</itemPrimaryValue>
         <itemType>java.lang.String</itemType>
       </sourceItem> 
       <sourceItem>

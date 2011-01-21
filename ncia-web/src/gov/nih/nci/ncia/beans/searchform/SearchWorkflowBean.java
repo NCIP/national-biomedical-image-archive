@@ -1186,6 +1186,8 @@ public class SearchWorkflowBean {
         unselectAllCollections();
         unselectAllModalities();
         unselectAllAnatomicalSites();
+        
+        this.aimSearchWorkflowBean.setDefaultValues();
     }
 
     private void setDefaultKilovoltValues() {

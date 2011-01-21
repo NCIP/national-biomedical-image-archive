@@ -11,7 +11,7 @@ import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
 import gov.nih.nci.ncia.util.AdapterUtil;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.util.UltrasoundUtil;
+;
 
 import java.util.Date;
 import java.util.Map;
@@ -32,11 +32,11 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
     private GeneralSeries series;
    // private boolean visibility;
     private boolean replacement = false;
-    
+
     private static final String SOP_INSTANCE_UID_LPAREN = "SOP Instance UID (";
     private static final String IN_THE_SUBMITTED_IMAGE = " in the submitted image.";
     private static final String IN_DATABASE_AND = " in database and ";
-    
+
     public GeneralImageOperation() {
     }
 
@@ -73,7 +73,7 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
             gi.setStudyInstanceUID(study.getStudyInstanceUID());
             gi.setSeriesInstanceUID(series.getSeriesInstanceUID());
             gi.setProject(dataProvenance.getProject());
-            //Since visibility is forced to set to "0" (not yet reviewed) 
+            //Since visibility is forced to set to "0" (not yet reviewed)
             //There is no reason to set curationTimestamp here
 //            if (this.visibility) {
 //                gi.setVisibility("1");
@@ -137,7 +137,7 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
 //        }
         return this.replacement;
     }
-    
+
     /**
      * When an image is updated/resubmitted/replaced, certain fields between
      * the existing image and the new one need to match up, or else we
@@ -220,10 +220,10 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
         if ((temp = (String) numbers.get(DicomConstants.IMAGE_TYPE)) != null) {
         	String first = getFirstValueOfImageType(temp);
             gi.setImageType(first.trim());
-            
-            String multi_modality = getMultiModalityEelement(temp);
-            String multiModilaty = UltrasoundUtil.getMultiModalityByCode(multi_modality);
-        	gi.setUsMultiModality(multiModilaty);
+
+            //String multi_modality = getMultiModalityEelement(temp);
+            //String multiModilaty = UltrasoundUtil.getMultiModalityByCode(multi_modality);
+        	//gi.setUsMultiModality(multiModilaty);
         }
         if ((temp = (String) numbers.get(DicomConstants.ACQUISITION_NUMBER)) != null) {
             gi.setAcquisitionNumber(Integer.valueOf(temp.trim()));
@@ -325,24 +325,24 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
     {
     	String returnStr = null;
     	String[] token = temp.split("\\\\");
-    	
+
     	if (token.length > 0){
     		returnStr = token[0];
     	}
-    	
+
     	return returnStr;
     }
-    
+
     private static String getMultiModalityEelement(String temp){
     	String returnStr = null;
     	String[] token = temp.split("\\\\");
     	if (token.length == 4){
     		returnStr = token[3];
     	}
-    	
+
     	return returnStr;
     }
-    
+
 
     private static String getTrimmedSopInstanceUid(Map numbers) throws Exception {
         String sopInstanceUid = (String) numbers.get(DicomConstants.SOP_INSTANCE_UID);

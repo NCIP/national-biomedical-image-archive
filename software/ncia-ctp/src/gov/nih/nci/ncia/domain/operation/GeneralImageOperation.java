@@ -11,6 +11,7 @@ import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
 import gov.nih.nci.ncia.util.AdapterUtil;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.ncia.util.UltrasoundUtil;
 
 import java.util.Date;
 import java.util.Map;
@@ -221,7 +222,8 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
             gi.setImageType(first.trim());
             
             String multi_modality = getMultiModalityEelement(temp);
-        	gi.setUsMultiModality(multi_modality);
+            String multiModilaty = UltrasoundUtil.getMultiModalityByCode(multi_modality);
+        	gi.setUsMultiModality(multiModilaty);
         }
         if ((temp = (String) numbers.get(DicomConstants.ACQUISITION_NUMBER)) != null) {
             gi.setAcquisitionNumber(Integer.valueOf(temp.trim()));
@@ -303,7 +305,17 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
             gi.setImageLaterality(temp.trim());
         }
         if ((temp = (String)numbers.get(DicomConstants.US_COLOR_DATA_PRESENT)) != null){
-        	gi.setUsColorDataPresent(temp.trim());
+        	if(temp != null)
+        	{
+        		temp = temp.trim();
+        	   	if (temp.equals("1")){
+        	   		temp = "True";
+        	   	}else
+        	   	{
+        	   		temp = "False";
+        	   	}
+        	}
+        	gi.setUsColorDataPresent(temp);
         }
         if ((temp = (String)numbers.get(DicomConstants.US_NUM_FRAME)) != null) {
         	gi.setUsFrameNum(temp.trim());

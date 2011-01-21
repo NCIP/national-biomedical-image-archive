@@ -5,14 +5,14 @@ import java.text.NumberFormat;
 
 /**
  * Util class for Ultrasound process
- * 
+ *
  * @author zhoujim
  *
  */
 public class UltrasoundUtil {
 
 public static final int[] MASKS = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020,0x0040, 0x0100, 0x0200};
-	
+
 	public static String getMultiModalityByCode(String code)
 	{
 		NumberFormat nf = new DecimalFormat("#0000");
@@ -22,13 +22,14 @@ public static final int[] MASKS = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x002
 	         if((MASKS[i] & intCode) > 0) {
 	        	 String s = Integer.toString(MASKS[i],16);
 	        	 long l = Long.parseLong(s);
-	        	 buff.append(nf.format(l)+",");
+	        	 buff.append(nf.format(l));
+	        	 buff.append(",");
 	         }
 	   }
-	   String result = buff.toString(); 
-	  return result.substring(0,result.length()-1);
+	   String result = buff.toString();
+	   return result.substring(0,result.length()-1);
 	}
-	
+
 	public static void main(String[] args) {
 		String result = getMultiModalityByCode("0011");
 		System.out.println("result: " + result );

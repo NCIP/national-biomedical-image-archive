@@ -14,6 +14,9 @@ import gov.nih.nci.ncia.criteria.NumOfMonthsCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
+import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -99,9 +102,23 @@ public class DICOMQueryTestCase extends TestCase {
 		dicomQuery.setCriteria(this.equalsCrit);
 		dicomQuery.setCriteria(anatomicalCrit);
 		dicomQuery.setCriteria(imageSliceThick);
-
 		dicomQuery.setCriteria(kilovoltagePeakDistribution);
-
+		dicomQuery.setCriteria(colorModeOptionCriteria);
+		dicomQuery.setCriteria(numFrameOptionCriteria);
+		dicomQuery.setCriteria(usMultiModalityCriteria);
+				
+		Collection<String> s = dicomQuery.getUsMultiModalityCriteria().getUsMultiModalityObjects();
+		Assert.assertTrue(s.size()==2);
+		Assert.assertTrue(s.contains("0001"));
+		Assert.assertTrue(s.contains("0002"));
+		
+		Assert.assertSame(dicomQuery.getNumFrameOptionCriteria().getSingleValue(),
+                          "65");
+		
+		Assert.assertSame(dicomQuery.getColorModeOptionCriteria()
+				                    .getColorModeOptionValue(),
+                          ColorModeOptionCriteria.BMode);
+		
 		Assert.assertSame(dicomQuery.getQueryName(), "Query 1");
 		Assert.assertSame(dicomQuery.getUserID(), "kascice");
 
@@ -205,6 +222,9 @@ public class DICOMQueryTestCase extends TestCase {
                                        .intValue();
 		Assert.assertEquals(kvpToValue, 
                             new Integer(5));
+		
+		
+
 
 	}
 	
@@ -219,7 +239,11 @@ public class DICOMQueryTestCase extends TestCase {
 		softwareVersionCrit = new SoftwareVersionCriteria();
 		seriesDescriptionCrit = new SeriesDescriptionCriteria();
 		equalsCrit = new NumOfMonthsCriteria(RangeData.EQUAL_TO, "10");
-
+		colorModeOptionCriteria = new ColorModeOptionCriteria(ColorModeOptionCriteria.BMode);
+		numFrameOptionCriteria = new NumFrameOptionCriteria("65");
+		usMultiModalityCriteria = new UsMultiModalityCriteria();
+		usMultiModalityCriteria.setUsMultiModalityObjects(java.util.Arrays.asList(new String[]{"0001","0002"}));
+		
 		collectionCrit = new CollectionCriteria();
 		manufactureCrit = new ManufacturerCriteria();
 		modelCrit = new ModelCriteria();
@@ -246,7 +270,7 @@ public class DICOMQueryTestCase extends TestCase {
 	private AnatomicalSiteCriteria anatomicalCrit;
 	private MinNumberOfStudiesCriteria minStudiesCrit;
 	private NumOfMonthsCriteria equalsCrit;
-
+	
 	private CollectionCriteria collectionCrit;
 	private ConvolutionKernelCriteria convolutionKernelCrit;
 	private SoftwareVersionCriteria softwareVersionCrit;
@@ -258,4 +282,7 @@ public class DICOMQueryTestCase extends TestCase {
 	private ImageSliceThickness imageSliceThick;
 	private ManufacturerCriteria manufactureCrit;
 	private ModelCriteria modelCrit;
+	private ColorModeOptionCriteria colorModeOptionCriteria;
+	private NumFrameOptionCriteria numFrameOptionCriteria;
+	private UsMultiModalityCriteria usMultiModalityCriteria;
 }

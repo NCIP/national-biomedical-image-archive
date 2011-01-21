@@ -87,6 +87,15 @@
 
     </createTable>      
     
-   </changeSet>  
+   </changeSet> 
+   
+   <changeSet id="5.0.ultrasound" author="panq">          
+       <comment>Optimizations multi-modality for ultrasound</comment>
+       
+       <createIndex tableName="general_image" indexName="US_MULTI_MODALITY_IDX">
+         <column name="US_MULTI_MODALITY"/>
+       </createIndex>    
+      
+  </changeSet>      
 
 </databaseChangeLog>

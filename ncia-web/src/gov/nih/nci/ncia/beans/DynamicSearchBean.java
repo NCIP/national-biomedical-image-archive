@@ -17,6 +17,7 @@ import gov.nih.nci.ncia.util.SelectItemLabelComparator;
 import gov.nih.nci.ncia.util.SiteData;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.util.StringUtil;
+import gov.nih.nci.ncia.util.Ultrasound_Util;
 import gov.nih.nci.ncia.xmlobject.DataGroup;
 import gov.nih.nci.ncia.xmlobject.DataSource;
 import gov.nih.nci.ncia.xmlobject.Element;
@@ -273,14 +274,38 @@ public class DynamicSearchBean {
 		}
 		permissibleData = new ArrayList<SelectItem>();
 		permissibleData.add(new SelectItem(defaultSelectValue, defaultSelectLabel));
-		for (String st : permissibleDataItems)
+		//special case for permissible data
+		if (field.equalsIgnoreCase("usMultiModality"))
 		{
-			permissibleData.add(new SelectItem(st==null ? notPopulated : st, st==null ? notPopulated : st));
+			List<String> m_modality_list = parseMultiModality(permissibleDataItems);
+			for (String st : m_modality_list){
+				permissibleData.add(new SelectItem(st, Ultrasound_Util.getTextByGivenImageTypeCode(st)));
+			}
+			
+		}else{
+			for (String st : permissibleDataItems)
+			{
+				permissibleData.add(new SelectItem(st==null ? notPopulated : st, st==null ? notPopulated : st));
+			}
 		}
-
 		this.permissibleDataValue = defaultSelectValue;
 	}
 
+	private List<String> parseMultiModality(List<String> list){
+		List<String> myList = new ArrayList<String>();
+		for (String s : list){
+			String[] item = s.split(",");
+				for(String s2 : item){
+					if (!myList.contains(s2)){
+						myList.add(s2);
+					}
+				}
+		}
+		Collections.sort(myList);
+		
+		return myList;
+	}
+	
 	private void loadProjectName() throws Exception
 	{
 		SecurityBean sb = BeanManager.getSecurityBean();

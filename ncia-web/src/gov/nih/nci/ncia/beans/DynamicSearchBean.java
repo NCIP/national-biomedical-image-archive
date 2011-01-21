@@ -294,6 +294,7 @@ public class DynamicSearchBean {
 	private List<String> parseMultiModality(List<String> list){
 		List<String> myList = new ArrayList<String>();
 		for (String s : list){
+			if (s == null){continue;}
 			String[] item = s.split(",");
 				for(String s2 : item){
 					if (!myList.contains(s2)){

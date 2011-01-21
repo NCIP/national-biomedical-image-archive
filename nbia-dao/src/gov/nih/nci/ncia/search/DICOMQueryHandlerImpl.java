@@ -707,6 +707,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
             imgWhere += processContrastAgent(theQuery);
             imgWhere += processFrameNumOption(theQuery);
             imgWhere += processColorModeOption(theQuery);
+System.out.println("!!! imagWhere="+ imgWhere);
             imgWhere += processUsMultiModality(theQuery);
 
             imgWhere += processCurationStatusDateCriteria(theQuery);
@@ -863,7 +864,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
     
     private static String processColorModeOption(DICOMQuery theQuery) {
     	ColorModeOptionCriteria cmoc = theQuery.getColorModeOptionCriteria();
-
+    
         if (cmoc != null) {
             String colorModeValue = cmoc.getColorModeOptionValue();
 

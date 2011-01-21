@@ -81,8 +81,8 @@ public interface DICOMQueryHandler {
     public static final String GI_CONSTRAST_BOLUS_AGENT_NULL = " and gi.contrastBolusAgent is null ";
     public static final String GI_MULTI_FRAME = " and gi.usFrameNum > 1 ";
     public static final String GI_SINGLE_FRAME = " and gi.usFrameNum <= 1 ";
-    public static final String GI_BMODE = " and gi.usColorDataPresent = '00' ";
-    public static final String GI_COLOR_MODE = " and gi.usColorDataPresent = '01' ";
+    public static final String GI_BMODE = " and gi.usColorDataPresent = 'False' ";
+    public static final String GI_COLOR_MODE = " and gi.usColorDataPresent = 'True' ";
     public static final String GI_MULTI_MODALITY = " and gi.usMultiModality == ";
     public static final String CURATION_TIMESTAMP = " and gi.curationTimestamp > ";
     public static final String JOIN_CTIMAGE = " join  gi.ctimage ci ";

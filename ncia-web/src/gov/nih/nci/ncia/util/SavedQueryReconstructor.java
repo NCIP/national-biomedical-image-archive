@@ -26,6 +26,7 @@ import gov.nih.nci.ncia.criteria.ReconstructionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
+import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 
 import java.util.ArrayList;
@@ -75,7 +76,10 @@ public class SavedQueryReconstructor {
             } else if (krit instanceof NumFrameOptionCriteria) {
                 repopulateNumFrameOptionCriteria((NumFrameOptionCriteria) krit,
                         swb, query);
-            } 
+            } else if (krit instanceof ColorModeOptionCriteria) {
+                repopulateColorModeOptionCriteria((ColorModeOptionCriteria) krit,
+                        swb, query);
+            }             
             else if (krit instanceof ConvolutionKernelCriteria) {
                 repopulateConvolutionKernelCriteria(
                         (ConvolutionKernelCriteria) krit, swb, query);
@@ -182,6 +186,28 @@ public class SavedQueryReconstructor {
             query.setCriteria(noc);
         }
     }
+    
+    private static void repopulateColorModeOptionCriteria(
+    		ColorModeOptionCriteria noc, SearchWorkflowBean swb, DICOMQuery query) {
+		if (noc != null) {
+			if (swb != null) {
+				String colorModeOptionValue = noc.getColorModeOptionValue();
+				String[] colorModeOptions = null;
+				if (colorModeOptionValue
+						.equals(ColorModeOptionCriteria.NoCondition)) {
+					colorModeOptions = new String[2];
+
+					colorModeOptions[0] = ColorModeOptionCriteria.BMode;
+					colorModeOptions[1] = ColorModeOptionCriteria.ColorMode;
+				} else {
+					colorModeOptions = new String[1];
+					colorModeOptions[0] = colorModeOptionValue;
+				}
+				swb.setNumFrameOptions(colorModeOptions);
+			}
+			query.setCriteria(noc);
+		}
+	}
     
     private static void repopulateAnnotationOptionCriteria(AnnotationOptionCriteria aoc, 
             SearchWorkflowBean swb,

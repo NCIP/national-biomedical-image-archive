@@ -1,0 +1,17 @@
+$UIDROOT="88.8."
+$temp="anon"
+$SHORTNAME=Project
+$SITEID=99
+
+/ns1:ImageAnnotation/@uniqueIdentifier=$hashuid($UIDROOT, this)
+
+/ns1:ImageAnnotation/ns1:person/ns1:Person/@id=@param($SHORTNAME)-@hashptid($SITEID,this,10)
+/ns1:ImageAnnotation/ns1:person/ns1:Person/@name=@param($SHORTNAME)-@hashptid($SITEID,this,10)
+
+/*/*/*/*/ns1:ImageStudy/@instanceUID=$hashuid($UIDROOT, this)
+
+/*/*/*/*/ns1:ImageStudy/ns1:imageSeries/ns1:ImageSeries/@instanceUID=$hashuid($UIDROOT, this)
+
+/*/*/*/*/ns1:ImageStudy/ns1:imageSeries/ns1:ImageSeries/ns1:imageCollection/ns1:Image/@sopInstanceUID=$hashuid($UIDROOT, this)
+
+/ns1:ImageAnnotation/ns1:geometricShapeCollection/ns1:GeometricShape/ns1:spatialCoordinateCollection/ns1:SpatialCoordinate/@imageReferenceUID=$hashuid($UIDROOT, this)

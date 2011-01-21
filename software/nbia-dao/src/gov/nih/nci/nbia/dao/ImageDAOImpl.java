@@ -57,7 +57,7 @@ public class ImageDAOImpl extends AbstractDAO
         			gi.getDicomSize(),
         			tdp.getProject(),
         			tdp.getDpSiteName(),
-        			ssg, Integer.parseInt(gi.getUsFrameNum()));
+        			ssg, gi.getUsFrameNum());
         	imageResults.add(image);
         }
         return imageResults;

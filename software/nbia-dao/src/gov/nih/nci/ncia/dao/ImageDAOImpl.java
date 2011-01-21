@@ -113,7 +113,7 @@ public class ImageDAOImpl extends AbstractDAO
         	        		                                                 dpSiteName,
         	        		                                                 securityGroup,
         	        		                                                 seriesVisibility.equals("1"),
-        	        		                                                 Integer.parseInt(fn));
+        	        		                                                 fn);
         	        return imageSecurityDTO;
                 }
             }

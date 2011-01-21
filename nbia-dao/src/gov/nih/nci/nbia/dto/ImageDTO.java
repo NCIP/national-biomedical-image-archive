@@ -17,6 +17,21 @@ public class ImageDTO {
 		this.ssg = ssg;
 		this.frameNum = frameNum;
 	}
+	
+	public ImageDTO(String SOPInstanceUID, String fileName, Long dicomSize, String project, String site, String ssg, String frameNum){
+		this.SOPInstanceUID = SOPInstanceUID;
+		this.fileName = fileName;
+		this.dicomSize = dicomSize;
+		this.project = project;
+		this.site = site;
+		this.ssg = ssg;
+		if (frameNum == null){
+			this.frameNum = 0;
+		}
+		else {
+			this.frameNum = Integer.parseInt(frameNum);
+		}
+	}
 	public String getSOPInstanceUID() {
 		return SOPInstanceUID;
 	}

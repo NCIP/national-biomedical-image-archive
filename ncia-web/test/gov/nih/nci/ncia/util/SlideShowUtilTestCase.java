@@ -24,7 +24,7 @@ public class SlideShowUtilTestCase extends TestCase {
 		String js = SlideShowUtil.getImageSeriesJavascript(thumbnailList);
 		System.out.println("js:"+js);
 
-		assertTrue(js.equals("[\'foo/ncia/thumbnailViewer?location=0\']"));
+		assertTrue(js.startsWith("[\'foo/ncia/thumbnailViewer?location=0-0\']"));
 	}
 	
 	public void testGetImageSeriesJavascriptMutlipleImage() {
@@ -40,7 +40,7 @@ public class SlideShowUtilTestCase extends TestCase {
 
 		String js = SlideShowUtil.getImageSeriesJavascript(thumbnailList);
 		System.out.println("js:"+js);
-		assertTrue(js.equals("[\'foo1/ncia/thumbnailViewer?location=1\',\'foo2/ncia/thumbnailViewer?location=2\']"));
+		assertTrue(js.startsWith("[\'foo1/ncia/thumbnailViewer?location=1-0\',\'foo2/ncia/thumbnailViewer?location=1-1\']"));
 		
 		ImageSearchResultImpl thumbnailImageDTO3 = new ImageSearchResultImpl();
 		thumbnailImageDTO3.setThumbnailURL("foo3/ncia/thumbnailViewer?location=3");
@@ -48,7 +48,7 @@ public class SlideShowUtilTestCase extends TestCase {
 		thumbnailList.add(thumbnailImageDTO3);
 		js = SlideShowUtil.getImageSeriesJavascript(thumbnailList);		
 		System.out.println("js:"+js);
-		assertTrue(js.equals("[\'foo1/ncia/thumbnailViewer?location=1\',\'foo2/ncia/thumbnailViewer?location=2\',\'foo3/ncia/thumbnailViewer?location=3\']"));
+		assertTrue(js.startsWith("[\'foo1/ncia/thumbnailViewer?location=1-0\',\'foo2/ncia/thumbnailViewer?location=1-1\',\'foo3/ncia/thumbnailViewer?location=1-2\']"));
 				
 	}	
 }

@@ -19,6 +19,7 @@ public class ImageSecurityDTO {
 		this.frameNum = frameNum;
 	}
 	
+	
 	public ImageSecurityDTO(String SOPInstanceUID, String fileName,
 			String project, String site, String ssg, boolean seriesVisibility,
 			String frameNum) {

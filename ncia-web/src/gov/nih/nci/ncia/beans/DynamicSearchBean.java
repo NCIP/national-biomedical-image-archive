@@ -691,7 +691,12 @@ public class DynamicSearchBean {
 		if(fieldType.equalsIgnoreCase("java.lang.String")){
 			if(hasPermissibleData)
 			{
-				operatorList.add(new SelectItem(""+stringOperandValues[3], stringOperands[3]));
+				if (selectedValue.equalsIgnoreCase("usMultiModality"))
+				{
+					operatorList.add(new SelectItem(""+stringOperandValues[2], stringOperands[2]));
+				}else{
+					operatorList.add(new SelectItem(""+stringOperandValues[3], stringOperands[3]));
+				}
 			}
 			else
 			{

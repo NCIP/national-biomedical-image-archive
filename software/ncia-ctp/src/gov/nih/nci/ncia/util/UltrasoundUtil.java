@@ -23,7 +23,7 @@ public static final int[] MASKS = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x002
 	        	 String s = Integer.toString(MASKS[i],16);
 	        	 long l = Long.parseLong(s);
 	        	 buff.append(nf.format(l));
-	        	 buff.append(",");
+	        	 buff.append(',');
 	         }
 	   }
 	   String result = buff.toString();

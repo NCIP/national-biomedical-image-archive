@@ -176,7 +176,7 @@
 	<target name="-checkstyle" if="static.analysis">
 		<switch value="${ant.project.name}">
 			<case value="ncia-web">
-				<var name="checkstyle.maxErrors" value="8"/>
+				<var name="checkstyle.maxErrors" value="9"/>
 			</case>
 			<case value="ncia-services-commons">
 				<var name="checkstyle.maxErrors" value="0"/>

@@ -15,22 +15,26 @@ public class SlideShowUtil {
 			// js.append("'"+image.getThumbnailURL()+"'");
 System.out.println("!!!frameSize="+frameSize);
 			if (frameSize <= 1) {
-				String tnURL = image.getThumbnailURL()+"'";
+				String tnURL = "'"+image.getThumbnailURL()+"'";
 				js.append(tnURL);
 			}
-			for (int j = 0; j < frameSize; ++j) {
-				if (frameSize > 1) {
-					js.append("'" + image.getThumbnailURL() + "-" + j + "'");
-					if (j != frameSize - 1) {
-						js.append(',');
+			if (frameSize > 1) {
+				for (int j = 0; j < frameSize; ++j) {
+					if (frameSize > 1) {
+						js
+								.append("'" + image.getThumbnailURL() + "-" + j
+										+ "'");
+						if (j != frameSize - 1) {
+							js.append(',');
+						}
 					}
 				}
-
+			
 			}
-
 			if (i != thumbnailList.size() - 1) {
 				js.append(',');
 			}
+
 		}
 		js.append(']');
 		System.out.println("java sript:" + js.toString());

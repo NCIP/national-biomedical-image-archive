@@ -129,9 +129,9 @@ class QueryBuilder {
             ummc.setUsMultiModalityObjects(selectedUsMultiModalities);
             query.setCriteria(ummc);
         }
-        ModalityAndedSearchCriteria umasc = new ModalityAndedSearchCriteria();
-        umasc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
-        query.setCriteria(umasc);
+ //       ModalityAndedSearchCriteria umasc = new ModalityAndedSearchCriteria();
+//        umasc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
+ //       query.setCriteria(umasc);
 
         List<String> selectedAnatomical = searchBean.getSelectedAnatomicalSiteNames();
 

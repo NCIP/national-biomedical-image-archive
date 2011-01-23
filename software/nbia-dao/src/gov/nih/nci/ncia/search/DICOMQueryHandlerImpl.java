@@ -503,16 +503,15 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 		String usMultiModalityClause = " ";
 		if (ummc != null) {
         	for(String mmode:ummc.getUsMultiModalityObjects()) {
- System.out.println("!!!!!!!us mode="+mmode);
+
  			if (usMultiModalityClause.equals(" ")){
- 				usMultiModalityClause += "and ";
+ 				usMultiModalityClause += "and gi.usMultiModality is not null and";
  			} 
  			else {
  				usMultiModalityClause += "or ";
  			}
  			usMultiModalityClause += " gi.usMultiModality like '%"+Ultrasound_Util.getCodeByGivenImageTypeLabel(mmode)+"%' ";
-        	}
- System.out.println("!!!!!clause="+ usMultiModalityClause);       	
+        	}     	
 		}
 		return usMultiModalityClause;
 	}

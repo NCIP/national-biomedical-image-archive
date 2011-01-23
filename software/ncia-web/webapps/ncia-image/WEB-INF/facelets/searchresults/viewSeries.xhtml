@@ -108,7 +108,8 @@
                     <h:outputText value="#{seriesSearchResultBean.series.modality}" />
                   </td>
                   <td class="formField">
-                    <h:outputText value="#{seriesSearchResultBean.frameNum}" />
+                    <h:outputText value="#{seriesSearchResultBean.frameNum}" rendered="#{seriesSearchResultBean.frameNum gt 0}"/>
+		  			<h:outputText value="N/A" rendered="#{seriesSearchResultBean.frameNum == 0}"/>
 		  </td>
                   <td class="formField">
                     <f:verbatim>&amp;nbsp;</f:verbatim>

@@ -142,10 +142,7 @@ public class ImageDAOImpl extends AbstractDAO
         DetachedCriteria criteria = DetachedCriteria.forClass(GeneralImage.class, "gi");
         criteria.setProjection(Projections.distinct(Projections.property("usMultiModality")));
         criteria.add(Restrictions.isNotNull("usMultiModality"));
-        //criteria = criteria.createCriteria("generalImage");
-        //criteria = criteria.createCriteria("generalSeries");
         criteria.addOrder(Order.asc("gi.usMultiModality"));
-        //criteria.add(Restrictions.eq("visibility", "1"));
 
         return (Collection<String>)getHibernateTemplate().findByCriteria(criteria);
 	}

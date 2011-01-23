@@ -50,6 +50,20 @@ import org.apache.log4j.Logger;
 public class SavedQueryReconstructor {
     private static Logger LOGGER = Logger.getLogger(SavedQueryReconstructor.class);
 
+    public static void repopulatePersistantCriteria(NumFrameOptionCriteria krit,
+            SearchWorkflowBean swb, 
+            DICOMQuery query) {
+    	repopulateNumFrameOptionCriteria( krit, swb, query);
+
+    }
+    
+    public static void repopulatePersistantCriteria(ColorModeOptionCriteria krit,
+            SearchWorkflowBean swb, 
+            DICOMQuery query) {
+    	repopulateColorModeOptionCriteria( krit, swb, query);
+
+    }
+    
     public static void repopulatePersistantCriteria(PersistentCriteria krit,
                                                     SearchWorkflowBean swb, 
                                                     DICOMQuery query) {
@@ -77,12 +91,12 @@ public class SavedQueryReconstructor {
             } else if (krit instanceof ContrastAgentCriteria) {
                 repopulateContrastAgentCriteria((ContrastAgentCriteria) krit,
                         swb, query);
-            } else if (krit instanceof NumFrameOptionCriteria) {
-                repopulateNumFrameOptionCriteria((NumFrameOptionCriteria) krit,
-                        swb, query);
-            } else if (krit instanceof ColorModeOptionCriteria) {
-                repopulateColorModeOptionCriteria((ColorModeOptionCriteria) krit,
-                        swb, query);
+          //  } else if (krit instanceof NumFrameOptionCriteria) {
+          //      repopulateNumFrameOptionCriteria((NumFrameOptionCriteria) krit,
+          //              swb, query);
+          //  } else if (krit instanceof ColorModeOptionCriteria) {
+          //      repopulateColorModeOptionCriteria((ColorModeOptionCriteria) krit,
+          //              swb, query);
             }             
             else if (krit instanceof ConvolutionKernelCriteria) {
                 repopulateConvolutionKernelCriteria(

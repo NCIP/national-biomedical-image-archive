@@ -85,7 +85,7 @@
                  study_instance_uid="1.3.6.1.4.1.9328.50.1.1149" series_instance_uid="1.3.6.1.4.1.9328.50.1.1150" 
                  patient_pk_id="3" study_pk_id="10" project="RIDER"  acquisition_matrix="0.000000" 
                  dx_data_collection_diameter="0.000000" 
-                 us_frame_number="43" us_color_data_present="1" us_multi_modality="0001,0010"/>
+                 us_frame_number="43" us_color_data_present="True" us_multi_modality="0001,0010"/>
                  
   <general_image image_pk_id="1072" instance_number="1" content_date="2000-01-01" content_time="145303" image_type="ORIGINAL"
                  acquisition_date="2000-01-01" acquisition_time="145254" acquisition_number="1.000000" pixel_spacing="0.783203" 
@@ -115,7 +115,7 @@
                  trial_dp_pk_id="1" patient_id="1.3.6.1.4.1.9328.50.1.0003" study_instance_uid="1.3.6.1.4.1.9328.50.1.1149" 
                  series_instance_uid="1.3.6.1.4.1.9328.50.1.1154" patient_pk_id="3" study_pk_id="10" project="RIDER"  
                  acquisition_matrix="0.000000" dx_data_collection_diameter="0.000000" 
-                 us_frame_number="1" us_color_data_present="0" us_multi_modality="0010"/>
+                 us_frame_number="1" us_color_data_present="False" us_multi_modality="0010"/>
                  
   <general_image image_pk_id="1074" instance_number="1" content_date="2000-01-01" content_time="145303" image_type="ORIGINAL"
                  acquisition_date="2000-01-01" acquisition_time="145254" acquisition_number="1.000000" pixel_spacing="0.783203" 
@@ -130,7 +130,7 @@
                  trial_dp_pk_id="2" patient_id="1.3.6.1.4.1.9328.50.1.0003" study_instance_uid="1.3.6.1.4.1.9328.50.1.1149" 
                  series_instance_uid="1.3.6.1.4.1.9328.50.1.1154" patient_pk_id="3" study_pk_id="10" project="RIDER"  
                  acquisition_matrix="0.000000" dx_data_collection_diameter="0.000000"
-                 us_frame_number="344" us_color_data_present="0" us_multi_modality="0001,0002,0010"/>
+                 us_frame_number="344" us_color_data_present="False" us_multi_modality="0001,0002,0010"/>
   <!--               
   <ct_image kvp="120.000000" scan_options="SCOUT MODE" data_collection_diameter="500.000000" gantry_detector_tilt="0.000000" exposure_time="260.000000" x_ray_tube_current="10.000000" exposure="38.000000" convolution_kernel="EXPERIMENTAL7" image_pk_id="9490" ct_image_pk_id="9490" general_series_pk_id="293" />
   <ct_image kvp="120.000000" scan_options="HELICAL MODE" data_collection_diameter="500.000000" reconstruction_diameter="280.000000" gantry_detector_tilt="0.000000" exposure_time="1073.000000" x_ray_tube_current="432.000000" exposure="8011.000000" convolution_kernel="STANDARD" image_pk_id="9491" ct_image_pk_id="9491" general_series_pk_id="294" />

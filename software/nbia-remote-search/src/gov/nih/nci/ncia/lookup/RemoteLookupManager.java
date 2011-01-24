@@ -88,26 +88,25 @@ public class RemoteLookupManager implements LookupManager {
     	return new ArrayList<String>(allAnatomicSites);
     }
 
-     	/**
-	 	 * {@inheritDoc}
-	 	 */
-	     public List<String> getUsMultiModality()  {
-	     	RemoteNodes remoteNodes = RemoteNodes.getInstance();
+   	/**
+	 * {@inheritDoc}
+	 */
+	public List<String> getUsMultiModality()  {
+	  	RemoteNodes remoteNodes = RemoteNodes.getInstance();
 
-	     	Set<String> allUsMultiModalities = new HashSet<String>();
+	   	Set<String> allUsMultiModalities = new HashSet<String>();
 
-	     	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
-	     	for(RemoteNode node : nodes) {
-	     		AvailableSearchTerms availableSearchTerms = node.getAvailableSearchTerms();
+	   	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
+	  	for(RemoteNode node : nodes) {
+	   		AvailableSearchTerms availableSearchTerms = node.getAvailableSearchTerms();
 
-	     		String[] usMultiModalities = availableSearchTerms.getUsMultiModalities();
-	     		if(usMultiModalities!=null) {
-	     			allUsMultiModalities.addAll(Arrays.asList(usMultiModalities));
-	     		}
-	     	}
-
-	     	return new ArrayList<String>(allUsMultiModalities);
-	     }
+	   		String[] usMultiModalities = availableSearchTerms.getUsMultiModalities();
+	   		if(usMultiModalities!=null) {
+	   			allUsMultiModalities.addAll(Arrays.asList(usMultiModalities));
+	   		}
+	   	}
+     	return new ArrayList<String>(allUsMultiModalities);
+     }
 
 
 	/**

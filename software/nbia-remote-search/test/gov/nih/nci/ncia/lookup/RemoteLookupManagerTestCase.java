@@ -35,6 +35,37 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @SuppressStaticInitializationFor("gov.nih.nci.ncia.remotesearch.RemoteNodes")
 public class RemoteLookupManagerTestCase {
 
+
+	@Test
+	public void testGetUsMultiModality() throws Exception {
+		Collection<RemoteNode> fakeNodes = createFakeNodesUsMultiModality();
+		
+		RemoteNodes remoteNodesMock = createMock(RemoteNodes.class);
+		mockStatic(RemoteNodes.class);
+		mockStatic(NCIAConfig.class);
+
+		//set expectations for mock
+	    expect(RemoteNodes.getInstance()).andReturn(remoteNodesMock).times(1);                   
+		expect(remoteNodesMock.getRemoteNodes()).
+	        andReturn(fakeNodes);
+
+		
+		//replay the mock
+    	replay(NCIAConfig.class);                
+    	replay(RemoteNodes.class);                
+    	replay(remoteNodesMock, RemoteNodes.class); 
+    	
+    	//verify the OUT
+    	RemoteLookupManager remoteLookupManager = new RemoteLookupManager();
+    	List<String> results = remoteLookupManager.getUsMultiModality();
+    	assertEquals(results.size(), 4);
+    	
+    	//verify the mock
+    	verify(NCIAConfig.class);                
+    	verify(RemoteNodes.class);
+    	verify(remoteNodesMock, RemoteNodes.class);
+    }
+	
 	@Test
 	@PrepareForTest({NCIAConfig.class, RemoteNodes.class})
 	public void testGetSearchableNodes() throws Exception {
@@ -292,6 +323,22 @@ public class RemoteLookupManagerTestCase {
 
 		return nodes;
 	}
+	
+	private static Collection<RemoteNode> createFakeNodesUsMultiModality() throws Exception {
+		AvailableSearchTerms availableSearchTerms1 = new AvailableSearchTerms();
+		String[] modalities1 = new String[] {"m1", "m2", "m3"};
+		availableSearchTerms1.setUsMultiModalities(modalities1);			
+
+		AvailableSearchTerms availableSearchTerms2 = new AvailableSearchTerms();
+		String[] modalities2 = new String[] {"m1", "m2", "m4"};
+		availableSearchTerms2.setUsMultiModalities(modalities2);	
+		
+		Collection<RemoteNode> nodes = new ArrayList<RemoteNode>();
+		nodes.add(constructRemoteNode("http://fakeAddress0", availableSearchTerms1));
+		nodes.add(constructRemoteNode("http://fakeAddress1", availableSearchTerms2));
+
+		return nodes;
+	}	
 	
 	private static Collection<RemoteNode> createFakeNodesModality() throws Exception {
 		AvailableSearchTerms availableSearchTerms1 = new AvailableSearchTerms();

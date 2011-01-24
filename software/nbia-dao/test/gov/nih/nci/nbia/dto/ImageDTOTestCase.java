@@ -27,6 +27,7 @@ public class ImageDTOTestCase extends TestCase {
         assertTrue(imageDTO.getDicomSize() ==514L);
         assertTrue(imageDTO.getProject().equals("RIDER"));	
         assertTrue(imageDTO.getSite().equals("RIDER"));	
-        assertTrue(imageDTO.getSsg().equals("test"));	
+        assertTrue(imageDTO.getSsg().equals("test"));
+        assertTrue(imageDTO.getFrameNum()==0);
     }
 }

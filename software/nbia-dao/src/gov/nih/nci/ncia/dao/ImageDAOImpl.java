@@ -280,7 +280,7 @@ public class ImageDAOImpl extends AbstractDAO
             thumbnailDTO.setFileURI(imageFileName);
             thumbnailDTO.setSize((Long) row[5]);
              if (row[9]== null) {
-			            	thumbnailDTO.setFrameNum(1);
+			            	thumbnailDTO.setFrameNum(0);
 			            }
 			            else {
 			            	thumbnailDTO.setFrameNum(Integer.parseInt((String) row[9]));

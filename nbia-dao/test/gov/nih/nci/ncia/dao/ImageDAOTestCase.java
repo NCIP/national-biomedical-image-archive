@@ -50,9 +50,21 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		Assert.assertTrue(imageSecurityDTO.getSeriesVisibility());
 		Assert.assertEquals(imageSecurityDTO.getSite(), "LIDC");
 		Assert.assertEquals(imageSecurityDTO.getSOPInstanceUID(), "1.3.6.1.4.1.9328.50.3.193");
-		
+		Assert.assertTrue(imageSecurityDTO.getFrameNum()== 43);
 		imageSecurityDTO = imageDAO.findImageSecurity("garbage");
 		Assert.assertNull(imageSecurityDTO);	
+	}
+	
+	@Test	
+	public void testfindImageSecurityBySeriesInstanceUID() {
+		List<ImageSecurityDTO> imageSecurityDTOs = (List<ImageSecurityDTO>)imageDAO.findImageSecurityBySeriesInstanceUID("1.3.6.1.4.1.9328.50.3.193");
+		Assert.assertEquals(imageSecurityDTOs.get(0).getFileName(),"/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.194/https-57732.dcm");
+		Assert.assertEquals(imageSecurityDTOs.get(0).getProject(),"LIDC");
+		Assert.assertTrue(imageSecurityDTOs.get(0).getSeriesVisibility());
+		Assert.assertEquals(imageSecurityDTOs.get(0).getSite(), "LIDC");
+		Assert.assertEquals(imageSecurityDTOs.get(0).getSOPInstanceUID(), "1.3.6.1.4.1.9328.50.3.193");
+		Assert.assertTrue(imageSecurityDTOs.get(0).getFrameNum()== 43);
+
 	}
 	
 //	public void testfindDistinctVisibleConvolutionKernels() throws Exception {

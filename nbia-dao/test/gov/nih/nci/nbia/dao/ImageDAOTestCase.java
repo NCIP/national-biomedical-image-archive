@@ -36,6 +36,20 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 	
         Assert.assertTrue(dtos.size()==139);
     }
+	
+	/**
+     * Test method for {@link gov.nih.nci.nbia.dao.ImageDAO#findImagesBySeriesUid(java.lang.String, java.lang.String)}.
+     */
+	@Test
+    public void testFindImagesBySeriesUidForMultiFrame() {
+		
+        List<ImageDTO> dtos = 
+            imageDAO.findImagesBySeriesUid("1.3.6.1.4.1.9328.50.3.193", "");
+	
+        Assert.assertTrue(dtos.get(0).getFrameNum()==43);
+    }
+	
+	
 
 	@BeforeClass
 	public static void foo() throws Exception {

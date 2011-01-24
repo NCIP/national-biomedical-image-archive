@@ -220,14 +220,14 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
         if ((temp = (String) numbers.get(DicomConstants.IMAGE_TYPE)) != null) {
         	String first = getFirstValueOfImageType(temp);
             gi.setImageType(first.trim());
-            String multiModilaty = null;
+            String multiModality = null;
             try{
-            	String multi_modality = getMultiModilatyEelement(temp);
-            	multiModilaty = UltrasoundUtil.getMultiModilatyByCode(multi_modality);
+            	String multi_modality = getMultiModalityEelement(temp);
+            	multiModality = UltrasoundUtil.getMultiModalityByCode(multi_modality);
             }catch (Exception e){
             	log.warn("The image is not UTRASOUND image. Continue processing....");
             }
-        	gi.setUsMultiModality(multiModilaty);
+        	gi.setUsMultiModality(multiModality);
         }
         if ((temp = (String) numbers.get(DicomConstants.ACQUISITION_NUMBER)) != null) {
             gi.setAcquisitionNumber(Integer.valueOf(temp.trim()));
@@ -337,7 +337,7 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
     	return returnStr;
     }
 
-    private static String getMultiModilatyEelement(String temp){
+    private static String getMultiModalityEelement(String temp){
     	String returnStr = null;
     	String[] token = temp.split("\\\\");
     	if (token.length == 4){

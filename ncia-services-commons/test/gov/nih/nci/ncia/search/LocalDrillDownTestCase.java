@@ -151,6 +151,23 @@ public class LocalDrillDownTestCase extends AbstractDbUnitTestForJunit4 {
 				Assert.assertTrue(result.getThumbnailURL().equals("foo"));
 			}		
 		}
+		Assert.assertTrue(found);			
+	}
+	
+	@Test
+	public void testRetrieveImagesForSeriesIdForMultiFrame() throws Exception {
+		LocalDrillDown localDrillDown = new LocalDrillDown();
+		localDrillDown.setThumbnailURLResolver(new FakeThumbnailURLResolver());
+
+		ImageSearchResult[] results = localDrillDown.retrieveImagesForSeries(8716289);
+		
+		boolean found = false;
+		for(ImageSearchResult result : results) {
+			if(result.getInstanceNumber()==1) {
+				found = true;
+				Assert.assertTrue(result.getFrameNum()==43);
+			}		
+		}
 		Assert.assertTrue(found);		
 		
 	}

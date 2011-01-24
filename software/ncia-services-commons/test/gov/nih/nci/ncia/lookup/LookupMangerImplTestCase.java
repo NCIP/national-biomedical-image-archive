@@ -26,6 +26,7 @@ public class LookupMangerImplTestCase extends AbstractDbUnitTestForJunit4 {
     	_testDicomKernelType();
     	_testSearchCollection();
     	_testManufacturerModelSoftwareItems();
+    	_testUsMultiModalItems();
     }
 
 
@@ -50,7 +51,17 @@ public class LookupMangerImplTestCase extends AbstractDbUnitTestForJunit4 {
 
     private LookupManagerImpl lookupMangerImpl;
 
-
+    private void _testUsMultiModalItems() throws Exception {
+    	List<String> multiModalities = lookupMangerImpl.getUsMultiModality();    	
+    	for(String s : multiModalities) {
+    		System.out.println("s:"+s);
+    	}
+    	Assert.assertTrue(multiModalities.contains("2D Imaging"));
+    	Assert.assertTrue(multiModalities.contains("Color Doppler"));
+    	Assert.assertEquals(2, multiModalities.size());
+    }
+    
+    
 	private void _testModality() throws Exception {
 		List<String> modalities = lookupMangerImpl.getModality();
 

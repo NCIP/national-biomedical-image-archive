@@ -136,6 +136,10 @@ public class QueryHandlerImpl extends AbstractDAO
 			List<String> fieldData = new ArrayList<String>();
 	        DetachedCriteria criteria = DetachedCriteria.forClass(Class.forName(packageName+"."+dataSource));
 			criteria.setProjection(Projections.distinct(Property.forName(field)));
+			//special case, need to make it more generic.
+			if (field.equalsIgnoreCase("usMultiModality")){
+				criteria.add(Restrictions.isNotNull(field));
+			}
 			List<String> result = getHibernateTemplate().findByCriteria(criteria);
 			if (result != null && result.size() > 0)
 			{

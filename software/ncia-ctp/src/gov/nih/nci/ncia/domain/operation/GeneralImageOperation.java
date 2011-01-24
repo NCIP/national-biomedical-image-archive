@@ -11,7 +11,7 @@ import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
 import gov.nih.nci.ncia.util.AdapterUtil;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
-;
+import gov.nih.nci.ncia.util.UltrasoundUtil;
 
 import java.util.Date;
 import java.util.Map;
@@ -221,9 +221,14 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
         	String first = getFirstValueOfImageType(temp);
             gi.setImageType(first.trim());
 
-            //String multi_modality = getMultiModalityEelement(temp);
-            //String multiModilaty = UltrasoundUtil.getMultiModalityByCode(multi_modality);
-        	//gi.setUsMultiModality(multiModilaty);
+            String multi_modality = getMultiModalityEelement(temp);
+            String multiModilaty = null;
+            try{
+            	multiModilaty = UltrasoundUtil.getMultiModalityByCode(multi_modality);
+            }catch (Exception e){
+            	log.warn("The image is not UTRASOUND image. Continue processing....");
+            }
+        	gi.setUsMultiModality(multiModilaty);
         }
         if ((temp = (String) numbers.get(DicomConstants.ACQUISITION_NUMBER)) != null) {
             gi.setAcquisitionNumber(Integer.valueOf(temp.trim()));

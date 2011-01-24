@@ -281,6 +281,9 @@ public class SearchWorkflowBean {
     		if(item!=null) {
     			item.setValue(true);
     		}
+    		if (modalityName.equalsIgnoreCase("US")){
+    			usSearch=true;
+    		}
     	}
     }
 
@@ -353,6 +356,7 @@ public class SearchWorkflowBean {
     	for(SelectItem selectItem : usMultiModalityItems) {
     		selectItem.setValue(false);
     	}
+
     	return null;
     }
 
@@ -1186,6 +1190,7 @@ public class SearchWorkflowBean {
         unselectAllCollections();
         unselectAllModalities();
         unselectAllAnatomicalSites();
+        unselectAllUsMultiModalityItems();
         
         this.aimSearchWorkflowBean.setDefaultValues();
     }
@@ -1483,6 +1488,7 @@ public class SearchWorkflowBean {
 					usSearch = true;
 				} else {
 					usSearch = false;
+			        unselectAllUsMultiModalityItems();
 				}
 			}
 		}

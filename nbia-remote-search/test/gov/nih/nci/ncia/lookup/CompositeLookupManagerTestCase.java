@@ -34,6 +34,42 @@ import gov.nih.nci.ncia.util.Util;
 public class CompositeLookupManagerTestCase {
 
 	@Test
+	public void testGetUsMultiModalities() throws Exception {
+		Util.loadSystemPropertiesFromPropertiesResource("ncia.properties");
+
+    	Collection<String> authorizedCollections = new ArrayList<String>();
+    	authorizedCollections.add("foo1");
+    	authorizedCollections.add("foo2");
+    	
+		LookupManagerImpl localLookupManagerMock = createMock(LookupManagerImpl.class);
+		RemoteLookupManager remoteLookupManagerMock = createMock(RemoteLookupManager.class);
+
+		//set expectations for mock
+		expectNew(RemoteLookupManager.class).
+	        andReturn(remoteLookupManagerMock);		
+		expectNew(LookupManagerImpl.class, authorizedCollections).
+            andReturn(localLookupManagerMock);
+		
+	    expect(localLookupManagerMock.getUsMultiModality()).
+	        andReturn(constructStrings(3));   
+	    expect(remoteLookupManagerMock.getUsMultiModality()).
+            andReturn(constructStrings(12));  	    
+		
+		//replay the mock
+    	replay(localLookupManagerMock, LookupManagerImpl.class); 
+    	replay(remoteLookupManagerMock, RemoteLookupManager.class); 
+    	
+    	//verify the OUT
+    	CompositeLookupManager compositeLookupManager = new CompositeLookupManager(authorizedCollections);
+    	List<String> results = compositeLookupManager.getUsMultiModality();
+    	assertEquals(results.size(), 12); //3 subset of 12 for str1-str12
+    	
+    	//verify the mock
+    	verify(localLookupManagerMock, LookupManagerImpl.class); 
+    	verify(remoteLookupManagerMock, RemoteLookupManager.class); 
+	}
+	
+	@Test
 	public void testGetModalities() throws Exception {
 		Util.loadSystemPropertiesFromPropertiesResource("ncia.properties");
 

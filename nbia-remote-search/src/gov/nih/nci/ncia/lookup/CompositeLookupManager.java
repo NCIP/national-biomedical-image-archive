@@ -77,18 +77,17 @@ public class CompositeLookupManager implements LookupManager {
     	return new ArrayList<String>(allAnatomicSites);
     }
 
-        /**
-		 * {@inheritDoc}
-		 */
-	    public List<String> getUsMultiModality() {
+    /**
+	 * {@inheritDoc}
+	 */
+	public List<String> getUsMultiModality() {
+		Set<String> allUsMultiModalities = new HashSet<String>();
 
-	    	Set<String> allUsMultiModalities = new HashSet<String>();
+    	for(LookupManager lookupManager : lookupManagers) {
+    		allUsMultiModalities.addAll(lookupManager.getUsMultiModality());
+    	}
 
-	    	for(LookupManager lookupManager : lookupManagers) {
-	    	    allUsMultiModalities.addAll(lookupManager.getUsMultiModality());
-	    	}
-
-	    	return new ArrayList<String>(allUsMultiModalities);
+    	return new ArrayList<String>(allUsMultiModalities);
     }
 
 

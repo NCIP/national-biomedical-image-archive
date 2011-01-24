@@ -18,16 +18,12 @@ public class ThumbnailServer extends HttpServlet {
 			throws ServletException, IOException {
 		// Get the file path ID from the request
 		String location = request.getParameter("location");
-		System.out.println("!!!!!!!!!!!!!!!server get regist id=" + location);
 		int indx = location.indexOf('-');
-		System.out.println("!!!indx=" + indx);
 		String locPart1 = location;
 		String locPart2 = null;
 		if (indx != -1) {
 			locPart1 = location.substring(0, indx);
 			locPart2 = location.substring(indx + 1);
-			System.out.println("!!!!!!!!!!!!!!!part 1 and part 2=" + locPart1
-					+ " and " + locPart2);
 		}
 		HttpSession session = request.getSession();
 		logger.debug("ThumbnailServer has been called");

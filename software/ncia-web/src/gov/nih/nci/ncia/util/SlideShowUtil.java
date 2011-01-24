@@ -11,9 +11,7 @@ public class SlideShowUtil {
 		for (int i = 0; i < thumbnailList.size(); i++) {
 			ImageSearchResult image = thumbnailList.get(i);
 			int frameSize = image.getFrameNum().intValue();
-			//int frameSize = 30;
-			// js.append("'"+image.getThumbnailURL()+"'");
-System.out.println("!!!frameSize="+frameSize);
+
 			if (frameSize <= 1) {
 				String tnURL = "'"+image.getThumbnailURL()+"'";
 				js.append(tnURL);
@@ -37,7 +35,7 @@ System.out.println("!!!frameSize="+frameSize);
 
 		}
 		js.append(']');
-		System.out.println("java sript:" + js.toString());
+		//System.out.println("java script:" + js.toString());
 		return js.toString();
 	}
 }

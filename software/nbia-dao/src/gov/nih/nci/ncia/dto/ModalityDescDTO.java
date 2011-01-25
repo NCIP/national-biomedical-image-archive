@@ -1,7 +1,5 @@
 package gov.nih.nci.ncia.dto;
 
-import java.util.Date;
-
 public class ModalityDescDTO {
 	
 	private String description;

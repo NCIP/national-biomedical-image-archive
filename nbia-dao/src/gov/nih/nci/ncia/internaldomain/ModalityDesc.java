@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.internaldomain;
 
 import java.io.Serializable;
-import java.util.Date;
+
 /**
  * 
  * @author prakasht

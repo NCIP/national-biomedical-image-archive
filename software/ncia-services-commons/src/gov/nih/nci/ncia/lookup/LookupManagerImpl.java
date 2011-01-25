@@ -190,7 +190,7 @@ public class LookupManagerImpl implements LookupManager {
 	public AvailableSearchTerms getAvailableSearchTerms() {
 		AvailableSearchTerms availableSearchTerms = new AvailableSearchTerms();
 		availableSearchTerms.setAnatomicSites(toArray(anatomicList));
-		availableSearchTerms.setUsMultiModalities(toArray(usMultiModalityList));	
+//		availableSearchTerms.setUsMultiModalities(toArray(usMultiModalityList));	
 		availableSearchTerms.setCollections(toArray(collectionList));
 		availableSearchTerms.setConvolutionKernels(toArray(convolutionKernelList));
 		availableSearchTerms.setModalities(toArray(modalityList));

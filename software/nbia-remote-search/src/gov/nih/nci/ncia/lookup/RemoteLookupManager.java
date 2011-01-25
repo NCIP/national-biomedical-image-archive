@@ -91,7 +91,8 @@ public class RemoteLookupManager implements LookupManager {
    	/**
 	 * {@inheritDoc}
 	 */
-	public List<String> getUsMultiModality()  {
+    public List<String> getUsMultiModality()  {
+    	/*
 	  	RemoteNodes remoteNodes = RemoteNodes.getInstance();
 
 	   	Set<String> allUsMultiModalities = new HashSet<String>();
@@ -106,6 +107,8 @@ public class RemoteLookupManager implements LookupManager {
 	   		}
 	   	}
      	return new ArrayList<String>(allUsMultiModalities);
+     	*/
+    	return new ArrayList<String>();
      }
 
 

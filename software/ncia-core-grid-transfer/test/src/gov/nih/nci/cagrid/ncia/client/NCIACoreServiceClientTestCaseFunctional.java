@@ -515,7 +515,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.out.println(Arrays.toString(ast.getCollections()));
 		System.out.println(Arrays.toString(ast.getConvolutionKernels()));
 		System.out.println(Arrays.toString(ast.getModalities()));
-		System.out.println(Arrays.toString(ast.getUsMultiModalities()));
+//		System.out.println(Arrays.toString(ast.getUsMultiModalities()));
 
 		//assert as if we are pointing to DEV?
 	}

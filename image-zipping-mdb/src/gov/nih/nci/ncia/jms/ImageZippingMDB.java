@@ -41,6 +41,7 @@
 */
 package gov.nih.nci.ncia.jms;
 
+import gov.nih.nci.ncia.basket.DownloadRecorder;
 import gov.nih.nci.ncia.mail.MailManager;
 import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
@@ -246,6 +247,9 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             // Commit the transaction so that it won't run over and over again
             try {
                 ctx.getUserTransaction().commit();
+                
+                DownloadRecorder downloadRecorder = new DownloadRecorder();
+                downloadRecorder.recordDownload(izm.getItems(), izm.getUserName());
             }
             catch (Throwable ee) {
                 log.error("While handling an exception in the MDB, could not commit the transaction",

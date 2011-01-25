@@ -1351,5 +1351,206 @@
     </createIndex>    
    
   </changeSet>      
+  
+  <changeSet id="5.1.ModalityDescription.create" author="prakasht" dbms="mysql">          
+        <comment>
+         create new table and role to support modality description feature
+        </comment>
+    		
+        <sql>
+          CREATE TABLE modality_descriptions (
+  	           modality_descriptions_pk_id bigint(20) NOT NULL,
+  	           modality_name varchar(20) character set latin1 collate latin1_bin default NULL,
+  	           description mediumtext character set latin1 collate latin1_bin,
+  	           PRIMARY KEY  (modality_descriptions_pk_id),
+  	           UNIQUE KEY MD_COLLECTION_DESC_PK_ID (modality_descriptions_pk_id)
+  		 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+        </sql>	
+  </changeSet>   
+  
+  <changeSet id="5.1.ModalityDescription.insert" author="prakasht" dbms="mysql">          
+        <comment>
+         insert modality description from DICOM standard - ftp://medical.nema.org/medical/dicom/2009/09_03pu3.pdf - section C.7.3.1.1.1 Modality
+        </comment>
+    		
+        <sql>
+          INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 1, 'CR', 'Computed Radiography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 2, 'CT', 'Computed Tomography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 3, 'MR', 'Magnetic Resonance' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 4, 'NM', 'Nuclear Medicine' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 5, 'US', 'Ultrasound' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 6, 'OT', 'Other' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 7, 'BI', 'Biomagnetic imaging' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 8, 'DG', 'Diaphanography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 9, 'ES', 'Endoscopy' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 10, 'LS', 'Laser surface scan' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 11, 'PT', 'Positron emission tomography (PET)' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 12, 'RG', 'Radiographic imaging (conventional film/screen)' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 13, 'TG', 'Thermography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 14, 'XA', 'X-Ray Angiography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 15, 'RF', 'Radio Fluoroscopy' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 16, 'RTIMAGE', 'Radiotherapy Image' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 17, 'RTDOSE', 'Radiotherapy Dose' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 18, 'RTSTRUCT', 'Radiotherapy Structure Set' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 19, 'RTPLAN', 'Radiotherapy Plan' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 20, 'RTRECORD', 'RT Treatment Record' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 21, 'HC', 'Hard Copy' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 22, 'DX', 'Digital Radiography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 23, 'MG', 'Mammography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 24, 'IO', 'Intra-oral Radiography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 25, 'IO', 'Intra-oral Radiography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 26, 'PX', 'Panoramic X-Ray' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 27, 'GM', 'General Microscopy' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 28, 'SM', 'Slide Microscopy' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 29, 'XC', 'External-camera Photography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 30, 'PR', 'Presentation State' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 31, 'AU', 'Audio' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 32, 'ECG', 'Electrocardiography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 33, 'EPS', 'Cardiac Electrophysiology' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 34, 'HD', 'Hemodynamic Waveform' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 35, 'SR', 'SR Document' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 36, 'IVUS', 'Intravascular Ultrasound' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 37, 'OP', 'Ophthalmic Photography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 38, 'SMR', 'Stereometric Relationship' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 39, 'AR', 'Autorefraction' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 40, 'KER', 'Keratometry' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 41, 'VA', 'Visual Acuity' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 42, 'VA', 'Visual Acuity' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 43, 'SRF', 'Subjective Refraction' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 44, 'OCT', 'Optical Coherence Tomography (non-Ophthalmic)' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 45, 'LEN', 'Lensometry' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 46, 'OPV', 'Ophthalmic Visual Field' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 47, 'OPM', 'Ophthalmic Mapping' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 48, 'OAM', 'Ophthalmic Axial Measurements' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 49, 'RESP', 'Respiratory Waveform' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 50, 'KO', 'Key Object Selection' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 51, 'SEG', 'Segmentation' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 52, 'REG', 'Registration' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 53, 'OPT', 'Ophthalmic Tomography' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 54, 'BDUS', 'Bone Densitometry (ultrasound)' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 55, 'BMD', 'Bone Densitometry (X-Ray)' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 56, 'DOC', 'Document' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 57, 'FID', 'Fiducials' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 58, 'SC', 'Secondary Capture' );
+  	
+  	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
+  	values( 59, 'HISTOPATHOLOGY', 'HISTOPATHOLOGY' );
+        </sql>	
+   </changeSet>  
 
 </databaseChangeLog>

@@ -78,6 +78,14 @@ public class ZipManager extends Thread {
 
     }
 
+    
+    /**
+     * This methods returns the collection of series
+     */
+    public Map<String, SeriesSearchResult> getItems() {
+        return this.basketItems;
+    }    
+    
     /**
      * This sets the zip file that should be created.
      */

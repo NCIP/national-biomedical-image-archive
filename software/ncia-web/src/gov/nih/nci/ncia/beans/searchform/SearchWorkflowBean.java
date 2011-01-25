@@ -35,6 +35,8 @@ import gov.nih.nci.ncia.util.JsfUtil;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.util.StringUtil;
+import gov.nih.nci.ncia.dto.ModalityDescDTO;
+import gov.nih.nci.ncia.modalitydescription.ModalityDescProcessor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,6 +46,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -94,9 +97,11 @@ public class SearchWorkflowBean {
     	Collections.sort(collectionNames);
         collectionItems = JsfUtil.getBooleanSelectItemsFromStrings(collectionNames);
 
+        populateModalityDescMap();
+        
         List<String> modalities = lookupMgr.getModality();
     	Collections.sort(modalities);
-        modalityItems = JsfUtil.getBooleanSelectItemsFromStrings(modalities);
+    	modalityItems = JsfUtil.constructModalitySelectItems(modalities, modalityDescMap);
 
         List<String> anatomicSites = lookupMgr.getAnatomicSite();
         Collections.sort(anatomicSites);
@@ -1118,6 +1123,13 @@ public class SearchWorkflowBean {
      * Should this go into AvailableSearchTermsBeans?
      */
     private Map<NBIANode, AvailableSearchTerms> searchableNodeMap;
+    
+    
+    /**
+     * map holds modality description
+     */
+    private Map<String, String> modalityDescMap = new HashMap<String, String>();
+
 
     /**
      * Orderd List of NBIA nodes... parallel with the SelectItem list that
@@ -1494,5 +1506,13 @@ public class SearchWorkflowBean {
 		}
 	}
 
-
+    private void populateModalityDescMap() {
+    	ModalityDescProcessor processor = new ModalityDescProcessor();
+        List<ModalityDescDTO> dtoList = processor.findAllModalityDesc();
+        
+        modalityDescMap.clear();
+        for( ModalityDescDTO dto : dtoList) {
+        	modalityDescMap.put(dto.getModalityName(), dto.getDescription());
+        }
+    }
 }

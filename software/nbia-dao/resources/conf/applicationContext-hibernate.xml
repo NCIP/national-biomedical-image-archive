@@ -66,6 +66,7 @@
                 
         <value>gov/nih/nci/ncia/security/NCIAUser.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/CollectionDesc.hbm.xml</value>
+        <value>gov/nih/nci/ncia/internaldomain/ModalityDesc.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/CustomSeriesList.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/DownloadDataHistory.hbm.xml</value>

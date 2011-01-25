@@ -140,7 +140,9 @@
                                       valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
                                                                  partialSubmit="true" /> 
                                         </ice:setEventPhase>                         
-                                      <h:outputText value="#{modalityItem.label}"/>
+                                      <span title="#{modalityItem.description}">                         
+                                      	<h:outputText value="#{modalityItem.label}"/>
+                                      </span>
                                     </span>                                        
                                   </h:column>    
                                 </h:dataTable> 

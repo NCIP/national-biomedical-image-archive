@@ -27,6 +27,7 @@ import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.NCIAConstants;
 import gov.nih.nci.ncia.util.SlideShowUtil;
 import gov.nih.nci.ncia.zip.ZipManager;
+import gov.nih.nci.ncia.basket.DownloadRecorder;
 
 import java.io.File;
 import java.io.Serializable;
@@ -201,7 +202,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
                 zipper.start();
 
                 DownloadRecorder downloadRecorder = new DownloadRecorder();
-                downloadRecorder.recordDownload(seriesItemMap, sb.getUsername());
+                downloadRecorder.recordDownload(zipper.getItems(), sb.getUsername());
             }
             else {
             	downloading = true;

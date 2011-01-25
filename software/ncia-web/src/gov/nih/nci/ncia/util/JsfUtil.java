@@ -5,6 +5,7 @@ import gov.nih.nci.ncia.search.NBIANode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -120,5 +121,22 @@ public class JsfUtil {
     		selectItemList.add(item);    		
     	}
     	return selectItemList;    	
-    }      
+    }
+    
+    public static List<SelectItem> constructModalitySelectItems(Collection<String> strings, Map<String, String> modalityDescMap) {
+    	List<SelectItem> selectItemList = new ArrayList<SelectItem>();
+    	
+    	for(String aString : strings) {
+    		SelectItem item = new SelectItem();
+    		item.setLabel(aString);
+    		item.setValue(false);
+    		String desc = modalityDescMap.get(item.getLabel());
+    		if( desc!=null)
+    			item.setDescription(desc);
+    		else
+    			item.setDescription("");
+    		selectItemList.add(item);    		
+    	}
+    	return selectItemList;    	
+    }    
 }

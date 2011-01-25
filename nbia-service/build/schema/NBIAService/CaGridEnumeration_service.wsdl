@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CaGridEnumeration" targetNamespace="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:binding="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/bindings" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:import namespace="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/bindings" location="CaGridEnumeration_bindings.wsdl"/>
+  <wsdl:service name="CaGridEnumerationService">
+    <wsdl:port name="CaGridEnumerationPortTypePort" binding="binding:CaGridEnumerationPortTypeSOAPBinding">
+      <soap:address location="http://localhost:8080/wsrf/services/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

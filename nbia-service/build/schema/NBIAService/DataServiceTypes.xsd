@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:tns="http://gov.nih.nci.cagrid.data/DataService/types" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsrbf="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.xsd" targetNamespace="http://gov.nih.nci.cagrid.data/DataService/types" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="DataServiceReference">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wsa:EndpointReference"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

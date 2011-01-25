@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CaGridEnumeration" targetNamespace="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/bindings" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:porttype="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:import namespace="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration" location="CaGridEnumeration.wsdl"/>
+  <wsdl:binding name="CaGridEnumerationPortTypeSOAPBinding" type="porttype:CaGridEnumerationPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="PullOp">
+      <soap:operation soapAction="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/CaGridEnumerationPortType/PullOpRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenewOp">
+      <soap:operation soapAction="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/CaGridEnumerationPortType/RenewOpRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatusOp">
+      <soap:operation soapAction="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/CaGridEnumerationPortType/GetStatusOpRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseOp">
+      <soap:operation soapAction="http://gov.nih.nci.cagrid.enumeration/CaGridEnumeration/CaGridEnumerationPortType/ReleaseOpRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getServiceSecurityMetadata">
+      <soap:operation soapAction="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity/GetServiceSecurityMetadataRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="enumeration" targetNamespace="http://schemas.xmlsoap.org/ws/2004/09/enumeration/service" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:binding="http://schemas.xmlsoap.org/ws/2004/09/enumeration/bindings" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:import namespace="http://schemas.xmlsoap.org/ws/2004/09/enumeration/bindings" location="enumeration_bindings.wsdl"/>
+  <wsdl:service name="enumerationService">
+    <wsdl:port name="DataSourcePort" binding="binding:DataSourceSOAPBinding">
+      <soap:address location="http://localhost:8080/wsrf/services/"/>
+    </wsdl:port>
+    <wsdl:port name="DataSourceStartPort" binding="binding:DataSourceStartSOAPBinding">
+      <soap:address location="http://localhost:8080/wsrf/services/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

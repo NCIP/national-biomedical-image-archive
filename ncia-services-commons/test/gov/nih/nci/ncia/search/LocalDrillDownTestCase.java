@@ -163,7 +163,7 @@ public class LocalDrillDownTestCase extends AbstractDbUnitTestForJunit4 {
 		
 		boolean found = false;
 		for(ImageSearchResult result : results) {
-			if(result.getInstanceNumber()==1) {
+			if(result.getInstanceNumber()==246) {
 				found = true;
 				Assert.assertTrue(result.getFrameNum()==43);
 			}		

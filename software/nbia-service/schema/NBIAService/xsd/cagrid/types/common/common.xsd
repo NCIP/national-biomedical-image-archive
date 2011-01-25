@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<xs:schema targetNamespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:com="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common" elementFormDefault="qualified">
+	<xs:element name="Enumeration" type="com:Enumeration"/>
+	<xs:complexType name="Enumeration">
+		<xs:sequence>
+			<xs:element ref="com:SemanticMetadata" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="permissibleValue" use="required" type="xs:string"/>
+		<xs:attribute name="valueMeaning" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="ValueDomain" type="com:ValueDomain"/>
+	<xs:complexType name="ValueDomain">
+		<xs:sequence>
+			<xs:element ref="com:SemanticMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="enumerationCollection">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="com:Enumeration" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="longName" use="required" type="xs:string"/>
+		<xs:attribute name="unitOfMeasure" use="optional" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="SemanticMetadata" type="com:SemanticMetadata"/>
+	<xs:complexType name="SemanticMetadata">
+		<xs:sequence/>
+		<xs:attribute name="conceptCode" use="required" type="xs:string"/>
+		<xs:attribute name="conceptDefinition" use="required" type="xs:string"/>
+		<xs:attribute name="conceptName" use="required" type="xs:string"/>
+		<xs:attribute name="order" use="optional" type="xs:int"/>
+		<xs:attribute name="orderLevel" use="optional" type="xs:int"/>
+	</xs:complexType>
+	<xs:element name="PointOfContact" type="com:PointOfContact"/>
+	<xs:complexType name="PointOfContact">
+		<xs:annotation>
+			<xs:documentation>For the static model, instances of these should be the POCs associated with the design and implementation of the service itself (not deployments of it, e.g. not system support staff)
+
+The "role" attribute should probably be an enumeration of known types</xs:documentation>
+		</xs:annotation>
+		<xs:sequence/>
+		<xs:attribute name="affiliation" use="required" type="xs:string"/>
+		<xs:attribute name="email" use="required" type="xs:string"/>
+		<xs:attribute name="firstName" use="required" type="xs:string"/>
+		<xs:attribute name="lastName" use="required" type="xs:string"/>
+		<xs:attribute name="phoneNumber" use="optional" type="xs:string"/>
+		<xs:attribute name="role" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="UMLClass" type="com:UMLClass"/>
+	<xs:complexType name="UMLClass">
+		<xs:annotation>
+			<xs:documentation>caDSR-related
+
+Represents the UML Class of the given input or output.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="umlAttributeCollection">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="com:UMLAttribute" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="com:SemanticMetadata" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="className" use="required" type="xs:string"/>
+		<xs:attribute name="description" use="required" type="xs:string"/>
+		<xs:attribute name="id" use="required" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>This is used soley for the purposes of referencing this class in associations.  It does not represent any caDSR identifier.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="packageName" use="required" type="xs:string"/>
+		<xs:attribute name="projectName" use="required" type="xs:string"/>
+		<xs:attribute name="projectVersion" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="UMLAttribute" type="com:UMLAttribute"/>
+	<xs:complexType name="UMLAttribute">
+		<xs:annotation>
+			<xs:documentation>caDSR-related
+
+Represents a UML attribute of the parent UML Class.  Indication of isRequired=false means the operation will function without the existence of this attribute.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="com:SemanticMetadata" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="com:ValueDomain" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="dataTypeName" use="required" type="xs:string"/>
+		<xs:attribute name="description" use="required" type="xs:string"/>
+		<xs:attribute name="name" use="required" type="xs:string"/>
+		<xs:attribute name="publicID" use="required" type="xs:long"/>
+		<xs:attribute name="version" use="required" type="xs:float"/>
+	</xs:complexType>
+	<xs:element name="ResearchCenter" type="com:ResearchCenter"/>
+	<xs:complexType name="ResearchCenter">
+		<xs:sequence>
+			<xs:element ref="com:Address" minOccurs="0"/>
+			<xs:element ref="com:ResearchCenterDescription" minOccurs="0"/>
+			<xs:element name="pointOfContactCollection">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="com:PointOfContact" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="displayName" use="required" type="xs:string"/>
+		<xs:attribute name="shortName" use="required" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="Address" type="com:Address"/>
+	<xs:complexType name="Address">
+		<xs:sequence/>
+		<xs:attribute name="country" use="required" type="xs:string"/>
+		<xs:attribute name="locality" use="optional" type="xs:string"/>
+		<xs:attribute name="postalCode" use="optional" type="xs:string"/>
+		<xs:attribute name="stateProvince" use="optional" type="xs:string"/>
+		<xs:attribute name="street1" use="required" type="xs:string"/>
+		<xs:attribute name="street2" use="optional" type="xs:string"/>
+	</xs:complexType>
+	<xs:element name="ResearchCenterDescription" type="com:ResearchCenterDescription"/>
+	<xs:complexType name="ResearchCenterDescription">
+		<xs:sequence/>
+		<xs:attribute name="description" use="required" type="xs:string"/>
+		<xs:attribute name="homepageURL" use="required" type="xs:string"/>
+		<xs:attribute name="imageURL" use="optional" type="xs:string"/>
+		<xs:attribute name="rssNewsURL" use="optional" type="xs:string"/>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="NBIAService" targetNamespace="http://nbia.nci.nih.gov/NBIAService/bindings" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:porttype="http://nbia.nci.nih.gov/NBIAService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:import namespace="http://nbia.nci.nih.gov/NBIAService" location="NBIAService.wsdl"/>
+  <wsdl:binding name="NBIAServicePortTypeSOAPBinding" type="porttype:NBIAServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetMultipleResourceProperties">
+      <soap:operation soapAction="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/GetMultipleResourceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidResourcePropertyQNameFault">
+        <soap:fault name="InvalidResourcePropertyQNameFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetResourceProperty">
+      <soap:operation soapAction="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/GetResourceProperty"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="InvalidResourcePropertyQNameFault">
+        <soap:fault name="InvalidResourcePropertyQNameFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="QueryResourceProperties">
+      <soap:operation soapAction="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/QueryResourceProperties"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UnknownQueryExpressionDialectFault">
+        <soap:fault name="UnknownQueryExpressionDialectFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidResourcePropertyQNameFault">
+        <soap:fault name="InvalidResourcePropertyQNameFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidQueryExpressionFault">
+        <soap:fault name="InvalidQueryExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryEvaluationErrorFault">
+        <soap:fault name="QueryEvaluationErrorFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getServiceSecurityMetadata">
+      <soap:operation soapAction="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity/GetServiceSecurityMetadataRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="query">
+      <soap:operation soapAction="http://data.cagrid.nci.nih.gov/DataService/QueryRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="MalformedQueryException">
+        <soap:fault name="MalformedQueryException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryProcessingException">
+        <soap:fault name="QueryProcessingException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="executeQuery">
+      <soap:operation soapAction="http://org.cagrid.dataservice/DataService/ExecuteQueryRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="MalformedQueryException">
+        <soap:fault name="MalformedQueryException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryProcessingException">
+        <soap:fault name="QueryProcessingException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="enumerationQuery">
+      <soap:operation soapAction="http://gov.nih.nci.cagrid.data.enumeration/EnumerationDataService/EnumerationQueryRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="MalformedQueryException">
+        <soap:fault name="MalformedQueryException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryProcessingException">
+        <soap:fault name="QueryProcessingException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="executeEnumerationQuery">
+      <soap:operation soapAction="http://org.cagrid.dataservice.enumeration/Cql2EnumerationDataService/EnumerationQueryRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="MalformedQueryException">
+        <soap:fault name="MalformedQueryException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryProcessingException">
+        <soap:fault name="QueryProcessingException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="transferQuery">
+      <soap:operation soapAction="http://gov.nih.nci.cagrid.data.transfer/TransferDataService/TransferQueryRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="MalformedQueryException">
+        <soap:fault name="MalformedQueryException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryProcessingException">
+        <soap:fault name="QueryProcessingException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="executeTransferQuery">
+      <soap:operation soapAction="http://org.cagrid.dataservice.transfer/Cql2TransferDataService/ExecuteTransferQueryRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="MalformedQueryException">
+        <soap:fault name="MalformedQueryException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="QueryProcessingException">
+        <soap:fault name="QueryProcessingException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>

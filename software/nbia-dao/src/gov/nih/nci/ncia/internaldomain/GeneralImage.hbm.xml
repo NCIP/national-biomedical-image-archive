@@ -51,7 +51,7 @@
 		<property name="md5Digest" type="string" column="MD5_DIGEST"/>
 		<property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
 		<property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
-    	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
+    		<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
     	
 		<!-- Associations mapping for the GeneralImage class -->
 		<many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" insert="false" update="false"/>

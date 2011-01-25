@@ -44,7 +44,7 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
     public void testFindImagesBySeriesUidForMultiFrame() {
 		
         List<ImageDTO> dtos = 
-            imageDAO.findImagesBySeriesUid("1.3.6.1.4.1.9328.50.3.193", "");
+            imageDAO.findImagesBySeriesUid("1.3.6.1.4.1.9328.50.3.195", "");
 	
         Assert.assertTrue(dtos.get(0).getFrameNum()==43);
     }

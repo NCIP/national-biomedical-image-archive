@@ -18,7 +18,7 @@ public class SlideShowUtilTestCase extends TestCase {
 	public void testGetImageSeriesJavascriptSingleImage() {
 		ImageSearchResultImpl thumbnailImageDTO = new ImageSearchResultImpl();
 		thumbnailImageDTO.setThumbnailURL("foo/ncia/thumbnailViewer?location=0");
-
+		thumbnailImageDTO.setFrameNum(0);
 		List<ImageSearchResult> thumbnailList = new ArrayList<ImageSearchResult>();
 		thumbnailList.add(thumbnailImageDTO);
 		String js = SlideShowUtil.getImageSeriesJavascript(thumbnailList);
@@ -30,10 +30,10 @@ public class SlideShowUtilTestCase extends TestCase {
 	public void testGetImageSeriesJavascriptMutlipleImage() {
 		ImageSearchResultImpl thumbnailImageDTO1 = new ImageSearchResultImpl();
 		thumbnailImageDTO1.setThumbnailURL("foo1/ncia/thumbnailViewer?location=1");
-
+		thumbnailImageDTO1.setFrameNum(0);
 		ImageSearchResultImpl thumbnailImageDTO2 = new ImageSearchResultImpl();
 		thumbnailImageDTO2.setThumbnailURL("foo2/ncia/thumbnailViewer?location=2");
-		
+		thumbnailImageDTO2.setFrameNum(0);		
 		List<ImageSearchResult> thumbnailList = new ArrayList<ImageSearchResult>();
 		thumbnailList.add(thumbnailImageDTO1);
 		thumbnailList.add(thumbnailImageDTO2);

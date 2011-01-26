@@ -613,6 +613,7 @@
         <property name="ncia-core-grid.jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>        
         <jboss-read-ports                       
           jboss.server.bindingfile.location="${ncia-core-grid.jboss.server.binding.template.location}"
+          jboss.server.ports.name="${ncia-core-grid.jboss.server.ports.name}"
           />                              
         <echo message="http -${ncia-core-grid.jboss.server.port} "/>
         <echo message="http -${ncia-core-grid.jboss.server.jndi.port} "/>
@@ -622,6 +623,7 @@
         <!-- Make sure there are not unexpanded tokens and that the jboss.server.ports.name is a configuration in the bindings file. -->
         <jboss-bindings-validate                
           jboss.server.bindingfile.location="${ncia-core-grid.jboss.server.binding.template.location}"
+          jboss.server.ports.name="${ncia-core-grid.jboss.server.ports.name}"
           />                                      
       </then>
       <else>

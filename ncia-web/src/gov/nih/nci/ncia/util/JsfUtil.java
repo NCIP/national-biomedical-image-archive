@@ -131,10 +131,12 @@ public class JsfUtil {
     		item.setLabel(aString);
     		item.setValue(false);
     		String desc = modalityDescMap.get(item.getLabel());
-    		if( desc!=null)
+    		if( desc!=null) {
     			item.setDescription(desc);
-    		else
+    		}
+    		else {
     			item.setDescription("");
+    		}
     		selectItemList.add(item);    		
     	}
     	return selectItemList;    	

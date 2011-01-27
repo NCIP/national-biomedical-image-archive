@@ -76,15 +76,12 @@ public class NCIACoreServiceClient extends NCIACoreServiceClientBase implements 
 		}
 	}
 
-  public gov.nih.nci.ncia.dto.DicomTagDTO[] viewDicomHeader(gov.nih.nci.ncia.search.ImageSearchResult imageSearchResult) throws RemoteException {
+  public gov.nih.nci.nbia.remotesearch.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException {
     synchronized(portTypeMutex){
-      configureStubSecurity((Stub)portType,"viewDicomHeader");
-    gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequest params = new gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequest();
-    gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequestImageSearchResult imageSearchResultContainer = new gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequestImageSearchResult();
-    imageSearchResultContainer.setImageSearchResult(imageSearchResult);
-    params.setImageSearchResult(imageSearchResultContainer);
-    gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderResponse boxedResult = portType.viewDicomHeader(params);
-    return boxedResult.getDicomTagDTO();
+      configureStubSecurity((Stub)portType,"getUsAvailableSearchTerms");
+    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest params = new gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest();
+    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse boxedResult = portType.getUsAvailableSearchTerms(params);
+    return boxedResult.getUsAvailableSearchTerms();
     }
   }
 
@@ -266,6 +263,18 @@ public class NCIACoreServiceClient extends NCIACoreServiceClientBase implements 
     params.setSeriesSearchResult(seriesSearchResultContainer);
     gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesResponse boxedResult = portType.retrieveImagesForSeries(params);
     return boxedResult.getImageSearchResult();
+    }
+  }
+
+  public gov.nih.nci.ncia.dto.DicomTagDTO[] viewDicomHeader(gov.nih.nci.ncia.search.ImageSearchResult imageSearchResult) throws RemoteException {
+    synchronized(portTypeMutex){
+      configureStubSecurity((Stub)portType,"viewDicomHeader");
+    gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequest params = new gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequest();
+    gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequestImageSearchResult imageSearchResultContainer = new gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequestImageSearchResult();
+    imageSearchResultContainer.setImageSearchResult(imageSearchResult);
+    params.setImageSearchResult(imageSearchResultContainer);
+    gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderResponse boxedResult = portType.viewDicomHeader(params);
+    return boxedResult.getDicomTagDTO();
     }
   }
 

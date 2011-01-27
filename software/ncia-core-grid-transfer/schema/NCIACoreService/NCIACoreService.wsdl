@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ncia.cagrid.nci.nih.gov/NCIACoreService" xmlns:wsrp="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.xsd" xmlns:wsrlw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceLifetime-1.2-draft-01.wsdl" xmlns:wsdlpp="http://www.globus.org/namespaces/2004/10/WSDLPreprocessor" xmlns:gtwsdl1="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ServiceGroup-1.2-draft-01.wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:wsntw="http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.wsdl" xmlns:wsrbfw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" xmlns:wsrpw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns1="http://gov.nih.nci.cagrid.data/DataService" xmlns:wns2="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns0="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" xmlns:ns6="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" xmlns:ns12="http://transfer.cagrid.org/Transfer" xmlns:ns4="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" xmlns:ns5="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" xmlns:ns10="http://gov.nih.nci.cagrid.data/DataServiceExceptions" xmlns:ns9="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" xmlns:ns0="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" xmlns:ns3="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" xmlns:ns11="http://transfer.cagrid.org/TransferService/Context/types" xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" xmlns:ns2="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" xmlns:ns8="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" name="NCIACoreService" targetNamespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ncia.cagrid.nci.nih.gov/NCIACoreService" xmlns:wsrp="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.xsd" xmlns:wsrlw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceLifetime-1.2-draft-01.wsdl" xmlns:wsdlpp="http://www.globus.org/namespaces/2004/10/WSDLPreprocessor" xmlns:gtwsdl1="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ServiceGroup-1.2-draft-01.wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:wsntw="http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.wsdl" xmlns:wsrbfw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" xmlns:wsrpw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns1="http://gov.nih.nci.cagrid.data/DataService" xmlns:wns2="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns0="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" xmlns:ns13="http://transfer.cagrid.org/Transfer" xmlns:ns5="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" xmlns:ns11="http://gov.nih.nci.cagrid.data/DataServiceExceptions" xmlns:ns3="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" xmlns:ns0="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" xmlns:ns9="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" xmlns:ns12="http://transfer.cagrid.org/TransferService/Context/types" xmlns:ns8="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" name="NCIACoreService" targetNamespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService">
   <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" location="../wsrf/properties/WS-ResourceProperties.wsdl" />
   <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" location="../wsrf/faults/WS-BaseFaults.wsdl" />
   <import namespace="http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.wsdl" location="../wsrf/notification/WS-BaseN.wsdl" />
@@ -19,21 +19,22 @@
       <import namespace="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" schemaLocation="gov.nih.nci.ncia.domain.xsd" />
       <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" schemaLocation="./xsd/cagrid/types/caGridMetadata.xsd" />
       <import namespace="http://gov.nih.nci.cagrid.data/DataServiceExceptions" schemaLocation="./DataServiceExceptions.xsd" />
+      <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" schemaLocation="./NCIACoreServiceTypes.xsd" />
       <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" schemaLocation="./xsd/cagrid/types/data/data.xsd" />
       <import namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" schemaLocation="./RemoteSearch.xsd" />
+      <import namespace="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" schemaLocation="./UsRemoteSearch.xsd" />
       <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" schemaLocation="./xsd/cagrid/types/security/security.xsd" />
+      <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" schemaLocation="./NCIACoreService_CQLResultTypes.xsd" />
       <import namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" schemaLocation="./DicomTags.xsd" />
       <import namespace="http://transfer.cagrid.org/TransferService/Context/types" schemaLocation="./TransferServiceContextTypes.xsd" />
       <import namespace="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" schemaLocation="./1_gov.nih.nci.cagrid.CQLResultSet.xsd" />
-      <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" schemaLocation="./NCIACoreServiceTypes.xsd" />
-      <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" schemaLocation="./NCIACoreService_CQLResultTypes.xsd" />
       <element name="RetrieveDicomDataRequest">
         <complexType>
           <sequence>
             <element name="cQLQuery">
               <complexType>
                 <sequence>
-                  <element ref="ns6:CQLQuery" minOccurs="1" maxOccurs="1" />
+                  <element ref="ns7:CQLQuery" minOccurs="1" maxOccurs="1" />
                 </sequence>
               </complexType>
             </element>
@@ -43,7 +44,7 @@
       <element name="RetrieveDicomDataResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -57,7 +58,7 @@
       <element name="RetrieveDicomDataByPatientIdResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -71,7 +72,7 @@
       <element name="RetrieveDicomDataBySeriesUIDResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -85,7 +86,7 @@
       <element name="RetrieveDicomDataByStudyUIDResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -99,7 +100,7 @@
       <element name="RetrieveDicomDataByPatientIdsResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -113,7 +114,7 @@
       <element name="RetrieveDicomDataBySeriesUIDsResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -127,7 +128,7 @@
       <element name="RetrieveDicomDataByStudyUIDsResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -156,7 +157,7 @@
       <element name="RetrieveDicomDataByNthStudyTimePointForPatientResponse">
         <complexType>
           <sequence>
-            <element ref="ns11:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -170,7 +171,7 @@
       <element name="GetRepresentativeImageBySeriesResponse">
         <complexType>
           <sequence>
-            <element ref="ns4:Image" minOccurs="1" maxOccurs="1" />
+            <element ref="ns5:Image" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -182,7 +183,7 @@
       <element name="GetAvailableSearchTermsResponse">
         <complexType>
           <sequence>
-            <element ref="ns0:AvailableSearchTerms" minOccurs="1" maxOccurs="1" />
+            <element ref="ns1:AvailableSearchTerms" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
@@ -192,7 +193,7 @@
             <element name="searchCriteriaDTO">
               <complexType>
                 <sequence>
-                  <element ref="ns0:SearchCriteriaDTO" minOccurs="1" maxOccurs="unbounded" />
+                  <element ref="ns1:SearchCriteriaDTO" minOccurs="1" maxOccurs="unbounded" />
                 </sequence>
               </complexType>
             </element>
@@ -202,7 +203,7 @@
       <element name="SearchForPatientsResponse">
         <complexType>
           <sequence>
-            <element ref="ns0:PatientSearchResult" minOccurs="1" maxOccurs="unbounded" />
+            <element ref="ns1:PatientSearchResult" minOccurs="1" maxOccurs="unbounded" />
           </sequence>
         </complexType>
       </element>
@@ -212,7 +213,7 @@
             <element name="patientSearchResult">
               <complexType>
                 <sequence>
-                  <element ref="ns0:PatientSearchResult" minOccurs="1" maxOccurs="1" />
+                  <element ref="ns1:PatientSearchResult" minOccurs="1" maxOccurs="1" />
                 </sequence>
               </complexType>
             </element>
@@ -222,7 +223,7 @@
       <element name="RetrieveStudyAndSeriesForPatientResponse">
         <complexType>
           <sequence>
-            <element ref="ns0:StudySearchResult" minOccurs="1" maxOccurs="unbounded" />
+            <element ref="ns1:StudySearchResult" minOccurs="1" maxOccurs="unbounded" />
           </sequence>
         </complexType>
       </element>
@@ -232,7 +233,7 @@
             <element name="seriesSearchResult">
               <complexType>
                 <sequence>
-                  <element ref="ns0:SeriesSearchResult" minOccurs="1" maxOccurs="1" />
+                  <element ref="ns1:SeriesSearchResult" minOccurs="1" maxOccurs="1" />
                 </sequence>
               </complexType>
             </element>
@@ -242,7 +243,7 @@
       <element name="RetrieveImagesForSeriesResponse">
         <complexType>
           <sequence>
-            <element ref="ns0:ImageSearchResult" minOccurs="1" maxOccurs="unbounded" />
+            <element ref="ns1:ImageSearchResult" minOccurs="1" maxOccurs="unbounded" />
           </sequence>
         </complexType>
       </element>
@@ -252,7 +253,7 @@
             <element name="imageSearchResult">
               <complexType>
                 <sequence>
-                  <element ref="ns0:ImageSearchResult" minOccurs="1" maxOccurs="1" />
+                  <element ref="ns1:ImageSearchResult" minOccurs="1" maxOccurs="1" />
                 </sequence>
               </complexType>
             </element>
@@ -262,15 +263,27 @@
       <element name="ViewDicomHeaderResponse">
         <complexType>
           <sequence>
-            <element ref="ns1:DicomTagDTO" minOccurs="1" maxOccurs="unbounded" />
+            <element ref="ns2:DicomTagDTO" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetUsAvailableSearchTermsRequest">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="GetUsAvailableSearchTermsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns0:UsAvailableSearchTerms" minOccurs="1" maxOccurs="1" />
           </sequence>
         </complexType>
       </element>
       <element name="NCIACoreServiceResourceProperties">
         <complexType>
           <sequence>
-            <element ref="ns9:DomainModel" />
-            <element ref="ns5:ServiceMetadata" />
+            <element ref="ns10:DomainModel" />
+            <element ref="ns6:ServiceMetadata" />
           </sequence>
         </complexType>
       </element>
@@ -367,6 +380,12 @@
   <message name="ViewDicomHeaderResponse">
     <part name="parameters" element="tns:ViewDicomHeaderResponse" />
   </message>
+  <message name="GetUsAvailableSearchTermsRequest">
+    <part name="parameters" element="tns:GetUsAvailableSearchTermsRequest" />
+  </message>
+  <message name="GetUsAvailableSearchTermsResponse">
+    <part name="parameters" element="tns:GetUsAvailableSearchTermsResponse" />
+  </message>
   <!--============================================================
 
                        P O R T T Y P E
@@ -432,6 +451,10 @@
     <operation name="viewDicomHeader">
       <input message="tns:ViewDicomHeaderRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/ViewDicomHeaderRequest" />
       <output message="tns:ViewDicomHeaderResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/ViewDicomHeaderResponse" />
+    </operation>
+    <operation name="getUsAvailableSearchTerms">
+      <input message="tns:GetUsAvailableSearchTermsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetUsAvailableSearchTermsRequest" />
+      <output message="tns:GetUsAvailableSearchTermsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetUsAvailableSearchTermsResponse" />
     </operation>
     <operation name="getServiceSecurityMetadata">
       <input message="wns0:GetServiceSecurityMetadataRequest" wsa:Action="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity/GetServiceSecurityMetadataRequest" />

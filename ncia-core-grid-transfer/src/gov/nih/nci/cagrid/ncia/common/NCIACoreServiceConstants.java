@@ -1,6 +1,5 @@
 package gov.nih.nci.cagrid.ncia.common;
 
-import javax.xml.namespace.QName;
 
 
 /**

@@ -5,6 +5,7 @@ import gov.nih.nci.cagrid.metadata.MetadataUtils;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+//import gov.nih.nci.ncia.search.AvailableSearchTermsNew;
 import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.Util;
 
@@ -50,7 +51,7 @@ public class RemoteNodes {
 				ServiceMetadata serviceMetadata = MetadataUtils.getServiceMetadata(endpoint);
 				String version = serviceMetadata.getServiceDescription().getService().getVersion();
 	    		String url = endpoint.getAddress().toString();
-System.out.println("!!!!! remote node url "+ url);
+System.out.println("!!!domain model version="+	    		MetadataUtils.getDomainModel(endpoint).getProjectVersion());
 
 				if(!version.equals("1.3") ||
 			       url.equals(NCIAConfig.getLocalGridURI())) {
@@ -139,8 +140,16 @@ System.out.println("!!!!! remote node url "+ url);
 	 * wrapper method to get the available search terms for a given endpoint
 	 */
 	private static AvailableSearchTerms retrieveAvailableSearchTerms(EndpointReferenceType endpointReferenceType) throws Exception {
-		String serviceAddress = endpointReferenceType.getAddress().toString();
+		String serviceAddress = endpointReferenceType.getAddress().toString();		
 		NCIACoreServiceClient nciaCoreServiceClient = new NCIACoreServiceClient(serviceAddress);
 		return nciaCoreServiceClient.getAvailableSearchTerms();
+		/*	
+		try {
+			return nciaCoreServiceClient.getAvailableSearchTermsNew();
+		}
+		catch (Exception e){
+			return nciaCoreServiceClient.getAvailableSearchTerms();
+		}
+		*/
 	}
 }

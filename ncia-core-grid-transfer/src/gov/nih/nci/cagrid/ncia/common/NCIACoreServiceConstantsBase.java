@@ -14,5 +14,5 @@ public interface NCIACoreServiceConstantsBase {
 	public static final QName RESOURCE_PROPERTY_SET = new QName(SERVICE_NS, "NCIACoreServiceResourceProperties");
 	public static final QName DOMAINMODEL = new QName("gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice", "DomainModel");
 	public static final QName SERVICEMETADATA = new QName("gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata", "ServiceMetadata");
-
+	
 }

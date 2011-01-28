@@ -66,7 +66,7 @@ Defects from 5.0 Addressed in This Release
 ------------------------------------------
 [NBIA-322] Shared List creation can fail when greater than 1000 series elements
 [NBIA-318] Deleting > 1000 series when they are referenced by shared list causes exception
-
+[NBIA-327] The AvailableSearchTerms schema is compromised with "imageTypes" property
 
 Known Issues/Defects
 ------------------------

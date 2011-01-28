@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 /**
  * This object corrals all the searchable terms for a given node.
- * 
+ *
  * <P>This object should be considered immutable.... even though
  * it doesn't enforce that.
- * 
+ *
  * <P><b>WARNING!</b> This object is serialized so if you change it, you risk
  * breaking remote search and the grid interface
  */
@@ -32,7 +32,7 @@ public class AvailableSearchTerms implements Serializable {
         this.collections = collections;
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
@@ -41,11 +41,11 @@ public class AvailableSearchTerms implements Serializable {
         return this.collections[i];
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public void setCollections(int i, String _value) {
         this.collections[i] = _value;
     }
@@ -66,23 +66,23 @@ public class AvailableSearchTerms implements Serializable {
         this.convolutionKernels = convolutionKernels;
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public String getConvolutionKernels(int i) {
         return this.convolutionKernels[i];
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public void setConvolutionKernels(int i, String _value) {
         this.convolutionKernels[i] = _value;
-    }    
+    }
 
     /**
      * Gets the modalities value for this AvailableSearchTerms.
@@ -96,27 +96,27 @@ public class AvailableSearchTerms implements Serializable {
      * Sets the modalities value for this AvailableSearchTerms.
      */
     public void setModalities(String[] modalities) {
-        this.modalities = modalities;        
+        this.modalities = modalities;
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public String getModalities(int i) {
         return this.modalities[i];
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public void setModalities(int i, String _value) {
         this.modalities[i] = _value;
-    }  
-    
+    }
+
     /**
      * Gets the anatomicSites value for this AvailableSearchTerms.
      *
@@ -133,56 +133,24 @@ public class AvailableSearchTerms implements Serializable {
     public void setAnatomicSites(String[] anatomicSites) {
         this.anatomicSites = anatomicSites;
     }
-    
+
+
     /**
-     * Gets the ImageTypes value for this AvailableSearchTerms.
-     *
-     * @return imageTypes
+     * This is necessary for the web services serializer to recognize
+     * this property is an indexed property.
      */
-    public String[] getImageTypes() {
-        return imageTypes;
-    }
-
-
-    /**
-     * Sets the imageTypes value for this AvailableSearchTerms.
-     */
-    public void setImageType(String[] imageTypes) {
-        this.imageTypes = imageTypes;
-    }
-
-    /**
-     * This is necessary for the web services serializer to recognize
-     * this property is an indexed property.
-     */    
-    public String getImageTypes(int i) {
-        return this.imageTypes[i];
-    }
-
-    
-    /**
-     * This is necessary for the web services serializer to recognize
-     * this property is an indexed property.
-     */    
-    public void setImageTypes(int i, String _value) {
-        this.imageTypes[i] = _value;
-    }      
-    /**
-     * This is necessary for the web services serializer to recognize
-     * this property is an indexed property.
-     */    
     public String getAnatomicSites(int i) {
         return this.anatomicSites[i];
     }
 
-    
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public void setAnatomicSites(int i, String _value) {
         this.anatomicSites[i] = _value;
-    }      
+    }
 
     /**
      * Gets the equipment value for this AvailableSearchTerms.
@@ -198,12 +166,12 @@ public class AvailableSearchTerms implements Serializable {
     public void setEquipment(Manufacturer[] equipment) {
         this.equipment = equipment;
     }
-    
-    
+
+
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public void setEquipment(int index, Manufacturer line ) {
         this.equipment[index] = line;
     }
@@ -212,17 +180,16 @@ public class AvailableSearchTerms implements Serializable {
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
-     */    
+     */
     public Manufacturer getEquipment(int index ) {
         return this.equipment[index];
     }
 
     ///////////////////////////////////////PRIVATE////////////////////////////////////////
-    
+
     private String[] collections;
     private String[] convolutionKernels;
     private String[] modalities;
     private String[] anatomicSites;
-    private String[] imageTypes;
     private Manufacturer[] equipment;
 }

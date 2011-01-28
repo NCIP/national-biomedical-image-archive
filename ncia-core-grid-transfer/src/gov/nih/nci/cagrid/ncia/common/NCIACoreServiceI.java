@@ -15,7 +15,7 @@ import java.rmi.RemoteException;
  */
 public interface NCIACoreServiceI {
 
-  public gov.nih.nci.nbia.remotesearch.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException ;
+  public gov.nih.nci.ncia.search.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException ;
 
   /**
    * The standard caGrid Data Service query method.

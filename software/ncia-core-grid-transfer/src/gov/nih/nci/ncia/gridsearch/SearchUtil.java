@@ -4,6 +4,7 @@ import gov.nih.nci.ncia.dicomtags.LocalDicomTagViewer;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.lookup.LookupManagerImpl;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.security.AuthorizationManager;
@@ -26,6 +27,18 @@ public class SearchUtil {
 			AuthorizationManager authorizationManager = new AuthorizationManager();
 			LookupManagerImpl lookupManager = new LookupManagerImpl(authorizationManager.getAuthorizedCollections());
 			return lookupManager.getAvailableSearchTerms();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			throw new RemoteException(ex.getMessage());
+		}
+	}
+	
+	public static UsAvailableSearchTerms computePublicUsSearchTerms() throws RemoteException {
+		try {
+			AuthorizationManager authorizationManager = new AuthorizationManager();
+			LookupManagerImpl lookupManager = new LookupManagerImpl(authorizationManager.getAuthorizedCollections());
+			return lookupManager.getUsAvailableSearchTerms();
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();

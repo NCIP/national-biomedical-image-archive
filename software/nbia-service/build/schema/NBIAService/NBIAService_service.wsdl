@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="NBIAService" targetNamespace="http://nbia.nci.nih.gov/NBIAService/service" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:binding="http://nbia.nci.nih.gov/NBIAService/bindings" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
-  <wsdl:import namespace="http://nbia.nci.nih.gov/NBIAService/bindings" location="NBIAService_bindings.wsdl"/>
-  <wsdl:service name="NBIAService">
-    <wsdl:port name="NBIAServicePortTypePort" binding="binding:NBIAServicePortTypeSOAPBinding">
-      <soap:address location="http://localhost:8080/wsrf/services/"/>
-    </wsdl:port>
-  </wsdl:service>
-</wsdl:definitions>

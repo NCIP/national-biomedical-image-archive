@@ -1,6 +1,6 @@
 <ns1:ServiceDescription introduceVersion="1.3" xmlns:ns1="gme://gov.nih.nci.cagrid/1/Introduce">
  <ns2:Namespaces xsi:type="ns2:NamespacesType" xmlns:ns2="gme://gov.nih.nci.cagrid.introduce/1/Namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ns2:Namespace location="./UsRemoteSearch.xsd" namespace="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" packageName="gov.nih.nci.nbia.remotesearch" xsi:type="ns2:NamespaceType">
+  <ns2:Namespace location="./UsRemoteSearch.xsd" namespace="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" packageName="gov.nih.nci.ncia.search" xsi:type="ns2:NamespaceType">
    <ns2:SchemaElement type="UsAvailableSearchTerms" xsi:type="ns2:SchemaElementType"/>
   </ns2:Namespace>
   <ns2:Namespace generateStubs="false" location="./RemoteSearch.xsd" namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" packageName="gov.nih.nci.ncia.search" xsi:type="ns2:NamespaceType">

@@ -5,7 +5,7 @@ import gov.nih.nci.cagrid.metadata.MetadataUtils;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
-//import gov.nih.nci.ncia.search.AvailableSearchTermsNew;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.Util;
 
@@ -64,6 +64,7 @@ public class RemoteNodes {
 					System.out.println("Retrieving search terms from:"+endpoint.getAddress());
 					long before = System.currentTimeMillis();
 					AvailableSearchTerms availableSearchTerms = retrieveAvailableSearchTerms(endpoint);
+					UsAvailableSearchTerms usAvailableSearchTerms = retrieveUsAvailableSearchTerms(endpoint);
 					long after = System.currentTimeMillis();
 					System.out.println("retrieveAvailableSearchTerms time lapse:"+(after-before));
 					//DumpUtil.debug(availableSearchTerms);
@@ -71,7 +72,8 @@ public class RemoteNodes {
 
 					RemoteNode remoteNode = new RemoteNode(serviceMetadata,
 							                               endpoint,
-							                               availableSearchTerms);
+							                               availableSearchTerms,
+							                               usAvailableSearchTerms);
 					newRemoteNodes.add(remoteNode);
 				}
 			}
@@ -143,6 +145,23 @@ public class RemoteNodes {
 		String serviceAddress = endpointReferenceType.getAddress().toString();		
 		NCIACoreServiceClient nciaCoreServiceClient = new NCIACoreServiceClient(serviceAddress);
 		return nciaCoreServiceClient.getAvailableSearchTerms();
+		/*	
+		try {
+			return nciaCoreServiceClient.getAvailableSearchTermsNew();
+		}
+		catch (Exception e){
+			return nciaCoreServiceClient.getAvailableSearchTerms();
+		}
+		*/
+	}
+	
+	/**
+	 * wrapper method to get the available search terms for a given endpoint
+	 */
+	private static UsAvailableSearchTerms retrieveUsAvailableSearchTerms(EndpointReferenceType endpointReferenceType) throws Exception {
+		String serviceAddress = endpointReferenceType.getAddress().toString();		
+		NCIACoreServiceClient nciaCoreServiceClient = new NCIACoreServiceClient(serviceAddress);
+		return nciaCoreServiceClient.getUsAvailableSearchTerms();
 		/*	
 		try {
 			return nciaCoreServiceClient.getAvailableSearchTermsNew();

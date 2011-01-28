@@ -4,6 +4,7 @@ import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.Date;
@@ -24,13 +25,15 @@ public class RemoteNode extends NBIANode {
 	 */
 	public RemoteNode(ServiceMetadata serviceMetadata,
 			          EndpointReferenceType endpoint,
-			          AvailableSearchTerms availableSearchTerms) {
+			          AvailableSearchTerms availableSearchTerms,
+			          UsAvailableSearchTerms usAvailableSearchTerms) {
 		super(false,
 			  serviceMetadata.getHostingResearchCenter().getResearchCenter().getDisplayName(),
 			  endpoint.getAddress().toString());
 		this.serviceMetadata = serviceMetadata;
 		this.endpointReferenceType = endpoint;
 		this.availableSearchTerms = availableSearchTerms;
+		this.usAvailableSearchTerms = usAvailableSearchTerms;
 		creationTime = new Date();
 	}
 
@@ -59,6 +62,14 @@ public class RemoteNode extends NBIANode {
 	public AvailableSearchTerms getAvailableSearchTerms() {
 		return availableSearchTerms;
 	}
+	
+	/**
+	 * These are the search terms associated with this node.
+	 * Could be null I guess.
+	 */
+	public UsAvailableSearchTerms getUsAvailableSearchTerms() {
+		return usAvailableSearchTerms;
+	}
 
 	/**
 	 * The time at which the constructor of this object was called
@@ -84,12 +95,13 @@ public class RemoteNode extends NBIANode {
 		EndpointReferenceType endpointReferenceType = new EndpointReferenceType();
 		endpointReferenceType.setAddress(new AttributedURI(url));
 
-		return new RemoteNode(serviceMetadata, endpointReferenceType, null);
+		return new RemoteNode(serviceMetadata, endpointReferenceType, null, null);
 	}
 
 	/////////////////////////////////////////////////PRIVATE/////////////////////////////////
 
 	private AvailableSearchTerms availableSearchTerms;
+	private UsAvailableSearchTerms usAvailableSearchTerms;	
 
 	private ServiceMetadata serviceMetadata;
 

@@ -64,7 +64,7 @@ public class NCIACoreServiceClient extends NCIACoreServiceClientBase implements 
 		}
 	}
 
-  public gov.nih.nci.nbia.remotesearch.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException {
+  public gov.nih.nci.ncia.search.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException {
     synchronized(portTypeMutex){
       configureStubSecurity((Stub)portType,"getUsAvailableSearchTerms");
     gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest params = new gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest();

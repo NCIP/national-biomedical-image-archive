@@ -33,7 +33,6 @@
   	<xs:element name="anatomicSites" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
   	<xs:element name="convolutionKernels" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
   	<xs:element name="equipment" nillable="true" maxOccurs="unbounded" minOccurs="0" type="Manufacturer"/>
-  	<xs:element name="usMultiModalities" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
   </xs:sequence> 
   
 </xs:complexType> 

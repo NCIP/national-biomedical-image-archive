@@ -53,6 +53,7 @@ $HeadURL$
   <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
   <property name="ncia-core-grid.jboss.home" value="${application.base.path}/${ncia-core-grid.jboss.relative.path}"/>
   <property name="ncia-core-grid-unsecured.jboss.home" value="${application.base.path}/${ncia-core-grid-unsecured.jboss.relative.path}"/>
+  <property name="nbia-grid.jboss.home" value="${application.base.path}/${nbia-grid.jboss.relative.path}"/>
  
   <!-- BDA standard structure -->
   <property name="build.dir" location="." />
@@ -79,6 +80,7 @@ $HeadURL$
   <property name="resources.dir" value="${software.dir}/resources" />  
   <property name="nbia-dao.base.dir" value="${software.dir}/nbia-dao"/>
   <property name="ncia-core-grid.base.dir" value="${software.dir}/ncia-core-grid-transfer"/>
+  <property name="nbia-grid.base.dir" value="${software.dir}/nbia-service"/>
   <property name="ncia-ctp.base.dir" value="${software.dir}/ncia-ctp-working"/>
   <property name="ncia-services-commons.base.dir" value="${software.dir}/ncia-services-commons"/>
   <property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
@@ -110,14 +112,17 @@ $HeadURL$
   <property name="upgrade.jboss.target" value="upgrade:jboss"/>
   <property name="upgrade.ncia-core-grid.target" value="upgrade:ncia-core-grid"/>
   <property name="upgrade.ncia-core-grid-unsecured.target" value="upgrade:ncia-core-grid-unsecured"/>
+  <property name="upgrade.nbia-grid.target" value="upgrade:nbia-grid"/>
   <property name="install.jboss.target" value="install:jboss"/>
   <property name="install.ncia-core-grid.target" value="install:ncia-core-grid"/>  
   <property name="install.ncia-core-grid-unsecured.target" value="install:ncia-core-grid-unsecured"/>
+  <property name="install.nbia-grid.target" value="install:nbia-grid"/>  
   <property name="ctp.install.target" value="install:ctp:server"/>
   <property name="ctp.upgrade.target" value="upgrade:ctp:server"/>
   
   <!-- output directory properties -->
   <property name="ncia-core-grid.artifact.dir" value="${ncia-core-grid.base.dir}/target" />
+  <property name="nbia-grid.artifact.dir" value="${nbia-grid.base.dir}/target" />
   <property name="ncia-ctp.artifact.dir" value="${ncia-ctp.base.dir}/target" />
   
   
@@ -130,6 +135,7 @@ $HeadURL$
   <property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/${db-upgrade.dist.relative.dir}" />
   <property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
   <property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}"/>
+  <property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}"/>
   <property name="ncia-ctp.dist.dir" value="${dist.exploded.dir}/${ncia-ctp.dist.relative.dir}"/>
   <property name="ncia-web.dist.dir" value="${dist.exploded.dir}/${ncia-web.dist.relative.dir}"/>
   <property name="ncia-resource.dist.dir" value="${dist.exploded.dir}/${ncia-resource.dist.relative.dir}" />
@@ -299,6 +305,7 @@ $HeadURL$
     <delete dir="${dist.dir}"/>
     <delete dir="${temp.dir}"/>
     <delete dir="${ncia-core-grid.artifact.dir}"/>
+    <delete dir="${nbia-grid.artifact.dir}"/>
     <delete>
       <fileset dir="${lib.dir}">
         <include name="nbia*" />
@@ -311,7 +318,9 @@ $HeadURL$
     <mkdir dir="${dist.dir}"/>
     <mkdir dir="${dist.exploded.dir}"/>
     <mkdir dir="${ncia-core-grid.artifact.dir}"/>
+    <mkdir dir="${nbia-grid.artifact.dir}"/>
     <mkdir dir="${ncia-core-grid.dist.dir}"/>
+    <mkdir dir="${nbia-grid.dist.dir}"/>
     <mkdir dir="${ncia-web.dist.dir}"/>
     <mkdir dir="${ncia-resource.dist.dir}"/>
     <mkdir dir="${db-install.dist.dir}"/>
@@ -371,6 +380,7 @@ $HeadURL$
     build:ncia-web,
     build:ncia-ctp,
     build:ncia-core-grid,
+    build:nbia-grid,
     build:ncia-download-manager,
     build:nbia-liquibase,
     static-analysis
@@ -691,6 +701,84 @@ $HeadURL$
     
   </target>
 
+  <target name="build:nbia-grid" depends="init">
+                 
+    <delete dir="${nbia-grid.base.dir}/build"/>
+    <delete dir="${nbia-grid.base.dir}/target"/>
+    <delete dir="${lib.dir}/nbia-service"/>
+    
+    <ant inheritAll="false" 
+         inheritRefs="false" 
+         antfile="${ncia.build.file}"
+         target="deployJBoss"
+         dir="${nbia-grid.base.dir}">
+      <property name="project.name" value="${project.name}"/>
+      <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
+      <property name="env.JBOSS_HOME" value="${nbia-grid.artifact.dir}"/>
+    </ant>
+
+    <!-- 
+      this is necessary to get cagrid patched versions of wsrf core
+      see: http://www.cagrid.org/display/knowledgebase/Manually+Configure+JBoss+Container 
+      -->
+    <ant inheritAll="false" 
+         inheritRefs="false" 
+         antfile="jboss.xml"
+         target="deployJBoss"
+         dir="${ncia-resource.artifact.dir}/grid/jboss">
+      <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
+      <property name="env.JBOSS_HOME" value="${nbia-grid.artifact.dir}"/>
+      <property name="jboss.dir" value="${nbia-grid.artifact.dir}"/>      
+      
+      <!-- webapp23.dtd craps out occasionally.  this is for local xmlcatalog -->
+      <property name="dtd.dir" value="${ncia-resource.artifact.dir}/grid/jboss"/>   
+    </ant>
+ 
+    
+    <zip update="false" 
+         destfile="${nbia-grid.dist.dir}/${nbia-grid.artifact.file}">
+      <zipfileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
+    </zip>    
+
+       
+    <!-- copy the whole thing to the dist dir so that deployTomcat target
+         can be run on it during install/deploy -->
+    <copy todir="${nbia-grid.dist.dir}">
+      <fileset dir="${ncia-api.artifact.dir}">
+        <include name="*.war" />
+      </fileset>
+    </copy>
+    <!--
+    <ant inheritAll="false" 
+         inheritRefs="false" 
+         antfile="${ncia.build.file}"
+         target="test"
+         dir="${nbia-grid.base.dir}">
+      <property name="project.name" value="${project.name}"/>
+      <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
+      <property name="env.JBOSS_HOME" value="${nbia-grid.artifact.dir}"/>
+      
+      <property name="database.type" value="${database.type}"/>
+      <property name="database.user" value="${database.user}"/>
+      <property name="database.password" value="${database.password}"/>    
+      <property name="database.url" value="${database.url}"/>
+      <property name="database.dialect" value="${database.dialect}"/>
+      <property name="database.driver" value="${database.driver}"/>        
+    </ant>
+    
+   
+    <ant inheritAll="false" 
+         inheritRefs="false" 
+         antfile="${ncia.build.file}"
+         target="inspect"
+         dir="${ncia-core-grid.base.dir}">
+      <property name="project.name" value="${project.name}"/>
+      <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
+      <property name="env.JBOSS_HOME" value="${nbia-grid.artifact.dir}"/>
+    </ant>    
+    -->
+  </target>
+  
   <target name="dist:gui-installer" description="Makes Gui-Installer distribution">
     <delete>
       <fileset dir="${dist.dir}">
@@ -853,6 +941,7 @@ $HeadURL$
         <include name="jboss.xml" />
         <include name="ncia-core-grid.xml" />
         <include name="ncia-core-grid-unsecured.xml"/>
+        <include name="nbia-grid.xml"/>
         <include name="database.xml" />
         <include name="macrodefs.xml" />
       </fileset>
@@ -914,6 +1003,7 @@ $HeadURL$
         <include name="jboss.xml" />
         <include name="ncia-core-grid.xml"/>
         <include name="ncia-core-grid-unsecured.xml"/>
+        <include name="nbia-grid.xml"/>
         <include name="database.xml" />
         <include name="macrodefs.xml" />
       </fileset>
@@ -1005,6 +1095,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                    deploy:remote:db:upgrade:ahp,
                    deploy:remote:ncia-core-grid:upgrade:ahp,
                    deploy:remote:ncia-core-grid-unsecured:upgrade:ahp,
+                   deploy:remote:nbia-grid:upgrade:ahp,
                    deploy:remote:ctp:upgrade:ahp"/>          
  
   <target name="deploy:remote:jboss:upgrade:ahp">
@@ -1075,7 +1166,28 @@ jboss.home,ctp.server.home,ctp.client.home,
     <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
                 remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${override.properties.string} ${upgrade.ncia-core-grid-unsecured.target}"
                 remoteSshUser="${tomcat.ssh.server.username}"/>
-  </target>    
+  </target>   
+  
+  <target name="deploy:remote:nbia-grid:upgrade:ahp"
+          unless="exclude.nbia-grid">
+         
+    <if>
+      <not>
+        <isset property="${debug.remote}"/>
+      </not>
+      <then>
+        <property name="debug.remote.flag" value="-v"/>
+      </then> 
+      <else>  
+        <property name="debug.remote.flag" value=""/>
+      </else> 
+    </if>   
+    <override-properties-prep override.properties="${override.properties}"
+                              override.properties.string.property.name="override.properties.string"/>
+    <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
+                remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${override.properties.string} ${upgrade.nbia-grid.target}"
+                remoteSshUser="${tomcat.ssh.server.username}"/>
+  </target>   
   
   <target name="deploy:remote:ctp:upgrade:ahp"
           unless="exclude.ncia-ctp">
@@ -1103,243 +1215,14 @@ jboss.home,ctp.server.home,ctp.client.home,
   <!-- End: AHP3 upgrade targets for tiers --> 
     
     
-  <!-- Begin: AHP2 upgrade targets for tiers -->
   
-  <!-- the call to both install and upgrade is deceiving.  on upgrade may want a full ctp install - esp
-       for 4.1 release.
-       so there is a property governing whether upgrade or install of ctp is invoked -->
-  <target name="deploy:remote:upgrade" 
-       depends="deploy:remote:jboss:upgrade,
-                deploy:remote:db:upgrade,
-                deploy:remote:ncia-core-grid:upgrade,
-                deploy:remote:ncia-core-grid-unsecured:upgrade,
-                deploy:remote:ctp:upgrade">
-  </target>
-     
- 
-  <!-- Upgrades the application remotely. Depends on above targets to copy and extract distribution. Will use the target from install.xml specified in ${upgrade.target} (defaults to upgrade unless passed in on command line).  Calls ant from sshexec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install. Requires specifying -Dproperties.file=@file@ on the command line to point upgrader to correct enviornment to upgrade -->
-  <target name="deploy:remote:jboss:upgrade"
-    depends="
-    build:all,
-    dist:upgrader
-    ">
-    <deploy-files dist.file="${ncia.upgrade.zip.file}" />
-    <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${upgrade.jboss.target}" />
-
-   </target>
-    
-     
-  <target name="deploy:remote:db:upgrade"
-          depends="build:all,
-                   dist:upgrader">
-    
-    <deploy-files ssh.user="${db.ssh.server.username}"
-                  ssh.host="${db.ssh.server.hostname}"
-                  remote.directory.property.name="db.ssh.dir.temp"
-                  properties.file="${properties.file}"
-                  dist.file="${ncia.upgrade.zip.file}"/>  
-                  
-    <remote-ssh remotesshcommand=". .bash_profile;cd ${db.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true upgrade:database" />     
-  </target>  
-
-  <!-- Upgrades the application remotely. Depends on above targets to copy and extract distribution. Will use the target from install.xml specified in ${upgrade.target} (defaults to upgrade unless passed in on command line).  Calls ant from sshexec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install. Requires specifying -Dproperties.file=@file@ on the command line to point upgrader to correct enviornment to upgrade -->
-  <target name="deploy:remote:ncia-core-grid:upgrade"
-          depends="build:all,
-                   dist:upgrader" 
-          unless="exclude.ncia-core-grid">
-         
-    <if>
-      <not>
-        <isset property="${debug.remote}"/>
-      </not>
-      <then>
-        <property name="debug.remote.flag" value="-v"/>
-      </then> 
-      <else>  
-        <property name="debug.remote.flag" value=""/>
-      </else> 
-    </if>   
-
-    
-    <deploy-files 
-      ssh.user="${tomcat.ssh.server.username}"
-      ssh.host="${tomcat.ssh.server.hostname}"
-      remote.directory.property.name="tomcat.ssh.dir.temp"
-      properties.file="${properties.file}"
-      dist.file="${ncia.upgrade.zip.file}"
-      />
-    
-    <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
-                remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${upgrade.ncia-core-grid.target}"
-                remoteSshUser="${tomcat.ssh.server.username}"/>
-  </target>
-  
-  
-  <target name="deploy:remote:ncia-core-grid-unsecured:upgrade"
-          depends="build:all,
-                   dist:upgrader" 
-          unless="exclude.ncia-core-grid-unsecured">
-         
-    <if>
-      <not>
-        <isset property="${debug.remote}"/>
-      </not>
-      <then>
-        <property name="debug.remote.flag" value="-v"/>
-      </then> 
-      <else>  
-        <property name="debug.remote.flag" value=""/>
-      </else> 
-    </if>   
-
-    <!--
-    <deploy-files 
-      ssh.user="${tomcat.ssh.server.username}"
-      ssh.host="${tomcat.ssh.server.hostname}"
-      remote.directory.property.name="tomcat.ssh.dir.temp"
-      properties.file="${properties.file}"
-      dist.file="${ncia.upgrade.zip.file}"
-      />
-    -->
-    <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
-                remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${upgrade.ncia-core-grid-unsecured.target}"
-                remoteSshUser="${tomcat.ssh.server.username}"/>
-  </target>  
-  
-  <target name="deploy:remote:ctp:upgrade"
-          depends="build:all,
-                   dist:upgrader" 
-          unless="exclude.ncia-ctp">
-    <if>
-      <not>
-        <isset property="ctp.remote.install"/>
-      </not>  
-      <then>
-    
-        <deploy-files 
-          ssh.user="${ctp.ssh.server.username}"
-          ssh.host="${ctp.ssh.server.hostname}"
-          remote.directory.property.name="ctp.ssh.dir.temp"
-          properties.file="${properties.file}"
-          dist.file="${ncia.upgrade.zip.file}"
-          />
-        <remote-ssh remoteSshHost="${ctp.ssh.server.hostname}"
-                    remotesshcommand=". .bash_profile;cd ${ctp.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${ctp.upgrade.target}"
-                    remoteSshUser="${ctp.ssh.server.username}"/>
-      </then>
-    </if>
-  </target> 
-  <!-- End AHP2 upgrade for tiers -->
- 
-  
-  <!-- Begin AHP2 fresh install for tiers -->
-  <target name="deploy:remote:install" 
-       depends="deploy:remote:jboss:install,
-                deploy:remote:ncia-core-grid:install,
-                deploy:remote:ncia-core-grid-unsecured:install,
-                deploy:remote:ctp:install">
-  </target>  
-  
-  <target name="deploy:remote:jboss:install"
-          depends="build:all,
-                   dist:upgrader">
-    <deploy-files dist.file="${ncia.upgrade.zip.file}" />
-  
-    <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${install.jboss.target}" />
-
-    <!-- leave out the db for install..... could make configurable, but avoid horror show -->   
-  </target>  
-  
-  <target name="deploy:remote:ncia-core-grid:install"
-          depends="build:all,
-                   dist:upgrader" 
-          unless="exclude.ncia-core-grid">
-          
-   <if>
-     <not>
-       <isset property="${debug.remote}"/>
-     </not>
-     <then>
-       <property name="debug.remote.flag" value="-v"/>
-     </then> 
-     <else>  
-       <property name="debug.remote.flag" value=""/>
-     </else> 
-   </if>
-   
-    <deploy-files 
-      ssh.user="${tomcat.ssh.server.username}"
-      ssh.host="${tomcat.ssh.server.hostname}"
-      remote.directory.property.name="tomcat.ssh.dir.temp"
-      properties.file="${properties.file}"
-      dist.file="${ncia.upgrade.zip.file}"
-      />
-    
-    <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
-                remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${install.ncia-core-grid.target}"
-                remoteSshUser="${tomcat.ssh.server.username}"/>
-  </target> 
-  
-  <target name="deploy:remote:ncia-core-grid-unsecured:install"
-          depends="build:all,
-                   dist:upgrader" 
-          unless="exclude.ncia-core-grid-unsecured">
-          
-   <if>
-     <not>
-       <isset property="${debug.remote}"/>
-     </not>
-     <then>
-       <property name="debug.remote.flag" value="-v"/>
-     </then> 
-     <else>  
-       <property name="debug.remote.flag" value=""/>
-     </else> 
-   </if>
-   <!--
-    <deploy-files 
-      ssh.user="${tomcat.ssh.server.username}"
-      ssh.host="${tomcat.ssh.server.hostname}"
-      remote.directory.property.name="tomcat.ssh.dir.temp"
-      properties.file="${properties.file}"
-      dist.file="${ncia.upgrade.zip.file}"
-      />
-    -->
-    <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
-                remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${install.ncia-core-grid-unsecured.target}"
-                remoteSshUser="${tomcat.ssh.server.username}"/>
-  </target> 
-  
-  <target name="deploy:remote:ctp:install"
-          depends="build:all,
-                   dist:upgrader" 
-          unless="exclude.ncia-ctp">
-    <if>
-      <not>
-        <isset property="ctp.remote.install"/>
-      </not>  
-      <then>
-    
-        <deploy-files 
-          ssh.user="${ctp.ssh.server.username}"
-          ssh.host="${ctp.ssh.server.hostname}"
-          remote.directory.property.name="ctp.ssh.dir.temp"
-          properties.file="${properties.file}"
-          dist.file="${ncia.upgrade.zip.file}"
-          />
-        <remote-ssh remoteSshHost="${ctp.ssh.server.hostname}"
-                    remotesshcommand=". .bash_profile;cd ${ctp.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${ctp.install.target}"
-                    remoteSshUser="${ctp.ssh.server.username}"/>
-      </then>
-    </if>
-  </target>  
-  <!-- End AHP2 fresh install for tiers -->
   
   <!-- Begin AHP3 fresh install for tiers -->
   <target name="deploy:remote:install:ahp" 
        depends="deploy:remote:jboss:install:ahp,
                 deploy:remote:ncia-core-grid:install:ahp,
                 deploy:remote:ncia-core-grid-unsecured:install:ahp,
+                deploy:remote:nbia-grid:install:ahp,
                 deploy:remote:ctp:install:ahp">
   </target>  
   
@@ -1402,6 +1285,28 @@ jboss.home,ctp.server.home,ctp.client.home,
                 remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${override.properties.string} ${install.ncia-core-grid-unsecured.target}"
                 remoteSshUser="${tomcat.ssh.server.username}"/>
   </target> 
+  
+  <target name="deploy:remote:nbia-grid:install:ahp" 
+          unless="exclude.ncia-core-grid-unsecured">
+          
+    <if>
+      <not>
+        <isset property="${debug.remote}"/>
+      </not>
+      <then>
+        <property name="debug.remote.flag" value="-v"/>
+      </then> 
+      <else>  
+        <property name="debug.remote.flag" value=""/>
+      </else> 
+    </if>
+    <override-properties-prep override.properties="${override.properties}"
+                              override.properties.string.property.name="override.properties.string"/> 
+                              
+    <remote-ssh remoteSshHost="${tomcat.ssh.server.hostname}"
+                remotesshcommand=". .bash_profile;cd ${tomcat.ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${debug.remote.flag} ${override.properties.string} ${install.nbia-grid.target}"
+                remoteSshUser="${tomcat.ssh.server.username}"/>
+  </target>   
   
   <target name="deploy:remote:ctp:install:ahp" 
           unless="exclude.ncia-ctp">

@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.lookup;
 
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.ArrayList;
@@ -38,9 +39,24 @@ public class CompositeLookupManager implements LookupManager {
     	for(LookupManager lookupManager : lookupManagers) {
     		Map<NBIANode, AvailableSearchTerms> searchableNodes = lookupManager.getSearchableNodes();
     	    for(Map.Entry<NBIANode, AvailableSearchTerms> entry : searchableNodes.entrySet()) {
-
     	    	NBIANode node = entry.getKey();
+    	    	allNodes.put(node, entry.getValue());
+    	    }
+    	}
+    	return allNodes;
+    }
+    
+	/**
+	 * {@inheritDoc}
+	 */
+    public Map<NBIANode, UsAvailableSearchTerms> getSearchableNodesForUs() {
 
+    	Map<NBIANode, UsAvailableSearchTerms> allNodes = new HashMap<NBIANode, UsAvailableSearchTerms>();
+
+    	for(LookupManager lookupManager : lookupManagers) {
+    		Map<NBIANode, UsAvailableSearchTerms> searchableNodes = lookupManager.getSearchableNodesForUs();
+    	    for(Map.Entry<NBIANode, UsAvailableSearchTerms> entry : searchableNodes.entrySet()) {
+    	    	NBIANode node = entry.getKey();
     	    	allNodes.put(node, entry.getValue());
     	    }
     	}

@@ -23,6 +23,7 @@ import gov.nih.nci.ncia.lookup.LookupManagerFactory;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.querystorage.QueryStorageManager;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchCompletionService;
@@ -47,6 +48,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -116,14 +118,28 @@ public class SearchWorkflowBean {
         kernelItems = JsfUtil.getBooleanSelectItemsFromStrings(kernels);
 
         searchableNodeMap = lookupMgr.getSearchableNodes();
-
-        searchableNodes = new ArrayList<NBIANode>(searchableNodeMap.keySet());
+        usSearchableNodeMap = lookupMgr.getSearchableNodesForUs();
+        
+        searchableNodes = mergeNodeList(searchableNodeMap.keySet(), usSearchableNodeMap.keySet());
+        
         Collections.sort(searchableNodes);
         remoteNodeItems = JsfUtil.constructNodeSelectItems(searchableNodes);
-
         this.aimSearchWorkflowBean.loggedIn();
 
         setDefaultValues();
+    }
+    
+    private ArrayList<NBIANode> mergeNodeList(Set<NBIANode> set1, Set<NBIANode> set2) {
+ System.out.println("!!!!!!!!!!no US node size="+ set1.size());
+ System.out.println("!!!!!!!!!us node size = "+set2.size());
+    	ArrayList<NBIANode> nodeList = new ArrayList<NBIANode>(set1);
+    	for (NBIANode aNode: set2){
+    		if (nodeList.contains(aNode)){
+    			nodeList.add(aNode);
+    		}
+    	}
+    	System.out.println("nodeList.size()=" +nodeList.size());
+    	return nodeList;
     }
 
 
@@ -1123,6 +1139,7 @@ public class SearchWorkflowBean {
      * Should this go into AvailableSearchTermsBeans?
      */
     private Map<NBIANode, AvailableSearchTerms> searchableNodeMap;
+    private Map<NBIANode, UsAvailableSearchTerms> usSearchableNodeMap;
     
     
     /**

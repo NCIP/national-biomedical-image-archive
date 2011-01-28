@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.lookup;
 import gov.nih.nci.ncia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.remotesearch.RemoteNodes;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.Model;
 import gov.nih.nci.ncia.search.NBIANode;
@@ -44,7 +45,22 @@ public class RemoteLookupManager implements LookupManager {
     	return allNodes;
     }
 
+	/**
+	 * {@inheritDoc}
+	 */
+    public Map<NBIANode, UsAvailableSearchTerms> getSearchableNodesForUs() {
+    	Map<NBIANode, UsAvailableSearchTerms> allNodes = new HashMap<NBIANode, UsAvailableSearchTerms>();
 
+    	RemoteNodes remoteNodes = RemoteNodes.getInstance();
+
+    	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
+    	for(RemoteNode node : nodes) {
+    		UsAvailableSearchTerms usAvailableSearchTerms = node.getUsAvailableSearchTerms();
+    		allNodes.put(node, usAvailableSearchTerms);
+    	}
+
+    	return allNodes;
+    }
 	/**
 	 * {@inheritDoc}
 	 */
@@ -92,14 +108,14 @@ public class RemoteLookupManager implements LookupManager {
 	 * {@inheritDoc}
 	 */
     public List<String> getUsMultiModality()  {
-    	/*
+    	
 	  	RemoteNodes remoteNodes = RemoteNodes.getInstance();
 
 	   	Set<String> allUsMultiModalities = new HashSet<String>();
 
 	   	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
 	  	for(RemoteNode node : nodes) {
-	   		AvailableSearchTerms availableSearchTerms = node.getAvailableSearchTerms();
+	   		UsAvailableSearchTerms availableSearchTerms = node.getUsAvailableSearchTerms();
 
 	   		String[] usMultiModalities = availableSearchTerms.getUsMultiModalities();
 	   		if(usMultiModalities!=null) {
@@ -107,8 +123,7 @@ public class RemoteLookupManager implements LookupManager {
 	   		}
 	   	}
      	return new ArrayList<String>(allUsMultiModalities);
-     	*/
-    	return new ArrayList<String>();
+
      }
 
 

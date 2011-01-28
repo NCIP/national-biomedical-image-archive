@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.beans.searchform;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.lookup.LookupManager;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class AvailableSearchTermsBean {
 		if (wrapperList == null) {
 			wrapperList = new ArrayList<AvailableSearchTermsWrapper>();
 			searchableNodes = lookupManager.getSearchableNodes().entrySet();
+			searchableNodesForUs = lookupManager.getSearchableNodesForUs().entrySet();
 			for(Iterator<Map.Entry<NBIANode, AvailableSearchTerms>> iterator = searchableNodes.iterator();
 			    iterator.hasNext() ; )
 			{
@@ -35,9 +37,22 @@ public class AvailableSearchTermsBean {
 			     AvailableSearchTermsWrapper wrapper = new AvailableSearchTermsWrapper();
 			     wrapper.setNode(key);
 			     wrapper.setTerms(value);
+System.out.println("!!!!AvailableSearchTerms node name ="+key.getDisplayName() );			     
+			     for(Iterator<Map.Entry<NBIANode, UsAvailableSearchTerms>> iteratorUs = searchableNodesForUs.iterator();
+				    iteratorUs.hasNext() ; ){
+			    	 Map.Entry<NBIANode, UsAvailableSearchTerms> usEntry =iteratorUs.next();
+				     NBIANode usKey = (NBIANode)usEntry.getKey();
+				     UsAvailableSearchTerms usValue = (UsAvailableSearchTerms)usEntry.getValue();
+System.out.println("!!!!UsAvailableSearchTerms nocd Name ="+usKey.getDisplayName() );
+				     if(usKey.compareTo(key)==0) {
+System.out.println("!!!!same valud UsAvailableSearchTerms node name ="+usKey.getDisplayName() );				    	 
+				    	 wrapper.setNewTerms(usValue);
+				     }
+				}
 
 			     wrapperList.add(wrapper);
 		    }
+			
 			Collections.sort(wrapperList);
 			return wrapperList;
 		}
@@ -48,6 +63,7 @@ public class AvailableSearchTermsBean {
 
 	//////////////////////////// Private /////////////////////
 	private Set<Map.Entry<NBIANode, AvailableSearchTerms>> searchableNodes;
+	private Set<Map.Entry<NBIANode, UsAvailableSearchTerms>> searchableNodesForUs;
 
 	private List<AvailableSearchTermsWrapper> wrapperList;
 

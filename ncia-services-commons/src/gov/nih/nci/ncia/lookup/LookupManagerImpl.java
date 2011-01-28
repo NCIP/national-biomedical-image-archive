@@ -61,6 +61,7 @@ import gov.nih.nci.ncia.dao.GeneralSeriesDAO;
 import gov.nih.nci.ncia.dao.ImageDAO;
 import gov.nih.nci.ncia.dto.EquipmentDTO;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.EquipmentUtil;
 import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.Manufacturer;
@@ -104,6 +105,17 @@ public class LookupManagerImpl implements LookupManager {
     	map.put(LocalNode.getLocalNode(), getAvailableSearchTerms());
     	return map;
     }
+    
+    /**
+     * {@inheritDoc}
+     * 
+     * <p>This implementation only returns one entry which is the local node.
+     */
+    public Map<NBIANode, UsAvailableSearchTerms> getSearchableNodesForUs() {
+    	Map<NBIANode, UsAvailableSearchTerms> map =  new LinkedHashMap<NBIANode, UsAvailableSearchTerms>();
+    	map.put(LocalNode.getLocalNode(), getUsAvailableSearchTerms());
+    	return map;
+    }    
 
 
 	/**
@@ -199,7 +211,14 @@ public class LookupManagerImpl implements LookupManager {
 		availableSearchTerms.setEquipment(manufacturers);
 		
 		return availableSearchTerms;
-	}    
+	}
+	
+	public UsAvailableSearchTerms getUsAvailableSearchTerms() {
+		UsAvailableSearchTerms usAvailableSearchTerms = new UsAvailableSearchTerms();
+		usAvailableSearchTerms.setUsMultiModalities(toArray(usMultiModalityList));	
+	
+		return usAvailableSearchTerms;
+	} 
     
 
     ///////////////////////////////////////PRIVATE///////////////////////////////////////////

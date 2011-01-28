@@ -12,6 +12,7 @@
 package gov.nih.nci.ncia.lookup;
 
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.List;
@@ -86,4 +87,15 @@ public interface LookupManager {
      * one per remote node, plus the local node.
      */
     public Map<NBIANode, AvailableSearchTerms> getSearchableNodes();
+    
+    /**
+     * All the searchable nodes available from this system.
+     * If a system is configured for only local search, then
+     * this will have one entry for the local node, that will
+     * reflect in value the other methods in this object.
+     * 
+     * If a system has remote nodes, this could have N entries,
+     * one per remote node, plus the local node.
+     */
+    public Map<NBIANode, UsAvailableSearchTerms> getSearchableNodesForUs();
 }

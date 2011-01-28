@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.beans.searchform;
 
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.NBIANode;
 
@@ -8,6 +9,7 @@ public class AvailableSearchTermsWrapper implements Comparable<AvailableSearchTe
 
 	private NBIANode node;
 	private AvailableSearchTerms terms;
+	private UsAvailableSearchTerms newTerms;	
 	private boolean expandable = true;
 
 	public boolean isExpandable() {
@@ -21,11 +23,11 @@ public class AvailableSearchTermsWrapper implements Comparable<AvailableSearchTe
 	public String getModalities() {
 		return commaSeparatedList(terms.getModalities());
 	}
-/*	
+	
 	public String getUsMultiModalities() {
-		return commaSeparatedList(terms.getUsMultiModalities());
+		return commaSeparatedList(newTerms.getUsMultiModalities());
 	}
-*/	 
+	 
 	public String getAnatomicSites()
 	{
 		return commaSeparatedList(terms.getAnatomicSites());
@@ -73,7 +75,12 @@ public class AvailableSearchTermsWrapper implements Comparable<AvailableSearchTe
 	public void setTerms(AvailableSearchTerms terms) {
 		this.terms = terms;
 	}
-
+	public UsAvailableSearchTerms getNewTerms() {
+		return newTerms;
+	}
+	public void setNewTerms(UsAvailableSearchTerms newTerms) {
+		this.newTerms = newTerms;
+	}
 	/**
 	 * Order nodes by display name for convenience.
 	 */

@@ -570,6 +570,7 @@
     <copy tofile="${pre-install.dir}/database.xml" file="${build.dir}/database.xml" overwrite="true"/>    
     <copy tofile="${pre-install.dir}/ncia-core-grid.xml" file="${build.dir}/ncia-core-grid.xml" overwrite="true"/>
     <copy tofile="${pre-install.dir}/ncia-core-grid-unsecured.xml" file="${build.dir}/ncia-core-grid-unsecured.xml" overwrite="true"/>
+    <copy tofile="${pre-install.dir}/nbia-grid.xml" file="${build.dir}/nbia-grid.xml" overwrite="true"/>
     <copy tofile="${pre-install.dir}/macrodefs.xml" file="${build.dir}/macrodefs.xml" overwrite="true"/>
     <copy tofile="${pre-install.dir}/project.properties" file="${build.dir}/project.properties" overwrite="true"/>
 

@@ -69,6 +69,7 @@ $HeadURL$
   <property name="ncia-core-grid.dir.src" value="${basedir}/${ncia-core-grid.dist.relative.dir}" />
   <property name="grid.resource.dir.src" location="${basedir}/${grid.dist.relative.dir}" />
   <property name="resource.file.jboss-globus-lib" value="tomcat-globus-wsrf.zip" />  
+  <property name="nbia-grid.dir.src" value="${basedir}/${nbia-grid.dist.relative.dir}" />
   
   <!-- ncia-api -->
   <property name="ncia-api.file.src" value="ncia-${database.type}.war" />
@@ -159,6 +160,7 @@ $HeadURL$
   <import file="database.xml" />
   <import file="ncia-core-grid.xml"/>
   <import file="ncia-core-grid-unsecured.xml"/>
+  <import file="nbia-grid.xml"/>
   <import file="macrodefs.xml" />
 
 
@@ -271,20 +273,24 @@ $HeadURL$
     common:common:init,
     common:ncia-core-grid:init,
     common:ncia-core-grid-unsecured:init,
+    common:nbia-grid:init,
     install:jboss:init,
     install:ncia-core-grid:init,
     install:ncia-core-grid-unsecured:init,
+    install:nbia-grid:init,
     install:common:validation:pre-install,
     install:jboss:validation:pre-install,
     install:database:validation:pre-install,
     install:jboss:stop,
     install:ncia-core-grid:jboss:stop,
     install:ncia-core-grid-unsecured:jboss:stop,
+    install:nbia-grid:jboss:stop,
     install:jboss:validation:pre-install:ports,
     install:database,
     install:jboss,
     install:ncia-core-grid,
     install:ncia-core-grid-unsecured,
+    install:nbia-grid,
     install:ctp,
     install:all:post,
     install:common:validation:post-install
@@ -306,16 +312,19 @@ $HeadURL$
                    common:jboss:init,
                    common:ncia-core-grid:init,
                    common:ncia-core-grid-unsecured:init,
+                   common:nbia-grid:init,
                    install:common:validation:pre-install,
                    install:jboss:validation:pre-install,
                    install:database:validation:pre-install,
                    install:jboss:stop,
                    install:ncia-core-grid:jboss:stop,
                    install:ncia-core-grid-unsecured:jboss:stop,
+                   install:nbia-grid:jboss:stop,
                    upgrade:database,
                    upgrade:jboss,  
                    upgrade:ncia-core-grid,
                    upgrade:ncia-core-grid-unsecured,
+                   upgrade:nbia-grid,
                    upgrade:ctp:server,
                    upgrade:ctp:client,
                    upgrade:database,
@@ -329,6 +338,7 @@ $HeadURL$
                    install:jboss:post, 
                    install:ncia-core-grid:post,
                    install:ncia-core-grid-unsecured:post,
+                   install:nbia-grid:post,
                    install:ctp:server:post"/>
 
     
@@ -410,6 +420,10 @@ $HeadURL$
       
       <filter token="ncia-core-grid-unsecured.jboss.base.path" value="${ncia-core-grid-unsecured.jboss.base.path}"/>
       <filter token="ncia-core-grid-unsecured.jboss.home" value="${ncia-core-grid-unsecured.jboss.home}"/>      
+      <!--
+      <filter token="nbia-grid.jboss.base.path" value="${nbia-grid.jboss.base.path}"/>
+      <filter token="nbia-grid.jboss.home" value="${nbia-grid.jboss.home}"/>         
+      -->
     </filterset>
 
     <!--OS Temp dir -->
@@ -470,7 +484,8 @@ $HeadURL$
   <target name="upgrade:all:init" 
           depends="upgrade:jboss:init, 
                    upgrade:ncia-core-grid:init,
-                   upgrade:ncia-core-grid-unsecured:init">
+                   upgrade:ncia-core-grid-unsecured:init,
+                   upgrade:nbia-grid:init">
   </target>
     
   
@@ -508,7 +523,7 @@ $HeadURL$
       ant.check.version="${ant.minimum.version}"
       java.check.version.major="${java.major.version}"
       java.check.version.minor="${java.minor.version}"
-      property.exclude.pattern.list="tomcat.*,jboss.*,grid.*,ctp.*,ncia-core-grid.*,ncia-core-grid-unsecured.*"
+      property.exclude.pattern.list="tomcat.*,jboss.*,grid.*,ctp.*,ncia-core-grid.*,ncia-core-grid-unsecured.*,nbia-grid.*"
       />                      
   </target>
   
@@ -524,6 +539,7 @@ $HeadURL$
           depends="upgrade:jboss:init,
                    upgrade:ncia-core-grid:init,
                    upgrade:ncia-core-grid-unsecured:init,
+                   upgrade:nbia-grid:init,
                    upgrade:ctp:readers"/>
   
 </project>

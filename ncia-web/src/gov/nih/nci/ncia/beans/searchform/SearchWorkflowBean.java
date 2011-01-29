@@ -134,7 +134,7 @@ public class SearchWorkflowBean {
  System.out.println("!!!!!!!!!us node size = "+set2.size());
     	ArrayList<NBIANode> nodeList = new ArrayList<NBIANode>(set1);
     	for (NBIANode aNode: set2){
-    		if (nodeList.contains(aNode)){
+    		if (!nodeList.contains(aNode)){
     			nodeList.add(aNode);
     		}
     	}

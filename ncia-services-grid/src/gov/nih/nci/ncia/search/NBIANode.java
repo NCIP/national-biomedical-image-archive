@@ -49,6 +49,10 @@ public class NBIANode implements Comparable<NBIANode>,
     	return this.displayName.compareTo(obj.getDisplayName());
     }
     
+    public boolean equals(NBIANode obj){
+    	return this.displayName.equals(obj.displayName);
+    }
+    
     public String toString() {
     	return getURL()+","+getDisplayName()+", local:"+isLocal();
     }

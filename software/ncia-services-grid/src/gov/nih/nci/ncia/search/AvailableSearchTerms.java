@@ -216,6 +216,22 @@ public class AvailableSearchTerms implements Serializable {
     public Manufacturer getEquipment(int index ) {
         return this.equipment[index];
     }
+    
+    /**
+     * Sets the imageTypes value for this AvailableSearchTerms.
+     */
+    public void setImageType(String[] imageTypes) {
+        this.imageTypes = imageTypes;
+    }
+
+    /**
+     * This is necessary for the web services serializer to recognize
+     * this property is an indexed property.
+     */    
+    public String getImageTypes(int i) {
+        return this.imageTypes[i];
+    }
+
 
     ///////////////////////////////////////PRIVATE////////////////////////////////////////
     
@@ -223,6 +239,6 @@ public class AvailableSearchTerms implements Serializable {
     private String[] convolutionKernels;
     private String[] modalities;
     private String[] anatomicSites;
-    //private String[] usMultiModalities;
     private Manufacturer[] equipment;
+    private String[] imageTypes;
 }

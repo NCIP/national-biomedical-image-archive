@@ -25,7 +25,12 @@ public class AvailableSearchTermsWrapper implements Comparable<AvailableSearchTe
 	}
 	
 	public String getUsMultiModalities() {
+		if (newTerms != null){
 		return commaSeparatedList(newTerms.getUsMultiModalities());
+		}
+		else {
+			return "NA";
+		}
 	}
 	 
 	public String getAnatomicSites()

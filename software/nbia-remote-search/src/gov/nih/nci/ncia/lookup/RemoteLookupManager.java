@@ -56,7 +56,9 @@ public class RemoteLookupManager implements LookupManager {
     	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
     	for(RemoteNode node : nodes) {
     		UsAvailableSearchTerms usAvailableSearchTerms = node.getUsAvailableSearchTerms();
-    		allNodes.put(node, usAvailableSearchTerms);
+    		if (usAvailableSearchTerms!=null){
+    			allNodes.put(node, usAvailableSearchTerms);
+    		}
     	}
 
     	return allNodes;
@@ -114,14 +116,18 @@ public class RemoteLookupManager implements LookupManager {
 	   	Set<String> allUsMultiModalities = new HashSet<String>();
 
 	   	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
-	  	for(RemoteNode node : nodes) {
-	   		UsAvailableSearchTerms availableSearchTerms = node.getUsAvailableSearchTerms();
-
-	   		String[] usMultiModalities = availableSearchTerms.getUsMultiModalities();
-	   		if(usMultiModalities!=null) {
-	   			allUsMultiModalities.addAll(Arrays.asList(usMultiModalities));
-	   		}
-	   	}
+	  	for (RemoteNode node : nodes) {
+			UsAvailableSearchTerms availableSearchTerms = node
+					.getUsAvailableSearchTerms();
+			if (availableSearchTerms != null) {
+				String[] usMultiModalities = availableSearchTerms
+						.getUsMultiModalities();
+				if (usMultiModalities != null) {
+					allUsMultiModalities.addAll(Arrays
+							.asList(usMultiModalities));
+				}
+			}
+		}
      	return new ArrayList<String>(allUsMultiModalities);
 
      }

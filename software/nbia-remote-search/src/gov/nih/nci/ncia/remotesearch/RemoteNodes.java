@@ -64,7 +64,9 @@ public class RemoteNodes {
 					System.out.println("Retrieving search terms from:"+endpoint.getAddress());
 					long before = System.currentTimeMillis();
 					AvailableSearchTerms availableSearchTerms = retrieveAvailableSearchTerms(endpoint);
+					System.out.println("!!!!complete Retrieving search terms from:"+endpoint.getAddress());	
 					UsAvailableSearchTerms usAvailableSearchTerms = retrieveUsAvailableSearchTerms(endpoint);
+					//UsAvailableSearchTerms usAvailableSearchTerms = null;
 					long after = System.currentTimeMillis();
 					System.out.println("retrieveAvailableSearchTerms time lapse:"+(after-before));
 					//DumpUtil.debug(availableSearchTerms);
@@ -161,14 +163,14 @@ public class RemoteNodes {
 	private static UsAvailableSearchTerms retrieveUsAvailableSearchTerms(EndpointReferenceType endpointReferenceType) throws Exception {
 		String serviceAddress = endpointReferenceType.getAddress().toString();		
 		NCIACoreServiceClient nciaCoreServiceClient = new NCIACoreServiceClient(serviceAddress);
-		return nciaCoreServiceClient.getUsAvailableSearchTerms();
-		/*	
+		//return nciaCoreServiceClient.getUsAvailableSearchTerms();
+		UsAvailableSearchTerms usAvailableSearchTerms = null;
 		try {
-			return nciaCoreServiceClient.getAvailableSearchTermsNew();
+			usAvailableSearchTerms = nciaCoreServiceClient.getUsAvailableSearchTerms();
 		}
 		catch (Exception e){
-			return nciaCoreServiceClient.getAvailableSearchTerms();
+System.out.println("!!!!! no ultrasound data in system");
 		}
-		*/
+		return usAvailableSearchTerms; 
 	}
 }

@@ -36,6 +36,18 @@ public class RemoteNode extends NBIANode {
 		this.usAvailableSearchTerms = usAvailableSearchTerms;
 		creationTime = new Date();
 	}
+	
+	public RemoteNode(ServiceMetadata serviceMetadata,
+			EndpointReferenceType endpoint,
+			AvailableSearchTerms availableSearchTerms) {
+		super(false, serviceMetadata.getHostingResearchCenter()
+				.getResearchCenter().getDisplayName(), endpoint.getAddress()
+				.toString());
+		this.serviceMetadata = serviceMetadata;
+		this.endpointReferenceType = endpoint;
+		this.availableSearchTerms = availableSearchTerms;
+		creationTime = new Date();
+	}
 
 	/**
 	 * This the caGrid service metadata for the NCIACoreService at a given node.

@@ -135,8 +135,8 @@ public class ImageDAOImpl extends AbstractDAO
 
         return (Collection<String>)getHibernateTemplate().findByCriteria(criteria);
 	}
-
-	@Transactional(propagation=Propagation.REQUIRED)
+	
+	@Transactional(propagation=Propagation.REQUIRED)	
 	public Collection<String> findAllImageType()throws DataAccessException {
 
         DetachedCriteria criteria = DetachedCriteria.forClass(GeneralImage.class, "gi");
@@ -280,7 +280,7 @@ public class ImageDAOImpl extends AbstractDAO
             thumbnailDTO.setFileURI(imageFileName);
             thumbnailDTO.setSize((Long) row[5]);
              if (row[9]== null) {
-			            	thumbnailDTO.setFrameNum(null);
+			            	thumbnailDTO.setFrameNum(0);
 			            }
 			            else {
 			            	thumbnailDTO.setFrameNum(Integer.parseInt((String) row[9]));

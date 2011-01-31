@@ -77,20 +77,6 @@ public class CompositeLookupManager implements LookupManager {
     	return new ArrayList<String>(allAnatomicSites);
     }
 
-        /**
-		 * {@inheritDoc}
-		 */
-	    public List<String> getImageType() {
-
-	    	Set<String> allImageTypes = new HashSet<String>();
-
-	    	for(LookupManager lookupManager : lookupManagers) {
-	    	    allImageTypes.addAll(lookupManager.getImageType());
-	    	}
-
-	    	return new ArrayList<String>(allImageTypes);
-    }
-
 
 	/**
 	 * {@inheritDoc}

@@ -100,11 +100,8 @@ public class SearchWorkflowBean {
         List<String> anatomicSites = lookupMgr.getAnatomicSite();
         Collections.sort(anatomicSites);
         anatomicalSiteItems = JsfUtil.getBooleanSelectItemsFromStrings(anatomicSites);
-        
-        List<String> imageTypes = lookupMgr.getImageType();
-        Collections.sort(imageTypes);
-        imageTypeItems = JsfUtil.getBooleanSelectItemsFromStrings(imageTypes);
-        
+
+
         List<String> kernels = lookupMgr.getDICOMKernelType();
         Collections.sort(kernels);
         kernelItems = JsfUtil.getBooleanSelectItemsFromStrings(kernels);
@@ -332,47 +329,8 @@ public class SearchWorkflowBean {
     	return selectedAnatomicalSiteNames;
     }
     ///////////////////////////////////END ANATOMICAL SITE ITEMS////////////////////
-    
-    //////////////////////////////////BEGIN Image Type ITEMS//////////////////////
-    public List<SelectItem> getImageTypeItems() {
-        return imageTypeItems;
-    }
-
-    public String selectAllImageTypes() {
-    	for(SelectItem selectItem : imageTypeItems) {
-    		selectItem.setValue(true);
-    	}
-    	return null;
-    }
-
-    public String unselectAllImageTypes() {
-    	for(SelectItem selectItem : imageTypeItems) {
-    		selectItem.setValue(false);
-    	}
-    	return null;
-    }
 
 
-    //called by saved query
-    public void selectImageTypeNames(Collection<String> selectedImageTypeNames) {
-    	for(String imageTypeName : selectedImageTypeNames) {
-    		SelectItem item = JsfUtil.findSelectItemByLabel(imageTypeItems, imageTypeName);
-    		if(item!=null) {
-    			item.setValue(true);
-    		}
-    	}
-    }
-
-    public List<String> getSelectedImageTypeNames() {
-    	List<String> selectedImageTypeNames = new ArrayList<String>();
-    	for(SelectItem item : imageTypeItems) {
-    		if(item.getValue().equals(true)) {
-    			selectedImageTypeNames.add(item.getLabel());
-    		}
-    	}
-    	return selectedImageTypeNames;
-    }
-    ///////////////////////////////////END ANATOMICAL SITE ITEMS////////////////////
 
     //////////////////////////////////BEGIN KERNEL ITEMS//////////////////////
     public List<SelectItem> getKernelItems() {
@@ -541,7 +499,7 @@ public class SearchWorkflowBean {
     public void setAdvanced(boolean advanced) {
         this.advanced = advanced;
     }
-    
+
     public boolean getUsSearch() {
         return usSearch;
     }
@@ -836,7 +794,7 @@ public class SearchWorkflowBean {
     public void setNumFrameOptions(String[] theNumFrameOptions) {
         this.numFrameOptions = theNumFrameOptions;
     }
-    
+
     public String[] getColorModeOptions() {
         return colorModeOptions;
     }
@@ -1051,7 +1009,7 @@ public class SearchWorkflowBean {
     private List<SelectItem> collectionItems = new ArrayList<SelectItem>();
     private List<SelectItem> modalityItems = new ArrayList<SelectItem>();
     private List<SelectItem> anatomicalSiteItems = new ArrayList<SelectItem>();
-    private List<SelectItem> imageTypeItems = new ArrayList<SelectItem>();
+
     private List<SelectItem> kernelItems = new ArrayList<SelectItem>();
     private List<SelectItem> remoteNodeItems = new ArrayList<SelectItem>();
 
@@ -1251,7 +1209,7 @@ public class SearchWorkflowBean {
         selectedManufacturers.clear();
         selectedModels.clear();
         selectedSoftwareVersions.clear();
-        
+
         DefaultTreeModel manufacturerTree = lookupBean.getManufacturerTree();
         Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
 
@@ -1455,7 +1413,7 @@ public class SearchWorkflowBean {
         }
         return matchedNodes;
     }
-    
+
     public void modalityChangeListener(ValueChangeEvent event) {
 		for (SelectItem selectItem : modalityItems) {
 			if (selectItem.getLabel().equals("US")) {

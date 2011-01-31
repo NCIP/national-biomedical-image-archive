@@ -88,27 +88,6 @@ public class RemoteLookupManager implements LookupManager {
     	return new ArrayList<String>(allAnatomicSites);
     }
 
-     	/**
-	 	 * {@inheritDoc}
-	 	 */
-	     public List<String> getImageType()  {
-	     	RemoteNodes remoteNodes = RemoteNodes.getInstance();
-
-	     	Set<String> allImageTypes = new HashSet<String>();
-
-	     	Collection<RemoteNode> nodes = remoteNodes.getRemoteNodes();
-	     	for(RemoteNode node : nodes) {
-	     		AvailableSearchTerms availableSearchTerms = node.getAvailableSearchTerms();
-
-	     		String[] imageTypes = availableSearchTerms.getImageTypes();
-	     		if(imageTypes!=null) {
-	     			allImageTypes.addAll(Arrays.asList(imageTypes));
-	     		}
-	     	}
-
-	     	return new ArrayList<String>(allImageTypes);
-	     }
-
 
 	/**
 	 * {@inheritDoc}

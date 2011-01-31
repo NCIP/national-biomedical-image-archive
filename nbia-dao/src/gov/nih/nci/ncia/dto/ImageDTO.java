@@ -68,7 +68,7 @@ public class ImageDTO implements Comparable<ImageDTO>  {
     private String fileURI;
     private String project;
     private String siteName;
-    private Integer frameNum;
+    private int frameNum;
 
 
     /**
@@ -238,12 +238,12 @@ public class ImageDTO implements Comparable<ImageDTO>  {
 		this.siteName = siteName;
 	}
 
-	public Integer getFrameNum() {
+	public int getFrameNum() {
 		return frameNum;
 	}
 
 
-	public void setFrameNum(Integer frameNum) {
+	public void setFrameNum(int frameNum) {
 		this.frameNum = frameNum;
 	}
 }

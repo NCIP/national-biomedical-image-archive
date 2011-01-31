@@ -2,34 +2,34 @@
 
 <project name="nbia-grid">
   <!-- Wrapper target to deploy nbia-grid tomcat container -->
-  <target name="install:nbia-grid" 
+  <target name="install:nbia-grid"
           unless="exclude.nbia-grid"
           depends="common:nbia-grid:init,
                    common:common:init,
                    install:nbia-grid:init,
                    install:nbia-grid:jboss:stop,
                    install:nbia-grid:clean,
-                   install:nbia-grid:binaries,                   
+                   install:nbia-grid:binaries,
                    install:nbia-grid:wsrf,
                    install:nbia-grid:transfer-service,
                    install:nbia-grid:application,
                    install:nbia-grid:configure,
                    install:nbia-grid:post,
                    install:nbia-grid:jboss:start" />
-  
-  <target name="install:nbia-grid:ncm" 
+
+  <target name="install:nbia-grid:ncm"
           unless="exclude.nbia-grid"
           depends="common:nbia-grid:init,
                    common:common:init,
-                   install:nbia-grid:init,                  
+                   install:nbia-grid:init,
                    install:nbia-grid:wsrf,
                    install:nbia-grid:transfer-service,
                    install:nbia-grid:application,
-                   install:nbia-grid:configure" />   
-                   
+                   install:nbia-grid:configure" />
+
   <target name="install:nbia-grid:clean" unless="exclude.nbia-grid">
     <fail unless="application.base.path"/>
-    
+
     <sleep seconds="5" />
     <property name="backup.count" value="5"/>
     <if>
@@ -37,13 +37,13 @@
         <equals arg1="${exclude.nbia-grid.jboss.backup}" arg2="true"/>
       </not>
       <then>
-        <property name="backup.nbia-grid.jboss.base.dir" 
+        <property name="backup.nbia-grid.jboss.base.dir"
                   location="${application.base.path}/backup/nbia-grid.jboss"/>
 
-        <!-- So these directories won't be included in the backup, they are not needed to use jboss --> 
+        <!-- So these directories won't be included in the backup, they are not needed to use jboss -->
         <delete dir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/work"/>
         <delete dir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/tmp"/>
-        
+
         <backup-dir
           src.dir="${nbia-grid.jboss.home}"
           backup.base.dir="${backup.nbia-grid.jboss.base.dir}"
@@ -56,28 +56,28 @@
   </target>
 
 
-  <target name="install:nbia-grid:binaries" 
-          description="Install JBoss for nbia-grid" 
-          unless="exclude.nbia-grid" 
-          depends="common:nbia-grid:init, 
+  <target name="install:nbia-grid:binaries"
+          description="Install JBoss for nbia-grid"
+          unless="exclude.nbia-grid"
+          depends="common:nbia-grid:init,
                    common:common:init" >
 
     <dirname file="${nbia-grid.jboss.home}" property="nbia-grid.jboss.base.path"/>
     <echo message="nbia-grid.jboss.base.path is ${nbia-grid.jboss.base.path}"/>
-    
+
     <jboss-install-binaries jboss.home="${nbia-grid.jboss.home}"
-                            jboss.server.name="${nbia-grid.jboss.server.name}"/>     
-                            
+                            jboss.server.name="${nbia-grid.jboss.server.name}"/>
+
     <jboss-nci-customizations jboss.home="${nbia-grid.jboss.home}"
                               jboss.server.name="${nbia-grid.jboss.server.name}"
                               jboss.server.jndi.port="${nbia-grid.jboss.server.jndi.port}"
-                              jboss.java.opts="${nbia-grid.jboss.java.opts}"/>      
+                              jboss.java.opts="${nbia-grid.jboss.java.opts}"/>
 
   </target>
 
-  <target name="install:nbia-grid:configure" 
-          description="Configure JBoss (change ports)" 
-          unless="exclude.nbia-grid" 
+  <target name="install:nbia-grid:configure"
+          description="Configure JBoss (change ports)"
+          unless="exclude.nbia-grid"
           depends="common:nbia-grid:init,
                    common:common:init" >
 
@@ -87,8 +87,8 @@
                      authentication.type="ldap"
                      jboss.home="${nbia-grid.jboss.home}"
                      jboss.server.name="${nbia-grid.jboss.server.name}"
-                     jboss.server.bindingfile.location="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/conf/bindings.xml"                     
-                     jboss.server.binding.template.location="${nbia-grid.jboss.server.binding.template.location}"                     
+                     jboss.server.bindingfile.location="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/conf/bindings.xml"
+                     jboss.server.binding.template.location="${nbia-grid.jboss.server.binding.template.location}"
                      jboss.web.user="${nbia-grid.jboss.web.user}"
                      jboss.web.password="${nbia-grid.jboss.web.password}"
                      jboss.server.jndi.port="${nbia-grid.jboss.server.jndi.port}"
@@ -109,13 +109,13 @@
                      jboss.snmp-trapd.port="${nbia-grid.jboss.snmp-trapd.port}"
                      jboss.web.service.port="${nbia-grid.jboss.web.service.port}"
                      jboss.conf.dir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/conf"
-                     jboss.server-xml.file="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy/jbossweb-tomcat55.sar/server.xml"        
+                     jboss.server-xml.file="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy/jbossweb-tomcat55.sar/server.xml"
                      jboss.ssl.enable="false"
                      jboss.external.http.host="${nbia-grid.jboss.external.http.host}"
                      jboss.external.http.port="${nbia-grid.jboss.external.http.port}"
                      jboss.server.hostname="${nbia-grid.jboss.server.hostname}"
                      jboss.java.opts="${nbia-grid.jboss.java.opts}"
-                     jboss.logs.dir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/log"                                             
+                     jboss.logs.dir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/log"
                      jboss.grid.configure="false"
                      jboss.grid.secure.enable="false"/>
 
@@ -129,172 +129,172 @@
                           jboss.external.http.host="${nbia-grid.jboss.external.http.host}"
                           jboss.external.http.port="${nbia-grid.jboss.external.http.port}"
                           grid.application.name="NBIAService"
-                          grid.application.relative.dir="wsrf.war"                                                                              
+                          grid.application.relative.dir="wsrf.war"
                           jboss.grid.secure.enable="false"/>
-                          
+
     <!-- with bda 1.0.2 this must come after the jboss-configure-grid call, otherwise
          the gridServiceUrl will be corrupted by what jboss-configure-grid does -->
     <xmltask source="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/jndi-config.xml"
-             dest="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/jndi-config.xml">     
-      <!-- no xmlcatalog necessary -->                    
-           <!-- 
-      <replace path="//:parameter[:name='databaseConnectionUrl']/:value/text()" 
-               withtext="${database.url}" />             
-      -->       
-      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationName']/:value/text()" 
-               withtext="ncia-api" />  
-               
-      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationHostPort']/:value/text()" 
-               withtext="${jboss.server.port}" />                 
-               
-      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationHostName']/:value/text()" 
-               withtext="http://${jboss.server.hostname}" />               
-                 
-                 
-      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationName']/:value/text()" 
-               withtext="ncia-api" />  
-               
-      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationHostPort']/:value/text()" 
-               withtext="${jboss.server.port}" />                 
-               
-      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationHostName']/:value/text()" 
-               withtext="http://${jboss.server.hostname}" />                   
-     <!-- 
-     
-      <replace path="//:parameter[:name='thumbnailUrl']/:value/text()" 
-               withtext="${nbia-grid.jboss.thumbnailUrl}" />                   
-                        
-                        
-                      
-      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='driverClass']/:value/text()" 
-               withtext="${database.driver}" />                           
-      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='jdbcUrl']/:value/text()" 
-               withtext="${database.url}" />               
-      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='user']/:value/text()" 
-               withtext="${database.user}" />            
-      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='password']/:value/text()" 
+             dest="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/jndi-config.xml">
+      <!-- no xmlcatalog necessary -->
+           <!--
+      <replace path="//:parameter[:name='databaseConnectionUrl']/:value/text()"
+               withtext="${database.url}" />
+      -->
+      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationName']/:value/text()"
+               withtext="ncia-api" />
+
+      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationHostPort']/:value/text()"
+               withtext="${jboss.server.port}" />
+
+      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationHostName']/:value/text()"
+               withtext="http://${jboss.server.hostname}" />
+
+
+      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationName']/:value/text()"
+               withtext="ncia-api" />
+
+      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationHostPort']/:value/text()"
+               withtext="${jboss.server.port}" />
+
+      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationHostName']/:value/text()"
+               withtext="http://${jboss.server.hostname}" />
+     <!--
+
+      <replace path="//:parameter[:name='thumbnailUrl']/:value/text()"
+               withtext="${nbia-grid.jboss.thumbnailUrl}" />
+
+
+
+      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='driverClass']/:value/text()"
+               withtext="${database.driver}" />
+      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='jdbcUrl']/:value/text()"
+               withtext="${database.url}" />
+      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='user']/:value/text()"
+               withtext="${database.user}" />
+      <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='password']/:value/text()"
                withtext="${database.password}" />
-   
- 
-      <replace path="//:parameter[:name='tempZipLocation']/:value/text()" 
-               withtext="${nbia-grid.tempZipLocation}" />               
+
+
+      <replace path="//:parameter[:name='tempZipLocation']/:value/text()"
+               withtext="${nbia-grid.tempZipLocation}" />
                -->
-     </xmltask>                            
-    
+     </xmltask>
+
 <!-- patch commons to use JNDI name that is globus friendly -->
 <!--
     <mkdir dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>
-    <unjar src="${nbia-grid.wsrf.path}/WEB-INF/lib/nbia-dao.jar" 
-           dest="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>   
+    <unjar src="${nbia-grid.wsrf.path}/WEB-INF/lib/nbia-dao.jar"
+           dest="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>
     <delete file="${nbia-grid.wsrf.path}/WEB-INF/lib/nbia-dao.jar"/>
-    
-    <replaceregexp file="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" 
+
+    <replaceregexp file="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties"
                    byline="true"
                    match="^\s*hibernate.connection.datasource\s\s*(.*)$"
-                   replace="hibernate.connection.datasource java:comp/env/nciaDatabase"/>    
-    <replaceregexp file="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" 
+                   replace="hibernate.connection.datasource java:comp/env/nciaDatabase"/>
+    <replaceregexp file="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties"
                    byline="true"
                    match="^\s*hibernate.connection.driver_class\s\s*(.*)$"
-                   replace="hibernate.connection.driver_class ${database.driver}"/> 
-    <replaceregexp file="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" 
+                   replace="hibernate.connection.driver_class ${database.driver}"/>
+    <replaceregexp file="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties"
                    byline="true"
                    match="^\s*hibernate.dialect\s\s*(.*)$"
-                   replace="hibernate.dialect ${database.dialect}"/>                    
-    
-    <xmltask source="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml"   
-             dest="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml"  
+                   replace="hibernate.dialect ${database.dialect}"/>
+
+    <xmltask source="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml"
+             dest="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml"
              preservetype="true">
-      <xmlcatalog refid="bda.xml.catalog"/>      
-      <replace path="//property[@name='connection.datasource']/text()" 
-               withtext="java:comp/env/nciaDatabase" />       
-      <replace path="//property[@name='dialect']/text()" 
-               withtext="${database.dialect}" />  
-      <replace path="//property[@name='connection.driver_class']/text()" 
-               withtext="${database.driver}" />                  
-    </xmltask>    
-    
-    <jar jarfile="${nbia-grid.wsrf.path}/WEB-INF/lib/nbia-dao.jar" 
+      <xmlcatalog refid="bda.xml.catalog"/>
+      <replace path="//property[@name='connection.datasource']/text()"
+               withtext="java:comp/env/nciaDatabase" />
+      <replace path="//property[@name='dialect']/text()"
+               withtext="${database.dialect}" />
+      <replace path="//property[@name='connection.driver_class']/text()"
+               withtext="${database.driver}" />
+    </xmltask>
+
+    <jar jarfile="${nbia-grid.wsrf.path}/WEB-INF/lib/nbia-dao.jar"
          compress="false">
       <fileset dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp">
         <include name="*/**" />
       </fileset>
-    </jar>           
-    
-    <delete dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>   
+    </jar>
+
+    <delete dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>
 -->
-    <copy file="${working.dir}/common/resources/grid/properties-service.xml" 
+    <copy file="${working.dir}/common/resources/grid/properties-service.xml"
           todir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy" overwrite="true" >
     </copy>
-    
-    
-    
+
+
+
   </target>
-  
+
   <target name="install:nbia-grid:wsrf"
-          unless="exclude.nbia-grid" 
-          depends="common:nbia-grid:init, 
+          unless="exclude.nbia-grid"
+          depends="common:nbia-grid:init,
                    common:common:init" >
 
     <delete dir="${nbia-grid.wsrf.path}"/>
     <mkdir dir="${nbia-grid.wsrf.path}"/>
 
     <!-- pretty sure we can reuse the old one from tomcat?
-         do this first so patched globus stuff in artifact file will overwrite -->           
-    <unzip dest="${nbia-grid.wsrf.path}" 
+         do this first so patched globus stuff in artifact file will overwrite -->
+    <unzip dest="${nbia-grid.wsrf.path}"
            src="${grid.resource.dir.src}/tomcat-globus-wsrf.zip" />
 
-   
-    <unzip dest="${nbia-grid.wsrf.path}" 
+
+    <unzip dest="${nbia-grid.wsrf.path}"
            src="${nbia-grid.dir.src}/${nbia-grid.artifact.file}" />
-           
-    <!-- CP15 complains about commons-logging in war file? -->       
-    <delete>      
+
+    <!-- CP15 complains about commons-logging in war file? -->
+    <delete>
       <fileset dir="${nbia-grid.wsrf.path}/WEB-INF/lib"
                includes="commons-logging*.jar"/>
-    </delete>      
-          
+    </delete>
+
   </target>
- 
-   
+
+
   <target name="install:nbia-grid:transfer-service"
-          unless="exclude.nbia-grid" 
+          unless="exclude.nbia-grid"
           depends="common:nbia-grid:init,
                    common:common:init" >
 
-    <property name="unsecured.caGridTransfer.war.path" 
+    <property name="unsecured.caGridTransfer.war.path"
               location ="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy/caGridTransfer.war"/>
-    <delete dir="${unsecured.caGridTransfer.war.path}"/>   
-    
-        
-    <unzip dest="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy" 
-           src="${grid.resource.dir.src}/caGridTransfer.zip"/> 
+    <delete dir="${unsecured.caGridTransfer.war.path}"/>
 
-    <replaceregexp file="${unsecured.caGridTransfer.war.path}/WEB-INF/classes/server.properties" 
+
+    <unzip dest="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy"
+           src="${grid.resource.dir.src}/caGridTransfer.zip"/>
+
+    <replaceregexp file="${unsecured.caGridTransfer.war.path}/WEB-INF/classes/server.properties"
                    byline="true"
                    match="^\s*transfer.service.persistence.relative.location\s*=(.*)$"
-                   replace="transfer.service.persistence.relative.location=wsrf.war/WEB-INF/etc/cagrid_TransferService/persisted/TransferServiceContextResourceProperties"/>              
+                   replace="transfer.service.persistence.relative.location=wsrf.war/WEB-INF/etc/cagrid_TransferService/persisted/TransferServiceContextResourceProperties"/>
     <delete>
       <fileset dir="${unsecured.caGridTransfer.war.path}/WEB-INF/lib">
-        <include name="log4j*.jar"/>         
-        <include name="commons-logging*.jar"/>  
-      </fileset>              
+        <include name="log4j*.jar"/>
+        <include name="commons-logging*.jar"/>
+      </fileset>
     </delete>
-    
-    <unzip dest="${nbia-grid.wsrf.path}" 
-           src="${grid.resource.dir.src}/caGridTransfer-wsrf.zip"/>            
-         
-     
-  </target>  
 
-  
-  <target name="install:nbia-grid:application" 
-          description="Deploy nbia-grid to JBoss" 
-          unless="exclude.nbia-grid" 
-          depends="common:nbia-grid:init, 
+    <unzip dest="${nbia-grid.wsrf.path}"
+           src="${grid.resource.dir.src}/caGridTransfer-wsrf.zip"/>
+
+
+  </target>
+
+
+  <target name="install:nbia-grid:application"
+          description="Deploy nbia-grid to JBoss"
+          unless="exclude.nbia-grid"
+          depends="common:nbia-grid:init,
                    common:common:init" >
- 
+
     <available file="${unsecured.caGridTransfer.war.path}"
-               property="nbia-grid.transfer.service.available"/>      
+               property="nbia-grid.transfer.service.available"/>
     <fail unless="nbia-grid.transfer.service.available"
           message="It appears that the caGrid Transfer service is not deployed.  nbia-grid cant be deployed without it"/>
 <!--
@@ -302,77 +302,78 @@
       <equals arg1="${nbia-grid.tempZipLocation}" arg2=""/>
       <then>
         <var name="nbia-grid.tempZipLocation" value="${java.io.tmpdir}/tempzip/"/>
-      </then>  
+      </then>
     </if>
-    
-    <mkdir dir="${nbia-grid.tempZipLocation}"/>          
+
+    <mkdir dir="${nbia-grid.tempZipLocation}"/>
  -->
 
     <xmltask source="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/NBIAService_registration.xml"
-             dest="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/NBIAService_registration.xml">      
-      <!-- no xmlcatalog necessary -->       
-      <replace path="//:ServiceGroupEPR/:Address/text()" 
-               withtext="${grid.index.url}" />    
+             dest="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/NBIAService_registration.xml">
+      <!-- no xmlcatalog necessary -->
+      <replace path="//:ServiceGroupEPR/:Address/text()"
+               withtext="${grid.index.url}" />
 
-     </xmltask>  
-    <!--                
-    <copy file="ncia-core-grid-transfer/NCIA.csm.new.hibernate.cfg.xml" 
+     </xmltask>
+
+    <copy file="nbia-grid/NCIA.csm.new.hibernate.cfg.xml"
           todir="${nbia-grid.wsrf.path}/WEB-INF/classes"/>
-    <copy file="ncia-core-grid-transfer/log4j.properties" 
-          todir="${nbia-grid.wsrf.path}/WEB-INF/classes"          
-          overwrite="true"/>       
-    -->  
+<!--
+    <copy file="ncia-core-grid-transfer/log4j.properties"
+          todir="${nbia-grid.wsrf.path}/WEB-INF/classes"
+          overwrite="true"/>
+    -->
   </target>
 
 
-  <target name="upgrade:nbia-grid" 
-          unless="exclude.nbia-grid" 
+  <target name="upgrade:nbia-grid"
+          unless="exclude.nbia-grid"
           depends="upgrade:nbia-grid:init,
                    common:common:init,
                    upgrade-dac:nbia-grid">
   </target>
-     
-                 
+
+
   <target name="upgrade-dac:nbia-grid"
           unless="exclude.nbia-grid"
           depends="upgrade:nbia-grid:init,
                    common:common:init,
-                   common:nbia-grid:init,                   
+                   common:nbia-grid:init,
                    install:nbia-grid:jboss:stop,
                    install:nbia-grid:clean,
                    install:nbia-grid:binaries,
                    install:nbia-grid:wsrf,
                    install:nbia-grid:transfer-service,
-                   install:nbia-grid:application,                   
+                   install:nbia-grid:application,
                    install:nbia-grid:configure,
                    install:nbia-grid:post,
                    install:nbia-grid:jboss:start" />
-                   
+
 
   <!-- Wrapper targets for calling bda macros -->
-  <target name="install:nbia-grid:jboss:stop" 
-          if="nbia-grid.jboss.exists" 
+  <target name="install:nbia-grid:jboss:stop"
+          if="nbia-grid.jboss.exists"
           unless="exclude.nbia-grid">
- 
-    <jboss-stop-jboss jboss.home="${nbia-grid.jboss.home}" 
-                      jboss.server.hostname="${nbia-grid.jboss.server.hostname}" 
-                      jboss.server.jndi.port="${nbia-grid.jboss.server.jndi.port}" 
-                      jboss.server.name="${nbia-grid.jboss.server.name}" 
-                      jboss.web.user="${nbia-grid.jboss.web.user}" 
+
+    <jboss-stop-jboss jboss.home="${nbia-grid.jboss.home}"
+                      jboss.server.hostname="${nbia-grid.jboss.server.hostname}"
+                      jboss.server.jndi.port="${nbia-grid.jboss.server.jndi.port}"
+                      jboss.server.name="${nbia-grid.jboss.server.name}"
+                      jboss.web.user="${nbia-grid.jboss.web.user}"
                       jboss.web.password="${nbia-grid.jboss.web.password}" />
-   
+
   </target>
-  
+
   <target name="install:nbia-grid:jboss:start" unless="exclude.nbia-grid">
     <if>
       <not>
         <isset property="exclude.start.servers"/>
       </not>
       <then>
-        <jboss-start-jboss jboss.home="${nbia-grid.jboss.home}" 
+        <jboss-start-jboss jboss.home="${nbia-grid.jboss.home}"
                            jboss.server.name="${nbia-grid.jboss.server.name}"/>
       </then>
-    </if>    
+    </if>
   </target>
 
   <target name="install:nbia-grid:post" unless="exclude.nbia-grid">
@@ -392,7 +393,7 @@
         <!-- Copy app server logs -->
         <mkdir dir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/log"/>
         <mkdir dir="${backup.nbia-grid.jboss.base.dir}/backup/jboss-4.0.5.GA/server/${nbia-grid.jboss.server.name}/log"/>
-        <!-- so the logs wont be included in the zip --> 
+        <!-- so the logs wont be included in the zip -->
         <move todir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/log">
           <fileset dir="${backup.nbia-grid.jboss.base.dir}/backup/jboss-4.0.5.GA/server/${nbia-grid.jboss.server.name}/log">
             <include name="*"/>
@@ -408,49 +409,49 @@
     </if>
 
   </target>
-  
 
- 
+
+
   <target name="upgrade:nbia-grid:readers:custom:jboss"
-          unless="exclude.nbia-grid"> 
-  
+          unless="exclude.nbia-grid">
+
     <trycatch property="reader.failure.reason">
       <try>
         <read-ncia-core-grid-jndi-config jndi.config.file="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/jndi-config.xml"
-                                         tempZipLocation.property="nbia-grid.tempZipLocation" 
-                                         thumbnailUrl.property="nbia-grid.jboss.thumbnailUrl" />        
-                                        
+                                         tempZipLocation.property="nbia-grid.tempZipLocation"
+                                         thumbnailUrl.property="nbia-grid.jboss.thumbnailUrl" />
+
       </try>
       <catch>
         <echo>Couldnt read JNDI config for Jboss core-grid, but this is fine if this is the first time.</echo>
         <echo>${reader.failure.reason}</echo>
       </catch>
-    </trycatch> 
- 
+    </trycatch>
+
   </target>
-  
-    
-  <target name="upgrade:nbia-grid:readers:custom" 
+
+
+  <target name="upgrade:nbia-grid:readers:custom"
           depends="upgrade:nbia-grid:readers:custom:jboss"
           unless="exclude.nbia-grid">
-    <!-- nothing here on purpose -->           
+    <!-- nothing here on purpose -->
   </target>
-       
-  
-  <target name="upgrade:nbia-grid:readers:bda" 
+
+
+  <target name="upgrade:nbia-grid:readers:bda"
           depends="upgrade:nbia-grid:readers:bda:jboss"
           unless="exclude.nbia-grid">
-    <!-- nothing here on purpose -->           
+    <!-- nothing here on purpose -->
   </target>
 
   <target name="upgrade:nbia-grid:readers:bda:jboss"
-          unless="exclude.nbia-grid">  
+          unless="exclude.nbia-grid">
     <trycatch property="unsecured.reader.exception">
-      <try>  
+      <try>
         <!-- Make sure the ${properties.file} has at least the following props -->
         <properties-exist
                 properties.list="application.base.path,nbia-grid.jboss.home,nbia-grid.jboss.server.name"
-                />  
+                />
 
         <!-- Begin Tomcat readers, delete if you don't need -->
         <osfamily property="os.family"/>
@@ -520,8 +521,8 @@
         <jboss-read-java_opts
             jboss.bin.dir="${nbia-grid.jboss.home}/bin"
             jboss.home="${nbia-grid.jboss.home}"
-            jboss.java.opts.property.name="nbia-grid.jboss.java.opts"    
-            /> 
+            jboss.java.opts.property.name="nbia-grid.jboss.java.opts"
+            />
 
         <!-- Fail if any read properties are not set -->
         <echo message="All properties after readers"/>
@@ -533,42 +534,42 @@
                 />
         <properties-write
                 properties.list="${read.properties.list},nbia-grid.jboss.server.hostname"
-                /> 
+                />
       </try>
       <catch>
         <echo>Couldnt read properties from (second) unsecured grid instance. Could be because it's not there yet?</echo>
         <echo>${unsecured.reader.exception}</echo>
-      </catch>            
+      </catch>
     </trycatch>
-  </target>                        
-                        
-  
-  <target name="install:nbia-grid:init" 
+  </target>
+
+
+  <target name="install:nbia-grid:init"
           depends="common:common:init:pre"
-          unless="exclude.nbia-grid"> 
-          
+          unless="exclude.nbia-grid">
+
     <!-- determine if port configurations or port lists are being called -->
-    <if>                            
+    <if>
       <isset property="nbia-grid.jboss.ncicb-standard.port-config"/>
-      <then>                          
+      <then>
         <!-- Read some port properties from standard bindings file -->
         <echo message="Using JBoss NCICB Standard port configurations"/>
-        <property name="nbia-grid.jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>        
-        
-        <jboss-read-ports                       
+        <property name="nbia-grid.jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+
+        <jboss-read-ports
           jboss.server.bindingfile.location="${nbia-grid.jboss.server.binding.template.location}"
           jboss.server.ports.name="${nbia-grid.jboss.server.ports.name}"
-          />                              
+          />
         <echo message="http -${nbia-grid.jboss.server.port} "/>
         <echo message="http -${nbia-grid.jboss.server.jndi.port} "/>
         <properties-exist
           properties.list="nbia-grid.jboss.server.jndi.port,nbia-grid.jboss.server.port,nbia-grid.jboss.server.ports.name"
-          />                              
+          />
         <!-- Make sure there are not unexpanded tokens and that the jboss.server.ports.name is a configuration in the bindings file. -->
-        <jboss-bindings-validate                
+        <jboss-bindings-validate
           jboss.server.bindingfile.location="${nbia-grid.jboss.server.binding.template.location}"
           jboss.server.ports.name="${nbia-grid.jboss.server.ports.name}"
-          />                                      
+          />
       </then>
       <else>
         <!-- else ensure that all ports are set, since these will be removed from install-properties.template we will verify here.  They have to be removed so the validator works with or without the properties or we have to change the format of the file. -->
@@ -579,67 +580,67 @@
           />
       </else>
     </if>
-  </target>  
-  
-  
-  <target name="common:nbia-grid:init" 
-          depends="common:common:init:pre" 
+  </target>
+
+
+  <target name="common:nbia-grid:init"
+          depends="common:common:init:pre"
           unless="exclude.nbia-grid">
     <fail unless="application.base.path"/>
-    
+
     <property name="nbia-grid.home" value="${application.base.path}/${nbia-grid.jboss.relative.path}"/>
     <property name="nbia-grid.jboss.home" value="${application.base.path}/${nbia-grid.jboss.relative.path}"/>
     <property name="nbia-grid.wsrf.path" location="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy/wsrf.war"/>
     <echo>FOO:${nbia-grid.wsrf.path}</echo>
     <echo>wtf: ${application.base.path}</echo>
-      
+
     <available file="${nbia-grid.home}" property="nbia-grid.exists"/>
-    <available file="${nbia-grid.jboss.home}" property="nbia-grid.jboss.exists"/>      
-    
+    <available file="${nbia-grid.jboss.home}" property="nbia-grid.jboss.exists"/>
+
     <echo>foo:      ${nbia-grid.jboss.home}</echo>
     <echo>foo2:      ${nbia-grid.jboss.server.name}</echo>
   </target>
-  
-  
+
+
   <target name="upgrade:nbia-grid:init"
           depends="common:nbia-grid:init,
                    upgrade:nbia-grid:init:prep,
                    upgrade:nbia-grid:readers:bda,
                    upgrade:nbia-grid:readers:custom"
-          unless="exclude.nbia-grid">              
-    <properties-print       
+          unless="exclude.nbia-grid">
+    <properties-print
       properties.list="${read.properties.list}"
-      />              
-    <properties-exist       
+      />
+    <properties-exist
       properties.list="${read.properties.list}"
-      />              
-    <properties-write       
+      />
+    <properties-write
       properties.list="${read.properties.list}"
-      />      
+      />
   </target>
-  
 
-  
-  <target name="upgrade:nbia-grid:init:prep" 
-          depends="upgrade:common:init:prep">         
-          
+
+
+  <target name="upgrade:nbia-grid:init:prep"
+          depends="upgrade:common:init:prep">
+
     <echo message="nbia-grid.home = ${nbia-grid.home}"/>
     <echo message="nbia-grid.jboss.home = ${nbia-grid.jboss.home}"/>
-    <if>            
+    <if>
       <equals arg1="${nbia-grid.jboss.ncicb-standard.port-config}" arg2="true"/>
-      <then>                  
-        <property name="nbia-grid.jboss.server.binding.template.location" 
+      <then>
+        <property name="nbia-grid.jboss.server.binding.template.location"
                   value="${basedir}/${jboss-bindings.file}"/>
-      </then>                 
-      <else>                  
+      </then>
+      <else>
         <property name="nbia-grid.jboss.server.binding.template.location"
                   value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
-      </else>                 
-    </if>           
+      </else>
+    </if>
 
     <available file="${nbia-grid.home}" property="nbia-grid.exists"/>
     <available file="${nbia-grid.jboss.home}" property="nbia-grid.jboss.exists"/>
     <property name="read.nbia-grid.home" value="${nbia-grid.home}"/>
   </target>
-  
+
 </project>

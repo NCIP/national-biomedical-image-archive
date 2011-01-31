@@ -52,7 +52,12 @@ public class NBIANode implements Comparable<NBIANode>,
     public boolean equals(Object obj){
     	return this.displayName.equals(((NBIANode)obj).displayName);
     }
-     
+    /**
+	 * Required by check style.
+	 */
+    public int hashCode(){
+    	return this.displayName.hashCode();
+    }    
     public String toString() {
     	return getURL()+","+getDisplayName()+", local:"+isLocal();
     }

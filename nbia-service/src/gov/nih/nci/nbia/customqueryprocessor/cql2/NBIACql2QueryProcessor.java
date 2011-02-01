@@ -12,10 +12,7 @@ import gov.nih.nci.cagrid.sdkquery4.processor2.SDK4CQL2QueryProcessor;
 import gov.nih.nci.cagrid.introduce.servicetools.security.SecurityUtils;
 import org.cagrid.cql.utilities.CQL2SerializationUtil;
 import java.util.List;
-import javax.xml.namespace.QName;
- 
 
-import gov.nih.nci.nbia.service.NBIAServiceConfiguration;
 import gov.nih.nci.ncia.domain.TrialDataProvenance;
 import gov.nih.nci.nbia.util.CSMUtil;
 

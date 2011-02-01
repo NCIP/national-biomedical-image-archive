@@ -1,5 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jndiConfig xmlns="http://wsrf.globus.org/jndi/config">
+  <global>
+    <resource name="nciaDatabase" type="com.mchange.v2.c3p0.ComboPooledDataSource">
+      <resourceParams>
+        <parameter>
+          <name>driverClass</name>
+          <value>@databaseDriver@</value>
+        </parameter>
+        <parameter>
+          <name>jdbcUrl</name>
+          <value>@databaseConnectionUrl@</value>
+        </parameter>
+        <parameter>
+          <name>user</name>
+          <value>@databaseUser@</value>
+        </parameter>
+        <parameter>
+          <name>password</name>
+          <value>@databasePassword@</value>
+        </parameter>
+        <parameter>
+          <name>factory</name>
+          <value>org.apache.naming.factory.BeanFactory</value>
+        </parameter>
+        <parameter>
+          <name>acquireRetryAttempts</name>
+          <value>30</value>
+        </parameter>
+        <parameter>
+          <name>acquireIncrement</name>
+          <value>5</value>
+        </parameter>
+        <parameter>
+          <name>idleConnectionTestPeriod</name>
+          <value>9</value>
+        </parameter>
+        <parameter>
+          <name>initialPoolSize</name>
+          <value>5</value>
+        </parameter>
+        <parameter>
+          <name>maxPoolSize</name>
+          <value>20</value>
+        </parameter>
+        <parameter>
+          <name>maxIdleTime</name>
+          <value>14400</value>
+        </parameter>
+        <!-- 4 hours idle -->
+        <parameter>
+          <name>maxStatements</name>
+          <value>50</value>
+        </parameter>
+        <!-- max statements in cache -->
+        <parameter>
+          <name>minPoolSize</name>
+          <value>5</value>
+        </parameter>
+      </resourceParams>
+    </resource>
+  </global>
+
   <service name="SERVICE-INSTANCE-PREFIX/NBIAService">
     <resource name="configuration" type="gov.nih.nci.nbia.service.globus.resource.NBIAServiceResourceConfiguration">
       <resourceParams>

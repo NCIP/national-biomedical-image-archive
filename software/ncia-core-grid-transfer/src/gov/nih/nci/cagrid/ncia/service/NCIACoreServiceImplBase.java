@@ -1,6 +1,5 @@
 package gov.nih.nci.cagrid.ncia.service;
 
-import  gov.nih.nci.cagrid.ncia.service.NCIACoreServiceConfiguration;
 import java.rmi.RemoteException;
 import javax.naming.InitialContext;
 import org.apache.axis.MessageContext;

@@ -965,7 +965,6 @@ $HeadURL$
         <isset property="exclude.nbia-grid"/>
       </not>
       <then>
-        <echo>Copying to nbia-service like Im supposed to</echo>
         <copy todir="${dist.exploded.dir}/nbia-service" overwrite="true">
           <!-- yea copy it from here, same thing -->
           <fileset dir="${software.dir}/ncia-core-grid-transfer/conf">
@@ -1023,6 +1022,12 @@ $HeadURL$
     </copy>
 
     <copy todir="${dist.exploded.dir}/ncia-core-grid-transfer" overwrite="true">
+      <fileset dir="${software.dir}/ncia-core-grid-transfer/conf">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+    <copy todir="${dist.exploded.dir}/nbia-service" overwrite="true">
+      <!-- yea copy it from here, same thing -->
       <fileset dir="${software.dir}/ncia-core-grid-transfer/conf">
         <include name="**/*"/>
       </fileset>

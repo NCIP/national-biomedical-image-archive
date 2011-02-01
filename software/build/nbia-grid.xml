@@ -316,7 +316,7 @@
 
      </xmltask>
 
-    <copy file="nbia-grid/NCIA.csm.new.hibernate.cfg.xml"
+    <copy file="nbia-service/NCIA.csm.new.hibernate.cfg.xml"
           todir="${nbia-grid.wsrf.path}/WEB-INF/classes"/>
 <!--
     <copy file="ncia-core-grid-transfer/log4j.properties"

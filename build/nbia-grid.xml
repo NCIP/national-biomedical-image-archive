@@ -137,10 +137,9 @@
     <xmltask source="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/jndi-config.xml"
              dest="${nbia-grid.wsrf.path}/WEB-INF/etc/cagrid_NBIAService/jndi-config.xml">
       <!-- no xmlcatalog necessary -->
-           <!--
       <replace path="//:parameter[:name='databaseConnectionUrl']/:value/text()"
                withtext="${database.url}" />
-      -->
+
       <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationName']/:value/text()"
                withtext="ncia-api" />
 
@@ -164,7 +163,7 @@
       <replace path="//:parameter[:name='thumbnailUrl']/:value/text()"
                withtext="${nbia-grid.jboss.thumbnailUrl}" />
 
-
+-->
 
       <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='driverClass']/:value/text()"
                withtext="${database.driver}" />
@@ -174,7 +173,7 @@
                withtext="${database.user}" />
       <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='password']/:value/text()"
                withtext="${database.password}" />
-
+<!--
 
       <replace path="//:parameter[:name='tempZipLocation']/:value/text()"
                withtext="${nbia-grid.tempZipLocation}" />

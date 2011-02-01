@@ -31,6 +31,12 @@ public class NCIACoreServiceProviderImpl{
     return boxedResult;
   }
 
+    public gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse retrieveImagesForSeriesEx(gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest params) throws RemoteException {
+    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse();
+    boxedResult.setImageSearchResultEx(impl.retrieveImagesForSeriesEx(params.getSeriesSearchResult().getSeriesSearchResult()));
+    return boxedResult;
+  }
+
     public gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataResponse retrieveDicomData(gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataRequest params) throws RemoteException {
     gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataResponse();
     boxedResult.setTransferServiceContextReference(impl.retrieveDicomData(params.getCQLQuery().getCQLQuery()));

@@ -1,21 +1,19 @@
 package gov.nih.nci.cagrid.ncia.service.globus;
 
-
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.io.File;
 import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.handler.MessageContext;
 
-import org.globus.wsrf.config.ContainerConfig;
 import org.globus.wsrf.impl.security.authorization.exceptions.AuthorizationException;
 import org.globus.wsrf.impl.security.authorization.exceptions.CloseException;
 import org.globus.wsrf.impl.security.authorization.exceptions.InitializeException;
 import org.globus.wsrf.impl.security.authorization.exceptions.InvalidPolicyException;
 import org.globus.wsrf.security.authorization.PDP;
 import org.globus.wsrf.security.authorization.PDPConfig;
+import org.globus.wsrf.config.ContainerConfig;
 import org.w3c.dom.Node;
 
 
@@ -137,6 +135,10 @@ public class NCIACoreServiceAuthorization implements PDP {
 	public void authorizeGetUsAvailableSearchTerms(Subject peerSubject, MessageContext context, QName operation) throws AuthorizationException {
 		
 	}
+	   				
+	public void authorizeRetrieveImagesForSeriesEx(Subject peerSubject, MessageContext context, QName operation) throws AuthorizationException {
+		
+	}
 	   
 	
 	public boolean isPermitted(Subject peerSubject, MessageContext context, QName operation)
@@ -207,6 +209,9 @@ public class NCIACoreServiceAuthorization implements PDP {
 			return true;
 		} else if(operation.getLocalPart().equals("getUsAvailableSearchTerms")){
 			authorizeGetUsAvailableSearchTerms(peerSubject, context, operation);
+			return true;
+		} else if(operation.getLocalPart().equals("retrieveImagesForSeriesEx")){
+			authorizeRetrieveImagesForSeriesEx(peerSubject, context, operation);
 			return true;
 		} 		
 		return false;

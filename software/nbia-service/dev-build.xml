@@ -229,7 +229,7 @@
         <include name="caGrid-CQL-utils-1.4.jar"/>
         <include name="caGrid-CQL-cql.2.0-1.4.jar"/>
         <include name="caGrid-CQL-mappings-1.4.jar"/>
-        <include name="castor-1.0.2.jar.jar"/>
+        <include name="castor-1.0.2.jar"/>
       </fileset>
 
     </zip>

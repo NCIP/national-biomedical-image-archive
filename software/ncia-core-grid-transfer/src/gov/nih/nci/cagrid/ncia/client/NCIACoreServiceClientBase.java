@@ -1,9 +1,5 @@
 package gov.nih.nci.cagrid.ncia.client;
 
-import gov.nih.nci.cagrid.introduce.security.client.ServiceSecurityClient;
-import gov.nih.nci.cagrid.ncia.stubs.NCIACoreServicePortType;
-import gov.nih.nci.cagrid.ncia.stubs.service.NCIACoreServiceAddressingLocator;
-
 import java.io.InputStream;
 import java.rmi.RemoteException;
 
@@ -12,8 +8,13 @@ import org.apache.axis.client.AxisClient;
 import org.apache.axis.configuration.FileProvider;
 import org.apache.axis.message.addressing.EndpointReferenceType;
 import org.apache.axis.types.URI.MalformedURIException;
+
 import org.globus.gsi.GlobusCredential;
 import org.globus.wsrf.NotificationConsumerManager;
+
+import gov.nih.nci.cagrid.ncia.stubs.NCIACoreServicePortType;
+import gov.nih.nci.cagrid.ncia.stubs.service.NCIACoreServiceAddressingLocator;
+import gov.nih.nci.cagrid.introduce.security.client.ServiceSecurityClient;
 
 
 /**

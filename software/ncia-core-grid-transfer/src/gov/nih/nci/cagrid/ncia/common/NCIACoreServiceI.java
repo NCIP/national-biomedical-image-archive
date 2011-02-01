@@ -17,6 +17,8 @@ public interface NCIACoreServiceI {
 
   public gov.nih.nci.ncia.search.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException ;
 
+  public gov.nih.nci.ncia.search.ImageSearchResultEx[] retrieveImagesForSeriesEx(gov.nih.nci.ncia.search.SeriesSearchResult seriesSearchResult) throws RemoteException ;
+
   /**
    * The standard caGrid Data Service query method.
    *

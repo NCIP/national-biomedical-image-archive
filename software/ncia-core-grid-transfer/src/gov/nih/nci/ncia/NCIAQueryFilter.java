@@ -23,36 +23,36 @@ import java.util.Set;
  * nimpy: The lifecycle of this object is not quite clear.  Need to be clearer
  * about what values should be cached in the singleton instance, and
  * what is/should be recomputed per method invocation
- * 
+ *
  * @author lethai
  */
 public class NCIAQueryFilter {
     //why list??? is there ordering?
     public static List<TrialDataProvenance> getDataFilterByUserName(String username) throws CSException {
         List<TrialDataProvenance> tdpList = new ArrayList<TrialDataProvenance>();
-    
-        Set<ProtectionElementPrivilegeContext> userProtectionElementPrivilegeContext = 
+
+        Set<ProtectionElementPrivilegeContext> userProtectionElementPrivilegeContext =
             CSMUtil.findUserProtectionElementPrivilegeContext(username);
 
-        Iterator<ProtectionElementPrivilegeContext> userProtectionElementPrivilegeContextIter = 
+        Iterator<ProtectionElementPrivilegeContext> userProtectionElementPrivilegeContextIter =
             userProtectionElementPrivilegeContext.iterator();
 
         while (userProtectionElementPrivilegeContextIter.hasNext()) {
-            ProtectionElementPrivilegeContext protectionElementPrivilegeContext = 
+            ProtectionElementPrivilegeContext protectionElementPrivilegeContext =
                 userProtectionElementPrivilegeContextIter.next();
-                
-            ProtectionElement pe = protectionElementPrivilegeContext.getProtectionElement();        
+
+            ProtectionElement pe = protectionElementPrivilegeContext.getProtectionElement();
 
             TrialDataProvenance trialDataProvenance = processProtectionElement(pe);
-            
+
             if (trialDataProvenance != null){
                 tdpList.add(trialDataProvenance);
             }
         }
 
         return tdpList;
-    }    
-    
+    }
+
     /**
      * This method uses csmapi to retrieve PUBLIC-GRID group which contains all
      * the public collections and sites. Return list of TrialDataProvenance for
@@ -67,9 +67,9 @@ public class NCIAQueryFilter {
                 .getAuthorizationManager("NCIA");
         Group csmGroup = new Group();
         csmGroup.setGroupName(csmGroupName);
-        
+
         System.out.println("Group name: " + csmGroupName);
-        
+
         GroupSearchCriteria gsc = new GroupSearchCriteria(csmGroup);
         List<Group> pgrslt = upm.getObjects(gsc);
         Set peg;
@@ -103,7 +103,7 @@ public class NCIAQueryFilter {
      */
     public static gov.nih.nci.cagrid.cqlquery.Group convertTDPToCQL(List<TrialDataProvenance> authorizedTdpList) {
 
-        List<gov.nih.nci.cagrid.cqlquery.Group> projectAndSiteGroups = 
+        List<gov.nih.nci.cagrid.cqlquery.Group> projectAndSiteGroups =
             new ArrayList<gov.nih.nci.cagrid.cqlquery.Group>();
 
         for (TrialDataProvenance authorizedTdp : authorizedTdpList) {
@@ -111,30 +111,30 @@ public class NCIAQueryFilter {
                 System.err.println("Skipping:"+authorizedTdp.getProject()+","+authorizedTdp.getSiteName());
                 continue;
             }
-            
+
             Attribute projectAtt = new Attribute();
             projectAtt.setName("project");
             projectAtt.setPredicate(Predicate.EQUAL_TO);
             projectAtt.setValue(authorizedTdp.getProject());
-        
+
             Attribute siteAtt = new Attribute();
             siteAtt.setName("siteName");
             siteAtt.setPredicate(Predicate.EQUAL_TO);
             siteAtt.setValue(authorizedTdp.getSiteName());
-    
+
             Attribute[] projectAndSiteAttributesArr = new Attribute[2];
             projectAndSiteAttributesArr[0] = projectAtt;
             projectAndSiteAttributesArr[1] = siteAtt;
-            
+
             gov.nih.nci.cagrid.cqlquery.Group projectAndSiteGroup = new gov.nih.nci.cagrid.cqlquery.Group();
             projectAndSiteGroup.setAttribute(projectAndSiteAttributesArr);
             projectAndSiteGroup.setLogicRelation(LogicalOperator.AND);
-            
+
             projectAndSiteGroups.add(projectAndSiteGroup);
         }
-        
+
         gov.nih.nci.cagrid.cqlquery.Group oneOfTheProjectSitePairsGroup = new gov.nih.nci.cagrid.cqlquery.Group();
-        oneOfTheProjectSitePairsGroup.setLogicRelation(LogicalOperator.OR);        
+        oneOfTheProjectSitePairsGroup.setLogicRelation(LogicalOperator.OR);
         oneOfTheProjectSitePairsGroup.setGroup(projectAndSiteGroups.toArray(new gov.nih.nci.cagrid.cqlquery.Group[]{}));
         return oneOfTheProjectSitePairsGroup;
     }
@@ -158,7 +158,7 @@ public class NCIAQueryFilter {
         Association seriesAssociation = new Association();
         seriesAssociation.setName(SERIES_DOMAIN);
         seriesAssociation.setRoleName("series");
-        
+
         Association studyAssociation = new Association();
         studyAssociation.setName(STUDY_DOMAIN);
         studyAssociation.setRoleName("study");
@@ -166,33 +166,33 @@ public class NCIAQueryFilter {
         Association patientAssociation = new Association();
         patientAssociation.setName(PATIENT_DOMAIN);
         patientAssociation.setRoleName("patient");
-        
+
         if (cqlTarget.getName().equalsIgnoreCase(IMAGE_DOMAIN)) {
             patientAssociation.setAssociation(tdpAssociation);
             studyAssociation.setAssociation(patientAssociation);
             seriesAssociation.setAssociation(studyAssociation);
 
             cqlTarget = mergeAssociationIntoQuery(cqlQuery, seriesAssociation);
-        } 
-        else 
+        }
+        else
         if (cqlTarget.getName().equalsIgnoreCase(SERIES_DOMAIN)) {
             patientAssociation.setAssociation(tdpAssociation);
             studyAssociation.setAssociation(patientAssociation);
 
             cqlTarget = mergeAssociationIntoQuery(cqlQuery, studyAssociation);
         }
-        else 
+        else
         if (cqlTarget.getName().equalsIgnoreCase(STUDY_DOMAIN)) {
             patientAssociation.setAssociation(tdpAssociation);
 
             cqlTarget = mergeAssociationIntoQuery(cqlQuery, patientAssociation);
-        } 
-        else 
+        }
+        else
         if (cqlTarget.getName().equalsIgnoreCase(PATIENT_DOMAIN)) {
             cqlTarget = mergeAssociationIntoQuery(cqlQuery, tdpAssociation);
 
-        } 
-        else 
+        }
+        else
         if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.Annotation")) {
             patientAssociation.setAssociation(tdpAssociation);
             studyAssociation.setAssociation(patientAssociation);
@@ -200,20 +200,21 @@ public class NCIAQueryFilter {
 
             cqlTarget = mergeAssociationIntoQuery(cqlQuery, seriesAssociation);
         }
-        else 
+        else
         if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
-        	cqlTarget.setGroup(tdpGroup);
-        }        
+        	if( cqlQuery.getTarget().getGroup() == null )
+        		cqlTarget.setGroup(tdpGroup);
+        }
 
         cqlQuery.setTarget(cqlTarget);
-        
+
         GridUtil.dumpCQLQuery(cqlQuery);
 
         return cqlQuery;
     }
 
     ////////////////////////////////////PRIVATE/////////////////////////////////////////
-        
+
     private final static String delimiter = "//";
 
     private final static String NCIA_PROJECT = "NCIA.PROJECT";
@@ -222,44 +223,44 @@ public class NCIAQueryFilter {
     private final static String SERIES_DOMAIN = "gov.nih.nci.ncia.domain.Series";
     private final static String STUDY_DOMAIN = "gov.nih.nci.ncia.domain.Study";
     private final static String PATIENT_DOMAIN = "gov.nih.nci.ncia.domain.Patient";
-    
+
 
     private NCIAQueryFilter() {
     }
-    
+
     private static boolean targetHasNoGroupButHasAssociation(gov.nih.nci.cagrid.cqlquery.Object cqlTarget) {
         Association assoc = cqlTarget.getAssociation();
         gov.nih.nci.cagrid.cqlquery.Group group = cqlTarget.getGroup();
 
         return group == null && assoc != null;
     }
-    
-    
+
+
     private static boolean targetHasAGroup(gov.nih.nci.cagrid.cqlquery.Object cqlTarget) {
         gov.nih.nci.cagrid.cqlquery.Group group = cqlTarget.getGroup();
         return group != null;
     }
-    
-    
+
+
     private static boolean targetHasNoGroupNorAssociation(gov.nih.nci.cagrid.cqlquery.Object cqlTarget) {
         Association assoc = cqlTarget.getAssociation();
         gov.nih.nci.cagrid.cqlquery.Group group = cqlTarget.getGroup();
 
         return group == null && assoc == null;
-    }    
-    
-    
+    }
+
+
     private static TrialDataProvenance processProtectionElementWithDelimeter(ProtectionElement pe) {
         String att = pe.getAttribute();
         String pename = pe.getProtectionElementName();
         int pos = att.indexOf(delimiter);
         TrialDataProvenance tdptemp = null;
-        
+
         final int NCIA_PREFIX_OFFSET = 5;
         String beforeDelimeterinAttribute = att.substring(0, pos);
         String afterDelimeterinAttribute = att.substring(pos + 2);
         int delimeterPositionInPeName = pename.indexOf(delimiter);
-        
+
         if (beforeDelimeterinAttribute.equalsIgnoreCase(NCIA_PROJECT)) {
             String projectValue = pename.substring(NCIA_PREFIX_OFFSET, delimeterPositionInPeName).trim();
             if(projectValue==null) {
@@ -277,19 +278,19 @@ public class NCIAQueryFilter {
             String siteValue = (pename.substring(delimeterPositionInPeName + 2)).trim();
             if(siteValue==null) {
                 throw new RuntimeException("null siteValue:"+pename);
-            }                
+            }
             //when does this happen?
             if (tdptemp == null) {
                 tdptemp = new TrialDataProvenance();
             }
-            tdptemp.setSiteName(siteValue);        
-        }    
+            tdptemp.setSiteName(siteValue);
+        }
         else {
             throw new RuntimeException("attribute should end with ncia.dp_site_name");
-        }        
+        }
         return tdptemp;
     }
-    
+
     /**
      * Given a CSM Protection Element, interpret our screwy smoke signals in the PE
      * to construct a TrialDataProvenance object that would match up.
@@ -299,55 +300,55 @@ public class NCIAQueryFilter {
         int pos = att.indexOf(delimiter);
         if (pos < 0) {
             return null;
-        } 
+        }
         else  {
             return processProtectionElementWithDelimeter(pe);
         }
     }
-    
-    
+
+
     /**
      * This method modify the input CQLQuery to include the where clause created
      * in the convertTDPToCQL method and return the modified target
      */
     private static gov.nih.nci.cagrid.cqlquery.Object mergeAssociationIntoQuery(CQLQuery cqlQuery,
                                                                                  Association association) {
-        
-        gov.nih.nci.cagrid.cqlquery.Object cqlTarget = cqlQuery.getTarget();        
+
+        gov.nih.nci.cagrid.cqlquery.Object cqlTarget = cqlQuery.getTarget();
         Association targetAssociation = cqlTarget.getAssociation();
         gov.nih.nci.cagrid.cqlquery.Group targetGroup = cqlTarget.getGroup();
 
-        if (targetHasNoGroupButHasAssociation(cqlTarget)) {        
-            gov.nih.nci.cagrid.cqlquery.Group newTargetGroup = 
-                GridUtil.newGroupWithAndedAssociations(targetAssociation, association);            
-            
+        if (targetHasNoGroupButHasAssociation(cqlTarget)) {
+            gov.nih.nci.cagrid.cqlquery.Group newTargetGroup =
+                GridUtil.newGroupWithAndedAssociations(targetAssociation, association);
+
             cqlTarget.setAssociation(null);
-            cqlTarget.setGroup(newTargetGroup);            
-        } 
-        else 
+            cqlTarget.setGroup(newTargetGroup);
+        }
+        else
         if (targetHasAGroup(cqlTarget)) {
             LogicalOperator groupLogicRelation = targetGroup.getLogicRelation();
 
             if (groupLogicRelation.getValue().equalsIgnoreCase("OR")) {
                 gov.nih.nci.cagrid.cqlquery.Group newTargetGroup = GridUtil.newAndGroupWithSubgroup(targetGroup);
-                
+
                 newTargetGroup.setAssociation(new Association[] {association});
                 cqlTarget.setGroup(newTargetGroup);
-            } 
+            }
             else {
                 GridUtil.addAssociationToGroup(targetGroup, association);
                 cqlTarget.setGroup(targetGroup);
             }
-        } 
-        else 
+        }
+        else
         if (targetHasNoGroupNorAssociation(cqlTarget)) {
             Attribute attr = cqlTarget.getAttribute();
 
             if (attr == null) {
                 cqlTarget.setAssociation(association);
-            } 
+            }
             else {
-                gov.nih.nci.cagrid.cqlquery.Group newTargetGroup = 
+                gov.nih.nci.cagrid.cqlquery.Group newTargetGroup =
                     GridUtil.newAndGroupWithAssociationAndAttribute(association, attr);
 
                 cqlTarget.setGroup(newTargetGroup);
@@ -355,5 +356,5 @@ public class NCIAQueryFilter {
             }
         }
         return cqlTarget;
-    }    
+    }
 }

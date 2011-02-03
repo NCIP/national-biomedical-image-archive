@@ -59,13 +59,22 @@ public class NCIAQueryProcessor extends SDK4QueryProcessor {
 			                             TrialDataProvenanceFilter trialDataProvenanceFilter) throws Exception {
 
         gov.nih.nci.cagrid.cqlquery.Object cqlTarget = cqlQuery.getTarget();
-		if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
-			return super.processQuery(cqlQuery);
-		}
+//		if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
+//			return super.processQuery(cqlQuery);
+//		}
 
 		List<TrialDataProvenance> authorizedTdpList = trialDataProvenanceFilter.getDataFilter();
 		dumpList(authorizedTdpList);
   		if(authorizedTdpList.size() > 0){
+  			if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
+  				if( cqlQuery.getTarget().getGroup() != null ) {
+	  				boolean found = GridUtil.isProjectFound(cqlQuery, authorizedTdpList);
+	  				
+	  				if(!found) {
+	  					return new CQLQueryResults();
+	  				}
+  				}
+  			}
   			Group tdpGroup = NCIAQueryFilter.convertTDPToCQL(authorizedTdpList);
   			cqlQuery = NCIAQueryFilter.applyFilter(cqlQuery, tdpGroup);
 

@@ -201,10 +201,8 @@ public class NCIAQueryFilter {
             cqlTarget = mergeAssociationIntoQuery(cqlQuery, seriesAssociation);
         }
         else
-        if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
-        	if( cqlQuery.getTarget().getGroup() == null ) {
-        		cqlTarget.setGroup(tdpGroup);
-        	}
+        if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance") && cqlQuery.getTarget().getGroup() == null ) {
+       		cqlTarget.setGroup(tdpGroup);
         }
 
         cqlQuery.setTarget(cqlTarget);

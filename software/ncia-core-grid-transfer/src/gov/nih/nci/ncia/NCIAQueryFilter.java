@@ -202,8 +202,9 @@ public class NCIAQueryFilter {
         }
         else
         if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance")) {
-        	if( cqlQuery.getTarget().getGroup() == null )
+        	if( cqlQuery.getTarget().getGroup() == null ) {
         		cqlTarget.setGroup(tdpGroup);
+        	}
         }
 
         cqlQuery.setTarget(cqlTarget);

@@ -172,28 +172,5 @@
   </xs:complexContent>	
 </xs:complexType>
 
-<xs:element name="ImageSearchResultEx" type="ImageSearchResultEx" /> 
-
-<xs:complexType name="ImageSearchResultEx" abstract="true">
-  <xs:sequence>
-   <xs:element name="nameValuesPairs" nillable="true" maxOccurs="unbounded" minOccurs="0" type="NameValuesPairs"/>
-  </xs:sequence>
- 
-  <xs:attribute name="id" type="xs:integer" />
-  <xs:attribute name="sopInstanceUid" type="xs:integer" />
-  <xs:attribute name="seriesInstanceUid" type="xs:string" />
-  <xs:attribute name="seriesId" type="xs:integer" />
-    
-  <xs:attribute name="size" type="xs:integer" />
-  <xs:attribute name="instanceNumber" type="xs:integer" />
-  <xs:attribute name="thumbnailURL" type="xs:string" /> 
-   
-</xs:complexType>
-
-<xs:complexType name="ImageSearchResultExImpl">
-  <xs:complexContent>
-    <xs:extension base="ImageSearchResultEx"/>
-  </xs:complexContent>  
-</xs:complexType>
 
 </xs:schema>

@@ -16,4 +16,5 @@ public interface DicomTagViewer {
 	 * Return all the DICOM tags for the specific DICOM image.
 	 */
 	public List<DicomTagDTO> viewDicomHeader(ImageSearchResult image);
+
 }

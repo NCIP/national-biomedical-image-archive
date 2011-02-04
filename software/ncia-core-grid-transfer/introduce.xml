@@ -1,6 +1,6 @@
 <ns1:ServiceDescription introduceVersion="1.3" xmlns:ns1="gme://gov.nih.nci.cagrid/1/Introduce">
  <ns2:Namespaces xsi:type="ns2:NamespacesType" xmlns:ns2="gme://gov.nih.nci.cagrid.introduce/1/Namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ns2:Namespace location="./UsRemoteSearch.xsd" namespace="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" packageName="gov.nih.nci.nbia.remotesearch" xsi:type="ns2:NamespaceType">
+  <ns2:Namespace generateStubs="false" location="./UsRemoteSearch.xsd" namespace="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" packageName="gov.nih.nci.nbia.remotesearch" xsi:type="ns2:NamespaceType">
    <ns2:SchemaElement type="ImageSearchResultEx" xsi:type="ns2:SchemaElementType"/>
    <ns2:SchemaElement type="NameValuesPairs" xsi:type="ns2:SchemaElementType"/>
    <ns2:SchemaElement type="UsAvailableSearchTerms" xsi:type="ns2:SchemaElementType"/>
@@ -315,159 +315,159 @@
   <ns43:Extension name="cagrid_metadata" version="1.3" xsi:type="ns43:ExtensionType"/>
   <ns43:Extension name="data" version="1.3" xsi:type="ns43:ExtensionType">
    <ns43:ExtensionData>
-    <ns41:Data xsi:type="ns41:Data" xmlns:ns41="http://CQL.caBIG/1/gov.nih.nci.cagrid.data.extension">
-                 <ns41:AdditionalLibraries xsi:type="ns41:AdditionalLibraries">
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">mysql-connector-java-3.1.13-bin.jar</ns41:JarName>
+    <ns44:Data xsi:type="ns44:Data" xmlns:ns44="http://CQL.caBIG/1/gov.nih.nci.cagrid.data.extension">
+                 <ns44:AdditionalLibraries xsi:type="ns44:AdditionalLibraries">
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">mysql-connector-java-3.1.13-bin.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">caGrid-sdkQuery4-style-1.3.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">caGrid-sdkQuery4-style-1.3.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">cglib-2.1.3.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">cglib-2.1.3.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">c3p0-0.9.0.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">c3p0-0.9.0.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">spring.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">spring.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">acegi-security-1.0.4.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">acegi-security-1.0.4.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">hibernate3.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">hibernate3.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">dom4j-1.4.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">dom4j-1.4.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">csmapi.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">csmapi.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">ehcache-1.2.2.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">ehcache-1.2.2.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">sdk-client-framework.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">sdk-client-framework.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">caGrid-sdkQuery4-beans-1.3.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">caGrid-sdkQuery4-beans-1.3.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">caGrid-sdkQuery4-processor-1.3.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">caGrid-sdkQuery4-processor-1.3.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">ant-contrib-1.0b3.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">ant-contrib-1.0b3.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">sdk-core.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">sdk-core.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">antlr-2.7.6.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">antlr-2.7.6.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">castor-1.0.2.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">castor-1.0.2.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">jta.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">jta.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">asm.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">asm.jar</ns44:JarName>
 
 
 
-                  <ns41:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">NCIACoreService-service.jar</ns41:JarName>
+                  <ns44:JarName xsi:type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema">NCIACoreService-service.jar</ns44:JarName>
 
 
 
-     </ns41:AdditionalLibraries>
+     </ns44:AdditionalLibraries>
 
 
 
-                 <ns41:ServiceFeatures serviceStyle="caCORE SDK v 4.0" useBdt="false" useGridIdeitifiers="false" useWsEnumeration="false" xsi:type="ns41:ServiceFeatures"/>
+                 <ns44:ServiceFeatures serviceStyle="caCORE SDK v 4.0" useBdt="false" useGridIdeitifiers="false" useWsEnumeration="false" xsi:type="ns44:ServiceFeatures"/>
 
 
 
-                 <ns41:ModelInformation source="preBuilt" xsi:type="ns41:ModelInformation">
-                  <ns42:UMLProjectIdentifer identifier="NCIA_Model" version="3" xsi:type="ns42:UMLProjectIdentifer" xmlns:ns42="gme://caGrid.caBIG/1.0/org.cagrid.mms.domain"/>
+                 <ns44:ModelInformation source="preBuilt" xsi:type="ns44:ModelInformation">
+                  <ns45:UMLProjectIdentifer identifier="NCIA_Model" version="3" xsi:type="ns45:UMLProjectIdentifer" xmlns:ns45="gme://caGrid.caBIG/1.0/org.cagrid.mms.domain"/>
 
 
 
-                  <ns41:ModelPackage packageName="gov.nih.nci.ncia.domain" xsi:type="ns41:ModelPackage">
-                   <ns41:ModelClass selected="true" shortClassName="ClinicalTrialSite" targetable="true" xsi:type="ns41:ModelClass"/>
+                  <ns44:ModelPackage packageName="gov.nih.nci.ncia.domain" xsi:type="ns44:ModelPackage">
+                   <ns44:ModelClass selected="true" shortClassName="ClinicalTrialSite" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="Image" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="Image" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="Patient" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="Patient" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="Equipment" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="Equipment" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="ClinicalTrialSponsor" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="ClinicalTrialSponsor" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="Study" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="Study" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="ClinicalTrialProtocol" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="ClinicalTrialProtocol" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="CurationData" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="CurationData" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="Series" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="Series" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="TrialDataProvenance" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="TrialDataProvenance" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="ClinicalTrialSubject" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="ClinicalTrialSubject" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-                   <ns41:ModelClass selected="true" shortClassName="Annotation" targetable="true" xsi:type="ns41:ModelClass"/>
+                   <ns44:ModelClass selected="true" shortClassName="Annotation" targetable="true" xsi:type="ns44:ModelClass"/>
 
 
 
-      </ns41:ModelPackage>
+      </ns44:ModelPackage>
 
 
 
-     </ns41:ModelInformation>
+     </ns44:ModelInformation>
 
 
 
-    </ns41:Data>
+    </ns44:Data>
    </ns43:ExtensionData>
   </ns43:Extension>
   <ns43:Extension name="caGrid_Transfer" version="1.3" xsi:type="ns43:ExtensionType"/>

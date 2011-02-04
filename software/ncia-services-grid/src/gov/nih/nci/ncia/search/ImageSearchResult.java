@@ -66,12 +66,6 @@ public interface ImageSearchResult extends Comparable<ImageSearchResult>  {
      */
 	public Long getSize();
 	
-	/**
-     * The frame size of the DICOM .
-     */
-	public Integer getFrameNum();
-
-	
     /**
      * The node that this image was found on.
      * 

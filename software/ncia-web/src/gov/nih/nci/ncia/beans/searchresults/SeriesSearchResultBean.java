@@ -8,7 +8,7 @@ import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.DrillDown;
 import gov.nih.nci.ncia.search.DrillDownFactory;
-import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.NCIAConfig;
@@ -40,7 +40,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		this.series = theSeries;
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
-		imageSearchResults = drillDown.retrieveImagesForSeries(theSeries);
+		imageSearchResults = drillDown.retrieveImagesForSeriesForAllVersion(theSeries);
 		setImageList(Arrays.asList(imageSearchResults));
 		icefacesDataModel = new IcefacesRowColumnDataModel(computeWrapperList(Arrays.asList(imageSearchResults)));
 	}
@@ -51,7 +51,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	}
 
 
-	public void setImageList(List<ImageSearchResult> imageList) {
+	public void setImageList(List<ImageSearchResultEx> imageList) {
 		this.imageList = new ListDataModel(computeWrapperList(imageList));
 	}
 
@@ -65,14 +65,13 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	 * ['http://xxx1', 'http://xxx2', ...]
 	 */
 	public String getImageSeriesJavascript() {
-		return SlideShowUtil.getImageSeriesJavascript(getUnwrappedImages());
+		return SlideShowUtil.getImageSeriesJavascriptEx(getUnwrappedImages());
 	}
 
 	/**
 	 * The number of images in the found series
 	 */
 	public int getImagesInSeriesCount() {
-		System.out.println("!!!!Get modality="+getSeries().getModality());
 		if (getSeries().getModality().equals("US")){
 			return 0;
 		}
@@ -140,7 +139,6 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     public boolean getShowThumbnail() {
     	if (icefacesDataModel.getCellVisibility()){
     		if (!(getSeries().getModality().equals("US"))){
-    			System.out.println("!!!!!!!!!show thumb nail");
     			return true;
     		}
     		else {
@@ -153,7 +151,10 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     public int getFrameNum() {
     	if (icefacesDataModel.getCellVisibility() && (getSeries().getModality().equals("US"))){
     		//System.out.println("!!!!!!!Frame number="+getCellValue().getImage().getFrameNum());
-    		return (getCellValue().getImage().getFrameNum());
+    		if (getCellValue().getImageEx().getNameValuesPairs() != null){
+    			System.out.println("!!!!!!!Frame number="+getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
+    			return Integer.parseInt(getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
+    		}
        	}
     	return 0;
     }
@@ -210,17 +211,17 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 
 
 
-	private List<ImageSearchResult> getUnwrappedImages() {
-		List<ImageSearchResult> results = new ArrayList<ImageSearchResult>();
+	private List<ImageSearchResultEx> getUnwrappedImages() {
+		List<ImageSearchResultEx> results = new ArrayList<ImageSearchResultEx>();
 		for(ImageResultWrapper wrapper : getImages()) {
-			results.add(wrapper.getImage());
+			results.add(wrapper.getImageEx());
 		}
 		return results;
 	}
 
 	private boolean testBasketLimitsForGuest() {
 		BasketBean dataBasket = BeanManager.getBasketBean();
-		List<ImageSearchResult> data = getUnwrappedImages();
+		List<ImageSearchResultEx> data = getUnwrappedImages();
 
 		long size=0;
 		double currentBasketSize = dataBasket.getBasket().calculateSizeInMB();
@@ -255,15 +256,13 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     }
 	private IcefacesRowColumnDataModelInterface icefacesDataModel;
 
-	private ImageSearchResult[] imageSearchResults;
+	private ImageSearchResultEx[] imageSearchResults;
 
-	private static List<ImageResultWrapper> computeWrapperList(List<ImageSearchResult> imageList) {
+	private static List<ImageResultWrapper> computeWrapperList(List<ImageSearchResultEx> imageList) {
 		List<ImageResultWrapper> wrappers = new ArrayList<ImageResultWrapper>();
-		for(ImageSearchResult result : imageList) {
+		for(ImageSearchResultEx result : imageList) {
 			wrappers.add(new ImageResultWrapper(result));
 		}
 		return wrappers;
 	}
-
-
 }

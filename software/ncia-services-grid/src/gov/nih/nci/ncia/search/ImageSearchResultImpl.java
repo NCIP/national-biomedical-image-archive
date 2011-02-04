@@ -132,8 +132,7 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
 		this.size = size;
 	}
 
-
-    /**
+	/**
      * {@inheritDoc}
      */
 	public NBIANode associatedLocation() {
@@ -162,26 +161,14 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
 		this.thumbnailURL = thumbnailURL;
 	}
 
-	public Integer getFrameNum() {
-		return frameNum;
-	}
-
-	public void setFrameNum(Integer frameSize) {
-		this.frameNum = frameSize;
-	}
-
-
-
-
     ///////////////////////////////////////////////PRIVATE///////////////////////////////////
 
-    private Integer imagePkId;
-    private Integer seriesPkId;
-    private Integer instanceNumber;
-    private String sopInstanceUid;
-    private String seriesInstanceUid;
-    private Long size;
-    private NBIANode location;
-    private String thumbnailURL;
-    private Integer frameNum;
+    protected Integer imagePkId;
+    protected Integer seriesPkId;
+    protected Integer instanceNumber;
+    protected String sopInstanceUid;
+    protected String seriesInstanceUid;
+    protected Long size;
+    protected NBIANode location;
+    protected String thumbnailURL;
 }

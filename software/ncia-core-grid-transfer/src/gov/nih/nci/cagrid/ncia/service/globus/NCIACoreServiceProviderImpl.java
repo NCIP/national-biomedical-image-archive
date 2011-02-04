@@ -25,18 +25,6 @@ public class NCIACoreServiceProviderImpl{
 		impl = new NCIACoreServiceImpl();
 	}
 
-    public gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse getUsAvailableSearchTerms(gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest params) throws RemoteException {
-    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse();
-    boxedResult.setUsAvailableSearchTerms(impl.getUsAvailableSearchTerms());
-    return boxedResult;
-  }
-
-    public gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse retrieveImagesForSeriesEx(gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest params) throws RemoteException {
-    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse();
-    boxedResult.setImageSearchResultEx(impl.retrieveImagesForSeriesEx(params.getSeriesSearchResult().getSeriesSearchResult()));
-    return boxedResult;
-  }
-
     public gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataResponse retrieveDicomData(gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataRequest params) throws RemoteException {
     gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.RetrieveDicomDataResponse();
     boxedResult.setTransferServiceContextReference(impl.retrieveDicomData(params.getCQLQuery().getCQLQuery()));
@@ -124,6 +112,18 @@ public class NCIACoreServiceProviderImpl{
     public gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderResponse viewDicomHeader(gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderRequest params) throws RemoteException {
     gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderResponse();
     boxedResult.setDicomTagDTO(impl.viewDicomHeader(params.getImageSearchResult().getImageSearchResult()));
+    return boxedResult;
+  }
+
+    public gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse getUsAvailableSearchTerms(gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest params) throws RemoteException {
+    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse();
+    boxedResult.setUsAvailableSearchTerms(impl.getUsAvailableSearchTerms());
+    return boxedResult;
+  }
+
+    public gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse retrieveImagesForSeriesEx(gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest params) throws RemoteException {
+    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse boxedResult = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse();
+    boxedResult.setImageSearchResultEx(impl.retrieveImagesForSeriesEx(params.getSeriesSearchResult().getSeriesSearchResult()));
     return boxedResult;
   }
 

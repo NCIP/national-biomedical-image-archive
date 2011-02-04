@@ -1,33 +1,52 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
 import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
 import gov.nih.nci.ncia.util.UidDisplayUtil;
 
 public class ImageResultWrapper {
 
 
 	public ImageResultWrapper(ImageSearchResult imageSearchResult) {
-		this.imageSearchResult = imageSearchResult;
+		ImageSearchResultExImpl isrei = new ImageSearchResultExImpl();
+		isrei.setId(imageSearchResult.getId());
+		isrei.setInstanceNumber(imageSearchResult.getInstanceNumber());
+		isrei.setSeriesId(imageSearchResult.getSeriesId());
+		isrei.setSeriesInstanceUid(imageSearchResult.getSeriesInstanceUid());
+		isrei.setSize(imageSearchResult.getSize());
+		isrei.setSopInstanceUid(imageSearchResult.getSopInstanceUid());
+		isrei.setThumbnailURL(imageSearchResult.getThumbnailURL());
+		this.imageSearchResultEx = isrei;
 	}
-    
+	
+	public ImageResultWrapper(ImageSearchResultEx imageSearchResultEx) {
+		this.imageSearchResultEx = imageSearchResultEx;
+	}
+   
 	public ImageSearchResult getImage() {
-		return imageSearchResult;
+		return imageSearchResultEx;
+	}
+ 
+	public ImageSearchResultEx getImageEx() {
+		return imageSearchResultEx;
 	}
 
     public String getSeriesInstanceUid() {    	
-    	return  UidDisplayUtil.getDisplayUid(imageSearchResult.getSeriesInstanceUid());
+    	return  UidDisplayUtil.getDisplayUid(imageSearchResultEx.getSeriesInstanceUid());
     }
     
     public String getSopInstanceUid() {    	
-    	return UidDisplayUtil.getDisplayUid(imageSearchResult.getSopInstanceUid());    	
+    	return UidDisplayUtil.getDisplayUid(imageSearchResultEx.getSopInstanceUid());    	
     }  
 	
     public String getBasketKey() {
-    	return imageSearchResult.getSeriesId()+"||"+imageSearchResult.associatedLocation().getURL();
+    	return imageSearchResultEx.getSeriesId()+"||"+imageSearchResultEx.associatedLocation().getURL();
     }
 
     
     /////////////////////////////////////////PRIVATE////////////////////////////////////
     
-    private ImageSearchResult imageSearchResult;
+//    private ImageSearchResult imageSearchResult;
+    private ImageSearchResultEx imageSearchResultEx;
 }

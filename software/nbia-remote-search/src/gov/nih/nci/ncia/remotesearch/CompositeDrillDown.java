@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.remotesearch;
 import gov.nih.nci.ncia.search.DrillDown;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.PatientSearchResult;
@@ -29,6 +30,25 @@ public class CompositeDrillDown implements DrillDown {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult) {
+		if(seriesSearchResult.associatedLocation().isLocal()) {
+			return localDrillDown.retrieveImagesForSeriesEx(seriesSearchResult);
+		}
+		else {
+			return remoteDrillDown.retrieveImagesForSeriesEx(seriesSearchResult);
+		}
+	}
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
+		if(seriesSearchResult.associatedLocation().isLocal()) {
+			return localDrillDown.retrieveImagesForSeriesEx(seriesSearchResult);
+		}
+		else {
+			return remoteDrillDown.retrieveImagesForSeriesForAllVersion(seriesSearchResult);
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 */

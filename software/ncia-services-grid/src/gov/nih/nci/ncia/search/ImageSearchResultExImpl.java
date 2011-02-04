@@ -7,6 +7,17 @@ public class ImageSearchResultExImpl extends ImageSearchResultImpl
 
 	}
 	
+	public ImageSearchResultExImpl(ImageSearchResult isr) {
+		this.setId(isr.getId());
+		this.setInstanceNumber(isr.getInstanceNumber());
+		this.setSeriesId(isr.getSeriesId());
+		this.setSeriesInstanceUid(isr.getSeriesInstanceUid());
+		this.setSize(isr.getSize());
+		this.setSopInstanceUid(isr.getSopInstanceUid());
+		this.setThumbnailURL(isr.getThumbnailURL());
+		this.nvPair = null;
+	}
+	
 	
 	public NameValuesPairs getNameValuesPairs() {
 		return nvPair;		
@@ -15,8 +26,7 @@ public class ImageSearchResultExImpl extends ImageSearchResultImpl
 	public void setNameValuesPairs(NameValuesPairs nvPair) {
 		this.nvPair = nvPair;
 	}
-	
-	
+ 
 	////////////////////////////////////////////////////PRIVATE///////////////////////////////////////
 	
 	private NameValuesPairs nvPair;

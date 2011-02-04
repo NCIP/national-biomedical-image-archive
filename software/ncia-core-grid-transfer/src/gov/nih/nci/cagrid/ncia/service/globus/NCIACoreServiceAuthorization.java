@@ -1,5 +1,7 @@
 package gov.nih.nci.cagrid.ncia.service.globus;
 
+
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.File;
@@ -7,6 +9,7 @@ import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.handler.MessageContext;
 
+import gov.nih.nci.cagrid.introduce.servicetools.security.AuthorizationExtension;
 import org.globus.wsrf.impl.security.authorization.exceptions.AuthorizationException;
 import org.globus.wsrf.impl.security.authorization.exceptions.CloseException;
 import org.globus.wsrf.impl.security.authorization.exceptions.InitializeException;

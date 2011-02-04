@@ -6,7 +6,6 @@ import gov.nih.nci.ncia.dao.StudyDAO;
 import gov.nih.nci.ncia.dto.ImageDTO;
 import gov.nih.nci.ncia.dto.SeriesDTO;
 import gov.nih.nci.ncia.dto.StudyDTO;
-import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.security.PublicData;
 import gov.nih.nci.ncia.util.SpringApplicationContext;

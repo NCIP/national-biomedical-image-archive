@@ -6,6 +6,7 @@ import gov.nih.nci.ncia.dao.StudyDAO;
 import gov.nih.nci.ncia.dto.ImageDTO;
 import gov.nih.nci.ncia.dto.SeriesDTO;
 import gov.nih.nci.ncia.dto.StudyDTO;
+import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.security.PublicData;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
@@ -89,6 +90,29 @@ public class LocalDrillDown implements DrillDown {
         }
 		return retrieveImagesForSeries(seriesSearchResult.getId());
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>If "patient public" is true and this search result isn't for something
+	 * that is public, return a 0 length image result array.
+	 */
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult) {
+        assert thumbnailURLResolver != null;
+        if (isPatientPublic) {
+        	PublicData publicData = new PublicData();
+        	publicData.setAuthorizationManager(authorizationManager);
+        	if (!publicData.checkPublicSeries(seriesSearchResult.getId()))
+        	{
+        		return new ImageSearchResultEx[]{};
+        	}
+        }
+		return retrieveImagesForSeriesEx(seriesSearchResult.getId());
+	}
+	
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
+		return retrieveImagesForSeriesEx(seriesSearchResult);
+	}
 
 
 	/**
@@ -98,7 +122,13 @@ public class LocalDrillDown implements DrillDown {
 	public ImageSearchResult[] retrieveImagesForSeries(int seriesPkId) {
 		return this.retrieveImagesbySeriesPkID(Collections.singletonList(seriesPkId));
 	}
-
+	/**
+	 * This method is only on the local drill down.  It's used by the
+	 * qc tool.
+	 */
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(int seriesPkId) {
+		return this.retrieveImagesbySeriesPkIDEx(Collections.singletonList(seriesPkId));
+	}
 
 	/**
 	 * This method is only on the local drill down.  It's used by the
@@ -151,7 +181,28 @@ public class LocalDrillDown implements DrillDown {
 			throw new RuntimeException(ex);
 		}
 	}
+	/**
+	 * Only necessary on the local drill-down for now (ISPY uses this)
+	 */
+	public ImageSearchResultEx[] retrieveImagesbySeriesPkIDEx(List<Integer> seriesPkIds) {
+        assert thumbnailURLResolver != null;
 
+		try {
+	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
+	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesPkID(seriesPkIds);
+
+			List<ImageSearchResultEx> imageSearchResultList = new ArrayList<ImageSearchResultEx>();
+			for(ImageDTO imageDto : imageDtoList) {
+				imageSearchResultList.add(constructResultEx(imageDto));
+			}
+
+			return imageSearchResultList.toArray(new ImageSearchResultEx[]{});
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+	}
 
 	/**
 	 * This method is only on the local drill down.  It's used by the
@@ -235,7 +286,25 @@ public class LocalDrillDown implements DrillDown {
 		result.setSize(imageDTO.getSize());
 		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
-		result.setFrameNum(imageDTO.getFrameNum());
+//		result.setFrameNum(imageDTO.getFrameNum());
+		return result;
+	}
+	
+	private ImageSearchResultExImpl constructResultEx(ImageDTO imageDTO) {
+		ImageSearchResultExImpl result = new ImageSearchResultExImpl();
+		result.setId(imageDTO.getImagePkId());
+		result.setSopInstanceUid(imageDTO.getSopInstanceUid());
+		result.setSeriesInstanceUid(imageDTO.getSeriesInstanceUid());
+		result.setSeriesId(imageDTO.getSeriesPkId());
+		result.setInstanceNumber(imageDTO.getInstanceNumber());
+		result.setSize(imageDTO.getSize());
+		result.associateLocation(LocalNode.getLocalNode());
+		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
+		NameValuesPairs nvp = new NameValuesPairs();
+	System.out.println("!!!!frame num ="+imageDTO.getFrameNum());	
+		nvp.setName("USFrameNum");
+		nvp.setValues(new String []{Integer.toString(imageDTO.getFrameNum())});
+		result.setNameValuesPairs(nvp);
 		return result;
 	}
 

@@ -18,7 +18,11 @@
   <typeMapping name="AggregatorContent" qname="aggr:AggregatorContent" type="java:org.globus.mds.aggregator.types.AggregatorContent" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" />
   <!-- START INTRODUCE TYPEMAPPINGS -->
 <ns3:typeMapping xmlns:ns3="http://xml.apache.org/axis/wsdd/" xmlns:ns1="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns2="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" encodingStyle="" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" type="ns1:gov.nih.nci.ncia.search.UsAvailableSearchTerms" qname="ns2:UsAvailableSearchTerms" />
-  
+
+<ns3:typeMapping xmlns:ns3="http://xml.apache.org/axis/wsdd/" xmlns:ns1="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns2="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" encodingStyle="" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" type="ns1:gov.nih.nci.ncia.search.ImageSearchResultEx" qname="ns2:ImageSearchResultEx" />
+
+<ns3:typeMapping xmlns:ns3="http://xml.apache.org/axis/wsdd/" xmlns:ns1="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns2="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" encodingStyle="" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" type="ns1:gov.nih.nci.ncia.search.ImageSearchResultExImpl" qname="ns2:ImageSearchResultExImpl" />
+
 <ns3:typeMapping xmlns:ns3="http://xml.apache.org/axis/wsdd/" xmlns:ns1="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" encodingStyle="" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" type="ns1:gov.nih.nci.ncia.search.AvailableSearchTerms" qname="ns2:AvailableSearchTerms" />
 
 <ns3:typeMapping xmlns:ns3="http://xml.apache.org/axis/wsdd/" xmlns:ns1="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" encodingStyle="" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" type="ns1:gov.nih.nci.ncia.search.ImageSearchResult" qname="ns2:ImageSearchResult" />

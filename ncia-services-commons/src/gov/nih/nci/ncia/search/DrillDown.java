@@ -19,4 +19,10 @@ public interface DrillDown {
 	 * not the DICOM series instance uid, but the unique identifier at a given node (pkid).
 	 */
 	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult);
+	/**
+	 * For a given series id, return all the images for it.  This id is
+	 * not the DICOM series instance uid, but the unique identifier at a given node (pkid).
+	 */
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult);
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult);
 }

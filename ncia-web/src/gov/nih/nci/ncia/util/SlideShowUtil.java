@@ -1,17 +1,17 @@
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-
 import java.util.List;
 
 public class SlideShowUtil {
-	public static String getImageSeriesJavascript(
-			List<ImageSearchResult> thumbnailList) {
+	public static String getImageSeriesJavascriptEx(
+			List<ImageSearchResultEx> thumbnailList) {
 		StringBuffer js = new StringBuffer("[");
 		for (int i = 0; i < thumbnailList.size(); i++) {
-			ImageSearchResult image = thumbnailList.get(i);
-			Integer frameNumI = image.getFrameNum();
-			int frameSize = (frameNumI==null) ? 0 : frameNumI.intValue();
+			ImageSearchResultEx image = thumbnailList.get(i);
+			String frameNumI = image.getNameValuesPairs().getValues()[0];
+			int frameSize = (frameNumI==null) ? 0 : Integer.parseInt(frameNumI);
 
 			if (frameSize <= 1) {
 				String tnURL = "'"+image.getThumbnailURL()+"'";
@@ -36,6 +36,19 @@ public class SlideShowUtil {
 		}
 		js.append(']');
 		//System.out.println("java script:" + js.toString());
+		return js.toString();
+	}
+	
+	public static String getImageSeriesJavascript(List<ImageSearchResult> thumbnailList) {
+		StringBuffer js = new StringBuffer("[");
+		for(int i=0;i<thumbnailList.size();i++) {
+			ImageSearchResult image = thumbnailList.get(i);
+			js.append("'"+image.getThumbnailURL()+"'");
+			if(i!=thumbnailList.size()-1) {
+				js.append(',');
+			}
+		}
+		js.append(']');
 		return js.toString();
 	}
 }

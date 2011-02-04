@@ -64,27 +64,6 @@ public class NCIACoreServiceClient extends NCIACoreServiceClientBase implements 
 		}
 	}
 
-  public gov.nih.nci.ncia.search.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException {
-    synchronized(portTypeMutex){
-      configureStubSecurity((Stub)portType,"getUsAvailableSearchTerms");
-    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest params = new gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest();
-    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse boxedResult = portType.getUsAvailableSearchTerms(params);
-    return boxedResult.getUsAvailableSearchTerms();
-    }
-  }
-
-  public gov.nih.nci.ncia.search.ImageSearchResultEx[] retrieveImagesForSeriesEx(gov.nih.nci.ncia.search.SeriesSearchResult seriesSearchResult) throws RemoteException {
-    synchronized(portTypeMutex){
-      configureStubSecurity((Stub)portType,"retrieveImagesForSeriesEx");
-    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest params = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest();
-    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequestSeriesSearchResult seriesSearchResultContainer = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequestSeriesSearchResult();
-    seriesSearchResultContainer.setSeriesSearchResult(seriesSearchResult);
-    params.setSeriesSearchResult(seriesSearchResultContainer);
-    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse boxedResult = portType.retrieveImagesForSeriesEx(params);
-    return boxedResult.getImageSearchResultEx();
-    }
-  }
-
   public gov.nih.nci.cagrid.cqlresultset.CQLQueryResults query(gov.nih.nci.cagrid.cqlquery.CQLQuery cqlQuery) throws RemoteException, gov.nih.nci.cagrid.data.faults.QueryProcessingExceptionType, gov.nih.nci.cagrid.data.faults.MalformedQueryExceptionType {
     synchronized(portTypeMutex){
       configureStubSecurity((Stub)portType,"query");
@@ -275,6 +254,27 @@ public class NCIACoreServiceClient extends NCIACoreServiceClientBase implements 
     params.setImageSearchResult(imageSearchResultContainer);
     gov.nih.nci.cagrid.ncia.stubs.ViewDicomHeaderResponse boxedResult = portType.viewDicomHeader(params);
     return boxedResult.getDicomTagDTO();
+    }
+  }
+
+  public gov.nih.nci.ncia.search.UsAvailableSearchTerms getUsAvailableSearchTerms() throws RemoteException {
+    synchronized(portTypeMutex){
+      configureStubSecurity((Stub)portType,"getUsAvailableSearchTerms");
+    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest params = new gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsRequest();
+    gov.nih.nci.cagrid.ncia.stubs.GetUsAvailableSearchTermsResponse boxedResult = portType.getUsAvailableSearchTerms(params);
+    return boxedResult.getUsAvailableSearchTerms();
+    }
+  }
+
+  public gov.nih.nci.ncia.search.ImageSearchResultEx[] retrieveImagesForSeriesEx(gov.nih.nci.ncia.search.SeriesSearchResult seriesSearchResult) throws RemoteException {
+    synchronized(portTypeMutex){
+      configureStubSecurity((Stub)portType,"retrieveImagesForSeriesEx");
+    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest params = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequest();
+    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequestSeriesSearchResult seriesSearchResultContainer = new gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExRequestSeriesSearchResult();
+    seriesSearchResultContainer.setSeriesSearchResult(seriesSearchResult);
+    params.setSeriesSearchResult(seriesSearchResultContainer);
+    gov.nih.nci.cagrid.ncia.stubs.RetrieveImagesForSeriesExResponse boxedResult = portType.retrieveImagesForSeriesEx(params);
+    return boxedResult.getImageSearchResultEx();
     }
   }
 

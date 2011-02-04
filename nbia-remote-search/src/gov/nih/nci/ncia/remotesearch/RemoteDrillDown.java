@@ -3,6 +3,9 @@ package gov.nih.nci.ncia.remotesearch;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.ncia.search.DrillDown;
 import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultImpl;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
@@ -39,6 +42,65 @@ public class RemoteDrillDown implements DrillDown {
 	/**
 	 * {@inheritDoc}
 	 */
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult) {
+		NBIANode nbiaNode = seriesSearchResult.associatedLocation();
+		assert nbiaNode.isLocal() == false;
+
+		RemoteNode remoteNode = (RemoteNode)nbiaNode;
+		String url = remoteNode.getEndpointReferenceType().getAddress().toString();
+		try {
+			NCIACoreServiceClient nbiaServiceClient = new NCIACoreServiceClient(url);
+			ImageSearchResultEx[] results =  nbiaServiceClient.retrieveImagesForSeriesEx(seriesSearchResult);
+			for(ImageSearchResultEx result : results) {
+				result.associateLocation(nbiaNode);
+			}
+			return results;
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+	}
+	
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
+		NBIANode nbiaNode = seriesSearchResult.associatedLocation();
+		assert nbiaNode.isLocal() == false;
+
+		RemoteNode remoteNode = (RemoteNode)nbiaNode;
+		String url = remoteNode.getEndpointReferenceType().getAddress().toString();
+		Boolean hasEx = false;
+		if (remoteNode.getUsAvailableSearchTerms() != null){
+			hasEx = true;
+		}
+		
+		if (hasEx){
+			return retrieveImagesForSeriesEx(seriesSearchResult);
+		}
+		else {
+			ImageSearchResult[] results =retrieveImagesForSeries(seriesSearchResult);
+			int len = results.length;
+			ImageSearchResultEx[] resultsEx = new ImageSearchResultEx[len];
+			int i=0;
+			for(ImageSearchResult result : results) {
+				result.associateLocation(nbiaNode);
+				ImageSearchResultEx isrei = new ImageSearchResultExImpl(result);
+			/*	Integer id = result.getId();
+				isrei.setId1(result.getId());
+				isrei.setInstanceNumber(result.getInstanceNumber());
+				isrei.setSeriesId(result.getSeriesId());
+				isrei.setSeriesInstanceUid(result.getSeriesInstanceUid());
+				isrei.setSize(result.getSize());
+				isrei.setSopInstanceUid(result.getSopInstanceUid());
+				isrei.setThumbnailURL(result.getThumbnailURL());
+				isrei.associateLocation(result.associatedLocation());
+				*/
+				resultsEx[i++] = isrei;
+			}
+			return resultsEx;
+			
+		}
+
+	}
 	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult) {
 		NBIANode nbiaNode = seriesSearchResult.associatedLocation();
 		assert nbiaNode.isLocal() == false;

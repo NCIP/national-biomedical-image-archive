@@ -22,7 +22,6 @@
        class="org.rsna.ctp.stdstages.BasicFileStorageService"
        index="/data/dataset_d01" 
        root="/data/dataset_d01/root" 
-       port="23204"
        nLevels="4"
        maxSize="300"
        returnStoredFile="yes"

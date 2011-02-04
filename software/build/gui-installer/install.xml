@@ -362,7 +362,6 @@
           <variable name="ctp.server.port" value="" condition="container.database|container.ncia-core-grid|container.jboss"/>                   
           <variable name="ctp.server.verifier.port" value="" condition="container.database|container.ncia-core-grid|container.jboss"/>           
           <variable name="ctp.server.http_import_service.port" value="" condition="container.database|container.ncia-core-grid|container.jboss"/> 
-          <variable name="ctp.server.storage_service.port" value="" condition="container.database|container.ncia-core-grid|container.jboss"/>           
           <variable name="ctp.server.admin.password" value="" condition="container.database|container.ncia-core-grid|container.jboss"/> 
           <variable name="ctp.server.king.password" value="" condition="container.database|container.ncia-core-grid|container.jboss"/> 
           <variable name="ctp.server.storage_service.root" value="" condition="container.database|container.ncia-core-grid|container.jboss"/> 

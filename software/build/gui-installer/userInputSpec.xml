@@ -188,7 +188,6 @@
 
       <propertymap propertyname="ctp.server.port" mapname="ctp.server.port"/>
       <propertymap propertyname="ctp.server.http_import_service.port" mapname="ctp.server.http_import_service.port"/>
-      <propertymap propertyname="ctp.server.storage_service.port" mapname="ctp.server.storage_service.port"/>
       <propertymap propertyname="ctp.server.admin.password" mapname="ctp.server.admin.password"/>
       <propertymap propertyname="ctp.server.storage_service.root" mapname="ctp.server.storage_service.root"/>
 
@@ -532,7 +531,6 @@
 
       <propertymap propertyname="ctp.server.port" mapname="ctp.server.port"/>
       <propertymap propertyname="ctp.server.http_import_service.port" mapname="ctp.server.http_import_service.port"/>      
-      <propertymap propertyname="ctp.server.storage_service.port" mapname="ctp.server.storage_service.port"/>
       <propertymap propertyname="ctp.server.admin.password" mapname="ctp.server.admin.password"/>
       <propertymap propertyname="ctp.server.storage_service.root" mapname="ctp.server.storage_service.root"/>
 
@@ -1454,12 +1452,6 @@
       <spec txt="CTP HTTP Import Service port:" size="5" set="23104"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The port number is already in use" >
-      </validator>
-    </field>    
-    <field type="text" variable="ctp.server.storage_service.port">      
-      <spec txt="CTP Server Storage Service port:"  size="5" set="23204"/>
-      <validator
-        class="com.izforge.izpack.util.PortValidator" txt="The http port number is already in use" >
       </validator>
     </field>    
     

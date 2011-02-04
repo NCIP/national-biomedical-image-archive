@@ -366,7 +366,6 @@
     
       <var name="ctp.server.port.read" unset="true"/>
       <var name="ctp.server.http_import_service.port.read" unset="true"/>
-      <var name="ctp.server.storage_service.port.read" unset="true"/>
       <var name="ctp.server.storage_service.root.read" unset="true"/>     
       <var name="ctp.server.storage_service.index.read" unset="true"/>
       <var name="ctp.server.require_authentication.read" unset="true"/>
@@ -387,9 +386,6 @@
         <copy path="//StorageService/@root" 
               property="ctp.server.storage_service.root.read"
               attrValue="true"/>
-        <copy path="//StorageService/@port" 
-              property="ctp.server.storage_service.port.read"
-              attrValue="true"/>         
         <copy path="//StorageService/@index" 
               property="ctp.server.storage_service.index.read"
               attrValue="true"/>  
@@ -425,13 +421,6 @@
           <property name="ctp.server.require_authentication" value="${ctp.server.require_authentication.read}"/>
         </then>
       </if>      
-      
-      <if>
-        <isset property="ctp.server.storage_service.port.read"/>      
-        <then>
-      <property name="ctp.server.storage_service.port" value="${ctp.server.storage_service.port.read}"/>
-        </then>
-      </if>
       
       <if>
         <isset property="ctp.server.storage_service.root.read"/>      

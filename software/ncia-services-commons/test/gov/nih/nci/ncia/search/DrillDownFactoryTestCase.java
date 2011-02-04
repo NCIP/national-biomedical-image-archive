@@ -37,5 +37,15 @@ public class DrillDownFactoryTestCase extends TestCase {
 		public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult) {
 			return null;
 		}
+		
+		public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
+			return null;
+		}
+
+		public ImageSearchResultEx[] retrieveImagesForSeriesEx(
+				SeriesSearchResult seriesSearchResult) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 }

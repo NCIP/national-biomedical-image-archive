@@ -245,8 +245,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
                withtext="${ctp.server.require_authentication}" />
       <replace path="//ImportService/@port" 
                withtext="${ctp.server.http_import_service.port}" />               
-      <replace path="//StorageService/@port" 
-               withtext="${ctp.server.storage_service.port}" />
       <replace path="//StorageService/@root" 
                withtext="${ctp.server.storage_service.root}" />
       <replace path="//StorageService/@index" 
@@ -337,7 +335,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
   <target name="install:ctp:validate-ports-preinstall"
           unless="exclude.ctp">
     <!--
-    <validate-ports-preinstall validation.pre.port.list="${ctp.server.port},${ctp.server.http_import_service.port},${ctp.server.storage_service.port}"/>
+    <validate-ports-preinstall validation.pre.port.list="${ctp.server.port},${ctp.server.http_import_service.port}"/>
       -->
   </target>         
              

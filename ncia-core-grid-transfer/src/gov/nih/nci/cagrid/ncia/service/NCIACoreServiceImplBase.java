@@ -3,7 +3,6 @@ package gov.nih.nci.cagrid.ncia.service;
 import java.rmi.RemoteException;
 
 import javax.naming.InitialContext;
-import javax.xml.namespace.QName;
 
 import org.apache.axis.MessageContext;
 import org.globus.wsrf.Constants;

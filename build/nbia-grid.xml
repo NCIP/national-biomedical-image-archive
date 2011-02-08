@@ -586,7 +586,7 @@
           depends="common:common:init:pre"
           unless="exclude.nbia-grid">
     <fail unless="application.base.path"/>
-
+<echo>exclude.nbia-grid: ${exclude.nbia-grid}</echo>
     <property name="nbia-grid.home" value="${application.base.path}/${nbia-grid.jboss.relative.path}"/>
     <property name="nbia-grid.jboss.home" value="${application.base.path}/${nbia-grid.jboss.relative.path}"/>
     <property name="nbia-grid.wsrf.path" location="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy/wsrf.war"/>

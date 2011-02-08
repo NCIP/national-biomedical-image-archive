@@ -13,30 +13,14 @@
 <ice:panelGroup id="patientResultsPanelGroup"
                 rendered="#{not empty perNodeResult.patients and not perNodeResult.errorState}">
 
-  <div>
-    <table width="100%" border="0" cellspacing="0" cellpadding="5">
-      <tr>
-        <td class="formMessage" style="text-align:left">
-          <h:commandButton image="images/checkall.gif" 
-                           action="#{perNodeResult.checkAllPatients}" />
-          <h:commandButton image="images/uncheckall.gif"
-                           action="#{perNodeResult.uncheckAllPatients}" />
-        </td>
-        <td>
-          <div align="right">
-            <h:commandButton id="addPatientToBasketButton"
-                             image="images/add2basket.gif" 
-                             action="#{perNodeResult.addPatientToBasket}" />
-            <br/>
-            <h:message for="addPatientToBasketButton" 
-                       errorClass="errorLabel" 
-                       infoClass="infoLabel" />
-          </div>
-        </td>
-      </tr>                
-    </table>
-  </div>
-
+  <ui:include src="searchResultButtons.xhtml">
+  </ui:include>
+  
+  <ice:panelGroup rendered="#{searchResultBean.resultsPerPage > 10}">
+	  <ui:include src="searchResultPaginator.xhtml">
+	  </ui:include>
+  </ice:panelGroup>
+  
   <ice:dataTable id="patientResultsTable" 
                  value="#{perNodeResult.patients}" 
                  var="result" 
@@ -116,61 +100,16 @@
     </h:column>                   
   </ice:dataTable>
   
-  <ice:panelGroup style="text-align: center">
-    <!--  since multiple tables on this page, have to carefully discriminate for value -->
-    <ice:dataPaginator id="dataScroll_1"
-                       for="patientResultsTable"
-                       fastStep="2"
-                       paginator="true"
-                       paginatorMaxPages="5"
-                       renderFacetsIfSinglePage="false"
-                       style="margin-left:auto;margin-right:auto">
-      <f:facet name="first">
-        <ice:graphicImage id="firstpage_1"
-                          url="/xmlhttp/css/rime/css-images/arrow-first.gif"
-                          style="border:none;"/>
-      </f:facet>
-      <f:facet name="last">
-        <ice:graphicImage id="lastpage_1"
-                          url="/xmlhttp/css/rime/css-images/arrow-last.gif"
-                          style="border:none;"/>
-      </f:facet>
-      <f:facet name="previous">
-        <ice:graphicImage id="previouspage_1"
-                          url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
-                          style="border:none;"/>
-      </f:facet>
-      <f:facet name="next">
-        <ice:graphicImage id="nextpage_1"
-                          url="/xmlhttp/css/rime/css-images/arrow-next.gif"
-                          style="border:none;"/>
-      </f:facet>
-      <f:facet name="fastforward">
-        <ice:graphicImage id="fastforward_1"
-                          url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
-                          style="border:none;"/>
-      </f:facet>
-      <f:facet name="fastrewind">
-        <ice:graphicImage id="fastrewind_1"
-                          url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
-                          style="border:none;"/>
-      </f:facet>
-    </ice:dataPaginator>
-    <ice:dataPaginator id="dataScroll_2"
-                       for="patientResultsTable"
-                       rowsCountVar="rowsCount"
-                       pageCountVar="pageCount"
-                       pageIndexVar="pageIndex">
-      <ice:outputFormat styleClass="standard"
-                        value="{0} patients found, displaying Page {1} / {2}.">
-        <f:param value="#{rowsCount}"/>
-        <f:param value="#{pageIndex}"/>
-        <f:param value="#{pageCount}"/>
-      </ice:outputFormat>
-    </ice:dataPaginator>  
+  <ui:include src="searchResultPaginator.xhtml">
+  </ui:include>
+  
+  <ice:panelGroup rendered="#{searchResultBean.resultsPerPage > 10}">
+	  <ui:include src="searchResultButtons.xhtml">
+	  </ui:include>
   </ice:panelGroup>
-
 </ice:panelGroup>
+
+
 
 <f:subview id="noResultView" 
            rendered="#{empty perNodeResult.patients and not perNodeResult.errorState}">

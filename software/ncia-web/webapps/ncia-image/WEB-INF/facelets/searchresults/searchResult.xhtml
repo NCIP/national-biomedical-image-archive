@@ -165,6 +165,22 @@
         <tr>
           <td>                   
             <h:message for="tableOfPatientResultTables"/>
+            
+            <div align="right">
+	            <ice:panelGroup style="margin-bottom:-1em;" rendered="#{searchResultBean.resultsPerPage > 10}">
+	              <table width="100%" border="0" cellspacing="0" cellpadding="5">
+	                <tr>
+	                  <td>
+	                    <h:commandButton 
+	                                     action="dataBasket" 
+	                                     image="images/VIEWBASKET.gif" />                
+	
+	                  </td>
+	                </tr>
+	              </table>
+	            </ice:panelGroup>
+            </div>
+            
             <!-- for the saved query when no active nodes in query -->
             <ice:panelGroup rendered="#{empty searchResultBean.nodeTablesWrappers}" 
                             style="border: 1px solid black">

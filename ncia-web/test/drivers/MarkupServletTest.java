@@ -3,7 +3,7 @@
 *
 * $Log: not supported by cvs2svn $
 */
-package gov.nih.nci.ncia.test;
+package drivers;
 
 import java.net.*;
 import java.io.*;

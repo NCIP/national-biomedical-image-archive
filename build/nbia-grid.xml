@@ -621,7 +621,8 @@
 
 
   <target name="upgrade:nbia-grid:init:prep"
-          depends="upgrade:common:init:prep">
+          depends="upgrade:common:init:prep"
+          unless="exclude.nbia-grid">
 
     <echo message="nbia-grid.home = ${nbia-grid.home}"/>
     <echo message="nbia-grid.jboss.home = ${nbia-grid.jboss.home}"/>

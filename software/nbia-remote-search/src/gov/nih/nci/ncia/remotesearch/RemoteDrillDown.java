@@ -3,7 +3,6 @@ package gov.nih.nci.ncia.remotesearch;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.ncia.search.DrillDown;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultImpl;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
 import gov.nih.nci.ncia.search.NBIANode;
@@ -61,7 +60,7 @@ public class RemoteDrillDown implements DrillDown {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
 	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
 		NBIANode nbiaNode = seriesSearchResult.associatedLocation();
 		assert nbiaNode.isLocal() == false;
@@ -72,7 +71,7 @@ public class RemoteDrillDown implements DrillDown {
 		if (remoteNode.getUsAvailableSearchTerms() != null){
 			hasEx = true;
 		}
-		
+
 		if (hasEx){
 			return retrieveImagesForSeriesEx(seriesSearchResult);
 		}
@@ -97,7 +96,7 @@ public class RemoteDrillDown implements DrillDown {
 				resultsEx[i++] = isrei;
 			}
 			return resultsEx;
-			
+
 		}
 
 	}

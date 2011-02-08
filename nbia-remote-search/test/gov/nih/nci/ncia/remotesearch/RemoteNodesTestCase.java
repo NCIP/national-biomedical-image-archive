@@ -15,6 +15,7 @@ import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.cagrid.metadata.service.Service;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataServiceDescription;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 
@@ -88,9 +89,13 @@ public class RemoteNodesTestCase {
 		expect(discoveryClientMock.discoverServicesByName("NCIACoreService")).
 	        andReturn(endpoints);
 		expectNew(NCIACoreServiceClient.class, serviceAddress).
-	        andReturn(nbiaServiceClientMock).times(2);
+	        andReturn(nbiaServiceClientMock).times(3);
 	    expect(nbiaServiceClientMock.getAvailableSearchTerms()).
             andReturn(new AvailableSearchTerms()).times(2);
+	    
+	    expect(nbiaServiceClientMock.getUsAvailableSearchTerms()).
+            andReturn(new UsAvailableSearchTerms()).times(2);
+	    
 		expect(MetadataUtils.getServiceMetadata(endpoint1)).
 		    andReturn(createServiceMetadataWithVersion("1.3"));
 		expect(MetadataUtils.getServiceMetadata(endpoint2)).

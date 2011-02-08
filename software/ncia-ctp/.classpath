@@ -48,5 +48,6 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-ctp/compile/ctp-X42.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-ctp/test/junit-4.4.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-ctp/test/util-X42.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

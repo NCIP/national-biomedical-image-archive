@@ -91,7 +91,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	 * This returns the series objects by their primary keys.  This method
 	 * does NOT look at authorization of any kind.
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<SeriesDTO> findSeriesBySeriesPkId(Collection<Integer> seriesPkIds) throws DataAccessException {
         List<List<Integer>> chunks = Util.breakListIntoChunks(new ArrayList<Integer>(seriesPkIds),
                                                               CHUNK_SIZE);
@@ -102,7 +102,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
         String selectStmt = SQL_QUERY_SELECT;
         String fromStmt = SQL_QUERY_FROM;
         String whereStmt = "";
-        
+
         // Run the query
         long start = System.currentTimeMillis();
         for (List<Integer> chunk : chunks) {
@@ -187,7 +187,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		if (studyInstanceUids == null || studyInstanceUids.size() <= 0){
 			return null;
 		}
-		
+
 		List<GeneralSeries> seriesList = getSeriesFromStudys(studyInstanceUids,
 				                                             authorizedSites,
 				                                             authroizedSeriesSecurityGroups);
@@ -217,8 +217,8 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		seriesDTOList = convertHibernateObjectToSeriesDTO(seriesList);
 		return seriesDTOList;
 	}
-	
-	
+
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public SeriesDTO getGeneralSeriesByPKid(Integer seriesPkId) throws DataAccessException
 	{
@@ -239,29 +239,38 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		return series;
 	}
 
-	//////////////////////////////////////////////////////////PROTECTED//////////////////////////////////////////////////////////////	
-	
+	//////////////////////////////////////////////////////////PROTECTED//////////////////////////////////////////////////////////////
+
+
 	protected List<GeneralSeries> getSeriesFromSeriesInstanceUIDs(List<String> seriesIds,
                                                                   List<SiteData> authorizedSites,
 			                                                      List<String> authorizedSeriesSecurityGroups) throws DataAccessException	{
 		List<GeneralSeries> seriesList = null;
-		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
-		if(authorizedSeriesSecurityGroups!=null) {
-			setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
-		}
-		criteria.add(Restrictions.in("seriesInstanceUID", seriesIds));
-		criteria.add(Restrictions.eq("visibility", "1"));
-		criteria = criteria.createCriteria("study");
-		criteria = criteria.createCriteria("patient");
-		criteria = criteria.createCriteria("dataProvenance");
-		if(authorizedSites!=null) {
-			setAuthorizedSiteData(criteria, authorizedSites);
-		}
 
-		seriesList = getHibernateTemplate().findByCriteria(criteria);
+		List<List<String>> breakdownList = Util.breakListIntoChunks(seriesIds, 900);
+		for (List<String> unitList : breakdownList) {
+
+			DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
+			if(authorizedSeriesSecurityGroups!=null) {
+				setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
+			}
+			criteria.add(Restrictions.in("seriesInstanceUID", unitList));
+			criteria.add(Restrictions.eq("visibility", "1"));
+			criteria = criteria.createCriteria("study");
+			criteria = criteria.createCriteria("patient");
+			criteria = criteria.createCriteria("dataProvenance");
+			if(authorizedSites!=null) {
+				setAuthorizedSiteData(criteria, authorizedSites);
+			}
+
+			List<GeneralSeries> results = getHibernateTemplate().findByCriteria(criteria);
+			if(seriesList==null) {
+				seriesList = new ArrayList<GeneralSeries>();
+			}
+			seriesList.addAll(results);
+		}
 		return seriesList;
 	}
-	
 	//////////////////////////////////////////PRIVATE/////////////////////////////////////////
 
     private static int CHUNK_SIZE = 500;
@@ -297,7 +306,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			                                          List<String> authorizedSeriesSecurityGroups)
 	{
 		List<GeneralSeries> seriesList = null;
-		
+
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
 		setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
 		criteria.add(Restrictions.in("patientId", patientIDs));

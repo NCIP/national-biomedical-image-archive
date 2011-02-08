@@ -66,7 +66,7 @@ public class RemoteDrillDown implements DrillDown {
 		assert nbiaNode.isLocal() == false;
 
 		RemoteNode remoteNode = (RemoteNode)nbiaNode;
-		String url = remoteNode.getEndpointReferenceType().getAddress().toString();
+
 		Boolean hasEx = false;
 		if (remoteNode.getUsAvailableSearchTerms() != null){
 			hasEx = true;
@@ -83,16 +83,7 @@ public class RemoteDrillDown implements DrillDown {
 			for(ImageSearchResult result : results) {
 				result.associateLocation(nbiaNode);
 				ImageSearchResultEx isrei = new ImageSearchResultExImpl(result);
-			/*	Integer id = result.getId();
-				isrei.setId1(result.getId());
-				isrei.setInstanceNumber(result.getInstanceNumber());
-				isrei.setSeriesId(result.getSeriesId());
-				isrei.setSeriesInstanceUid(result.getSeriesInstanceUid());
-				isrei.setSize(result.getSize());
-				isrei.setSopInstanceUid(result.getSopInstanceUid());
-				isrei.setThumbnailURL(result.getThumbnailURL());
-				isrei.associateLocation(result.associatedLocation());
-				*/
+
 				resultsEx[i++] = isrei;
 			}
 			return resultsEx;

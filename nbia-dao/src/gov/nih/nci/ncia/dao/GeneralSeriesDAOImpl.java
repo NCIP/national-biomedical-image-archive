@@ -245,20 +245,29 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
                                                                   List<SiteData> authorizedSites,
 			                                                      List<String> authorizedSeriesSecurityGroups) throws DataAccessException	{
 		List<GeneralSeries> seriesList = null;
-		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
-		if(authorizedSeriesSecurityGroups!=null) {
-			setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
-		}
-		criteria.add(Restrictions.in("seriesInstanceUID", seriesIds));
-		criteria.add(Restrictions.eq("visibility", "1"));
-		criteria = criteria.createCriteria("study");
-		criteria = criteria.createCriteria("patient");
-		criteria = criteria.createCriteria("dataProvenance");
-		if(authorizedSites!=null) {
-			setAuthorizedSiteData(criteria, authorizedSites);
-		}
+				
+		List<List<String>> breakdownList = Util.breakListIntoChunks(seriesIds, 900);
+		for (List<String> unitList : breakdownList) {
+				
+			DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
+			if(authorizedSeriesSecurityGroups!=null) {
+				setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
+			}
+			criteria.add(Restrictions.in("seriesInstanceUID", unitList));
+			criteria.add(Restrictions.eq("visibility", "1"));
+			criteria = criteria.createCriteria("study");
+			criteria = criteria.createCriteria("patient");
+			criteria = criteria.createCriteria("dataProvenance");
+			if(authorizedSites!=null) {
+				setAuthorizedSiteData(criteria, authorizedSites);
+			}
 
-		seriesList = getHibernateTemplate().findByCriteria(criteria);
+			List<GeneralSeries> results = getHibernateTemplate().findByCriteria(criteria);
+			if(seriesList==null) {
+				seriesList = new ArrayList<GeneralSeries>();
+			}
+			seriesList.addAll(results);
+		}
 		return seriesList;
 	}
 	
@@ -279,7 +288,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	{
 		List<GeneralSeries> seriesList = null;
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
-		setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
+		setSeriesSecurityGroups(criteria, authorizeSeriesSecurityGroups);
 		criteria.add(Restrictions.eq("visibility", "1"));
 		criteria = criteria.createCriteria("study");
 		criteria.add(Restrictions.in("studyInstanceUID", studyIDs));

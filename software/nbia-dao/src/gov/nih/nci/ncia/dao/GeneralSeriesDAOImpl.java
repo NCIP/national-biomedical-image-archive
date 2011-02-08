@@ -288,7 +288,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	{
 		List<GeneralSeries> seriesList = null;
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
-		setSeriesSecurityGroups(criteria, authorizeSeriesSecurityGroups);
+		setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
 		criteria.add(Restrictions.eq("visibility", "1"));
 		criteria = criteria.createCriteria("study");
 		criteria.add(Restrictions.in("studyInstanceUID", studyIDs));

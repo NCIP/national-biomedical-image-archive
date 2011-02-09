@@ -4,43 +4,43 @@
 
   <!-- Generic properties -->
   <property name="application_installer" value="ncia_installer" />
-  <property name="application_installer_zip" value="ncia_install_5.0.0.zip" />
+  <property name="application_installer_zip" value="ncia_install_5.0.1.zip" />
 
   <!-- TARGETS -->
   <target name="install" >
     <echo message="${install.path}"/>
     <delete dir="${install.path}/${application_installer}" />
-    <unzip src="${install.path}/${application_installer_zip}" 
+    <unzip src="${install.path}/${application_installer_zip}"
            dest="${install.path}/${application_installer}" />
-           
-    <copy file="${install.path}/property-template/installer.template.properties" 
-          tofile="${install.path}/${application_installer}/install.properties" overwrite="true"/>
-    
-    <!-- begin forcing upgrade props to be like install props -->                     
+
     <copy file="${install.path}/property-template/installer.template.properties"
-          tofile="${install.path}/property-template/installer.template.properties2" 
-          overwrite="true"/>              
-              
+          tofile="${install.path}/${application_installer}/install.properties" overwrite="true"/>
+
+    <!-- begin forcing upgrade props to be like install props -->
+    <copy file="${install.path}/property-template/installer.template.properties"
+          tofile="${install.path}/property-template/installer.template.properties2"
+          overwrite="true"/>
+
     <replaceregexp file="${install.path}/property-template/installer.template.properties2"
                    match=".*\#\#COPY TO UPGRADE\.PROPS\#\#(.*)"
                    flags="s"
                    replace="\1"
                    byline="false"/>
-              
-              
+
+
     <loadfile property="install.props.read"
-              srcFile="${install.path}/property-template/installer.template.properties2"/>              
+              srcFile="${install.path}/property-template/installer.template.properties2"/>
     <echo>foo0: ${install.props.read}</echo>
 
-    <replace file="${install.path}/property-template/upgrade.template.properties" 
-             token="@INSTALL.PROPS@" 
-             value="${install.props.read}"/>               
+    <replace file="${install.path}/property-template/upgrade.template.properties"
+             token="@INSTALL.PROPS@"
+             value="${install.props.read}"/>
     <!-- end forcing ugpgrade props -->
 
-    <copy file="${install.path}/property-template/upgrade.template.properties" 
-          tofile="${install.path}/${application_installer}/upgrade.properties" 
+    <copy file="${install.path}/property-template/upgrade.template.properties"
+          tofile="${install.path}/${application_installer}/upgrade.properties"
           overwrite="true"/>
-          
+
     <replace dir="${install.path}/${application_installer}" token="basedir}" value="install.path}/${application_installer}">
       <include name="**/*.xml" />
       <include name="**/*.properties" />
@@ -67,7 +67,7 @@
 
   <target name="convert-upgrade-path" >
   <echo message="${upgrade.base.path}"/>
-  
+
     <!--
         <dirname file="${application.base.path}" property="upgrade.application.base.path"/>
     -->

@@ -3,7 +3,7 @@ Release Notes
  
   #Product:#	NBIA
   #Version:#	5.0.1
-  #Date:#	February, 2010
+  #Date:#	February, 2011
 
 Contents
 --------
@@ -41,7 +41,7 @@ to confident clinical decisions in patient care.
 
 Release History
 ------------------------
-    * NBIA v5.0.1       -- February 2010
+    * NBIA v5.0.1       -- February 2011
     * NBIA v5.0         -- December 2010
     * NBIA v4.5         -- September2010
     * NBIA v4.4.1       -- June     2010

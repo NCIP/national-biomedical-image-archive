@@ -27,7 +27,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import gov.nih.nci.ncia.util.Util;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(CompositeLookupManager.class)
@@ -297,8 +296,8 @@ public class CompositeLookupManagerTestCase {
 	}
 	private static Map<NBIANode, AvailableSearchTerms> constructRemoteLookupMgrNodeMap() throws Exception {
     	Map<NBIANode, AvailableSearchTerms> map =  new LinkedHashMap<NBIANode, AvailableSearchTerms>();
-    	map.put(constructRemoteNode(), new AvailableSearchTerms());
-    	map.put(constructRemoteNode(), new AvailableSearchTerms());
+    	map.put(constructRemoteNode("http://fakeAddress"), new AvailableSearchTerms());
+    	map.put(constructRemoteNode("http://fakeAddress1"), new AvailableSearchTerms());
 
     	return map;		
 	}
@@ -310,7 +309,7 @@ public class CompositeLookupManagerTestCase {
 	}
 
 	
-	private static RemoteNode constructRemoteNode() throws Exception {
+	private static RemoteNode constructRemoteNode(String addr) throws Exception {
 		ServiceMetadata serviceMetadata = new ServiceMetadata();
 		ServiceMetadataHostingResearchCenter serviceMetadataHostingResearchCenter = new ServiceMetadataHostingResearchCenter();
 		ResearchCenter researchCenter = new ResearchCenter();
@@ -319,7 +318,7 @@ public class CompositeLookupManagerTestCase {
 		serviceMetadata.setHostingResearchCenter(serviceMetadataHostingResearchCenter);
 		
 		EndpointReferenceType endpointReferenceType = new EndpointReferenceType();
-		endpointReferenceType.setAddress(new AttributedURI("http://fakeAddress"));
+		endpointReferenceType.setAddress(new AttributedURI(addr));
 		AvailableSearchTerms availableSearchTerms = new AvailableSearchTerms();
 		RemoteNode remoteNode = new RemoteNode(serviceMetadata, 
 				                               endpointReferenceType,

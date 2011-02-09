@@ -386,7 +386,9 @@ $HeadURL$
     static-analysis
           "/>
 
-  <target name="build:nbia-remote-search" depends="init, build:ncia-core-grid">
+  <target name="build:nbia-remote-search" depends="init,
+                                                   build:ncia-core-grid,
+                                                   build:ncia-download-manager">
     <ant inheritAll="false"
          inheritRefs="false"
          antfile="build.xml"

@@ -65,8 +65,8 @@ public class RemoteNodesTestCase {
 		String serviceAddress = "http://fakeAddress";
 
 		EndpointReferenceType endpoint1 = createEndpoint(serviceAddress);
-		EndpointReferenceType endpoint2 = createEndpoint(serviceAddress);
-		EndpointReferenceType endpoint3 = createEndpoint(serviceAddress);
+		EndpointReferenceType endpoint2 = createEndpoint(serviceAddress+"1");
+		EndpointReferenceType endpoint3 = createEndpoint(serviceAddress+"2");
 		EndpointReferenceType endpoint4 = new EndpointReferenceType(new Address("http://local"));
 
 		EndpointReferenceType[] endpoints = new EndpointReferenceType[4];
@@ -82,20 +82,25 @@ public class RemoteNodesTestCase {
 		mockStatic(MetadataUtils.class);
 
 		//set expectations for mock
-	    expect(NCIAConfig.getIndexServerURL()).andReturn(serviceAddress);
+	    expect(NCIAConfig.getIndexServerURL()).andReturn("http://index-server");
 	    expect(NCIAConfig.getLocalGridURI()).andReturn("http://local").times(3);
-		expectNew(DiscoveryClient.class, serviceAddress).
+		expectNew(DiscoveryClient.class, "http://index-server").
 		    andReturn(discoveryClientMock);
 		expect(discoveryClientMock.discoverServicesByName("NCIACoreService")).
 	        andReturn(endpoints);
+
+        //2 per node because of ast + uast
 		expectNew(NCIACoreServiceClient.class, serviceAddress).
-	        andReturn(nbiaServiceClientMock).times(3);
+	        andReturn(nbiaServiceClientMock).times(2);
+		expectNew(NCIACoreServiceClient.class, serviceAddress+"1").
+            andReturn(nbiaServiceClientMock).times(2);
+
+		//2 times because of 4 endpoints, 1 is 1.2, 1 is local.  that leaves 2
 	    expect(nbiaServiceClientMock.getAvailableSearchTerms()).
             andReturn(new AvailableSearchTerms()).times(2);
-	    
 	    expect(nbiaServiceClientMock.getUsAvailableSearchTerms()).
             andReturn(new UsAvailableSearchTerms()).times(2);
-	    
+
 		expect(MetadataUtils.getServiceMetadata(endpoint1)).
 		    andReturn(createServiceMetadataWithVersion("1.3"));
 		expect(MetadataUtils.getServiceMetadata(endpoint2)).

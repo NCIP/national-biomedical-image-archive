@@ -39,7 +39,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
      */
     public void runImpl() throws Exception {
         this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
-        
+
         computeTotalSize();
         URL url = new URL(serverUrl);
         this.connectAndReadFromURL(url);
@@ -124,14 +124,12 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 
             /* Make sure response code is in the 200 range.*/
             if (responseCode / 100 != 2) {
-                System.out.println("incorrect response code");
                 error();
             }
 
             /* Set the size for this download if it
              * hasn't been already set. */
             if (size == -1) {
-                System.out.println("no data found for the series");
                 status = NO_DATA;
                 stateChanged();
              }
@@ -171,7 +169,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
                 else {
                     outputStream = new FileOutputStream(location  + File.separator + sop);
                 }
-                
+
                 try {
                     NBIAIOUtils.copy(zis, outputStream, progressUpdater);
                 }
@@ -179,9 +177,9 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
                     outputStream.flush();
                     outputStream.close();
                 }
-                
+
                 imageCnt += 1;
-            }                    
+            }
         }
         finally {
             if(zis!=null) {

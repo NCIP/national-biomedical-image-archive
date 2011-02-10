@@ -35,10 +35,6 @@ public class JnlpArgumentsParser {
             series.setDisplayName(result[9]);
             series.setLocal(Boolean.valueOf(result[10]));
 
-            
-            System.out.println("series: " + i + "\t" + series.getCollection() + "\t" + series.getPatientId() +
-                "\t" + series.getStudyInstanceUid() + "\t" +series.getSeriesInstanceUid() + "\t" + series.isHasAnnotation() + 
-                "\t" + series.getNumberImages() + "\t" + series.getImagesSize() + "\t" + series.getAnnoSize());
             seriesDataList.add(series);
         }
         return seriesDataList;

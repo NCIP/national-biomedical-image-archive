@@ -75,7 +75,7 @@ public class DownloadServlet extends HttpServlet {
         List<ImageDTO> imageResults = processor.process(seriesUid, sopUids);
         if((imageResults == null) || imageResults.isEmpty() ){
             //no data for this series
-            System.out.println("no data for series: " +seriesUid);
+            logger.info("no data for series: " +seriesUid);
         }else{
             hasAccess = processor.hasAccess(userId, password, imageResults.get(0).getProject(), imageResults.get(0).getSite(), imageResults.get(0).getSsg());
         }
@@ -103,13 +103,12 @@ public class DownloadServlet extends HttpServlet {
         try {
             long start = System.currentTimeMillis();
 
-            System.out.println("images size: " + imageResults.size() + " anno size: " + annoResults.size());
+            logger.info("images size: " + imageResults.size() + " anno size: " + annoResults.size());
 
             sendImagesData(imageResults, tos);
             sendAnnotationData(annoResults, tos);
 
-            long end = System.currentTimeMillis();
-            System.out.println("total time to send  files are " + (end - start)/1000 + " ms.");
+            logger.info("total time to send  files are " + (System.currentTimeMillis() - start)/1000 + " ms.");
         }
         finally {
             IOUtils.closeQuietly(tos);
@@ -124,7 +123,7 @@ public class DownloadServlet extends HttpServlet {
              String filePath = imageDto.getFileName();
              String sop = imageDto.getSOPInstanceUID();
 
-             System.out.println("filepath: " + filePath + " filename: " + sop);
+             logger.info("filepath: " + filePath + " filename: " + sop);
              try {
                   File dicomFile = new File(filePath);
                   ArchiveEntry tarArchiveEntry = tos.createArchiveEntry(dicomFile, sop + ".dcm");
@@ -138,7 +137,7 @@ public class DownloadServlet extends HttpServlet {
                   tos.closeArchiveEntry();
              } finally {
                   IOUtils.closeQuietly(dicomIn);
-                  System.out.println("DownloadServlet Image transferred at " + new Date().getTime());
+                  logger.info("DownloadServlet Image transferred at " + new Date().getTime());
              }
         }
     }
@@ -160,7 +159,7 @@ public class DownloadServlet extends HttpServlet {
             }
             finally {
                 IOUtils.closeQuietly(annoIn);
-                System.out.println("DownloadServlet Annotation transferred at "
+                logger.info("DownloadServlet Annotation transferred at "
                                    + new Date().getTime());
             }
         }

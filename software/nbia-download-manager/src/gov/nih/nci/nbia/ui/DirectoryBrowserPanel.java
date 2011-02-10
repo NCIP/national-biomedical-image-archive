@@ -16,47 +16,44 @@ public class DirectoryBrowserPanel extends JPanel {
 		browseTextField = new JTextField(35);
 		JButton browseButton = new JButton("Browse");
 
-		add(fileLocation);		
+		add(fileLocation);
 		add(browseTextField);
-		add(browseButton);		
+		add(browseButton);
 
 		browseTextField.setText(System.getProperty("java.io.tmpdir"));
 		browseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				actionBrowse();
 			}
 		});
 	}
-	
+
 	public String getDirectory() {
 		return browseTextField.getText();
 	}
-	
+
 	//////////////////////////////////PRIVATE///////////////////////////
 	/* Add download text field. */
 	private JTextField browseTextField;
 	private JFileChooser chooser ;
-	
+
 	private void actionBrowse(){
-		chooser = new JFileChooser(); 
+		chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setDialogTitle("Select Directory");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-       
+
         /* disable the "All files" option. */
         chooser.setAcceptAllFileFilterUsed(false);
-        //    
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) { 
-          System.out.println("getCurrentDirectory(): " 
-             +  chooser.getCurrentDirectory());
-          System.out.println("getSelectedFile() : " 
-             +  chooser.getSelectedFile());
-          
-          browseTextField.setText(chooser.getSelectedFile().getPath());   
-          }
+        //
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+
+
+            browseTextField.setText(chooser.getSelectedFile().getPath());
+        }
         else {
-          System.out.println("No Selection ");
-          }         
+            System.out.println("No Selection ");
+        }
 	}
 
 

@@ -152,9 +152,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     	if (icefacesDataModel.getCellVisibility() &&
     	    getSeries().getModality().equals("US") &&
     	    getCellValue().getImageEx().getNameValuesPairs() != null){
-            //System.out.println("!!!!!!!Frame number="+getCellValue().getImage().getFrameNum());
 
-    		System.out.println("!!!!!!!Frame number="+getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
     		return Integer.parseInt(getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
        	}
     	return 0;
@@ -237,11 +235,8 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 					size +=data.get(i).getSize();
 				}
 				selectedSeriesSize = Long.valueOf(size).doubleValue() / 1000000.0;
-				logger.debug("addcurrentSeriestobasket ---  image size: " + size);
-				logger.debug("addcurrentSeriestobasket --- selected image size: " + selectedSeriesSize);
 
 				double total = currentBasketSize + selectedSeriesSize;
-				logger.debug("addcurrentSeriestobasket --- total image size: " + total);
 				if(total >= ftpLimit){
 					showMessage("MAINbody:imageForm:addSeriesToBasketButton", total, ftpLimit);
 					return false;

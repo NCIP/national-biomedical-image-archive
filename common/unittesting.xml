@@ -183,7 +183,7 @@
 			</case>
       <case value="nbia-dao">
         <var name="checkstyle.maxErrors" value="2"/>
-      </case>      
+      </case>
 			<case value="ncia-ctp">
 				<var name="checkstyle.maxErrors" value="13"/>
 			</case>
@@ -249,7 +249,7 @@
 		<cobertura-report datafile="${cobertura.ser.file}" format="xml" destdir="${common.dir}">
 			<fileset dir="${src.java.dir}" includes="${inspection.includes}"/>
 		</cobertura-report>
-		<move file="${common.dir}/coverage.xml" tofile="${common.dir}/coverage-${ant.project.name}.xml"/>
+    <move file="${common.dir}/coverage.xml" tofile="${reports.dir}/coverage-${ant.project.name}.xml"/>
 	</target>
 	<target name="-cobertura-check" if="unit.testing" depends="-cobertura-report-html,-cobertura-report-xml">
 		<cobertura-check failureproperty="cobertura.failure" datafile="${cobertura.ser.file}" haltonfailure="false" linerate="0" packagebranchrate="0" packagelinerate="0" totalbranchrate="25" totallinerate="30"/>

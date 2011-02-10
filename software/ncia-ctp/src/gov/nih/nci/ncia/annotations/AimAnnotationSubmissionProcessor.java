@@ -17,13 +17,11 @@ import org.w3c.dom.Document;
 public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmissionProcessor {
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Status process(XmlObject file, File storedFile) {
-		System.out.println("wtf:"+file);
+
 	    Document document = file.getDocument();
 	    String seriesInstanceUID = AimXmlUtil.getSeriesInstanceUID(document);
 	    String studyInstanceUID = AimXmlUtil.getStudyInstanceUID(document);
 
-	    System.out.println("seriesInstanceUID:"+seriesInstanceUID);
-	    System.out.println("studyInstanceUID:"+studyInstanceUID);
 
 	    storeAim(document,seriesInstanceUID);
 
@@ -55,10 +53,9 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 			throw new RuntimeException("AIM annotation submitted for series that doesnt exist:"+seriesInstanceUID);
 		}
 		GeneralSeries series = seriesList.get(0);
-		System.out.println("moo:"+series.getId());
 
 		Collection<AimImagingObservationCharacteristic> characteristics = AimXmlUtil.parseImgObsCharacteristics(document, series);
-		System.out.println("characteristics:"+characteristics.size());
+
 		for(AimImagingObservationCharacteristic characteristic : characteristics) {
 			getHibernateTemplate().save(characteristic);
 		}

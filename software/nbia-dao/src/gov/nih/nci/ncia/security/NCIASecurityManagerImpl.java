@@ -230,7 +230,7 @@ public class NCIASecurityManagerImpl extends AbstractDAO
 
     public Set<TableProtectionElement> getSecurityMapForPublicRole()
         throws CSObjectNotFoundException {
-System.out.println("foo:"+publicProtGroupId.toString());
+
         Set<ProtectionElement> pes = upm.getProtectionElements(publicProtGroupId.toString());
         Set<TableProtectionElement> retSet = new HashSet<TableProtectionElement>();
         Map<String, TableProtectionElement> tempHastable = new Hashtable<String, TableProtectionElement>();

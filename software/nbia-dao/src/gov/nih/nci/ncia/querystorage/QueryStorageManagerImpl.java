@@ -526,7 +526,7 @@ public class QueryStorageManagerImpl extends AbstractDAO
         SavedQuery savedQuery = (SavedQuery) getHibernateTemplate().load(SavedQuery.class,
                                                                          savedQueryId);
         savedQuery.setNewResults(flagValue);
-        //System.out.println("calling dataAccess.store in QueryStorageManager.setNewResultsFlagForQuery()");
+
         getHibernateTemplate().saveOrUpdate(savedQuery);
     }
 

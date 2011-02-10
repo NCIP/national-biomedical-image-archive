@@ -14,18 +14,28 @@ public class IcefacesRowColumnDataModel implements IcefacesRowColumnDataModelInt
 	public IcefacesRowColumnDataModel(List<ImageResultWrapper> thumbnailImageDto)
 	{
 		this.thumbnailImageDto = thumbnailImageDto;
-		generateDataModels();		
+		generateDataModels();
 	}
 	
 
     public ImageResultWrapper getCellValue()
 	{
-	    if (rowDataModel.isRowAvailable() && columnDataModel.isRowAvailable() &&
-	    		intValue < thumbnailImageDto.size())
-	    {
-    		return thumbnailImageDto.get(intValue);
+	    if (rowDataModel.isRowAvailable() && columnDataModel.isRowAvailable() ){
+	    	String row = (String)rowDataModel.getRowData();
+            int currentRow = Integer.parseInt(row);
+            Object column = (String)columnDataModel.getRowData();
+           int currentColumn = ((List<String>)columnDataModel.getWrappedData()).indexOf(column);
+            intValue = currentRow + currentColumn + currentRow*(actureColumns -1);
+
+            if (intValue > thumbnailImageDto.size()-1)
+    		{
+     			return null;
+    		}
+            else {
+            	return thumbnailImageDto.get(intValue);
+            }
 	    }
-	      
+
 	    return null;
 	}
 	    
@@ -113,6 +123,7 @@ public class IcefacesRowColumnDataModel implements IcefacesRowColumnDataModelInt
 	private boolean getRegisteredId(int r, int c)
 	{
 		intValue = r + c + r*(actureColumns -1);
+
 		if (intValue > thumbnailImageDto.size()-1)
 		{
 			return false;

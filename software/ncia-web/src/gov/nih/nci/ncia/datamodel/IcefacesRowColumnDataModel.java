@@ -27,15 +27,11 @@ public class IcefacesRowColumnDataModel implements IcefacesRowColumnDataModelInt
            int currentColumn = ((List<String>)columnDataModel.getWrappedData()).indexOf(column);
             intValue = currentRow + currentColumn + currentRow*(actureColumns -1);
 
-            if (intValue > thumbnailImageDto.size()-1)
-    		{
-     			return null;
-    		}
-            else {
+            if (intValue <= thumbnailImageDto.size()-1)
+            {
             	return thumbnailImageDto.get(intValue);
             }
 	    }
-
 	    return null;
 	}
 	    

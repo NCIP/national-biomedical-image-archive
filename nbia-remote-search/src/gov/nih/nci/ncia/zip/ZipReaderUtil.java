@@ -55,7 +55,6 @@ public class ZipReaderUtil {
                                    File.separator +
                                    seriesIdentifier;
 
-        	//System.out.println("writing:"+localLocation + File.separator + zeis.getName());
         	File projectPatientStudySeriesImageFile = new File(localLocation +
         			                                           File.separator +
         			                                           StringUtil.displayAsSixDigitString(imageCnt)+".dcm");
@@ -73,7 +72,7 @@ public class ZipReaderUtil {
     			IOUtils.closeQuietly(fos);
     			IOUtils.closeQuietly(zeis);
             }
-            
+
             imageCnt += 1;
         }
         //let caller close istream

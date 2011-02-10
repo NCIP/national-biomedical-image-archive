@@ -528,7 +528,6 @@ public class NCIAConfig {
         //grab the property
 
         String value = System.getProperty(key);
-        System.out.println("value: " + value);
         try {
             returnValue = Integer.parseInt(value);
         }catch(NumberFormatException nfe){

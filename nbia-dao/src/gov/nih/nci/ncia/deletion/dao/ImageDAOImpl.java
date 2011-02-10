@@ -25,7 +25,7 @@ public class ImageDAOImpl extends HibernateDaoSupport implements ImageDAO {
 	public List<String> removeImages(List<Integer> seriesIds) throws DataAccessException{
 		session = getHibernateTemplate().getSessionFactory().getCurrentSession();
 		List<String> imageFiles = new ArrayList<String>();
-		
+
 		if (session == null)
 		{
 			throw new DataAccessException("Cannot get session from session Factory in ImageDAOImpl");
@@ -48,52 +48,50 @@ public class ImageDAOImpl extends HibernateDaoSupport implements ImageDAO {
 			logger.error("Failed to remove Images or CT image in ImageDAOImpl!!");
 			throw new DataAccessException("Failed to remove Images or CT image in ImageDAOImpl!!");
 		}
-		
+
 		return imageFiles;
 	}
 
 	public void deleteCTImage(List<Integer> seriesIds)
 	{
 		for(final Integer seriesId : seriesIds) {
-			getHibernateTemplate().execute(  
+			getHibernateTemplate().execute(
 		       new HibernateCallback() {
-		    	   public Object doInHibernate(Session session) throws HibernateException, SQLException {				    		 
-		    		   
+		    	   public Object doInHibernate(Session session) throws HibernateException, SQLException {
+
 		    		   Query deleteGiQuery = session.createQuery("delete from GeneralImage where seriesPKId = ?");
 		    		   deleteGiQuery.setInteger(0, seriesId);
-		    		   int result = deleteGiQuery.executeUpdate();				    		   
-		    		   System.out.println("delete img result for exec update:"+result);
+		    		   /*int result = */deleteGiQuery.executeUpdate();
 
 		    		   return null;
 		    	   }
 		       }
-		    );				     			    
-		}				
+		    );
+		}
 	}
-	
+
 	public void deleteImage (List<Integer> seriesIds)
 	{
 		for(final Integer seriesId : seriesIds) {
-			getHibernateTemplate().execute(  
+			getHibernateTemplate().execute(
 		       new HibernateCallback() {
-		    	   public Object doInHibernate(Session session) throws HibernateException, SQLException {				    		 
-		    		   
+		    	   public Object doInHibernate(Session session) throws HibernateException, SQLException {
+
 		    		   Query deleteCtQuery = session.createQuery("delete from CTImage where seriesPKId = ?");
 		    		   deleteCtQuery.setInteger(0, seriesId);
-		    		   int result = deleteCtQuery.executeUpdate();
-		    		   System.out.println("delete ct result for exec update:"+result);
-		
+		    		   /*int result = */deleteCtQuery.executeUpdate();
+
 		    		   return null;
 		    	   }
 		       }
-		    );				     			    
-		}				
+		    );
+		}
 	}
 
 	public List<GeneralImage> getImageObject(List<Integer> seriesIds)
 	{
 		List<GeneralImage> imageObjects = new ArrayList<GeneralImage>();
-		
+
 		List<List<Integer>> breakdownList = Util.breakListIntoChunks(seriesIds, 900);
 		for(List<Integer> unit : breakdownList)
 		{

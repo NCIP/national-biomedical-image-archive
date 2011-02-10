@@ -67,12 +67,10 @@ public class DownloadProcessor {
                     if (!isBlank(ssg)) {
                         for (String authSsg : ssgList) {
                             if (authSsg.equals(ssg)) {
-                                System.out.println("returning true...");
                                 return true;
                             }
                         }
                     } else if (isBlank(ssg)) {
-                        System.out.println("returning true");
                         return true;
                     }
                 }
@@ -83,7 +81,6 @@ public class DownloadProcessor {
             return false;
         }
 
-        System.out.println("no exception reaching the end, returning... false");
         return false;
     }
 

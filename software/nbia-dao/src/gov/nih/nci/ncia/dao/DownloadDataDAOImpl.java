@@ -16,19 +16,15 @@ public class DownloadDataDAOImpl extends AbstractDAO
     		           String loginName,
     		           String type,
     		           Long size)throws DataAccessException{
-    
-		//dataAccess.open();
-		//System.out.println("DownloadDataDAO creating DownloadDataHistory....");
+
 		DownloadDataHistory downloadHistory = new DownloadDataHistory();
     	downloadHistory.setLoginName(loginName);
     	downloadHistory.setSeriesInstanceUid(seriesInstanceUid);
     	downloadHistory.setSize(size);
     	downloadHistory.setDownloadTimestamp(new Date());
     	downloadHistory.setType(type);
-    	
+
     	getHibernateTemplate().save(downloadHistory);
-    	//dataAccess.beginTransaction();
-        //dataAccess.store(downloadHistory);
     }
 
 }

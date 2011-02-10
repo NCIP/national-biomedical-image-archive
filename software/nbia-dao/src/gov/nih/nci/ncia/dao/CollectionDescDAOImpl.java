@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author lethai
  *
  */
-public class CollectionDescDAOImpl extends AbstractDAO 
+public class CollectionDescDAOImpl extends AbstractDAO
                                    implements CollectionDescDAO {
 	/**
 	 * retrieve list of collection name from trial data provenance table
@@ -26,16 +26,16 @@ public class CollectionDescDAOImpl extends AbstractDAO
 	public List<String> findCollectionNames() throws DataAccessException {
 		String hql =
 	    	"select distinct dp.project "+
-	    	"from TrialDataProvenance dp";	    	
+	    	"from TrialDataProvenance dp";
 
-        return (List<String>)getHibernateTemplate().find(hql);	
+        return (List<String>)getHibernateTemplate().find(hql);
 	}
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public CollectionDescDTO findCollectionDescByCollectionName(String collectionName) throws DataAccessException{
 		CollectionDescDTO dto = new CollectionDescDTO();
 		dto.setCollectionName(collectionName);
-  
+
         DetachedCriteria criteria = DetachedCriteria.forClass(CollectionDesc.class);
         criteria.add(Restrictions.eq("collectionName", collectionName));
         List<CollectionDesc> collectionDescList = getHibernateTemplate().findByCriteria(criteria);
@@ -50,19 +50,17 @@ public class CollectionDescDAOImpl extends AbstractDAO
 			//that object and save update that instead of re-creating
 			getHibernateTemplate().evict(c);
 		}
-		return dto;	
+		return dto;
 	}
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public long save(CollectionDescDTO collectionDescDTO) throws DataAccessException {
-		
-		System.out.println("Save: id = " +collectionDescDTO.getId() + " description: " + collectionDescDTO.getDescription() +
-				" collectionName: " + collectionDescDTO.getCollectionName());
+
 		//find out whether this record already exist,
 		//if yes, do update
 		//else do insert
 		Integer id = isCollectionExist(collectionDescDTO.getCollectionName());
-		
+
 		if(id != null){
 			//this smells, need to investigate
 			collectionDescDTO.setId(id);
@@ -72,27 +70,25 @@ public class CollectionDescDAOImpl extends AbstractDAO
 		}
 		return 1L;
 	}
-	
+
 	////////////////////////////////PROTECTED//////////////////////////////////////////////
 
-	
+
 
 	protected void update(CollectionDescDTO collectionDescDTO){
 		CollectionDesc collectionDesc = convertDTOToObject(collectionDescDTO);
-		System.out.println("updating collection description");
 
 		getHibernateTemplate().update(collectionDesc);
 		getHibernateTemplate().flush();
 
 	}
-	
+
 	protected void insert(CollectionDescDTO collectionDescDTO){
 		CollectionDesc collectionDesc = convertDTOToObject(collectionDescDTO);
-		System.out.println("inserting record to collection_descriiption");
 
 		getHibernateTemplate().saveOrUpdate(collectionDesc);
 		getHibernateTemplate().flush();
-	}		
+	}
 	/**
 	 * search the collectionDesc to determine if the collectionName already exists
 	 * @param collectionName
@@ -100,14 +96,14 @@ public class CollectionDescDAOImpl extends AbstractDAO
 	 */
 	protected Integer isCollectionExist(String collectionName){
 		CollectionDescDTO collectionDesc = findCollectionDescByCollectionName(collectionName);
-		System.out.println("id: " + collectionDesc.getId());
+
 		if(collectionDesc.getId() != null){
 			return collectionDesc.getId();
 		}
 		return null;
-		
+
 	}
-	
+
 	/////////////////////////////////PRIVATE/////////////////////////////////////////////
 	private CollectionDesc convertDTOToObject(CollectionDescDTO collectionDescDTO){
 		CollectionDesc collectionDesc = new CollectionDesc();

@@ -55,7 +55,7 @@ public class NBIAIOUtils {
 			}
 			String dirName = UUID.randomUUID().toString();
 			newResultsDir = new File(sysTempDir, dirName);
-			System.out.println("newResultsDir:"+newResultsDir.getAbsolutePath());
+
 			boolean mkdirResult = newResultsDir.mkdirs();
 			if(mkdirResult==false) {
 				System.out.println("couldnt create directory - might already exist tho so not failing");

@@ -22,7 +22,6 @@ import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import org.apache.log4j.Logger;
 
 public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterface{
 
@@ -137,8 +136,9 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 
 
     public int getFrameNum() {
-    	if (icefacesDataModel.getCellVisibility() && (getSeries().getModality().equals("US"))){
-    		if (getCellValue().getImageEx().getNameValuesPairs() != null){
+    	if (icefacesDataModel.getCellVisibility() &&
+    	    getSeries().getModality().equals("US") &&
+    		getCellValue().getImageEx().getNameValuesPairs() != null){
     			return Integer.parseInt(getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
     		}
        	}
@@ -174,10 +174,6 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	 */
 	private DataModel imageList;
 
-	/**
-	 * Logger for the class.
-	 */
-	private static Logger logger = Logger.getLogger(SeriesSearchResultBean.class);
 
 	/**
 	 * show warning message when data basket and selected are not http for anonymous login

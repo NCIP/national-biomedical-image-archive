@@ -75,7 +75,6 @@ public class ImageDTO implements Comparable<ImageDTO>  {
      * @return Returns the imagePkId.
      */
     public Integer getImagePkId() {
-    	//System.out.println("ThumbnailImageDTO.ImagePkId " + imagePkId);
         return imagePkId;
     }
 

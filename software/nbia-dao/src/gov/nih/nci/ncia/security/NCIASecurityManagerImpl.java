@@ -100,9 +100,7 @@ public class NCIASecurityManagerImpl extends AbstractDAO
 	            List<ProtectionGroup> protGroupResult = upm.getObjects(pgsc);
 	            publicProtGroupId = ((ProtectionGroup) protGroupResult.get(0)).getProtectionGroupId();
 	        } catch (Exception e) {
-	            System.out.println(
-	                "A CSM protection group must be defined with the name " +
-	                publicProtectionGroupName);
+
 	            logger.error("A CSM protection group must be defined with the name " +
 	                publicProtectionGroupName + " " +e);
 	            throw new RuntimeException(e);

@@ -69,7 +69,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
     protected void error() {
         int oldStatus = status;
         status = ERROR ;
-        //System.out.println("old status: " + oldStatus + " new status: " + status);
+
         pcs.firePropertyChange("status", oldStatus, status);
         stateChanged();
     }
@@ -183,7 +183,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
      * Kick off the download for this series.
      */
     public final void run(){
-    	System.out.println("AT THE TOP OF run for series:"+seriesInstanceUid);
+
         status = DOWNLOADING;
         stateChanged();
 
@@ -201,7 +201,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 
         }
         catch (Exception e){
-            //System.out.println("Exception: " + e);
             error();
             throw new RuntimeException(e);
         }

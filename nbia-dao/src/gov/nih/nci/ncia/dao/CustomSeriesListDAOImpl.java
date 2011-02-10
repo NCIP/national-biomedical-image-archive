@@ -86,17 +86,15 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 				seriesList.add(series);
 			}
 		}
-		
-		System.out.println("total series for public count: " + seriesList.size());
+
 		seriesDTOList = convertHibernateObjectToCustomSeriesDTO(seriesList);
-		System.out.println("total seriesDTO for public count: " + seriesDTOList.size());
 
 		return seriesDTOList;
 	}
 
 	private List<GeneralSeries> getSeriesList(List<String> seriesUids, List<SiteData> authorizedPublicSites)
 	{
-		
+
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
 		criteria.add(Restrictions.in("seriesInstanceUID", seriesUids));
 		criteria.add(Restrictions.eq("visibility", "1"));
@@ -107,12 +105,12 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			setAuthorizedSiteData(criteria,
 					authorizedPublicSites);
 		}
-		
+
 		List<GeneralSeries> seriesList = getHibernateTemplate().findByCriteria(criteria);
-		
+
 		return seriesList;
 	}
-	
+
 	/**
 	 * find all series that contains all the seriesuids and user has permission
 	 * to see
@@ -298,8 +296,6 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		}
 		returnList = convertHibernateObjectToCustomSeriesListDTO(customSeriesList);
 
-		// System.out.println("returning search by name.................");
-
 		return returnList;
 	}
 
@@ -315,8 +311,6 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			return returnList;
 		}
 		returnList = convertHibernateObjectToCustomSeriesListDTOList(customSeriesList);
-
-		// System.out.println("returning search by name.................");
 
 		return returnList;
 	}
@@ -472,7 +466,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 			results = getHibernateTemplate().findByCriteria(criteria);
 		}
-		
+
 		return results;
 	}
 

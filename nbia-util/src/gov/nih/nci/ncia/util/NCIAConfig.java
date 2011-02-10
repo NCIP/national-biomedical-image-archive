@@ -107,7 +107,7 @@ public class NCIAConfig {
          checkProperty("database.type", propertyValue);
          return propertyValue;
      }
-     
+
     /**
      *  The Name of the Local Node
      *  Property: local_node_name
@@ -158,7 +158,7 @@ public class NCIAConfig {
     public static String getCsmApplicationName() {
         String propertyValue = System.getProperty("csm_application_name");
         checkProperty("csm_application_name", propertyValue);
-        return propertyValue;    	
+        return propertyValue;
     }
 
     /**
@@ -180,8 +180,8 @@ public class NCIAConfig {
         checkProperty("date_format", propertyValue);
         return new SimpleDateFormat(propertyValue);
     }
-    
-    
+
+
     /**
      *  Property that sets whether or not to run the new data flag update
      *  process on a scheduled basis
@@ -483,38 +483,38 @@ public class NCIAConfig {
         return propertyValue;
     }
 
-    
-    
+
+
     public static String getIndexServerURL() {
         String propertyValue = System.getProperty("grid.index.url");
         checkProperty("grid.index.url", propertyValue);
         return propertyValue;
     }
-    
+
     public static String getLocalGridURI() {
         String propertyValue = System.getProperty("local.grid.uri");
         checkProperty("local.grid.uri", propertyValue);
         return propertyValue;
-    }   
-    
+    }
+
     public static String getDiscoverRemoteNodes() {
         String propertyValue = System.getProperty("discover.remote.nodes");
         checkProperty("discover.remote.nodes", propertyValue);
         return propertyValue;
     }
-    
-    
+
+
     public static int getCollectionDescriptionMaxlength() {
     	return getIntProperty("collection.description.maxlength");
     }
-    
-    
+
+
     public static String getDiscoverPeriodInHrs() {
         String propertyValue = System.getProperty("discover.period.in.hrs");
         checkProperty("discover.period.in.hrs", propertyValue);
         return propertyValue;
-    }    
-    
+    }
+
     /**
      * Utility method for retrieving a property
      * Sets the value to -1 if not found or not an integer
@@ -526,7 +526,7 @@ public class NCIAConfig {
         //set error value
         int returnValue = -1;
         //grab the property
-        System.out.println("key: " + key);
+
         String value = System.getProperty(key);
         System.out.println("value: " + value);
         try {

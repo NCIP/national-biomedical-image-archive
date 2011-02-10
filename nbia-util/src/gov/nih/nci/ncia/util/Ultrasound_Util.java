@@ -3,10 +3,10 @@ package gov.nih.nci.ncia.util;
 import java.util.HashMap;
 
 public class Ultrasound_Util {
-	
-	public static final String[] MULTI_M_CODE = {"0001","0002","0004", "0008", 
+
+	public static final String[] MULTI_M_CODE = {"0001","0002","0004", "0008",
 								 "0010", "0020","0040","0100", "0200"};
-	
+
 	public static final String[] MULTI_M_TEXT = {"2D Imaging", "M-Mode", "CW Doppler",
 			"PW Doppler", "Color Doppler", "Color M-Mode", "3D Rendering", "Color Power Mode",
 			"Tissue Characterization"};
@@ -17,7 +17,7 @@ public class Ultrasound_Util {
 			mapping.put(MULTI_M_CODE[index], MULTI_M_TEXT[index]);
 		}
 	}
-	
+
 	public static HashMap<String, String> reverseMapping = new HashMap<String, String>();
 	static {
 		for(int index = 0; index < MULTI_M_CODE.length; index++)
@@ -25,17 +25,12 @@ public class Ultrasound_Util {
 			reverseMapping.put(MULTI_M_TEXT[index], MULTI_M_CODE[index]);
 		}
 	}
-	
+
 	public static String getTextByGivenImageTypeCode(String code){
 		return (String)mapping.get(code);
 	}
-	
+
 	public static String getCodeByGivenImageTypeLabel(String label){
 		return (String)reverseMapping.get(label);
-	}
-	
-	public static void main(String[] args){
-		String result = getTextByGivenImageTypeCode("0010");
-		System.out.println("0010 : " + result);
 	}
 }

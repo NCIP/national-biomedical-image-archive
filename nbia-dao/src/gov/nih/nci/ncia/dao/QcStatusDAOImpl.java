@@ -19,24 +19,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class QcStatusDAOImpl extends AbstractDAO
                              implements QcStatusDAO{
 
-	@Transactional(propagation=Propagation.REQUIRED)		
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
-			                                  List<String> collectionSites, 
+			                                  List<String> collectionSites,
 			                                  String[] patients) throws DataAccessException {
-		
-		String selectStmt = "SELECT gs.project," + 
-		                           "gs.site," + 
-		                           "gs.patientId,"+ 
-		                           "gs.studyInstanceUID," + 
-		                           "gs.seriesInstanceUID,"+		                           
-		                           "gs.visibility," + 
+
+		String selectStmt = "SELECT gs.project," +
+		                           "gs.site," +
+		                           "gs.patientId,"+
+		                           "gs.studyInstanceUID," +
+		                           "gs.seriesInstanceUID,"+
+		                           "gs.visibility," +
 		                           "gs.maxSubmissionTimestamp ";
 		String fromStmt = "FROM GeneralSeries as gs";
-		String whereStmt = " WHERE " + 
-		                   computeVisibilityCriteria(qcStatus) + 
-		                   computeCollectionCriteria(collectionSites) + 
+		String whereStmt = " WHERE " +
+		                   computeVisibilityCriteria(qcStatus) +
+		                   computeCollectionCriteria(collectionSites) +
 		                   computePatientCriteria(patients);
-		
+
 		List<QcSearchResultDTO> searchResultDtos = new ArrayList<QcSearchResultDTO>();
 
 		String hql = selectStmt + fromStmt + whereStmt;
@@ -51,14 +51,13 @@ public class QcStatusDAOImpl extends AbstractDAO
 			String series = (String) row[4];
 			String visibilitySt = (String) row[5];
 			Timestamp submissionDate = (Timestamp) row[6];
-			// System.out.println("Series=" + series);
 
 			QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
-					                                          site, 
-					                                          patient, 
-					                                          study, 
-					                                          series, 
-					                                          new Date(submissionDate.getTime()), 
+					                                          site,
+					                                          patient,
+					                                          study,
+					                                          series,
+					                                          new Date(submissionDate.getTime()),
 					                                          visibilitySt);
 			searchResultDtos.add(qcSrDTO);
 		}
@@ -66,9 +65,9 @@ public class QcStatusDAOImpl extends AbstractDAO
 		return searchResultDtos;
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)		
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcStatusHistoryDTO> findQcStatusHistoryInfo(List<String> seriesList) throws DataAccessException{
-		
+
 		List<QcStatusHistoryDTO> qcsList = new ArrayList<QcStatusHistoryDTO>();
 		String selectStmt = "SELECT qsh.historyTimestamp,"
 				+ "qsh.seriesInstanceUid," + "qsh.oldValue," + "qsh.newValue,"
@@ -108,10 +107,10 @@ public class QcStatusDAOImpl extends AbstractDAO
 
 	}
 
-	@Transactional(propagation=Propagation.REQUIRED)		
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateQcStatus(List<String> seriesList,
-			                   List<String> statusList, 
-			                   String newStatus, 
+			                   List<String> statusList,
+			                   String newStatus,
 			                   String userName,
 			                   String comment) throws DataAccessException {
 		for (int i = 0; i < seriesList.size(); ++i) {
@@ -182,12 +181,12 @@ public class QcStatusDAOImpl extends AbstractDAO
 		return sb.toString();
 	}
 
-	private void updateDb(String seriesId, 
-			              String oldStatus, 
+	private void updateDb(String seriesId,
+			              String oldStatus,
 			              String newStatus,
-			              String userName, 
+			              String userName,
 			              String comment) {
-		
+
 		QCStatusHistory qsh = new QCStatusHistory();
 		qsh.setNewValue(newStatus);
 		qsh.setHistoryTimestamp(new Date());
@@ -195,7 +194,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 		qsh.setSeriesInstanceUid(seriesId);
 		qsh.setUserId(userName);
 		qsh.setComment(comment);
-	
+
 		String hql = "select distinct gs from GeneralSeries gs where gs.seriesInstanceUID ='"
 				+ seriesId + "'";
 		final String updateHql = createUpdateCurationTStatement(seriesId);
@@ -209,7 +208,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 			getHibernateTemplate().saveOrUpdate(qsh);
 		}
 	}
-	
+
 	private String createUpdateCurationTStatement(String seriesId){
 	    String hql = "update GeneralImage set curationTimestamp = current_timestamp() where seriesInstanceUID = '"+seriesId+"'";
 	    return hql;

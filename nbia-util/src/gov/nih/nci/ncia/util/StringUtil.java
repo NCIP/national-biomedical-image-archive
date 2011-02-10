@@ -4,31 +4,31 @@ import java.util.List;
 
 public class StringUtil {
 	//if gt then 999,999... who cares i guess....
-	public static String displayAsSixDigitString(int seriesCnt) {       
+	public static String displayAsSixDigitString(int seriesCnt) {
         return String.format("%06d", seriesCnt);
     }
-	
+
 	public static boolean isEmpty(String string) {
 		return (string == null) || string.equals("");
 	}
-	
+
 	/**
 	 * Expects a non-null string..... grabs the last token from the
-	 * string. 
-	 * 
+	 * string.
+	 *
 	 * <p>So, "foo, cow, moo" with separator , would yield "moo".
 	 * If the separator can't be found, this returns null.
 	 */
 	public static String lastToken(String str, String separator) {
 		int dex = str.lastIndexOf(separator);
 		if(dex==-1) {
-			return null;			
+			return null;
 		}
 		else {
 			return str.substring(dex+separator.length());
 		}
 	}
-	
+
 	/**
 	 * A little more efficient than string.trim().length()==0
 	 * because it doesnt create a new string
@@ -43,8 +43,8 @@ public class StringUtil {
 			}
 		}
 		return true;
-	}	
-	
+	}
+
     public static String removeIllegitCharacters(String text) {
     	StringBuffer buffer = new StringBuffer();
 
@@ -53,7 +53,7 @@ public class StringUtil {
     		if(charsToRemove.indexOf(ch) == -1) {
     			buffer.append(ch);
     		}
-    		//else ignore it 
+    		//else ignore it
     	}
     	return buffer.toString();
     }
@@ -69,9 +69,9 @@ public class StringUtil {
     		}
     	}
     	return spChars;
-    }	
-    
-	
+    }
+
+
 	public static String toHexString(byte[] bytes) {
 		StringBuilder sb = new StringBuilder(bytes.length * 3);
 		for (int b : bytes) {
@@ -83,7 +83,7 @@ public class StringUtil {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * Remove the html tag from the input string
 	 * @param htmlString
@@ -101,7 +101,7 @@ public class StringUtil {
 		noHTMLString = noHTMLString.replaceAll("\"", "&quot;");
 		return noHTMLString;
 	}
-    
+
 	public static String encodeListEntriesWithSingleQuotes(List<String> list){
         StringBuilder sb = new StringBuilder();
         for(String sop: list){
@@ -110,17 +110,17 @@ public class StringUtil {
 
         if(sb.length() > 0){
             sb.deleteCharAt(sb.length() - 1);
-            //System.out.println("sopUidList: " + sb);
+
             return sb.toString();
         }else{
             return "";
         }
-    }	
+    }
 	private static final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
-	
+
     private static final String charsToRemove = "`~!@#$%^*()-+={}[]|;:'<>?,./";
-    
+
     private StringUtil () {
-    	
+
     }
 }

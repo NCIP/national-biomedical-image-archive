@@ -88,7 +88,6 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		if(!testBasketLimitsForGuest()) {
 			return null;
 		}
-
 		BasketBean dataBasket = BeanManager.getBasketBean();
 
 		dataBasket.getBasket().addSeries(Collections.singletonList(series));
@@ -136,24 +135,12 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     	return icefacesDataModel.getCellVisibility();
     }
 
-    public boolean getShowThumbnail() {
-    	if (icefacesDataModel.getCellVisibility()){
-    		if (!(getSeries().getModality().equals("US"))){
-    			return true;
-    		}
-    		else {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
 
     public int getFrameNum() {
-    	if (icefacesDataModel.getCellVisibility() &&
-    	    getSeries().getModality().equals("US") &&
-    	    getCellValue().getImageEx().getNameValuesPairs() != null){
-
-    		return Integer.parseInt(getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
+    	if (icefacesDataModel.getCellVisibility() && (getSeries().getModality().equals("US"))){
+    		if (getCellValue().getImageEx().getNameValuesPairs() != null){
+    			return Integer.parseInt(getCellValue().getImageEx().getNameValuesPairs().getValues()[0]);
+    		}
        	}
     	return 0;
     }
@@ -237,6 +224,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 				selectedSeriesSize = Long.valueOf(size).doubleValue() / 1000000.0;
 
 				double total = currentBasketSize + selectedSeriesSize;
+
 				if(total >= ftpLimit){
 					showMessage("MAINbody:imageForm:addSeriesToBasketButton", total, ftpLimit);
 					return false;

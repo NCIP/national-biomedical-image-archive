@@ -332,15 +332,7 @@
     <field name="xrayTubeCurrent" type="integer">
       <bind-xml name="xrayTubeCurrent" node="attribute" />
     </field>
-    <field name="usFrameNum" type="string">
-      <bind-xml name="usFrameNum" node="attribute" />
-    </field>
-    <field name="usColorDataPresent" type="string">
-      <bind-xml name="usColorDataPresent" node="attribute" />
-    </field>
-    <field name="usMultiModality" type="string">
-      <bind-xml name="usMultiModality" node="attribute" />
-    </field>
+
   </class>
   <class name="gov.nih.nci.ncia.domain.Equipment" identity="id">
     <map-to xml="Equipment" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />

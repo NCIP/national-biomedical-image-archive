@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.Observable;
 
 /**This class downloads each series.
- * 
+ *
  * @author lethai
  *
  */
@@ -39,7 +39,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 
     /* Get this download's progress.*/
     public float getProgress(){
-        //System.out.println("downloaded: "+downloaded + "\tsize: "+size);
         return ((float) downloaded / size) * 100;
     }
 
@@ -109,14 +108,14 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
         return this.numberOfImages;
     }
 
-    
+
     /**
      * The NBIA Node that this series will be downloaded from.
      */
     public NBIANode getNode() {
     	return this.node;
     }
-    
+
     /* (non-Javadoc)
      * @see com.javadude.beans.PropertyChangeNotifier#addPropertyChangeListener(java.beans.PropertyChangeListener)
     */
@@ -130,18 +129,18 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         pcs.removePropertyChangeListener(listener);
     }
-    
+
     /**
      * Based upon these parameters, scrape together a concrete NBIANode instance.
-     */    
-    public abstract NBIANode constructNode(String url, 
-    		                               String displayName, 
+     */
+    public abstract NBIANode constructNode(String url,
+    		                               String displayName,
     		                               boolean local) throws Exception;
-    
+
     public void setOutputDirectory(File outputDirectory) {
     	this.outputDirectory = outputDirectory;
     }
-    
+
     /**
      * Must be called before run in order to initialize all data structures.
      */
@@ -174,16 +173,16 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 		this.annoSize = annoSize;
 		this.node = node;
 		this.seriesIdentifier = seriesIdentifier;
-		
+
 		computeTotalSize();
 		downloaded = 0;
     }
-    
-    
+
+
     /**
      * Kick off the download for this series.
      */
-    public final void run(){   
+    public final void run(){
     	System.out.println("AT THE TOP OF run for series:"+seriesInstanceUid);
         status = DOWNLOADING;
         stateChanged();
@@ -192,14 +191,13 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
         try {
 
             runImpl();
-            
-            System.out.println("runImpl is done:"+status);
+
             //could be NO_DATA or ERROR i think
             if (status == COMPLETE) {
                 downloaded= size;
                 stateChanged();
                 updateDownloadProgress(size);
-            }            
+            }
 
         }
         catch (Exception e){
@@ -210,25 +208,25 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
         long end = System.currentTimeMillis();
 
         System.out.println("total download time: " + (end - start)/1000 + " s.");
-    }    
-    
+    }
+
     /**
      * An implementor must retrieve all the images for seriesInstanceUid.
-     * 
+     *
      * <p>The images must be written to a directory X, with the directory structure:
      * project/study/series/sop
      */
-    public abstract void runImpl() throws Exception;    
-    
+    public abstract void runImpl() throws Exception;
 
 
-	
+
+
     ///////////////////////////////////////////////PROTECTED////////////////////////////////////////
     protected File outputDirectory;
     protected NBIANode node;
 
     protected String seriesIdentifier;
-    protected String collection; 
+    protected String collection;
     protected String patientId;
     protected String studyInstanceUid;
     protected String seriesInstanceUid;
@@ -246,11 +244,11 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
     protected int imagesSize;
     protected int annoSize;
     protected PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    
+
     protected NBIAIOUtils.ProgressInterface progressUpdater = new ProgressUpdater();
 
 
-    
+
     protected void computeTotalSize(){
         if(this.includeAnnotation && this.hasAnnotation){
             this.size = imagesSize + annoSize;

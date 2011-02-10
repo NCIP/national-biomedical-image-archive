@@ -77,7 +77,7 @@ public class DownloadProcessor {
             }
 
         } catch (Exception e) {
-            System.out.println("exception: " + e.getMessage() + " returning false.");
+			e.printStackTrace();
             return false;
         }
 

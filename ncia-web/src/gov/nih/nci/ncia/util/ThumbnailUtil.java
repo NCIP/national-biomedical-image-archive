@@ -42,7 +42,7 @@ public class ThumbnailUtil {
         File mircThumbnailFile = new File(mircThumbnailFilePath);
         File ctpThumbnailFile = new File (ctpThumbnailFilePath);
         File ctpNewThumbnailFile = new File (ctpNewThumbnailFilePath);
-        
+
         if (mircThumbnailFile.exists()) {
 			return mircThumbnailFile;
 		}
@@ -95,13 +95,8 @@ public class ThumbnailUtil {
     		return null;
     	}
     	if(!imageSecurityDTO.getSeriesVisibility()) {
-    		System.out.println("not visible:....");
     		return null;
    		}
-
-		System.out.println("dto"+imageSecurityDTO.getProject()+","+
-			     imageSecurityDTO.getSite()+","+
-			     imageSecurityDTO.getSsg());
 
     	if(hasAccess(authorizationManager,
     			     imageSecurityDTO.getProject(),
@@ -110,8 +105,6 @@ public class ThumbnailUtil {
     		return new File(imageSecurityDTO.getFileName());
     	}
     	else {
-    		System.out.println("not public:....");
-
     		return null;
     	}
     }
@@ -164,25 +157,22 @@ public class ThumbnailUtil {
                     if (!StringUtil.isEmpty(ssg)) {
                         for (String authSsg : ssgList) {
                             if (authSsg.equals(ssg)) {
-                                System.out.println("returning true...");
                                 return true;
                             }
                         }
                     }
                     else
                     if (StringUtil.isEmpty(ssg)) {
-                        System.out.println("returning true");
                         return true;
                     }
                 }
             }
 
         } catch (Exception e) {
-            System.out.println("exception: " + e.getMessage() + " returning false.");
+            e.printStackTrace();
             return false;
         }
 
-        System.out.println("no exception reaching the end, returning... false");
         return false;
     }
 }

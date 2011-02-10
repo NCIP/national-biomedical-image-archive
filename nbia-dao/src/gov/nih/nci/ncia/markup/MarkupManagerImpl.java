@@ -26,7 +26,7 @@ public class MarkupManagerImpl extends AbstractDAO
     private static Logger logger = Logger.getLogger(MarkupManagerImpl.class);
 
     protected MarkupManagerImpl() {}
-    
+
     /* (non-Javadoc)
 	 * @see gov.nih.nci.ncia.markup.MarkupManager#getMarkups(gov.nih.nci.ncia.dto.MarkupDTO)
 	 */
@@ -50,7 +50,7 @@ public class MarkupManagerImpl extends AbstractDAO
     /* (non-Javadoc)
 	 * @see gov.nih.nci.ncia.markup.MarkupManager#saveMarkup(gov.nih.nci.ncia.dto.MarkupDTO)
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public void saveMarkup(MarkupDTO dto) throws DataAccessException {
         if (isDuplicate(dto)) {
             updateMarkup(dto);
@@ -63,16 +63,16 @@ public class MarkupManagerImpl extends AbstractDAO
     /* (non-Javadoc)
 	 * @see gov.nih.nci.ncia.markup.MarkupManager#updateMarkup(gov.nih.nci.ncia.dto.MarkupDTO)
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public void updateMarkup(MarkupDTO dto) throws DataAccessException {
         String hql = "update ImageMarkup set markupContent = ?, submissionDate = ? "+
                      "where seriesInstanceUID = ?";
-        
-        
-        getHibernateTemplate().bulkUpdate(hql, 
+
+
+        getHibernateTemplate().bulkUpdate(hql,
         		                          new Object[] {
-        		                              dto.getMarkupData(), 
-        		                              dto.getSeriesUID(), 
+        		                              dto.getMarkupData(),
+        		                              dto.getSeriesUID(),
         		                              new java.util.Date()
        		                              });
     }
@@ -80,7 +80,7 @@ public class MarkupManagerImpl extends AbstractDAO
     /* (non-Javadoc)
 	 * @see gov.nih.nci.ncia.markup.MarkupManager#insertMarkup(gov.nih.nci.ncia.dto.MarkupDTO)
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public void insertMarkup(MarkupDTO dto) throws DataAccessException {
         Session session = null;
         ImageMarkup im = new ImageMarkup();
@@ -107,7 +107,7 @@ public class MarkupManagerImpl extends AbstractDAO
             session.save(im);
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         finally {
             session.flush();
@@ -119,14 +119,13 @@ public class MarkupManagerImpl extends AbstractDAO
     /* (non-Javadoc)
 	 * @see gov.nih.nci.ncia.markup.MarkupManager#markupExist(gov.nih.nci.ncia.dto.MarkupDTO)
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public boolean markupExist(MarkupDTO dto) throws DataAccessException {
         String hql= "select distinct imgmkup.id from ImageMarkup imgmkup where ";
         hql = hql + "imgmkup.seriesInstanceUID = '" + dto.getSeriesUID() + "'";
 
 
         List results = getHibernateTemplate().find(hql);
-        System.out.println("Done get markup ids");
 
         if (results != null && results.size() > 0) {
             return true;
@@ -139,7 +138,7 @@ public class MarkupManagerImpl extends AbstractDAO
     /* (non-Javadoc)
 	 * @see gov.nih.nci.ncia.markup.MarkupManager#isDuplicate(gov.nih.nci.ncia.dto.MarkupDTO)
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)	
+	@Transactional(propagation=Propagation.REQUIRED)
     public boolean isDuplicate(MarkupDTO dto) throws DataAccessException {
 
         String hql= "select distinct imgmkup.id from ImageMarkup imgmkup where ";

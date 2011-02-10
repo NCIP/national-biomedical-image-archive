@@ -106,7 +106,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
     /*
      * Constants for building non-image query Concatenate the IDs so that only
      * one column is returned (improves performance)
-     * 
+     *
      * <p>because n AIM rows will match to 1 series, need distinct.  without AIM, distinct not necessary
      */
     private static final String SQL_QUERY_SELECT = "SELECT distinct p.id || '/' || study.id || '/' || series.id ";
@@ -205,7 +205,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 	        String hql = selectStmt + fromStmt + whereStmt + imageClause;
 
 	        /* Run the query */
-	        System.out.println("Search Issuing query : " + hql);
+	        logger.info("Search Issuing query : " + hql);
 	        long startTime = System.currentTimeMillis();
 	        List<String> results = getHibernateTemplate().find(hql);
 	        long elapsedTime = System.currentTimeMillis() - startTime;
@@ -315,7 +315,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
             	fromStmt = SQL_QUERY_FROM_MONTH;
             }
         }
-        
+
         ImagingObservationCharacteristicCodeMeaningCriteria crit = query.getImagingObservationCharacteristicCodeMeaningCriteria();
         ImagingObservationCharacteristicCodeValuePairCriteria crit2 = query.getImagingObservationCharacteristicCodeValuePairCriteria();
         ImagingObservationCharacteristicQuantificationCriteria crit3 = query.getImagingObservationCharacteristicQuantificationCriteria();
@@ -496,7 +496,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
         return modalityClause;
     }
-    
+
     private static String processUsMultiModality(DICOMQuery theQuery){
 		UsMultiModalityCriteria ummc = theQuery.getUsMultiModalityCriteria();
 
@@ -506,16 +506,16 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 
  			if (usMultiModalityClause.equals(" ")){
  				usMultiModalityClause += "and gi.usMultiModality is not null and";
- 			} 
+ 			}
  			else {
  				usMultiModalityClause += "or ";
  			}
  			usMultiModalityClause += " gi.usMultiModality like '%"+Ultrasound_Util.getCodeByGivenImageTypeLabel(mmode)+"%' ";
-        	}     	
+        	}
 		}
 		return usMultiModalityClause;
 	}
- 
+
     private static String processAnatomicalSiteCriteria(DICOMQuery theQuery) {
 
         AnatomicalSiteCriteria asc = theQuery.getAnatomicalSiteCriteria();
@@ -786,7 +786,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
             imgWhere += processContrastAgent(theQuery);
             imgWhere += processFrameNumOption(theQuery);
             imgWhere += processColorModeOption(theQuery);
-System.out.println("!!! imagWhere="+ imgWhere);
+
             imgWhere += processUsMultiModality(theQuery);
 
             imgWhere += processCurationStatusDateCriteria(theQuery);
@@ -916,7 +916,7 @@ System.out.println("!!! imagWhere="+ imgWhere);
         }
         return "";
     }
-    
+
     /**
      * Given a query, returns the where clause for the number of frame
      * portion of the query.  Returns 0 length string if no number of frame
@@ -940,10 +940,10 @@ System.out.println("!!! imagWhere="+ imgWhere);
         }
         return "";
     }
-    
+
     private static String processColorModeOption(DICOMQuery theQuery) {
     	ColorModeOptionCriteria cmoc = theQuery.getColorModeOptionCriteria();
-    
+
         if (cmoc != null) {
             String colorModeValue = cmoc.getColorModeOptionValue();
 

@@ -44,23 +44,23 @@ public class DownloadServlet extends HttpServlet {
         Boolean hasAnnotation = Boolean.valueOf(request.getParameter("hasAnnotation"));
         String sopUids = request.getParameter("sopUids");
 
-        System.out.println("sopUids:"+sopUids);
+        logger.info("sopUids:"+sopUids);
         logger.info("seriesUid: " + seriesUid + " userId: " + userId + " includeAnnotation: " + includeAnnotation + " hasAnnotation: " + hasAnnotation);
 
-        processRequest(response, 
-                       seriesUid, 
-                       userId, 
-                       password, 
-                       includeAnnotation, 
-                       hasAnnotation, 
+        processRequest(response,
+                       seriesUid,
+                       userId,
+                       password,
+                       includeAnnotation,
+                       hasAnnotation,
                        sopUids);
     }
-    protected void processRequest(HttpServletResponse response, 
-            String seriesUid, 
-            String userId, 
-            String password, 
-            Boolean includeAnnotation, 
-            Boolean hasAnnotation, 
+    protected void processRequest(HttpServletResponse response,
+            String seriesUid,
+            String userId,
+            String password,
+            Boolean includeAnnotation,
+            Boolean hasAnnotation,
             String sopUids) throws IOException{
 
         DownloadProcessor processor = new DownloadProcessor();
@@ -95,7 +95,7 @@ public class DownloadServlet extends HttpServlet {
         }
     }
     private void sendResponse(HttpServletResponse response,
-            List<ImageDTO> imageResults, 
+            List<ImageDTO> imageResults,
             List<AnnotationDTO> annoResults) throws IOException {
 
         TarArchiveOutputStream tos = new TarArchiveOutputStream(response.getOutputStream());
@@ -147,7 +147,7 @@ public class DownloadServlet extends HttpServlet {
                                     TarArchiveOutputStream tos) throws IOException {
         InputStream annoIn = null;
         for(AnnotationDTO a : annoResults){
-            String filePath = a.getFilePath();		
+            String filePath = a.getFilePath();
             String fileName = a.getFileName();
 
             try {
@@ -173,7 +173,7 @@ public class DownloadServlet extends HttpServlet {
             return decrypter.decrypt(password);
         }
     }
-    private static long computeContentLength(List<ImageDTO> imageResults, 
+    private static long computeContentLength(List<ImageDTO> imageResults,
                     List<AnnotationDTO> annoResults) {
         long contentSize=0;
         for(ImageDTO imageDto : imageResults){

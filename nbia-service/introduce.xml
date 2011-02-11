@@ -318,7 +318,7 @@
 
 
              <ns16:ModelInformation source="preBuilt" xsi:type="ns16:ModelInformation">
-              <ns17:UMLProjectIdentifer identifier="nbia" version="5.1" xsi:type="ns17:UMLProjectIdentifer" xmlns:ns17="gme://caGrid.caBIG/1.0/org.cagrid.mms.domain"/>
+              <ns17:UMLProjectIdentifer identifier="ncia" version="3 xsi:type="ns17:UMLProjectIdentifer" xmlns:ns17="gme://caGrid.caBIG/1.0/org.cagrid.mms.domain"/>
 
 
               <ns16:ModelPackage packageName="gov.nih.nci.ncia.domain" xsi:type="ns16:ModelPackage">

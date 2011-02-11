@@ -61,7 +61,7 @@
    <ns2:SchemaElement type="GSITransport" xsi:type="ns2:SchemaElementType"/>
    <ns2:SchemaElement type="None" xsi:type="ns2:SchemaElementType"/>
   </ns2:Namespace>
-  <ns2:Namespace generateStubs="false" location="gov.nih.nci.ncia.domain.xsd" namespace="gme://nbia/5.1/gov.nih.nci.ncia.domain" packageName="gov.nih.nci.ncia.domain" xsi:type="ns2:NamespaceType">
+  <ns2:Namespace generateStubs="false" location="gov.nih.nci.ncia.domain.xsd" namespace="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" packageName="gov.nih.nci.ncia.domain" xsi:type="ns2:NamespaceType">
    <ns2:SchemaElement className="ClinicalTrialSite" deserializer="gov.nih.nci.cagrid.sdkquery4.encoding.SDK40DeserializerFactory" serializer="gov.nih.nci.cagrid.sdkquery4.encoding.SDK40SerializerFactory" type="ClinicalTrialSite" xsi:type="ns2:SchemaElementType"/>
    <ns2:SchemaElement className="Image" deserializer="gov.nih.nci.cagrid.sdkquery4.encoding.SDK40DeserializerFactory" serializer="gov.nih.nci.cagrid.sdkquery4.encoding.SDK40SerializerFactory" type="Image" xsi:type="ns2:SchemaElementType"/>
    <ns2:SchemaElement className="Patient" deserializer="gov.nih.nci.cagrid.sdkquery4.encoding.SDK40DeserializerFactory" serializer="gov.nih.nci.cagrid.sdkquery4.encoding.SDK40SerializerFactory" type="Patient" xsi:type="ns2:SchemaElementType"/>

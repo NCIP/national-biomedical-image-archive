@@ -1,4 +1,4 @@
-<ns1:DomainModel projectShortName="nbia" projectVersion="5.1" xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice">
+<ns1:DomainModel projectShortName="nbia" projectVersion="3" xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice">
  <ns1:exposedUMLAssociationCollection>
   <ns1:UMLAssociation bidirectional="true">
    <ns1:targetUMLAssociationEdge>
@@ -182,14 +182,14 @@
   </ns1:UMLAssociation>
  </ns1:exposedUMLAssociationCollection>
  <ns1:exposedUMLClassCollection>
-  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialSite" id="EAID_0B03EDC6_D43D_45fb_AC90_7591CB77DF10" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialSite" id="EAID_0B03EDC6_D43D_45fb_AC90_7591CB77DF10" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns2:umlAttributeCollection xmlns:ns2="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns2:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372034934883255" version="1.0"/>
     <ns2:UMLAttribute dataTypeName="java.lang.String" description="One or more characters used as the identifier of the site responsible for submitting clinical trial data." name="siteId" publicID="-9223372035620974336" version="1.0"/>
     <ns2:UMLAttribute dataTypeName="java.lang.String" description="Text name to capture the name of the site responsible for submitting clinical trial data." name="siteName" publicID="-9223372036280217305" version="1.0"/>
    </ns2:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="Image" id="EAID_184444B4_B9FD_4b90_BB23_36514F84786D" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="Image" id="EAID_184444B4_B9FD_4b90_BB23_36514F84786D" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns3:umlAttributeCollection xmlns:ns3="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns3:UMLAttribute dataTypeName="java.util.Date" description="The date the acquisition of data that resulted in this image started" name="acquisitionDate" publicID="-9223372035509939628" version="1.0"/>
     <ns3:UMLAttribute dataTypeName="java.lang.String" description="The date and time that the acquisition of data that resulted in this image started." name="acquisitionDatetime" publicID="-9223372035623112531" version="1.0"/>
@@ -240,7 +240,7 @@
     <ns3:UMLAttribute dataTypeName="java.lang.Integer" description="X-ray tube current expressed in MilliAmp(s) as specified in DICOM tag." name="xrayTubeCurrent" publicID="-9223372036695870768" version="1.0"/>
    </ns3:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="Patient" id="EAID_29712CDA_464E_414d_9282_319B1949912C" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="Patient" id="EAID_29712CDA_464E_414d_9282_319B1949912C" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns4:umlAttributeCollection xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns4:UMLAttribute dataTypeName="java.lang.String" description="the patient's/participant's self declared ethnic origination, independent of racial origination, based on OMB approved categories." name="ethnicGroup" publicID="-9223372036745299951" version="1.0"/>
     <ns4:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372034897911981" version="1.0"/>
@@ -250,7 +250,7 @@
     <ns4:UMLAttribute dataTypeName="java.lang.String" description="Text code to represent a patient's sex determination." name="patientSex" publicID="-9223372036460333394" version="1.0"/>
    </ns4:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="Equipment" id="EAID_590B8CE4_0963_491f_B3E4_6E7E9A202A7E" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="Equipment" id="EAID_590B8CE4_0963_491f_B3E4_6E7E9A202A7E" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns5:umlAttributeCollection xmlns:ns5="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns5:UMLAttribute dataTypeName="java.lang.String" description="Manufacturer&#x2019;s serial number of the equipment that produced the composite instances." name="deviceSerialNumber" publicID="-9223372035681784960" version="1.0"/>
     <ns5:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372034915085739" version="1.0"/>
@@ -262,14 +262,14 @@
     <ns5:UMLAttribute dataTypeName="java.lang.String" description="Name of the device observer for this document instance." name="stationName" publicID="-9223372036157739733" version="1.0"/>
    </ns5:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialSponsor" id="EAID_620AA1A8_529F_45a1_8032_BBF0AD4C4A28" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialSponsor" id="EAID_620AA1A8_529F_45a1_8032_BBF0AD4C4A28" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns6:umlAttributeCollection xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns6:UMLAttribute dataTypeName="java.lang.String" description="Name of the institution that is responsible for coordinating the medical imaging data for a clinical trial." name="coordinatingCenter" publicID="-9223372035455900348" version="1.0"/>
     <ns6:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372034766397826" version="1.0"/>
     <ns6:UMLAttribute dataTypeName="java.lang.String" description="Text to capture the name of a clinical trial sponsor." name="sponsorName" publicID="-9223372036446449955" version="1.0"/>
    </ns6:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="Study" id="EAID_7855F361_5FBC_40f7_AABB_8DAA00D999E7" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="Study" id="EAID_7855F361_5FBC_40f7_AABB_8DAA00D999E7" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns7:umlAttributeCollection xmlns:ns7="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns7:UMLAttribute dataTypeName="java.lang.String" description="Abbreviated text field to describe a person's relevant medical history." name="additionalPatientHistory" publicID="-9223372036344964626" version="1.0"/>
     <ns7:UMLAttribute dataTypeName="java.lang.String" description="Coded sequence that conveys the admitting diagnosis (diagnoses)." name="admittingDiagnosesCodeSequence" publicID="-9223372036257202813" version="1.0"/>
@@ -288,14 +288,14 @@
     <ns7:UMLAttribute dataTypeName="java.lang.String" description="Identifier specifying one or more studies that are grouped together as a single time point or submission in a clinical trial." name="timePointId" publicID="-9223372036416932936" version="1.0"/>
    </ns7:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialProtocol" id="EAID_7B894220_A474_49c2_8CA6_D678161BC790" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialProtocol" id="EAID_7B894220_A474_49c2_8CA6_D678161BC790" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns8:umlAttributeCollection xmlns:ns8="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns8:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372036068908583" version="1.0"/>
     <ns8:UMLAttribute dataTypeName="java.lang.String" description="Identifier for the noted protocol, used by the Clinical Trial Sponsor to uniquely identify the investigational protocol." name="protocolId" publicID="-9223372035794451853" version="1.0"/>
     <ns8:UMLAttribute dataTypeName="java.lang.String" description="The name or title of the clinical trial protocol." name="protocolName" publicID="-9223372035167508307" version="1.0"/>
    </ns8:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="CurationData" id="EAID_89CB9C34_3A05_4079_B266_9B30E209F195" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="CurationData" id="EAID_89CB9C34_3A05_4079_B266_9B30E209F195" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns9:umlAttributeCollection xmlns:ns9="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns9:UMLAttribute dataTypeName="java.lang.String" description="The public ID of the Common Data Element that describes the curation data" name="cdeId" publicID="-9223372036157224959" version="1.0"/>
     <ns9:UMLAttribute dataTypeName="java.lang.String" description="The description of the Common Data Element that describes the curation data" name="cdeName" publicID="-9223372034881781559" version="1.0"/>
@@ -307,7 +307,7 @@
     <ns9:UMLAttribute dataTypeName="java.lang.Integer" description="Unique identifier of the NCIA user that uploaded the curation data record" name="userId" publicID="-9223372035551674288" version="1.0"/>
    </ns9:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="Series" id="EAID_B00E2D7D_7876_4a9a_8D22_57547436E1B4" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="Series" id="EAID_B00E2D7D_7876_4a9a_8D22_57547436E1B4" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns10:umlAttributeCollection xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns10:UMLAttribute dataTypeName="java.lang.String" description="Text description of the anatomic part of the body examined." name="bodyPartExamined" publicID="-9223372035075525722" version="1.0"/>
     <ns10:UMLAttribute dataTypeName="java.lang.String" description="Unique identifier for the frame of reference for an imaging series. Each series shall have a single Frame of Reference UID, while multiple Series within a Study may share a Frame of Reference UID." name="frameOfReferenceUID" publicID="-9223372035169877689" version="1.0"/>
@@ -322,7 +322,7 @@
     <ns10:UMLAttribute dataTypeName="java.lang.String" description="UID of common synchronization environment.  A set of equipment may share a common acquisition synchronization environment." name="synchronizationFrameOfReferenceUID" publicID="-9223372035619833666" version="1.0"/>
    </ns10:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="TrialDataProvenance" id="EAID_BE81145E_AE42_46cc_9181_6176EBA7BB3E" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="TrialDataProvenance" id="EAID_BE81145E_AE42_46cc_9181_6176EBA7BB3E" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns11:umlAttributeCollection xmlns:ns11="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns11:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372036331451735" version="1.0"/>
     <ns11:UMLAttribute dataTypeName="java.lang.String" description="An name chosen by the image submitter to identify the collection that the image is a part of." name="project" publicID="-9223372036342091842" version="1.0"/>
@@ -330,14 +330,14 @@
     <ns11:UMLAttribute dataTypeName="java.lang.String" description="A name chosen by the image submitter to identify the clinical trial site from which the image originated." name="siteName" publicID="-9223372035043119214" version="1.0"/>
    </ns11:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialSubject" id="EAID_E8CF05CF_1E13_447f_839C_B528F2D172FE" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="ClinicalTrialSubject" id="EAID_E8CF05CF_1E13_447f_839C_B528F2D172FE" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns12:umlAttributeCollection xmlns:ns12="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns12:UMLAttribute dataTypeName="java.lang.Integer" description="One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing." name="id" publicID="-9223372036062656577" version="1.0"/>
     <ns12:UMLAttribute dataTypeName="java.lang.String" description="The assigned identifier for the patient as a clinical trial subject." name="subjectId" publicID="-9223372034709666538" version="1.0"/>
     <ns12:UMLAttribute dataTypeName="java.lang.String" description="Identifies the patient as a clinical trial subject for blinded evaluations." name="subjectReadingId" publicID="-9223372036149006884" version="1.0"/>
    </ns12:umlAttributeCollection>
   </ns1:UMLClass>
-  <ns1:UMLClass allowableAsTarget="true" className="Annotation" id="EAID_FAC0D88E_B712_4831_A939_F4AFD2DD789E" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="5.1">
+  <ns1:UMLClass allowableAsTarget="true" className="Annotation" id="EAID_FAC0D88E_B712_4831_A939_F4AFD2DD789E" packageName="gov.nih.nci.ncia.domain" projectName="nbia" projectVersion="3">
    <ns13:umlAttributeCollection xmlns:ns13="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
     <ns13:UMLAttribute dataTypeName="java.lang.String" description="The location (full path and file name) of the annotation file on the file system." name="filePath" publicID="-9223372036529626498" version="1.0"/>
     <ns13:UMLAttribute dataTypeName="java.lang.Integer" description="The size (in bytes) of the annotation file" name="fileSize" publicID="-9223372036726690884" version="1.0"/>

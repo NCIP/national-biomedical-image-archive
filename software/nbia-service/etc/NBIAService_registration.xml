@@ -16,7 +16,7 @@
 			xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.service"
 			xmlns:ns11="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice"
 			xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security"
-			xmlns:ns2="gme://nbia/5.1/gov.nih.nci.ncia.domain"
+			xmlns:ns2="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain"
 			xmlns:ns13="http://gov.nih.nci.cagrid.data/DataServiceExceptions"
 			xmlns:ns12="http://org.cagrid.dataservice.cql/QueryLanguageSupport"
 			xmlns:ns0="http://nbia.nci.nih.gov/NBIAService/types"
@@ -35,11 +35,11 @@
         <agg:PollIntervalMillis>INDEX_REFRESH</agg:PollIntervalMillis>
         <!-- specifies all Resource Properties that should be retrieved from the service -->
 		<agg:ResourcePropertyNames>ns11:DomainModel</agg:ResourcePropertyNames>
-	
+
 		<agg:ResourcePropertyNames>ns3:ServiceMetadata</agg:ResourcePropertyNames>
-	
+
 		<agg:ResourcePropertyNames>ns12:QueryLanguageSupport</agg:ResourcePropertyNames>
-	
+
       </agg:GetMultipleResourcePropertiesPollType>
     </agg:AggregatorConfig>
     <agg:AggregatorData/>

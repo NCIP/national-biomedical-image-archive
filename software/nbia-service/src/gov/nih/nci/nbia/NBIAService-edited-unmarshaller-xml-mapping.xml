@@ -1,6 +1,6 @@
 <mapping>
   <class name="gov.nih.nci.ncia.domain.ClinicalTrialSponsor" identity="id">
-    <map-to xml="ClinicalTrialSponsor" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="ClinicalTrialSponsor" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="coordinatingCenter" type="string">
       <bind-xml name="coordinatingCenter" node="attribute" />
     </field>
@@ -12,7 +12,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Patient" identity="id">
-    <map-to xml="Patient" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="Patient" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="ethnicGroup" type="string">
       <bind-xml name="ethnicGroup" node="attribute" />
     </field>
@@ -33,7 +33,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Image" identity="id">
-    <map-to xml="Image" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="Image" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="acquisitionDate" type="java.util.Date">
       <bind-xml name="acquisitionDate" node="attribute" />
     </field>
@@ -174,7 +174,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.CurationData" identity="id">
-    <map-to xml="CurationData" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="CurationData" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="cdeId" type="string">
       <bind-xml name="cdeId" node="attribute" />
     </field>
@@ -201,7 +201,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.ClinicalTrialSite" identity="id">
-    <map-to xml="ClinicalTrialSite" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="ClinicalTrialSite" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="id" type="integer">
       <bind-xml name="id" node="attribute" />
     </field>
@@ -213,7 +213,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.ClinicalTrialSubject" identity="id">
-    <map-to xml="ClinicalTrialSubject" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="ClinicalTrialSubject" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="id" type="integer">
       <bind-xml name="id" node="attribute" />
     </field>
@@ -225,7 +225,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Study" identity="id">
-    <map-to xml="Study" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="Study" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="additionalPatientHistory" type="string">
       <bind-xml name="additionalPatientHistory" node="attribute" />
     </field>
@@ -273,7 +273,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Equipment" identity="id">
-    <map-to xml="Equipment" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="Equipment" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="deviceSerialNumber" type="string">
       <bind-xml name="deviceSerialNumber" node="attribute" />
     </field>
@@ -300,7 +300,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.TrialDataProvenance" identity="id">
-    <map-to xml="TrialDataProvenance" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="TrialDataProvenance" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="id" type="integer">
       <bind-xml name="id" node="attribute" />
     </field>
@@ -315,7 +315,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Series" identity="id">
-    <map-to xml="Series" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="Series" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="bodyPartExamined" type="string">
       <bind-xml name="bodyPartExamined" node="attribute" />
     </field>
@@ -351,7 +351,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Annotation" identity="id">
-    <map-to xml="Annotation" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="Annotation" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="filePath" type="string">
       <bind-xml name="filePath" node="attribute" />
     </field>
@@ -372,7 +372,7 @@
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.ClinicalTrialProtocol" identity="id">
-    <map-to xml="ClinicalTrialProtocol" ns-uri="gme://nbia/5.1/gov.nih.nci.ncia.domain" />
+    <map-to xml="ClinicalTrialProtocol" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="id" type="integer">
       <bind-xml name="id" node="attribute" />
     </field>

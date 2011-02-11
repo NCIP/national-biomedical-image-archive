@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="gme://nbia/5.1/gov.nih.nci.ncia.domain" targetNamespace="gme://nbia/5.1/gov.nih.nci.ncia.domain" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" targetNamespace="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" elementFormDefault="qualified">
   <xs:element name="ClinicalTrialSite" type="ClinicalTrialSite" />
   <xs:complexType name="ClinicalTrialSite">
     <xs:sequence>

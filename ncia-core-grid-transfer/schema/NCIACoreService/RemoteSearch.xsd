@@ -37,16 +37,6 @@
   
 </xs:complexType> 
 
-<xs:element name="NameValuesPairs" type="NameValuesPairs" />
-
-<xs:complexType name="NameValuesPairs">
-  <xs:sequence>
-    <xs:element name="values" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
-  </xs:sequence>
-
-  <xs:attribute name="name" type="xs:string" />
- 
-</xs:complexType>
 
 <!-- ********************** patient search ******************** -->
 

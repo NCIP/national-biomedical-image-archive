@@ -18,38 +18,17 @@
 					</ice:panelGroup>
 				</f:facet>
 				
-				<table width="95%">
-					<tr>
-						<td>
-							<ice:outputLabel for="SlctDispItemNum" value="Results Per Page: " />
-							<ice:selectOneMenu id="SlctDispItemNum"
-								valueChangeListener="#{qcToolSearchBean.pageNumberChangeListener}"
-								value="#{qcToolSearchBean.selectedDispItemNum}"
-								partialSubmit="true">
-								<f:selectItems id="SlctDispItemNums"
-									value="#{qcUtil.dispItemNums}" />
-							</ice:selectOneMenu>
-						</td>
-						<td align="right">
-							<ice:dataPaginator id="scroll_2" for="data"
-								rowsCountVar="rowsCount"
-								displayedRowsCountVar="displayedRowsCountVar"
-								firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
-								pageCountVar="pageCount" pageIndexVar="pageIndex">
-								<ice:outputFormat
-									value="{0} series found, displaying {1} records, from {2} to {3}. Page {4} / {5}"
-									styleClass="standard">
-									<f:param value="#{rowsCount}" />
-									<f:param value="#{displayedRowsCountVar}" />
-									<f:param value="#{firstRowIndex}" />
-									<f:param value="#{lastRowIndex}" />
-									<f:param value="#{pageIndex}" />
-									<f:param value="#{pageCount}" />
-								</ice:outputFormat>
-							</ice:dataPaginator>
-						</td>
-					</tr>
-				</table>
+				<ice:panelGroup rendered="#{qcUtil.showCheckUncheckAll eq true}">
+					<ui:include src="qcToolButtons.xhtml">
+	                  	<ui:param name="qcToolSearchBean" value="#{qcToolSearchBean}"/>  
+	                </ui:include>
+				</ice:panelGroup>
+
+				<ui:include src="qcToolOptions.xhtml">
+                  	<ui:param name="qcToolSearchBean" value="#{qcToolSearchBean}"/>  
+                  	<ui:param name="qcUtil" value="#{qcUtil}"/>
+                </ui:include>
+				
 				<ice:dataTable id="data" var="res" width="95%"
 					value="#{qcToolSearchBean.qsrDTOList}"
 					sortColumn="#{qcToolSearchBean.sortColumnName}"
@@ -137,46 +116,29 @@
 				</ice:dataTable>
 				<center>
 					<ice:panelGrid columns="1" styleClass="scrollerTable2"
-						columnClasses="standardTable_ColumnCentered">
+						columnClasses="standardTable_ColumnCentered" rendered="#{qcToolSearchBean.resultsPerPage le 10}">
 
-						<ice:dataPaginator id="scroll_1" for="data"
-							fastStep="#{qcToolSearchBean.selectedDispItemNum}"
-							pageCountVar="pageCount" pageIndexVar="pageIndex"
-							paginator="true" renderFacetsIfSinglePage="false"
-							paginatorMaxPages="20">
-
-							<f:facet name="first">
-								<ice:graphicImage url="images/arrow-first.gif"
-									style="border:none;" />
-							</f:facet>
-
-							<f:facet name="last">
-								<ice:graphicImage url="images/arrow-last.gif"
-									style="border:none;" />
-							</f:facet>
-
-							<f:facet name="previous">
-								<ice:graphicImage url="images/arrow-previous.gif"
-									style="border:none;" />
-							</f:facet>
-
-							<f:facet name="next">
-								<ice:graphicImage url="images/arrow-next.gif"
-									style="border:none;" />
-							</f:facet>
-
-							<f:facet name="fastforward">
-								<ice:graphicImage url="images/arrow-ff.gif" style="border:none;" />
-							</f:facet>
-
-							<f:facet name="fastrewind">
-								<ice:graphicImage url="images/arrow-fr.gif" style="border:none;" />
-							</f:facet>
-
-						</ice:dataPaginator>
+						<ui:include src="qcToolPaginator.xhtml">
+		                  	<ui:param name="qcToolSearchBeanNum" 
+		                            value="#{qcToolSearchBean.selectedDispItemNum}"/>  
+		                </ui:include>
 
 					</ice:panelGrid>
 				</center>
+				<ice:panelGroup rendered="#{qcToolSearchBean.resultsPerPage gt 10}">
+					<ui:include src="qcToolOptions.xhtml">
+	                  	<ui:param name="qcToolSearchBean" value="#{qcToolSearchBean}"/>  
+	                  	<ui:param name="qcUtil" value="#{qcUtil}"/>
+	                </ui:include>
+	                
+	                <ice:panelGroup rendered="#{qcUtil.showCheckUncheckAll eq true}">
+		                <ui:include src="qcToolButtons.xhtml">
+	                  		<ui:param name="qcToolSearchBean" value="#{qcToolSearchBean}"/>  
+	                	</ui:include>
+                	</ice:panelGroup>
+	                
+                </ice:panelGroup>
+				
 			</ice:panelCollapsible>
 			<ice:panelCollapsible id="statusChangePanel" expanded="true">
 				<f:facet name="header">

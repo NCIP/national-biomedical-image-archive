@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                               
+  <table width="95%">
+		<tr>
+			<td>
+				<ice:outputLabel for="SlctDispItemNum" value="Results Per Page: " />
+				<ice:selectOneMenu 
+					valueChangeListener="#{qcToolSearchBean.pageNumberChangeListener}"
+					value="#{qcToolSearchBean.selectedDispItemNum}"
+					partialSubmit="true">
+					<f:selectItems 
+						value="#{qcUtil.dispItemNums}" />
+				</ice:selectOneMenu>
+			</td>
+			<td align="center">
+				<ice:panelGroup rendered="#{qcToolSearchBean.resultsPerPage gt 10}">
+					<ui:include src="qcToolPaginator.xhtml">
+	                  	<ui:param name="qcToolSearchBeanNum" 
+	                            value="#{qcToolSearchBean.selectedDispItemNum}"/>  
+	                </ui:include>
+                </ice:panelGroup>
+			</td>
+			<td align="right">
+				<ice:dataPaginator for="data"
+					rowsCountVar="rowsCount"
+					displayedRowsCountVar="displayedRowsCountVar"
+					firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
+					pageCountVar="pageCount" pageIndexVar="pageIndex">
+					<ice:outputFormat
+						value="{0} series found, displaying {1} records, from {2} to {3}. Page {4} / {5}"
+						styleClass="standard">
+						<f:param value="#{rowsCount}" />
+						<f:param value="#{displayedRowsCountVar}" />
+						<f:param value="#{firstRowIndex}" />
+						<f:param value="#{lastRowIndex}" />
+						<f:param value="#{pageIndex}" />
+						<f:param value="#{pageCount}" />
+					</ice:outputFormat>
+				</ice:dataPaginator>
+			</td>
+		</tr>
+	</table>  
+</ui:composition>

@@ -22,7 +22,7 @@ import com.icesoft.faces.async.render.SessionRenderer;
  * selection criteria for the report (date range, collection//site).
  */
 public class QcToolSearchBean {
-	
+
 	public UIData getDataTable() {
 		return dataTable;
 	}
@@ -76,6 +76,15 @@ public class QcToolSearchBean {
 		this.selectedDispItemNum = selectedDispItemNum;
 	}
 
+	public Integer getResultsPerPage() {
+		if( getSelectedDispItemNum() != null ) {
+			return new Integer(getSelectedDispItemNum());
+		}
+		else {
+			return 10;
+		}
+	}
+
 	/**
      * This action is called when the submit button is clicked.
      */
@@ -110,12 +119,12 @@ public class QcToolSearchBean {
 
         QcStatusDAO qcStatusDAO = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
         qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, patients);
-        
+
         if (this.getDataTable() != null)
         {
         	this.getDataTable().setFirst(0);
         }
-        
+
         return "qcToolMain";
     }
 
@@ -210,7 +219,7 @@ public class QcToolSearchBean {
 	public String getVisibilityHeader() {
 		return visibilityHeader;
 	}
-	
+
     ////////////////////////////PRIVATE///////////////////////////////////////
     private static final String REQUIRED_FIELD = "qcTool_requiedField_Search";
     private static final String ERRORMSG_RPT="qcTool_requiedSeries";
@@ -222,27 +231,27 @@ public class QcToolSearchBean {
     private static final String ALL = "all";
     private int notificationHack = 0;
     private UIData dataTable;
-    
+
     private static final String dateHeader = "Creation Date";
     private static final String siteHeader = "Collection//Site";
     private static final String patientHeader = "Patient";
     private static final String studyHeader = "Study";
     private static final String seriesHeader = "Series";
     private static final String visibilityHeader = "Visibility";
-    
+
     private String sortColumnName= "Creation Date";
     private boolean ascending = true;
 
     // we only want to resort if the oder or column has changed.
     private String oldSort = sortColumnName;
     private boolean oldAscending = ascending;
-    
+
 //    private boolean descending = true;
 //    private boolean oldDescending = descending;
 //    private String columnName = "Creation Date";
 //    private String oldColumnName = columnName;
-    
-    
+
+
    // ----------------
     /**
      * Gets the sortColumnName column.
@@ -282,7 +291,7 @@ public class QcToolSearchBean {
         oldAscending = this.ascending;
         this.ascending = ascending;
     }
-    
+
     /**
      *  Sorts the list of qc search result.
      */
@@ -299,11 +308,11 @@ public class QcToolSearchBean {
                     return compareObject(
                             c1.getCreationDate().compareTo(c2.getCreationDate()),
                             c2.getCreationDate().compareTo(c1.getCreationDate()));
-                } 
+                }
                 else if (sortColumnName.equals(siteHeader)) {
                     return compareObject(c1.getCollectionSite().compareTo(c2.getCollectionSite()),
                             c2.getCollectionSite().compareTo(c1.getCollectionSite()));
-                }  
+                }
                 else if (sortColumnName.equals(patientHeader)) {
                     return compareObject(c1.getPatientId().compareTo(c2.getPatientId()),
                         c2.getPatientId().compareTo(c1.getPatientId()));
@@ -326,9 +335,29 @@ public class QcToolSearchBean {
         };
         Collections.sort(qsrDTOList, comparator);
     }
-    
+
     private int compareObject(int result1, int result2){
     	return ascending ? result1 : result2;
     }
-    
+
+	/**
+	 * selects all in the list.
+	 */
+	public String selectAll() {
+		for(QcSearchResultDTO searchResult : qsrDTOList) {
+			searchResult.setSelected(true);
+		}
+		return null;
+	}
+
+	/**
+	 * selects all in the list.
+	 */
+	public String unselectAll() {
+		for(QcSearchResultDTO searchResult : qsrDTOList) {
+			searchResult.setSelected(false);
+		}
+		return null;
+	}
+
 }

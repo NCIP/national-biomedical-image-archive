@@ -20,4 +20,18 @@ public class QcUtil {
 
         return dispItemNums;
     }
+    
+    /*
+     * show the Check All/Uncheck All button based on the return value
+     */
+    public boolean isShowCheckUncheckAll() {
+    	String retValue = System.getProperty("qctool.search.results.check.uncheck.option");
+    	
+    	if( retValue.equals("1")) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
 }

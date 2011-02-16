@@ -344,6 +344,10 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
 
         try {
             TrialDataProvenance patientTDP = trialDataProvenanceDAO.getTDPByPatientId(patientId);
+            
+            if( patientTDP == null ) {
+            	return -1;
+            }
 
             //check for public access
             boolean isPublic = ServiceImplHelper.getPublicGroupAndCheckForPublicAccess(patientTDP);

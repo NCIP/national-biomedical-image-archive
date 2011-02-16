@@ -97,6 +97,10 @@ public class GridUtil {
 
 	public static boolean isFound(TrialDataProvenance tdp,
 			                      List<TrialDataProvenance> tdpList){
+		
+		if( tdp == null ) {
+			return false;
+		}
 
         String queryProject = tdp.getProject();
 		String querySiteName = tdp.getSiteName();

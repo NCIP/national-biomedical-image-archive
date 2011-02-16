@@ -110,11 +110,21 @@ public class ServiceImplHelper {
 		if(userDN==null) {
 			String publicGroupName = NCIACoreServiceConfiguration.getConfiguration().getNciaPublicGroup();
 			List<TrialDataProvenance> authorizedTdp = NCIAQueryFilter.getDataFilterByGroupName(publicGroupName);
-			return GridUtil.isFound(tdp, authorizedTdp);			
+			if( tdp != null ) {
+				return GridUtil.isFound(tdp, authorizedTdp);
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			List<TrialDataProvenance> authorizedTdp = NCIAQueryFilter.getDataFilterByUserName(userDN);
-			return GridUtil.isFound(tdp, authorizedTdp);			
+			if( tdp != null ) {
+				return GridUtil.isFound(tdp, authorizedTdp);
+			}
+			else {
+				return false;
+			}
 		}
 	}
 

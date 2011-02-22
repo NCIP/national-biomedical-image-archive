@@ -31,6 +31,9 @@
     <field name="patientSex" type="string">
       <bind-xml name="patientSex" node="attribute" />
     </field>
+    <field name="studyCollection" type="gov.nih.nci.ncia.domain.Study" collection="collection" handler="gov.nih.nci.system.client.util.xml.CastorCollectionFieldHandler">
+      <bind-xml name="Study" type="gov.nih.nci.ncia.domain.Study" location="studyCollection" node="element" />
+    </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Image" identity="id">
     <map-to xml="Image" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />

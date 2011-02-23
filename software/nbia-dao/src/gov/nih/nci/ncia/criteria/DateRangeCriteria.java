@@ -14,9 +14,7 @@ package gov.nih.nci.ncia.criteria;
 
 import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
 import gov.nih.nci.ncia.util.CrossDatabaseUtil;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

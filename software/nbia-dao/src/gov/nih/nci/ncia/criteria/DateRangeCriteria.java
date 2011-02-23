@@ -14,7 +14,9 @@ package gov.nih.nci.ncia.criteria;
 
 import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
 import gov.nih.nci.ncia.util.CrossDatabaseUtil;
+import gov.nih.nci.ncia.util.NCIAConfig;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,18 +115,23 @@ public class DateRangeCriteria extends PersistentCriteria {
     }
 
     public void addValueFromQueryAttribute(QueryAttributeWrapper attr) {
-    	SimpleDateFormat sdf = CrossDatabaseUtil.getDatabaseSpecificDatePattern();
+    	SimpleDateFormat sdf = null;
+    	if( CrossDatabaseUtil.isDateInOracleFormat(attr.getAttributeValue())) {
+    		sdf = CrossDatabaseUtil.getOracleDBFormat();
+    	}
+    	else {
+    		sdf = CrossDatabaseUtil.getMySqlDBFormat();
+    	}
 
     	try {
-	    	if (attr.getSubAttributeName().equals("1")) {
-	        	fromDate = sdf.parse(attr.getAttributeValue());
-	    	} else if (attr.getSubAttributeName().equals("2")) {
-	    		toDate = sdf.parse(attr.getAttributeValue());
-	    	}
+    		if (attr.getSubAttributeName().equals("1")) {
+    			fromDate = sdf.parse(attr.getAttributeValue());
+    		} else if (attr.getSubAttributeName().equals("2")) {
+    			toDate = sdf.parse(attr.getAttributeValue());
+    		}
     	}
     	catch (Exception ex) {
     		logger.error("error in parsing date in database", ex);
     	}
     }
-
 }

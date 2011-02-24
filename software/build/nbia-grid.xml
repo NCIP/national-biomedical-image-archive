@@ -11,11 +11,13 @@
                    install:nbia-grid:clean,
                    install:nbia-grid:binaries,
                    install:nbia-grid:wsrf,
-                   install:nbia-grid:transfer-service,
+
                    install:nbia-grid:application,
                    install:nbia-grid:configure,
                    install:nbia-grid:post,
                    install:nbia-grid:jboss:start" />
+
+<!-- need 1.4 version of this dist                  install:nbia-grid:transfer-service,                   -->
 
   <target name="install:nbia-grid:ncm"
           unless="exclude.nbia-grid"
@@ -23,9 +25,11 @@
                    common:common:init,
                    install:nbia-grid:init,
                    install:nbia-grid:wsrf,
-                   install:nbia-grid:transfer-service,
+
                    install:nbia-grid:application,
                    install:nbia-grid:configure" />
+
+<!-- need 1.4 version of this dist                  install:nbia-grid:transfer-service,                   -->
 
   <target name="install:nbia-grid:clean" unless="exclude.nbia-grid">
     <fail unless="application.base.path"/>
@@ -342,12 +346,13 @@
                    install:nbia-grid:clean,
                    install:nbia-grid:binaries,
                    install:nbia-grid:wsrf,
-                   install:nbia-grid:transfer-service,
+
                    install:nbia-grid:application,
                    install:nbia-grid:configure,
                    install:nbia-grid:post,
                    install:nbia-grid:jboss:start" />
 
+<!-- need 1.4 version of this dist                  install:nbia-grid:transfer-service,                   -->
 
   <!-- Wrapper targets for calling bda macros -->
   <target name="install:nbia-grid:jboss:stop"

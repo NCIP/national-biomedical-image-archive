@@ -264,20 +264,20 @@
           depends="common:nbia-grid:init,
                    common:common:init" >
 
-    <property name="unsecured.caGridTransfer.war.path"
+    <property name="nbia-grid.caGridTransfer.war.path"
               location ="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy/caGridTransfer.war"/>
-    <delete dir="${unsecured.caGridTransfer.war.path}"/>
+    <delete dir="${nbia-grid.caGridTransfer.war.path}"/>
 
 
     <unzip dest="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy"
            src="${grid.resource.dir.src}/caGridTransfer.zip"/>
 
-    <replaceregexp file="${unsecured.caGridTransfer.war.path}/WEB-INF/classes/server.properties"
+    <replaceregexp file="${nbia-grid.caGridTransfer.war.path}/WEB-INF/classes/server.properties"
                    byline="true"
                    match="^\s*transfer.service.persistence.relative.location\s*=(.*)$"
                    replace="transfer.service.persistence.relative.location=wsrf.war/WEB-INF/etc/cagrid_TransferService/persisted/TransferServiceContextResourceProperties"/>
     <delete>
-      <fileset dir="${unsecured.caGridTransfer.war.path}/WEB-INF/lib">
+      <fileset dir="${nbia-grid.caGridTransfer.war.path}/WEB-INF/lib">
         <include name="log4j*.jar"/>
         <include name="commons-logging*.jar"/>
       </fileset>
@@ -296,10 +296,12 @@
           depends="common:nbia-grid:init,
                    common:common:init" >
 
-    <available file="${unsecured.caGridTransfer.war.path}"
+    <available file="${nbia-grid.caGridTransfer.war.path}"
                property="nbia-grid.transfer.service.available"/>
+    <!--
     <fail unless="nbia-grid.transfer.service.available"
           message="It appears that the caGrid Transfer service is not deployed.  nbia-grid cant be deployed without it"/>
+      -->
 <!--
     <if>
       <equals arg1="${nbia-grid.tempZipLocation}" arg2=""/>

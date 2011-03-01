@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.deletion;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import gov.nih.nci.ncia.deletion.dao.AnnotationDAO;
@@ -44,7 +45,12 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 	//JPG file end with xxx.dicom[512;512;-1].jpeg
 	private List<String> annotationFile;
 
-	@Transactional
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Integer> getAllDeletedSeries(){
+		return seriesDao.listAllDeletedSeries();
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, List<String>> removeSeries(String userName) throws DataAccessException{
 		List<Integer> seriesList = seriesDao.listAllDeletedSeries();
 		if (seriesList == null || seriesList.size() == 0)
@@ -107,7 +113,7 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 
 	}
 
-	@Transactional
+	@Transactional(propagation=Propagation.REQUIRED)
 	public List<DeletionDisplayObject> getDeletionDisplayObject()
 	{
 		List<DeletionDisplayObject> object = new ArrayList<DeletionDisplayObject>();

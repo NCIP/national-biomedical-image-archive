@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<jboss>
+  <enterprise-beans>
+    <message-driven>
+      <ejb-name>ImageDeletionMDB</ejb-name>
+      <destination-jndi-name>queue/deletionQueue</destination-jndi-name>
+      <resource-ref>
+        <res-ref-name>jms/QCF</res-ref-name>
+        <jndi-name>ConnectionFactory</jndi-name>
+      </resource-ref>
+    </message-driven>
+
+  </enterprise-beans>
+</jboss>

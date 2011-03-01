@@ -166,9 +166,9 @@ public class NCIAConfig {
      *  Property: image_zipping_mdb_timeout
      *  File: ncia.properties
      */
-    public static int getImageZippingMDBTimeout() {
-        return getIntProperty("image_zipping_mdb_timeout");
-    }
+//    public static int getImageZippingMDBTimeout() {
+//        return getIntProperty("image_zipping_mdb_timeout");
+//    }
 
     /**
      *  Date format

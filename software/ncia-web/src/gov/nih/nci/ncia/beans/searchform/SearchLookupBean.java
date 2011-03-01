@@ -96,7 +96,11 @@ public class SearchLookupBean {
         buildTree();
     }
 
-    
+    /**
+     * Should the simple search page include the list of
+     * collections to search for.  This configurability
+     * is a request from the NIAMS people.
+     */
     public boolean isShowCollectionSearch() {
     	return NCIAConfig.getShowCollectionSearchCriteria();
     }

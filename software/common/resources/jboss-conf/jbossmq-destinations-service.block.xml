@@ -5,3 +5,8 @@
   </depends>
 </mbean>
 
+ <mbean code="org.jboss.mq.server.jmx.Queue"
+      name="jboss.mq.destination:service=Queue,name=deletionQueue">
+      <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+ </mbean>
+ 

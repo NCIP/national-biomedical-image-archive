@@ -192,8 +192,8 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             // set appropriately
             // To set the timeout ourselves, bean managed transactions must be used
             //  (see ejb-jar.xml)
-            log.debug("Setting MDB timeout to " +
-                NCIAConfig.getImageZippingMDBTimeout() + " seconds ");
+//            log.debug("Setting MDB timeout to " +
+//                NCIAConfig.getImageZippingMDBTimeout() + " seconds ");
 
             //ctx.getUserTransaction().setTransactionTimeout(NCIAConfig.getImageZippingMDBTimeout());
 

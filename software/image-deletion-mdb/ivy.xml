@@ -44,4 +44,6 @@
                 rev="latest.integration"
                 conf="runtime"/> 
 
+  </dependencies>
+
 </ivy-module>

@@ -119,6 +119,7 @@ public class ImageDeletionMDB implements MessageDrivenBean, MessageListener {
 		}catch(Throwable e){
 			e.printStackTrace();
             log.error("Error deleting file... " + e);
+            return;
 		}
 		
 		try{

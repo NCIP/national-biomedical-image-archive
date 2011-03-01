@@ -155,9 +155,9 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   <!-- dont change these unless you know what you are doing -->
   <attribute name="Properties">protection_element_prefix=NCIA.</attribute>
   <attribute name="Properties">csm_application_name=NCIA</attribute>
-  <!-- Timeout of MDB in seconds -->
+  <!-- Timeout of MDB in seconds 
   <attribute name="Properties">image_zipping_mdb_timeout=10800</attribute>
-
+   -->
   <attribute name="Properties">date_format=yyyy-MM-dd</attribute>
   
   <attribute name="Properties">database.type=@database.type@</attribute>

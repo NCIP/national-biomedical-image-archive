@@ -223,7 +223,7 @@
       <!-- no xmlcatalog necessary -->       
       <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=imageQueue']"/>
       <!-- in case its still there -->
-      <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=curationQueue']"/>
+      <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=deletionQueue']"/>
     </xmltask>              
     <xmltask failWithoutMatch="true" 
              source="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml"

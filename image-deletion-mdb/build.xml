@@ -6,7 +6,7 @@
 
   <property name="common.dir" value="${basedir}/../" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
-  <property name="project.lib.dir" value="${common.dir}/target/lib/imageDeletionmdb" />
+  <property name="project.lib.dir" value="${common.dir}/target/lib/imagedeletionmdb" />
   <property name="assembly.jms.dir" value="${basedir}/jms" />
   <property name="assembly.classes.dir" value="${basedir}/classes"/>
   <property name="resources.dir" value="${basedir}/resources" />

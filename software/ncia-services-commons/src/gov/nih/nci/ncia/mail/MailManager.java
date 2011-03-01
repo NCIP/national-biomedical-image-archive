@@ -53,6 +53,8 @@ public class MailManager {
     public static final String MAIL_PROPERTIES = "mail.properties";
 
     // Data read from the properties file
+    private static final String deletionSubject;
+    private static final String deletionUnformattedBody1;
     private static final String ftpSubject;
     private static final String ftpUnformattedBody1;
     private static final String ftpUnformattedBody2;
@@ -101,6 +103,9 @@ public class MailManager {
         qcStatusSubject = mailProps.getProperty("qcStatus.Subject");
         qcStatusUnFormattedBody = mailProps.getProperty("qcStatus.Body");
 
+        deletionSubject = mailProps.getProperty("deletion.Subject");
+        deletionUnformattedBody1 = mailProps.getProperty("deletion.Body1");
+        
         /*fileRetentionPeriodInDays = mailProps.getProperty(
                 "fileRetentionPeriodInDays");*/
 
@@ -204,6 +209,30 @@ public class MailManager {
         }
     }
 
+    public static void sendDeletionConfirmationMail(String mailTo, String username, List<Integer> allSeries, String initialzedDeletionTime)
+    throws Exception {
+    	String message = "Image deletion has been successfully completed. The process starts at " + initialzedDeletionTime + "\n\n";
+    	message += "The following series has been removed from NBIA application database: \n";
+    	message += stringForAllDeletedSeries(allSeries) + "\n\n";
+    	message += new MessageFormat(deletionUnformattedBody1).format(new String[] {
+                appSupportNumber, techSupportStartTime, techSupportEndTime
+        });
+ 
+    	new SendMail().sendMail(mailTo, message, deletionSubject);
+    }
+    
+    private static String stringForAllDeletedSeries(List<Integer> allSeries){
+    	String all = "";
+    	for (int i = 0; i < allSeries.size(); i++){
+    		all += allSeries.get(i);
+    		if (i % 8 == 0){
+    			all += "\n";
+    		}else{
+    			all += ", ";
+    		}
+    	}
+    	return all;
+    }
     /**
      * Sends an email notifying user that their registration has been accepted
      *

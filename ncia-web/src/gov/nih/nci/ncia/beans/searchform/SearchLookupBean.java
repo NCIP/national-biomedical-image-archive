@@ -21,7 +21,7 @@ import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import com.icesoft.faces.component.tree.IceUserObject;
-
+import gov.nih.nci.ncia.util.NCIAConfig;
 
 /**
  * This class holds all of the values needed to populate the drop downs on all
@@ -96,6 +96,11 @@ public class SearchLookupBean {
         buildTree();
     }
 
+    
+    public boolean isShowCollectionSearch() {
+    	return NCIAConfig.getShowCollectionSearchCriteria();
+    }
+    
     /**
      * Returns the latest curation date present in the database
      *

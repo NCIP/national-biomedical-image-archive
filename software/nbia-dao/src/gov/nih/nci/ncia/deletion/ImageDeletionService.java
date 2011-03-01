@@ -21,4 +21,9 @@ public interface ImageDeletionService {
 	 * @return
 	 */
 	public List<DeletionDisplayObject> getDeletionDisplayObject();
+	/**
+	 * Retrieve all series that will be removed in deletion process.
+	 * @return List<Integer> allSeries
+	 */
+	public List<Integer> getAllDeletedSeries();
 }

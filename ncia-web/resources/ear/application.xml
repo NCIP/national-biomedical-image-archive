@@ -6,7 +6,10 @@
   <display-name>NCIA</display-name>
   <module>
     <ejb>imageZippingMDB.jar</ejb>
-  </module>          
+  </module>    
+    <module>
+      <ejb>imageDeletionMDB.jar</ejb>
+  </module> 
   <module>
     <web>
       <web-uri>ncia.war</web-uri>

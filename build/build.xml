@@ -84,6 +84,7 @@ $HeadURL$
   <property name="ncia-ctp.base.dir" value="${software.dir}/ncia-ctp-working"/>
   <property name="ncia-services-commons.base.dir" value="${software.dir}/ncia-services-commons"/>
   <property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
+  <property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
   <property name="ncia-services-grid.base.dir" value="${software.dir}/ncia-services-grid"/>
   <property name="ncia-domain.base.dir" value="${software.dir}/ncia-domain"/>
   <property name="ncia-web.base.dir" value="${software.dir}/ncia-web"/>
@@ -527,6 +528,20 @@ $HeadURL$
     <generate-jar-signing-keystore/>
   </target>
 
+  <!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
+  <target name="-build:image-deletion-mdb"
+          depends="init,
+                   build:ncia-services-commons">
+    <ant inheritAll="false"
+         inheritRefs="false"
+         antfile="build.xml"
+         target="run"
+         dir="${image-deletion-mdb.base.dir}">
+      <property name="project.name" value="${project.name}"/>
+    </ant>
+
+  </target>
+
   <!-- Build ncia-web sub-project produces project level artifact of ncia.ear -->
   <target name="build:ncia-web"
           depends="init,
@@ -534,6 +549,7 @@ $HeadURL$
                    build:ncia-download-manager,
                    build:ncia-download,
                    build:nbia-remote-search,
+                   -build:image-deletion-mdb,
                    -build:imagezipping-mdb">
 
     <!-- crud.  dealing with cyclical dependencies between nbia-download-mgr and nbia-remote-search -->

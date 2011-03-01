@@ -5,10 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.deletion.DeletionDisplayObject;
 import gov.nih.nci.ncia.deletion.ImageDeletionService;
 import gov.nih.nci.ncia.deletion.ImageFileDeletionService;
+import gov.nih.nci.ncia.beans.security.SecurityBean;
+import gov.nih.nci.ncia.deletion.DeletionDisplayObject;
+import gov.nih.nci.ncia.jms.ImageDeletionMessage;
+import gov.nih.nci.ncia.jms.JMSClient;
+import gov.nih.nci.ncia.util.NCIAConfig;
 
 public class SeriesDeletionBean {
 	
@@ -17,7 +20,6 @@ public class SeriesDeletionBean {
 	private boolean showNavigationBar;
 	
 	//private int totalSeriesAffectPerormance;
-	
 	@Autowired
 	private ImageDeletionService imageDeletionService;
 	
@@ -40,6 +42,7 @@ public class SeriesDeletionBean {
 	public void removeSeriesFromCron() throws Exception
 	{
 		String userName = null;
+		
 		Map<String, List<String>> files = imageDeletionService.removeSeries(userName);
 		//remove all annotation files and dicom files, this must be out of 
 		//transaction
@@ -54,11 +57,18 @@ public class SeriesDeletionBean {
 	{
 		SecurityBean secure = BeanManager.getSecurityBean();
 		String userName = secure.getUsername();
-		Map<String, List<String>> files = imageDeletionService.removeSeries(userName);
-		//remove all annotation files and dicom files, this must be out of 
-		//transaction
-		imageFileDeletionService.removeImageFiles(files);
-		return "confirmDeletion";
+		String email = secure.getEmail();
+		String mqURL = NCIAConfig.getMessagingUrl();
+		
+		//adding jms client here to perform deletion
+		ImageDeletionMessage izm = new ImageDeletionMessage();
+		izm.setEmailAddress(email);
+		izm.setUserName(userName);
+		
+		 JMSClient rs = new JMSClient("queue/deletionQueue", izm, mqURL);
+		 rs.run();
+
+		 return "confirmDeletion";
 	}
 	
 

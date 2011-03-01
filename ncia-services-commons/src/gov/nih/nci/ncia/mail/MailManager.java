@@ -222,16 +222,16 @@ public class MailManager {
     }
     
     private static String stringForAllDeletedSeries(List<Integer> allSeries){
-    	String all = "";
+    	StringBuilder all = new StringBuilder();
     	for (int i = 0; i < allSeries.size(); i++){
-    		all += allSeries.get(i);
+    		all.append(allSeries.get(i));
     		if ((i+1) % 8 == 0){
-    			all += "\n";
+    			all.append("\n");
     		}else{
-    			all += ", ";
+    			all.append(", ");
     		}
     	}
-    	return all;
+    	return all.toString();
     }
     /**
      * Sends an email notifying user that their registration has been accepted

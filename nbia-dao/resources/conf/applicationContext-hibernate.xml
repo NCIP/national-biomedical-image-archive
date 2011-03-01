@@ -240,6 +240,14 @@
       <ref bean="sessionFactory"/>
     </property>
   </bean>  
+  <!-- deletion service bean -->
+    
+    <!-- Define all the services below -->
+    <bean id="imageDeletionService" class="gov.nih.nci.ncia.deletion.ImageDeletionServiceImpl">
+    </bean> 
+    <bean id="imageFileDeletionService" class="gov.nih.nci.ncia.deletion.ImageFileDeletionServiceImpl">
+  </bean> 
+  
   
   <!--
     Activates various annotations to be detected in bean classes:

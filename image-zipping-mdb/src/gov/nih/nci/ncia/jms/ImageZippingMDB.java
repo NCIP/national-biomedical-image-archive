@@ -195,10 +195,10 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             log.debug("Setting MDB timeout to " +
                 NCIAConfig.getImageZippingMDBTimeout() + " seconds ");
 
-            ctx.getUserTransaction().setTransactionTimeout(NCIAConfig.getImageZippingMDBTimeout());
+            //ctx.getUserTransaction().setTransactionTimeout(NCIAConfig.getImageZippingMDBTimeout());
 
             // Begin the transaction
-            ctx.getUserTransaction().begin();
+            //ctx.getUserTransaction().begin();
 
 
 
@@ -217,13 +217,13 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
 
             // Mark download history as failed?
             // Commit the transaction so that it won't run over and over again
-            try {
-                ctx.getUserTransaction().commit();
-            }
-            catch (Throwable ee) {
-                log.error("While handling an exception in the MDB, could not commit the transaction",
-                    ee);
-            }
+//            try {
+//                ctx.getUserTransaction().commit();
+//            }
+//            catch (Throwable ee) {
+//                log.error("While handling an exception in the MDB, could not commit the transaction",
+//                    ee);
+//            }
 
             // Return so that email doesn't get sent
             return;
@@ -246,7 +246,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
         } finally {
             // Commit the transaction so that it won't run over and over again
             try {
-                ctx.getUserTransaction().commit();
+               // ctx.getUserTransaction().commit();
                 
                 DownloadRecorder downloadRecorder = new DownloadRecorder();
                 downloadRecorder.recordDownload(izm.getItems(), izm.getUserName());

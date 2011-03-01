@@ -225,7 +225,7 @@ public class MailManager {
     	String all = "";
     	for (int i = 0; i < allSeries.size(); i++){
     		all += allSeries.get(i);
-    		if (i % 8 == 0){
+    		if ((i+1) % 8 == 0){
     			all += "\n";
     		}else{
     			all += ", ";

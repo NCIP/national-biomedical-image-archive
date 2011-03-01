@@ -117,15 +117,15 @@
       </fileset>      
     </jar>
 
-    <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml" 
-          tofile="${target.dir}/ncia-jbossmq-destinations-service.xml" />
+<!--    <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml" 
+          tofile="${target.dir}/ncia-jbossmq-destinations-service.xml" /> -->
     <delete dir="${assembly.jms.dir}/META-INF" />
     <delete file="${assembly.jms.dir}/mail.properties" />
     
     <copy file="${assembly.jms.dir}/imageZippingMDB.jar" 
           tofile="${target.dir}/imageZippingMDB.jar" overwrite="true" />
-    <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml" 
-           tofile="${target.dir}/ncia-jbossmq-destinations-service.xml" overwrite="true" />
+ <!--   <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml" 
+           tofile="${target.dir}/ncia-jbossmq-destinations-service.xml" overwrite="true" /> -->
            
   </target>
 

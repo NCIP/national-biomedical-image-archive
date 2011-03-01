@@ -102,6 +102,12 @@ public class NCIAConfig {
      */
      private static Logger logger = Logger.getLogger(NCIAConfig.class);
 
+     public static boolean getShowCollectionSearchCriteria() {
+         String propertyValue = System.getProperty("show.collection.search.criteria");
+         checkProperty("show.collection.search.criteria", propertyValue);
+         return Boolean.valueOf(propertyValue);
+     }
+     
      public static String getDatabaseType() {
          String propertyValue = System.getProperty("database.type");
          checkProperty("database.type", propertyValue);

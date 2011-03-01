@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+<tr>
+  <td class="formLabel">
+    <h:outputText value="#{msg.criteria_CollectionCriteria}" />
+    <br/>
+    
+    <f:subview id="collection_descriptions" rendered="#{securityBean.installationSite}">
+      <a href="https://wiki.nci.nih.gov/x/lRWy"
+         target="_blank">
+        <h:outputText value="#{msg.search_collectionDescriptions}" />
+      </a>
+    </f:subview>
+    
+  </td>
+  <td class="formField">
+ 
+    <table width="90%" align="left" cellpadding="0"
+           cellspacing="0">
+      <tr>
+        <td width="30%">
+          <div align="center">
+            <span class="formMessage">
+              <h:outputText value="#{msg.search_available}" />
+            </span>
+          </div>
+        </td>
+        <td width="40%" align="center" valign="middle">
+          <f:verbatim>&amp;nbsp;</f:verbatim>
+        </td>
+        <td width="30%">
+          <div align="center">
+            <span class="formMessage">
+              <h:outputText value="#{msg.search_selected}" />
+            </span>
+          </div>
+        </td>
+        <td width="4%" valign="bottom">
+          <f:verbatim>&amp;nbsp;</f:verbatim>
+        </td>
+      </tr>
+                                                                                                  
+      <tr>
+        <td valign="top">
+          <div id="collectionsDiv"
+               class="searchFormSelector">
+
+            <h:dataTable id="collectionsCheckboxesTable"
+                         width="100%"
+                         border="0"
+                         cellpadding="0" 
+                         cellspacing="0" 
+                         value="#{searchWorkflowBean.collectionItems}"
+                         var="collectionItem">
+              <h:column id="collectionItemsColumn">
+                <ice:selectBooleanCheckbox value="#{collectionItem.value}" 
+                                           partialSubmit="true" /> 
+                <h:commandLink id="viewDescriptionLink"
+                               actionListener="#{displayCollectionDescBean.collectionDescriptionAction}">
+                  <f:attribute name="collectionName" value="#{collectionItem}" />
+                  <h:graphicImage value="/images/help.gif" style="border:0px" />
+                </h:commandLink>
+                <h:outputText value="#{collectionItem.label}"/>                                      
+              </h:column>    
+            </h:dataTable> 
+
+          </div>
+        </td>
+        <td align="center" valign="middle">
+          <h:commandButton id="collectionAllRight" 
+                           image="images/SELECTall-noarrow.gif" 
+                           action="#{searchWorkflowBean.selectAllCollections}" />                            
+          <br/>
+          <h:commandButton id="collectionAllLeft"
+                           image="images/REMOVE-all-noarrow.gif"
+                           action="#{searchWorkflowBean.unselectAllCollections}" /> 
+        </td>
+        <td valign="top">
+          <div class="searchFormSelector">
+            <h:dataTable id="selectedCollectionsTable"
+                         width="100%" 
+                         border="0" 
+                         cellpadding="0" 
+                         cellspacing="0" 
+                         value="#{searchWorkflowBean.selectedCollectionNames}"
+                         var="item">
+              <h:column id="selectedCollectionColumn">
+                <h:outputText value="#{item}"/> 
+              </h:column>    
+            </h:dataTable>                            
+          </div>
+        </td>
+        <td valign="top"></td>
+      </tr>               
+    </table>                       
+  </td>
+</tr>       
+           
+</ui:composition>                

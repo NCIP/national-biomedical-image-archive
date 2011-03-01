@@ -218,6 +218,7 @@
     <ear compress="false" destfile="${target.dir}/${ear.name}" appxml="${web.j2ee.resources.dir}/application.xml">
       <fileset dir="${target.dir}" includes="${war.name}" />
       <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
+      <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />
       <fileset dir="${download.webapp.target.dir}" includes="*.war" />
     </ear>
     <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  

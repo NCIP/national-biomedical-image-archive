@@ -43,6 +43,16 @@
                 name="nbia-dao" 
                 rev="latest.integration"
                 conf="runtime"/> 
+                
+    <dependency org="ncicb" 
+    		name="nbia-remote-search" 
+    		rev="latest.integration" 
+    		conf="runtime"/>
+
+    <dependency org="ncicb" 
+    		name="ncia-services-grid" 
+    		rev="latest.integration" 
+    		conf="runtime->master"/>
 
   </dependencies>
 

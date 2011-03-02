@@ -253,6 +253,19 @@
       </f:subview>      
     </f:subview>
        
+		<tr>
+			<td height="21" colspan="2" class="subMenuPrimaryTitle">
+				<h:outputText value="#{msg.menu_quickLinks}" />
+
+				<!-- anchor to skip sub menu -->
+				<a href="#content">
+					<img src="images/shim.gif" 
+							 alt="Skip Menu"
+							 width="1" height="1" border="0" />
+				</a>
+			</td>
+		</tr>
+
     <ui:include src="quickLinks.xhtml"/>
     
   </table>

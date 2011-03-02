@@ -37,7 +37,7 @@
                    width="520" style="height:100%">
               <tr>
                 <td class="welcomeTitle" height="20">
-                  <h:outputText value="#{msg.home_welcome}"/>
+                  <ui:include src="welcomeTitle.xhtml"/>
                 </td>
               </tr>
               <tr>
@@ -71,7 +71,7 @@
                           <h:commandLink action="#{searchWorkflowBean.newAdvSearch}"
                                          value="#{msg.common_advSearch}" />
                           <h:outputText value=" or "/>
-						  <h:commandLink action="#{searchWorkflowBean.newDynamicSearch}"
+						              <h:commandLink action="#{searchWorkflowBean.newDynamicSearch}"
                                          value="Dynamic Search" />
                         </td>
                       </tr>
@@ -122,7 +122,7 @@
                          width="100%" class="sidebarSection">
                     <tr>
                       <td class="sidebarTitle" height="20">
-                        <h:outputText value="#{msg.home_updates}"/>
+                        <h:outputText value="Updates"/>
                       </td>
                     </tr>
                     <tr>

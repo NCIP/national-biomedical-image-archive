@@ -44,34 +44,7 @@
                   <table class="homePageContent">                   
                     <tr>
                       <td>
-                        <p>
-                          <h:outputText value="#{msg.home_contentWelcome}"/>
-                        </p>
-                        <ul>
-                          <li>
-                            <h:outputText value="#{msg.home_contentLesion}"/>
-                          </li>
-                          <li>
-                            <h:outputText value="#{msg.home_contentDiagnostic}"/>
-                          </li>
-                          <li>
-                            <h:outputText value="#{msg.home_contentAssessment}"/>
-                          </li>
-                        </ul>
-                        <p>
-                          <h:outputText value="#{msg.home_contentAccess}"/>
-                          <ul>
-                            <li>
-                              <h:outputText value="#{msg.home_contentIncrease}"/>
-                            </li>
-                            <li>
-                              <h:outputText value="#{msg.home_contentLeverage}"/>
-                            </li>
-                            <li>
-                              <h:outputText value="#{msg.home_contentEnable}"/>
-                            </li>
-                          </ul>                   
-                        </p>
+                        <ui:include src="welcomeText.xhtml"/>
                       </td>
                     </tr>
                     <f:subview id="guestEnabled" 

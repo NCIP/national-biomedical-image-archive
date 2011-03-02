@@ -39,15 +39,28 @@ public class PublicOnlyThumbnailServlet extends HttpServlet {
         	response.setStatus(400);
         	return;
         }
-        
+        int indx = imageId.indexOf('-');
+		String locPart1 = imageId;
+		String locPart2 = null;
+		if (indx != -1) {
+			locPart1 = imageId.substring(0, indx);
+			locPart2 = imageId.substring(indx + 1);
+		}
+
         File dicomFile = ThumbnailUtil.retrieveImageFile(authorizationManager,
-        		                                         imageId);
+        		locPart1);
         if(dicomFile==null) {
         	response.setStatus(400);
         	return;
         }
+        File thumbnailFile = null;
+        if (locPart2 != null) {
+			thumbnailFile = ThumbnailUtil.deduceThumbnailFromDicomFile(
+					dicomFile, locPart2);
+		} else {
+			thumbnailFile = ThumbnailUtil.deduceThumbnailFromDicomFile(dicomFile);
+		}
 
-        File thumbnailFile = ThumbnailUtil.deduceThumbnailFromDicomFile(dicomFile);
         ThumbnailUtil.writeJpegFile(thumbnailFile, response);
     }
 

@@ -248,7 +248,7 @@
   </error-page>
 
   <error-page>
-    <error-code>java.lang.Exception</error-code>
+    <exception-type>java.lang.Exception</exception-type>
     <location>/errorPage.jsf</location>
   </error-page>
 

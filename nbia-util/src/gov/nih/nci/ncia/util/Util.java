@@ -96,6 +96,7 @@ public class Util {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public static boolean isEmptyCollection(Collection list)	{
 		boolean empty = false;
 		if (list != null && list.size() > 0){

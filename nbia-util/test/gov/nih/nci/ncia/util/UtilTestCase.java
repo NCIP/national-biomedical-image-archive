@@ -1,18 +1,17 @@
 package gov.nih.nci.ncia.util;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import junit.framework.TestCase;
-import java.util.*;
 
 public class UtilTestCase extends TestCase {
 
 	public void testHasAtLeastOneNonBlankArgument() {
-		assertFalse(Util.hasAtLeastOneNonBlankArgument(null));
+		assertFalse(Util.hasAtLeastOneNonBlankArgument((String)null));
 
 		assertFalse(Util.hasAtLeastOneNonBlankArgument());
 		
@@ -95,7 +94,7 @@ public class UtilTestCase extends TestCase {
 	public void testHasAtLeastOneNonNullArgumentFalse() {
 		assertTrue(Util.hasAtLeastOneNonNullArgument()==false);
 
-		assertTrue(Util.hasAtLeastOneNonNullArgument(null)==false);
+		assertTrue(Util.hasAtLeastOneNonNullArgument((String)null)==false);
 
 		assertTrue(Util.hasAtLeastOneNonNullArgument(null, null, null)==false);
 	}

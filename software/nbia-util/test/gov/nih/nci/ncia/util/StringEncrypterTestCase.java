@@ -37,25 +37,23 @@ public class StringEncrypterTestCase extends TestCase {
 	}	
 
 	
-	public void testEncryptErrors() throws Exception {
-		String origText = "this is plain text";
-		
+	public void testEncryptErrors() throws Exception {		
 		try {
-			StringEncrypter stringEncrypter = new StringEncrypter("DES", null);
+			new StringEncrypter("DES", null);
 			fail("null key shouldnt be here");
 		}
 		catch(Exception ex) {
 			//should be here - null key
 		}
 		try {
-			StringEncrypter stringEncrypter = new StringEncrypter("DES", "012345789");
+			new StringEncrypter("DES", "012345789");
 			fail("shorty key shouldnt be here");
 		}
 		catch(Exception ex) {
 			//should be here - null key
 		}	
 		try {
-			StringEncrypter stringEncrypter = new StringEncrypter("fake_encryption_scheme", "012345789012345789012345789012345789");
+			new StringEncrypter("fake_encryption_scheme", "012345789012345789012345789012345789");
 			fail("non DES shouldnt be here");
 		}
 		catch(Exception ex) {

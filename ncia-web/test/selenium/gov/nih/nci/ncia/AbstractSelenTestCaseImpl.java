@@ -19,7 +19,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 //////////////////////////////////////////LOGIN STUFF///////////////////////////
 
 	public void login() {
-		login("nciadevtest", "changeme");//saicT3@m16");
+		login("nciadevtest", "saicT3@m16");
 	}
 
 	public void login(String username, String password) {
@@ -41,7 +41,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 
 	public void loginToISPYPortal() {
 		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "changeme");//saicT3@m16");
+		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
 		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageForm:imageTable')",
 	                              "30000");
@@ -82,6 +82,15 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
 
 	}
+
+	public void submitAnnotationReport() {
+		selenium.click("MAINbody:submissionReportCriteriaForm:annotationReportSubmit");
+	}
+
+	public void waitForEmptyAnnotationResults() {
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:annotationNoResultsMsg')",
+                                  "30000");
+    }
 
 	public void waitForEmptyAccrualResults() {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualNoResultsMsg')",
@@ -139,8 +148,27 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.click("MAINbody:dataForm:saveQueryView:saveQueryButton");
 	}
 
+	public void addFirstPatientOfFirstNodeResultsToBasket() {
+		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:0:addPatientToBasketCheckbox");
+		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:addPatientToBasketButton");
+	}
 
 //////////////////////////////////////////READ FROM PAGE///////////////////////////////////////
+
+	public String getOverallCountOfPatientsAffected() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
+		return selenium.getTable(overallCntTableLocator+".1.1").trim();
+	}
+
+	public String getOverallCountOfStudiesAffected() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
+		return selenium.getTable(overallCntTableLocator+".2.1").trim();
+	}
+
+	public String getOverallCountOfSeriesAffected() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
+		return selenium.getTable(overallCntTableLocator+".3.1").trim();
+	}
 
 
 	public boolean isAllModalitySelected() {
@@ -208,8 +236,95 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		return selenium.getSelectedLabel("id=MAINbody:searchForm:cmpRight");
 	}
 
+	public int getNumOfRowsInDataBasket() {
+		return selenium.getXpathCount("id('MAINbody:basketForm:dataBasketDataTable')/tbody/tr").intValue();
+	}
+
+	public String getPatientIdFromDataBasket(int rowNum) {
+		final int PATIENT_ID_COL = 2;
+
+        return selenium.getText("xpath=id('MAINbody:basketForm:dataBasketDataTable')/tbody/tr["+rowNum+"]/td["+PATIENT_ID_COL+"]");
+	}
+
+	public String getStudyIdFromDataBasket(int rowNum) {
+		final int STUDY_ID_COL = 3;
+
+		return selenium.getText("xpath=id('MAINbody:basketForm:dataBasketDataTable')/tbody/tr["+rowNum+"]/td["+STUDY_ID_COL+"]");
+
+	}
+
+	public String getSeriesIdFromDataBasket(int rowNum) {
+		final int SERIES_ID_COL = 4;
+
+		return selenium.getText("xpath=id('MAINbody:basketForm:dataBasketDataTable')/tbody/tr["+rowNum+"]/td["+SERIES_ID_COL+"]");
+	}
+
+	public int getNumOfPatientsForAnnotationSubmissionReportDay(int nthDay) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getXpathCount("id('"+patientDetailsTable+"')//tr").intValue();
+	}
+
+
+	//day is 0 based, patient is 1 based
+	public String getNthPatientIdForAnnotationSubmissionReportDay(int nthDay, int nthPatient) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+nthPatient+".0").trim();
+	}
+
+	public String getNthPatientNumStudiesForAnnotationSubmissionReportDay(int nthDay, int nthPatient) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+nthPatient+".1").trim();
+	}
+
+	public String getNthPatientNumSeriesForAnnotationSubmissionReportDay(int nthDay, int nthPatient) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+nthPatient+".2").trim();
+	}
+
+	public String getNthPatientNumAnnotationsForAnnotationSubmissionReportDay(int nthDay, int nthPatient) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+nthPatient+".3").trim();
+	}
+
+	//day is 0 based, patient and study is 1 based
+	public String getNthStudyIdForPatientAnnotationSubmissionReportDay(int nthDay, int nthPatient, int nthStudy) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy)+".1").trim();
+	}
+
+	public String getNthNumSeriesForPatientAnnotationSubmissionReportDay(int nthDay, int nthPatient, int nthStudy) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy)+".2").trim();
+	}
+
+	public String getNthNumAnnotationsForPatientAnnotationSubmissionReportDay(int nthDay, int nthPatient, int nthStudy) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy)+".3").trim();
+	}
 
 /////////////////////////////////////////////////NAVIGATE////////////////////////////////////////
+	public void navigateToDataBasketPage() {
+		selenium.click("MAINbody:dataForm:viewBasketButton");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:basketForm:dataBasketDataTable')",
+                                  "30000");
+	}
+
 	public void navigateToSavedQueriesPage() {
 		selenium.click("link=View Saved Queries");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:queryForm:savedQueryMode:savedQueryModeDataTable')",
@@ -283,6 +398,29 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
                                   "30000");
 	}
+
+	public void expandAnnotationSubmissionReportDailyDetails(int nthDay) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		selenium.click("MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":expand");
+
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('"+patientDetailsTable+"')",
+                                  "30000");
+	}
+
+	//both are 0 based
+	public void expandOrCollapsePatientInAnnotationSubmissionReportDailyDetails(int nthDay, int nthPatient) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		selenium.click(patientDetailsTable+":"+nthPatient+":expandContractImage");
+		pause(30000);  //alternative is to wait for count of table rows to increase. this is lazy but easy
+	}
+
+	//expand study?
+	selenium.click(patientDetailsTable+":1:expandContractImage");
+	pause(30000);  //alternative is to wait for count of table rows to increase. this is lazy but easy
 
 
 }

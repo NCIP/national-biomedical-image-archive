@@ -1440,7 +1440,6 @@ jboss.home,ctp.server.home,ctp.client.home,
   <!-- this stuff is kinda sorta really install stuff - but putting in install.xml
        will make life difficult..... -->
   <target name="install:force-nciaprod">
-
     <copy file="${ncia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml"
           tofile="${jboss.home}/server/${jboss.server.name}/deploy/ncia-ds.xml"
           overwrite="true" />

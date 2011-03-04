@@ -419,8 +419,8 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 	}
 
 	//expand study?
-	selenium.click(patientDetailsTable+":1:expandContractImage");
-	pause(30000);  //alternative is to wait for count of table rows to increase. this is lazy but easy
+	//selenium.click(patientDetailsTable+":1:expandContractImage");
+	////pause(30000);  //alternative is to wait for count of table rows to increase. this is lazy but easy
 
 
 }

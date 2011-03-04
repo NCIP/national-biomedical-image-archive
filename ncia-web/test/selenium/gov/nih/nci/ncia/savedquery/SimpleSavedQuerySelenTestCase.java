@@ -4,63 +4,41 @@ import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
 public class SimpleSavedQuerySelenTestCase extends AbstractSelenTestCaseImpl {
 
 	public void testSaveAndEdit() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
 
-		selenium.click("MAINbody:navigationForm:searchLink");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm:modalityCheckboxesTable')",
-                                  "30000");
+		navigateToSearchPage();
 
-		String id = selenium.getValue("xpath=id('MAINbody:searchForm:modalityCheckboxesTable')//tr[td='CT']/td//input/@id");
-		selenium.click(id);
+		selectModalitySearchCriteria("CT");
 
-		selenium.click("//input[@name='MAINbody:searchForm:andSearchModalityCheck' and @value='all']");
-		selenium.click("//input[@name='MAINbody:searchForm:contrastSelector' and @value='Enhanced']");
+		selectPatientsWithAllModalities();
 
+		selectEnhancedContrast();
 
-		id = selenium.getValue("xpath=id('MAINbody:searchForm:anatomicalSitesCheckboxesTable')//tr[td='BRAIN']/td//input/@id");
-		selenium.click(id);
+		selectAnatomicalSite("BRAIN");
 
-		selenium.click("MAINbody:searchForm:imageSliceRadio");
-		selenium.select("MAINbody:searchForm:cmpLeft", "label=>=");
-		selenium.select("MAINbody:searchForm:cmpRight", "label=<");
-		selenium.select("MAINbody:searchForm:valLeft", "label=1 mm");
-		selenium.select("MAINbody:searchForm:imgThick", "label=4 mm");
+		selectImageSliceThickness(">=", "1 mm", "<", "4 mm");
 
-		//contains finds Phantom, but = does not.  starts-with doesnt find it either...
-		//not sure i understand why it wont match
-		id = selenium.getValue("xpath=id('MAINbody:searchForm:collectionsCheckboxesTable')//td[contains(text(),'Phantom') and not(contains(text(),'FDA'))]/input/@id");
-		selenium.click(id);
+		selectCollectionCriteria("Phantom");
 
-		selenium.click("//input[@name='MAINbody:searchForm:annotationSelector' and @value='Return Only Series That Do Not Have Annotations']");
-		selenium.select("MAINbody:searchForm:resultsPerPage", "label=25");
-		selenium.click("MAINbody:searchForm:fromDate");
-		selenium.type("MAINbody:searchForm:fromDate", "08/01/2008");
-		selenium.click("MAINbody:searchForm:toDate");
-		selenium.type("MAINbody:searchForm:toDate", "08/12/2008");
-		selenium.click("MAINbody:searchForm:submitSearchButton");
+		selectOnlySeriesThatHaveNoAnnotations();
 
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:dataForm:saveQueryView:queryName')",
-                                  "30000");
+		setResultsPerPage("25");
 
-		selenium.type("MAINbody:dataForm:saveQueryView:queryName", "selenium_test_query");
-		selenium.click("MAINbody:dataForm:saveQueryView:saveQueryButton");
+		setDateRange("08/01/2008", "08/12/2008");
+
+		submitSearch();
+
+		saveQuery("selenium_test_query");
+
 		//since on same page... not sure there's really a good condition
 		//to wait for?
 		pause(30000);
-		selenium.click("link=View Saved Queries");
 
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:queryForm:savedQueryMode:savedQueryModeDataTable')",
-                                  "30000");
-		//the :0: means first row in table
-		//forceId from myfaces might make this more stable
-		selenium.click("MAINbody:queryForm:savedQueryMode:savedQueryModeDataTable:0:editQueryButton");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm')",
-                                  "30000");
+		navigateToSavedQueriesPage();
+
+		navigateToEditFirstSavedQuery();
+		/////////////////////////////////////////////////////////
+
 		verifyModality();
 		verifyContrast();
 		verifyAnatomicalSite();
@@ -74,59 +52,46 @@ public class SimpleSavedQuerySelenTestCase extends AbstractSelenTestCaseImpl {
 
 
 	private void verifyAnnotations() {
-		assertTrue(!selenium.isChecked("//input[@name='MAINbody:searchForm:annotationSelector' and @value='Return Only Series That Do Not Have Annotations']"));
-		assertTrue(selenium.isChecked("//input[@name='MAINbody:searchForm:annotationSelector' and @value='Return Only Annotated Series']"));
+		assertTrue(!isReturnOnlySeriesWithNoAnnotationsSelected());
+		assertTrue(isReturnOnlySeriesWithAnnotationsSelected());
 	}
 
 	private void verifyImageSliceThickness() {
-		assertTrue(selenium.isChecked("id=MAINbody:searchForm:imageSliceRadio"));
+		assertTrue(isImageSliceThicknessSelected());
 
-		String valLeft = selenium.getSelectedLabel("id=MAINbody:searchForm:valLeft");
-		assertEquals(valLeft, "1 mm");
+		assertEquals(getImageSliceThicknessLeftValue(), "1 mm");
 
-		String imgThick = selenium.getSelectedLabel("id=MAINbody:searchForm:imgThick");
-		assertEquals(imgThick, "4 mm");
+		assertEquals(getImageSliceThicknessRightValue(), "4 mm");
 
-		String cmpLeft = selenium.getSelectedLabel("id=MAINbody:searchForm:cmpLeft");
-		assertEquals(cmpLeft, ">=");
+		assertEquals(getImageSliceThicknessLeftOp(), ">=");
 
-		String cmpRight = selenium.getSelectedLabel("id=MAINbody:searchForm:cmpRight");
-		assertEquals(cmpRight, "<");
+		assertEquals(getImageSliceThicknessRightOp(), "<");
 	}
 
 	private void verifyResultsPerPage() {
-		String resultsPerPage = selenium.getSelectedLabel("id=MAINbody:searchForm:resultsPerPage");
-		assertEquals(resultsPerPage, "25");
+		assertEquals(getSelectedNumResultsPerPage(), "25");
 	}
 
 	private void verifyCollections() {
-		assertEquals(selenium.getXpathCount("//table[@id='MAINbody:searchForm:selectedCollectionsTable']//tr").intValue(),
-	                 1);
+		assertEquals(getNumCollectionsSelected(), 1);
 	}
 
 	private void verifyAnatomicalSite() {
-		assertEquals(selenium.getXpathCount("//table[@id='MAINbody:searchForm:selectedAnatomicalSitesTable']//tr").intValue(),
-		             1);
+		assertEquals(getNumAnatomicalSitesSelected(), 1);
 	}
 
 	private void verifyContrast() {
-		assertTrue(!selenium.isChecked("//input[@name='MAINbody:searchForm:contrastSelector' and @value='Enhanced']"));
-		assertTrue(selenium.isChecked("//input[@name='MAINbody:searchForm:contrastSelector' and @value='Unenhanced']"));
+		assertTrue(!isConstrastEnhancedSelected());
+		assertTrue(isContrastUnenhancedSelected());
 	}
 
 	private void verifyDateRanges() {
-		assertEquals(selenium.getValue("//input[@name='MAINbody:searchForm:fromDate']"),
-	                 "08/01/2008");
-        assertEquals(selenium.getValue("//input[@name='MAINbody:searchForm:toDate']"),
-                     "08/12/2008");
+		assertEquals(getFromDate(), "08/01/2008");
+        assertEquals(getToDate(), "08/12/2008");
 	}
 
 	private void verifyModality() {
-		//sanity check
-		assertEquals(selenium.getXpathCount("//table[@id='MAINbody:searchForm:selectedModalitiesTable']//tr").intValue(),
-			         1);
-
-    	assertTrue(selenium.isChecked("//input[@name='MAINbody:searchForm:andSearchModalityCheck' and @value='all']"));
-
-	}
+		assertEquals(getNumModalitiesSelected(), 1);
+    	assertTrue(isAllModalitySelected());
+    }
 }

@@ -1,6 +1,4 @@
 package gov.nih.nci.ncia.databasket;
-import com.thoughtworks.selenium.*;
-import java.util.regex.Pattern;
 import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
 
 public class AddPatientToDataBasketSelenTestCase extends AbstractSelenTestCaseImpl {
@@ -10,24 +8,14 @@ public class AddPatientToDataBasketSelenTestCase extends AbstractSelenTestCaseIm
 	private static final int SERIES_ID_COL = 4;
 
 	public void testAddPatient() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
+		
+		navigateToSearchPage();
 
-		selenium.click("MAINbody:navigationForm:searchLink");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm:modalityCheckboxesTable')",
-                                  "30000");
+		selectModalitySearchCriteria("CT");
 
-		String id = selenium.getValue("xpath=id('MAINbody:searchForm:modalityCheckboxesTable')//tr[td='CT']/td//input/@id");
-		System.out.println("id for ct checkbox:"+id);
-		selenium.click(id);
+		submitSearch();
 
-		selenium.click("MAINbody:searchForm:submitSearchButton");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable')",
-                                  "30000");
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:0:addPatientToBasketCheckbox");
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:addPatientToBasketButton");
 

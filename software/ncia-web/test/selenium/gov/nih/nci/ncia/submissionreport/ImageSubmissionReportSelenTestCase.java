@@ -5,26 +5,19 @@ import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
 
 public class ImageSubmissionReportSelenTestCase extends AbstractSelenTestCaseImpl {
 	public void testImageSubmissionReportWithNoResults() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
+      login();
+
+      navigateToSubmissionReports();
+
+  		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=TCGA//Henry Ford");
+  		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/1980");
+  		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/1987");
+  		selenium.click("MAINbody:submissionReportCriteriaForm:imageReportSubmit");
+  		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet')",
                                   "30000");
 
-		selenium.click("SUBmenu:sideMenuForm:adminToolsView:feedbackView:submissionReportMenuItem");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
-                                  "30000");
-
-		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=TCGA//Henry Ford");
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/1980");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/1987");
-		selenium.click("MAINbody:submissionReportCriteriaForm:imageReportSubmit");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet')",
-                                  "30000");
-
-		String noResultsMsg = selenium.getText("MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet:0:noNewImagesPanel");
-		assertTrue(noResultsMsg.startsWith("There were no submissions"));
+  		String noResultsMsg = selenium.getText("MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet:0:noNewImagesPanel");
+  		assertTrue(noResultsMsg.startsWith("There were no submissions"));
 	}
 
 	//comment this out till we get henry ford back

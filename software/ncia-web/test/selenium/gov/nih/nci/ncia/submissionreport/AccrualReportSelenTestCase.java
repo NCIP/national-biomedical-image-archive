@@ -6,41 +6,27 @@ import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
 public class AccrualReportSelenTestCase extends AbstractSelenTestCaseImpl {
 
 	public void testAccrualReportWithNoResults() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
 
-		selenium.click("SUBmenu:sideMenuForm:adminToolsView:feedbackView:submissionReportMenuItem");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
-                                  "30000");
+		navigateToSubmissionReports();
 
-		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=LIDC//LIDC");
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/1980");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/1987");
-		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualNoResultsMsg')",
-                                  "30000");
+		selectSubmissionReportCollection("LIDC//LIDC");
+
+		selectSubmissionReportDateRange("04/13/1980", "01/13/1987");
+
+		submitAccrualReport();
+        waitForEmptyAccrualResults();
 
 		String noResultsMsg = selenium.getText("MAINbody:accrualNoResultsMsg");
 		assertTrue(noResultsMsg.startsWith("There were no submissions"));
 	}
 
 	public void testAccrualReportValidation() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
 
-		selenium.click("SUBmenu:sideMenuForm:adminToolsView:feedbackView:submissionReportMenuItem");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
-                                  "30000");
+		navigateToSubmissionReports();
 
-		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=LIDC//LIDC");
+		selectSubmissionReportCollection("LIDC//LIDC");
 
 		_testFutureDate1();
 		_testFutureDate2();
@@ -50,23 +36,16 @@ public class AccrualReportSelenTestCase extends AbstractSelenTestCaseImpl {
 
 
 	public void testAccrualReportWithResults() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
 
-		selenium.click("SUBmenu:sideMenuForm:adminToolsView:feedbackView:submissionReportMenuItem");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
-                                  "30000");
+		navigateToSubmissionReports();
 
-		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=LIDC//LIDC");
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/2001");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/2009");
-		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualByDayForm:accrualByDayTable')",
-                                  "30000");
+		selectSubmissionReportCollection("LIDC//LIDC");
+
+		selectSubmissionReportDateRange("04/13/2001", "01/13/2009");
+
+		submitAccrualReport();
+        waitForAccrualResults();
 
 		String overallCntTableLocator1 =
 			"xpath=id('overallResultsCount')//table[1]";

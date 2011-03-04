@@ -5,16 +5,10 @@ import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
 
 public class AnnotationSubmissionReportSelenTestCase extends AbstractSelenTestCaseImpl {
 	public void testAnnotationSubmissionReportWithNoResults() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
 
-		selenium.click("SUBmenu:sideMenuForm:adminToolsView:feedbackView:submissionReportMenuItem");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
-                                  "30000");
+        navigateToSubmissionReports();
+
 
 		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=LIDC//LIDC");
 		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/1980");
@@ -28,16 +22,9 @@ public class AnnotationSubmissionReportSelenTestCase extends AbstractSelenTestCa
 	}
 
 	public void testAnnotationSubmissionReportWithResults() throws Exception {
-		selenium.open("/ncia/");
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
-                                  "30000");
+		login();
 
-		selenium.click("SUBmenu:sideMenuForm:adminToolsView:feedbackView:submissionReportMenuItem");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:submissionReportCriteriaForm:collectionSiteMenu')",
-                                  "30000");
+        navigateToSubmissionReports();
 
 		selenium.select("MAINbody:submissionReportCriteriaForm:collectionSiteMenu", "label=LIDC//LIDC");
 		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/2001");

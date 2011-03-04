@@ -27,6 +27,7 @@ import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
@@ -64,11 +65,19 @@ public class SavedQueryReconstructor {
 
     }
     
+    public static void repopulatePersistantCriteria(UsMultiModalityCriteria krit,
+            SearchWorkflowBean swb, 
+            DICOMQuery query) {
+    	repopulateUsMultiModalityCriteria( krit, swb, query);
+
+    }
+    
     public static void repopulatePersistantCriteria(PersistentCriteria krit,
                                                     SearchWorkflowBean swb, 
                                                     DICOMQuery query) {
 
         LOGGER.debug("Received Criteria of type");
+      
         /**
          * Massive "Instance of" statements to cover the different persistent criteria repopulation
          */
@@ -91,13 +100,17 @@ public class SavedQueryReconstructor {
             } else if (krit instanceof ContrastAgentCriteria) {
                 repopulateContrastAgentCriteria((ContrastAgentCriteria) krit,
                         swb, query);
-          //  } else if (krit instanceof NumFrameOptionCriteria) {
-          //      repopulateNumFrameOptionCriteria((NumFrameOptionCriteria) krit,
-          //              swb, query);
-          //  } else if (krit instanceof ColorModeOptionCriteria) {
-          //      repopulateColorModeOptionCriteria((ColorModeOptionCriteria) krit,
-          //              swb, query);
-            }             
+            } else if (krit instanceof NumFrameOptionCriteria) {
+                repopulateNumFrameOptionCriteria((NumFrameOptionCriteria) krit,
+                        swb, query);
+            } else if (krit instanceof ColorModeOptionCriteria) {
+                repopulateColorModeOptionCriteria((ColorModeOptionCriteria) krit,
+                        swb, query);
+            }else if (krit instanceof UsMultiModalityCriteria) {
+            	repopulateUsMultiModalityCriteria((UsMultiModalityCriteria) krit,
+                        swb, query);
+            }              
+            
             else if (krit instanceof ConvolutionKernelCriteria) {
                 repopulateConvolutionKernelCriteria(
                         (ConvolutionKernelCriteria) krit, swb, query);
@@ -233,7 +246,7 @@ public class SavedQueryReconstructor {
     private static void repopulateNumFrameOptionCriteria(NumFrameOptionCriteria noc, 
                                                            SearchWorkflowBean swb,
                                                            DICOMQuery query) {
-        if (noc != null) {
+    	if (noc != null) {
             if (swb != null) {
                 String numFrameOptionValue = noc.getNumFrameOptionValue();
                 String[] numFrameOptions = null;
@@ -247,6 +260,7 @@ public class SavedQueryReconstructor {
                 	numFrameOptions = new String[1];
                 	numFrameOptions[0] = numFrameOptionValue;
                 }
+                
                 swb.setNumFrameOptions(numFrameOptions);
             }
             query.setCriteria(noc);
@@ -269,7 +283,17 @@ public class SavedQueryReconstructor {
 					colorModeOptions = new String[1];
 					colorModeOptions[0] = colorModeOptionValue;
 				}
-				swb.setNumFrameOptions(colorModeOptions);
+				swb.setColorModeOptions(colorModeOptions);
+			}
+			query.setCriteria(noc);
+		}
+	}
+    
+    private static void repopulateUsMultiModalityCriteria(
+    		UsMultiModalityCriteria noc, SearchWorkflowBean swb, DICOMQuery query) {
+		if (noc != null) {
+			if (swb != null) {
+				swb.selectUsMultiModalityNames(noc.getUsMultiModalityObjects());
 			}
 			query.setCriteria(noc);
 		}

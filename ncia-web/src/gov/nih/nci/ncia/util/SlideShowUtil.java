@@ -10,8 +10,11 @@ public class SlideShowUtil {
 		StringBuffer js = new StringBuffer("[");
 		for (int i = 0; i < thumbnailList.size(); i++) {
 			ImageSearchResultEx image = thumbnailList.get(i);
-			String frameNumI = image.getNameValuesPairs().getValues()[0];
-			int frameSize = (frameNumI==null) ? 0 : Integer.parseInt(frameNumI);
+			int frameSize = 0;
+			if (image.getNameValuesPairs()!= null){
+				String frameNumI = image.getNameValuesPairs().getValues()[0];
+				frameSize = (frameNumI==null) ? 0 : Integer.parseInt(frameNumI);		
+			}
 
 			if (frameSize <= 1) {
 				String tnURL = "'"+image.getThumbnailURL()+"'";

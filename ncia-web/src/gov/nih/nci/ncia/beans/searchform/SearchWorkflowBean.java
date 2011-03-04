@@ -130,15 +130,12 @@ public class SearchWorkflowBean {
     }
     
     private ArrayList<NBIANode> mergeNodeList(Set<NBIANode> set1, Set<NBIANode> set2) {
- System.out.println("!!!!!!!!!!no US node size="+ set1.size());
- System.out.println("!!!!!!!!!us node size = "+set2.size());
     	ArrayList<NBIANode> nodeList = new ArrayList<NBIANode>(set1);
     	for (NBIANode aNode: set2){
     		if (!nodeList.contains(aNode)){
     			nodeList.add(aNode);
     		}
     	}
-    	System.out.println("nodeList.size()=" +nodeList.size());
     	return nodeList;
     }
 
@@ -1117,7 +1114,7 @@ public class SearchWorkflowBean {
     /**
      *
      */
-    private boolean editSavedQuery;
+    private boolean editSavedQuery=false;
 
     /**
      * Boolean to represent if the user wants to search annotated data
@@ -1200,6 +1197,13 @@ public class SearchWorkflowBean {
         if(! isEditSavedQuery()) {
         	dateFrom = null;
         	dateTo = null;
+        	numFrameOptions = new String[2];
+            numFrameOptions[0] = NumFrameOptionCriteria.SingleFrameOnly;
+            numFrameOptions[1] = NumFrameOptionCriteria.MultiFrame;
+            colorModeOptions = new String[2];
+            colorModeOptions[0] = ColorModeOptionCriteria.BMode;
+            colorModeOptions[1] = ColorModeOptionCriteria.ColorMode;
+            unselectAllUsMultiModalityItems();       	
         }
 
         contrastAgents = new String[2];
@@ -1208,19 +1212,13 @@ public class SearchWorkflowBean {
         annotationOptions = new String[2];
         annotationOptions[0] = AnnotationOptionCriteria.AnnotationOnly;
         annotationOptions[1] = AnnotationOptionCriteria.NoAnnotation;
-        numFrameOptions = new String[2];
-        numFrameOptions[0] = NumFrameOptionCriteria.SingleFrameOnly;
-        numFrameOptions[1] = NumFrameOptionCriteria.MultiFrame;
-        colorModeOptions = new String[2];
-        colorModeOptions[0] = ColorModeOptionCriteria.BMode;
-        colorModeOptions[1] = ColorModeOptionCriteria.ColorMode;
+        
 
         unselectAllKernels();
         unselectAllCollections();
         unselectAllModalities();
         unselectAllAnatomicalSites();
-        unselectAllUsMultiModalityItems();
-        
+       
         this.aimSearchWorkflowBean.setDefaultValues();
     }
 

@@ -347,9 +347,9 @@ public class SavedQueryBean {
         // Only repopulates search fields for persistent criteria because other
         // criteria have dependent values.
         for (Criteria kritItem : kriteria) {
-            if (kritItem instanceof PersistentCriteria) {
+             if (kritItem instanceof PersistentCriteria) {
                 PersistentCriteria persistCrit = (PersistentCriteria) kritItem;
-               SavedQueryReconstructor.repopulatePersistantCriteria(persistCrit, swb, newQuery);
+                SavedQueryReconstructor.repopulatePersistantCriteria(persistCrit, swb, newQuery);
             }
         }
         swb.setQuery(newQuery);

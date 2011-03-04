@@ -285,7 +285,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setSize(imageDTO.getSize());
 		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
-//		result.setFrameNum(imageDTO.getFrameNum());
 		return result;
 	}
 	
@@ -300,7 +299,6 @@ public class LocalDrillDown implements DrillDown {
 		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
 		NameValuesPairs nvp = new NameValuesPairs();
-	System.out.println("!!!!frame num ="+imageDTO.getFrameNum());	
 		nvp.setName("USFrameNum");
 		nvp.setValues(new String []{Integer.toString(imageDTO.getFrameNum())});
 		result.setNameValuesPairs(nvp);

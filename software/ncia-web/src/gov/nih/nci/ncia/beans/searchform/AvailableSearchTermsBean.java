@@ -37,15 +37,13 @@ public class AvailableSearchTermsBean {
 			     AvailableSearchTermsWrapper wrapper = new AvailableSearchTermsWrapper();
 			     wrapper.setNode(key);
 			     wrapper.setTerms(value);
-System.out.println("!!!!AvailableSearchTerms node name ="+key.getDisplayName() );			     
+
 			     for(Iterator<Map.Entry<NBIANode, UsAvailableSearchTerms>> iteratorUs = searchableNodesForUs.iterator();
 				    iteratorUs.hasNext() ; ){
 			    	 Map.Entry<NBIANode, UsAvailableSearchTerms> usEntry =iteratorUs.next();
 				     NBIANode usKey = (NBIANode)usEntry.getKey();
 				     UsAvailableSearchTerms usValue = (UsAvailableSearchTerms)usEntry.getValue();
-System.out.println("!!!!UsAvailableSearchTerms nocd Name ="+usKey.getDisplayName() );
 				     if(usKey.compareTo(key)==0) {
-System.out.println("!!!!same valud UsAvailableSearchTerms node name ="+usKey.getDisplayName() );				    	 
 				    	 wrapper.setNewTerms(usValue);
 				     }
 				}

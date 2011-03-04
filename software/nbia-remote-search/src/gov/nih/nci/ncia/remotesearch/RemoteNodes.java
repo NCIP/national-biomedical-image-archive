@@ -51,7 +51,6 @@ public class RemoteNodes {
 				ServiceMetadata serviceMetadata = MetadataUtils.getServiceMetadata(endpoint);
 				String version = serviceMetadata.getServiceDescription().getService().getVersion();
 	    		String url = endpoint.getAddress().toString();
-//System.out.println("!!!domain model version="+	    		MetadataUtils.getDomainModel(endpoint).getProjectVersion());
 
 				if(!version.equals("1.3") ||
 			       url.equals(NCIAConfig.getLocalGridURI())) {
@@ -169,7 +168,7 @@ public class RemoteNodes {
 			usAvailableSearchTerms = nciaCoreServiceClient.getUsAvailableSearchTerms();
 		}
 		catch (Exception e){
-System.out.println("!!!!! no ultrasound data in system");
+			System.out.println("!!!!! no ultrasound data in system");
 		}
 		return usAvailableSearchTerms; 
 	}

@@ -53,8 +53,6 @@ import org.quartz.JobExecutionContext;
 public class NewResultsProcessor implements Job {
 
     public void execute(JobExecutionContext jec) {
-        System.out.println("Running new results processor");
-
         QueryStorageManager qsm = (QueryStorageManager)SpringApplicationContext.getBean("queryStorageManager");
 
         List<SavedQueryDTO> activeQueries = null;

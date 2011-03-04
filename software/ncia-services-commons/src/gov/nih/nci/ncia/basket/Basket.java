@@ -218,22 +218,31 @@ public class Basket {
     private void addResults(Collection<BasketSeriesItemBean> results) {
         // Loop through each result row
         for (BasketSeriesItemBean result : results) {
+        	System.out.println("$$$ add results="+result.getSeriesId() + " "+result.getGridLocation());
             BasketSeriesItemBean alreadyExisting = 
             	seriesItems.get(result.getSeriesSearchResult().getId() + 
             			        DELIMETER + 
             			        result.getGridLocation());
-
+System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() + 
+            			        DELIMETER + 
+            			        result.getGridLocation());
             // If the series does not exist, add it
             if (alreadyExisting == null) {
                 seriesItems.put(result.getSeriesSearchResult().getId() + 
                 		        DELIMETER + 
                 		        result.getGridLocation(), 
                 		        result);
+                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId() + 
+    			        DELIMETER + 
+    			        result.getGridLocation());               
             } 
             else {
+            	System.out.println("&&&&&&&&&&alreadyExisting="+alreadyExisting.getSeriesId());
+            	  System.out.println("&&&&&&&&&&&&&&&&&neither="+result.getSeriesSearchResult().getId());
                 continue;
             }
         }
+        System.out.println("end add results="+results.size());
     }  
     
 	private static BasketSeriesItemBean convert(SeriesSearchResult seriesDTO){

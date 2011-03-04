@@ -1468,11 +1468,6 @@ jboss.home,ctp.server.home,ctp.client.home,
 
   <target name="test:selenium:init"
           depends="install:force-nciaprod">
-
-    <copy file="${ncia-core-grid.base.dir}/../ncia-web/test/selenium/selenium-server-1.0-beta-2-hacked-for-ff3_6.jar"
-          tofile="${ncia-core-grid.base.dir}/../target/lib/ncia-web/test-selenium/selenium-server-1.0-beta-2.jar"
-          overwrite="true" />
-
     <jboss-stop-jboss />
     <sleep seconds="15"/>
 

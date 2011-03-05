@@ -23,6 +23,9 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 	}
 
 	public void login(String username, String password) {
+		System.out.println("username:"+username);
+		System.out.println("pass:"+password);
+
 		selenium.open("/ncia/");
 		selenium.type("MAINbody:sideBarView:loginForm:uName2", username);
 		selenium.type("MAINbody:sideBarView:loginForm:pass2", password);

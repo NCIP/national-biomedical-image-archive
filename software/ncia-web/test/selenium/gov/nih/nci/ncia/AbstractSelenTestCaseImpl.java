@@ -19,7 +19,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 //////////////////////////////////////////LOGIN STUFF///////////////////////////
 
 	public void login() {
-		login("nciadevtest", "saicT3@m16");
+		login(System.getProperty("username"), System.getProperty("password"));
 	}
 
 	public void login(String username, String password) {
@@ -40,8 +40,8 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 	}
 
 	public void loginToISPYPortal() {
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m16");
+		selenium.type("MAINbody:sideBarView:loginForm:uName2", System.getProperty("username"));
+		selenium.type("MAINbody:sideBarView:loginForm:pass2", System.getProperty("password"));
 		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageForm:imageTable')",
 	                              "30000");

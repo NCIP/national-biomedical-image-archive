@@ -3,9 +3,7 @@
  */
 package gov.nih.nci.ncia;
 
-import gov.nih.nci.ncia.griddao.ImageDAO;
 import gov.nih.nci.ncia.griddao.ImageDAOInterface;
-import gov.nih.nci.ncia.griddao.PatientDAO;
 import gov.nih.nci.ncia.griddao.PatientDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 

@@ -3,6 +3,9 @@
  */
 package gov.nih.nci.ncia.griddao;
 
+import java.util.Collections;
+import java.util.Map;
+
 import gov.nih.nci.ncia.AbstractDbTestCaseImpl;
 import gov.nih.nci.ncia.domain.TrialDataProvenance;
 
@@ -15,9 +18,11 @@ public class TrialDataProvenanceDAOTestCase extends AbstractDbTestCaseImpl {
 
 	public void testGetTDPByPatientId() throws Exception{
 		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		TrialDataProvenance trialDataProvenance = imageFilesProcessor.getTDPByPatientId("1.3.6.1.4.1.9328.50.3.0022");
-
-
+		
+		Map<String, TrialDataProvenance> trialDataProvenances = imageFilesProcessor.getTDPByPatientId(Collections.singletonList("1.3.6.1.4.1.9328.50.3.0022"));
+		
+		TrialDataProvenance trialDataProvenance = trialDataProvenances.get("1.3.6.1.4.1.9328.50.3.0022");
+		
 		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
 		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
 	}
@@ -25,9 +30,10 @@ public class TrialDataProvenanceDAOTestCase extends AbstractDbTestCaseImpl {
 
 	public void testGetTDPByStudyInstanceUID() throws Exception{
 		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		TrialDataProvenance trialDataProvenance = imageFilesProcessor.getTDPByStudyInstanceUID("1.3.6.1.4.1.9328.50.3.68");
+		Map<String, TrialDataProvenance> trialDataProvenances = imageFilesProcessor.getTDPByStudyInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.3.68"));
 
-
+		TrialDataProvenance trialDataProvenance = trialDataProvenances.get("1.3.6.1.4.1.9328.50.3.68");
+		
 		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
 		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
 	}
@@ -35,21 +41,12 @@ public class TrialDataProvenanceDAOTestCase extends AbstractDbTestCaseImpl {
 
 	public void testGetTDPBySeriesInstanceUID() throws Exception {
 		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		TrialDataProvenance trialDataProvenance = imageFilesProcessor.getTDPBySeriesInstanceUID("1.3.6.1.4.1.9328.50.3.69");
-
+		Map<String, TrialDataProvenance> trialDataProvenances = imageFilesProcessor.getTDPBySeriesInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.3.69"));
+		TrialDataProvenance trialDataProvenance = trialDataProvenances.get("1.3.6.1.4.1.9328.50.3.69");
 		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
 		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
 	}
 
-
-
-	public void testGetTDPBySopInstanceUID() throws Exception{
-		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		TrialDataProvenance trialDataProvenance = imageFilesProcessor.getTDPBySopInstanceUID("1.3.6.1.4.1.9328.50.3.193");
-
-		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
-		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
-	}
 
 
 

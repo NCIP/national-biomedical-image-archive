@@ -126,7 +126,7 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   <!-- remote search -->
   <attribute name="Properties">grid.index.url=@grid.index.url@</attribute>
   <attribute name="Properties">local.grid.uri=@local.grid.uri@</attribute>
-  <attribute name="Properties">discover.remote.nodes=true</attribute>
+  <attribute name="Properties">discover.remote.nodes=@discover.remote.nodes@</attribute>
   <attribute name="Properties">discover.period.in.hrs=4</attribute>
   <attribute name="Properties">lookupManager.className=gov.nih.nci.ncia.lookup.CompositeLookupManager</attribute>
   <attribute name="Properties">patientSearcherService.className=gov.nih.nci.ncia.remotesearch.CompositePatientSearcherService</attribute>

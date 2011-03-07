@@ -240,6 +240,7 @@
       <ref bean="sessionFactory"/>
     </property>
   </bean>  
+  
   <!-- deletion service bean -->
     
     <!-- Define all the services below -->

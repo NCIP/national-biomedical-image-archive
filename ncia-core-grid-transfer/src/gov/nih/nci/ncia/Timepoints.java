@@ -4,13 +4,16 @@
 package gov.nih.nci.ncia;
 
 import gov.nih.nci.ncia.griddao.ImageDAO;
+import gov.nih.nci.ncia.griddao.ImageDAOInterface;
 import gov.nih.nci.ncia.griddao.PatientDAO;
+import gov.nih.nci.ncia.griddao.PatientDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
@@ -29,15 +32,14 @@ public class Timepoints {
 	public static List<ZippingDTO> getImagesByNthStudyTimePointForPatient(String patientId,
 			                                                       int studyTimepoint) throws Exception{
 		//firststep - find out the date for the the studyTimepoint
-		PatientDAO patientDAO = new PatientDAO();
+		PatientDAOInterface patientDAO = (PatientDAOInterface)appContext.getBean("patientDaoInterface");
 		List<Date> dateBucket = patientDAO.getTimepointStudyForPatient(patientId);
 
 
 		Date dateForTimepoint = getDateForNthTimePoint(dateBucket, studyTimepoint);
 
-		ImageDAO imageDAO = new ImageDAO();
-		return imageDAO.getImagesByNthStudyTimePointForPatient(patientId,
-                                                               dateForTimepoint);
+		ImageDAOInterface imageDao = (ImageDAOInterface)appContext.getBean("imageDaoInterface");
+		return imageDao.getImagesByNthStudyTimePointForPatient(patientId, dateForTimepoint);
 
 	}
 
@@ -51,27 +53,21 @@ public class Timepoints {
 	/* go through loop of dateTimepoint, find the value for the nthTimepoint*/
 	private static Date getDateForNthTimePoint(List<Date> dateTimepoint,
 			                                   int nthTimepoint){
-		Date d= null;
+		Date d = null;
 		try{
-
-			logger.info("before sorting....");
-			for(int i=0; i<dateTimepoint.size(); i++){
-				logger.info("i: " + i + " date: " + dateTimepoint.get(i));
-			}
 			Collections.sort(dateTimepoint);
 
-			logger.info("after sorting....");
-			for(int i=0; i<dateTimepoint.size(); i++){
-				logger.info("i: " + i + " date: " + dateTimepoint.get(i));
-			}
 			if(nthTimepoint > 0 && nthTimepoint <= dateTimepoint.size()){
 				d = dateTimepoint.get(nthTimepoint - 1);
 			}
 		}catch(Exception e){
 			logger.error("Error getting Date the nth timepoint", e);
-
 		}
-		logger.info("date for " + nthTimepoint + " is " + d);
 		return d;
 	}
+	public static void setApplicationContext(ClassPathXmlApplicationContext context){
+		appContext = context;
+	}
+	
+	private static ClassPathXmlApplicationContext appContext;
 }

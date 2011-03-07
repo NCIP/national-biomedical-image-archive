@@ -1,6 +1,8 @@
 <ivysettings>
   <property name="ncia.basedir" 
             value="${ivy.settings.dir}/.."/>
+ <property name="ivy.checksums" 
+            value=""/>            
   <property name="ivy.system.repo" 
             value="${ncia.basedir}/../../system-ivy-repo"/>
             

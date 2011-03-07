@@ -2,8 +2,8 @@ Release Notes
 =============
  
   #Product:#	NBIA
-  #Version:#	5.0
-  #Date:#	December, 2010
+  #Version:#	5.1
+  #Date:#	?????, 2011
 
 Contents
 --------
@@ -41,6 +41,8 @@ to confident clinical decisions in patient care.
 
 Release History
 ------------------------
+    * NBIA v5.1         -- ??????   2011
+    * NBIA v5.0.1       -- February 2011
     * NBIA v5.0         -- December 2010
     * NBIA v4.5         -- September2010
     * NBIA v4.4.1       -- June     2010
@@ -59,22 +61,21 @@ Release History
 
 Features Addressed in This Release
 ----------------------------------
-[NBIA-281] NBIA-CTP Database Adapter performance enhancements.
-[NBIA-253] Support Oracle as well as MySQL.
-[NBIA-280] AntHillPro 3 support for build promotion.
-[NBIA-241] Upgrade CTP to X42 
+[NBIA-258] Support searching for patients by ultrasound specific criteria in the webapp 
+[NBIA-320] Please add a true "select all" feature to the QC tool 
+[NBIA-275] Add modality info to web search UI 
+[NBIA-276] Improvements to viewing multiple pages of search results 
 
-Defects from 4.5 Addressed in This Release
-------------------------------------------
-[NBIA-245] Decouple service and DAO objects within deletion feature 
-[NBIA-254] When saving a query, there is no message if the save is successful, or if the name is a duplicate
-[NBIA-267] Move NBIA configuration properties into JBoss properties-service.xml so administrators can alter them.
-[NBIA-268] Allow administrators to customize the number of series/results per page in the QC Tool
-[NBIA-270] For External Data Basket, patient+series or study+series only returns series from the first part
-[NBIA-274] Command-line upgrader fails unless all properties are specified like for an install
-[NBIA-279] Add warning text to GUI installer about potential to wipe out CTP storage system
-[NBIA-287] NCIA grid service port number updating from 21080 to 8080 
-
+Defects from 5.0.x Addressed in This Release
+--------------------------------------------
+[NBIA-339] Long-running online deletion will appear to fail because of 5 minute Apache proxy timeout (at CBIIT) 
+[NBIA-337] In the view series page, highlighting of the series after adding to basket can be inconsistent 
+[NBIA-333] Remote Search between Oracle and MySQL based NBIA node returns incorrect results for "Available on NBIA" date range query 
+[NBIA-324] CQL that targets TrialDataProvenance will not return desired result set 
+[NBIA-326] getNumberOfStudyTimePointForPatient returns cryptic error when Patient ID is not found. 
+[NBIA-224] Remove storage service port number from the config file installer property files 
+[NBIA-286] FTP downloads do not record the download the same way the HTTP and Download Mgr downloads do 
+[NBIA-315] Invalid page linked to Help icon on Online Deletion page 
 
 
 Known Issues/Defects
@@ -84,6 +85,7 @@ Known Issues/Defects
 [NBIA-310] NBIA Download Manager remote series have completed downloading, but progress bar shows 99%.
 [NBIA-316] NBIA Download Manager cannot download annotations when NBIA server is running on Windows.
 [NBIA-317] NBIA Download Manager stops up on some Windows XP clients when download directory contains non-8.3 names.
+[NBIA-321] Performance issue with deleting a large amount series with online deletion
 
  
 See the Jira tracker for the latest use cases (implemented 

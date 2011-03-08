@@ -11,6 +11,8 @@ import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -310,8 +312,11 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	}
 
     private static String toDateString(Date dateForTimepoint, boolean oracle) {
+  
         if(oracle) {
-			return "to_date('"+dateForTimepoint.toString()+"','YYYY-MM-DD')";
+          	DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+    		String date = df.format(dateForTimepoint);
+			return "to_date('"+date+"','YYYY-MM-DD')";
 		}
 		else {
 			return "'"+dateForTimepoint.toString()+"'";

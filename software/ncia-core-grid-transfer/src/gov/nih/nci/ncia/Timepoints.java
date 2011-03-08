@@ -7,6 +7,8 @@ import gov.nih.nci.ncia.griddao.ImageDAOInterface;
 import gov.nih.nci.ncia.griddao.PatientDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +37,7 @@ public class Timepoints {
 
 
 		Date dateForTimepoint = getDateForNthTimePoint(dateBucket, studyTimepoint);
-
+		
 		ImageDAOInterface imageDao = (ImageDAOInterface)appContext.getBean("imageDaoInterface");
 		return imageDao.getImagesByNthStudyTimePointForPatient(patientId, dateForTimepoint);
 

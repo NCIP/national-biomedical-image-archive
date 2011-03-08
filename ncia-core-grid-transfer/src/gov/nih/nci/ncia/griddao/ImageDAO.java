@@ -289,7 +289,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
     private static String toDateString(Date dateForTimepoint, boolean oracle) {
   
         if(oracle) {
-          	DateFormat df = new SimpleDateFormat("MM/dd/yy");
+          	DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     		String date = df.format(dateForTimepoint);
     		System.out.println("study date: " + date);
 			return "to_date('"+date+"','YYYY-MM-DD')";

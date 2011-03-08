@@ -209,7 +209,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			image.setSourceSubjectDistance(ima.getSourceSubjectDistance());
 			image.setStorageMediaFileSetUID(ima.getStorageMediaFileSetUID());
 			image.setAnatomicRegionSequence(ima.getCtimage().getAnatomicRegionSeq());
-			image.setCtPitchFactor(ima.getCtimage().getCTPitchFactor().intValue());
+			image.setCtPitchFactor(ima.getCtimage().getCTPitchFactor()==null? null:ima.getCtimage().getCTPitchFactor().intValue());
 			image.setConvolutionKernel(ima.getCtimage().getConvolutionKernel());
 			image.setDataCollectionDiameter(ima.getCtimage().getDataCollectionDiameter());
 			image.setExposure(ima.getCtimage().getExposure());
@@ -218,12 +218,12 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			image.setKvp(ima.getCtimage().getKVP());
 			image.setGantryDetectorTilt(ima.getCtimage().getGantryDetectorTilt());
 			image.setReconstructionDiameter(ima.getCtimage().getReconstructionDiameter());
-			image.setRevolutionTime(ima.getCtimage().getRevolutionTime().intValue());
+			image.setRevolutionTime(ima.getCtimage().getRevolutionTime() == null ? null : ima.getCtimage().getRevolutionTime().intValue());
 			image.setScanOptions(ima.getCtimage().getScanOptions());
-			image.setSingleCollimationWidth(ima.getCtimage().getSingleCollimationWidth().intValue());
-			image.setTableFeedPerRotation(ima.getCtimage().getTableFeedPerRotation().intValue());
-			image.setTableSpeed(ima.getCtimage().getTableSpeed().intValue());
-			image.setTotalCollimationWidth(ima.getCtimage().getTotalCollimationWidth().intValue());
+			image.setSingleCollimationWidth(ima.getCtimage().getSingleCollimationWidth()== null ? null : ima.getCtimage().getSingleCollimationWidth().intValue());
+			image.setTableFeedPerRotation(ima.getCtimage().getTableFeedPerRotation() == null ? null : ima.getCtimage().getTableFeedPerRotation().intValue());
+			image.setTableSpeed(ima.getCtimage().getTableSpeed() == null ? null : ima.getCtimage().getTableSpeed().intValue());
+			image.setTotalCollimationWidth(ima.getCtimage().getTotalCollimationWidth() == null ? null : ima.getCtimage().getTotalCollimationWidth().intValue());
 			image.setXrayTubeCurrent(ima.getCtimage().getXRayTubeCurrent());
 		}
 

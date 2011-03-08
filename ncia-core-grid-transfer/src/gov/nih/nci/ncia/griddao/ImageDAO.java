@@ -9,8 +9,6 @@ import gov.nih.nci.ncia.internaldomain.GeneralImage;
 import gov.nih.nci.ncia.util.HqlUtils;
 import gov.nih.nci.ncia.util.NCIAConfig;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -238,31 +236,8 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	private static Logger logger = Logger.getLogger(ImageDAO.class);
 
 	private final static String IMAGE_STATEMENT = "SELECT gi FROM GeneralImage gi";
-	private final static String MS = "ms";
 
-	private final static String SQL_STMT = " SQL statement: ";
 
-	/**
-	 * This method processes the resultset and return a map that contains
-	 * sopInstanceUid key and corresponding image file path
-	 * @param rs
-	 * @return Map
-	 */
-	private static Map<String, String> process(ResultSet rs) throws Exception{
-		Map<String, String> retrievedFileNames = new HashMap<String, String>();
-		try {
-			while (rs.next()) {
-				String imagePath = rs.getString("DICOM_FILE_URI");
-				String sop = rs.getString("SOP_INSTANCE_UID");
-				retrievedFileNames.put(sop + ".dcm", imagePath);
-			}
-		} catch (SQLException e) {
-			logger.error("Error getting image paths: " + e);
-			throw new Exception("Error getting image filepath", e);
-		}
-		return retrievedFileNames;
-	}
-	
 	private static Map<String, String> process(List<GeneralImage> rs) throws Exception{
 		Map<String, String> retrievedFileNames = new HashMap<String, String>();
 		if (rs != null){
@@ -314,12 +289,26 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
     private static String toDateString(Date dateForTimepoint, boolean oracle) {
   
         if(oracle) {
-          	DateFormat df = new SimpleDateFormat("MM/DD/YYYY");
+          	DateFormat df = new SimpleDateFormat("MM/dd/yy");
     		String date = df.format(dateForTimepoint);
+    		System.out.println("study date: " + date);
 			return "to_date('"+date+"','YYYY-MM-DD')";
 		}
 		else {
 			return "'"+dateForTimepoint.toString()+"'";
 		}
 	}
+    
+//    public static void main(String[] args){
+//    	try{
+//        	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
+//        	Date d = new Date();
+//    		String today = df.format(d);
+//    		System.out.println(today);
+//    		Date d1 = df.parse(today);
+//    		System.out.println(ImageDAO.toDateString(d1, true));
+//    	}catch(Exception e){
+//    		e.printStackTrace();
+//    	}
+//    }
 }

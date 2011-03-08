@@ -53,8 +53,9 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
     }
 
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomData(gov.nih.nci.cagrid.cqlquery.CQLQuery cQLQuery) throws RemoteException {
+	  ImageDAOInterface imageDao = (ImageDAOInterface)appContext.getBean("imageDaoInterface");
         // Step 1: get the file path
-        final Map<String, String> fileNames = ServiceImplHelper.retrieveImageFiles(cQLQuery);
+        final Map<String, String> fileNames = ServiceImplHelper.retrieveImageFiles(cQLQuery, imageDao);
 
         // return empty output stream if there is data found for the given
         // cqlquery

@@ -8,6 +8,7 @@ import gov.nih.nci.cagrid.introduce.servicetools.security.SecurityUtils;
 import gov.nih.nci.cagrid.ncia.service.NCIACoreServiceConfiguration;
 import gov.nih.nci.ncia.domain.TrialDataProvenance;
 import gov.nih.nci.ncia.griddao.ImageDAO;
+import gov.nih.nci.ncia.griddao.ImageDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZipManager;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 
@@ -33,11 +34,12 @@ public class ServiceImplHelper {
 	/**
 	 * retrieve image files path from the file system
 	 */
+	
 	// STEP 1: run your CQLQuery --> get the images filepath
 	// return Map that contains sopInstanceUID as key and filepath
-	public static Map<String, String> retrieveImageFiles(CQLQuery cQLQuery) {
+	public static Map<String, String> retrieveImageFiles(CQLQuery cQLQuery, ImageDAOInterface imageDao) {
 		try {
-			ImageDAO imageDao = new ImageDAO();
+			//ImageDAO imageDao = new ImageDAO();
 	
 			/***********************************************************************
 			 * STEP 1.0 Modify the CQLQuery so that it always returns Image Object
@@ -69,6 +71,7 @@ public class ServiceImplHelper {
 		}
 		catch(Exception e){
 			logger.error("Error getting image files" , e);
+			e.printStackTrace();
 			throw new RuntimeException("Error getting image files: ", e);
 		}		
 

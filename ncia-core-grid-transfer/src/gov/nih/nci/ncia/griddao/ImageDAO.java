@@ -314,7 +314,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
     private static String toDateString(Date dateForTimepoint, boolean oracle) {
   
         if(oracle) {
-          	DateFormat df = new SimpleDateFormat("YYYY-MM-DD");
+          	DateFormat df = new SimpleDateFormat("MM/DD/YYYY");
     		String date = df.format(dateForTimepoint);
 			return "to_date('"+date+"','YYYY-MM-DD')";
 		}

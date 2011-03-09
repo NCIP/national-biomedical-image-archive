@@ -14,9 +14,6 @@
         </or>
         <then>
           <echo>No Cancer Center logo specified.  Substituting CCLOGO with empty string.</echo>
-          <!--
-          <replace file="@{webapp.dir.path}/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml" token="CCLOGO" value="" />
-          -->
         </then>
         <else>
           <basename property="cc.logo.filename" file="${cancer.center.logo}"/>
@@ -50,9 +47,6 @@
 
 
           <echo file="@{webapp.dir.path}/WEB-INF/facelets/layout/nciHeader.xhtml" append="false">${cc.logo.header}</echo>
-           <!--
-          <echo file="@{webapp.dir.path}/WEB-INF/facelets/layout/appHeader.xhtml" append="false">&lt;span style="display:none;"/&gt;</echo>
-          -->
         </else>
       </if>
       <!-- end of external cancer center logo header  -->
@@ -99,6 +93,25 @@
           <copy file="${branding.welcome.under.login.box.panel.text.path}"
                 tofile="@{webapp.dir.path}/WEB-INF/facelets/underLoginBoxPanelText.xhtml"
                 overwrite="true"/>
+        </then>
+      </if>
+
+      <if>
+        <isset property="branding.applogo"/>
+        <then>
+          <if>
+            <equals arg1="${branding.applogo}" arg2="none"/>
+            <then>
+              <copy file="@{webapp.dir.path}/WEB-INF/facelets/layout/empty.xhtml"
+                    tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/appHeader.xhtml"
+                    overwrite="true"/>
+            </then>
+            <else>
+              <copy file="${branding.applogo}"
+                    tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/appHeader.xhtml"
+                    overwrite="true"/>
+            </else>
+          </if>
         </then>
       </if>
 

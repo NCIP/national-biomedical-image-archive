@@ -15,8 +15,8 @@ public class ReferencedImagesSelenTestCase extends AbstractSelenTestCaseImpl {
 
         String image1Label ="Pre";
 
-        navigateToISPYPortal("Pre", 
-                             "2", 
+        navigateToISPYPortal("Pre",
+                             "2",
                              "1.2.124.113532.192.9.54.60.20020702.141304.3659576",
                              "1.2.840.113619.2.5.1762805546.3105.1025559471.58",
                              "1.2.840.113619.2.5.1762805546.3105.1025559471.276",
@@ -25,8 +25,7 @@ public class ReferencedImagesSelenTestCase extends AbstractSelenTestCaseImpl {
                              "1.2.124.113532.192.9.54.60.20021230.122345.403213",
                              "1.2.840.113619.2.5.1762805546.2376.1041867495.89",
                              "1.2.840.113619.2.5.1762805546.2376.1041867495.189");
-    
-		loginToISPYPortal();
+
 
 
 		final String patientAttributesTable1 =

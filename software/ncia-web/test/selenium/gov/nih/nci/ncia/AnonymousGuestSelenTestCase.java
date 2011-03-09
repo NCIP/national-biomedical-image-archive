@@ -16,15 +16,9 @@ public class AnonymousGuestSelenTestCase extends AbstractSelenTestCaseImpl {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm')",
                                   "30000");
 
-		String id = selenium.getValue("xpath=id('MAINbody:searchForm:collectionsCheckboxesTable')//td[contains(text(),'RIDER Pilot')]/input/@id");
-		selenium.click(id);
-
-
-		selenium.select("MAINbody:searchForm:resultsPerPage", "label=25");
-		selenium.click("MAINbody:searchForm:submitSearchButton");
-
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable')",
-                                  "30000");
+		selectCollectionCriteria("RIDER Pilot");
+        setResultsPerPage("25");
+        submitSearch();
 
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:0:addPatientToBasketCheckbox");
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:1:addPatientToBasketCheckbox");

@@ -42,13 +42,6 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
                                   "30000");
 	}
 
-	public void loginToISPYPortal() {
-		selenium.type("MAINbody:sideBarView:loginForm:uName2", System.getProperty("username"));
-		selenium.type("MAINbody:sideBarView:loginForm:pass2", System.getProperty("password"));
-		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageForm:imageTable')",
-	                              "30000");
-	}
 
 /////////////////////////////////////////SELECT OR TWEAK PAGE CONTROLS///////////////////////////////////
 

@@ -66,8 +66,8 @@
 		<junit printsummary="on" haltonfailure="off" failureproperty="selenium.failure" maxmemory="256m">
 			<jvmarg value="-Dselenium.url=${selenium.url}"/>
 			<jvmarg value="-Dselenium.browser=${selenium.browser}"/>
-      <jvmarg value="-username=${username}"/>
-      <jvmarg value="-password=${password}"/>
+      <jvmarg value="-Dusername=${username}"/>
+      <jvmarg value="-Dpassword=${password}"/>
 
 			<classpath location="${selenium.classes.dir}"/>
 			<classpath refid="project.test.selenium.classpath"/>
@@ -91,8 +91,8 @@
 		<junit printsummary="on" haltonfailure="off" failureproperty="selenium.failure" maxmemory="256m">
 			<jvmarg value="-Dselenium.url=${selenium.url}"/>
 			<jvmarg value="-Dselenium.browser=${selenium.browser}"/>
-      <jvmarg value="-username=${username}"/>
-      <jvmarg value="-password=${password}"/>
+      <jvmarg value="-Dusername=${username}"/>
+      <jvmarg value="-Dpassword=${password}"/>
 
       <classpath location="${selenium.classes.dir}"/>
 			<classpath refid="project.test.selenium.classpath"/>

@@ -259,7 +259,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 
     private static Integer nullSafeDouble(Double d) {
         if(d==null) {
-			return d;
+			return null;
 	    }
 	    else {
 			return d.intValue();

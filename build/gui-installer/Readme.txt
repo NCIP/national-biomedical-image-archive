@@ -2,7 +2,7 @@ Release Notes
 =============
  
   #Product:#	NBIA
-  #Version:#	5.0.1
+  #Version:#	5.0.2
   #Date:#	February, 2011
 
 Contents
@@ -41,6 +41,7 @@ to confident clinical decisions in patient care.
 
 Release History
 ------------------------
+    * NBIA v5.0.2       -- March    2011
     * NBIA v5.0.1       -- February 2011
     * NBIA v5.0         -- December 2010
     * NBIA v4.5         -- September2010
@@ -60,13 +61,13 @@ Release History
 
 Features Addressed in This Release
 ----------------------------------
-None
+[NBIA-227] Create an easily customizable and branded homepage 
+[NBIA-363] Support deployment configuration for discovery of remote nodes
+[NBIA-364] Support (deployment) configuration of whether the collection search criteria will appear on the search page
 
-Defects from 5.0 Addressed in This Release
+Defects from 5.0.1 Addressed in This Release
 ------------------------------------------
-[NBIA-322] Shared List creation can fail when greater than 1000 series elements
-[NBIA-318] Deleting > 1000 series when they are referenced by shared list causes exception
-[NBIA-327] The AvailableSearchTerms schema is compromised with "imageTypes" property
+None
 
 Known Issues/Defects
 ------------------------

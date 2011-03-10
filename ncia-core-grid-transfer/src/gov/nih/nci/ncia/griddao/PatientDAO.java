@@ -59,6 +59,4 @@ public class PatientDAO extends HibernateDaoSupport implements PatientDAOInterfa
 		return studyDates;
 	}
 	
-	private static Logger logger = Logger.getLogger(PatientDAO.class);
-	
 }

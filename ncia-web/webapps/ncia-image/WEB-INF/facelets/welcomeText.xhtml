@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+                
+	<p>
+		<h:outputText value="#{msg.home_contentWelcome}"/>
+	</p>
+	<ul>
+		<li>
+			<h:outputText value="#{msg.home_contentLesion}"/>
+		</li>
+		<li>
+			<h:outputText value="#{msg.home_contentDiagnostic}"/>
+		</li>
+		<li>
+			<h:outputText value="#{msg.home_contentAssessment}"/>
+		</li>
+	</ul>
+	<p>
+		<h:outputText value="#{msg.home_contentAccess}"/>
+		<ul>
+			<li>
+				<h:outputText value="#{msg.home_contentIncrease}"/>
+			</li>
+			<li>
+				<h:outputText value="#{msg.home_contentLeverage}"/>
+			</li>
+			<li>
+				<h:outputText value="#{msg.home_contentEnable}"/>
+			</li>
+		</ul>                   
+	</p>
+</ui:composition>	

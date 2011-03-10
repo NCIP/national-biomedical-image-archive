@@ -36,7 +36,7 @@
                    width="520" style="height:100%">
               <tr>
                 <td class="welcomeTitle" height="20">
-                  <h:outputText value="#{msg.home_welcome}"/>
+                  <ui:include src="welcomeTitle.xhtml"/>
                 </td>
               </tr>
               <tr>
@@ -44,34 +44,7 @@
                   <table class="homePageContent">                   
                     <tr>
                       <td>
-                        <p>
-                          <h:outputText value="#{msg.home_contentWelcome}"/>
-                        </p>
-                        <ul>
-                          <li>
-                            <h:outputText value="#{msg.home_contentLesion}"/>
-                          </li>
-                          <li>
-                            <h:outputText value="#{msg.home_contentDiagnostic}"/>
-                          </li>
-                          <li>
-                            <h:outputText value="#{msg.home_contentAssessment}"/>
-                          </li>
-                        </ul>
-                        <p>
-                          <h:outputText value="#{msg.home_contentAccess}"/>
-                          <ul>
-                            <li>
-                              <h:outputText value="#{msg.home_contentIncrease}"/>
-                            </li>
-                            <li>
-                              <h:outputText value="#{msg.home_contentLeverage}"/>
-                            </li>
-                            <li>
-                              <h:outputText value="#{msg.home_contentEnable}"/>
-                            </li>
-                          </ul>                   
-                        </p>
+                        <ui:include src="welcomeText.xhtml"/>
                       </td>
                     </tr>
                     <f:subview id="guestEnabled" 
@@ -133,7 +106,7 @@
                              width="100%" class="sidebarSection">
                         <tr>
                           <td colspan="3" class="sidebarTitle" height="20">
-                            <h:outputText value="#{msg.home_updates}"/>
+                            <h:outputText value="Updates"/>
                           </td>
                         </tr>
                         <tr>
@@ -230,24 +203,7 @@
                         </f:subview>                    
                         <tr>
                           <td colspan="2"  class="sidebarContent" align="left">
-                            <h:outputText value="#{msg.home_registered_user}" />   
-                            <ul>
-                              <li>
-                                <h:outputText value="#{msg.home_registered_user_1}"/>
-                              </li>
-                              <li>
-                                <h:outputText value="#{msg.home_registered_user_2}"/>
-                              </li>
-                              <li>
-                                <h:outputText value="#{msg.home_registered_user_3}"/>
-                              </li>
-                              <li>
-                                <h:outputText value="#{msg.home_registered_user_4}"/>
-                              </li>
-                              <li>
-                                <h:outputText value="#{msg.home_registered_user_5}"/>
-                              </li>
-                            </ul>
+                            <ui:include src="underLoginBoxPanelText.xhtml"/>
                           </td>
                         </tr>       
                       </table>
@@ -260,7 +216,7 @@
                              width="100%" class="sidebarSection">
                         <tr>
                           <td colspan="3" class="sidebarTitle" height="20">
-                            <h:outputText value="#{msg.home_updates}"/>
+                            <h:outputText value="Updates"/>
                           </td>
                         </tr>
                         <tr>

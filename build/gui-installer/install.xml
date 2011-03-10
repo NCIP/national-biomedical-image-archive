@@ -160,6 +160,18 @@
             <name>cclogo.enabled</name>
             <value>true</value>
           </condition>
+          <condition type="variable" id="ccwelcome">
+            <name>ccwelcome.enabled</name>
+            <value>true</value>
+          </condition>
+          <condition type="variable" id="ccquicklinks">
+            <name>ccquicklinks.enabled</name>
+            <value>true</value>
+          </condition>
+         <condition type="variable" id="ccfooter">
+            <name>ccfooter.enabled</name>
+            <value>true</value>
+          </condition>
 
           <condition type="variable" id="grid.security">
             <name>ncia-core-grid.jboss.grid.secure.enable</name>
@@ -206,6 +218,7 @@
           <!--
           <variable name="database.type" value="mysql" condition="upgrade"/>
            -->
+
           <variable name="build.file.target" value="install" condition="install+container.all" />
           <variable name="build.file.target" value="install:jboss" condition="install+container.jboss" />
           <variable name="build.file.target" value="install:ncia-core-grid" condition="install+container.ncia-core-grid" />
@@ -380,7 +393,13 @@
 
           <variable name="cancer.center.logo" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
           <variable name="cancer.center.background" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
-
+          <variable name="branding.left.submenu.quicklinks.path" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
+          <variable name="branding.welcome.image.path" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
+          <variable name="branding.welcome.text.path" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
+          <variable name="branding.welcome.title.path" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
+          <variable name="branding.applogo" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
+          <variable name="branding.applogo.visible" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
+          <variable name="branding.footer.path" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
 
           <variable name="jar-signing.keystore.location" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
           <variable name="jar-signing.keystore.password" value="" condition="container.database|container.ncia-core-grid|container.ctp"/>
@@ -484,19 +503,22 @@
           <!-- branding -->
           <panel classname="UserInputPanel"  id="UserInputPanel.29" condition="container.jboss|container.all"  />
           <panel classname="UserInputPanel"  id="UserInputPanel.30" condition="cclogo+container.jboss|container.all" />
+          <panel classname="UserInputPanel"  id="UserInputPanel.31" condition="ccwelcome+container.jboss|container.all" />
+          <panel classname="UserInputPanel"  id="UserInputPanel.32" condition="ccquicklinks+container.jboss|container.all" />
+          <panel classname="UserInputPanel"  id="UserInputPanel.33" condition="ccfooter+container.jboss|container.all" />
 
           <!-- Jar Signing -->
-          <panel classname="UserInputPanel"  id="UserInputPanel.31" condition="container.jboss|container.all"/>
-          <panel classname="UserInputPanel"  id="UserInputPanel.32" condition="not.selfsign+container.jboss|container.all"/>
-          <panel classname="UserInputPanel"  id="UserInputPanel.33" condition="selfsign+container.jboss|container.all"/>
+          <panel classname="UserInputPanel"  id="UserInputPanel.34" condition="container.jboss|container.all"/>
+          <panel classname="UserInputPanel"  id="UserInputPanel.35" condition="not.selfsign+container.jboss|container.all"/>
+          <panel classname="UserInputPanel"  id="UserInputPanel.36" condition="selfsign+container.jboss|container.all"/>
 
 
 
           <!-- guest settings needed only when doing just the db -->
-          <panel classname="UserInputPanel"  id="UserInputPanel.34" condition="container.database"/>
+          <panel classname="UserInputPanel"  id="UserInputPanel.37" condition="container.database"/>
 
           <!-- index settings needed only when doing just the jboss - same as coregrid -->
-          <panel classname="UserInputPanel"  id="UserInputPanel.35" condition="container.jboss"/>
+          <panel classname="UserInputPanel"  id="UserInputPanel.38" condition="container.jboss"/>
 
           <panel classname="InstallationGroupPanel"/>
           <panel classname="ExtendedInstallPanel"/>

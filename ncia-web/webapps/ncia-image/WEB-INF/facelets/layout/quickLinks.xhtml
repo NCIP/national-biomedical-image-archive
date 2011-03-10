@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+               
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+                
+
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
+			onclick="window.open('http://ncia.nci.nih.gov', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')">
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<a class="footerMenuLink" href="#">
+			<h:outputText value="#{msg.menu_nciaNews}" />
+		</a>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<a class="footerMenuLink"
+			 href="HTML/help/NBIA_Users_Guide.pdf" 
+			 target="_blank">
+			<h:outputText value="#{msg.menu_userGuide}" />
+		</a>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+	</td>
+</tr>
+<tr>
+	<td height="20" class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
+			onclick="window.open('http://www.cancer.gov', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')">
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<a class="footerMenuLink" href="#">
+			<h:outputText value="#{msg.menu_nciHome}" />
+		</a>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+	</td>
+</tr>
+<tr>
+	<td height="20" class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
+			onclick="window.open('http://ncicb.nci.nih.gov/', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')">
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<a class="footerMenuLink" href="#">
+			<h:outputText value="#{msg.menu_ncicbHome}" />
+		</a>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+	</td>
+</tr>
+<tr>
+	<td height="100%" colspan="2" valign="top" class="subMenuFill">
+		<div align="center">
+			<table width="100%" 
+						 border="0"
+						 cellpadding="10" 
+						 cellspacing="0">
+				<tr>
+					<td>
+						<div align="center">
+							<a href="https://cabig.nci.nih.gov/" target="_blank">
+								<img alt="NCI caBIG Home"
+										 src="images/caBIG_logo.jpg"
+										 style="border: 0px solid; width: 107px; height: 37px;"/>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="center">
+							<a href="http://imaging.cancer.gov/" target="_blank">
+								<img alt="NCI Cancer Imaging Program Home"
+										 src="images/cancerimaging.gif"
+										 style="border: 0px solid; width: 107px; height: 37px;"/>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="center">
+							<a href="http://ncicb.nci.nih.gov/" target="_blank">
+								<img alt="NCI Center for Bioinformatics Home"
+										 src="images/NCICBLOGO.gif"
+										 style="border: 0px solid; width: 126px; height: 43px;"/>
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div align="center">
+							<a href="http://www.rsna.org/" target="_blank">
+								<img alt="RSNA Home" 
+										 src="images/RSNA.gif"
+										 style="border: 0px solid; width: 63px; height: 33px;"/>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</td>
+</tr>
+
+</ui:composition>

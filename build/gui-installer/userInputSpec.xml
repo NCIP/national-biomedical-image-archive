@@ -1,31 +1,31 @@
 <userInput>
   <panel order="0">
     <field type="title" txt="Install or Upgrade software" bold="true" size="1" />
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="Choose Install if you haven't installed this software on this machine before."/>
-            
-    <field type="staticText" 
-           align="left" 
-           txt="Choose Upgrade if the software has previously been installed."/>
-           
 
-    <field type="staticText" 
-           align="left" 
-           txt="WARNING: The installer (for install or upgrade) will remove any previously installed application servers (using caBIG installers) based on the information you provide, so be sure to backup your application server(s) if they exist."/>           
-            
+    <field type="staticText"
+           align="left"
+           txt="Choose Upgrade if the software has previously been installed."/>
+
+
+    <field type="staticText"
+           align="left"
+           txt="WARNING: The installer (for install or upgrade) will remove any previously installed application servers (using caBIG installers) based on the information you provide, so be sure to backup your application server(s) if they exist."/>
+
     <field type="divider" align="top"/>
     <field type="radio" variable="setup.type">
       <description align="left" txt="Choose a new Install or Upgrade an existing installation"/>
       <spec>
         <choice txt="Install" value="install" set="true" />
-        <choice txt="Upgrade" value="upgrade" /> 
+        <choice txt="Upgrade" value="upgrade" />
       </spec>
     </field>
   </panel>
 
 
-  
+
   <!-- Select component -->
   <panel order="1">
     <field type="title" txt="Choose what to install" bold="true" size="1" />
@@ -44,7 +44,7 @@
     <variable name="validation.post.http.list" value=""/>
     <variable name="validation.post.socket.list" value=""/>
   </panel>
-  
+
   <!-- Upgrade, specify app homes and read properties -->
   <panel order="2">
     <field type="title" txt="Existing Locations" bold="true" size="1" />
@@ -52,55 +52,55 @@
     <field type="dir" variable="application.base.path">
       <spec txt="Application Root Directory:" size="25" set="c:/apps/ncia"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Application Root Directory is a required field" />
-    </field>     
+    </field>
     <fileextractor>
       <extractfile filename="pre-install" toDirName="."/>
     </fileextractor>
-    
+
   </panel>
   <panel order="3">
     <field type="title" txt="Existing Locations" bold="true" size="1" />
-    <field type="divider" align="top"/>  
+    <field type="divider" align="top"/>
     <field type="text" variable="jboss.server.name">
       <spec txt="JBoss Server name:" size="15" set="default"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="JBoss Server Name is a required field" />
     </field>
-   
+
     <fileextractor>
       <extractfile filename="pre-install" toDirName="."/>
     </fileextractor>
-    
+
   </panel>
   <panel order="4">
     <field type="title" txt="Existing Locations" bold="true" size="1" />
     <field type="divider" align="top"/>
-        
-  
+
+
     <field type="text" variable="ncia-core-grid.jboss.server.name">
       <spec txt="Grid JBoss Server name:" size="15" set="default"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Grid JBoss Server Name is a required field" />
-    </field>    
+    </field>
     <fileextractor>
       <extractfile filename="pre-install" toDirName="."/>
     </fileextractor>
-    
-  </panel>  
-  
-  
 
-  
+  </panel>
+
+
+
+
   <!-- Upgrade container.all -->
   <panel order="5">
     <!-- base path set in prior page -->
     <variable name="jboss.home" value="${application.base.path}/${jboss.binaries.relative.dir}"/>
     <variable name="ncia-core-grid.jboss.home" value="${application.base.path}/${ncia-core-grid.jboss.relative.path}"/>
-    
-    <field type="staticText" 
-           txt="Reading property values from installations specified in previous screen." 
+
+    <field type="staticText"
+           txt="Reading property values from installations specified in previous screen."
            size="1" />
     <panelreader classname="pre-install/install.xml" methodname="upgrade:all:readers" language="ant">
-      
-      <!-- stuff set in izpack? to communicate to properties for build script -->  
+
+      <!-- stuff set in izpack? to communicate to properties for build script -->
       <inpropertymap inpropertyname="application.base.path" inpropertyvalue="application.base.path"/>
       <inpropertymap inpropertyname="jboss.home" inpropertyvalue="jboss.home"/>
       <inpropertymap inpropertyname="jboss.server.name" inpropertyvalue="jboss.server.name"/>
@@ -194,20 +194,20 @@
 
       <propertymap propertyname="ctp.client.port" mapname="ctp.client.port"/>
       <propertymap propertyname="ctp.client.http_import_service.port" mapname="ctp.client.http_import_service.port"/>
-      <propertymap propertyname="ctp.client.export_service.port" mapname="ctp.client.export_service.port"/>   
-      <propertymap propertyname="ctp.client.admin.password" mapname="ctp.client.admin.password"/>         
+      <propertymap propertyname="ctp.client.export_service.port" mapname="ctp.client.export_service.port"/>
+      <propertymap propertyname="ctp.client.admin.password" mapname="ctp.client.admin.password"/>
 
-      <propertymap propertyname="gov.nih.nci.ncia.imaging.server.url" mapname="gov.nih.nci.ncia.imaging.server.url"/>         
+      <propertymap propertyname="gov.nih.nci.ncia.imaging.server.url" mapname="gov.nih.nci.ncia.imaging.server.url"/>
       <propertymap propertyname="gov.nih.nci.ncia.image.path.pattern" mapname="gov.nih.nci.ncia.image.path.pattern"/>
-      <propertymap propertyname="gov.nih.nci.ncia.zip.location" mapname="gov.nih.nci.ncia.zip.location"/>                                          
-      <propertymap propertyname="gov.nih.nci.ncia.ftp.location" mapname="gov.nih.nci.ncia.ftp.location"/> 
-      <propertymap propertyname="gov.nih.nci.ncia.grid.local.node.name" mapname="gov.nih.nci.ncia.grid.local.node.name"/>  
-      <propertymap propertyname="gov.nih.nci.ncia.ui.uid.display.length" mapname="gov.nih.nci.ncia.ui.uid.display.length"/>  
-      <propertymap propertyname="gov.nih.nci.ncia.ftp.url" mapname="gov.nih.nci.ncia.ftp.url"/>                                             
-      <propertymap propertyname="gov.nih.nci.ncia.jboss.public.url" mapname="gov.nih.nci.ncia.jboss.public.url"/>    
-      <propertymap propertyname="gov.nih.nci.ncia.admin.email" mapname="gov.nih.nci.ncia.admin.email"/>                                            
+      <propertymap propertyname="gov.nih.nci.ncia.zip.location" mapname="gov.nih.nci.ncia.zip.location"/>
+      <propertymap propertyname="gov.nih.nci.ncia.ftp.location" mapname="gov.nih.nci.ncia.ftp.location"/>
+      <propertymap propertyname="gov.nih.nci.ncia.grid.local.node.name" mapname="gov.nih.nci.ncia.grid.local.node.name"/>
+      <propertymap propertyname="gov.nih.nci.ncia.ui.uid.display.length" mapname="gov.nih.nci.ncia.ui.uid.display.length"/>
+      <propertymap propertyname="gov.nih.nci.ncia.ftp.url" mapname="gov.nih.nci.ncia.ftp.url"/>
+      <propertymap propertyname="gov.nih.nci.ncia.jboss.public.url" mapname="gov.nih.nci.ncia.jboss.public.url"/>
+      <propertymap propertyname="gov.nih.nci.ncia.admin.email" mapname="gov.nih.nci.ncia.admin.email"/>
       <propertymap propertyname="mail.smtp.server"  mapname="mail.smtp.server"/>
-      <propertymap propertyname="gov.nih.nci.ncia.installationSite" mapname="gov.nih.nci.ncia.installationSite"/>     
+      <propertymap propertyname="gov.nih.nci.ncia.installationSite" mapname="gov.nih.nci.ncia.installationSite"/>
 
 
       <!-- for 4.2 -->
@@ -219,14 +219,14 @@
 
       <!-- for 4.2.1 -->
       <propertymap propertyname="ctp.server.king.password" mapname="ctp.server.king.password"/>
-      <propertymap propertyname="ctp.client.king.password" mapname="ctp.client.king.password"/> 
+      <propertymap propertyname="ctp.client.king.password" mapname="ctp.client.king.password"/>
       <propertymap propertyname="ctp.server.require_authentication" mapname="ctp.server.require_authentication"/>
 
       <!-- for 4.3 -->
-      <propertymap propertyname="registration.email.subject" mapname="registration.email.subject"/>  
-      <propertymap propertyname="gov.nih.nci.ncia.download.server.url" mapname="gov.nih.nci.ncia.download.server.url"/> 
-      <propertymap propertyname="enable_classic_download" mapname="enable_classic_download"/> 
-            
+      <propertymap propertyname="registration.email.subject" mapname="registration.email.subject"/>
+      <propertymap propertyname="gov.nih.nci.ncia.download.server.url" mapname="gov.nih.nci.ncia.download.server.url"/>
+      <propertymap propertyname="enable_classic_download" mapname="enable_classic_download"/>
+
       <propertymap propertyname="ncia-core-grid.jboss.server.port" mapname="ncia-core-grid.jboss.server.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.external.http.host" mapname="ncia-core-grid.jboss.external.http.host"/>
       <propertymap propertyname="ncia-core-grid.jboss.external.http.port" mapname="ncia-core-grid.jboss.external.http.port"/>
@@ -234,12 +234,12 @@
       <!-- these dont have anything in 4.2 to live off of.  for moving fwd to 4.4 -->
       <propertymap propertyname="ncia-core-grid.jboss.server.hostname" mapname="ncia-core-grid.jboss.server.hostname"/>
       <propertymap propertyname="ncia-core-grid.jboss.web.user" mapname="ncia-core-grid.jboss.web.user"/>
-      <propertymap propertyname="ncia-core-grid.jboss.web.password" mapname="ncia-core-grid.jboss.web.password"/>    
+      <propertymap propertyname="ncia-core-grid.jboss.web.password" mapname="ncia-core-grid.jboss.web.password"/>
       <propertymap propertyname="ncia-core-grid.jboss.ejbinvoker.port" mapname="ncia-core-grid.jboss.ejbinvoker.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.hajndi.port" mapname="ncia-core-grid.jboss.hajndi.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.jms.port" mapname="ncia-core-grid.jboss.jms.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.server.bind.port" mapname="ncia-core-grid.jboss.server.bind.port"/>
-      <propertymap propertyname="ncia-core-grid.jboss.server.jndi.port" mapname="ncia-core-grid.jboss.server.jndi.port"/>    
+      <propertymap propertyname="ncia-core-grid.jboss.server.jndi.port" mapname="ncia-core-grid.jboss.server.jndi.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.server.redirect.port" mapname="ncia-core-grid.jboss.server.redirect.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.server.rmi.port" mapname="ncia-core-grid.jboss.server.rmi.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.service.rmiobject.port" mapname="ncia-core-grid.jboss.service.rmiobject.port"/>
@@ -258,34 +258,34 @@
       <propertymap propertyname="local.grid.uri" mapname="local.grid.uri"/>
       <propertymap propertyname="ncia-core-grid.jboss.thumbnailUrl" mapname="ncia-core-grid.jboss.thumbnailUrl"/>
       <propertymap propertyname="ctp.server.verifier.port" mapname="ctp.server.verifier.port"/>
-      
+
       <!-- for 4.5 -->
       <propertymap propertyname="grid.target" mapname="grid.target"/>
       <propertymap propertyname="ncia-core-grid.jboss.grid.secure.enable" mapname="ncia-core-grid.jboss.grid.secure.enable"/>
-      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.port" mapname="ncia-core-grid.jboss.grid.secure.port"/> 
+      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.port" mapname="ncia-core-grid.jboss.grid.secure.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.grid.secure.cert.location" mapname="ncia-core-grid.jboss.grid.secure.cert.location"/>
-      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.key.location" mapname="ncia-core-grid.jboss.grid.secure.key.location"/> 
-      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.host" mapname="ncia-core-grid.jboss.external.grid.secure.host"/> 
-      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.port" mapname="ncia-core-grid.jboss.external.grid.secure.port"/> 
-      <propertymap propertyname="ncia-core-grid.anonymous.permitted" mapname="ncia-core-grid.anonymous.permitted"/> 
+      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.key.location" mapname="ncia-core-grid.jboss.grid.secure.key.location"/>
+      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.host" mapname="ncia-core-grid.jboss.external.grid.secure.host"/>
+      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.port" mapname="ncia-core-grid.jboss.external.grid.secure.port"/>
+      <propertymap propertyname="ncia-core-grid.anonymous.permitted" mapname="ncia-core-grid.anonymous.permitted"/>
 
     </panelreader>
   </panel>
-  
+
   <!-- Upgrade container.jboss -->
   <panel order="6">
     <!-- base path set in prior page -->
     <variable name="jboss.home" value="${application.base.path}/${jboss.binaries.relative.dir}"/>
-     
-    <field type="staticText" 
-           txt="Reading property values from installations specified in previous screen." 
+
+    <field type="staticText"
+           txt="Reading property values from installations specified in previous screen."
            size="1" />
-    
+
     <panelreader classname="pre-install/install.xml" methodname="upgrade:jboss:init" language="ant">
       <inpropertymap inpropertyname="application.base.path" inpropertyvalue="application.base.path"/>
       <inpropertymap inpropertyname="jboss.home" inpropertyvalue="jboss.home"/>
-      <inpropertymap inpropertyname="jboss.server.name" inpropertyvalue="jboss.server.name"/>  
-  
+      <inpropertymap inpropertyname="jboss.server.name" inpropertyvalue="jboss.server.name"/>
+
       <!-- stuff set by readers to communicate to properties for build script -->
       <propertymap propertyname="authentication.type" mapname="authentication.type"/>
       <propertymap propertyname="database.name" mapname="database.name"/>
@@ -347,56 +347,56 @@
 
 
 
-      <propertymap propertyname="gov.nih.nci.ncia.imaging.server.url" mapname="gov.nih.nci.ncia.imaging.server.url"/>         
+      <propertymap propertyname="gov.nih.nci.ncia.imaging.server.url" mapname="gov.nih.nci.ncia.imaging.server.url"/>
       <propertymap propertyname="gov.nih.nci.ncia.image.path.pattern" mapname="gov.nih.nci.ncia.image.path.pattern"/>
-      <propertymap propertyname="gov.nih.nci.ncia.zip.location" mapname="gov.nih.nci.ncia.zip.location"/>                                          
-      <propertymap propertyname="gov.nih.nci.ncia.ftp.location" mapname="gov.nih.nci.ncia.ftp.location"/> 
-      <propertymap propertyname="gov.nih.nci.ncia.grid.local.node.name" mapname="gov.nih.nci.ncia.grid.local.node.name"/>  
-      <propertymap propertyname="gov.nih.nci.ncia.ui.uid.display.length" mapname="gov.nih.nci.ncia.ui.uid.display.length"/>  
-      <propertymap propertyname="gov.nih.nci.ncia.ftp.url" mapname="gov.nih.nci.ncia.ftp.url"/>                                             
-      <propertymap propertyname="gov.nih.nci.ncia.jboss.public.url" mapname="gov.nih.nci.ncia.jboss.public.url"/>    
+      <propertymap propertyname="gov.nih.nci.ncia.zip.location" mapname="gov.nih.nci.ncia.zip.location"/>
+      <propertymap propertyname="gov.nih.nci.ncia.ftp.location" mapname="gov.nih.nci.ncia.ftp.location"/>
+      <propertymap propertyname="gov.nih.nci.ncia.grid.local.node.name" mapname="gov.nih.nci.ncia.grid.local.node.name"/>
+      <propertymap propertyname="gov.nih.nci.ncia.ui.uid.display.length" mapname="gov.nih.nci.ncia.ui.uid.display.length"/>
+      <propertymap propertyname="gov.nih.nci.ncia.ftp.url" mapname="gov.nih.nci.ncia.ftp.url"/>
+      <propertymap propertyname="gov.nih.nci.ncia.jboss.public.url" mapname="gov.nih.nci.ncia.jboss.public.url"/>
       <propertymap propertyname="gov.nih.nci.ncia.download.server.url" mapname="gov.nih.nci.ncia.download.server.url"/>
-      <propertymap propertyname="gov.nih.nci.ncia.admin.email" mapname="gov.nih.nci.ncia.admin.email"/>                                            
+      <propertymap propertyname="gov.nih.nci.ncia.admin.email" mapname="gov.nih.nci.ncia.admin.email"/>
       <propertymap propertyname="mail.smtp.server"  mapname="mail.smtp.server"/>
-      <propertymap propertyname="gov.nih.nci.ncia.installationSite" mapname="gov.nih.nci.ncia.installationSite"/>     
+      <propertymap propertyname="gov.nih.nci.ncia.installationSite" mapname="gov.nih.nci.ncia.installationSite"/>
 
 
       <!-- for 4.2 -->
       <propertymap propertyname="enabled_guest_account" mapname="enabled_guest_account"/>
       <propertymap propertyname="guest_username" mapname="guest_username"/>
-      
+
       <!-- for 4.3 -->
-      <propertymap propertyname="enable_classic_download" mapname="enable_classic_download"/> 
-      <propertymap propertyname="registration.email.subject" mapname="registration.email.subject"/> 
-      
+      <propertymap propertyname="enable_classic_download" mapname="enable_classic_download"/>
+      <propertymap propertyname="registration.email.subject" mapname="registration.email.subject"/>
+
       <!-- for 4.4 -->
-      <propertymap propertyname="local.grid.uri" mapname="local.grid.uri"/>   
+      <propertymap propertyname="local.grid.uri" mapname="local.grid.uri"/>
     </panelreader>
     <variable name="validation.pre.port.list" value="${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.server.port},${jboss.web.service.port}"/>
     <variable name="validation.post.http.list" value="${jboss.server.port}"/>
     <variable name="validation.post.socket.list" value="${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}"/>
-    
-  </panel>  
-  
+
+  </panel>
+
   <!-- Upgrade container.ncia-core-grid -->
   <panel order="7">
     <variable name="ncia-core-grid.jboss.home" value="${application.base.path}/${ncia-core-grid.jboss.relative.path}"/>
-    
+
     <field type="title" txt="Reading property values from installations specified in previous screen." bold="true" size="1" />
     <panelreader classname="pre-install/install.xml" methodname="upgrade:ncia-core-grid:init" language="ant">
       <inpropertymap inpropertyname="application.base.path" inpropertyvalue="application.base.path"/>
       <inpropertymap inpropertyname="ncia-core-grid.jboss.home" inpropertyvalue="ncia-core-grid.jboss.home"/>
       <inpropertymap inpropertyname="ncia-core-grid.jboss.server.name" inpropertyvalue="ncia-core-grid.jboss.server.name"/>
 
-      <!-- force user to pick - nothing to read these from since they come from jboss 
+      <!-- force user to pick - nothing to read these from since they come from jboss
       <propertymap propertyname="authentication.type" mapname="authentication.type"/>
       <propertymap propertyname="ldap.basedn" mapname="ldap.basedn"/>
       <propertymap propertyname="ldap.searchprefix" mapname="ldap.searchprefix"/>
-      <propertymap propertyname="ldap.url" mapname="ldap.url"/>      
+      <propertymap propertyname="ldap.url" mapname="ldap.url"/>
       -->
-      
+
       <!-- crap this wont work since the database readers go into the ncia-ds.xml in jboss
-      
+
       <propertymap propertyname="database.name" mapname="database.name"/>
       <propertymap propertyname="database.password" mapname="database.password"/>
       <propertymap propertyname="database.port" mapname="database.port"/>
@@ -406,7 +406,7 @@
       <propertymap propertyname="database.url" mapname="database.url"/>
       <propertymap propertyname="database.user" mapname="database.user"/>
        -->
-       
+
       <propertymap propertyname="grid.index.url" mapname="grid.index.url"/>
       <propertymap propertyname="grid.poc.tech.researchCenter.displayname" mapname="grid.poc.tech.researchCenter.displayname"/>
       <propertymap propertyname="grid.poc.tech.researchCenter.shortname" mapname="grid.poc.tech.researchCenter.shortname"/>
@@ -443,12 +443,12 @@
       <propertymap propertyname="ncia-core-grid.jboss.server.name" mapname="ncia-core-grid.jboss.server.name"/>
       -->
       <propertymap propertyname="ncia-core-grid.jboss.web.user" mapname="ncia-core-grid.jboss.web.user"/>
-      <propertymap propertyname="ncia-core-grid.jboss.web.password" mapname="ncia-core-grid.jboss.web.password"/>    
+      <propertymap propertyname="ncia-core-grid.jboss.web.password" mapname="ncia-core-grid.jboss.web.password"/>
       <propertymap propertyname="ncia-core-grid.jboss.ejbinvoker.port" mapname="ncia-core-grid.jboss.ejbinvoker.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.hajndi.port" mapname="ncia-core-grid.jboss.hajndi.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.jms.port" mapname="ncia-core-grid.jboss.jms.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.server.bind.port" mapname="ncia-core-grid.jboss.server.bind.port"/>
-      <propertymap propertyname="ncia-core-grid.jboss.server.jndi.port" mapname="ncia-core-grid.jboss.server.jndi.port"/>    
+      <propertymap propertyname="ncia-core-grid.jboss.server.jndi.port" mapname="ncia-core-grid.jboss.server.jndi.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.server.redirect.port" mapname="ncia-core-grid.jboss.server.redirect.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.server.rmi.port" mapname="ncia-core-grid.jboss.server.rmi.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.service.rmiobject.port" mapname="ncia-core-grid.jboss.service.rmiobject.port"/>
@@ -462,34 +462,34 @@
       <propertymap propertyname="ncia-core-grid.jboss.remoting.port" mapname="ncia-core-grid.jboss.remoting.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.messaging.port" mapname="ncia-core-grid.jboss.messaging.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.java.opts" mapname="ncia-core-grid.jboss.java.opts"/>
-      
+
       <!-- for 4.4 -->
-      <propertymap propertyname="ncia-core-grid.jboss.thumbnailUrl" mapname="ncia-core-grid.jboss.thumbnailUrl"/>      
-      
+      <propertymap propertyname="ncia-core-grid.jboss.thumbnailUrl" mapname="ncia-core-grid.jboss.thumbnailUrl"/>
+
       <!-- for 4.5 -->
       <propertymap propertyname="grid.target" mapname="grid.target"/>
       <propertymap propertyname="ncia-core-grid.jboss.grid.secure.enable" mapname="ncia-core-grid.jboss.grid.secure.enable"/>
-      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.port" mapname="ncia-core-grid.jboss.grid.secure.port"/> 
+      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.port" mapname="ncia-core-grid.jboss.grid.secure.port"/>
       <propertymap propertyname="ncia-core-grid.jboss.grid.secure.cert.location" mapname="ncia-core-grid.jboss.grid.secure.cert.location"/>
-      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.key.location" mapname="ncia-core-grid.jboss.grid.secure.key.location"/> 
-      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.host" mapname="ncia-core-grid.jboss.external.grid.secure.host"/> 
-      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.port" mapname="ncia-core-grid.jboss.external.grid.secure.port"/> 
-      <propertymap propertyname="ncia-core-grid.anonymous.permitted" mapname="ncia-core-grid.anonymous.permitted"/>       
+      <propertymap propertyname="ncia-core-grid.jboss.grid.secure.key.location" mapname="ncia-core-grid.jboss.grid.secure.key.location"/>
+      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.host" mapname="ncia-core-grid.jboss.external.grid.secure.host"/>
+      <propertymap propertyname="ncia-core-grid.jboss.external.grid.secure.port" mapname="ncia-core-grid.jboss.external.grid.secure.port"/>
+      <propertymap propertyname="ncia-core-grid.anonymous.permitted" mapname="ncia-core-grid.anonymous.permitted"/>
     </panelreader>
-  </panel>  
-  
+  </panel>
+
   <!-- Upgrade container.database -->
   <panel order="8">
     <variable name="jboss.home" value="${application.base.path}/${jboss.binaries.relative.dir}"/>
-    
+
     <field type="title" txt="Reading property values from installations specified in previous screen." bold="true" size="1" />
     <panelreader classname="pre-install/install.xml" methodname="upgrade:database:init" language="ant">
       <inpropertymap inpropertyname="application.base.path" inpropertyvalue="application.base.path"/>
       <inpropertymap inpropertyname="jboss.home" inpropertyvalue="jboss.home"/>
       <inpropertymap inpropertyname="jboss.server.name" inpropertyvalue="jboss.server.name"/>
-      
+
       <propertymap propertyname="authentication.type" mapname="authentication.type"/>
-      
+
       <propertymap propertyname="database.name" mapname="database.name"/>
       <propertymap propertyname="database.password" mapname="database.password"/>
       <propertymap propertyname="database.port" mapname="database.port"/>
@@ -498,27 +498,27 @@
       <propertymap propertyname="database.type" mapname="database.type"/>
       <propertymap propertyname="database.url" mapname="database.url"/>
       <propertymap propertyname="database.user" mapname="database.user"/>
-      
+
       <propertymap propertyname="enabled_guest_account" mapname="enabled_guest_account"/>
       <propertymap propertyname="guest_username" mapname="guest_username"/>
     </panelreader>
   </panel>
-  
+
   <panel order="9">
     <!-- base path set in prior page -->
-   
-    <field type="staticText" 
-           txt="Reading property values from installations specified in previous screen." 
- 
+
+    <field type="staticText"
+           txt="Reading property values from installations specified in previous screen."
+
            size="1" />
     <panelreader classname="pre-install/install.xml" methodname="upgrade:ctp:readers" language="ant">
-      
-      <!-- stuff set in izpack? to communicate to properties for build script -->  
+
+      <!-- stuff set in izpack? to communicate to properties for build script -->
       <inpropertymap inpropertyname="application.base.path" inpropertyvalue="application.base.path"/>
 
 
       <!-- stuff set by readers to communicate to properties for build script -->
-     
+
       <!-- crap this wont work since the database readers go into the ncia-ds.xml in jboss
       <propertymap propertyname="database.name" mapname="database.name"/>
       <propertymap propertyname="database.password" mapname="database.password"/>
@@ -531,60 +531,60 @@
       -->
 
       <propertymap propertyname="ctp.server.port" mapname="ctp.server.port"/>
-      <propertymap propertyname="ctp.server.http_import_service.port" mapname="ctp.server.http_import_service.port"/>      
+      <propertymap propertyname="ctp.server.http_import_service.port" mapname="ctp.server.http_import_service.port"/>
       <propertymap propertyname="ctp.server.storage_service.port" mapname="ctp.server.storage_service.port"/>
       <propertymap propertyname="ctp.server.admin.password" mapname="ctp.server.admin.password"/>
       <propertymap propertyname="ctp.server.storage_service.root" mapname="ctp.server.storage_service.root"/>
 
       <propertymap propertyname="ctp.client.port" mapname="ctp.client.port"/>
       <propertymap propertyname="ctp.client.http_import_service.port" mapname="ctp.client.http_import_service.port"/>
-      <propertymap propertyname="ctp.client.export_service.port" mapname="ctp.client.export_service.port"/>   
-      <propertymap propertyname="ctp.client.admin.password" mapname="ctp.client.admin.password"/>         
-    
+      <propertymap propertyname="ctp.client.export_service.port" mapname="ctp.client.export_service.port"/>
+      <propertymap propertyname="ctp.client.admin.password" mapname="ctp.client.admin.password"/>
+
       <!-- for 4.2 -->
       <propertymap propertyname="ctp.server.storage_service.index" mapname="ctp.server.storage_service.index"/>
       <propertymap propertyname="ctp.client.dicom_import_service.port" mapname="ctp.client.dicom_import_service.port"/>
 
       <!-- for 4.2.1 -->
       <propertymap propertyname="ctp.server.king.password" mapname="ctp.server.king.password"/>
-      <propertymap propertyname="ctp.client.king.password" mapname="ctp.client.king.password"/> 
+      <propertymap propertyname="ctp.client.king.password" mapname="ctp.client.king.password"/>
       <propertymap propertyname="ctp.server.require_authentication" mapname="ctp.server.require_authentication"/>
-      
+
       <!-- for 4.4 -->
       <propertymap propertyname="ctp.server.verifier.port" mapname="ctp.server.verifier.port"/>
-      
+
     </panelreader>
   </panel>
-  
+
   <!-- Jboss Configuration -->
   <panel order="10">
     <field type="title" txt="Configure your JBoss application server" bold="true" size="1" />
     <field type="divider" align="top"/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="As part of this installation, JBoss will be installed in ${UserPathPanelVariable}/${jboss.binaries.relative.dir}.  It will be configured based on the values you enter below."/>
-           
-    <field type="staticText" 
-           align="left"            
+
+    <field type="staticText"
+           align="left"
            txt="NOTE: The Hostname below (and on other panels of this installer) is the host name accesible from this machine and others on the local network. To access this JBoss application server from the Internet, you may need to provide the JBoss HTTP Port to your Network administrator to allow access through the firewall."/>
-           
+
     <field type="space"/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="The password you enter below is the password used to access the JBoss web console. This is a password you are creating, so you must keep track of this password for future use."/>
     <field type="space"/>
-    
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="Setting JAVA_OPTS will override any JBoss defaults.  Setting it blank will leave the JBoss default."/>
     <field type="space"/>
-    
-    <field type="staticText" 
-           align="left" 
-           txt="WARNING: If doing an upgrade, DO NOT specify a server name different than the server name specified earlier (for example: default).  The upgrade will fail if these do not agree."/>           
-      
-    <field type="divider" align="top"/>      
-    
+
+    <field type="staticText"
+           align="left"
+           txt="WARNING: If doing an upgrade, DO NOT specify a server name different than the server name specified earlier (for example: default).  The upgrade will fail if these do not agree."/>
+
+    <field type="divider" align="top"/>
+
     <field type="text" align="left" variable="jboss.server.hostname">
       <spec txt="Hostname of this Server:" size="25" set="$HOST_NAME"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Hostname of this Server is a required field" />
@@ -649,7 +649,7 @@
       <spec txt="JBoss JMS port:" size="5" set="45170"/>
       <validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss JMS port number is already in use" />
     </field>
-    <!-- Not sure we ant to prompt for these, this page is so big already --> 
+    <!-- Not sure we ant to prompt for these, this page is so big already -->
     <variable name="log4j.maxFileSize" value="100MB"/>
     <variable name="log4j.maxDays" value="7"/>
     <variable name="log4j.level" value="WARN"/>
@@ -820,7 +820,7 @@
       </field>
   </panel>
 
-  
+
   <panel order="14">
     <field type="title" txt="Choose your backing database type" bold="true" size="1" />
 
@@ -830,35 +830,35 @@
         <choice txt="Oracle" value="false" />
       </spec>
     </field>
-        
+
   </panel>
-  
+
   <panel order="15">
     <field type="title" txt="Configuring your MySQL database connection" bold="true" size="1" />
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="The information you enter below will connect you to an existing MySQL database."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="localhost is NOT a recommended value for Database Host Name."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="The 'Database User' must have full access to 'Database Name'. It's highly recommended you contact your database administrator to obtain this information."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="WARNING:  If installing all components or the database component: all database objects for 'Database Name' will be dropped and recreated during the installation process."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="For detailed descriptions on each of the properties below, see the Database Settings section at https://wiki.nci.nih.gov/x/koQYAQ "/>
     <field type="divider" align="top"/>
 
     <variable name="install.path" value="$INSTALL_PATH"/>
     <variable name="baseDir" value="$INSTALL_PATH"/>
-   
+
     <field type="text" variable="database.server">
       <spec txt="Database Host Name:" size="25" set="localhost"/>
       <validator class="com.izforge.izpack.util.HostNameValidator" txt="Enter a valid Host name or the Host is not reachable" />
@@ -881,40 +881,40 @@
       </spec>
       <validator class="com.izforge.izpack.util.DBConnectionValidator" txt="Unable to connect to this database with the Database Application User and Password you have entered." />
     </field>
-    
+
     <variable name="database.type" value="mysql"/>
     <variable name="database.url" value="jdbc:mysql://${database.server}:${database.port}/${database.name}"/>
     <variable name="database.schema" value="${database.name}"/>
-  </panel>  
-  
+  </panel>
+
 
   <!-- Database Properties -->
   <panel order="16">
     <field type="title" txt="Configuring your Oracle database connection" bold="true" size="1" />
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="The information you enter below will connect you to an existing Oracle schema."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="localhost is NOT a recommended value for Database Host Name."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="The 'Database User' must have full access to 'Database Name'. It's highly recommended you contact your database administrator to obtain this information."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="WARNING:  If installing all components or the database component: all database objects for the schema will be dropped and recreated during the installation process."/>
-           
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="For detailed descriptions on each of the properties below, see the Database Settings section at https://wiki.nci.nih.gov/x/koQYAQ "/>
     <field type="divider" align="top"/>
 
     <variable name="install.path" value="$INSTALL_PATH"/>
     <variable name="baseDir" value="$INSTALL_PATH"/>
-   
+
     <field type="text" variable="database.server">
       <spec txt="Database Host Name:" size="25" set="localhost"/>
       <validator class="com.izforge.izpack.util.HostNameValidator" txt="Enter a valid Host name or the Host is not reachable" />
@@ -934,18 +934,18 @@
     <field type="text" variable="database.schema">
       <spec txt="Database Schema:" size="25" set="nbia"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Database Schema is a required field" />
-    </field>    
+    </field>
     <field type="password" allign="left" variable="database.password">
       <spec>
          <pwd txt="Database Application User Password:" size="25" set=""/>
       </spec>
       <validator class="com.izforge.izpack.util.DBConnectionValidator" txt="Unable to connect to this database with the Database Application User and Password you have entered." />
     </field>
-    
+
     <variable name="database.type" value="oracle"/>
     <variable name="database.url" value="jdbc:oracle:thin:@${database.server}:${database.port}:${database.name}"/>
-    
-  </panel>  
+
+  </panel>
 
   <!-- Global Configuraiton Options -->
   <panel order="17">
@@ -967,24 +967,24 @@
       <spec txt="Grid Index Url:" size="35" set="http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
       <validator class="com.izforge.izpack.util.URLCheckValidator" txt="Please enter a valid Index URL" />
     </field>
-      
-    <field type="text" variable="ncia-core-grid.jboss.external.http.host">           
+
+    <field type="text" variable="ncia-core-grid.jboss.external.http.host">
       <spec txt="Grid External Host Name:" size="25" set=""/>
     </field>
 
-    <field type="text" variable="ncia-core-grid.jboss.external.http.port">           
+    <field type="text" variable="ncia-core-grid.jboss.external.http.port">
       <spec txt="Grid External Port Num:"  size="5" set=""/>
-    </field>    
+    </field>
 
     <field type="staticText" align="left" txt="Do you wish to enable grid security?"/>
-    
+
     <field type="radio" variable="ncia-core-grid.jboss.grid.secure.enable">
       <spec>
         <choice txt="Yes" value="true"  />
         <choice txt="No" value="false" set="true"/>
       </spec>
-    </field>    
-    
+    </field>
+
     <variable name="grid.target" value=""/>
     <variable name="ncia-core-grid.jboss.grid.secure.port" value=""/>
     <variable name="ncia-core-grid.jboss.external.grid.secure.host" value=""/>
@@ -992,18 +992,18 @@
     <variable name="ncia-core-grid.jboss.grid.secure.cert.location" value=""/>
     <variable name="ncia-core-grid.jboss.grid.secure.key.location" value=""/>
     <variable name="ncia-core-grid.anonymous.permitted" value=""/>
-    
+
   </panel>
-  
-  
-  
-  <panel order="19">    
- 
- 
+
+
+
+  <panel order="19">
+
+
     <field type="check" align="left" variable="ncia-core-grid.anonymous.permitted">
       <spec txt="Allow anonymous access on secure grid connector"
-            size="25" 
-            true="true" 
+            size="25"
+            true="true"
             false="false"
             set="false"
             revalidate="no"/>
@@ -1015,27 +1015,27 @@
         <choice txt="nci_stage-1.3"  value="nci_stage-1.3" />
         <choice txt="nci_prod-1.3" value="nci_prod-1.3" set="true"/>
       </spec>
-    </field>     
+    </field>
 
-    <field type="text" variable="ncia-core-grid.jboss.grid.secure.port">           
+    <field type="text" variable="ncia-core-grid.jboss.grid.secure.port">
       <spec txt="Secure Grid Connector Port Num:"  size="5" set="443"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Port is a required field" />
-    </field> 
+    </field>
 
-    <field type="text" variable="ncia-core-grid.jboss.external.grid.secure.host">           
+    <field type="text" variable="ncia-core-grid.jboss.external.grid.secure.host">
       <spec txt="Secure Grid Connector External Host Name:" size="25" set=""/>
     </field>
-    
-    <field type="text" variable="ncia-core-grid.jboss.external.grid.secure.port">           
+
+    <field type="text" variable="ncia-core-grid.jboss.external.grid.secure.port">
       <spec txt="Secure Grid Connector External Port:" size="25" set=""/>
-    </field>    
+    </field>
 
     <field type="file" variable="ncia-core-grid.jboss.grid.secure.cert.location">
-      <spec txt="Location of public certificate to use for Grid security: "  size="25" set=""/>     
-    </field>    
+      <spec txt="Location of public certificate to use for Grid security: "  size="25" set=""/>
+    </field>
     <field type="file" variable="ncia-core-grid.jboss.grid.secure.key.location">
-      <spec txt="Location of private key to use for Grid security: "  size="25" set=""/>     
-    </field>     
+      <spec txt="Location of private key to use for Grid security: "  size="25" set=""/>
+    </field>
 
   </panel>
 
@@ -1143,11 +1143,11 @@
   <panel order="23">
     <field type="title" txt="Configure your JBoss application server" bold="true" size="1" />
     <field type="divider" align="top"/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="The grid service needs to connect to the (other) JBoss application server to retrieve data.  Enter connection parameters here."/>
-            
-    
+
+
     <field type="text" align="left" variable="jboss.server.hostname">
       <spec txt="JBoss Hostname:" size="25" set="$HOST_NAME"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Hostname of this Server is a required field" />
@@ -1157,30 +1157,30 @@
       <spec txt="JBoss HTTP Port:" size="5" set="45210"/>
       <validator class="com.izforge.izpack.util.PortValidator" txt="The HTTP port number is already in use" />
     </field>
-    
+
   </panel>
-  
+
   <!-- NCIA-CORE-GRID Properties 1 -->
   <panel order="24">
 
     <field type="title" txt="Configure your JBoss application server for the (NBIA core) grid service" bold="true" size="1" />
     <field type="divider" align="top"/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="As part of this installation, JBoss will be installed in ${UserPathPanelVariable}/${ncia-core-grid.jboss.relative.path}.  It will be configured based on the values you enter below.  NOTE: The Hostname below (and on other panels of this installer) is the host name accesible from this machine and others on the local network. To access this JBoss application server from the Internet, you may need to provide the JBoss HTTP Port to your Network administrator to allow access through the firewall."/>
     <field type="space"/>
     <field type="staticText" align="left" txt="The password you enter below is the password used to access the JBoss web console. This is a password you are creating, so you must keep track of this password for future use."/>
     <field type="space"/>
-    
-    <field type="staticText" 
-           align="left" 
+
+    <field type="staticText"
+           align="left"
            txt="Setting JAVA_OPTS will override any JBoss defaults.  Setting it blank will leave the JBoss default."/>
     <field type="space"/>
-    
-    <field type="staticText" 
-           align="left" 
-           txt="WARNING: If doing an upgrade, DO NOT specify a server name different than the server name specified earlier (for example: default).  The upgrade will fail if these do not agree."/> 
-           
+
+    <field type="staticText"
+           align="left"
+           txt="WARNING: If doing an upgrade, DO NOT specify a server name different than the server name specified earlier (for example: default).  The upgrade will fail if these do not agree."/>
+
     <field type="text" align="left" variable="ncia-core-grid.jboss.server.hostname">
       <spec txt="Hostname of this Server:" size="25" set="$HOST_NAME"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Hostname of this Server is a required field" />
@@ -1244,8 +1244,8 @@
     <field type="text" variable="ncia-core-grid.jboss.jms.port">
       <spec txt="JBoss JMS port:"  size="5" set="21170"/>
       <validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss JMS port number is already in use" />
-    </field>    
-   
+    </field>
+
   </panel>
 
   <!-- NCIA-CORE-GRID Properties 2 -->
@@ -1304,31 +1304,31 @@
       <spec txt="JBoss web service port:" size="5" set="21250"/>
       <validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss web service port number is already in use" />
     </field>
-    
+
     <field type="text" align="left" variable="ncia-core-grid.tempZipLocation">
-      <spec txt="Temp directory for zipping grid transfers:" 
-            size="25" 
+      <spec txt="Temp directory for zipping grid transfers:"
+            size="25"
             set="/tmp/tempzip"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" 
+      <validator class="com.izforge.izpack.util.NotEmptyValidator"
                  txt="Enter a value for a temporary directory for zipping DICOM images" />
-    </field> 
-    
-    <field type="divider" align="top"/>   
-    <field type="staticText" 
-           align="left" 
+    </field>
+
+    <field type="divider" align="top"/>
+    <field type="staticText"
+           align="left"
            txt="The host and port MUST match the JBoss public URL (where the webapp is installed)."/>
-    
+
     <field type="text" align="left" variable="ncia-core-grid.jboss.thumbnailUrl">
 
-      <spec txt="URL to the thumbnail server on appserver.:" 
-            size="50" 
+      <spec txt="URL to the thumbnail server on appserver.:"
+            size="50"
             set="http://${jboss.server.hostname}:${jboss.server.port}/ncia/publicThumbnails "/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" 
+      <validator class="com.izforge.izpack.util.NotEmptyValidator"
                  txt="Enter a value thumbnail URL." />
-    </field>     
+    </field>
 
-    
-   
+
+
   </panel>
 
   <panel order="26">
@@ -1346,7 +1346,7 @@
       <spec txt="NBIA UID Display Length:" size="10" set="100"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA UID Display Length" />
     </field>
-   
+
     <variable name="gov.nih.nci.ncia.jboss.mq.url" value="${jboss.server.hostname}:${jboss.server.jndi.port}"/>
     <variable name="gov.nih.nci.ncia.imaging.server.url" value="http://${jboss.server.hostname}:${jboss.server.port}"/>
 
@@ -1358,118 +1358,118 @@
       <spec txt="NBIA Admin Email:" size="10" set=""/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Admin Email" />
     </field>
-    
+
     <field type="text" align="left" variable="gov.nih.nci.ncia.jboss.public.url">
       <spec txt="JBoss public URL:" size="20" set="http://${jboss.server.hostname}:${jboss.server.port}/ncia/"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for JBoss public URL" />
-    </field>    
+    </field>
 
     <field type="text" align="left" variable="gov.nih.nci.ncia.download.server.url">
       <spec txt="Download Server URL:" size="20" set="http://${jboss.server.hostname}:${jboss.server.port}/nbia-download/servlet/DownloadServlet"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Download Server URL" />
     </field>
-    
+
     <field type="check" align="left" variable="enabled_guest_account">
       <spec txt="Enable public search access (relies upon guest account)"
-            size="25" 
-            true="yes" 
+            size="25"
+            true="yes"
             false="no"
             set="false"
             revalidate="no"/>
     </field>
-    
+
     <field type="text" align="left" variable="guest_username">
       <spec txt="Public Search guest username:" size="20" set="nbia_guest"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Public Search guest username" />
-    </field>     
+    </field>
     <field type="text" align="left" variable="registration.email.subject">
       <spec txt="Registration Email Subject Line:" size="50" set="User registration to access the National Biomedical Imaging Archive (NBIA)"/>
-    </field>       
-    
+    </field>
+
     <field type="divider"/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="If FTP/HTTP download is NOT enabled, then the values for FTP host name and location are not important."/>
-    
-    
+
+
     <!-- would enable this to true, but set=true wont let user uncheck in 4.3.0!  4.3.1 supposedly fixeD? -->
     <field type="check" align="left" variable="enable_classic_download">
       <spec txt="Enable FTP/HTTP download" size="25" true="yes" false="no" revalidate="no" />
     </field>
     <field type="text" align="left" variable="gov.nih.nci.ncia.ftp.url">
-      <spec txt="NBIA FTP Host Name:" size="20" set="localhost"/>     
-    </field>  
+      <spec txt="NBIA FTP Host Name:" size="20" set="localhost"/>
+    </field>
     <field type="text" align="left" variable="gov.nih.nci.ncia.ftp.location">
       <spec txt="NBIA FTP Location:" size="50" set="/var/ftp/ncia"/>
-    </field>    
+    </field>
 
     <field type="space"/>
     <field type="divider"/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="The value for the Local Name should match the grid research center display name property."/>
-           
+
     <field type="text" align="left" variable="gov.nih.nci.ncia.grid.local.node.name">
       <spec txt="NBIA Grid Node Local Name:" size="50" set="${grid.poc.tech.researchCenter.displayname}"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA Grid Node Local Name" />
     </field>
-    
-    <field type="staticText" 
-           align="left" 
-           txt="DO NOT use localhost here.  Enter the actual proxy/host name or IP address where the grid server is being installed."/>    
+
+    <field type="staticText"
+           align="left"
+           txt="DO NOT use localhost here.  Enter the actual proxy/host name or IP address where the grid server is being installed."/>
     <field type="text" align="left" variable="local.grid.uri">
       <spec txt="NBIA Grid Node Local URL:" size="50" set="http://${ncia-core-grid.jboss.server.hostname}:${ncia-core-grid.jboss.server.port}/wsrf/services/cagrid/NCIACoreService"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA Grid Node Local URL" />
-    </field>    
-    
+    </field>
+
   </panel>
   <panel order="27">
     <field type="title" txt="CTP Server Configuration" bold="true" size="1" />
     <!--
     <field type="staticText" align="left" txt="For detailed descriptions on each of the properties below, see ????"/>
     -->
-    
+
     <field type="divider" align="top"/>
-    <field type="staticText" 
-           align="left" 
-           txt="WARNING WARNING WARNING WARNING WARNING WARNING WARNING"/>  
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
+           txt="WARNING WARNING WARNING WARNING WARNING WARNING WARNING"/>
+    <field type="staticText"
+           align="left"
            txt="The installer (for install or upgrade) will remove any previously installed application servers (using caBIG installers) based on the information you provide."/>
-    <field type="staticText" 
-           align="left" 
+    <field type="staticText"
+           align="left"
            txt="If you are doing an upgrade and the CTP server stores images in the default relative location (storage), they could be lost.  Please be sure to copy your image files out of this relative location before doing the upgrade."/>
-    <field type="staticText" 
-           align="left" 
-           txt="If you are doing a fresh install, it is recommended you select an absolute location for storage that is NOT under the NBIA installation directory."/>    
-    <field type="divider" align="top"/>           
-    
-    <field type="text" variable="ctp.server.port">      
+    <field type="staticText"
+           align="left"
+           txt="If you are doing a fresh install, it is recommended you select an absolute location for storage that is NOT under the NBIA installation directory."/>
+    <field type="divider" align="top"/>
+
+    <field type="text" variable="ctp.server.port">
       <spec txt="CTP Server HTTP port:" size="5" set="23080"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The http port number is already in use" >
       </validator>
-    </field>    
-    <field type="text" variable="ctp.server.http_import_service.port">      
+    </field>
+    <field type="text" variable="ctp.server.http_import_service.port">
       <spec txt="CTP HTTP Import Service port:" size="5" set="23104"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The port number is already in use" >
       </validator>
-    </field>    
-    <field type="text" variable="ctp.server.storage_service.port">      
+    </field>
+    <field type="text" variable="ctp.server.storage_service.port">
       <spec txt="CTP Server Storage Service port:"  size="5" set="23204"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The http port number is already in use" >
       </validator>
-    </field>    
-    
-    <field type="text" variable="ctp.server.verifier.port">      
+    </field>
+
+    <field type="text" variable="ctp.server.verifier.port">
       <spec txt="CTP Verifier Service port:" size="5" set="23304"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The port number is already in use" >
       </validator>
-    </field>   
-    
+    </field>
+
     <field type="password" align="left" variable="ctp.server.admin.password">
       <spec>
         <pwd txt="CTP Server Admin Password:" size="25" set=""/>
@@ -1478,7 +1478,7 @@
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for CTP Server Admin Password" />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
     </field>
-    
+
     <field type="password" align="left" variable="ctp.server.king.password">
       <spec>
         <pwd txt="CTP Server King Password:" size="25" set=""/>
@@ -1487,25 +1487,25 @@
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for CTP Server Admin Password" />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
     </field>
-    
+
     <field type="text" align="left" variable="ctp.server.storage_service.root">
       <spec txt="Directory for Storage Service:" size="20" set="storage"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Storage Service Directory" />     
-    </field>  
-    
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Storage Service Directory" />
+    </field>
+
     <field type="text" align="left" variable="ctp.server.storage_service.index">
       <spec txt="Index directory for Storage Service:" size="20" set="index"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Storage Service Index Directory" />     
-    </field>     
-    
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Storage Service Index Directory" />
+    </field>
+
     <field type="check" align="left" variable="ctp.server.require_authentication">
       <spec txt="Require authentication on Import Service" size="25" true="yes" false="no" set="false"/>
-    </field>    
-    
-    
-    
-    
-  </panel>  
+    </field>
+
+
+
+
+  </panel>
 
   <panel order="28">
     <field type="title" txt="CTP Client Configuration" bold="true" size="1" />
@@ -1514,31 +1514,31 @@
     -->
     <field type="divider" align="top"/>
 
-    <field type="text" variable="ctp.client.port">      
+    <field type="text" variable="ctp.client.port">
       <spec txt="CTP Client HTTP port:"  size="5" set="24080"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The http port number is already in use" >
       </validator>
-    </field>    
-    <field type="text" variable="ctp.client.http_import_service.port">      
+    </field>
+    <field type="text" variable="ctp.client.http_import_service.port">
       <spec txt="CTP Client HTTP Import Service port:" size="5" set="24104"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The port number is already in use" >
       </validator>
-    </field>    
-    <field type="text" variable="ctp.client.dicom_import_service.port">      
+    </field>
+    <field type="text" variable="ctp.client.dicom_import_service.port">
       <spec txt="CTP Client DICOM Import Service port:" size="5" set="24304"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The port number is already in use" >
       </validator>
-    </field>      
-    <field type="text" variable="ctp.client.export_service.port">     
+    </field>
+    <field type="text" variable="ctp.client.export_service.port">
       <spec txt="CTP Client Export Service port:" size="5" set="24204"/>
       <validator
         class="com.izforge.izpack.util.PortValidator" txt="The http port number is already in use" >
       </validator>
-    </field>    
-    
+    </field>
+
     <field type="password" align="left" variable="ctp.client.admin.password">
       <spec>
         <pwd txt="CTP Client Admin Password:" size="25" set=""/>
@@ -1547,7 +1547,7 @@
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for CTP Client Admin Password" />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
     </field>
-    
+
     <field type="password" align="left" variable="ctp.client.king.password">
       <spec>
         <pwd txt="CTP Client King Password:" size="25" set=""/>
@@ -1555,58 +1555,176 @@
       </spec>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for CTP Server Admin Password" />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
-    </field>    
+    </field>
 
-  </panel>      
+  </panel>
 
   <panel order="29">
     <variable name="cancer.center.logo" value=""/>
     <variable name="cancer.center.background" value=""/>
-      
+    <variable name="branding.left.submenu.quicklinks.path" value=""/>
+    <variable name="branding.footer.path" value=""/>
+    <variable name="branding.welcome.image.path" value=""/>
+    <variable name="branding.welcome.text.path" value=""/>
+    <variable name="branding.welcome.title.path" value=""/>
+    <variable name="branding.applogo.path" value=""/>
+    <variable name="branding.applogo.visible" value=""/>
+
     <field type="title" txt="Optional Branding" bold="true" size="1" />
-    <field type="staticText" align="left" txt="Do you wish to apply a logo/brand to webapp?"/>
+    <field type="staticText" align="left" txt=""/>
     <field type="divider" align="top"/>
-    <field type="radio" variable="cclogo.enabled">
+
+    <field type="check" align="left" variable="cclogo.enabled">
+      <spec txt="Do you wish to apply an institutional or application logo/brand to webapp?"
+            size="25"
+            true="true"
+            false="false"
+            set="false"
+            revalidate="no"/>
+    </field>
+    <field type="check" align="left" variable="ccwelcome.enabled">
+      <spec txt="Do you wish to alter the welcome page?"
+            size="25"
+            true="true"
+            false="false"
+            set="false"
+            revalidate="no"/>
+    </field>
+    <field type="check" align="left" variable="ccquicklinks.enabled">
+      <spec txt="Do you wish to alter the Quick Links menu?"
+            size="25"
+            true="true"
+            false="false"
+            set="false"
+            revalidate="no"/>
+    </field>
+    <field type="check" align="left" variable="ccfooter.enabled">
+      <spec txt="Do you wish to alter the page footer?"
+            size="25"
+            true="true"
+            false="false"
+            set="false"
+            revalidate="no"/>
+    </field>
+
+  </panel>
+
+  <panel order="30">
+    <!-- Cant use allowEmptyValue="true" because of http://jira.codehaus.org/browse/IZPACK-426  -->
+
+    <field type="title" txt="Optional Branding - Logos" bold="true" size="1" />
+
+    <field type="staticText" align="left" txt="Select a 300x20 JPG, GIF, or PNG as a logo for the institution."/>
+    <field type="staticText" align="left" txt="Not selecting an image of the proper dimensions will cause distortion."/>
+    <field type="file" variable="cancer.center.logo">
+      <spec txt="Branding Logo file:" size="25" set="" />
+    </field>
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a JPG, GIF, or PNG as a background for the institution logo."/>
+    <field type="staticText" align="left" txt="This image can be any size."/>
+    <field type="file" variable="cancer.center.background">
+      <spec txt="Branding Logo Background file:" size="25" set=""/>
+    </field>
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a 500x50 JPG, GIF, or PNG as a logo for the application."/>
+    <field type="staticText" align="left" txt="Choose to either not show an application logo, or select a replacement for the default NBIA logo."/>
+    <field type="radio" variable="branding.applogo.visible">
       <spec>
-        <choice txt="Yes" value="true"  />
-        <choice txt="No" value="false" set="true"/>
+        <choice txt="Yes" value="yes" set="true"  />
+        <choice txt="No" value="no" />
       </spec>
     </field>
-  </panel>
-  
-  <panel order="30">
-    <field type="title" txt="Optional Branding" bold="true" size="1" />
-    
-    <field type="staticText" align="left" txt="Optionally, select a 300x20 JPG, GIF, or PNG as a logo for the application."/>
-    <field type="staticText" align="left" txt="Not selecting an image of the proper dimensions will cause distortion."/>    
-    <field type="divider" align="top"/>
-    <field type="file" variable="cancer.center.logo">
-      <spec txt="Branding Logo:" size="25" set=""/>
+    <field type="file" variable="branding.applogo.path">
+      <spec txt="Application logo image file:" size="25" set="" allowEmptyValue="true" />
     </field>
-    
-    <field type="staticText" align="left" txt="Optionally, select a JPG, GIF, or PNG as a background for the logo."/>
-    <field type="staticText" align="left" txt="This image can be any size."/>
-    <field type="divider" align="top"/>    
-    <field type="file" variable="cancer.center.background">
-      <spec txt="Branding Logo Background:" size="25" set=""/>
-    </field>    
-            
-  </panel>  
+
+  </panel>
+
+  <panel order="31">
+    <!-- Cant use allowEmptyValue="true" because of http://jira.codehaus.org/browse/IZPACK-426  -->
+
+    <field type="title" txt="Optional Branding - Welcome page" bold="true" size="1" />
+
+    <field type="staticText"
+           align="left"
+           txt="For examples of valid XHTML files that can be used, please see: https://wiki.nci.nih.gov/x/SoZXAg for guidance."/>
+
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a 600x140 JPG, GIF, or PNG as a banner that will appear on the welcome page."/>
+    <field type="staticText" align="left" txt="Not selecting an image of the proper dimensions may cause the welcome page layout to be skewed."/>
+    <field type="file" variable="branding.welcome.image.path">
+      <spec txt="Welcome page banner image file:" size="25" set=""/>
+    </field>
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a file that contains XHTML markup for the welcome page text."/>
+    <field type="file" variable="branding.welcome.text.path">
+      <spec txt="Welcome text XHTML file:" size="25" set="" />
+    </field>
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a file that contains XHTML markup for the welcome title text."/>
+    <field type="file" variable="branding.welcome.title.path">
+      <spec txt="Welcome title XHTML file: " size="25" set=""/>
+    </field>
+
+
+  </panel>
+
+ <panel order="32">
+    <!-- Cant use allowEmptyValue="true" because of http://jira.codehaus.org/browse/IZPACK-426  -->
+
+    <field type="title" txt="Optional Branding - Quick Links" bold="true" size="1" />
+
+    <field type="staticText"
+           align="left"
+           txt="For examples of valid XHTML files that can be used, please see: https://wiki.nci.nih.gov/x/SoZXAg for guidance."/>
+
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a file that contains XHTML markup for the Quick Links on the left side of every page."/>
+    <field type="file" variable="branding.left.submenu.quicklinks.path">
+      <spec txt="Quick Links XHTML file:" size="25" set=""/>
+    </field>
+
+  </panel>
+
+  <panel order="33">
+    <!-- Cant use allowEmptyValue="true" because of http://jira.codehaus.org/browse/IZPACK-426  -->
+
+    <field type="title" txt="Optional Branding - Footer" bold="true" size="1" />
+
+    <field type="staticText"
+           align="left"
+           txt="For examples of valid XHTML files that can be used, please see: https://wiki.nci.nih.gov/x/SoZXAg for guidance."/>
+
+    <field type="divider" align="top"/>
+
+    <field type="staticText" align="left" txt="Select a file that contains XHTML markup for the page footer."/>
+    <field type="file" variable="branding.footer.path">
+      <spec txt="Footer XHTML file:" size="25" set="" />
+    </field>
+
+
+  </panel>
 
 
   <!--Jar Signing -->
-  <panel order="31">
+  <panel order="34">
     <field type="title" txt="Download Manager Digital Certificate" bold="true" size="1" />
-    
+
     <field type="staticText"
-           align="left" 
-           txt="In order for the Download Manager to work correctly, it must be digitally signed."/>    
+           align="left"
+           txt="In order for the Download Manager to work correctly, it must be digitally signed."/>
     <field type="staticText"
-           align="left" 
-           txt="If your organization has a digital certificate to use for the signing, select false."/>   
+           align="left"
+           txt="If your organization has a digital certificate to use for the signing, select false."/>
     <field type="staticText"
-           align="left" 
-           txt="Otherwise the installer will generate a digital certificate to use."/>            
+           align="left"
+           txt="Otherwise the installer will generate a digital certificate to use."/>
     <field type="divider" align="top"/>
 
 
@@ -1616,71 +1734,71 @@
         <choice txt="No"  value="false" set="true"/>
         <choice txt="Yes" value="true"/>
       </spec>
-    </field>   
+    </field>
   </panel>
-  
+
   <!-- no self sign -->
-  <panel order="32"> 
+  <panel order="35">
     <variable name="jar-signing.generate-selfsigned" value="false"/>
-      
+
     <field type="staticText"
-           align="left" 
-           txt="These fields point to an EXISTING keystore."/>    
-  
+           align="left"
+           txt="These fields point to an EXISTING keystore."/>
+
     <field type="divider" align="top"/>
-    
+
     <field type="file" variable="jar-signing.keystore.location">
       <spec txt="Keystore file location (include filename): "  size="25" set=""/>
-      
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore location" />      
+
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore location" />
     </field>
-    
+
     <field type="text" variable="jar-signing.keystore.alias">
       <spec txt="Keystore alias: "  size="75" set=""/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore alias" />
     </field>
-    
+
     <field type="password" align="left" variable="jar-signing.keystore.password">
       <spec>
         <pwd txt="Keystore file password:" size="25" set=""/>
       </spec>
-                   
+
       <validator class="com.izforge.izpack.util.PasswordKeystoreValidator"
                  txt="Could not validate keystore with password and alias provided.">
         <param name="keystoreFile" value="${jar-signing.keystore.location}"/>
         <param name="keystoreAlias" value="${jar-signing.keystore.alias}"/>
-        
+
       </validator>
-      
+
     </field>
 
-  </panel>  
-  
+  </panel>
+
   <!-- self sign -->
-  <panel order="33">
+  <panel order="36">
     <variable name="jar-signing.generate-selfsigned" value="true"/>
-     
+
     <field type="staticText"
-           align="left" 
-           txt="These fields will CREATE a keystore to use for signing."/>    
-    <field type="staticText" 
-           align="left" 
-           txt="NOTE: the directory you specify MUST exist in order for the keystore to be created there.  (The actual keystore file doesn't need to exist)."/>           
-    <field type="staticText" 
-           align="left" 
-           txt="NOTE: do not create the keystore as the file c:/tmp/ncia or it will cause the install to fail."/>  
-     
+           align="left"
+           txt="These fields will CREATE a keystore to use for signing."/>
+    <field type="staticText"
+           align="left"
+           txt="NOTE: the directory you specify MUST exist in order for the keystore to be created there.  (The actual keystore file doesn't need to exist)."/>
+    <field type="staticText"
+           align="left"
+           txt="NOTE: do not create the keystore as the file c:/tmp/ncia or it will cause the install to fail."/>
+
     <field type="divider" align="top"/>
-  
-  
-    <field type="staticText" 
-           align="left" 
-           txt="SPECIFY the FILE not a directory for the file."/>    
+
+
+    <field type="staticText"
+           align="left"
+           txt="SPECIFY the FILE not a directory for the file."/>
     <field type="text" variable="jar-signing.keystore.location">
       <spec txt="Keystore file location: "  size="75" set=""/>
-      
+
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore location" />
-      
+
     </field>
     <field type="password" align="left" variable="jar-signing.keystore.password">
       <spec>
@@ -1689,48 +1807,48 @@
       </spec>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore password" />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
-      
+
       <validator class="com.izforge.izpack.util.RegularExpressionValidator"
                  txt="Password must be six or more characters">
         <param name="pattern"
                value="^......+$"/>
-      </validator>            
+      </validator>
     </field>
     <field type="text" variable="jar-signing.keystore.alias">
       <spec txt="Keystore alias: "  size="75" set=""/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore alias" />
     </field>
-  </panel>  
-  
+  </panel>
 
-  
+
+
   <!-- only for db when being installed alone -->
-  <panel order="34">
+  <panel order="37">
     <field type="title" txt="Configure guest account" bold="true" size="1" />
     <field type="divider" align="top"/>
 
-    
+
     <field type="check" align="left" variable="enabled_guest_account">
       <spec txt="Enable public search access (relies upon guest account)"
-            size="25" 
-            true="yes" 
+            size="25"
+            true="yes"
             false="no"
             set="false"
             revalidate="no"/>
     </field>
-    
+
     <field type="text" align="left" variable="guest_username">
       <spec txt="Public Search guest username:" size="20" set="nbia_guest"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for Public Search guest username" />
-    </field>    
-    
-  </panel>  
+    </field>
+
+  </panel>
 
    <!-- only for jboss when being installed alone -->
-  <panel order="35">
+  <panel order="38">
     <field type="text" variable="grid.index.url">
       <spec txt="Grid Index Url:" size="35" set="http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
       <validator class="com.izforge.izpack.util.URLCheckValidator" txt="Please enter a valid Index URL" />
     </field>
-  </panel>  
+  </panel>
 </userInput>

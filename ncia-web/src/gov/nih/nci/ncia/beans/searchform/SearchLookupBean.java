@@ -21,7 +21,7 @@ import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import com.icesoft.faces.component.tree.IceUserObject;
-
+import gov.nih.nci.ncia.util.NCIAConfig;
 
 /**
  * This class holds all of the values needed to populate the drop downs on all
@@ -49,12 +49,12 @@ public class SearchLookupBean {
         annotationOptionItems = new ArrayList<SelectItem>();
         numFrameOptionItems = new ArrayList<SelectItem>();
         colorModeOptionItems = new ArrayList<SelectItem>();
-        
+
         populateConstrastAgents();
         populateAnnotationOptions();
         populateNumFrameOptions();
         populateColorModeOptions();
-        
+
         // Populate Image Slice Thicknesses
         imageLeftThicknessItems.add(new SelectItem(""));
         imageLeftThicknessItems.add(new SelectItem("0 mm"));
@@ -97,6 +97,15 @@ public class SearchLookupBean {
     }
 
     /**
+     * Should the simple search page include the list of
+     * collections to search for.  This configurability
+     * is a request from the NIAMS people.
+     */
+    public boolean isShowCollectionSearch() {
+    	return NCIAConfig.getShowCollectionSearchCriteria();
+    }
+
+    /**
      * Returns the latest curation date present in the database
      *
      * @return the latest curation date
@@ -115,11 +124,11 @@ public class SearchLookupBean {
     public List<SelectItem> getAnnotationOptionItems() {
         return annotationOptionItems;
     }
-    
+
     public List<SelectItem> getNumFrameOptionItems() {
         return numFrameOptionItems;
     }
-    
+
     public List<SelectItem> getColorModeOptionItems() {
         return colorModeOptionItems;
     }
@@ -183,7 +192,7 @@ public class SearchLookupBean {
         annotationOptionItems.add(new SelectItem(AnnotationOptionCriteria.NoAnnotation,
                                                  "Non-Annotated"));
     }
-    
+
     private void populateNumFrameOptions() {
         //The "value" is usually used as the "label" that shows up in
         //the UI.  the customer wants a different label than the value,
@@ -194,7 +203,7 @@ public class SearchLookupBean {
         numFrameOptionItems.add(new SelectItem(NumFrameOptionCriteria.MultiFrame,
                                                  "Multile Frame"));
     }
-    
+
     private void populateColorModeOptions() {
         //The "value" is usually used as the "label" that shows up in
         //the UI.  the customer wants a different label than the value,
@@ -216,9 +225,9 @@ public class SearchLookupBean {
         rootObject.setExpanded(false);
         rootTreeNode.setUserObject(rootObject);
 
-        Map<String, Map<String, Set<String>>> 
+        Map<String, Map<String, Set<String>>>
             manufacturerMap = lookupManager.getManufacturerModelSoftwareItems();
-    
+
 
         Set<String> manufacturers = manufacturerMap.keySet();
 

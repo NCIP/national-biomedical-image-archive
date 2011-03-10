@@ -111,6 +111,9 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
             boolean isPublic = ServiceImplHelper.getPublicGroupAndCheckForPublicAccess(tdp);
             if (isPublic) {
                 Map<String, String> filePaths = imageDao.getImagesFilesByPatientId(patientId);
+                if (filePaths.size() == 0){
+                	return ServiceImplHelper.getEmptyOutputStream();
+                }
                 tscr = getDicomData(filePaths);
 
             } else {
@@ -156,6 +159,9 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
             boolean isPublic = ServiceImplHelper.getPublicGroupAndCheckForPublicAccess(tdp);
             if (isPublic) {
                 Map<String, String> filePaths = imageDao.getImagesFilesBySeriesInstanceUID(seriesInstanceUID);
+                if (filePaths.size() == 0){
+                	return ServiceImplHelper.getEmptyOutputStream();
+                }
                 tscr = getDicomData(filePaths);
 
             } else {
@@ -202,6 +208,9 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
             boolean isPublic = ServiceImplHelper.getPublicGroupAndCheckForPublicAccess(tdp);
             if (isPublic) {
                 Map<String, String> filePaths = imageDao.getImagesFilesByStudyInstanceUID(studyInstanceUID);
+                if(filePaths.size() == 0){
+                	return ServiceImplHelper.getEmptyOutputStream();
+                }
                 tscr = getDicomData(filePaths);
 
             } else {

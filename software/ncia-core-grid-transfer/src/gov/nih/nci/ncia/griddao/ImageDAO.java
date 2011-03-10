@@ -5,10 +5,12 @@ package gov.nih.nci.ncia.griddao;
 
 import gov.nih.nci.ncia.domain.Image;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
+import gov.nih.nci.ncia.internaldomain.Annotation;
 import gov.nih.nci.ncia.internaldomain.GeneralImage;
 import gov.nih.nci.ncia.util.HqlUtils;
 import gov.nih.nci.ncia.util.NCIAConfig;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Date;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Propagation;
@@ -80,8 +84,15 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			}
 			String hql = IMAGE_STATEMENT + " WHERE patientId = '" + patientId + "'";
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
+			Map<String, String> filePathes = process(rs);
+			List<String> seriesIds = new ArrayList<String>();
+			for(GeneralImage image : rs){
+				seriesIds.add(image.getSeriesInstanceUID());
+			}
 
-			return process(rs);
+			filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
+			
+			return filePathes;
 	}
 
 	/**
@@ -97,7 +108,16 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			}
 			hql = IMAGE_STATEMENT + " WHERE studyInstanceUID = '" + studyInstanceUID + "'";
 			List<GeneralImage> result = getHibernateTemplate().find(hql);
-			return process(result); 
+			Map<String, String> filePathes = process(result);
+			List<String> seriesIds = new ArrayList<String>();
+			
+			for(GeneralImage image : result){
+				seriesIds.add(image.getSeriesInstanceUID());
+			}
+			
+			filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
+		
+			return filePathes; 
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -113,9 +133,13 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 
 		List<GeneralImage> results = getHibernateTemplate().find(hql);
 		
-		return process(results);
+		Map<String, String> downloadFiles = new HashMap<String, String>();
+		downloadFiles = process(results);
+		List<String> seriesIds = new ArrayList<String>();
+		seriesIds.add(seriesInstanceUID);
+		downloadFiles = getImageAnnotationFileBySeriesInstanceUID(seriesIds, downloadFiles);
+		return downloadFiles;
 	}
-
 
 	public List<ZippingDTO> getImageFilesByPatientIds(List<String> patientIds)throws Exception{
 			if (patientIds == null || patientIds.size() <= 0) {
@@ -124,7 +148,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			String patientList = HqlUtils.buildInClause("", patientIds);
 			String hql = IMAGE_STATEMENT + ", GeneralSeries gs"
 					+ " WHERE gi.patientPkId=gs.patientPkId AND gs.visibility = '1' AND gi.patientId in "
-					+ patientList + ") ";
+					+ patientList;
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
 		return processDTO(rs);
 	}
@@ -137,7 +161,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			String hql = IMAGE_STATEMENT +
 						", GeneralSeries gs "
 						+ " WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' AND gi.studyInstanceUID in "
-						+ studyList + ") ";
+						+ studyList; 
 			//rs = stmt.executeQuery(sql);
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
 			return processDTO(rs);
@@ -152,7 +176,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		String hql = IMAGE_STATEMENT
 				     + ", GeneralSeries gs "
 				 	 + " WHERE gi.seriesPKId=gs.id AND gs.visibility = '1' AND gi.seriesInstanceUID in "
-					 + seriesList + ")";
+					 + seriesList;
 		List<GeneralImage> rs = getHibernateTemplate().find(hql);		
 
 		return processDTO(rs);
@@ -252,8 +276,9 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		return retrievedFileNames;
 	}
 
-	private static List<ZippingDTO> processDTO(List<GeneralImage> rs) {
+	private List<ZippingDTO> processDTO(List<GeneralImage> rs) {
 		List<ZippingDTO> dtoList = new ArrayList<ZippingDTO>();
+		Map<String, GeneralImage> tempHolder = new HashMap<String, GeneralImage>();
 		int count = 0;
 		for (GeneralImage image : rs) {
 				String project = image.getProject();
@@ -271,7 +296,40 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 				zdto.setStudyInstanceUid(studyInstanceUid);
 				zdto.setSopInstanceUidAsFileName(sop + ".dcm");
 				dtoList.add(zdto);
+				//ignore duplicate images in a series because annoation can only exist in series level
+				if (!tempHolder.containsKey(seriesInstanceUid)){
+					tempHolder.put(seriesInstanceUid, image);
+				}
 				count++;
+		}
+		if (tempHolder.size() > 0){
+			processAnnoationFile(tempHolder, dtoList);
+		}
+		return dtoList;
+	}
+	
+	private List<ZippingDTO> processAnnoationFile(Map<String, GeneralImage> temp, List<ZippingDTO> dtoList){
+		Set<String> keys = temp.keySet();
+		for (String seriesInstanceId : keys){
+				GeneralImage im = (GeneralImage)temp.get(seriesInstanceId);
+				String project = im.getProject();
+				String patientId = im.getPatientId();
+				String studyInstanceUid = im.getStudyInstanceUID();
+				String seriesInstanceUid = im.getSeriesInstanceUID();
+				List<Annotation> annotationList =  getImageAnnotationListBySeriesInstanceUID(seriesInstanceId);
+				if (annotationList != null && annotationList.size() > 0){
+					for(Annotation ann : annotationList){
+						ZippingDTO z = new ZippingDTO();
+						z.setProject(project);
+						z.setFilePath(ann.getFilePath());
+						z.setPatientId(patientId);
+						z.setSeriesInstanceUid(seriesInstanceUid);
+						z.setStudyInstanceUid(studyInstanceUid);
+						File f = new File(ann.getFilePath());	
+						z.setSopInstanceUidAsFileName(f.getName());
+						dtoList.add(z);
+					}
+				}
 		}
 		return dtoList;
 	}
@@ -299,16 +357,33 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		}
 	}
     
-//    public static void main(String[] args){
-//    	try{
-//        	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yy hh:mm:ss");
-//        	Date d = new Date();
-//    		String today = df.format(d);
-//    		System.out.println(today);
-//    		Date d1 = df.parse(today);
-//    		System.out.println(ImageDAO.toDateString(d1, true));
-//    	}catch(Exception e){
-//    		e.printStackTrace();
-//    	}
-//    }
+    private List<Annotation> getImageAnnotationListBySeriesInstanceUID(String seriesInstanceUID)
+    {
+    	String hql = "SELECT a FROM Annotation a where a.seriesInstanceUID = '" + seriesInstanceUID +"'";
+    	return getHibernateTemplate().find(hql);
+    }
+    
+    private Map<String, String> getImageAnnotationFileBySeriesInstanceUID(List<String> seriesInstanceIds, Map<String, String> filePath)
+	{
+		Map<String, String> files = filePath;
+		String seriesList = HqlUtils.buildInClause("", seriesInstanceIds);
+		String hql = "SELECT a FROM Annotation a where a.seriesInstanceUID in " + seriesList;
+		List<Annotation> results = getHibernateTemplate().find(hql);
+		
+		for (Annotation ann : results){
+			String key = getAnnotationName(ann.getFilePath());
+			files.put(key, ann.getFilePath());
+		}
+		
+		return files;
+	}
+    
+	private String getAnnotationName(String fileName){
+		File f = new File(fileName);
+		if (f != null){
+			return f.getName();
+		}else{
+			return "no_name.xml";
+		}
+	}
 }

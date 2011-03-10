@@ -259,7 +259,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
         }
         return tscr;
     }
-
+  
+/////////////////////////////////////////////////////////////////////////////////////////
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataBySeriesUIDs(java.lang.String[] seriesInstanceUids) throws RemoteException {
         TransferServiceContextReference tscr = null;
         ImageDAOInterface imageDao = (ImageDAOInterface)appContext.getBean("imageDaoInterface");

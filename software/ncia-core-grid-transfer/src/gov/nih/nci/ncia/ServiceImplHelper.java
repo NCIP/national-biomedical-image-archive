@@ -7,7 +7,6 @@ import gov.nih.nci.cagrid.cqlquery.CQLQuery;
 import gov.nih.nci.cagrid.introduce.servicetools.security.SecurityUtils;
 import gov.nih.nci.cagrid.ncia.service.NCIACoreServiceConfiguration;
 import gov.nih.nci.ncia.domain.TrialDataProvenance;
-import gov.nih.nci.ncia.griddao.ImageDAO;
 import gov.nih.nci.ncia.griddao.ImageDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZipManager;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;

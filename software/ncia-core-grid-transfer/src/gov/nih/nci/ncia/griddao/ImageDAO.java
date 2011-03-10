@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
-
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<ZippingDTO> getImagesByNthStudyTimePointForPatient(String patientId,
 			                                                       Date dateForTimepoint) throws Exception{
@@ -36,7 +36,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		String hql = "select gi from GeneralImage gi, GeneralSeries gs, Study s " +
 					"where gi.study.id = s.id and gi.patientPkId = s.patient.id and gi.generalSeries.id=gs.id and " +
 					"gi.patientId='"+patientId + "' and s.studyDate="+ toDateString(dateForTimepoint, isOracle()) + " and gs.visibility='1' ";
-
+	
 		List<GeneralImage> rs = this.getHibernateTemplate().find(hql);
 		dtoList = processDTO(rs);
 		return dtoList;
@@ -59,11 +59,11 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 					||  sbSOPInstanceUIDList.length() <= 0) {
 			return null;
 		}
-
+	
 		String hql = IMAGE_STATEMENT +
 		             " WHERE SOPInstanceUID = '" +
 		              sbSOPInstanceUIDList + "'";
-
+	
 		List<GeneralImage> rs = this.getHibernateTemplate().find(hql.toString());
 		retrievedFileNames = process(rs);
 		return retrievedFileNames;
@@ -80,16 +80,18 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			if (patientId == null) {
 				return null;
 			}
-			String hql = IMAGE_STATEMENT + " WHERE patientId = '" + patientId + "'";
+			String hql = IMAGE_STATEMENT + ", GeneralSeries gs " + 
+						" WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' "+ 
+						" and gi.patientId = '" + patientId + "'";
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
 			Map<String, String> filePathes = process(rs);
-			List<String> seriesIds = new ArrayList<String>();
-			for(GeneralImage image : rs){
-				seriesIds.add(image.getSeriesInstanceUID());
+			if (rs != null && rs.size() > 0){
+				List<String> seriesIds = new ArrayList<String>();
+				for(GeneralImage image : rs){
+					seriesIds.add(image.getSeriesInstanceUID());
+				}
+				filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
 			}
-
-			filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
-
 			return filePathes;
 	}
 
@@ -100,42 +102,46 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, String> getImagesFilesByStudyInstanceUID(
 			String studyInstanceUID) throws Exception{
-			String hql = "";
 			if (studyInstanceUID == null) {
 				return null;
 			}
-			hql = IMAGE_STATEMENT + " WHERE studyInstanceUID = '" + studyInstanceUID + "'";
+			String hql = IMAGE_STATEMENT + ", GeneralSeries gs " + 
+				  " WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' " +
+					" and gi.studyInstanceUID = '" + studyInstanceUID + "'";
 			List<GeneralImage> result = getHibernateTemplate().find(hql);
 			Map<String, String> filePathes = process(result);
-			List<String> seriesIds = new ArrayList<String>();
-
-			for(GeneralImage image : result){
-				seriesIds.add(image.getSeriesInstanceUID());
+			if (result != null && result.size() > 0){
+				List<String> seriesIds = new ArrayList<String>();
+				for(GeneralImage image : result){
+					seriesIds.add(image.getSeriesInstanceUID());
+				}
+				filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
 			}
-
-			filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
-
-			return filePathes;
+			return filePathes; 
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, String> getImagesFilesBySeriesInstanceUID(
 			String seriesInstanceUID) throws Exception{
-
+		
 		if (seriesInstanceUID == null)
 		{
 			return null;
 		}
-		String hql = IMAGE_STATEMENT + " WHERE seriesInstanceUID = '"
+		String hql = IMAGE_STATEMENT + ", GeneralSeries gs " + 
+						" WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' "+
+						" and gi.seriesInstanceUID = '"
 						+ seriesInstanceUID + "'";
 
 		List<GeneralImage> results = getHibernateTemplate().find(hql);
-
+		
 		Map<String, String> downloadFiles = new HashMap<String, String>();
 		downloadFiles = process(results);
-		List<String> seriesIds = new ArrayList<String>();
-		seriesIds.add(seriesInstanceUID);
-		downloadFiles = getImageAnnotationFileBySeriesInstanceUID(seriesIds, downloadFiles);
+		if (results != null && results.size() > 0){
+			List<String> seriesIds = new ArrayList<String>();
+			seriesIds.add(seriesInstanceUID);
+			downloadFiles = getImageAnnotationFileBySeriesInstanceUID(seriesIds, downloadFiles);
+		}
 		return downloadFiles;
 	}
 
@@ -145,7 +151,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			}
 			String patientList = HqlUtils.buildInClause("", patientIds);
 			String hql = IMAGE_STATEMENT + ", GeneralSeries gs"
-					+ " WHERE gi.patientPkId=gs.patientPkId AND gs.visibility = '1' AND gi.patientId in "
+					+ " WHERE gi.seriesPKId=gs.id AND gs.visibility = '1' AND gi.patientId in "
 					+ patientList;
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
 		return processDTO(rs);
@@ -159,8 +165,8 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			String hql = IMAGE_STATEMENT +
 						", GeneralSeries gs "
 						+ " WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' AND gi.studyInstanceUID in "
-						+ studyList;
-			//rs = stmt.executeQuery(sql);
+						+ studyList; 
+
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
 			return processDTO(rs);
 	}
@@ -175,7 +181,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 				     + ", GeneralSeries gs "
 				 	 + " WHERE gi.seriesPKId=gs.id AND gs.visibility = '1' AND gi.seriesInstanceUID in "
 					 + seriesList;
-		List<GeneralImage> rs = getHibernateTemplate().find(hql);
+		List<GeneralImage> rs = getHibernateTemplate().find(hql);		
 
 		return processDTO(rs);
 	}
@@ -188,7 +194,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		List<Integer> imagePkIds = new ArrayList<Integer>();
 
 		Image image = new Image();
-
+		
 		List<GeneralImage> rs = this.getHibernateTemplate().find(hql);
 		for(GeneralImage im : rs) {
 			imagePkIds.add(im.getId());
@@ -200,7 +206,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		}
 
 		hql = "select gi from GeneralImage gi, CTImage ct where gi.id= ct.generalImage.id and gi.id= " + imagePkId;
-		List<GeneralImage> result = this.getHibernateTemplate().find(hql);
+		List<GeneralImage> result = this.getHibernateTemplate().find(hql); 
 		for(GeneralImage ima : result){
 			image.setAcquisitionDate(ima.getAcquisitionDate());
 			image.setAcquisitionDatetime(ima.getAcquisitionDatetime());
@@ -242,11 +248,11 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			image.setReconstructionDiameter(ima.getCtimage().getReconstructionDiameter());
 			image.setRevolutionTime(nullSafeDouble(ima.getCtimage().getRevolutionTime()));
 			image.setScanOptions(ima.getCtimage().getScanOptions());
-   		    image.setSingleCollimationWidth(nullSafeDouble(ima.getCtimage().getSingleCollimationWidth()));
-		    image.setTableFeedPerRotation(nullSafeDouble(ima.getCtimage().getTableFeedPerRotation()));
+			image.setSingleCollimationWidth(nullSafeDouble(ima.getCtimage().getSingleCollimationWidth()));
+			image.setTableFeedPerRotation(nullSafeDouble(ima.getCtimage().getTableFeedPerRotation()));
 			image.setTableSpeed(nullSafeDouble(ima.getCtimage().getTableSpeed()));
 			image.setTotalCollimationWidth(nullSafeDouble(ima.getCtimage().getTotalCollimationWidth()));
-    		image.setXrayTubeCurrent(ima.getCtimage().getXRayTubeCurrent());
+			image.setXrayTubeCurrent(ima.getCtimage().getXRayTubeCurrent());
 		}
 
 		return image;
@@ -277,7 +283,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 				retrievedFileNames.put(sop + ".dcm", imagePath);
 			}
 		}
-
+		
 		return retrievedFileNames;
 	}
 
@@ -310,7 +316,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		}
 		return dtoList;
 	}
-
+	
 	private List<ZippingDTO> processAnnoationFile(Map<String, GeneralImage> temp, List<ZippingDTO> dtoList){
 		Set<String> keys = temp.keySet();
 		for (String seriesInstanceId : keys){
@@ -328,7 +334,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 						z.setPatientId(patientId);
 						z.setSeriesInstanceUid(seriesInstanceUid);
 						z.setStudyInstanceUid(studyInstanceUid);
-						File f = new File(ann.getFilePath());
+						File f = new File(ann.getFilePath());	
 						z.setSopInstanceUidAsFileName(f.getName());
 						dtoList.add(z);
 					}
@@ -336,7 +342,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		}
 		return dtoList;
 	}
-
+	
     private static boolean isOracle() {
     	String str = NCIAConfig.getDatabaseType();
     	if (str.equalsIgnoreCase("mysql") == true){
@@ -344,11 +350,11 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
     	}else{
     		return true;
     	}
-
+    	
 	}
 
     private static String toDateString(Date dateForTimepoint, boolean oracle) {
-
+  
         if(oracle) {
           	DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     		String date = df.format(dateForTimepoint);
@@ -359,28 +365,28 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			return "'"+dateForTimepoint.toString()+"'";
 		}
 	}
-
+    
     private List<Annotation> getImageAnnotationListBySeriesInstanceUID(String seriesInstanceUID)
     {
     	String hql = "SELECT a FROM Annotation a where a.seriesInstanceUID = '" + seriesInstanceUID +"'";
     	return getHibernateTemplate().find(hql);
     }
-
+    
     private Map<String, String> getImageAnnotationFileBySeriesInstanceUID(List<String> seriesInstanceIds, Map<String, String> filePath)
 	{
 		Map<String, String> files = filePath;
 		String seriesList = HqlUtils.buildInClause("", seriesInstanceIds);
 		String hql = "SELECT a FROM Annotation a where a.seriesInstanceUID in " + seriesList;
 		List<Annotation> results = getHibernateTemplate().find(hql);
-
+		
 		for (Annotation ann : results){
 			String key = getAnnotationName(ann.getFilePath());
 			files.put(key, ann.getFilePath());
 		}
-
+		
 		return files;
 	}
-
+    
 	private String getAnnotationName(String fileName){
 		File f = new File(fileName);
 		if (f != null){

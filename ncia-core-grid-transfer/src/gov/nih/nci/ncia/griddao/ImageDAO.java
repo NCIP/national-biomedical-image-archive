@@ -231,7 +231,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			image.setSourceSubjectDistance(ima.getSourceSubjectDistance());
 			image.setStorageMediaFileSetUID(ima.getStorageMediaFileSetUID());
 			image.setAnatomicRegionSequence(ima.getCtimage().getAnatomicRegionSeq());
-			image.setCtPitchFactor(nullSafeDouble(ima.getCtimage().getCTPitchFactor());
+			image.setCtPitchFactor(nullSafeDouble(ima.getCtimage().getCTPitchFactor()));
 			image.setConvolutionKernel(ima.getCtimage().getConvolutionKernel());
 			image.setDataCollectionDiameter(ima.getCtimage().getDataCollectionDiameter());
 			image.setExposure(ima.getCtimage().getExposure());

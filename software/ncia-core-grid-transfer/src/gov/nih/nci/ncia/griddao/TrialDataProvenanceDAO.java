@@ -75,9 +75,6 @@ public class TrialDataProvenanceDAO extends HibernateDaoSupport implements Trial
 
 	///////////////////////////////////PRIVATE//////////////////////////////////////////////
 	
-	private static Logger logger = Logger.getLogger(TrialDataProvenanceDAO.class);
-
-	
 	private static Map<String,TrialDataProvenance> processTDP(List<Object[]> rs) {
 		Map<String, TrialDataProvenance> tdpList = new HashMap<String, TrialDataProvenance>();
 

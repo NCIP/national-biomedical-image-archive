@@ -54,7 +54,6 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, String> getImagesFiles(
 			StringBuffer sbSOPInstanceUIDList) throws Exception{
-		StringBuffer hql = new StringBuffer();
 		Map<String, String> retrievedFileNames = new HashMap<String, String>();
 
 		if (sbSOPInstanceUIDList == null
@@ -62,9 +61,9 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			return null;
 		}
 	
-		hql.append(IMAGE_STATEMENT);
-		hql.append(" WHERE SOPInstanceUID = ");
-		hql.append(sbSOPInstanceUIDList);
+		String hql = IMAGE_STATEMENT +
+		             " WHERE SOPInstanceUID = '" +
+		              sbSOPInstanceUIDList + "'";
 	
 		List<GeneralImage> rs = this.getHibernateTemplate().find(hql.toString());
 		retrievedFileNames = process(rs);
@@ -257,8 +256,6 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 
 	//////////////////////////////////////PRIVATE////////////////////////////////////////////
 
-	private static Logger logger = Logger.getLogger(ImageDAO.class);
-
 	private final static String IMAGE_STATEMENT = "SELECT gi FROM GeneralImage gi";
 
 
@@ -279,7 +276,6 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	private List<ZippingDTO> processDTO(List<GeneralImage> rs) {
 		List<ZippingDTO> dtoList = new ArrayList<ZippingDTO>();
 		Map<String, GeneralImage> tempHolder = new HashMap<String, GeneralImage>();
-		int count = 0;
 		for (GeneralImage image : rs) {
 				String project = image.getProject();
 				String patientId = image.getPatientId();
@@ -300,7 +296,6 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 				if (!tempHolder.containsKey(seriesInstanceUid)){
 					tempHolder.put(seriesInstanceUid, image);
 				}
-				count++;
 		}
 		if (tempHolder.size() > 0){
 			processAnnoationFile(tempHolder, dtoList);

@@ -13,6 +13,7 @@
 	<!-- realtive to src.java.dir -->
 	<property name="inspection.includes" value="**/*.java"/>
 	<property name="cobertura.includes" value="gov/nih/nci/ncia/**"/>
+  <property name="test.resources.dir" value="${basedir}/test/" />
 
 	<fail unless="classes.to.test.dir" message="must define classes.to.test.dir for unittesting.xml to work.  it's typically same as classes.dir in host build file"/>
 	<fail unless="common.dir" message="must define common.dir for unittesting.xml to work"/>
@@ -301,7 +302,18 @@
 
 
 	<!-- was depedent upon jar -->
-	<target name="test" if="unit.testing" depends="compile-test, -cobertura-instrument" description="Runs all unit tests">
+	<target name="test"
+          if="unit.testing"
+          depends="compile-test, -cobertura-instrument">
+
+    <!-- this is cool for mysql at least.  if no hibernate.properties exists, it will just fall through -->
+    <patch-hibernate-properties file="${test.resources.dir}/hibernate.properties"
+                                database.url="${database.url}?sessionVariables=FOREIGN_KEY_CHECKS=0"
+                                database.user="${database.system.user}"
+                                database.password="${database.system.password}"
+                                database.driver="${database.driver}"
+                                database.dialect="${database.dialect}"/>
+
 		<junit printsummary="on" failureproperty="junit.failure" maxmemory="256m">
 			<sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser.file}"/>
 			<classpath location="${instrumented.dir}"/>

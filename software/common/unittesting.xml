@@ -13,39 +13,49 @@
 	<!-- realtive to src.java.dir -->
 	<property name="inspection.includes" value="**/*.java"/>
 	<property name="cobertura.includes" value="gov/nih/nci/ncia/**"/>
+
 	<fail unless="classes.to.test.dir" message="must define classes.to.test.dir for unittesting.xml to work.  it's typically same as classes.dir in host build file"/>
 	<fail unless="common.dir" message="must define common.dir for unittesting.xml to work"/>
+
 	<path id="ivy.classpath">
 		<fileset dir="${common.dir}/target/lib">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
+
 	<!-- Task definitions -->
 	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath"/>
+
 	<!-- note: this used to be lib.dir, but it collides with Introduce generated build scripts lib.dir -->
 	<fail unless="project.lib.dir" message="must define project.lib.dir for unittesting.xml to work"/>
+
 	<path id="project.test.classpath">
 		<fileset dir="${project.lib.dir}/test">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
+
 	<path id="project.test-findbugs.classpath">
 		<fileset dir="${findbugs.conf.dir}">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
+
 	<path id="project.compile.classpath">
 		<fileset dir="${project.lib.dir}/compile">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
+
 	<path id="project.test.pmd.classpath">
 		<fileset dir="${project.lib.dir}/test-pmd">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
-	<echo>ci: ${static.analysis} and ${unit.testing}</echo>
+
+
 	<import file="selenium.xml"/>
+
 	<!-- let ivy-test run so that eclipse will get proper junit jars -->
 	<target name="ivy-test" depends="ivy-settings" description="Updates the local ivy repository">
 		<ivy:resolve refresh="true" conf="test"/>
@@ -57,18 +67,26 @@
 			<mapper type="regexp" from="^(.*)\-working\@(.*)\.jar$" to="\1.jar"/>
 		</move>
 	</target>
+
+
 	<target name="ivy-test-pmd" if="static.analysis" depends="ivy-settings" description="Updates the local ivy repository">
 		<ivy:resolve refresh="true" conf="test-pmd"/>
 		<ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="test-pmd"/>
 	</target>
+
+
 	<target name="ivy-test-findbugs" if="static.analysis" depends="ivy-settings">
 		<ivy:resolve refresh="true" conf="test-findbugs"/>
 		<ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="test-findbugs"/>
 	</target>
+
+
 	<target name="post-clean-test" if="unit.testing">
 		<delete dir="${instrumented.dir}" quiet="false"/>
 		<delete dir="${test.classes.dir}" quiet="false"/>
 	</target>
+
+
 	<!-- a little hacky to depend on init-static-analysis target, but these would both be executed from the same place, but need to       separate -->
 	<target name="init-test" if="unit.testing" depends="init-static-analysis">
 		<mkdir dir="${test.classes.dir}"/>
@@ -76,6 +94,8 @@
 		<mkdir dir="${junit.reports.dir}"/>
 		<mkdir dir="${project.lib.dir}/test/plugin"/>
 	</target>
+
+
 	<target name="init-static-analysis" if="static.analysis">
 		<mkdir dir="${reports.dir}/javancss"/>
 		<mkdir dir="${reports.dir}/checkstyle"/>
@@ -83,6 +103,8 @@
 		<mkdir dir="${reports.dir}/findbugs"/>
 		<mkdir dir="${project.lib.dir}/test/plugin"/>
 	</target>
+
+
 	<target name="compile-test" if="unit.testing" depends="-pre-clean, -init, ivy-test" description="Compiles the Java source code">
 		<javac srcdir="${src.test.dir}" destdir="${test.classes.dir}" debug="true">
 			<classpath refid="project.test.classpath"/>
@@ -93,6 +115,8 @@
 			<fileset dir="${src.test.dir}" excludes="**/*.java"/>
 		</copy>
 	</target>
+
+
 	<target name="-findbugs" if="static.analysis" depends="ivy-test-findbugs">
 		<taskdef name="findbugs" classpathref="project.test-findbugs.classpath" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
 		<!-- better to rebuild manifest according to ivy conf -->
@@ -112,11 +136,15 @@
 		</findbugs>
 		<!--    <findbugs home="${findbugs.conf.dir}"              output="html"              outputFile="${reports.dir}/findbugs/${ant.project.name}/target/findbugs_${ant.project.name}.html"              effort="max"              jvmargs="-Xmx256M"              stylesheet="plain.xsl">                     <auxClasspath path="${findbugs.auxclasspath}" />              <sourcePath path="${src.java.dir}" />      <class location="${classes.to.test.dir}" />    </findbugs>      -->
 	</target>
+
+
 	<target name="-java-ncss" if="static.analysis">
 		<taskdef name="javancss" classpathref="project.test.classpath" classname="javancss.JavancssAntTask"/>
 		<javancss srcdir="${src.java.dir}" includes="${inspection.includes}" generatereport="true" outputfile="${reports.dir}/javancss/javancss_metrics_${ant.project.name}.xml" abortOnFail="true" ccnPerFuncMax="35" format="xml"/>
 		<xslt taskname="javancss" in="${reports.dir}/javancss/javancss_metrics_${ant.project.name}.xml" out="${reports.dir}/javancss/javancss_report_${ant.project.name}.html" style="../common/javancss/javancss2methodhtml.xsl"/>
 	</target>
+
+
 	<target name="-pmd" if="static.analysis" depends="ivy-test-pmd">
 		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="project.test.pmd.classpath"/>
 		<mkdir dir="${reports.dir}/pmd/${ant.project.name}/target"/>
@@ -173,6 +201,8 @@
 		<delete file="${reports.dir}/pmd/${ant.project.name}/target/pmd_out_${ant.project.name}.xml"/>
 		<xslt taskname="pmd" in="${reports.dir}/pmd/${ant.project.name}/target/pmd_out2_${ant.project.name}.xml" out="${reports.dir}/pmd/${ant.project.name}/target/pmd_report_${ant.project.name}.html" style="../common/pmd/pmd-report.xslt"/>
 	</target>
+
+
 	<target name="-checkstyle" if="static.analysis">
 		<switch value="${ant.project.name}">
 			<case value="ncia-web">
@@ -229,6 +259,8 @@
 		<xslt taskname="checkstyle" in="${reports.dir}/checkstyle/${ant.project.name}/target/checkstyle_${ant.project.name}.xml" out="${reports.dir}/checkstyle/${ant.project.name}/target/checkstyle_report_${ant.project.name}.html" style="../common/checkstyle/checkstyle-simple.xsl"/>
 		<fail if="checkstyle.failure" message="checkstyle failed on ${ant.project.name}. See ${reports.dir}/checkstyle/${ant.project.name}/target/checkstyle_${ant.project.name}.xml.diff"/>
 	</target>
+
+
 	<target name="-cobertura-instrument" if="unit.testing" depends="ivy-test" description="Instruments Cobertura test classes">
 		<!-- wait to do this until ivy has populated the directory -->
 		<taskdef classpathref="project.test.classpath" resource="tasks.properties"/>
@@ -240,24 +272,34 @@
 			<fileset dir="${src.java.dir}" excludes="**/*.java"/>
 		</copy>
 	</target>
+
+
 	<target name="-cobertura-report-html" if="unit.testing" depends="-cobertura-instrument" description="Creates Cobertura report">
 		<cobertura-report datafile="${cobertura.ser.file}" format="html" destdir="${cobertura.reports.dir}/${ant.project.name}">
 			<fileset dir="${src.java.dir}" includes="${inspection.includes}"/>
 		</cobertura-report>
 	</target>
+
+
 	<target name="-cobertura-report-xml" if="unit.testing" depends="-cobertura-instrument" description="Creates Cobertura report">
 		<cobertura-report datafile="${cobertura.ser.file}" format="xml" destdir="${common.dir}">
 			<fileset dir="${src.java.dir}" includes="${inspection.includes}"/>
 		</cobertura-report>
     <move file="${common.dir}/coverage.xml" tofile="${reports.dir}/coverage-${ant.project.name}.xml"/>
 	</target>
+
+
 	<target name="-cobertura-check" if="unit.testing" depends="-cobertura-report-html,-cobertura-report-xml">
 		<cobertura-check failureproperty="cobertura.failure" datafile="${cobertura.ser.file}" haltonfailure="false" linerate="0" packagebranchrate="0" packagelinerate="0" totalbranchrate="25" totallinerate="30"/>
 	</target>
+
+
 	<!-- was depedent upon jar -->
 	<target name="inspect" depends="-cobertura-check, -java-ncss, -checkstyle, -pmd" description="Runs various static analysis and code inspection tools">
 		<!--      <fail if="cobertura.failure" message="Cobertura test coverage failure." />    -->
 	</target>
+
+
 	<!-- was depedent upon jar -->
 	<target name="test" if="unit.testing" depends="compile-test, -cobertura-instrument" description="Runs all unit tests">
 		<junit printsummary="on" failureproperty="junit.failure" maxmemory="256m">
@@ -279,4 +321,5 @@
 		</junit>
 		<!--    <fail if="junit.failure" message="There were JUnit failures" />     -->
 	</target>
+
 </project>

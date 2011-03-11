@@ -23,7 +23,18 @@ public class TimepointsTestCase extends AbstractDbUnitTestForJunit4 {
 		List<ZippingDTO> zippingDtoList = Timepoints.getImagesByNthStudyTimePointForPatient("1.3.6.1.4.1.9328.50.3.0022",
 				                                                                            1);
 
-		Assert.assertEquals(zippingDtoList.size(),128);
+		Assert.assertEquals(zippingDtoList.size(),129);
+		
+		boolean found = false;
+		for(ZippingDTO z : zippingDtoList){
+			if (z.getFilePath().equalsIgnoreCase("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.68/https-76348.xml"))
+			{
+				found = true;
+			}
+		}
+		
+		Assert.assertTrue(found);
+		
 
 	    zippingDtoList = Timepoints.getImagesByNthStudyTimePointForPatient("1.3.6.1.4.1.9328.50.3.0022",
                                                                            0);

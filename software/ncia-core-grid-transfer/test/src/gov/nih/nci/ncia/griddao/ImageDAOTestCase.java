@@ -55,7 +55,7 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		Map<String, String> sopToFilePathMap = imageDAO.getImagesFilesByPatientId("1.3.6.1.4.1.9328.50.3.0022");
 
 		System.out.println("Size:"+sopToFilePathMap.size());
-		Assert.assertTrue(sopToFilePathMap.size()==128);
+		Assert.assertTrue(sopToFilePathMap.size()==129);
 
 		Assert.assertTrue(sopToFilePathMap.get("1.3.6.1.4.1.9328.50.3.170.dcm").equals("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.68/https-57684.dcm"));
 		Assert.assertTrue(sopToFilePathMap.get("1.3.6.1.4.1.9328.50.3.171.dcm").equals("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.68/https-57685.dcm"));
@@ -69,7 +69,7 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		Map<String, String> sopToFilePathMap = imageDAO.getImagesFilesByStudyInstanceUID("1.3.6.1.4.1.9328.50.3.68");
 
 		System.out.println("Size:"+sopToFilePathMap.size());
-		Assert.assertTrue(sopToFilePathMap.size()==128);
+		Assert.assertTrue(sopToFilePathMap.size()==129);
 
 		Assert.assertTrue(sopToFilePathMap.get("1.3.6.1.4.1.9328.50.3.170.dcm").equals("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.68/https-57684.dcm"));
 		Assert.assertTrue(sopToFilePathMap.get("1.3.6.1.4.1.9328.50.3.171.dcm").equals("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.68/https-57685.dcm"));
@@ -83,7 +83,8 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		Map<String, String> sopToFilePathMap = imageDAO.getImagesFilesBySeriesInstanceUID("1.3.6.1.4.1.9328.50.3.195");
 
 		System.out.println("Size:"+sopToFilePathMap.size());
-		Assert.assertTrue(sopToFilePathMap.size()==139);
+		System.out.println("sopToFIlePathMap.size() ======= "  + sopToFilePathMap.size());
+		Assert.assertTrue(sopToFilePathMap.size()==140);
 
 		Assert.assertTrue(sopToFilePathMap.get("1.3.6.1.4.1.9328.50.3.330.dcm").equals("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.194/https-58000.dcm"));
 		Assert.assertTrue(sopToFilePathMap.get("1.3.6.1.4.1.9328.50.3.331.dcm").equals("/usr/local/tomcat-5.5.9/webapps/NCICBIMAGE/documents/1.3.6.1.4.1.9328.50.3.194/https-58001.dcm"));
@@ -100,7 +101,7 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		List<ZippingDTO> zippingDtoList = imageDAO.getImageFilesByPatientIds(patientIdList);
 
 		System.out.println("fffff:"+zippingDtoList.size());
-		Assert.assertTrue(zippingDtoList.size()==(139+128));
+		Assert.assertTrue(zippingDtoList.size()==(140+129));
 	}
 
 
@@ -113,7 +114,7 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		List<ZippingDTO> zippingDtoList = imageDAO.getImageFilesByStudiesUids(studyIdList);
 		System.out.println("fffff1:"+zippingDtoList.size());
 
-		Assert.assertTrue(zippingDtoList.size()==(139+128));
+		Assert.assertTrue(zippingDtoList.size()==(140+129));
 	}
 
 	@Test
@@ -125,7 +126,7 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 		List<ZippingDTO> zippingDtoList = imageDAO.getImageFilesBySeriesUids(seriesIdList);
 		System.out.println("fffff2:"+zippingDtoList.size());
 
-		Assert.assertTrue(zippingDtoList.size()==(139+128));
+		Assert.assertTrue(zippingDtoList.size()==(140+129));
 	}
 
 	@Test

@@ -11,47 +11,46 @@ import java.io.InputStream;
 
 import javax.xml.namespace.QName;
 
-import junit.framework.TestCase;
-
 import org.globus.wsrf.encoding.DeserializationException;
 import org.globus.wsrf.encoding.ObjectDeserializer;
 import org.globus.wsrf.encoding.ObjectSerializer;
 import org.globus.wsrf.encoding.SerializationException;
+import org.junit.Assert;
+import org.junit.Test;
 import org.xml.sax.InputSource;
 
-/**
- * @author lethai
- *
- */
-public class CustomizedCQLQueryTestCase extends TestCase {
 
+public class CustomizedCQLQueryTestCase {
+	@Test
 	public void testModifyCQLQueryImageTarget() {
 		String filename = "testImage.xml";
 		final CQLQuery fcqlq = this.loadXMLFile(filename);
 		
 		CQLQuery modifiedCqlQuery = CustomizedCQLQuery.modifyCQLQueryToTargetImage(fcqlq);
 				
-		assertTrue(modifiedCqlQuery==fcqlq);	
+		Assert.assertTrue(modifiedCqlQuery==fcqlq);	
 	}
 
+	@Test
 	public void testModifyCQLQuerySeriesTargetJustAssociation() {
 		String filename = "testCase3.xml";
 		final CQLQuery fcqlq = this.loadXMLFile(filename);
 		
 		CQLQuery modifiedCqlQuery = CustomizedCQLQuery.modifyCQLQueryToTargetImage(fcqlq);
 		
-		assertNotNull("results is not null", modifiedCqlQuery);
+		Assert.assertNotNull("results is not null", modifiedCqlQuery);
 		
-		assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
+		Assert.assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
 		
 		Association seriesAssociation = modifiedCqlQuery.getTarget().getAssociation();
-		assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
-		assertTrue(seriesAssociation.getRoleName().equals("series"));
+		Assert.assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
+		Assert.assertTrue(seriesAssociation.getRoleName().equals("series"));
 
-		assertNull(seriesAssociation.getAttribute());
-		assertNull(seriesAssociation.getGroup());
+		Assert.assertNull(seriesAssociation.getAttribute());
+		Assert.assertNull(seriesAssociation.getGroup());
 	}
 	
+	@Test	
 	public void testModifyCQLQueryStudyTargetWithJustAttribute() {
 		String filename = "testCase-studyTargetJustAttribute.xml";
 		final CQLQuery fcqlq = this.loadXMLFile(filename);
@@ -60,23 +59,24 @@ public class CustomizedCQLQueryTestCase extends TestCase {
 		
 		CQLQuery modifiedCqlQuery = CustomizedCQLQuery.modifyCQLQueryToTargetImage(fcqlq);
 		
-		assertNotNull("results is not null", modifiedCqlQuery);
+		Assert.assertNotNull("results is not null", modifiedCqlQuery);
 		
-		assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
+		Assert.assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
 		
 		Association seriesAssociation = modifiedCqlQuery.getTarget().getAssociation();
-		assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
-		assertTrue(seriesAssociation.getRoleName().equals("series"));
+		Assert.assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
+		Assert.assertTrue(seriesAssociation.getRoleName().equals("series"));
 		
 		Association studyAssociation = seriesAssociation.getAssociation();
-		assertTrue(studyAssociation.getName().equals("gov.nih.nci.ncia.domain.Study"));
-		assertTrue(studyAssociation.getRoleName().equals("study"));
-		assertTrue(studyAssociation.getAttribute().equals(beforeAttribute));
+		Assert.assertTrue(studyAssociation.getName().equals("gov.nih.nci.ncia.domain.Study"));
+		Assert.assertTrue(studyAssociation.getRoleName().equals("study"));
+		Assert.assertTrue(studyAssociation.getAttribute().equals(beforeAttribute));
 		
-		assertNull(studyAssociation.getAssociation());
-		assertNull(studyAssociation.getGroup());		
+		Assert.assertNull(studyAssociation.getAssociation());
+		Assert.assertNull(studyAssociation.getGroup());		
 	}	
 	
+	@Test	
 	public void testModifyCQLQueryStudyTargetWithJustAssociation() {
 		String filename = "testCase-studyTargetJustAssociation.xml";
 		final CQLQuery fcqlq = this.loadXMLFile(filename);
@@ -85,23 +85,24 @@ public class CustomizedCQLQueryTestCase extends TestCase {
 		
 		CQLQuery modifiedCqlQuery = CustomizedCQLQuery.modifyCQLQueryToTargetImage(fcqlq);
 		
-		assertNotNull("results is not null", modifiedCqlQuery);
+		Assert.assertNotNull("results is not null", modifiedCqlQuery);
 		
-		assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
+		Assert.assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
 		
 		Association seriesAssociation = modifiedCqlQuery.getTarget().getAssociation();
-		assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
-		assertTrue(seriesAssociation.getRoleName().equals("series"));
+		Assert.assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
+		Assert.assertTrue(seriesAssociation.getRoleName().equals("series"));
 		
 		Association studyAssociation = seriesAssociation.getAssociation();
-		assertTrue(studyAssociation.getName().equals("gov.nih.nci.ncia.domain.Study"));
-		assertTrue(studyAssociation.getRoleName().equals("study"));
-		assertTrue(studyAssociation.getAssociation().equals(beforeAssociation));
+		Assert.assertTrue(studyAssociation.getName().equals("gov.nih.nci.ncia.domain.Study"));
+		Assert.assertTrue(studyAssociation.getRoleName().equals("study"));
+		Assert.assertTrue(studyAssociation.getAssociation().equals(beforeAssociation));
 		
-		assertNull(studyAssociation.getAttribute());
-		assertNull(studyAssociation.getGroup());		
+		Assert.assertNull(studyAssociation.getAttribute());
+		Assert.assertNull(studyAssociation.getGroup());		
 	}
 	
+	@Test	
 	public void testModifyCQLQueryPatientTargetWithJustAttribute() {
 		String filename = "testCase-patientTargetJustAttribute.xml";
 		final CQLQuery fcqlq = this.loadXMLFile(filename);
@@ -110,25 +111,25 @@ public class CustomizedCQLQueryTestCase extends TestCase {
 		
 		CQLQuery modifiedCqlQuery = CustomizedCQLQuery.modifyCQLQueryToTargetImage(fcqlq);
 		
-		assertNotNull("results is not null", modifiedCqlQuery);
+		Assert.assertNotNull("results is not null", modifiedCqlQuery);
 		
-		assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
+		Assert.assertTrue(modifiedCqlQuery.getTarget().getName().equals("gov.nih.nci.ncia.domain.Image"));
 		
 		Association seriesAssociation = modifiedCqlQuery.getTarget().getAssociation();
-		assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
-		assertTrue(seriesAssociation.getRoleName().equals("series"));
+		Assert.assertTrue(seriesAssociation.getName().equals("gov.nih.nci.ncia.domain.Series"));
+		Assert.assertTrue(seriesAssociation.getRoleName().equals("series"));
 		
 		Association studyAssociation = seriesAssociation.getAssociation();
-		assertTrue(studyAssociation.getName().equals("gov.nih.nci.ncia.domain.Study"));
-		assertTrue(studyAssociation.getRoleName().equals("study"));	
+		Assert.assertTrue(studyAssociation.getName().equals("gov.nih.nci.ncia.domain.Study"));
+		Assert.assertTrue(studyAssociation.getRoleName().equals("study"));	
 		
 		Association patientAssociation = studyAssociation.getAssociation();
-		assertTrue(patientAssociation.getName().equals("gov.nih.nci.ncia.domain.Patient"));
-		assertTrue(patientAssociation.getRoleName().equals("patient"));
-		assertTrue(patientAssociation.getAttribute().equals(beforeAttribute));
+		Assert.assertTrue(patientAssociation.getName().equals("gov.nih.nci.ncia.domain.Patient"));
+		Assert.assertTrue(patientAssociation.getRoleName().equals("patient"));
+		Assert.assertTrue(patientAssociation.getAttribute().equals(beforeAttribute));
 		
-		assertNull(patientAssociation.getAssociation());
-		assertNull(patientAssociation.getGroup());		
+		Assert.assertNull(patientAssociation.getAssociation());
+		Assert.assertNull(patientAssociation.getGroup());		
 	}	
 	
 //	public void testParseCQLQuery() {
@@ -155,11 +156,11 @@ public class CustomizedCQLQueryTestCase extends TestCase {
 			System.out.println(ObjectSerializer.toString(newQuery,
 					new QName("http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery", "CQLQuery")));		
 		} catch (DeserializationException e) {
-			fail("test Query XML file could not be deserialized " + e);
+			Assert.fail("test Query XML file could not be deserialized " + e);
 		} catch (SerializationException e) {
-			fail("test Query XML file could not be serialized " + e);
+			Assert.fail("test Query XML file could not be serialized " + e);
 		}
-		assertNotNull(newQuery);
+		Assert.assertNotNull(newQuery);
 		return newQuery;
 	}
 }

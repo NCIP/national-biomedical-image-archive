@@ -3,12 +3,14 @@ package gov.nih.nci.ncia;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 
 
-public class NCIAQueryFilterTestCase extends TestCase {
+public class NCIAQueryFilterTestCase {
 
+	@Test
 	public void testConvertTDPToCQL(){
 		List<gov.nih.nci.ncia.domain.TrialDataProvenance> tdpList = new ArrayList<gov.nih.nci.ncia.domain.TrialDataProvenance>();
 		gov.nih.nci.ncia.domain.TrialDataProvenance tdp = null;
@@ -33,10 +35,8 @@ public class NCIAQueryFilterTestCase extends TestCase {
 
 		gov.nih.nci.cagrid.cqlquery.Group g = NCIAQueryFilter.convertTDPToCQL(tdpList);
 
-		assertNotNull("results is not null", g);
-		assertTrue("returned expected number of results: " + g.getGroup().length, g.getGroup().length == 3);
-		assertTrue("contains RIDER:  " + g.getGroup(0).getAttribute(0).getValue(), g.getGroup(0).getAttribute(0).getValue() == "RIDER");
-
-
+		Assert.assertNotNull("results is not null", g);
+		Assert.assertTrue("returned expected number of results: " + g.getGroup().length, g.getGroup().length == 3);
+		Assert.assertTrue("contains RIDER:  " + g.getGroup(0).getAttribute(0).getValue(), g.getGroup(0).getAttribute(0).getValue() == "RIDER");
 	}
 }

@@ -6,31 +6,34 @@ package gov.nih.nci.ncia;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 
 import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * @author lethai
- *
- */
-public class TimepointsTestCase extends AbstractDbTestCaseImpl {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"/applicationContext.xml", "/applicationContext-hibernate-testContext.xml"})
+public class TimepointsTestCase extends AbstractDbUnitTestForJunit4 {
 
 
-
+	@Test
 	public void testGetImagesByNthStudyForPatient() throws Exception{
 
 		List<ZippingDTO> zippingDtoList = Timepoints.getImagesByNthStudyTimePointForPatient("1.3.6.1.4.1.9328.50.3.0022",
 				                                                                            1);
 
-		assertEquals(zippingDtoList.size(),128);
+		Assert.assertEquals(zippingDtoList.size(),128);
 
 	    zippingDtoList = Timepoints.getImagesByNthStudyTimePointForPatient("1.3.6.1.4.1.9328.50.3.0022",
                                                                            0);
         //assertNull(zippingDtoList);
-	    assertEquals(zippingDtoList.size(),0);
+	    Assert.assertEquals(zippingDtoList.size(),0);
 
 	    zippingDtoList = Timepoints.getImagesByNthStudyTimePointForPatient("1.3.6.1.4.1.9328.50.3.0022",
                                                                            2);
         //assertNull(zippingDtoList);
-	    assertEquals(zippingDtoList.size(),0);
+	    Assert.assertEquals(zippingDtoList.size(),0);
 	}
 
 

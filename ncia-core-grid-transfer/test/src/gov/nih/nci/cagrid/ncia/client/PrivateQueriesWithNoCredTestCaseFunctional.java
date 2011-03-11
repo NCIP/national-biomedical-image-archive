@@ -1,7 +1,11 @@
 package gov.nih.nci.cagrid.ncia.client;
 
-import java.io.File;
 import gov.nih.nci.cagrid.cqlresultset.CQLQueryResults;
+
+import java.io.File;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 public class PrivateQueriesWithNoCredTestCaseFunctional  extends DataServiceTestCaseFunctional {
 	String gridServiceUrl;
@@ -14,14 +18,17 @@ public class PrivateQueriesWithNoCredTestCaseFunctional  extends DataServiceTest
 		}		
 	}
 
+	@Test
 	public void testAssociations() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/association");
 	}
 
+	@Test
 	public void testAttributes() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/attribute");
 	}
 
+	@Test
 	public void testGroups() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/group");
 	}
@@ -35,7 +42,7 @@ public class PrivateQueriesWithNoCredTestCaseFunctional  extends DataServiceTest
 			CQLQueryResults results = sendCQLQuery(client, cqlFile);
 			if(results.getObjectResult()!=null) {
 				if(results.getObjectResult().length>0) {
-					fail("was able to access a private item with no credentials");
+					Assert.fail("was able to access a private item with no credentials");
 				}
 			}
 		}

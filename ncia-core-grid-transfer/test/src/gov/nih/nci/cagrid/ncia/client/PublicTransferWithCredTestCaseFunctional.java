@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.cagrid.transfer.context.stubs.types.TransferServiceContextReference;
 import org.globus.gsi.GlobusCredential;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class PublicTransferWithCredTestCaseFunctional extends TransferServiceTestCaseFunctional {
 	String gridServiceUrl;
@@ -23,71 +26,76 @@ public class PublicTransferWithCredTestCaseFunctional extends TransferServiceTes
 	String authUrl = "https://cagrid-auth-stage.nci.nih.gov:8443/wsrf/services/cagrid/AuthenticationService";
 	String dorianURL = "https://cagrid-dorian-stage.nci.nih.gov:8443/wsrf/services/cagrid/Dorian";
 
+	@Test	
 	public void testAssociations() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/public/association");
 	}
 
+	@Test	
 	public void testAttributes() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/public/attribute");
 	}
 
+	@Test	
 	public void testGroups() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/public/group");
 	}
 
+	@Test	
 	public void testRetrieveDicomDataByPatientId() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataByPatientId("TCGA-06-0147");
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(659,actualNumZipFiles);
+		Assert.assertEquals(659,actualNumZipFiles);
 
 		tscr = client.retrieveDicomDataByPatientIds(new String[]{"TCGA-06-0147"});
 		actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(659,actualNumZipFiles);
+		Assert.assertEquals(659,actualNumZipFiles);
 	}
 
+	@Test	
 	public void testRetrieveDicomDataByStudyInstanceUid() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataByStudyUID("1.3.6.1.4.1.9328.50.45.275881025454183713545354420382217269222");
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(659,actualNumZipFiles);
+		Assert.assertEquals(659,actualNumZipFiles);
 
 		tscr = client.retrieveDicomDataByStudyUIDs(new String[]{"1.3.6.1.4.1.9328.50.45.275881025454183713545354420382217269222"});
 		actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(551,actualNumZipFiles);
+		Assert.assertEquals(551,actualNumZipFiles);
 
 		//nimpy - series visibility treated differently by these two methods.  this is probably incorrect behavior.
 	}
 
+	@Test	
 	public void testRetrieveDicomDataBySeriesInstanceUid() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataBySeriesUID("1.3.6.1.4.1.9328.50.45.244740464952049551939432248480700607976");
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(325,actualNumZipFiles);
+		Assert.assertEquals(325,actualNumZipFiles);
 
 		tscr = client.retrieveDicomDataBySeriesUIDs(new String[]{"1.3.6.1.4.1.9328.50.45.244740464952049551939432248480700607976"});
 		actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(325,actualNumZipFiles);
+		Assert.assertEquals(325,actualNumZipFiles);
 	}
 
-
+	@Test
 	public void testRetrieveDicomDataByStudyTimepoint() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataByNthStudyTimePointForPatient("TCGA-06-0147", 1);
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(551,actualNumZipFiles);
+		Assert.assertEquals(551,actualNumZipFiles);
 	}
 
 	///////////////////////////////////////////////////PROTECTED//////////////////////////////////////////////////////
 
 
+	@Before
 	protected void setUp()throws Exception{
-		super.setUp();
-
 	    String gridUsername = System.getProperty("grid.user.name");
 	    String gridPassword = System.getProperty("grid.password");
 
@@ -116,7 +124,7 @@ public class PublicTransferWithCredTestCaseFunctional extends TransferServiceTes
 			int actualNumZipFiles = sendCQLForZipFile(client, cqlFile, globusCred);
 			Integer expectedNumZipFiles = cqlToCountMap.get(constructKey(relativeDirectoryName,cqlFile));
 
-			assertEquals(expectedNumZipFiles.intValue(),actualNumZipFiles);
+			Assert.assertEquals(expectedNumZipFiles.intValue(),actualNumZipFiles);
 		}
 	}
 

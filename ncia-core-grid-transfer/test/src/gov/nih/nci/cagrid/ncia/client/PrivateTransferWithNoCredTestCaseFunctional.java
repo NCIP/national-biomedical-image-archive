@@ -3,6 +3,8 @@ package gov.nih.nci.cagrid.ncia.client;
 import java.io.File;
 
 import org.cagrid.transfer.context.stubs.types.TransferServiceContextReference;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class PrivateTransferWithNoCredTestCaseFunctional extends TransferServiceTestCaseFunctional {
 	String gridServiceUrl;
@@ -15,18 +17,22 @@ public class PrivateTransferWithNoCredTestCaseFunctional extends TransferService
 		}		
 	}
 
+	@Test
 	public void testAssociations() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/association");
 	}
 
+	@Test	
 	public void testAttributes() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/attribute");
 	}
 
+	@Test	
 	public void testGroups() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/group");
 	}
 
+	@Test	
 	public void testRetrieveDicomDataByPatientId() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl, null);
 		client.setAnonymousPrefered(true);
@@ -34,9 +40,10 @@ public class PrivateTransferWithNoCredTestCaseFunctional extends TransferService
 		TransferServiceContextReference tscr = client.retrieveDicomDataByPatientId("A2");
 
 		int actualNumZipFiles = processTransfer(tscr, null);
-		assertEquals(0,actualNumZipFiles);
+		Assert.assertEquals(0,actualNumZipFiles);
 	}
 
+	@Test	
 	public void testRetrieveDicomDataByStudyInstanceUid() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl, null);
 		client.setAnonymousPrefered(true);
@@ -44,9 +51,10 @@ public class PrivateTransferWithNoCredTestCaseFunctional extends TransferService
 		TransferServiceContextReference tscr = client.retrieveDicomDataByStudyUID("1.1.978.4966.292.1");
 
 		int actualNumZipFiles = processTransfer(tscr, null);
-		assertEquals(0,actualNumZipFiles);
+		Assert.assertEquals(0,actualNumZipFiles);
 	}
 
+	@Test	
 	public void testRetrieveDicomDataBySeriesInstanceUid() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl, null);
 		client.setAnonymousPrefered(true);
@@ -54,10 +62,10 @@ public class PrivateTransferWithNoCredTestCaseFunctional extends TransferService
 		TransferServiceContextReference tscr = client.retrieveDicomDataBySeriesUID("1.1.978.976.890.2");
 
 		int actualNumZipFiles = processTransfer(tscr, null);
-		assertEquals(0,actualNumZipFiles);
+		Assert.assertEquals(0,actualNumZipFiles);
 	}
 
-
+	@Test
 	public void testRetrieveDicomDataByStudyTimepoint() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl, null);
 		client.setAnonymousPrefered(true);
@@ -65,7 +73,7 @@ public class PrivateTransferWithNoCredTestCaseFunctional extends TransferService
 		TransferServiceContextReference tscr = client.retrieveDicomDataByNthStudyTimePointForPatient("A2", 1);
 
 		int actualNumZipFiles = processTransfer(tscr, null);
-		assertEquals(0,actualNumZipFiles);
+		Assert.assertEquals(0,actualNumZipFiles);
 	}
 
 
@@ -76,7 +84,7 @@ public class PrivateTransferWithNoCredTestCaseFunctional extends TransferService
 		for(File cqlFile : cqlFiles) {
 			System.out.println("CQL:"+cqlFile.getName());
 			int actualNumZipFiles = sendCQLForZipFile(client, cqlFile, null);
-			assertEquals(actualNumZipFiles, 0);
+			Assert.assertEquals(actualNumZipFiles, 0);
 		}
 	}
 }

@@ -13,6 +13,7 @@ import gov.nih.nci.ncia.griddao.TrialDataProvenanceDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZipWorker;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.io.IOException;
 import java.io.PipedInputStream;
@@ -35,11 +36,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author lethai
  *
  */
-
 public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
-	private static ClassPathXmlApplicationContext appContext = null;
 	static {
-		appContext = new ClassPathXmlApplicationContext(new String[]{"applicationContext-hibernate.xml","applicationContext.xml"});
+		new ClassPathXmlApplicationContext(new String[]{"applicationContext-hibernate.xml",
+				                                        "applicationContext.xml"});
     }
     private static Logger logger = Logger.getLogger(NCIACoreServiceImpl.class);
 
@@ -57,7 +57,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
     }
 
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomData(gov.nih.nci.cagrid.cqlquery.CQLQuery cQLQuery) throws RemoteException {
-	    imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
+	    imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
         // Step 1: get the file path
         final Map<String, String> fileNames = ServiceImplHelper.retrieveImageFiles(cQLQuery, imageDao);
 
@@ -97,9 +97,9 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
      */
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataByPatientId(java.lang.String patientId) throws RemoteException {
         TransferServiceContextReference tscr = null;
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
         //ImageDAO imageDao = new ImageDAO();
-        imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
+        imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
         try {
         	List<String> patientIds = new ArrayList<String>();
         	patientIds.add(patientId);
@@ -141,8 +141,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
      */
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataBySeriesUID(java.lang.String seriesInstanceUID) throws RemoteException {
         TransferServiceContextReference tscr = null;
-        imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         try {
         	List<String> seriesInstanceUIDs = new ArrayList<String>();
@@ -191,8 +191,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
      */
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataByStudyUID(java.lang.String studyInstanceUID) throws RemoteException {
         TransferServiceContextReference tscr = null;
-        imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         try {
         	List<String> studyInstanceUIDs = new ArrayList<String>();
@@ -232,8 +232,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
 
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataByPatientIds(java.lang.String[] patientIds) throws RemoteException {
         TransferServiceContextReference tscr = null;
-        imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
         List<String> patientIdsList = new ArrayList<String>(Arrays.asList(patientIds));
         String filename = "";
 
@@ -273,8 +273,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
 /////////////////////////////////////////////////////////////////////////////////////////
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataBySeriesUIDs(java.lang.String[] seriesInstanceUids) throws RemoteException {
         TransferServiceContextReference tscr = null;
-        imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         List<String> seriesIdsList = new ArrayList<String>();
         String filename = "";
@@ -317,8 +317,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataByStudyUIDs(java.lang.String[] studyInstanceUids) throws RemoteException {
         TransferServiceContextReference tscr = null;
 
-        imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         List<String> studyIdsList = new ArrayList<String>();
         String filename = "";
@@ -359,8 +359,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
     }
 
   public int getNumberOfStudyTimePointForPatient(java.lang.String patientId) throws RemoteException {
-	    PatientDAOInterface patientDAO = (PatientDAOInterface)appContext.getBean("patientDaoInterface");
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+	    PatientDAOInterface patientDAO = (PatientDAOInterface)SpringApplicationContext.getBean("patientDaoInterface");
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         int numberOfTimepoint =0;
 
@@ -405,7 +405,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataByNthStudyTimePointForPatient(java.lang.String patientId,int studyTimepoint) throws RemoteException {
 
         TransferServiceContextReference tscr = null;
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         String filename = "";
 
@@ -426,7 +426,6 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
                 logger.info("Patient " +patientId + " is not in public group.");
                 return ServiceImplHelper.getEmptyOutputStream();
             }
-            Timepoints.setApplicationContext(appContext);
             List<ZippingDTO> list = Timepoints.getImagesByNthStudyTimePointForPatient(patientId,
             		                                                                  studyTimepoint);
 
@@ -459,8 +458,8 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
      *
      */
   public gov.nih.nci.ncia.domain.Image getRepresentativeImageBySeries(java.lang.String seriesInstanceUID) throws RemoteException {
-	    imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
+	    imageDao = (ImageDAOInterface)SpringApplicationContext.getBean(imageDaoBean);
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)SpringApplicationContext.getBean(trialDataProvenanceDaoBean);
 
         Image image=null;
         try {

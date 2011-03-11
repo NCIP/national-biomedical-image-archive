@@ -11,7 +11,7 @@ import junit.framework.TestCase;
 public class UtilTestCase extends TestCase {
 
 	public void testHasAtLeastOneNonBlankArgument() {
-		assertFalse(Util.hasAtLeastOneNonBlankArgument((String)null));
+		assertFalse(Util.hasAtLeastOneNonBlankArgument((String[])null));
 
 		assertFalse(Util.hasAtLeastOneNonBlankArgument());
 		
@@ -94,7 +94,7 @@ public class UtilTestCase extends TestCase {
 	public void testHasAtLeastOneNonNullArgumentFalse() {
 		assertTrue(Util.hasAtLeastOneNonNullArgument()==false);
 
-		assertTrue(Util.hasAtLeastOneNonNullArgument((String)null)==false);
+		assertTrue(Util.hasAtLeastOneNonNullArgument((Object[])null)==false);
 
 		assertTrue(Util.hasAtLeastOneNonNullArgument(null, null, null)==false);
 	}

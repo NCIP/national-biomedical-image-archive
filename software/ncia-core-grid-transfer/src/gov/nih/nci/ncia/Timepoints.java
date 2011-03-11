@@ -6,12 +6,13 @@ package gov.nih.nci.ncia;
 import gov.nih.nci.ncia.griddao.ImageDAOInterface;
 import gov.nih.nci.ncia.griddao.PatientDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
+import gov.nih.nci.ncia.util.SpringApplicationContext;
 
-import java.util.Date;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+
 import org.apache.log4j.Logger;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
@@ -30,13 +31,13 @@ public class Timepoints {
 	public static List<ZippingDTO> getImagesByNthStudyTimePointForPatient(String patientId,
 			                                                       int studyTimepoint) throws Exception{
 		//firststep - find out the date for the the studyTimepoint
-		PatientDAOInterface patientDAO = (PatientDAOInterface)appContext.getBean("patientDaoInterface");
+		PatientDAOInterface patientDAO = (PatientDAOInterface)SpringApplicationContext.getBean("patientDaoInterface");
 		List<Date> dateBucket = patientDAO.getTimepointStudyForPatient(patientId);
 
 
 		Date dateForTimepoint = getDateForNthTimePoint(dateBucket, studyTimepoint);
 		
-		ImageDAOInterface imageDao = (ImageDAOInterface)appContext.getBean("imageDaoInterface");
+		ImageDAOInterface imageDao = (ImageDAOInterface)SpringApplicationContext.getBean("imageDaoInterface");
 		return imageDao.getImagesByNthStudyTimePointForPatient(patientId, dateForTimepoint);
 
 	}
@@ -63,9 +64,4 @@ public class Timepoints {
 		}
 		return d;
 	}
-	public static void setApplicationContext(ClassPathXmlApplicationContext context){
-		appContext = context;
-	}
-	
-	private static ClassPathXmlApplicationContext appContext;
 }

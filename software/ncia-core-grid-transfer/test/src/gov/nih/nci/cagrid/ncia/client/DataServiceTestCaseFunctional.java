@@ -5,13 +5,14 @@ import gov.nih.nci.cagrid.cqlresultset.CQLQueryResults;
 
 import java.io.File;
 import java.io.FileReader;
+
 import javax.xml.namespace.QName;
-import junit.framework.TestCase;
+
 import org.globus.wsrf.encoding.ObjectDeserializer;
 import org.globus.wsrf.encoding.ObjectSerializer;
 import org.xml.sax.InputSource;
 
-public abstract class DataServiceTestCaseFunctional extends TestCase {
+public abstract class DataServiceTestCaseFunctional {
 	/////////////////////////////////////////PRIVATE///////////////////////////////////////////////////////
 	
 	protected CQLQueryResults sendCQLQuery(NCIACoreServiceClient client, File cqlFile) throws Exception {

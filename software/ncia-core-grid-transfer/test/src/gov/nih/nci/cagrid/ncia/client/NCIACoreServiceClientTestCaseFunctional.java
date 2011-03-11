@@ -32,8 +32,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.zip.ZipInputStream;
+
 import javax.xml.namespace.QName;
-import junit.framework.TestCase;
+
 import org.apache.axis.message.addressing.EndpointReferenceType;
 import org.cagrid.transfer.context.client.TransferServiceContextClient;
 import org.cagrid.transfer.context.client.helper.TransferClientHelper;
@@ -41,13 +42,15 @@ import org.cagrid.transfer.context.stubs.types.TransferServiceContextReference;
 import org.cagrid.transfer.descriptor.DataTransferDescriptor;
 import org.globus.wsrf.encoding.ObjectDeserializer;
 import org.globus.wsrf.encoding.ObjectSerializer;
+import org.junit.Assert;
+import org.junit.Test;
 import org.xml.sax.InputSource;
 
 /**
  * @author lethai
  *
  */
-public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
+public class NCIACoreServiceClientTestCaseFunctional {
 	String gridServiceUrl;
 	{
 		if(System.getProperty("grid.service.url")==null) {
@@ -67,6 +70,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 
 	String clientDownLoadLocation ="NBIAGridClientDownLoad";
 
+	@Test	
 	public void testAnnotation() throws Exception {
 		System.out.println("Retrieving Annotation");
 		String filename = "test/resources/testCase11.xml";
@@ -84,9 +88,10 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomData(gov.nih.nci.cagrid.cqlquery.CQLQuery)}.
 	 */
+	@Test	
 	public void testRetrieveDicomData() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 
 		String filename = "test/resources/testCase8.xml";
 		CQLQuery newQuery = null;
@@ -96,7 +101,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.err.println(ObjectSerializer.toString(newQuery,
 				new QName("http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery", "CQLQuery")));
 
-		assertNotNull(newQuery);
+		Assert.assertNotNull(newQuery);
 
 		TransferServiceContextReference tscr = client.retrieveDicomData(newQuery);
 
@@ -107,13 +112,14 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataByNthStudyTimepointForPatient(java.lang.String, int)}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataByNthStudyTimepointForPatient() throws Exception {
 		String patientId = "1.3.6.1.4.1.9328.50.14.0001";
 		System.out.println("PatientId : " + patientId);
 		int studyNumber = 2;
 
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 
 		System.out.println("............using transferService to retrieve data.................");
 		TransferServiceContextReference tscr = client.retrieveDicomDataByNthStudyTimePointForPatient(patientId, studyNumber);
@@ -124,12 +130,13 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataByPatientId(java.lang.String)}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataByPatientId() throws Exception {
 		String patientId = "1.3.6.1.4.1.9328.50.14.0007";
 		System.out.println("PatientId : " + patientId);
 
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 
 
 		System.out.println("............using transferService to retrieve data.................");
@@ -141,6 +148,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataBySeriesUID(java.lang.String)}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataBySeriesUID() throws Exception {
 		String seriesInstanceUID = "1.3.6.1.4.1.9328.50.1.8862";
 		//seriesInstanceUID = "1.2.840.113704.1.111.4076.1187279953.16";
@@ -155,7 +163,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.out.println("seriesInstanceUID : " + seriesInstanceUID);
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 
 		System.out.println("............using transferService to retrieve data.................");
 		TransferServiceContextReference tscr = client.retrieveDicomDataBySeriesUID(seriesInstanceUID);
@@ -165,6 +173,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataByStudyUID(java.lang.String)}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataByStudyUID() throws Exception {
 		String studyInstanceUID = "1.3.6.1.4.1.9328.50.1.4434";
 		//studyInstanceUID ="1.3.6.1.4.1.9328.50.1.12324";
@@ -180,7 +189,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 
 		System.out.println("............using transferService to retrieve data.................");
 		TransferServiceContextReference tscr = client.retrieveDicomDataByStudyUID(studyInstanceUID);
@@ -190,6 +199,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataByPatientIds(java.lang.String[])}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataByPatientIds() throws Exception {
 		String fileName = "1.3.6.1.4.1.9328.50.1.0042.zip";
 
@@ -221,7 +231,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		 */
 
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 		
 		long start = System.currentTimeMillis();
 
@@ -235,6 +245,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataBySeriesUIDs(java.lang.String[])}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataBySeriesUIDs() throws Exception {
 		String fileName ="1.2.840.113704.1.111.4076.1187279953.16.zip";
 		//String seriesInstanceUID = "1.3.6.1.4.1.9328.50.1.8862";
@@ -253,7 +264,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 		long start = System.currentTimeMillis();
 
         TransferServiceContextReference tscr = client.retrieveDicomDataBySeriesUIDs(seriesArray);
@@ -266,6 +277,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#retrieveDicomDataByStudyUIDs(java.lang.String[])}.
 	 */
+	@Test	
 	public void testRetrieveDicomDataByStudyUIDs() throws Exception {
 		String fileName = "1.3.6.1.4.1.9328.50.1.8858.zip";
 		//private study 1.2.124.113532.128.231.96.56.20041202.111945.1331778;
@@ -287,11 +299,12 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
-		assertNotNull("Connection with remote grid service could not be opened", client);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", client);
 		TransferServiceContextReference tscr = client.retrieveDicomDataByStudyUIDs(studyArray);
 		downloadFile(tscr, fileName);
 	}
 
+	@Test	
 	public void testStudy() throws Exception {
 		System.out.println("Test case - Retrieve Study for patientID 1.3.6.1.4.1.9328.50.1.0019");
 		String filename = "test/resources/testCase2.xml";
@@ -302,6 +315,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test	
 	public void testStudy1() throws Exception {
 		System.out.println("Test case - Retrieve Study for patientid 1.3.6.1.4.1.9328.50.1.0025");
 		String filename = "test/resources/testCase2a.xml";
@@ -312,6 +326,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test	
 	public void testStudy2() throws Exception {
 		System.out.println("Test case  - Retrieve Study for study InstanceUID 1.3.6.1.4.1.9328.50.1.12324");
 		String filename = "test/resources/testCase2b.xml";
@@ -322,7 +337,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 	
-	
+	@Test	
 	public void testStudyWithORGroup() throws Exception {
 		System.out.println("Test case - Retrieve Study ");
 		String filename = "test/resources/testStudy.xml";
@@ -333,6 +348,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test	
 	public void testSeries() throws Exception{
 		System.out.println("Test case 3 - retrieving series");
 		String filename = "test/resources/testCase3.xml";
@@ -343,6 +359,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test	
 	public void testSeries1() throws Exception{
 		System.out.println("Test case  - retrieve Series given patientid, studyInstanceUID and series InstanceUID");
 		String filename = "test/resources/testCase3a.xml";
@@ -352,6 +369,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test	
 	public void testSeries2() throws Exception{
 		System.out.println("Test case 10. Trying to retrieve private series");
 		String filename = "test/resources/testCase10.xml";
@@ -362,7 +380,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 	
-	
+	@Test
 	public void testImage() throws Exception{
 		System.out.println("Test case 4 - retrieve Images");
 		//String filename = "test/resources/testImage.xml";
@@ -373,6 +391,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test
 	public void testImage1() throws Exception{
 		System.out.println("Test case 9 - Retrieve Images for series 1.3.6.1.4.1.9328.50.3.33747. This series is private. We should not get anything back.");
 		String filename = "test/resources/testCase9.xml";
@@ -383,7 +402,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
-
+	@Test
 	public void testPatient() throws Exception{
 		System.out.println("Test case 1 - Retrieve Patient for project RIDER");
 		String filename = "test/resources/testCase1.xml";
@@ -393,6 +412,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test
 	public void testPatient1() throws Exception{
 		System.out.println("Test case 5 - retrieve Patient where patientID is 1.3.6.1.4.1.9328.50.1.0025");
 		String filename = "test/resources/testCase5.xml";
@@ -402,7 +422,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
-
+	@Test
 	public void testPatient2() throws Exception{
 		System.out.println("Test case 6 - retrieve Patient where project is Phantom and modalities are CT and PT");
 		String filename = "test/resources/testCase6.xml";
@@ -412,7 +432,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
-
+	@Test
 	public void testPatientCaseInSensitive() throws Exception{
 		System.out.println("Test case 1 - Retrieve Patient");
 		String filename = "test/resources/testPatientCaseInSensitive.xml";
@@ -422,7 +442,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 	
-	
+	@Test
 	public void testPatientWithORGroup() throws Exception{
 		System.out.println("Test case 1 - Retrieve Patient ");
 		String filename = "test/resources/testPatient.xml";
@@ -432,6 +452,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		dumpCQLResult(result);
 	}
 
+	@Test
 	public void testEPRname() throws Exception {
 		TransferServiceContextClient tclient = null;
 
@@ -446,7 +467,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		newQuery = (CQLQuery) ObjectDeserializer.deserialize(queryInput, CQLQuery.class);
 		System.err.println(ObjectSerializer.toString(newQuery,
 		                   new QName("http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery", "CQLQuery")));
-		assertNotNull(newQuery);
+		Assert.assertNotNull(newQuery);
 
 
 		System.out.println("............using transferService to retrieve data.................");
@@ -458,7 +479,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		String subOldEpr = strOldEpr.substring(strOldEpr.indexOf("http://"), strOldEpr.indexOf("wsrf"));
 		System.out.println("subTarget = " + subTarget + " | subOldEpr = " + subOldEpr);
 		if (!subOldEpr.equals(subTarget)){
-			fail("the End Point Reference is not the same.  external user cannot access the DICOM data.");
+			Assert.fail("the End Point Reference is not the same.  external user cannot access the DICOM data.");
 		}
 		tclient = new TransferServiceContextClient(oldEpr);
 
@@ -467,6 +488,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.out.println(tempDD.getUrl());
 	}
 
+	@Test
 	public void testGetNumberOfStudyTimepointForPatient() throws Exception {
 		String patientId = "1.3.6.1.4.1.9328.50.1.0002";
 		//patientId = "SNMCB04";
@@ -480,6 +502,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient#getRepresentativeImageBySeries(java.lang.String)}.
 	 */
+	@Test
 	public void testGetRepresentativeImageBySeries() throws Exception {
 		String seriesInstanceUID = "1.3.6.1.4.1.9328.50.1.8862";
 		//seriesInstanceUID = "1.2.840.113704.1.111.4076.1187279953.16";
@@ -505,7 +528,8 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.out.println("Total time get image is " + (end - start) + " milli seconds");
 
 	}
-
+	
+	@Test
 	public void testGetAvailableSearchTerms() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 		AvailableSearchTerms ast = client.getAvailableSearchTerms();
@@ -520,7 +544,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		//assert as if we are pointing to DEV?
 	}
 
-
+	@Test
 	public void testSearchForPatients() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 		PatientSearchResult[] results = client.searchForPatients(new SearchCriteriaDTO[]{});
@@ -535,7 +559,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		}
 	}
 
-
+	@Test
 	public void testRetrieveStudyAndSeriesForPatient() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
@@ -557,6 +581,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		}
 	}
 
+	@Test
 	public void testRetrieveImagesForSeries() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
@@ -578,6 +603,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		}
 	}
 
+	@Test
 	public void testViewDicomHeader() throws Exception {
 		NCIACoreServiceClient client = new NCIACoreServiceClient(gridServiceUrl);
 
@@ -599,7 +625,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 	}
 
 
-	 /////////////////////////////////////////PRIVATE////////////////////////////
+	/////////////////////////////////////////PRIVATE////////////////////////////
 	private CQLQuery loadXMLFile(String filename) throws Exception {
 		CQLQuery newQuery = null;
 
@@ -608,7 +634,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.err.println(ObjectSerializer.toString(newQuery,
 				new QName("http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery", "CQLQuery")));
 
-		assertNotNull(newQuery);
+		Assert.assertNotNull(newQuery);
 		return newQuery;
 	}
 
@@ -618,7 +644,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		CQLQueryResults result = null;
 		NCIACoreServiceClient nciaClient = new NCIACoreServiceClient(gridServiceUrl);
 
-		assertNotNull("Connection with remote grid service could not be opened", nciaClient);
+		Assert.assertNotNull("Connection with remote grid service could not be opened", nciaClient);
 		result = nciaClient.query(cqlQuery);
 		return result;
 	}
@@ -639,7 +665,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
         InputStream istream = TransferClientHelper.getData(tclient.getDataTransferDescriptor());
 
 		System.out.println("getting zip input stream.............." + istream);
-		assertNotNull("Input stream recieved from transfer service is null", istream);
+		Assert.assertNotNull("Input stream recieved from transfer service is null", istream);
 
 		if(istream == null){
 			System.out.println("istrea is null");
@@ -679,7 +705,7 @@ public class NCIACoreServiceClientTestCaseFunctional extends TestCase {
 		System.out.println("Total time get images is " + (end - start) + " milli seconds");
 
 		System.out.println("getting zip input stream.............." + istream);
-		assertNotNull("Input stream recieved from transfer service is null", istream);
+		Assert.assertNotNull("Input stream recieved from transfer service is null", istream);
 
 		if(istream == null){
 			System.out.println("istream is null");

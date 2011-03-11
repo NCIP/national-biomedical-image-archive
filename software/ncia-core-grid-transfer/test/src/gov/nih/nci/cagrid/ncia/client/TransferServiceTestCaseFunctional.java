@@ -11,8 +11,9 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.util.zip.ZipInputStream;
+
 import javax.xml.namespace.QName;
-import junit.framework.TestCase;
+
 import org.cagrid.transfer.context.client.TransferServiceContextClient;
 import org.cagrid.transfer.context.client.helper.TransferClientHelper;
 import org.cagrid.transfer.context.stubs.types.TransferServiceContextReference;
@@ -22,7 +23,7 @@ import org.globus.wsrf.encoding.ObjectSerializer;
 import org.xml.sax.InputSource;
 
 
-public abstract class TransferServiceTestCaseFunctional extends TestCase {
+public abstract class TransferServiceTestCaseFunctional {
 
 
 

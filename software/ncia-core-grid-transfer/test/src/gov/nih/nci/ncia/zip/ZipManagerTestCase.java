@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.junit.Assert;
+import org.junit.Test;
 
-import junit.framework.TestCase;
-
-public class ZipManagerTestCase extends TestCase {
-
+public class ZipManagerTestCase {
+	@Test
 	public void testZip() throws Exception {
 		String tempDirStr = System.getProperty("java.io.tmpdir");
 		
@@ -72,14 +72,14 @@ public class ZipManagerTestCase extends TestCase {
 		    String fileContents = new String(buffer, 0, nBytesRead);
                      
 			if(zipEntry.getName().equals("fakeProject1"+FILE_SEPARATOR+"fakePatient1"+FILE_SEPARATOR+"fakeStudy1"+FILE_SEPARATOR+"fakeSeries1"+FILE_SEPARATOR+"fakeSop1")) {
-				assertEquals(fileContents, "This is a test file");
+				Assert.assertEquals(fileContents, "This is a test file");
 			}
 			else  
 			if(zipEntry.getName().equals("fakeProject2"+FILE_SEPARATOR+"fakePatient2"+FILE_SEPARATOR+"fakeStudy2"+FILE_SEPARATOR+"fakeSeries2"+FILE_SEPARATOR+"fakeSop2")) {
-				assertEquals(fileContents, "This is another test file.");
+				Assert.assertEquals(fileContents, "This is another test file.");
 			}
 			else {
-				fail(zipEntry.getName());
+				Assert.fail(zipEntry.getName());
 			}
 		}
 		zis.close();		

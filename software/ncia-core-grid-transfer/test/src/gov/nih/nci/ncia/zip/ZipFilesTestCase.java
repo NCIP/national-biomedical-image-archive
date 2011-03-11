@@ -7,10 +7,11 @@ import java.io.FileInputStream;
 import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class ZipFilesTestCase extends TestCase {
-
+public class ZipFilesTestCase {
+	@Test
 	public void testStartNewFile() throws Exception {
 		ZipFiles zipFiles = new ZipFiles();
 		
@@ -55,14 +56,14 @@ public class ZipFilesTestCase extends TestCase {
                      
 		    
 			if(zipEntry.getName().equals("fooDir1"+FILE_SEPARATOR+"newName1.txt")) {
-				assertEquals(fileContents, "This is a test file");
+				Assert.assertEquals(fileContents, "This is a test file");
 			}
 			else  
 			if(zipEntry.getName().equals("fooDir2"+FILE_SEPARATOR+"newName2.txt")) {
-				assertEquals(fileContents, "This is another test file.");
+				Assert.assertEquals(fileContents, "This is another test file.");
 			}
 			else {
-				fail(zipEntry.getName());
+				Assert.fail(zipEntry.getName());
 			}
 		}
 		zis.close();		

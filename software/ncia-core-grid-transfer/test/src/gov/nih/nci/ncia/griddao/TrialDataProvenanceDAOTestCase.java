@@ -1,50 +1,48 @@
-/**
- *
- */
 package gov.nih.nci.ncia.griddao;
+
+import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.ncia.domain.TrialDataProvenance;
 
 import java.util.Collections;
 import java.util.Map;
-
-import gov.nih.nci.ncia.AbstractDbTestCaseImpl;
-import gov.nih.nci.ncia.domain.TrialDataProvenance;
-
-/**
- * @author lethai
- *
- */
-public class TrialDataProvenanceDAOTestCase extends AbstractDbTestCaseImpl {
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
-	public void testGetTDPByPatientId() throws Exception{
-		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		
-		Map<String, TrialDataProvenance> trialDataProvenances = imageFilesProcessor.getTDPByPatientId(Collections.singletonList("1.3.6.1.4.1.9328.50.3.0022"));
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"/applicationContext.xml", "/applicationContext-hibernate-testContext.xml"})
+public class TrialDataProvenanceDAOTestCase extends AbstractDbUnitTestForJunit4 {
+
+	@Test
+	public void testGetTDPByPatientId() throws Exception{		
+		Map<String, TrialDataProvenance> trialDataProvenances = trialDataProvenanceDAO.getTDPByPatientId(Collections.singletonList("1.3.6.1.4.1.9328.50.3.0022"));
 		
 		TrialDataProvenance trialDataProvenance = trialDataProvenances.get("1.3.6.1.4.1.9328.50.3.0022");
 		
-		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
-		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
+		Assert.assertTrue(trialDataProvenance.getProject().equals("LIDC"));
+		Assert.assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
 	}
 
-
+	@Test
 	public void testGetTDPByStudyInstanceUID() throws Exception{
-		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		Map<String, TrialDataProvenance> trialDataProvenances = imageFilesProcessor.getTDPByStudyInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.3.68"));
+		Map<String, TrialDataProvenance> trialDataProvenances = trialDataProvenanceDAO.getTDPByStudyInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.3.68"));
 
 		TrialDataProvenance trialDataProvenance = trialDataProvenances.get("1.3.6.1.4.1.9328.50.3.68");
 		
-		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
-		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
+		Assert.assertTrue(trialDataProvenance.getProject().equals("LIDC"));
+		Assert.assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
 	}
 
-
+	@Test
 	public void testGetTDPBySeriesInstanceUID() throws Exception {
-		TrialDataProvenanceDAO imageFilesProcessor = new TrialDataProvenanceDAO();
-		Map<String, TrialDataProvenance> trialDataProvenances = imageFilesProcessor.getTDPBySeriesInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.3.69"));
+		Map<String, TrialDataProvenance> trialDataProvenances = trialDataProvenanceDAO.getTDPBySeriesInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.3.69"));
 		TrialDataProvenance trialDataProvenance = trialDataProvenances.get("1.3.6.1.4.1.9328.50.3.69");
-		assertTrue(trialDataProvenance.getProject().equals("LIDC"));
-		assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
+		Assert.assertTrue(trialDataProvenance.getProject().equals("LIDC"));
+		Assert.assertTrue(trialDataProvenance.getSiteName().equals("LIDC"));
 	}
 
 
@@ -82,4 +80,7 @@ public class TrialDataProvenanceDAOTestCase extends AbstractDbTestCaseImpl {
     ////////////////////////////////////PRIVATE/////////////////////////////////
 
     private static final String TEST_DB_FLAT_FILE = "dbunitscripts/patient_1044.xml";
+    
+    @Autowired
+    private TrialDataProvenanceDAOInterface trialDataProvenanceDAO;      
 }

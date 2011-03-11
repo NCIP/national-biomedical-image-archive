@@ -14,20 +14,24 @@
                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
   <!-- ========================= RESOURCE DEFINITIONS ========================= -->
-
-    <bean id="imageDaoInterface" class="gov.nih.nci.ncia.griddao.ImageDAO">
-      <property name="sessionFactory">
-        <ref bean="sessionFactory"/>
-      </property>
+  <context:annotation-config/>
+  <bean id="springApplicationContext" class="gov.nih.nci.ncia.util.SpringApplicationContext"/>
+  
+  <bean id="imageDaoInterface" class="gov.nih.nci.ncia.griddao.ImageDAO">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
   </bean>
+  
   <bean id="patientDaoInterface" class="gov.nih.nci.ncia.griddao.PatientDAO">
-        <property name="sessionFactory">
-          <ref bean="sessionFactory"/>
-        </property>
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
   </bean>
+  
   <bean id="trialDataProvenanceDaoInterface" class="gov.nih.nci.ncia.griddao.TrialDataProvenanceDAO">
-        <property name="sessionFactory">
-          <ref bean="sessionFactory"/>
-        </property>
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
   </bean>  
 </beans>

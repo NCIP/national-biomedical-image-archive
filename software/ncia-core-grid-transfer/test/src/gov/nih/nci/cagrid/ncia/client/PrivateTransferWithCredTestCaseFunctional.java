@@ -8,6 +8,9 @@ import java.util.Map;
 
 import org.cagrid.transfer.context.stubs.types.TransferServiceContextReference;
 import org.globus.gsi.GlobusCredential;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class PrivateTransferWithCredTestCaseFunctional extends TransferServiceTestCaseFunctional {
 	String gridServiceUrl;
@@ -23,70 +26,72 @@ public class PrivateTransferWithCredTestCaseFunctional extends TransferServiceTe
 	String authUrl = "https://cagrid-auth-stage.nci.nih.gov:8443/wsrf/services/cagrid/AuthenticationService";
 	String dorianURL = "https://cagrid-dorian-stage.nci.nih.gov:8443/wsrf/services/cagrid/Dorian";
 
-	/*public void testAssociations() throws Exception {
+	/*@Test public void testAssociations() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/association");
 	}*/
 
+	@Test
 	public void testAttributes() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/attribute");
 	}
 
-	/*public void testGroups() throws Exception {
+	/*@Test public void testGroups() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/group");
 	}*/
 
+	@Test
 	public void testRetrieveDicomDataByPatientId() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataByPatientId("A2");
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(3,actualNumZipFiles);
+		Assert.assertEquals(3,actualNumZipFiles);
 
 
 		tscr = client.retrieveDicomDataByPatientIds(new String[]{"A2"});
 		actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(3,actualNumZipFiles);
+		Assert.assertEquals(3,actualNumZipFiles);
 	}
 
-
+	@Test
 	public void testRetrieveDicomDataByStudyInstanceUid() throws Exception {
 
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataByStudyUID("1.1.978.4966.292.1");
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(1,actualNumZipFiles);
+		Assert.assertEquals(1,actualNumZipFiles);
 
 		tscr = client.retrieveDicomDataByStudyUIDs(new String[]{"1.1.978.4966.292.1"});
 		actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(1,actualNumZipFiles);
+		Assert.assertEquals(1,actualNumZipFiles);
 	}
 
+	@Test	
 	public void testRetrieveDicomDataBySeriesInstanceUid() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataBySeriesUID("1.1.978.976.890.2");
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(1,actualNumZipFiles);
+		Assert.assertEquals(1,actualNumZipFiles);
 
 		tscr = client.retrieveDicomDataBySeriesUIDs(new String[]{"1.1.978.976.890.2"});
 
 		actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(1,actualNumZipFiles);
+		Assert.assertEquals(1,actualNumZipFiles);
 	}
 
-
+	@Test
 	public void testRetrieveDicomDataByStudyTimepoint() throws Exception {
 
 		TransferServiceContextReference tscr = client.retrieveDicomDataByNthStudyTimePointForPatient("A2", 1);
 
 		int actualNumZipFiles = processTransfer(tscr, globusCred);
-		assertEquals(1,actualNumZipFiles);
+		Assert.assertEquals(1,actualNumZipFiles);
 	}
 
-
+	@Before
 	protected void setUp()throws Exception{
-		super.setUp();
 
 	    String gridUsername = System.getProperty("grid.user.name");
 	    String gridPassword = System.getProperty("grid.password");
@@ -118,7 +123,7 @@ public class PrivateTransferWithCredTestCaseFunctional extends TransferServiceTe
 			int actualNumZipFiles = sendCQLForZipFile(client, cqlFile, globusCred);
 			Integer expectedNumZipFiles = cqlToCountMap.get(constructKey(relativeDirectoryName,cqlFile));
 
-			assertEquals(expectedNumZipFiles.intValue(),actualNumZipFiles);
+			Assert.assertEquals(expectedNumZipFiles.intValue(),actualNumZipFiles);
 		}
 	}
 

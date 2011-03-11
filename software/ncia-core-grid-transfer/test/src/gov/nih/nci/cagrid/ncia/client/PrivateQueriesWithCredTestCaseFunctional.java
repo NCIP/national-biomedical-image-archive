@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.globus.gsi.GlobusCredential;
+import org.junit.Assert;
+import org.junit.Test;
 
 //this is geared toward DEV tier with ISPY collection
 //would be better to control the population.... but we'll just go with
@@ -27,14 +29,17 @@ public class PrivateQueriesWithCredTestCaseFunctional extends DataServiceTestCas
 	String authUrl = "https://cagrid-auth-stage.nci.nih.gov:8443/wsrf/services/cagrid/AuthenticationService";
 	String dorianURL = "https://cagrid-dorian-stage.nci.nih.gov:8443/wsrf/services/cagrid/Dorian";
 
+	@Test
 	public void testAssociations() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/association");
 	}
 
+	@Test	
 	public void testAttributes() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/attribute");
 	}
 
+	@Test	
 	public void testGroups() throws Exception {
 		runCQLInDirectory("test/resources/publicfilter/private/group");
 	}
@@ -60,11 +65,11 @@ public class PrivateQueriesWithCredTestCaseFunctional extends DataServiceTestCas
 			System.out.println("CQL:"+cqlFile.getName());
 			CQLQueryResults results = sendCQLQuery(client, cqlFile);
 			if(results.getObjectResult()==null) {
-				fail("nulll results");
+				Assert.fail("nulll results");
 			}
 			else {
 				Integer resultLen = cqlToCountMap.get(constructKey(relativeDirectoryName,cqlFile));
-				assertTrue(results.getObjectResult().length == resultLen.intValue());
+				Assert.assertTrue(results.getObjectResult().length == resultLen.intValue());
 			}
 		}
 	}

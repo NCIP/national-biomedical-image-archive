@@ -37,7 +37,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 
 public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
-	private static ClassPathXmlApplicationContext appContext = null; 
+	private static ClassPathXmlApplicationContext appContext = null;
 	static {
 		appContext = new ClassPathXmlApplicationContext(new String[]{"applicationContext-hibernate.xml","applicationContext.xml"});
     }
@@ -51,7 +51,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
     private TrialDataProvenanceDAOInterface trialDataProvenanceDAO;
     private String imageDaoBean = "imageDaoInterface";
     private String trialDataProvenanceDaoBean = "trialDataProvenanceDaoInterface";
-    
+
     public NCIACoreServiceImpl() throws RemoteException {
         super();
     }
@@ -233,7 +233,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataByPatientIds(java.lang.String[] patientIds) throws RemoteException {
         TransferServiceContextReference tscr = null;
         imageDao = (ImageDAOInterface)appContext.getBean(imageDaoBean);
-        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);;
+        trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
         List<String> patientIdsList = new ArrayList<String>(Arrays.asList(patientIds));
         String filename = "";
 
@@ -269,7 +269,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
         }
         return tscr;
     }
-  
+
 /////////////////////////////////////////////////////////////////////////////////////////
   public org.cagrid.transfer.context.stubs.types.TransferServiceContextReference retrieveDicomDataBySeriesUIDs(java.lang.String[] seriesInstanceUids) throws RemoteException {
         TransferServiceContextReference tscr = null;
@@ -406,7 +406,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
 
         TransferServiceContextReference tscr = null;
         trialDataProvenanceDAO = (TrialDataProvenanceDAOInterface)appContext.getBean(trialDataProvenanceDaoBean);
-       
+
         String filename = "";
 
         try {
@@ -415,7 +415,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
             patientIds.add(patientId);
             Map<String, TrialDataProvenance> patientTDPs = trialDataProvenanceDAO.getTDPByPatientId(patientIds);
             TrialDataProvenance patientTDP = (TrialDataProvenance)patientTDPs.get(patientId);
-          
+
             //check for public access
             boolean isPublic = ServiceImplHelper.getPublicGroupAndCheckForPublicAccess(patientTDP);
 
@@ -466,7 +466,7 @@ public class NCIACoreServiceImpl extends NCIACoreServiceImplBase {
         try {
         	List<String> seriesInstanceUIDs = new ArrayList<String>();
         	seriesInstanceUIDs.add(seriesInstanceUID);
-        	
+
         	// find out what project and site this seriesInstanceUID belongs to
             Map<String, TrialDataProvenance> tdps = trialDataProvenanceDAO.getTDPBySeriesInstanceUID(seriesInstanceUIDs);
             TrialDataProvenance tdp = tdps.get(seriesInstanceUID);

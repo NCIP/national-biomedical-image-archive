@@ -80,7 +80,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			if (patientId == null) {
 				return null;
 			}
-			String hql = IMAGE_STATEMENT + ", GeneralSeries gs " +
+			String hql = IMAGE_SERIES_STATEMENT +
 						" WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' "+
 						" and gi.patientId = '" + patientId + "'";
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
@@ -105,7 +105,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			if (studyInstanceUID == null) {
 				return null;
 			}
-			String hql = IMAGE_STATEMENT + ", GeneralSeries gs " +
+			String hql = IMAGE_SERIES_STATEMENT +
 				  " WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' " +
 					" and gi.studyInstanceUID = '" + studyInstanceUID + "'";
 			List<GeneralImage> result = getHibernateTemplate().find(hql);
@@ -128,7 +128,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		{
 			return null;
 		}
-		String hql = IMAGE_STATEMENT + ", GeneralSeries gs " +
+		String hql = IMAGE_SERIES_STATEMENT +
 						" WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' "+
 						" and gi.seriesInstanceUID = '"
 						+ seriesInstanceUID + "'";
@@ -150,7 +150,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 				return null;
 			}
 			String patientList = HqlUtils.buildInClause("", patientIds);
-			String hql = IMAGE_STATEMENT + ", GeneralSeries gs"
+			String hql = IMAGE_SERIES_STATEMENT
 					+ " WHERE gi.seriesPKId=gs.id AND gs.visibility = '1' AND gi.patientId in "
 					+ patientList;
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
@@ -162,8 +162,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 				return null;
 			}
 			String studyList = HqlUtils.buildInClause("", studyInstanceUids);
-			String hql = IMAGE_STATEMENT +
-						", GeneralSeries gs "
+			String hql = IMAGE_SERIES_STATEMENT
 						+ " WHERE gs.id= gi.seriesPKId AND gs.visibility = '1' AND gi.studyInstanceUID in "
 						+ studyList;
 
@@ -177,8 +176,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			return null;
 		}
 		String seriesList = HqlUtils.buildInClause("", seriesInstanceUids);
-		String hql = IMAGE_STATEMENT
-				     + ", GeneralSeries gs "
+		String hql = IMAGE_SERIES_STATEMENT
 				 	 + " WHERE gi.seriesPKId=gs.id AND gs.visibility = '1' AND gi.seriesInstanceUID in "
 					 + seriesList;
 		List<GeneralImage> rs = getHibernateTemplate().find(hql);
@@ -262,6 +260,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	//////////////////////////////////////PRIVATE////////////////////////////////////////////
 
 	private final static String IMAGE_STATEMENT = "SELECT gi FROM GeneralImage gi";
+	private final static String IMAGE_SERIES_STATEMENT = "SELECT gi FROM GeneralImage gi, GeneralSeries gs ";
 
     private static Integer nullSafeDouble(Double d) {
         if(d==null) {

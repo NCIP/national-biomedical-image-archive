@@ -440,6 +440,8 @@ $HeadURL$
       <property name="database.type" value="${database.type}"/>
       <property name="database.user" value="${database.user}"/>
       <property name="database.password" value="${database.password}"/>
+      <property name="database.system.user" value="${database.user}"/>
+      <property name="database.system.password" value="${database.password}"/>
       <property name="database.url" value="${database.url}"/>
       <property name="database.dialect" value="${database.dialect}"/>
       <property name="database.driver" value="${database.driver}"/>
@@ -461,6 +463,8 @@ $HeadURL$
       <property name="database.type" value="${database.type}"/>
       <property name="database.user" value="${database.user}"/>
       <property name="database.password" value="${database.password}"/>
+      <property name="database.system.user" value="${database.user}"/>
+      <property name="database.system.password" value="${database.password}"/>
       <property name="database.url" value="${database.url}"/>
       <property name="database.dialect" value="${database.dialect}"/>
       <property name="database.driver" value="${database.driver}"/>
@@ -617,6 +621,8 @@ $HeadURL$
 
       <property name="database.user" value="${database.user}"/>
       <property name="database.password" value="${database.password}"/>
+      <property name="database.system.user" value="${database.user}"/>
+      <property name="database.system.password" value="${database.password}"/>
       <property name="database.url" value="${database.url}"/>
       <property name="database.driver" value="${database.driver}"/>
       <property name="database.dialect" value="${database.dialect}"/>
@@ -701,6 +707,8 @@ $HeadURL$
       <property name="database.type" value="${database.type}"/>
       <property name="database.user" value="${database.user}"/>
       <property name="database.password" value="${database.password}"/>
+      <property name="database.system.user" value="${database.user}"/>
+      <property name="database.system.password" value="${database.password}"/>
       <property name="database.url" value="${database.url}"/>
       <property name="database.dialect" value="${database.dialect}"/>
       <property name="database.driver" value="${database.driver}"/>

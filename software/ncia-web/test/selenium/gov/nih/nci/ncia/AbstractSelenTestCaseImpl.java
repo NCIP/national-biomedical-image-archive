@@ -42,9 +42,30 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
                                   "30000");
 	}
 
+	public void loginAsGuestFromTopMenu() {
+		selenium.open("/ncia/login.jsf");
+		selenium.click("link=SEARCH IMAGES");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm')",
+                                  "30000");		
+	}
 
 /////////////////////////////////////////SELECT OR TWEAK PAGE CONTROLS///////////////////////////////////
 
+	/**
+	 * @param nodeResultNumber when a remote search is done, there will be results per node.  this specifies
+	 *                         0..n for which node's results to press the add to basket button in
+	 */
+	public void addPatientsToBasketFromSearchResult(int nodeResultNumber) {
+		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:addPatientToBasketButton");
+	}
+
+	public void selectPatientsFromSearchResults(int[] rowNumbers) {
+		for(int rowNumber : rowNumbers) {
+			selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:"+rowNumber+":addPatientToBasketCheckbox");
+		}
+	}
+	
+	
 	public void selectAnatomicalSite(String anatomicalSite) {
 		String id = selenium.getValue("xpath=id('MAINbody:searchForm:anatomicalSitesCheckboxesTable')//tr[td='"+anatomicalSite+"']/td//input/@id");
 		selenium.click(id);
@@ -149,8 +170,19 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:addPatientToBasketButton");
 	}
 
+	public void selectVisualizeImages() {
+		selenium.click("MAINbody:dataForm:visualizeImages");
+	}
 //////////////////////////////////////////READ FROM PAGE///////////////////////////////////////
 
+	public boolean isViewSavedQueriesLinkVisible() {
+		return selenium.isElementPresent("SUBmenu:sideMenuForm:queryView:viewSavedQueriesLink");		
+	}
+	
+	public boolean isPatientResultHighlighted(int nodeResultNumber, int patientResultNumber) {
+	    return "highlightedData".equals(selenium.getAttribute("xpath=id('MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable')/tbody/tr["+patientResultNumber+"]/td[3]/div@class"));	                                
+	}
+	
 	public String getOverallCountOfPatientsAffected() {
 		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
 		return selenium.getTable(overallCntTableLocator+".1.1").trim();
@@ -315,6 +347,13 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 	}
 
 /////////////////////////////////////////////////NAVIGATE////////////////////////////////////////
+	public void drillDownIntoPatientResult(int nodeResultNumber, int patientResultNumber) {
+		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable:"+patientResultNumber+":viewPatientLink");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:dataForm:visualizeImages')",
+                                  "30000");		
+	}
+	
+	
 	public void navigateToDataBasketPage() {
 		selenium.click("MAINbody:dataForm:viewBasketButton");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:basketForm:dataBasketDataTable')",

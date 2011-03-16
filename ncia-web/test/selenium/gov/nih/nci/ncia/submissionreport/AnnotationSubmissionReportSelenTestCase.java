@@ -27,7 +27,7 @@ public class AnnotationSubmissionReportSelenTestCase extends AbstractSelenTestCa
 
 		selectSubmissionReportCollection("LIDC//LIDC");
 
-		selectSubmissionReportDateRange("04/13/2001", "06/01/200");
+		selectSubmissionReportDateRange("04/13/2001", "06/01/2009");
 
 		submitAnnotationReport();
 

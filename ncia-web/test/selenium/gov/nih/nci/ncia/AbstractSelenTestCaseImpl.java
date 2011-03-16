@@ -100,11 +100,21 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 
 	}
 
+	public void submitImageSubmissionReport() {	
+		selenium.click("MAINbody:submissionReportCriteriaForm:imageReportSubmit");
+
+	}
 	
 	public void submitAnnotationReport() {
 		selenium.click("MAINbody:submissionReportCriteriaForm:annotationReportSubmit");
 	}
 
+	public void waitForImageSubmissionReportResults() {
+  		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet')",
+                                  "30000");			
+	}
+	
+	
 	public void waitForEmptyAnnotationResults() {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:annotationNoResultsMsg')",
                                   "30000");
@@ -182,7 +192,11 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.click("MAINbody:dataForm:visualizeImages");
 	}
 //////////////////////////////////////////READ FROM PAGE///////////////////////////////////////
-
+	public boolean isThereANoResultsMessageForImageSubmissionReport() {
+		String noResultsMsg = selenium.getText("MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet:0:noNewImagesPanel");
+  		return noResultsMsg.startsWith("There were no submissions");	
+	}
+	
 	public boolean isThereANoResultsMessageForAccrualReport() {
 		String noResultsMsg = selenium.getText("MAINbody:accrualNoResultsMsg");
 		return noResultsMsg.startsWith("There were no submissions");		

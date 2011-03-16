@@ -17,8 +17,7 @@ public class AccrualReportSelenTestCase extends AbstractSelenTestCaseImpl {
 		submitAccrualReport();
         waitForEmptyAccrualResults();
 
-		String noResultsMsg = selenium.getText("MAINbody:accrualNoResultsMsg");
-		assertTrue(noResultsMsg.startsWith("There were no submissions"));
+		assertTrue(isThereANoResultsMessageForAccrualReport());
 	}
 
 	public void testAccrualReportValidation() throws Exception {
@@ -47,73 +46,52 @@ public class AccrualReportSelenTestCase extends AbstractSelenTestCaseImpl {
 		submitAccrualReport();
         waitForAccrualResults();
 
-		String overallCntTableLocator1 =
-			"xpath=id('overallResultsCount')//table[1]";
 
-		assertTrue(selenium.getTable(overallCntTableLocator1+".1.1").trim().equals("101738"));
+		assertTrue(getOverallCountOfImageAccrual().equals("101738"));
 
-		String overallCntTableLocator2 =
-			"xpath=id('overallResultsCount')//table[2]";
-		assertTrue(selenium.getTable(overallCntTableLocator2+".1.1").trim().equals("399"));
-		assertTrue(selenium.getTable(overallCntTableLocator2+".2.1").trim().equals("401"));
-		assertTrue(selenium.getTable(overallCntTableLocator2+".3.1").trim().equals("401"));
+		assertTrue(getOverallCountOfPatientsAccrual().equals("399"));
+		assertTrue(getOverallCountOfStudiesAccrual().equals("401"));
+		assertTrue(getOverallCountOfSeriesAccrual().equals("401"));
 
+		expandAccrualSubmissionReportDailyDetails(0);
 
+		assertTrue(getNewAccrualImageCountForDay(0).equals("13577"));
 
-		selenium.click("MAINbody:accrualByDayForm:accrualByDayTable:0:accrualDayDetails");
-
-		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualByDayForm:accrualByDayTable:0:accrualDayDetailsTableContainer')",
-                                  "30000");
-
-		String firstDayTableLocator1 =
-			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:0:accrualDayDetailsTableContainer')//table[1]";
-		assertTrue(selenium.getTable(firstDayTableLocator1+".1.1").trim().equals("13577"));
-
-		String firstDayTableLocator2 =
-			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:0:accrualDayDetailsTableContainer')//table[2]";
-		assertTrue(selenium.getTable(firstDayTableLocator2+".1.1").trim().equals("76"));
-		assertTrue(selenium.getTable(firstDayTableLocator2+".2.1").trim().equals("77"));
-		assertTrue(selenium.getTable(firstDayTableLocator2+".3.1").trim().equals("77"));
-
+		assertTrue(getNewAccrualPatientCountForDay(0).equals("76"));
+		assertTrue(getNewAccrualStudyCountForDay(0).equals("77"));
+		assertTrue(getNewAccrualSeriesCountForDay(0).equals("77"));
 	}
 
+	
 	private void _testFutureDate1() throws Exception {
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/2500");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/2510");
-		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
+		selectSubmissionReportDateRange("04/13/2500", "01/13/2510");
+		submitAccrualReport();
 		pause(20000);
 
-		String errorText = selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");
-		assertTrue(errorText.startsWith("Date Invalid:"));
+		assertTrue(getSubmissionReportErrorText().startsWith("Date Invalid:"));
 	}
 
 	private void _testFutureDate2() throws Exception {
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/1980");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/2510");
-		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
+		selectSubmissionReportDateRange("04/13/1980", "01/13/2510");
+		submitAccrualReport();
 		pause(20000);
 
-		String errorText = selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");
-		assertTrue(errorText.startsWith("Date Invalid:"));
+		assertTrue(getSubmissionReportErrorText().startsWith("Date Invalid:"));
 	}
 
 	private void _testDateOrdering() throws Exception {
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "04/13/1980");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/1979");
-		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
+		selectSubmissionReportDateRange("04/13/1980", "01/13/1979");
+		submitAccrualReport();
 		pause(20000);
 
-		String errorText = selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");
-		assertTrue(errorText.startsWith("Date Invalid:"));
+		assertTrue(getSubmissionReportErrorText().startsWith("Date Invalid:"));
 	}
 
 	private void _testRequireFromDate() throws Exception {
-		selenium.type("MAINbody:submissionReportCriteriaForm:fromDate", "");
-		selenium.type("MAINbody:submissionReportCriteriaForm:toDate", "01/13/1979");
-		selenium.click("MAINbody:submissionReportCriteriaForm:accrualReportSubmit");
+		selectSubmissionReportDateRange("", "01/13/1979");
+		submitAccrualReport();
 		pause(20000);
 
-		String errorText = selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");
-		assertTrue(errorText.startsWith("Date Invalid:"));
+		assertTrue(getSubmissionReportErrorText().startsWith("Date Invalid:"));
 	}
 }

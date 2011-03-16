@@ -100,6 +100,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 
 	}
 
+	
 	public void submitAnnotationReport() {
 		selenium.click("MAINbody:submissionReportCriteriaForm:annotationReportSubmit");
 	}
@@ -108,6 +109,11 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:annotationNoResultsMsg')",
                                   "30000");
     }
+	
+	public void waitForNonEmptyAnnotationResults() {
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('overallResultsCount')",
+                                  "30000");
+	}
 
 	public void waitForEmptyAccrualResults() {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualNoResultsMsg')",
@@ -115,6 +121,8 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
     }
 
 	public void waitForAccrualResults() {
+
+		
         selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualByDayForm:accrualByDayTable')",
                                   "30000");
     }
@@ -175,12 +183,41 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 	}
 //////////////////////////////////////////READ FROM PAGE///////////////////////////////////////
 
+	public boolean isThereANoResultsMessageForAccrualReport() {
+		String noResultsMsg = selenium.getText("MAINbody:accrualNoResultsMsg");
+		return noResultsMsg.startsWith("There were no submissions");		
+	}
+	
+	public String getSubmissionReportErrorText() {
+		return selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");		
+	}
+	
 	public boolean isViewSavedQueriesLinkVisible() {
 		return selenium.isElementPresent("SUBmenu:sideMenuForm:queryView:viewSavedQueriesLink");		
 	}
 	
 	public boolean isPatientResultHighlighted(int nodeResultNumber, int patientResultNumber) {
 	    return "highlightedData".equals(selenium.getAttribute("xpath=id('MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable')/tbody/tr["+patientResultNumber+"]/td[3]/div@class"));	                                
+	}
+	
+	public String getOverallCountOfImageAccrual() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
+		return selenium.getTable(overallCntTableLocator+".1.1").trim();
+	}
+	
+	public String getOverallCountOfPatientsAccrual() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[2]";
+		return selenium.getTable(overallCntTableLocator+".1.1").trim();
+	}
+
+	public String getOverallCountOfStudiesAccrual() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[2]";
+		return selenium.getTable(overallCntTableLocator+".2.1").trim();
+	}
+
+	public String getOverallCountOfSeriesAccrual() {
+		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[2]";
+		return selenium.getTable(overallCntTableLocator+".3.1").trim();
 	}
 	
 	public String getOverallCountOfPatientsAffected() {
@@ -346,6 +383,45 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy)+".3").trim();
 	}
 
+	public String getNumAnnotationsInSeries(int nthDay, int nthPatient, int nthStudy, int nSeries) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy+nSeries)+".3").trim();
+	}	
+
+	public String getSeriesId(int nthDay, int nthPatient, int nthStudy, int nSeries) {
+		String patientDetailsTable =
+			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
+
+		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy+nSeries)+".2").trim();
+	}	
+	
+	
+	public String getNewAccrualImageCountForDay(int nthDay) {
+		String dayTableLocator =
+			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[1]";
+		return selenium.getTable(dayTableLocator+".1.1").trim();		
+	}
+	
+	public String getNewAccrualPatientCountForDay(int nthDay) {
+		String dayTableLocator =
+			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[2]";
+		return selenium.getTable(dayTableLocator+".1.1").trim();
+	}
+	
+	public String getNewAccrualStudyCountForDay(int nthDay) {
+		String dayTableLocator =
+			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[2]";
+		return selenium.getTable(dayTableLocator+".2.1").trim();
+	}
+	
+	public String getNewAccrualSeriesCountForDay(int nthDay) {
+		String dayTableLocator =
+			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[2]";
+		return selenium.getTable(dayTableLocator+".3.1").trim();
+	}	
+		
 /////////////////////////////////////////////////NAVIGATE////////////////////////////////////////
 	public void drillDownIntoPatientResult(int nodeResultNumber, int patientResultNumber) {
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable:"+patientResultNumber+":viewPatientLink");
@@ -434,6 +510,13 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
                                   "30000");
 	}
 
+	public void expandAccrualSubmissionReportDailyDetails(int nthDay) {
+		selenium.click("MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetails");
+
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')",
+                                  "30000");
+	}
+	
 	public void expandAnnotationSubmissionReportDailyDetails(int nthDay) {
 		String patientDetailsTable =
 			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
@@ -444,18 +527,15 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
                                   "30000");
 	}
 
+	//be careful, if something is already expanded, this parameter may not behave as you'd want
+	//ie have to consider extra rows in table created by expanded day
+	//
 	//both are 0 based
-	public void expandOrCollapsePatientInAnnotationSubmissionReportDailyDetails(int nthDay, int nthPatient) {
+	public void expandOrCollapseInAnnotationSubmissionReportDailyDetails(int nthDay, int row) {
 		String patientDetailsTable =
 			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
 
-		selenium.click(patientDetailsTable+":"+nthPatient+":expandContractImage");
+		selenium.click(patientDetailsTable+":"+row+":expandContractImage");
 		pause(30000);  //alternative is to wait for count of table rows to increase. this is lazy but easy
 	}
-
-	//expand study?
-	//selenium.click(patientDetailsTable+":1:expandContractImage");
-	////pause(30000);  //alternative is to wait for count of table rows to increase. this is lazy but easy
-
-
 }

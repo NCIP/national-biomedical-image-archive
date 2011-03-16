@@ -15,7 +15,7 @@ public class ReferencedImagesSelenTestCase extends AbstractSelenTestCaseImpl {
 
         String image1Label ="Pre";
 
-        navigateToISPYPortal("Pre",
+        navigateToISPYPortal(image1Label,
                              "2",
                              "1.2.124.113532.192.9.54.60.20020702.141304.3659576",
                              "1.2.840.113619.2.5.1762805546.3105.1025559471.58",
@@ -26,49 +26,24 @@ public class ReferencedImagesSelenTestCase extends AbstractSelenTestCaseImpl {
                              "1.2.840.113619.2.5.1762805546.2376.1041867495.89",
                              "1.2.840.113619.2.5.1762805546.2376.1041867495.189");
 
+		assertEquals(getISPYImage1Label(), image1Label);
 
-
-		final String patientAttributesTable1 =
-			//"id('MAINbody:imageForm:imageTable:patientAttributesTable')";
-			"xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[1]/table[2]";
-
-		final String patientAttributesTable2 =
-			//"id('MAINbody:imageForm:imageTable:patientAttributesTable')";
-			"xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[2]/table[2]";
-
-
-		assertEquals(selenium.getText("xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[1]/table[1]/tbody/tr[1]/td"),
-                     image1Label);
-
-		assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[1]/td[1]"),
+		assertEquals(getISPYDataName(1),
                      "Patient Id");
-		assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[2]/td[1]"),
+		assertEquals(getISPYDataName(2),
                      "Baseline Morphology");
-		assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[3]/td[1]"),
+		assertEquals(getISPYDataName(3),
                      "Longest Diameter_PCT_CHANGE_T1-T2");
-		assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[4]/td[1]"),
+		assertEquals(getISPYDataName(4),
                      "Clinical Response_T1-T2");
 
-		assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[1]/td[2]"),
+		assertEquals(getISPYDataValue(1),
                      "2");
-        assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[2]/td[2]"),
-                     "3=Area enhancement with irregular margins - with nodularity");
-        assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[3]/td[2]"),
+        assertEquals(getISPYDataValue(2),
+                     "3_Area enhancement with irregular margins - with nodularity");
+        assertEquals(getISPYDataValue(3),
                      "-10.34");
-        assertEquals(selenium.getText(patientAttributesTable1+"/tbody/tr[4]/td[2]"),
-                     "3=Stable Disease");
-
-
-
-
-//
-//		Longest Diameter_PCT_CHANGE_T1-T4
-//		Clinical Response_T1-T4
-//
-//
-//		3=Area enhancement with irregular margins - with nodularity
-//		-44.83
-//
-//		3=Stable Disease
+        assertEquals(getISPYDataValue(4),
+                     "3_Stable Disease");
 	}
 }

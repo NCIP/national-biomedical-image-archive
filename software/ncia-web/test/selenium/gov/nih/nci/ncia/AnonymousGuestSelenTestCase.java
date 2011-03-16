@@ -49,7 +49,7 @@ public class AnonymousGuestSelenTestCase extends AbstractSelenTestCaseImpl {
         submitSearch();
 
 		final int WHICH_NODE_RESULT_NUMBER = 0;
-		drillDownIntoPatientResult(0,7);
+		drillDownIntoPatientResult(WHICH_NODE_RESULT_NUMBER,7);
 		
 		selectVisualizeImages();
 		assertEquals("Please select a series for visualization.", selenium.getAlert());

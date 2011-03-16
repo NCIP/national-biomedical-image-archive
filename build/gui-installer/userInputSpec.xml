@@ -1614,8 +1614,7 @@
 
     <field type="title" txt="Optional Branding - Logos" bold="true" size="1" />
 
-    <field type="staticText" align="left" txt="Select a 300x20 JPG, GIF, or PNG as a logo for the institution."/>
-    <field type="staticText" align="left" txt="Not selecting an image of the proper dimensions will cause distortion."/>
+    <field type="staticText" align="left" txt="Select a JPG, GIF, or PNG as a logo for the institution."/>
     <field type="file" variable="cancer.center.logo">
       <spec txt="Branding Logo file:" size="25" set="" />
     </field>
@@ -1628,7 +1627,7 @@
     </field>
     <field type="divider" align="top"/>
 
-    <field type="staticText" align="left" txt="Select a 500x50 JPG, GIF, or PNG as a logo for the application."/>
+    <field type="staticText" align="left" txt="Select a JPG, GIF, or PNG as a logo for the application."/>
     <field type="staticText" align="left" txt="Choose to either not show an application logo, or select a replacement for the default NBIA logo."/>
     <field type="radio" variable="branding.applogo.visible">
       <spec>

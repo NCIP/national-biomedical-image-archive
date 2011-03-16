@@ -35,7 +35,7 @@ public class AddPatientToDataBasketSelenTestCase extends AbstractSelenTestCaseIm
         assertEquals(getNumOfRowsInDataBasket(),
        	             12);
         assertEquals(getPatientIdFromDataBasket(3),
-                     "13614193285010001");
+                     "1.3.6.1.4.1.9328.50.1.0001");
 	}
 
 

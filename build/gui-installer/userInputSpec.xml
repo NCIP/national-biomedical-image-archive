@@ -1627,17 +1627,14 @@
     </field>
     <field type="divider" align="top"/>
 
-    <field type="staticText" align="left" txt="Select a JPG, GIF, or PNG as a logo for the application."/>
-    <field type="staticText" align="left" txt="Choose to either not show an application logo, or select a replacement for the default NBIA logo."/>
+    <field type="staticText" align="left" txt="Do you wish to show the NBIA logo?"/>
     <field type="radio" variable="branding.applogo.visible">
       <spec>
         <choice txt="Yes" value="yes" set="true"  />
         <choice txt="No" value="no" />
       </spec>
     </field>
-    <field type="file" variable="branding.applogo.path">
-      <spec txt="Application logo image file:" size="25" set="" allowEmptyValue="true" />
-    </field>
+
 
   </panel>
 

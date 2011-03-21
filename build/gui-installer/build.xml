@@ -4,7 +4,7 @@
 
   <!-- Generic properties -->
   <property name="application_installer" value="ncia_installer" />
-  <property name="application_installer_zip" value="ncia_install_5.0.1.zip" />
+  <property name="application_installer_zip" value="ncia_install_5.0.2.zip" />
 
   <!-- TARGETS -->
   <target name="install" >

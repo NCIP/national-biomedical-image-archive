@@ -11,6 +11,60 @@
       <bind-xml name="sponsorName" node="attribute" />
     </field>
   </class>
+  <class name="gov.nih.nci.ncia.domain.TrialDataProvenance" identity="id">
+    <map-to xml="TrialDataProvenance" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="project" type="string">
+      <bind-xml name="project" node="attribute" />
+    </field>
+    <field name="siteId" type="string">
+      <bind-xml name="siteId" node="attribute" />
+    </field>
+    <field name="siteName" type="string">
+      <bind-xml name="siteName" node="attribute" />
+    </field>
+  </class>
+  <class name="gov.nih.nci.ncia.domain.CurationData" identity="id">
+    <map-to xml="CurationData" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="cdeId" type="string">
+      <bind-xml name="cdeId" node="attribute" />
+    </field>
+    <field name="cdeName" type="string">
+      <bind-xml name="cdeName" node="attribute" />
+    </field>
+    <field name="cdeValue" type="string">
+      <bind-xml name="cdeValue" node="attribute" />
+    </field>
+    <field name="cdeVersion" type="string">
+      <bind-xml name="cdeVersion" node="attribute" />
+    </field>
+    <field name="curationTimestamp" type="java.util.Date">
+      <bind-xml name="curationTimestamp" node="attribute" />
+    </field>
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="trialName" type="string">
+      <bind-xml name="trialName" node="attribute" />
+    </field>
+    <field name="userId" type="integer">
+      <bind-xml name="userId" node="attribute" />
+    </field>
+  </class>
+  <class name="gov.nih.nci.ncia.domain.ClinicalTrialProtocol" identity="id">
+    <map-to xml="ClinicalTrialProtocol" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="protocolId" type="string">
+      <bind-xml name="protocolId" node="attribute" />
+    </field>
+    <field name="protocolName" type="string">
+      <bind-xml name="protocolName" node="attribute" />
+    </field>
+  </class>
   <class name="gov.nih.nci.ncia.domain.Patient" identity="id">
     <map-to xml="Patient" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="ethnicGroup" type="string">
@@ -30,6 +84,129 @@
     </field>
     <field name="patientSex" type="string">
       <bind-xml name="patientSex" node="attribute" />
+    </field>
+  </class>
+  <class name="gov.nih.nci.ncia.domain.Study" identity="id">
+    <map-to xml="Study" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="additionalPatientHistory" type="string">
+      <bind-xml name="additionalPatientHistory" node="attribute" />
+    </field>
+    <field name="admittingDiagnosesCodeSequence" type="string">
+      <bind-xml name="admittingDiagnosesCodeSequence" node="attribute" />
+    </field>
+    <field name="admittingDiagnosesDescription" type="string">
+      <bind-xml name="admittingDiagnosesDescription" node="attribute" />
+    </field>
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="occupation" type="string">
+      <bind-xml name="occupation" node="attribute" />
+    </field>
+    <field name="patientAge" type="string">
+      <bind-xml name="patientAge" node="attribute" />
+    </field>
+    <field name="patientSize" type="double">
+      <bind-xml name="patientSize" node="attribute" />
+    </field>
+    <field name="patientWeight" type="double">
+      <bind-xml name="patientWeight" node="attribute" />
+    </field>
+    <field name="studyDate" type="java.util.Date">
+      <bind-xml name="studyDate" node="attribute" />
+    </field>
+    <field name="studyDescription" type="string">
+      <bind-xml name="studyDescription" node="attribute" />
+    </field>
+    <field name="studyId" type="string">
+      <bind-xml name="studyId" node="attribute" />
+    </field>
+    <field name="studyInstanceUID" type="string">
+      <bind-xml name="studyInstanceUID" node="attribute" />
+    </field>
+    <field name="studyTime" type="string">
+      <bind-xml name="studyTime" node="attribute" />
+    </field>
+    <field name="timePointDescription" type="string">
+      <bind-xml name="timePointDescription" node="attribute" />
+    </field>
+    <field name="timePointId" type="string">
+      <bind-xml name="timePointId" node="attribute" />
+    </field>
+  </class>
+  <class name="gov.nih.nci.ncia.domain.Equipment" identity="id">
+    <map-to xml="Equipment" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="deviceSerialNumber" type="string">
+      <bind-xml name="deviceSerialNumber" node="attribute" />
+    </field>
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="institutionAddress" type="string">
+      <bind-xml name="institutionAddress" node="attribute" />
+    </field>
+    <field name="institutionName" type="string">
+      <bind-xml name="institutionName" node="attribute" />
+    </field>
+    <field name="manufacturer" type="string">
+      <bind-xml name="manufacturer" node="attribute" />
+    </field>
+    <field name="manufacturerModelName" type="string">
+      <bind-xml name="manufacturerModelName" node="attribute" />
+    </field>
+    <field name="softwareVersions" type="string">
+      <bind-xml name="softwareVersions" node="attribute" />
+    </field>
+    <field name="stationName" type="string">
+      <bind-xml name="stationName" node="attribute" />
+    </field>
+  </class>
+  <class name="gov.nih.nci.ncia.domain.ClinicalTrialSubject" identity="id">
+    <map-to xml="ClinicalTrialSubject" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="subjectId" type="string">
+      <bind-xml name="subjectId" node="attribute" />
+    </field>
+    <field name="subjectReadingId" type="string">
+      <bind-xml name="subjectReadingId" node="attribute" />
+    </field>
+  </class>
+  <class name="gov.nih.nci.ncia.domain.Series" identity="id">
+    <map-to xml="Series" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+    <field name="bodyPartExamined" type="string">
+      <bind-xml name="bodyPartExamined" node="attribute" />
+    </field>
+    <field name="frameOfReferenceUID" type="string">
+      <bind-xml name="frameOfReferenceUID" node="attribute" />
+    </field>
+    <field name="id" type="integer">
+      <bind-xml name="id" node="attribute" />
+    </field>
+    <field name="laterality" type="string">
+      <bind-xml name="laterality" node="attribute" />
+    </field>
+    <field name="modality" type="string">
+      <bind-xml name="modality" node="attribute" />
+    </field>
+    <field name="protocolName" type="string">
+      <bind-xml name="protocolName" node="attribute" />
+    </field>
+    <field name="seriesDate" type="java.util.Date">
+      <bind-xml name="seriesDate" node="attribute" />
+    </field>
+    <field name="seriesDescription" type="string">
+      <bind-xml name="seriesDescription" node="attribute" />
+    </field>
+    <field name="instanceUID" type="string">
+      <bind-xml name="instanceUID" node="attribute" />
+    </field>
+    <field name="seriesNumber" type="integer">
+      <bind-xml name="seriesNumber" node="attribute" />
+    </field>
+    <field name="synchronizationFrameOfReferenceUID" type="string">
+      <bind-xml name="synchronizationFrameOfReferenceUID" node="attribute" />
     </field>
   </class>
   <class name="gov.nih.nci.ncia.domain.Image" identity="id">
@@ -173,183 +350,6 @@
       <bind-xml name="xrayTubeCurrent" node="attribute" />
     </field>
   </class>
-  <class name="gov.nih.nci.ncia.domain.CurationData" identity="id">
-    <map-to xml="CurationData" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="cdeId" type="string">
-      <bind-xml name="cdeId" node="attribute" />
-    </field>
-    <field name="cdeName" type="string">
-      <bind-xml name="cdeName" node="attribute" />
-    </field>
-    <field name="cdeValue" type="string">
-      <bind-xml name="cdeValue" node="attribute" />
-    </field>
-    <field name="cdeVersion" type="string">
-      <bind-xml name="cdeVersion" node="attribute" />
-    </field>
-    <field name="curationTimestamp" type="java.util.Date">
-      <bind-xml name="curationTimestamp" node="attribute" />
-    </field>
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="trialName" type="string">
-      <bind-xml name="trialName" node="attribute" />
-    </field>
-    <field name="userId" type="integer">
-      <bind-xml name="userId" node="attribute" />
-    </field>
-  </class>
-  <class name="gov.nih.nci.ncia.domain.ClinicalTrialSite" identity="id">
-    <map-to xml="ClinicalTrialSite" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="siteId" type="string">
-      <bind-xml name="siteId" node="attribute" />
-    </field>
-    <field name="siteName" type="string">
-      <bind-xml name="siteName" node="attribute" />
-    </field>
-  </class>
-  <class name="gov.nih.nci.ncia.domain.ClinicalTrialSubject" identity="id">
-    <map-to xml="ClinicalTrialSubject" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="subjectId" type="string">
-      <bind-xml name="subjectId" node="attribute" />
-    </field>
-    <field name="subjectReadingId" type="string">
-      <bind-xml name="subjectReadingId" node="attribute" />
-    </field>
-  </class>
-  <class name="gov.nih.nci.ncia.domain.Study" identity="id">
-    <map-to xml="Study" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="additionalPatientHistory" type="string">
-      <bind-xml name="additionalPatientHistory" node="attribute" />
-    </field>
-    <field name="admittingDiagnosesCodeSequence" type="string">
-      <bind-xml name="admittingDiagnosesCodeSequence" node="attribute" />
-    </field>
-    <field name="admittingDiagnosesDescription" type="string">
-      <bind-xml name="admittingDiagnosesDescription" node="attribute" />
-    </field>
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="occupation" type="string">
-      <bind-xml name="occupation" node="attribute" />
-    </field>
-    <field name="patientAge" type="string">
-      <bind-xml name="patientAge" node="attribute" />
-    </field>
-    <field name="patientSize" type="double">
-      <bind-xml name="patientSize" node="attribute" />
-    </field>
-    <field name="patientWeight" type="double">
-      <bind-xml name="patientWeight" node="attribute" />
-    </field>
-    <field name="studyDate" type="java.util.Date">
-      <bind-xml name="studyDate" node="attribute" />
-    </field>
-    <field name="studyDescription" type="string">
-      <bind-xml name="studyDescription" node="attribute" />
-    </field>
-    <field name="studyId" type="string">
-      <bind-xml name="studyId" node="attribute" />
-    </field>
-    <field name="studyInstanceUID" type="string">
-      <bind-xml name="studyInstanceUID" node="attribute" />
-    </field>
-    <field name="studyTime" type="string">
-      <bind-xml name="studyTime" node="attribute" />
-    </field>
-    <field name="timePointDescription" type="string">
-      <bind-xml name="timePointDescription" node="attribute" />
-    </field>
-    <field name="timePointId" type="string">
-      <bind-xml name="timePointId" node="attribute" />
-    </field>
-  </class>
-  <class name="gov.nih.nci.ncia.domain.Equipment" identity="id">
-    <map-to xml="Equipment" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="deviceSerialNumber" type="string">
-      <bind-xml name="deviceSerialNumber" node="attribute" />
-    </field>
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="institutionAddress" type="string">
-      <bind-xml name="institutionAddress" node="attribute" />
-    </field>
-    <field name="institutionName" type="string">
-      <bind-xml name="institutionName" node="attribute" />
-    </field>
-    <field name="manufacturer" type="string">
-      <bind-xml name="manufacturer" node="attribute" />
-    </field>
-    <field name="manufacturerModelName" type="string">
-      <bind-xml name="manufacturerModelName" node="attribute" />
-    </field>
-    <field name="softwareVersions" type="string">
-      <bind-xml name="softwareVersions" node="attribute" />
-    </field>
-    <field name="stationName" type="string">
-      <bind-xml name="stationName" node="attribute" />
-    </field>
-  </class>
-  <class name="gov.nih.nci.ncia.domain.TrialDataProvenance" identity="id">
-    <map-to xml="TrialDataProvenance" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="project" type="string">
-      <bind-xml name="project" node="attribute" />
-    </field>
-    <field name="siteId" type="string">
-      <bind-xml name="siteId" node="attribute" />
-    </field>
-    <field name="siteName" type="string">
-      <bind-xml name="siteName" node="attribute" />
-    </field>
-  </class>
-  <class name="gov.nih.nci.ncia.domain.Series" identity="id">
-    <map-to xml="Series" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
-    <field name="bodyPartExamined" type="string">
-      <bind-xml name="bodyPartExamined" node="attribute" />
-    </field>
-    <field name="frameOfReferenceUID" type="string">
-      <bind-xml name="frameOfReferenceUID" node="attribute" />
-    </field>
-    <field name="id" type="integer">
-      <bind-xml name="id" node="attribute" />
-    </field>
-    <field name="laterality" type="string">
-      <bind-xml name="laterality" node="attribute" />
-    </field>
-    <field name="modality" type="string">
-      <bind-xml name="modality" node="attribute" />
-    </field>
-    <field name="protocolName" type="string">
-      <bind-xml name="protocolName" node="attribute" />
-    </field>
-    <field name="seriesDate" type="java.util.Date">
-      <bind-xml name="seriesDate" node="attribute" />
-    </field>
-    <field name="seriesDescription" type="string">
-      <bind-xml name="seriesDescription" node="attribute" />
-    </field>
-    <field name="instanceUID" type="string">
-      <bind-xml name="instanceUID" node="attribute" />
-    </field>
-    <field name="seriesNumber" type="integer">
-      <bind-xml name="seriesNumber" node="attribute" />
-    </field>
-    <field name="synchronizationFrameOfReferenceUID" type="string">
-      <bind-xml name="synchronizationFrameOfReferenceUID" node="attribute" />
-    </field>
-  </class>
   <class name="gov.nih.nci.ncia.domain.Annotation" identity="id">
     <map-to xml="Annotation" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="filePath" type="string">
@@ -371,16 +371,16 @@
       <bind-xml name="type" node="attribute" />
     </field>
   </class>
-  <class name="gov.nih.nci.ncia.domain.ClinicalTrialProtocol" identity="id">
-    <map-to xml="ClinicalTrialProtocol" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
+  <class name="gov.nih.nci.ncia.domain.ClinicalTrialSite" identity="id">
+    <map-to xml="ClinicalTrialSite" ns-uri="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" />
     <field name="id" type="integer">
       <bind-xml name="id" node="attribute" />
     </field>
-    <field name="protocolId" type="string">
-      <bind-xml name="protocolId" node="attribute" />
+    <field name="siteId" type="string">
+      <bind-xml name="siteId" node="attribute" />
     </field>
-    <field name="protocolName" type="string">
-      <bind-xml name="protocolName" node="attribute" />
+    <field name="siteName" type="string">
+      <bind-xml name="siteName" node="attribute" />
     </field>
   </class>
 </mapping>

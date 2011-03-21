@@ -318,7 +318,7 @@
 
 
              <ns16:ModelInformation source="preBuilt" xsi:type="ns16:ModelInformation">
-              <ns17:UMLProjectIdentifer identifier="ncia" version="3" xsi:type="ns17:UMLProjectIdentifer" xmlns:ns17="gme://caGrid.caBIG/1.0/org.cagrid.mms.domain"/>
+              <ns17:UMLProjectIdentifer identifier="NBIA" version="1.0" xsi:type="ns17:UMLProjectIdentifer" xmlns:ns17="gme://caGrid.caBIG/1.0/org.cagrid.mms.domain"/>
 
 
               <ns16:ModelPackage packageName="gov.nih.nci.ncia.domain" xsi:type="ns16:ModelPackage">
@@ -377,14 +377,14 @@
   <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_applicationName" value="ncia"/>
   <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_queryCaseInsensitive" value="false"/>
   <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_queryCaseInsensitive" value="false"/>
-  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useLocalApiFlag" value="false"/>
-  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_useLocalApiFlag" value="false"/>
-  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_ormJarName" value=""/>
-  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_ormJarName" value=""/>
-  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostName" value="http://localhost"/>
-  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_applicationHostName" value="http://localhost"/>
-  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostPort" value="45210"/>
-  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_applicationHostPort" value="45210"/>
+  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useLocalApiFlag" value="true"/>
+  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_useLocalApiFlag" value="true"/>
+  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_ormJarName" value="ncia-orm.jar"/>
+  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_ormJarName" value="ncia-orm.jar"/>
+  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostName" value=""/>
+  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_applicationHostName" value=""/>
+  <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostPort" value=""/>
+  <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorConfig_applicationHostPort" value=""/>
   <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useServiceLogin" value="false"/>
   <ns38:Property description="" isFromETC="false" key="cql2QueryProcessorClassuseServiceLogin" value="false"/>
   <ns38:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useGridIdentityLogin" value=""/>

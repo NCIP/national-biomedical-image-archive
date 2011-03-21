@@ -128,11 +128,6 @@
                     tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/appHeader.xhtml"
                     overwrite="true"/>
             </then>
-            <else>
-              <copy file="${branding.applogo.path}"
-                    tofile="@{webapp.dir.path}/images/Logo-NCIA.jpg"
-                    overwrite="true"/>
-            </else>
           </if>
         </then>
       </if>

@@ -1567,7 +1567,6 @@
     <variable name="branding.welcome.image.path" value=""/>
     <variable name="branding.welcome.text.path" value=""/>
     <variable name="branding.welcome.title.path" value=""/>
-    <variable name="branding.applogo.path" value=""/>
     <variable name="branding.applogo.visible" value=""/>
 
     <field type="title" txt="Optional Branding" bold="true" size="1" />

@@ -83,7 +83,7 @@ DB_JNDI_URL=java:/ncia
 #DB_PASSWORD=
 #DB_DRIVER=com.mysql.jdbc.Driver
 
-DB_DIALECT=org.hibernate.dialect.MySQLDialect
+DB_DIALECT=org.hibernate.dialect.OracleDialect
 
 ##################################################################################
 #  SECURITY DATABASE CONNECTION PROPERTIES
@@ -101,7 +101,7 @@ DB_DIALECT=org.hibernate.dialect.MySQLDialect
 CSM_USE_JNDI_BASED_CONNECTION=no
 CSM_DB_JNDI_URL=java:/ncia
 
-CSM_DB_DIALECT=org.hibernate.dialect.MySQLDialect
+CSM_DB_DIALECT=org.hibernate.dialect.OracleDialect
 
 ##################################################################################
 ##################################################################################

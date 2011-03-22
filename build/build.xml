@@ -683,7 +683,8 @@ $HeadURL$
 
     <zip update="false"
          destfile="${ncia-core-grid.dist.dir}/${ncia-core-grid.artifact.file}">
-      <zipfileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
+      <zipfileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/"
+                  excludes="*-tests.jar"/>
     </zip>
 
 
@@ -763,7 +764,8 @@ $HeadURL$
 
     <zip update="false"
          destfile="${nbia-grid.dist.dir}/${nbia-grid.artifact.file}">
-      <zipfileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
+      <zipfileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/"
+                  excludes="*-tests.jar"/>
     </zip>
 
 

@@ -108,7 +108,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 			e.printStackTrace();
 		}
 	}
-	
+}	
 	class TraceTargetConsole implements com.altova.TraceTarget {
 		public void writeTrace(String info) {
 			System.out.println(info);

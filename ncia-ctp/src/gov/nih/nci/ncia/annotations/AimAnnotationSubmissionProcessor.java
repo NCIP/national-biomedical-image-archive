@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
-import maptest.TraceTargetConsole;
+//import maptest.TraceTargetConsole;
 
 import org.rsna.ctp.objects.XmlObject;
 import org.rsna.ctp.objects.ZipObject;
@@ -15,7 +15,7 @@ import org.rsna.ctp.pipeline.Status;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
-import com.mapforce.MappingMapToAIM_v2_rv15_XML;
+//import com.mapforce.MappingMapToAIM_v2_rv15_XML;
 
 public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmissionProcessor {
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -67,50 +67,50 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 	}
 
 	private void convertToCedaraAIM(Document document){
-		System.out.println("Mapping Application");
-
-		try { // Mapping
-			TraceTargetConsole ttc = new TraceTargetConsole();
-			MappingMapToAIM_v2_rv15_XML MappingMapToAIM_v2_rv15_XMLObject = new MappingMapToAIM_v2_rv15_XML();
-			MappingMapToAIM_v2_rv15_XMLObject.registerTraceTarget(ttc);
-
-			// run mapping
-			{
-				com.altova.io.Input AIM_v3_rv8_XML_beta_mod2Source = com.altova.io.DocumentInput(document);
-				MappingMapToAIM_v2_rv15_XMLObject
-						.run(AIM_v3_rv8_XML_beta_mod2Source);
-			}
-
-			System.out.println("Finished");
-		} catch (com.altova.UserException ue) {
-			System.out.print("USER EXCEPTION:");
-			System.out.println(ue.getMessage());
-		} catch (com.altova.AltovaException e) {
-			System.out.print("ERROR: ");
-			System.out.println(e.getMessage());
-			if (e.getInnerException() != null) {
-				System.out.print("Inner exception: ");
-				System.out.println(e.getInnerException().getMessage());
-				if (e.getInnerException().getCause() != null) {
-					System.out.print("Cause: ");
-					System.out.println(e.getInnerException().getCause()
-							.getMessage());
-				}
-			}
-			System.out.println("\nStack Trace: ");
-			e.printStackTrace();
-		}
-
-		catch (Exception e) {
-			System.out.print("ERROR: ");
-			System.out.println(e.getMessage());
-			System.out.println("\nStack Trace: ");
-			e.printStackTrace();
-		}
-	}
+//		System.out.println("Mapping Application");
+//
+//		try { // Mapping
+//			TraceTargetConsole ttc = new TraceTargetConsole();
+//			MappingMapToAIM_v2_rv15_XML MappingMapToAIM_v2_rv15_XMLObject = new MappingMapToAIM_v2_rv15_XML();
+//			MappingMapToAIM_v2_rv15_XMLObject.registerTraceTarget(ttc);
+//
+//			// run mapping
+//			{
+//				com.altova.io.Input AIM_v3_rv8_XML_beta_mod2Source = com.altova.io.DocumentInput(document);
+//				MappingMapToAIM_v2_rv15_XMLObject
+//						.run(AIM_v3_rv8_XML_beta_mod2Source);
+//			}
+//
+//			System.out.println("Finished");
+//		} catch (com.altova.UserException ue) {
+//			System.out.print("USER EXCEPTION:");
+//			System.out.println(ue.getMessage());
+//		} catch (com.altova.AltovaException e) {
+//			System.out.print("ERROR: ");
+//			System.out.println(e.getMessage());
+//			if (e.getInnerException() != null) {
+//				System.out.print("Inner exception: ");
+//				System.out.println(e.getInnerException().getMessage());
+//				if (e.getInnerException().getCause() != null) {
+//					System.out.print("Cause: ");
+//					System.out.println(e.getInnerException().getCause()
+//							.getMessage());
+//				}
+//			}
+//			System.out.println("\nStack Trace: ");
+//			e.printStackTrace();
+//		}
+//
+//		catch (Exception e) {
+//			System.out.print("ERROR: ");
+//			System.out.println(e.getMessage());
+//			System.out.println("\nStack Trace: ");
+//			e.printStackTrace();
+//		}
+//	}
 }	
-	class TraceTargetConsole implements com.altova.TraceTarget {
-		public void writeTrace(String info) {
-			System.out.println(info);
-		}
+//	class TraceTargetConsole implements com.altova.TraceTarget {
+//		public void writeTrace(String info) {
+//			System.out.println(info);
+//		}
 }

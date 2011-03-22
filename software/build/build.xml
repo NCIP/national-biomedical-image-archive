@@ -680,11 +680,15 @@ $HeadURL$
       <property name="dtd.dir" value="${ncia-resource.artifact.dir}/grid/jboss"/>
     </ant>
 
+    <delete>
+      <fileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/WEB-INF/lib">
+        <include name="*tests.jar" />
+      </fileset>
+    </delete>
 
     <zip update="false"
          destfile="${ncia-core-grid.dist.dir}/${ncia-core-grid.artifact.file}">
-      <zipfileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/"
-                  excludes="*-tests.jar"/>
+      <zipfileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
     </zip>
 
 
@@ -761,12 +765,17 @@ $HeadURL$
       <property name="dtd.dir" value="${ncia-resource.artifact.dir}/grid/jboss"/>
     </ant>
 
+    <delete>
+      <fileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/WEB-INF/lib">
+        <include name="*tests.jar" />
+      </fileset>
+    </delete>
 
     <zip update="false"
          destfile="${nbia-grid.dist.dir}/${nbia-grid.artifact.file}">
-      <zipfileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/"
-                  excludes="*-tests.jar"/>
+      <zipfileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
     </zip>
+
 
 
     <!-- copy the whole thing to the dist dir so that deployTomcat target

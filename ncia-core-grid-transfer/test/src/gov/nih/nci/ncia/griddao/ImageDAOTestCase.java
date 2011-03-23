@@ -22,9 +22,9 @@ public class ImageDAOTestCase extends AbstractDbUnitTestForJunit4 {
 	@Test
 	public void testGetImagesFiles() throws Exception{
 		String sopInstanceUIDList = "'1.3.6.1.4.1.9328.50.3.170' OR "+
-		                            "SOP_INSTANCE_UID = '1.3.6.1.4.1.9328.50.3.171' OR "+
-			                        "SOP_INSTANCE_UID = '1.3.6.1.4.1.9328.50.3.172' OR "+
-			                        "SOP_INSTANCE_UID = '1.3.6.1.4.1.9328.50.3.173'";
+		                            "SOPInstanceUID = '1.3.6.1.4.1.9328.50.3.171' OR "+
+			                        "SOPInstanceUID = '1.3.6.1.4.1.9328.50.3.172' OR "+
+			                        "SOPInstanceUID = '1.3.6.1.4.1.9328.50.3.173'";
 
 		Map<String, String> sopToFilePathMap = imageDAO.getImagesFiles(new StringBuffer(sopInstanceUIDList));
 		System.out.println("Size:"+sopToFilePathMap.size());

@@ -61,7 +61,7 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		}
 		
 		String hql = IMAGE_STATEMENT +
-		             " WHERE SOPInstanceUID = " +
+		             " WHERE gi.SOPInstanceUID = " +
 		              sbSOPInstanceUIDList;
 		System.out.println("=======-========================");
 		System.out.println(hql);

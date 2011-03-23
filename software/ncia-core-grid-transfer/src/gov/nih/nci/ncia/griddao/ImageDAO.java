@@ -59,11 +59,13 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 					||  sbSOPInstanceUIDList.length() <= 0) {
 			return null;
 		}
-
+		
 		String hql = IMAGE_STATEMENT +
 		             " WHERE SOPInstanceUID = " +
 		              sbSOPInstanceUIDList;
-
+		System.out.println("=======-========================");
+		System.out.println(hql);
+		System.out.println("=======-========================");
 		List<GeneralImage> rs = this.getHibernateTemplate().find(hql);
 		retrievedFileNames = process(rs);
 		return retrievedFileNames;

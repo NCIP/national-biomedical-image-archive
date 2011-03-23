@@ -66,7 +66,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		getHibernateTemplate().flush();
 	}
 
-	private void convertToCedaraAIM(Document document){
+	private void convertToCedaraAIM(/*Document document*/){
 //		System.out.println("Mapping Application");
 //
 //		try { // Mapping
@@ -108,7 +108,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 //			e.printStackTrace();
 //		}
 //	}
-}	
+}
 //	class TraceTargetConsole implements com.altova.TraceTarget {
 //		public void writeTrace(String info) {
 //			System.out.println(info);

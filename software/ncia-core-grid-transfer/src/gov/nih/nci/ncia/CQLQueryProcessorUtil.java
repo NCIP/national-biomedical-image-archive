@@ -45,7 +45,7 @@ public class CQLQueryProcessorUtil {
 			Image image = (Image) iter.next();
 			sbSOPInstanceUIDList.append(image.getSopInstanceUID());
 			if (iter.hasNext()) {
-				sbSOPInstanceUIDList.append("' OR SOP_INSTANCE_UID = '");
+				sbSOPInstanceUIDList.append("' OR SOPInstanceUID = '");
 			}
 		}
 		sbSOPInstanceUIDList.append('\'');

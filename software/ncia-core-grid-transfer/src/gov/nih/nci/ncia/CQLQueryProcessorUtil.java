@@ -10,7 +10,9 @@ import gov.nih.nci.ncia.domain.Image;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 
 public class CQLQueryProcessorUtil {
@@ -24,9 +26,9 @@ public class CQLQueryProcessorUtil {
 	 * the result of the specified CQL query.  The sop strings will come from
 	 * the Images that are deemed relevant for the query.
 	 */
-	public static StringBuffer computeSopInstanceUidOrClauseFromQuery(CQLQuery cqlQuery) throws Exception{
-		StringBuffer sbSOPInstanceUIDList = null;
-
+	public static List<String> computeSopInstanceUidOrClauseFromQuery(CQLQuery cqlQuery) throws Exception{
+		//StringBuffer sbSOPInstanceUIDList = null;
+		List<String> sbSOPInstanceUIDList = new ArrayList<String>();
 
 		CQLQueryProcessor cqlQueryProcessor = CQLQueryProcessorUtil.getCqlQueryProcessorInstance();
 
@@ -36,19 +38,19 @@ public class CQLQueryProcessorUtil {
 		System.out.println("computeSopInstanceUidOrClauseFromQuery results from processQuery: " + results );
 		CQLQueryResultsIterator iter = new CQLQueryResultsIterator(results,
             NCIACoreServiceClient.class.getResourceAsStream("client-config.wsdd"));
-		sbSOPInstanceUIDList = new StringBuffer();
-		sbSOPInstanceUIDList.append('\'');
+//		sbSOPInstanceUIDList = new StringBuffer();
+//		sbSOPInstanceUIDList.append('\'');
 
 		System.out.println("CQLQueryResultsIterator iter: " + iter);
 
 		while (iter.hasNext()) {
 			Image image = (Image) iter.next();
-			sbSOPInstanceUIDList.append(image.getSopInstanceUID());
-			if (iter.hasNext()) {
-				sbSOPInstanceUIDList.append("' OR gi.SOPInstanceUID = '");
-			}
+			sbSOPInstanceUIDList.add(image.getSopInstanceUID());
+// 			if (iter.hasNext()) {
+//				sbSOPInstanceUIDList.append("' OR gi.SOPInstanceUID = '");
+//			}
 		}
-		sbSOPInstanceUIDList.append('\'');
+//		sbSOPInstanceUIDList.append('\'');
 
 		return sbSOPInstanceUIDList;
 	}

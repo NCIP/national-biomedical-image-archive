@@ -134,39 +134,7 @@ public class AvailableSearchTerms implements Serializable {
         this.anatomicSites = anatomicSites;
     }
     
-    /**
-     * Gets the UsMultiModalities value for this AvailableSearchTerms.
-     *
-     * @return UsMultiModalities
-     */
-/*    public String[] getUsMultiModalities() {
-        return usMultiModalities;
-    }
-*/
 
-    /**
-     * Sets the usMultiModalities value for this AvailableSearchTerms.
-     */
-/*    public void setUsMultiModalities(String[] usMultiModalities) {
-        this.usMultiModalities = usMultiModalities;
-    }
-*/
-    /**
-     * This is necessary for the web services serializer to recognize
-     * this property is an indexed property.
-     */    
-/*    public String getUsMultiModalities(int i) {
-        return this.usMultiModalities[i];
-    }
-*/
-    
-    /**
-     * This is necessary for the web services serializer to recognize
-     * this property is an indexed property.
-     */    
- /*   public void setUsMultiModalities(int i, String _value) {
-        this.usMultiModalities[i] = _value;
-    }  */    
     /**
      * This is necessary for the web services serializer to recognize
      * this property is an indexed property.
@@ -217,21 +185,6 @@ public class AvailableSearchTerms implements Serializable {
         return this.equipment[index];
     }
     
-    /**
-     * Sets the imageTypes value for this AvailableSearchTerms.
-     */
-    public void setImageType(String[] imageTypes) {
-        this.imageTypes = imageTypes;
-    }
-
-    /**
-     * This is necessary for the web services serializer to recognize
-     * this property is an indexed property.
-     */    
-    public String getImageTypes(int i) {
-        return this.imageTypes[i];
-    }
-
 
     ///////////////////////////////////////PRIVATE////////////////////////////////////////
     
@@ -240,5 +193,4 @@ public class AvailableSearchTerms implements Serializable {
     private String[] modalities;
     private String[] anatomicSites;
     private Manufacturer[] equipment;
-    private String[] imageTypes;
 }

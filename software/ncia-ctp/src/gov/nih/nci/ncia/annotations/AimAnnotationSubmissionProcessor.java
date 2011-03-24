@@ -25,7 +25,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 	    String seriesInstanceUID = AimXmlUtil.getSeriesInstanceUID(document);
 	    String studyInstanceUID = AimXmlUtil.getStudyInstanceUID(document);
 
-	    convertToCedaraAIM(document);
+	    //convertToCedaraAIM(document);
 	    storeAim(document,seriesInstanceUID);
 
 	    //add a row to annotation table for downloads

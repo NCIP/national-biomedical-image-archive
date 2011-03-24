@@ -10,6 +10,21 @@ import junit.framework.TestCase;
 
 public class UtilTestCase extends TestCase {
 
+	public void testLoadSystemPropertiesFromPropertiesResource() {
+		Util.loadSystemPropertiesFromPropertiesResource("someproperties.properties");
+		
+		assertEquals(System.getProperty("foo"),"moo");
+		assertEquals(System.getProperty("cow"),"yowzer");
+		assertEquals(System.getProperty("mastodon"),"rocks");		
+		
+		try {
+			Util.loadSystemPropertiesFromPropertiesResource("not_to_be_found");
+			fail("should fail");
+		}
+		catch(RuntimeException e) {			
+		}
+	}
+	
 	public void testHasAtLeastOneNonBlankArgument() {
 		assertFalse(Util.hasAtLeastOneNonBlankArgument((String[])null));
 
@@ -105,21 +120,19 @@ public class UtilTestCase extends TestCase {
 		Date date1 = sdf.parse("02-01-2009");
 		Date date2 = sdf.parse("03-24-2009");
 		System.out.println("date 1: " + date1 + " date2: " + date2);
-		//System.out.println("date diff: " + Util.calculateOffsetValue(date1, date2));
 		assertTrue(Util.calculateOffsetValue(date1, date2).equalsIgnoreCase("2 month(s)"));
 
 		Date date11 = sdf.parse("12-20-2008");
 		Date date22 = sdf.parse("01-05-2009");
 		System.out.println("date 11: " + date11 + " date22: " + date22);
-		//System.out.println("date diff: " + Util.calculateOffsetValue(date11, date22));
 		assertTrue(Util.calculateOffsetValue(date11, date22).equalsIgnoreCase("1 month(s)"));
 
 
 		date1 = sdf.parse("01-01-2009");
 		date2 = sdf.parse("01-05-2009");
-		System.out.println("date 1: " + date1 + " date2: " + date2);
-		//System.out.println("days diff: " + Util.calculateOffsetValue(date1, date2));
 		assertTrue(Util.calculateOffsetValue(date1, date2).equalsIgnoreCase("4 day(s)"));
+		
+		assertNull(Util.calculateOffsetValue(date2, date1));		
 	}
 
 	public void testCurrentDateTimeString() {

@@ -9,11 +9,16 @@ import java.util.List;
 import java.util.Properties;
 import java.net.URL;
 
-import org.apache.log4j.Logger;
 
 public class Util {
-	private static Logger logger = Logger.getLogger(Util.class);
 
+
+	/**
+	 * Load the specified properties file from the classpath, and add every property
+	 * as a system property.  This is typically used to assist testing.
+	 * 
+	 * <P>If resrouce is not to be found, a RuntimeException will be thrown.
+	 */
     public static void loadSystemPropertiesFromPropertiesResource(String propertiesResourceName) {
 		try {
         	Properties props = new Properties();
@@ -132,31 +137,7 @@ public class Util {
 		}
 		return false;
 	}
-
-	 /**
-     * return the month offset between date1 and date2 assuming that date2 is greater than date1
-     * @param date1
-     * @param date2
-     */
-    public static int calculateOffsetMonth(Date date1, Date date2){
-    	long offsetMonths=0;
-    	//make sure date2 is greater than date1
-    	if(date2.after(date1)){
-	    	long diffInMilliSec = date2.getTime() - date1.getTime();
-	    	logger.debug("different in ms: " + diffInMilliSec);
-	    	long days = diffInMilliSec/MILLISEC_PER_DAY;
-	    	//month different, take an average of 30 days per month
-	    	offsetMonths = days/30;
-	    	logger.debug("offsetMonths: " + offsetMonths);
-	    	long remainder= days%30;
-	    	logger.debug("remainder: " + remainder);
-	    	if(remainder >=15){
-	    		offsetMonths++;
-	    	}
-    	}
-        return Long.valueOf(offsetMonths).intValue();
-
-    }
+	
 
     public static String calculateOffsetValue(Date date1, Date date2){
     	String offsetValue=null;
@@ -165,21 +146,20 @@ public class Util {
     	//make sure date2 is greater than date1
     	if(date2.after(date1)){
 	    	long diffInMilliSec = date2.getTime() - date1.getTime();
-	    	logger.debug("different in ms: " + diffInMilliSec);
+
 	    	long days = diffInMilliSec/MILLISEC_PER_DAY;
 	    	//month different, take an average of 30 days per month
 	    	offsetMonths = days/30;
-	    	logger.debug("offsetMonths: " + offsetMonths);
+
 	    	long remainder= days%30;
-	    	logger.debug("remainder: " + remainder);
+
 	    	if(remainder >=15){
 	    		offsetMonths++;
-	    	}else{
+	    	}
+	    	else{
 	    		//only days different
-	    		if(offsetMonths == 0){
-	    			offsetDays=remainder;
-	    			offsetValue = Long.valueOf(offsetDays).intValue() + " day(s)";
-	    		}
+	    		offsetDays=remainder;
+	    		offsetValue = Long.valueOf(offsetDays).intValue() + " day(s)";
 	    	}
     	}
     	if(offsetMonths > 0){

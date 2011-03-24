@@ -1,9 +1,26 @@
 package gov.nih.nci.ncia.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.TestCase;
 
 public class StringUtilTestCase extends TestCase {
-	
+	public void testEncodeListEntriesWithSingleQuotes() {
+		List<String> emptyList = new ArrayList<String>();
+		String result = StringUtil.encodeListEntriesWithSingleQuotes(emptyList);
+		assertEquals(result, "");
+		
+		List<String> singletonList = java.util.Collections.singletonList("foo");
+		result = StringUtil.encodeListEntriesWithSingleQuotes(singletonList);
+		assertEquals(result, "'foo'");
+		
+		List<String> twoEntryList = new ArrayList<String>();
+		twoEntryList.add("foo1");
+		twoEntryList.add("foo2");
+		result = StringUtil.encodeListEntriesWithSingleQuotes(twoEntryList);
+		assertEquals(result, "'foo1','foo2'");		
+	}
 	public void testDisplayAsSixDigitString() {
 		String actual = StringUtil.displayAsSixDigitString(0);
 		

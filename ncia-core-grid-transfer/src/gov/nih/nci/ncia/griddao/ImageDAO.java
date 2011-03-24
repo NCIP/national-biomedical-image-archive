@@ -52,20 +52,18 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, String> getImagesFiles(
-			StringBuffer sbSOPInstanceUIDList) throws Exception{
+			List<String> sbSOPInstanceUIDList) throws Exception{
 		Map<String, String> retrievedFileNames = new HashMap<String, String>();
 
-		if (sbSOPInstanceUIDList == null
-					||  sbSOPInstanceUIDList.length() <= 0) {
+		if (sbSOPInstanceUIDList == null){
 			return null;
 		}
 		
+		String sopInstanceList = HqlUtils.buildInClause("", sbSOPInstanceUIDList);
+		
 		String hql = IMAGE_STATEMENT +
-		             " WHERE gi.SOPInstanceUID = " +
-		              sbSOPInstanceUIDList;
-		System.out.println("=======-========================");
-		System.out.println(hql);
-		System.out.println("=======-========================");
+		             " WHERE gi.SOPInstanceUID in " +
+		             sopInstanceList;
 		List<GeneralImage> rs = this.getHibernateTemplate().find(hql);
 		retrievedFileNames = process(rs);
 		return retrievedFileNames;

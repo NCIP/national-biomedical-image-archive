@@ -10,6 +10,7 @@
   <property name="conf.dir" value="conf"/>
   <property name="output.dir" value="target"/>
   <property name="build.dir" value="classes/"/>
+  <property name="lib.dir" value="lib/"/>
   <property name="xml.dir" value="gov/nih/nci/ncia/internaldomain/"/>
   <property name="ctp.library.dir" value="${ctp.dir.name}/CTP/libraries" />
 
@@ -97,7 +98,7 @@
     <mkdir dir="${output.dir}" />
     <mkdir dir="${classes.to.test.dir}" />
     <copy overwrite="true" file="${conf.dir}/dicom.properties" tofile="${build.dir}/dicom.properties" />
-   
+    <copy overwrite="true" file="${lib.dir}/cedaraAIMMapping.jar" tofile="${project.lib.dir}/compile/cedaraAIMMapping.jar" />
   </target>
 
   <target name="compile" depends="clean,init, ivy-compile">
@@ -173,6 +174,7 @@
          is already in ctp... copy here too so its wrapped up in the ctp installer -->
     <copy overwrite="true" todir="${ctp.library.dir}">
       <fileset dir="${output.dir}/" includes="ncia.jar" />
+      <fileset dir="${lib.dir}/" includes="cedaraAIMMapping.jar" />
       <fileset file="${ncia-domain.jar}"/>
     </copy> 
   </target>

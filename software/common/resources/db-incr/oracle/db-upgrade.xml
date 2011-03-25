@@ -6,118 +6,118 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
 
-  <preConditions> 
+  <preConditions>
     <or>
       <dbms type="oracle" />
     </or>
   </preConditions>
 
-  <changeSet id="5.0.test" author="kascice">        
+  <changeSet id="5.0.test" author="kascice">
     <comment>Need to have at least one changeset to allow tagging to work.</comment>
     <sql>select 'new_american_gospel_by_lamb_of_god_rules' from dual</sql>
   </changeSet>
 
-   <changeSet id="5.1.ultrasound.general.image" author="Q.PAN">          
+   <changeSet id="5.1.ultrasound.general.image" author="Q.PAN">
     <comment>Add frame number field.</comment>
     <addColumn tableName="general_image">
       <column name="US_FRAME_NUMBER" type="varchar(50)"/>
       <column name="US_COLOR_DATA_PRESENT" type="varchar(50)"/>
       <column name="US_IMAGE_TYPE" type="varchar(50)"/>
     </addColumn>
-  </changeSet> 
+  </changeSet>
 
-  <changeSet id="5.1.ultrasound.general.image.2" author="Q.PAN">          
+  <changeSet id="5.1.ultrasound.general.image.2" author="Q.PAN">
     <comment>Add US Modality</comment>
     <addColumn tableName="general_image">
       <column name="US_MULTI_MODALITY" type="varchar(50)"/>
     </addColumn>
-  </changeSet>   
-  
+  </changeSet>
+
   <changeSet id="5.1.ultrasound.general.image.3" author="J.ZHOU">
     	<comment>drop column US_IMAGE_TYPE (duplicate column)</comment>
     	<dropColumn tableName="general_image" columnName="US_IMAGE_TYPE" />
   </changeSet>
-  
-  <changeSet id="aim.prototype.1" author="kascice">          
+
+  <changeSet id="aim.prototype.1" author="kascice">
     <createTable tableName="aim_img_obs_characteristic">
       <column name="aim_img_obs_characteristic_pk_" type="BIGINT">
         <constraints primaryKey="true" nullable="false"/>
-      </column>   
+      </column>
       <column name="general_series_pk_id" type="BIGINT">
         <constraints foreignKeyName="FK_AIM_IMG_OBS_SERIES_PK_ID"
-                     references="general_series(general_series_pk_id)" 
+                     references="general_series(general_series_pk_id)"
                      nullable="false"/>
       </column>
-      
+
       <column name="code_meaning_name" type="varchar(128)">
         <constraints nullable="false"/>
       </column>
-      
-      <column name="code_schema_designator" type="varchar(128)"> 
+
+      <column name="code_schema_designator" type="varchar(128)">
         <constraints nullable="false"/>
       </column>
-      
-      <column name="code_value" type="varchar(128)"> 
+
+      <column name="code_value" type="varchar(128)">
         <constraints nullable="false"/>
       </column>
-      
-    </createTable>  
-    
+
+    </createTable>
+
     <createTable tableName="aim_quantification">
       <column name="aim_quantification_pk_id" type="BIGINT">
         <constraints primaryKey="true" nullable="false"/>
-      </column>   
+      </column>
       <column name="aim_img_obs_characteristic_pk_" type="BIGINT">
         <constraints foreignKeyName="FK_AIM_IMG_OBS_CHARACTERISTIC_"
-                     references="aim_img_obs_characteristic(aim_img_obs_characteristic_pk_)" 
+                     references="aim_img_obs_characteristic(aim_img_obs_characteristic_pk_)"
                      nullable="false"/>
       </column>
-      
+
       <column name="type" type="varchar(10)">
         <constraints nullable="false"/>
       </column>
-      
-      <column name="name" type="varchar(255)">   
+
+      <column name="name" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      
-      <column name="value" type="varchar(255)"> 
-        <constraints nullable="false"/>
-      </column>      
 
-    </createTable>      
-    
-   </changeSet> 
-   
-   <changeSet id="5.0.ultrasound" author="panq">          
+      <column name="value" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+
+    </createTable>
+
+   </changeSet>
+
+   <changeSet id="5.0.ultrasound" author="panq">
        <comment>Optimizations multi-modality for ultrasound</comment>
-       
+
        <createIndex tableName="general_image" indexName="US_MULTI_MODALITY_IDX">
          <column name="US_MULTI_MODALITY"/>
-       </createIndex>    
-      
-  </changeSet>      
-  
-  <changeSet id="5.1.ModalityDescription.create" author="prakasht" dbms="oracle">          
+       </createIndex>
+
+  </changeSet>
+
+  <changeSet id="5.1.ModalityDescription.create" author="prakasht" dbms="oracle">
       <comment>
        create new table to support modality description feature
       </comment>
-  		
-      <sql>
-        CREATE TABLE modality_descriptions 
-	( 
-	     modality_descriptions_pk_id     NUMBER(20) primary key, 
-	     modality_name                   VARCHAR2(5), 
-	     description                     VARCHAR2(200)
-  	); 
-      </sql>	
-   </changeSet>   
 
-   <changeSet id="5.1.ModalityDescription.insert" author="prakasht" dbms="oracle">          
+      <sql>
+        CREATE TABLE modality_descriptions
+	(
+	     modality_descriptions_pk_id     NUMBER(20) primary key,
+	     modality_name                   VARCHAR2(20),
+	     description                     VARCHAR2(200)
+  	);
+      </sql>
+   </changeSet>
+
+   <changeSet id="5.1.ModalityDescription.insert" author="prakasht" dbms="oracle">
       <comment>
        insert modality description from DICOM standard - ftp://medical.nema.org/medical/dicom/2009/09_03pu3.pdf - section C.7.3.1.1.1 Modality
       </comment>
-  		
+
       <sql>
         INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
 	values( 1, 'CR', 'Computed Radiography' );
@@ -295,8 +295,8 @@
 
 	INSERT INTO modality_descriptions ( modality_descriptions_pk_id, modality_name, description )
 	values( 59, 'HISTOPATHOLOGY', 'HISTOPATHOLOGY' );
-      </sql>	
-   </changeSet> 
-  
+      </sql>
+   </changeSet>
+
 
 </databaseChangeLog>

@@ -66,6 +66,7 @@
         <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/AimQuantification.hbm.xml</value>
+        <value>gov/nih/nci/ncia/internaldomain/ImageMarkup.hbm.xml</value>
       </list>
     </property>
 
@@ -103,7 +104,7 @@
        <ref bean="sessionFactory"/>
      </property>
    </bean>
-   
+
    <bean id="traditionalAnnotationSubmissionProcessor" class="gov.nih.nci.ncia.annotations.TraditionalAnnotationSubmissionProcessor">
      <property name="sessionFactory">
        <ref bean="sessionFactory"/>

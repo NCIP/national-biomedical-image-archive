@@ -79,8 +79,8 @@ public class NCIADatabaseDelegator {
             failedSubmission("Rollback in process(DicomObject,String) for file " + file.getFile().getAbsolutePath());
         }
     }
-
-
+    
+    
     /* (non-Javadoc)
      * @see org.rsna.mircsite.util.DatabaseAdapter#process(org.rsna.mircsite.util.XmlObject, java.lang.String)
      */

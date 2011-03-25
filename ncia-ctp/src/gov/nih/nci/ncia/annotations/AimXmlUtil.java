@@ -109,7 +109,7 @@ public class AimXmlUtil {
 		return results;
 	}
 
-	private static String AIM_NS = "gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM";
+	private static String AIM_NS = "gme://caCORE/3.2/edu.northwestern.radiology.AIM";
 
 	private static String XSI_NS = "http://www.w3.org/2001/XMLSchema-instance";
 

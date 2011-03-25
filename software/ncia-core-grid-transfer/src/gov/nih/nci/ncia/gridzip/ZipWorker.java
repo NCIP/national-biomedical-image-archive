@@ -57,7 +57,7 @@ public class ZipWorker implements Runnable {
                 System.err.println("ERROR writing to zip entry "
                         + e1.getMessage());
                 logger.error("Error writing to zip entry: ", e1);
-                throw new RuntimeException(e1);
+                //throw new RuntimeException(e1);
             } finally {
                 try {
                 	dicomIn.close();

@@ -21,7 +21,7 @@ import com.mapforce.MappingMapToAIM_v2_rv15_XML;
 
 public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmissionProcessor {
 	String outFilePath="roots\\database-export\\temp\\cedaraJava\\";
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Status process(XmlObject file, File storedFile) {
 
@@ -66,10 +66,10 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
              im.setSubmissionDate(new java.util.Date());
            	 System.out.println("find series="+series.getSeriesInstanceUID());
         	 getHibernateTemplate().saveOrUpdate(im);
-         } 
+         }
         getHibernateTemplate().flush();
       }
-	
+
 	public void storeToMarkupTable(Document document, String seriesInstanceUID) {
 		 try{
 			    boolean success = (new File(outFilePath)).mkdirs();
@@ -110,7 +110,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 
 		getHibernateTemplate().flush();
 	}
-	
+
 	private void convertToCedaraAIM(Document document){
 
 		System.out.println("Mapping Application");
@@ -155,11 +155,11 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String processFiles(String outFilePath){
 		File inPath = new File(outFilePath);
 		StringBuffer sbr = new StringBuffer();
-		
+
 		if (inPath.isDirectory()) {
 			File[] files = inPath.listFiles();
 			try {
@@ -175,7 +175,8 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 						if (first) {
 							first = false;
 						} else {
-							sbr.append(s+"\n");
+							sbr.append(s);
+							sbr.append('\n');
 						}
 					}
 					fr.close();

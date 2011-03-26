@@ -163,8 +163,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		if (inPath.isDirectory()) {
 			File[] files = inPath.listFiles();
 			try {
-				sbr.append("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n");
-				sbr.append("<Annotations>\n");
+				sbr.append("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n");
 				for (int i = 0; i < files.length; ++i) {
 					System.out.println(files[i].getName());
 
@@ -176,8 +175,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 						if (first) {
 							first = false;
 						} else {
-							sbr.append(s);
-							sbr.append("\n");
+							sbr.append(s+"\n");
 						}
 					}
 					fr.close();

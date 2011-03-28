@@ -15,6 +15,7 @@ import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
@@ -109,8 +110,8 @@ public class RemoteSeriesFileRetrieverTestCase {
 		RemoteSeriesFileRetriever remoteSeriesFileRetriever = new RemoteSeriesFileRetriever();
 		remoteSeriesFileRetriever.setOutputDirectory(resultsDir);
 		remoteSeriesFileRetriever.setSeriesIdentifier("seriesId");
-		List<ImageFileDTO> images = remoteSeriesFileRetriever.retrieveImages(seriesSearchResult);
-
+		DicomFileDTO image = remoteSeriesFileRetriever.retrieveImages(seriesSearchResult);
+		List<ImageFileDTO> images = image.getImageFileDTOList();
 		File seriesDir = new File(resultsDir, "proj1");
 		seriesDir = new File(seriesDir, "pat1");
 		seriesDir = new File(seriesDir, "study1");

@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.zip;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.nbia.util.NBIAIOUtils;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
@@ -54,7 +55,7 @@ public class RemoteSeriesFileRetriever extends Observable
 	 * <p>Use the grid transfer service to pull down all the images for the specified
 	 * series to the local filesystem.
 	 */
-	public List<ImageFileDTO> retrieveImages(SeriesSearchResult seriesSearchResult) {
+	public DicomFileDTO retrieveImages(SeriesSearchResult seriesSearchResult) {
 		RemoteNode remoteNode = (RemoteNode)seriesSearchResult.associatedLocation();
 		String serviceAddress = remoteNode.getEndpointReferenceType().getAddress().toString();
 
@@ -143,10 +144,11 @@ public class RemoteSeriesFileRetriever extends Observable
 	private File resultsDirectory;
 
 	private NBIAIOUtils.ProgressInterface progressDelegate;
-
-	private static List<ImageFileDTO> computeImageDTO(File outputDirectory) {
+	
+	private static DicomFileDTO computeImageDTO(File outputDirectory) {
     	List<ImageFileDTO> fileDtoList = new ArrayList<ImageFileDTO>();
-
+    	List<AnnotationFileDTO> annoFileDtoList = new ArrayList<AnnotationFileDTO>();
+    	
 		Iterator<File> fileIter = FileUtils.iterateFiles(outputDirectory,
 				                                         TrueFileFilter.TRUE,
 				                                         TrueFileFilter.TRUE );
@@ -157,6 +159,12 @@ public class RemoteSeriesFileRetriever extends Observable
 			String sopInstanceUid = deduceSOPInstanceUID(dicomFile);
 			//skip
 			if(sopInstanceUid==null) {
+				String xmlPath = dicomFile.getAbsolutePath();
+				AnnotationFileDTO annotationFileDto = new AnnotationFileDTO(
+														new Integer(0),
+														xmlPath,
+														new Integer(""+dicomFile.length()));
+				annoFileDtoList.add(annotationFileDto);
 				continue;
 			}
 			ImageFileDTO imageFileDTO = new ImageFileDTO(dicomFile.getAbsolutePath(),
@@ -165,16 +173,18 @@ public class RemoteSeriesFileRetriever extends Observable
 			fileDtoList.add(imageFileDTO);
 		
 		}
+		DicomFileDTO dicom = new DicomFileDTO();
+		dicom.setAnnotationDTOList(annoFileDtoList);
+		dicom.setImageFileDTOList(fileDtoList);
 		//recurse over directory
 		//make a DTO per file
-		return fileDtoList;
+		return dicom;
 
 	}
 
 
 	private static String deduceSOPInstanceUID(File dicomFile) {
-//		String name = dicomFile.getName();
-//		return name.substring(0,name.lastIndexOf(".dcm"));
+
 		try {
 			return NCIADicomObject.loadSOPInstanceUID(dicomFile);
 		}

@@ -111,10 +111,12 @@ public class CompositeSeriesFileRetrieverTestCase {
 		SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
 		seriesSearchResult.associateLocation(localNode);
 		
+		DicomFileDTO fakeResult = new DicomFileDTO();
 		List<ImageFileDTO> fakeResults = new ArrayList<ImageFileDTO>();
 		fakeResults.add(new ImageFileDTO("",new Long(0),""));
 		fakeResults.add(new ImageFileDTO("",new Long(0),""));
-
+		fakeResult.setImageFileDTOList(fakeResults);
+		
 		//create mocks
 		LocalSeriesFileRetriever localSeriesFileRetrieverMock = createMock(LocalSeriesFileRetriever.class);
 		RemoteSeriesFileRetriever remoteSeriesFileRetrieverMock = createMock(RemoteSeriesFileRetriever.class);
@@ -123,7 +125,7 @@ public class CompositeSeriesFileRetrieverTestCase {
 		expectNew(LocalSeriesFileRetriever.class).
 		    andReturn(localSeriesFileRetrieverMock);
 		expect(localSeriesFileRetrieverMock.retrieveImages(seriesSearchResult)).
-            andReturn(fakeResults);	 		
+            andReturn(fakeResult);	 		
 		expectNew(RemoteSeriesFileRetriever.class).
 	        andReturn(remoteSeriesFileRetrieverMock);			
 		//replay the mock
@@ -228,10 +230,12 @@ public class CompositeSeriesFileRetrieverTestCase {
 		SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
 		seriesSearchResult.associateLocation(localNode);
 		
+		DicomFileDTO fakeResult = new DicomFileDTO();
 		List<ImageFileDTO> fakeResults = new ArrayList<ImageFileDTO>();
 		fakeResults.add(new ImageFileDTO("",new Long(0),""));
 		fakeResults.add(new ImageFileDTO("",new Long(0),""));
-
+		fakeResult.setImageFileDTOList(fakeResults);
+		
 		//create mocks
 		LocalSeriesFileRetriever localSeriesFileRetrieverMock = createMock(LocalSeriesFileRetriever.class);
 		RemoteSeriesFileRetriever remoteSeriesFileRetrieverMock = createMock(RemoteSeriesFileRetriever.class);
@@ -240,7 +244,7 @@ public class CompositeSeriesFileRetrieverTestCase {
 		expectNew(LocalSeriesFileRetriever.class).
 		    andReturn(localSeriesFileRetrieverMock);
 		expect(localSeriesFileRetrieverMock.retrieveImages(seriesSearchResult)).
-            andReturn(fakeResults);			
+            andReturn(fakeResult);			
 		expectNew(RemoteSeriesFileRetriever.class).
 	        andReturn(remoteSeriesFileRetrieverMock);
 		localSeriesFileRetrieverMock.cleanupResultsDirectory();

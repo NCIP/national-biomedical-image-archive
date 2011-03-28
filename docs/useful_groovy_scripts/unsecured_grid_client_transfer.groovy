@@ -25,7 +25,7 @@ try {
     try {
 	     inputStream = TransferClientHelper.getData(transferServiceContextClient.getDataTransferDescriptor());
 
-       downloadZip(inputStream)
+       downloadZip2(inputStream)
     }
     finally {
        inputStream?.close()
@@ -37,6 +37,26 @@ catch(e) {
     e.printStackTrace();
 }
 
+def downloadZip2(inputStream) {
+		if(inputStream == null){
+			  println("istream is null");
+		}
+		else {
+     
+
+        def outputFile = new File(downloadLocation, "foo.zip");
+            
+        def fileOutputStream = new FileOutputStream(outputFile)
+        try {
+            fileOutputStream << inputStream
+         }
+         finally {
+            fileOutputStream?.close();
+         }
+
+       
+    }
+}
 
 def downloadZip(inputStream) {
 		if(inputStream == null){

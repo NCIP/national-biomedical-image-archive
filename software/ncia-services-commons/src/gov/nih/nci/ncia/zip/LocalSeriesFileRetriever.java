@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.zip;
 import gov.nih.nci.ncia.dao.AnnotationDAO;
 import gov.nih.nci.ncia.dao.ImageDAO;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
@@ -25,17 +26,23 @@ public class LocalSeriesFileRetriever implements SeriesFileRetriever {
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<ImageFileDTO> retrieveImages(SeriesSearchResult seriesSearchResult) {
+	public DicomFileDTO retrieveImages(SeriesSearchResult seriesSearchResult) {
 		ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
+        DicomFileDTO dfd = new DicomFileDTO();
+
 		try {
 	        Map<Integer, List<ImageDTO>> dicomFilePaths = imageDAO.findKeyedImagesBySeriesPkId(Collections.singletonList(seriesSearchResult.getId()));
 
 	        if(dicomFilePaths.size()>0) {
-	            return convert(dicomFilePaths.values().iterator().next());
+	            List<ImageFileDTO> imageDtoList = convert(dicomFilePaths.values().iterator().next());
+	            dfd.setImageFileDTOList(imageDtoList);
+	            dfd.setAnnotationDTOList(retrieveAnnotations(seriesSearchResult));
 	        }
 	        else {
-	        	return new ArrayList<ImageFileDTO>();
+	        	dfd.setImageFileDTOList(new ArrayList<ImageFileDTO>());
+	        	dfd.setAnnotationDTOList(new ArrayList<AnnotationFileDTO>());
 	        }
+        	return dfd;
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();

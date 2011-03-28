@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.zip;
 
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.util.StringUtil;
@@ -130,6 +131,8 @@ public class ZipManager extends Thread {
            
             studyIdToSeriesCntMap = new HashMap<String, Integer>();
             
+            List<AnnotationFileDTO> annotationFilePaths = new ArrayList<AnnotationFileDTO>();
+            
             while (pointer < seriesToZip.size()) {
                 // The list of IDs to put in this query
                 List<SeriesSearchResult> seriesChunk = chunk(seriesToZip, pointer);
@@ -145,9 +148,14 @@ public class ZipManager extends Thread {
                     }
                     
                     try {                    	
-                        List<ImageFileDTO> dicomFilePaths = seriesFileRetriever.retrieveImages(seriesSearchResult);
+                        DicomFileDTO dicomFile = seriesFileRetriever.retrieveImages(seriesSearchResult);
+                        List<ImageFileDTO> dicomFilePaths = dicomFile.getImageFileDTOList();
+                        annotationFilePaths = dicomFile.getAnnotationDTOList();
                         
-
+                        if (dicomFilePaths == null){
+                        	throw new Exception("No image File found!");
+                        }
+                        
                         zipListOfImages(seriesSearchResult, 
                         		        dicomFilePaths, 
                         		        zipit,
@@ -162,7 +170,7 @@ public class ZipManager extends Thread {
 
                     if(!noAnnotation) {
                         try {
-                            List<AnnotationFileDTO> annotationFilePaths = seriesFileRetriever.retrieveAnnotations(seriesSearchResult);
+                           // List<AnnotationFileDTO> annotationFilePaths = seriesFileRetriever.retrieveAnnotations(seriesSearchResult);
 
                             zipAnnotations(seriesSearchResult, 
                             		       annotationFilePaths, 

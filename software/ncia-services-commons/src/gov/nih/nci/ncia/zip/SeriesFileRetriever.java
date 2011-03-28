@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.zip;
 
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
@@ -19,8 +20,7 @@ public interface SeriesFileRetriever {
 	/**
 	 * Return pointers to DICOM image files for a given series.
 	 */
-	public List<ImageFileDTO> retrieveImages(SeriesSearchResult seriesSearchResult);
-	
+	public DicomFileDTO retrieveImages(SeriesSearchResult seriesSearchResult);
 	
 	/**
 	 * Return pointers to annotation files for a given series.
@@ -33,4 +33,5 @@ public interface SeriesFileRetriever {
 	 * to remove the copy after the caller is done working with the results.
 	 */
 	public void cleanupResultsDirectory();
+	
 }

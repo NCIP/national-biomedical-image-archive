@@ -11,6 +11,7 @@ import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.remotesearch.RemoteDrillDown;
 import gov.nih.nci.ncia.remotesearch.RemoteNode;
@@ -132,7 +133,8 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	List<ImageFileDTO> results = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	gov.nih.nci.ncia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	List<ImageFileDTO> results = result.getImageFileDTOList(); 
     	assertEquals(results.size(), 2);
     	
     	//verify the mock
@@ -169,7 +171,8 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	List<ImageFileDTO> results = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	gov.nih.nci.ncia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	List<ImageFileDTO> results = result.getImageFileDTOList();
     	assertEquals(results.size(), 2);
     	
     	//verify the mock
@@ -209,7 +212,8 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	List<ImageFileDTO> results = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	gov.nih.nci.ncia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	List<ImageFileDTO> results = result.getImageFileDTOList();
     	compositeSeriesFileRetriever.cleanupResultsDirectory();
     	assertEquals(results.size(), 2);
     	
@@ -249,7 +253,8 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	List<ImageFileDTO> results = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	List<ImageFileDTO> results = result.getImageFileDTOList();
     	compositeSeriesFileRetriever.cleanupResultsDirectory();
     	assertEquals(results.size(), 2);
     	

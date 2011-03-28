@@ -54,15 +54,23 @@ public class ZipReaderUtil {
                                    seriesSearchResult.getStudyInstanceUid() +
                                    File.separator +
                                    seriesIdentifier;
-
-        	File projectPatientStudySeriesImageFile = new File(localLocation +
+            
+            File projectPatientStudySeriesImageFile = null;
+            if (zeis.getName().toUpperCase().indexOf(".DCM") >=0){
+            	projectPatientStudySeriesImageFile = new File(localLocation +
         			                                           File.separator +
         			                                           StringUtil.displayAsSixDigitString(imageCnt)+".dcm");
-        	boolean mkdirResult = projectPatientStudySeriesImageFile.getParentFile().mkdirs();
-			if(mkdirResult==false) {
-				System.out.println("couldnt create directory - might already exist tho so not failing");
-			}
-
+            }else{
+            	projectPatientStudySeriesImageFile = new File(localLocation + 
+            												  File.separator +
+            												  zeis.getName());
+            }
+            	
+        	if (!projectPatientStudySeriesImageFile.getParentFile().exists()){
+        		if(projectPatientStudySeriesImageFile.getParentFile().mkdirs()==false) {
+    				System.out.println("couldnt create directory - might already exist tho so not failing");
+    			}
+        	}
 
             OutputStream fos = new FileOutputStream(projectPatientStudySeriesImageFile);
             try {

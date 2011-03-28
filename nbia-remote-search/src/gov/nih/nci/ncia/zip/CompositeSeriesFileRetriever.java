@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.zip;
 
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
-import gov.nih.nci.ncia.dto.ImageFileDTO;
+import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class CompositeSeriesFileRetriever implements SeriesFileRetriever {
 	/**
 	 * {@inheritDoc}
 	 */	
-	public List<ImageFileDTO> retrieveImages(SeriesSearchResult seriesSearchResult) {
+	public DicomFileDTO retrieveImages(SeriesSearchResult seriesSearchResult) {
 		if(seriesSearchResult.associatedLocation().isLocal()) {
 			return localSeriesFileRetriever.retrieveImages(seriesSearchResult);
 		}
@@ -50,6 +50,13 @@ public class CompositeSeriesFileRetriever implements SeriesFileRetriever {
 			remoteWasRun = true;
 			return remoteSeriesFileRetriever.retrieveImages(seriesSearchResult);
 		}
+	}
+	
+	/**
+	 * This method is used by remote File retrieval
+	 */
+	public DicomFileDTO retrieveDicomImages(SeriesSearchResult seriesSearchResult) {
+		return null;
 	}
 	
 	////////////////////////////////////////PRIVATE///////////////////////////////////////

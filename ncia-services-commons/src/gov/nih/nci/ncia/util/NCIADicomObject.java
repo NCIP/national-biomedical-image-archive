@@ -55,7 +55,25 @@ public class NCIADicomObject extends FileObject {
     private Dataset dataset = null;
     private SpecificCharacterSet scharset = null;
     private String nullValue = "null";
-
+    
+    public static boolean isDicom(InputStream inputStream){
+		DcmParser parser = pFact.newDcmParser(inputStream);
+		 
+		FileFormat fileFormat = null;
+		try {
+			fileFormat = parser.detectFileFormat();
+		}
+		catch(Throwable t) {
+			fileFormat = null;
+		}
+		if (fileFormat == null){
+			return false;
+		}else{
+			return true;
+		}
+		
+    }
+    
     public static String loadSOPInstanceUID(File dicomFile) throws Exception {
     	InputStream inputStream = new BufferedInputStream(new FileInputStream(dicomFile));
 			

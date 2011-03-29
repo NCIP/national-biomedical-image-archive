@@ -94,6 +94,19 @@ public class ZipManager extends Thread {
         this.destinationFile = targetZipFile;
     }
 
+    private long getTotalBytesToZip(Map<String, SeriesSearchResult> basketItem)
+    {
+    	long size = 0;
+    	
+        for (SeriesSearchResult bsib : basketItem.values()) {
+            logger.debug("SeriesDTO.getExactSize()="+bsib.computeExactSize());
+            logger.debug("SeriesDTO.getAnnotationsSize()="+bsib.getAnnotationsSize());
+            // Total up the size of all files to zip (including annotations)
+            size += bsib.computeExactSize()- bsib.getAnnotationsSize();
+        }
+        return size;
+    }
+    
     /**
      * Actually does the zipping of the files.
      *
@@ -111,14 +124,8 @@ public class ZipManager extends Thread {
         try {
             zipit.startNewFile(destinationFile.getAbsolutePath(), sequenceNumber);
 
-            // Loop through each series and determine which category it falls into
-            for (SeriesSearchResult bsib : basketItems.values()) {
-                logger.debug("SeriesDTO.getExactSize()="+bsib.computeExactSize());
-                logger.debug("SeriesDTO.getAnnotationsSize()="+bsib.getAnnotationsSize());
-                // Total up the size of all files to zip (including annotations)
-                totalBytesToZip += bsib.computeExactSize()- bsib.getAnnotationsSize();
-            }
-
+            totalBytesToZip = getTotalBytesToZip(basketItems);
+            
             List<SeriesSearchResult> seriesToZip = new ArrayList<SeriesSearchResult>(basketItems.values());
 
 

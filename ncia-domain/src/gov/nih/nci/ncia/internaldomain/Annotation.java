@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.internaldomain;
 
 
+import java.io.File;
 import java.io.Serializable;
 	/**
 	* A non-image file associated with a series that provides additional information about the images in the series.   Examples of annotation files are image markup and radiologist reports.	**/
@@ -57,11 +58,11 @@ public class Annotation  implements Serializable
      * Return only the file name
      */
     public String getFileName() {
-        if ((filePath != null) && !filePath.equals("") && filePath.lastIndexOf('/') > -1) {
+        if ((filePath != null) && !filePath.equals("") ) {
             //if (filePath.lastIndexOf(File.separatorChar) > -1) {
-
-             return filePath.substring(filePath.lastIndexOf('/') + 1);
-
+        	File f = new File(filePath);
+        	String fileName = f.getName();
+            return fileName;
         }
 
         return null;

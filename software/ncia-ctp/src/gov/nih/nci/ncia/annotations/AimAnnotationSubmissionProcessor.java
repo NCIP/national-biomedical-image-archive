@@ -20,7 +20,8 @@ import org.w3c.dom.Document;
 import com.mapforce.MappingMapToAIM_v2_rv15_XML;
 
 public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmissionProcessor {
-	String outFilePath="roots\\database-export\\temp\\cedaraJava\\";
+	String outFilePath = System.getProperty("java.io.tmpdir")+ "cedaraJava\\";
+
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Status process(XmlObject file, File storedFile) {
@@ -60,9 +61,15 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
         	 GeneralSeries series = seriesList.get(0);
         	 ImageMarkup im = new ImageMarkup();
         	 im.setSeries(series);
-             im.setLoginName("LIDC");
-             im.setMarkupContent(xml);
              im.setSeriesInstanceUID(uid);
+             List<ImageMarkup> imList = getHibernateTemplate().findByExample(im);
+             if ((imList != null) && (imList.size() != 0)){
+            	 im = imList.get(0);
+             }
+           	 im.setLoginName("LIDC");
+           	 im.setMarkupContent(xml);
+            	 
+
              im.setSubmissionDate(new java.util.Date());
            	 System.out.println("find series="+series.getSeriesInstanceUID());
         	 getHibernateTemplate().saveOrUpdate(im);
@@ -71,19 +78,22 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
       }
 
 	public void storeToMarkupTable(Document document, String seriesInstanceUID) {
-		 try{
+		
+		System.out.println("!!!!!outFilePath "+outFilePath);
+		try{
 			    boolean success = (new File(outFilePath)).mkdirs();
 			    if (success) {
 			      System.out.println("Directories: " + outFilePath + " created");
 			    }
-
+			    convertToCedaraAIM(document);
+				String xml = processFiles(outFilePath);
+				insertToMarkupDatabase(seriesInstanceUID, xml);
+				(new File(outFilePath)).delete();
 		}
 		 catch (Exception e){// Catch exception if any
 			      System.err.println("Error: " + e.getMessage());
 		}
-		convertToCedaraAIM(document);
-		String xml = processFiles(outFilePath);
-		insertToMarkupDatabase(seriesInstanceUID, xml);
+		
 	}
 
 	/////////////////////////////////////////////PRIVATE///////////////////////////////////////////
@@ -156,7 +166,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		}
 	}
 
-	public String processFiles(String outFilePath){
+	private String processFiles(String outFilePath){
 		File inPath = new File(outFilePath);
 		StringBuffer sbr = new StringBuffer();
 

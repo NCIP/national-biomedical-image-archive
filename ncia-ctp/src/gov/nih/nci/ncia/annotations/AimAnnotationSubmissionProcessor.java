@@ -46,55 +46,8 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
         return Status.FAIL;
     }
 
-	//@Transactional(propagation=Propagation.REQUIRED)
-	public void insertToMarkupDatabase(String uid, String xml){
-		GeneralSeries exampleSeries = new GeneralSeries();
-		exampleSeries.setSeriesInstanceUID(uid);
 
-		List<GeneralSeries> seriesList = getHibernateTemplate().findByExample(exampleSeries);
 
-		if(seriesList==null || seriesList.size()==0) {
-			//throw new RuntimeException("AIM annotation submitted for series that doesnt exist:"+uid);
-			System.out.println("AIM annotation submitted for series that doesnt exist:"+uid);
-		}
-         else {
-        	 GeneralSeries series = seriesList.get(0);
-        	 ImageMarkup im = new ImageMarkup();
-        	 im.setSeries(series);
-             im.setSeriesInstanceUID(uid);
-             List<ImageMarkup> imList = getHibernateTemplate().findByExample(im);
-             if ((imList != null) && (imList.size() != 0)){
-            	 im = imList.get(0);
-             }
-           	 im.setLoginName("LIDC");
-           	 im.setMarkupContent(xml);
-            	 
-
-             im.setSubmissionDate(new java.util.Date());
-           	 System.out.println("find series="+series.getSeriesInstanceUID());
-        	 getHibernateTemplate().saveOrUpdate(im);
-         }
-        getHibernateTemplate().flush();
-      }
-
-	public void storeToMarkupTable(Document document, String seriesInstanceUID) {
-		
-		System.out.println("!!!!!outFilePath "+outFilePath);
-		try{
-			    boolean success = (new File(outFilePath)).mkdirs();
-			    if (success) {
-			      System.out.println("Directories: " + outFilePath + " created");
-			    }
-			    convertToCedaraAIM(document);
-				String xml = processFiles(outFilePath);
-				insertToMarkupDatabase(seriesInstanceUID, xml);
-				(new File(outFilePath)).delete();
-		}
-		 catch (Exception e){// Catch exception if any
-			      System.err.println("Error: " + e.getMessage());
-		}
-		
-	}
 
 	/////////////////////////////////////////////PRIVATE///////////////////////////////////////////
 
@@ -120,7 +73,29 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 
 		getHibernateTemplate().flush();
 	}
-
+	
+	private void storeToMarkupTable(Document document, String seriesInstanceUID) {
+		
+		System.out.println("!!!!!outFilePath "+outFilePath);
+		try{
+				File outFileDir = new File(outFilePath);
+			    boolean success = outFileDir.mkdirs();
+			    if (success) {
+			      System.out.println("Directories: " + outFilePath + " created");
+			    }
+			    convertToCedaraAIM(document);
+				String xml = processFiles(outFilePath);
+				insertToMarkupDatabase(seriesInstanceUID, xml);
+				File[] files = outFileDir.listFiles();
+				for (int i = 0; i < files.length; ++i) {
+					files[i].delete();
+				}
+		}
+		 catch (Exception e){// Catch exception if any
+			      System.err.println("Error: " + e.getMessage());
+		}
+		
+	}
 	private void convertToCedaraAIM(Document document){
 
 		System.out.println("Mapping Application");
@@ -173,7 +148,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		if (inPath.isDirectory()) {
 			File[] files = inPath.listFiles();
 			try {
-				sbr.append("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n");
+				//sbr.append("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n");
 				for (int i = 0; i < files.length; ++i) {
 					System.out.println(files[i].getName());
 
@@ -200,6 +175,44 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		}
 		return null;
 	}
+	
+	private void insertToMarkupDatabase(String uid, String xml){
+		GeneralSeries exampleSeries = new GeneralSeries();
+		exampleSeries.setSeriesInstanceUID(uid);
+
+		List<GeneralSeries> seriesList = getHibernateTemplate().findByExample(exampleSeries);
+
+		if(seriesList==null || seriesList.size()==0) {
+			//throw new RuntimeException("AIM annotation submitted for series that doesnt exist:"+uid);
+			System.out.println("AIM annotation submitted for series that doesnt exist:"+uid);
+		}
+         else {
+        	 GeneralSeries series = seriesList.get(0);
+        	 ImageMarkup im = new ImageMarkup();
+        	 im.setSeries(series);
+             im.setSeriesInstanceUID(uid);
+             List<ImageMarkup> imList = getHibernateTemplate().findByExample(im);
+             if ((imList != null) && (imList.size() != 0)){
+            	 im = imList.get(0);
+            	 String oldXml = im.getMarkupContent();
+            	 oldXml = oldXml.replaceFirst("</Annotations>", "");
+            	 //xml = xml.replaceFirst("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n", "");
+            	 xml = oldXml.concat(xml);
+             }
+             else {
+            	 xml = "<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n".concat(xml);
+             }
+           	 im.setLoginName("LIDC");
+           	 im.setMarkupContent(xml);
+            	 
+
+             im.setSubmissionDate(new java.util.Date());
+           	 System.out.println("find series="+series.getSeriesInstanceUID());
+        	 getHibernateTemplate().saveOrUpdate(im);
+         }
+        getHibernateTemplate().flush();
+      }
+
 }
 
 

@@ -2,7 +2,6 @@ package gov.nih.nci.ncia.zip;
 
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
 import gov.nih.nci.ncia.dto.DicomFileDTO;
-import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.List;

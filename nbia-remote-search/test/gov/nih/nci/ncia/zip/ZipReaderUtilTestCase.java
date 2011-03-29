@@ -62,11 +62,11 @@ public class ZipReaderUtilTestCase {
        FileOutputStream fos = new FileOutputStream(tzFile);
        ZipOutputStream zos = new ZipOutputStream(fos);
        
-       zos.putNextEntry(new ZipEntry("t1"));
+       zos.putNextEntry(new ZipEntry("t1.dcm"));
        zos.write(testContent1.getBytes());
        zos.closeEntry();
        
-       zos.putNextEntry(new ZipEntry("t2"));
+       zos.putNextEntry(new ZipEntry("t2.dcm"));
        zos.write(testContent2.getBytes());
        zos.closeEntry();
        

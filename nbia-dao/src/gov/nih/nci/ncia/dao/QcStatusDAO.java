@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.dao;
 import gov.nih.nci.ncia.dto.QcSearchResultDTO;
 import gov.nih.nci.ncia.dto.QcStatusHistoryDTO;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -18,6 +19,10 @@ public interface QcStatusDAO {
 			                                  String[] patients) throws DataAccessException;
 		
 		
+	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
+            List<String> collectionSites, 
+            String[] patients, Date fromDate, Date toDate, int maxRows) throws DataAccessException;
+
 	public List<QcStatusHistoryDTO> findQcStatusHistoryInfo(List<String> seriesList)throws DataAccessException;
 
 

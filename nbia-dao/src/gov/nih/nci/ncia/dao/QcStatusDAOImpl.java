@@ -7,10 +7,15 @@ import gov.nih.nci.ncia.internaldomain.QCStatusHistory;
 import gov.nih.nci.ncia.qctool.VisibilityStatus;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +28,13 @@ public class QcStatusDAOImpl extends AbstractDAO
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
 			                                  List<String> collectionSites,
 			                                  String[] patients) throws DataAccessException {
+		return findSeries(qcStatus, collectionSites, patients, null, null, 100000);
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
+			                                  List<String> collectionSites,
+			                                  String[] patients, Date fromDate, Date toDate, int maxRows) throws DataAccessException {
 
 		String selectStmt = "SELECT gs.project," +
 		                           "gs.site," +
@@ -35,13 +47,21 @@ public class QcStatusDAOImpl extends AbstractDAO
 		String whereStmt = " WHERE " +
 		                   computeVisibilityCriteria(qcStatus) +
 		                   computeCollectionCriteria(collectionSites) +
-		                   computePatientCriteria(patients);
+		                   computePatientCriteria(patients) + 
+		                   computeSubmissionDateCriteria(fromDate, toDate);
 
 		List<QcSearchResultDTO> searchResultDtos = new ArrayList<QcSearchResultDTO>();
 
 		String hql = selectStmt + fromStmt + whereStmt;
 
-		List<Object[]> searchResults = getHibernateTemplate().find(hql);
+//		List<Object[]> searchResults = getHibernateTemplate().find(hql);
+		
+		SessionFactory sf = getHibernateTemplate().getSessionFactory();
+		Session s = sf.getCurrentSession();
+		Query q = s.createQuery(hql);
+		q.setFirstResult(0);
+		q.setMaxResults(maxRows);
+		List<Object[]> searchResults = q.list();
 
 		for (Object[] row : searchResults) {
 			String collection = (String) row[0];
@@ -120,6 +140,31 @@ public class QcStatusDAOImpl extends AbstractDAO
 	}
 
 	//////////////////////////////////////PRIVATE//////////////////////////////////////////
+
+	private static String computeSubmissionDateCriteria(Date fromDate, Date toDate) {
+		if( fromDate == null && toDate == null ) {
+			return "";
+		}
+		else if( fromDate != null && toDate == null ) {
+			toDate = Calendar.getInstance().getTime();
+		}
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		// add a day to toDate because Oracle between command does not include the toDate
+		Calendar cal = Calendar.getInstance(); 
+		cal.setTime(toDate);
+		cal.add( Calendar.DATE, 1 ); 
+		toDate = cal.getTime();
+		
+		StringBuffer sb = new StringBuffer();
+		sb.append( " and gs.maxSubmissionTimestamp between '" );
+		sb.append( dateFormat.format(fromDate) );
+		sb.append( "' and '" );
+		sb.append(dateFormat.format(toDate) );
+		sb.append( "'" );
+
+		return sb.toString();
+	}
 
 	private static String computePatientCriteria(String[] patients) {
 		StringBuffer sb = new StringBuffer();

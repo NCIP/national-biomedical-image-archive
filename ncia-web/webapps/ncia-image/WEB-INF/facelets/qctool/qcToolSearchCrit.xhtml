@@ -60,7 +60,7 @@
 					<table class="topBorderOnly qcToolControlsTable" cellpadding="3"
 						cellspacing="0" summary="criteria section">
 						<tr>
-							<td colspan="2" class="submissionReportFormTitle">
+							<td colspan="3" class="submissionReportFormTitle">
 								#{msg.search_criteria}
 							</td>
 						</tr>
@@ -70,7 +70,7 @@
 								<td width="12%" class="formLabel">
 									#{msg.qcTool_qcStatus}
 								</td>
-								<td class="formField">
+								<td class="formField" colspan="2">
 									<ice:selectManyCheckbox id="slctQcStatus"
 										value="#{qcToolBean.selectedQcStatus}" partialSubmit="false"
 										style="white-space:nowrap; ">
@@ -85,7 +85,7 @@
 								<h:outputText value="#{msg.criteria_CollectionCriteria}" />
 								<br />
 							</td>
-							<td class="formField">
+							<td class="formField" colspan="2">
 								<ice:selectOneMenu id="collectionSiteMenu"
 									value="#{qcToolBean.selectedCollectionSite}"
 									style="font-size:1em" partialSubmit="false">
@@ -98,7 +98,7 @@
 							<td width="12%" class="formLabel">
 								#{msg.qcTool_patientId}
 							</td>
-							<td class="formField">
+							<td class="formField" colspan="2">
 								<ice:inputTextarea id="patientID"
 									value="#{qcToolBean.selectedPatients}" cols="20" rows="4"
 									partialSubmit="false"
@@ -106,6 +106,37 @@
 								</ice:inputTextarea>
 							</td>
 						</tr>
+						<tr>
+				          <td class="formLabel">
+				            #{msg.qctool_sub_date}
+				          </td>
+				          <td class="formField" >
+				            #{msg.date_from}
+				
+				            <ice:selectInputDate id="fromDate"
+				                                 value="#{qcToolBean.fromDate}" 
+				                                 popupDateFormat="MM/dd/yyyy"
+				                                 renderAsPopup="true"
+				                                 partialSubmit="false"
+				                                 style="display:inline">
+				              <f:convertDateTime pattern="MM/dd/yyyy"
+				                                 timeZone="#{qcToolBean.defaultTimeZone}"/>
+				            </ice:selectInputDate>                                                 
+				          </td>
+				          <td class="formField"> 
+				            #{msg.date_to}
+				         
+				            <ice:selectInputDate id="toDate"
+				                                 value="#{qcToolBean.toDate}" 
+				                                 popupDateFormat="MM/dd/yyyy"
+				                                 renderAsPopup="true"
+				                                 partialSubmit="false"
+				                                 style="display:inline">
+				              <f:convertDateTime pattern="MM/dd/yyyy"
+				                                 timeZone="#{qcToolBean.defaultTimeZone}"/>
+				            </ice:selectInputDate>
+				          </td>                  
+				        </tr>						
 						<tr>
 							<td colspan="3" class="formLabel" style="text-align: right">
 								<ice:commandButton id="qcToolSearch" partialSubmit="true"

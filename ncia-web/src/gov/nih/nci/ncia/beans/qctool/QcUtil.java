@@ -34,4 +34,13 @@ public class QcUtil {
     		return false;
     	}
     }
+    
+    /*
+     * returns the maximum number of rows to show in QC Tool Search Results
+     */
+    public static int getMaxNumberOfRowsToShow() {
+    	String retValue = System.getProperty("qctool.search.results.max.number.of.rows");
+    	
+    	return Integer.valueOf(retValue);
+    }
 }

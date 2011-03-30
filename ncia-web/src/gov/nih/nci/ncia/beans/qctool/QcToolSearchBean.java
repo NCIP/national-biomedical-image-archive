@@ -12,9 +12,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.component.UIData;
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 
 import com.icesoft.faces.async.render.SessionRenderer;
+import gov.nih.nci.ncia.beans.qctool.QcUtil;
 
 /**
  *
@@ -40,6 +42,24 @@ public class QcToolSearchBean {
 	public void pageNumberChangeListener(ValueChangeEvent event)
 	{
 		this.getDataTable().setFirst(0);
+		
+		
+		/* To force the UI to show the updated values */
+		if (event.getNewValue() != null ) {
+			PhaseId phaseId = event.getPhaseId();
+			
+	        if (phaseId.equals(PhaseId.ANY_PHASE))
+	        {
+	            event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
+	            event.queue();
+	        }
+	        else if (phaseId.equals(PhaseId.UPDATE_MODEL_VALUES))
+	        {
+	        	String retValue = (String)event.getNewValue();
+	        	
+	        	setSelectedDispItemNum(retValue);
+	        }
+		}
 	}
 
     /**
@@ -89,6 +109,9 @@ public class QcToolSearchBean {
      * This action is called when the submit button is clicked.
      */
     public String submit() throws Exception {
+    	if(qcToolBean.validateDates()!=null) {
+            return null;
+        }
     	//for list box only
  //   	List<String> collectionSites = qcToolBean.getSelectedCollectionNames();
     	List<String> collectionSites = new ArrayList<String>();
@@ -118,7 +141,7 @@ public class QcToolSearchBean {
         }
 
         QcStatusDAO qcStatusDAO = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
-        qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, patients);
+        qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
 
         if (this.getDataTable() != null)
         {
@@ -232,7 +255,7 @@ public class QcToolSearchBean {
     private int notificationHack = 0;
     private UIData dataTable;
 
-    private static final String dateHeader = "Creation Date";
+    private static final String dateHeader = "Submission date";
     private static final String siteHeader = "Collection//Site";
     private static final String patientHeader = "Patient";
     private static final String studyHeader = "Study";
@@ -245,6 +268,8 @@ public class QcToolSearchBean {
     // we only want to resort if the oder or column has changed.
     private String oldSort = sortColumnName;
     private boolean oldAscending = ascending;
+    
+    private int maxRowsToShow = 0; 
 
 //    private boolean descending = true;
 //    private boolean oldDescending = descending;
@@ -358,6 +383,17 @@ public class QcToolSearchBean {
 			searchResult.setSelected(false);
 		}
 		return null;
+	}
+	
+	/**
+	 * returns the max number of rows to show in search results
+	 */
+	public int getMaxRowsToShow() {
+		if( maxRowsToShow == 0 ) {
+			maxRowsToShow = QcUtil.getMaxNumberOfRowsToShow();
+		}
+		
+		return maxRowsToShow;
 	}
 
 }

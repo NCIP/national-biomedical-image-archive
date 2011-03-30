@@ -58,14 +58,16 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		if (sbSOPInstanceUIDList == null){
 			return null;
 		}
-		
-		String sopInstanceList = HqlUtils.buildInClause("", sbSOPInstanceUIDList);
-		
-		String hql = IMAGE_STATEMENT +
-		             " WHERE gi.SOPInstanceUID in " +
-		             sopInstanceList;
-		List<GeneralImage> rs = this.getHibernateTemplate().find(hql);
-		retrievedFileNames = process(rs);
+		if(sbSOPInstanceUIDList.size() > 0)
+		{
+			String sopInstanceList = HqlUtils.buildInClause("", sbSOPInstanceUIDList);
+			
+			String hql = IMAGE_STATEMENT +
+			             " WHERE gi.SOPInstanceUID in " +
+			             sopInstanceList;
+			List<GeneralImage> rs = this.getHibernateTemplate().find(hql);
+			retrievedFileNames = process(rs);
+		}
 		return retrievedFileNames;
 	}
 

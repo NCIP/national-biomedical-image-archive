@@ -86,7 +86,9 @@
 	<target name="test:selenium:run:junit:noguest" depends="compile-selenium-test">
 		<!-- when tests fail the server might not get shut down, thus causing further errors when cmoing back around -->
 		<antcall target="test:seleniumrc:stop"/>
-		<java jar="${selenium.jar}" fork="true" spawn="true"/>
+		<java jar="${selenium.jar}" fork="true" spawn="true">
+      <sysproperty key="DISPLAY" value="${selenium.display}"/>
+    </java>
 		<sleep seconds="15"/>
 		<junit printsummary="on" haltonfailure="off" failureproperty="selenium.failure" maxmemory="256m">
 			<jvmarg value="-Dselenium.url=${selenium.url}"/>

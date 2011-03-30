@@ -23,8 +23,8 @@
           <h:outputText value="#{msg.register_user}"/>
         </h2>
         <div align="center">
-          <span class="style1">
-            <span class="formField">*</span>
+          <span>
+            <span>*</span>
           </span> 
           <h:outputText value="#{msg.register_mandatory}"/>
           <br/>
@@ -67,14 +67,14 @@
                       <h:outputText value="#{msg.register_title}"/>
                     </td>
                     <td width="30%">
-                      <span class="style1">
-                        <span class="formField">*</span>
+                      <span>
+                        <span>*</span>
                       </span> 
                       <h:outputText value="#{msg.register_firstName}"/>
                     </td>               
                     <td width="37%">
-                      <span class="style1">
-                        <span class="formField">*</span>
+                      <span>
+                        <span>*</span>
                       </span>
                       <h:outputText value="#{msg.register_lastName}"/>
                     </td>
@@ -88,7 +88,7 @@
                       </span>
                     </td>
                     <td>
-                      <span class="formField">
+                      <span>
                         <h:inputText id="firstName" 
                                      value="#{registerBean.firstName}"   
                                      maxlength="100" />
@@ -96,7 +96,7 @@
                       </span>
                     </td>                                                                   
                     <td>
-                      <span class="formField">
+                      <span>
                         <h:inputText id="lastName"
                                      value="#{registerBean.lastName}"  
                                      maxlength="100"/>
@@ -132,21 +132,21 @@
                        cellspacing="3">
                   <tr class="formMessage">
                     <td> 
-                      <span class="style1">
-                        <span class="formField">*</span>
+                      <span>
+                        <span>*</span>
                       </span>
                       <h:outputText value="#{msg.register_email}"/>
                     </td>
                     <td>
-                      <span class="style1">
-                        <span class="formField">*</span>
+                      <span>
+                        <span>*</span>
                       </span>
                       <h:outputText value="#{msg.register_phone}"/>
                     </td>                    
                   </tr>
                   <tr>
                     <td valign="top">
-                     <span class="formField">
+                     <span>
                         <h:inputText id="email" 
                                      value="#{registerBean.email}"  
                                      maxlength="100"  />
@@ -154,7 +154,7 @@
                       </span>
                     </td>
                     <td valign="top">
-                      <span class="formField">
+                      <span>
                         <h:inputText id="phone" 
                                      value="#{registerBean.phone}"   
                                      maxlength="15" />
@@ -173,8 +173,8 @@
                   </tr>
                   <tr class="formMessage">
                     <td>
-                      <span class="style1">
-                        <span class="formField">*</span>
+                      <span>
+                        <span>*</span>
                       </span>
                       <h:outputText value="#{msg.register_organization}"/>
                     </td>     
@@ -184,14 +184,14 @@
                   </tr>
                   <tr>
                     <td valign="top">
-                      <span class="formField">
+                      <span>
                         <h:inputText id="org" 
                                      value="#{registerBean.organization}" 
                                      maxlength="100" />
                       </span>
                     </td>
                     <td valign="top">
-                      <span class="formField">                                    
+                      <span>                                    
                         <h:inputText id="fax" 
                                      value="#{registerBean.fax}"  
                                      maxlength="20"/>

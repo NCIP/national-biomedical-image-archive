@@ -10,81 +10,83 @@
 
 
 <ice:form id="collectionDescEditForm" >
-    <br/><br/>
-<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
-  <tr>
-    <td colspan="2">
-      <h2 align="center">
-        <ice:outputText value="Edit Collection Descriptions" />
-      </h2>
+  <br/>
+  <br/>
+  <table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+    <tr>
+      <td colspan="2">
+        <h2 align="center">
+          <ice:outputText value="Edit Collection Descriptions" />
+        </h2>
         
-      <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-          <td class="formMessage">
-                <ice:outputLabel value="Select Collection Name:  " />
-                <ice:selectOneMenu id="collection" 
-                                   tabindex="10"
-                                   partialSubmit="true"
-                                   value="#{collectionDescBean.selectedCollectionName}"
-                                   valueChangeListener="#{collectionDescBean.collectionValueChangeListener}">
-                  <f:selectItems value="#{collectionDescBean.collectionItems}"/>     
-                </ice:selectOneMenu>
-          </td>
-        </tr> 
-        <tr>
-          <td>
-                <br/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <ice:outputLabel value="Collection Name: #{collectionDescBean.selectedCollection.collectionName}"/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <br/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-                <ice:inputRichText id="inputRichTxtId" saveOnSubmit="true" 
-                               height="275"
-                               width="600"
-                               toolbar="NBIAToolbar"
-                               customConfigPath="/js/config.js"
-                               binding="#{collectionDescBean.inputRichText}" 
-                               value="#{collectionDescBean.selectedCollection.description}" 
-                               skin="silver"
-                               />
-          </td>
-        </tr>                 
-        <tr>
-		  <td align="right" >
-		        <ice:commandButton id="edit"
-		          					 image="images/submit.gif" 
-		                             action="#{collectionDescBean.submit}"/>
-		        <f:verbatim>&amp;nbsp;</f:verbatim>
-		        <ice:commandButton image="images/reset.gif"
-		                             action="#{collectionDescBean.reset}" />
-		  </td>
-        </tr> 
-        <tr>
-		  <td align="left" >
-		        <ice:outputLabel id="infoMessage" rendered="#{collectionDescBean.infoMessage}"      
-                                 styleClass="infoLabel" 
-                                 value="#{collectionDescBean.message}"/>
-		  </td>
-        </tr>     
-      </table>
-      <br/>
-      <br/>
-    </td>
-    <td valign="top">
-      <ncia:help label="images/help_icon.png" helpId="edit_collect_descrip_help" />
-    </td>
-  </tr>
-</table>
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td class="formMessage">
+              <ice:outputLabel value="Select Collection Name:  " />
+              <ice:selectOneMenu id="collection" 
+                                 tabindex="10"
+                                 partialSubmit="true"
+                                 value="#{collectionDescBean.selectedCollectionName}"
+                                 valueChangeListener="#{collectionDescBean.collectionValueChangeListener}">
+                <f:selectItems value="#{collectionDescBean.collectionItems}"/>     
+              </ice:selectOneMenu>
+            </td>
+          </tr> 
+          <tr>
+            <td>
+              <br/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ice:outputLabel value="Collection Name: #{collectionDescBean.selectedCollection.collectionName}"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <br/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ice:inputRichText id="inputRichTxtId" 
+                                 saveOnSubmit="true" 
+                                 height="275"
+                                 width="600"
+                                 toolbar="NBIAToolbar"
+                                 customConfigPath="/js/config.js"
+                                 binding="#{collectionDescBean.inputRichText}" 
+                                 value="#{collectionDescBean.selectedCollection.description}" 
+                                 skin="silver"/>
+            </td>
+          </tr>                 
+          <tr>
+            <td align="right" >
+              <ice:commandButton id="edit"
+                                 image="images/submit.gif" 
+                                 action="#{collectionDescBean.submit}"/>
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+              <ice:commandButton image="images/reset.gif"
+                                 action="#{collectionDescBean.reset}" />
+            </td>
+          </tr> 
+          <tr>
+            <td align="left" >
+              <ice:outputLabel id="infoMessage" 
+                               rendered="#{collectionDescBean.infoMessage}"      
+                               styleClass="infoLabel" 
+                               value="#{collectionDescBean.message}"/>
+            </td>
+          </tr>     
+        </table>
+        <br/>
+        <br/>
+      </td>
+      <td valign="top">
+        <ncia:help label="images/help_icon.png" helpId="edit_collect_descrip_help" />
+      </td>
+    </tr>
+  </table>
 
 </ice:form>
 

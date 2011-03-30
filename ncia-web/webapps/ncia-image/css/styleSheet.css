@@ -1,4 +1,4 @@
-
+/* ********************************* BEGIN ELEMENT-BASED RULES ***************************************/
 /* this is a hack for IE6 which doesnt inherit font-size values properly through tables.
    i think other table rules will be more specific and therefore supersede this where necessary */
 table {
@@ -12,21 +12,69 @@ body {
   margin: 0px; 
   padding-top: 0px
 }
+
+a:link {
+  color: #0000CC; 
+  white-space: nowrap; 
+  text-decoration: underline;
+  border:0px;
+}
+
+a:visited {
+  color: #551a8b; 
+  white-space: nowrap; 
+  text-decoration: underline
+}
+
+a:active {
+  color: #0033CC; 
+  white-space: nowrap; 
+  text-decoration: underline; 
+  border:0px;
+}
+
+a:hover {
+  color: #a90101
+}
+
+h2 {
+  font-weight: bold; 
+  font-size: 1.6em; 
+  color: #5c5c5c; 
+  text-align: center
+}
+
+h3 {
+  font-weight: bold; 
+  font-size: 1.3em
+}
+
+p {
+  padding-left: 1em
+}
+/* ********************************* END ELEMENT-BASED RULES ***************************************/
+
+
+/* ********************************* BEGIN MAIN LAYOUT RULES ***************************************/
 .hdrBG {
   background-color: #a90101
 }
+
 .subhdrBG {
   background-color: #475b82
 }
+
 .ftrTable {
   padding-top: 0.4em
 }
+
 td.mainMenu {
   border-top: #cccccc 1px solid; 
   border-bottom: #cccccc 1px solid; 
   font-family: arial,helvetica,verdana,sans-serif; 
   background-color: #5c5c5c;
 }
+
 td.mainMenuItem {
   padding-right: 1em; 
   padding-left: 1em; 
@@ -34,6 +82,7 @@ td.mainMenuItem {
   font-size: 0.6em; 
   background-color: #5c5c5c;
 }
+
 td.mainMenuItemOver {
   padding-right: 1em; 
   padding-left: 1em; 
@@ -41,6 +90,7 @@ td.mainMenuItemOver {
   font-size: 0.6em; 
   background-color: #475b82
 }
+
 td.mainMenuText {
   padding-right: 1em; 
   padding-left: 1em; 
@@ -48,12 +98,14 @@ td.mainMenuText {
   font-size: 0.6em; 
   color: white;
 }
+
 td.footerMenu {
   border-top: #cccccc 1px solid; 
   border-bottom: #cccccc 1px solid; 
   font-family: arial,helvetica,verdana,sans-serif; 
   background-color: #5c5c5c
 }
+
 td.footerMenuItem {
   padding-right: 1em; 
   padding-left: 1em; 
@@ -61,6 +113,7 @@ td.footerMenuItem {
   font-size: 0.6em; 
   background-color: #5c5c5c
 }
+
 td.footerMenuItemOver {
   padding-right: 1em; 
   padding-left: 1em; 
@@ -68,10 +121,12 @@ td.footerMenuItemOver {
   font-size: 0.6em; 
   background-color: #475b82
 }
+
 td.subMenu {
   font-family: arial,helvetica,verdana,sans-serif; 
   background-color: #6e81a6
 }
+
 td.subMenuPrimaryTitle {
   border-right: #cccccc 1px solid; 
   border-top: #cccccc 1px solid; 
@@ -82,6 +137,7 @@ td.subMenuPrimaryTitle {
   border-bottom: #cccccc 1px solid; 
   background-color: #5c5c5c
 }
+
 td.subMenuPrimaryItems {
   border-right: #cccccc 1px solid; 
   padding-left: 0.3em; 
@@ -91,6 +147,7 @@ td.subMenuPrimaryItems {
   padding-top: 0.8em; 
   background-color: #ffffff
 }
+
 td.subMenuSecondaryTitle {
   border-right: #cccccc 1px solid; 
   padding-left: 0.8em; 
@@ -100,6 +157,7 @@ td.subMenuSecondaryTitle {
   border-bottom: #cccccc 1px solid; 
   background-color: #6e81a6
 }
+
 td.subMenuSecondaryTitleOver {
   border-right: #cccccc 1px solid; 
   padding-left: 0.8em; 
@@ -109,6 +167,7 @@ td.subMenuSecondaryTitleOver {
   border-bottom: #cccccc 1px solid; 
   background-color: #475b82
 }
+
 td.subMenuFill {
   border-right: #cccccc 1px solid
 }
@@ -123,117 +182,73 @@ td.subMenuFill {
   margin-right: auto;
   font-family: arial,helvetica,verdana,sans-serif;
 }
-a:link {
-  color: #0000CC; 
-  white-space: nowrap; 
-  text-decoration: underline;
-  border:0px;
-}
-a:visited {
-  color: #551a8b; 
-  white-space: nowrap; 
-  text-decoration: underline
-}
-a:active {
-  color: #0033CC; 
-  white-space: nowrap; 
-  text-decoration: underline; 
-  border:0px;
-}
-a:hover {
-  color: #a90101
-}
+
 a.subMenuPrimary:link {
   color: #5c5c5c; 
   white-space: nowrap; 
   text-decoration: underline
 }
+
 a.subMenuPrimary:visited {
   color: #5c5c5c; 
   white-space: nowrap; 
   text-decoration: underline
 }
+
 a.subMenuPrimary:active {
   color: #5c5c5c; 
   white-space: nowrap; 
   text-decoration: underline
 }
+
 a.subMenuPrimary:hover {
   color: #a90101
 }
-a.subMenuSecondary:link {
-  color: #ffffff; 
-  white-space: nowrap; 
-  text-decoration: none
-}
-a.subMenuSecondary:visited {
-  color: #ffffff; 
-  white-space: nowrap; 
-  text-decoration: none
-}
-a.subMenuSecondary:active {
-  color: #ffffff; 
-  white-space: nowrap; 
-  text-decoration: none
-}
-a.subMenuSecondary:hover {
-  color: #ffffff
-}
+
 a.mainMenuLink:link {
   color: #ffffff; 
   white-space: nowrap; 
   text-decoration: none
 }
+
 a.mainMenuLink:visited {
   color: #ffffff; 
   white-space: nowrap; 
   text-decoration: none
 }
+
 a.mainMenuLink:active {
   color: #ffffff; 
   white-space: nowrap; 
   text-decoration: none
 }
+
 a.mainMenuLink:hover {
   color: #ffffff
 }
+
 a.footerMenuLink:link {
   color: #ffffff; 
   white-space: nowrap; 
   text-decoration: none
 }
+
 a.footerMenuLink:visited {
   color: #ffffff; 
   white-space: nowrap; 
   text-decoration: none
 }
+
 a.footerMenuLink:active {
   color: #ffffff; 
   white-space: nowrap; 
   text-decoration: none
 }
+
 a.footerMenuLink:hover {
   color: #ffffff
 }
-a.dataPagingLink:link {
-  color: #5c5c5c; 
-  white-space: nowrap; 
-  text-decoration: underline
-}
-a.dataPagingLink:visited {
-  color: #5c5c5c; 
-  white-space: nowrap; 
-  text-decoration: underline
-}
-a.dataPagingLink:active {
-  color: #5c5c5c; 
-  white-space: nowrap; 
-  text-decoration: underline
-}
-a.dataPagingLink:hover {
-  color: #a90101; 
-  text-decoration: underline
-}
+/* ********************************* END MAIN LAYOUT RULES ***************************************/
 
 .errorLabel {
   color: red; 
@@ -476,34 +491,6 @@ table.contentPageII {
   font-family: arial,helvetica,verdana,sans-serif
 }
 
-h2 {
-  font-weight: bold; 
-  font-size: 1.6em; 
-  color: #5c5c5c; 
-  text-align: center
-}
-.h2 {
-  font-weight: bold; 
-  font-size: 1.6em; 
-  color: #5c5c5c; 
-  text-align: center
-}
-
-h3 {
-  font-weight: bold; 
-  font-size: 1.3em
-}
-.h3 {
-  font-weight: bold; 
-  font-size: 1.3em
-}
-p {
-  padding-left: 1em
-}
-.p {
-  padding-left: 1em
-}
-
 .bannerHome {
   border-right: #cccccc 1px solid; 
   background-color: #475b82
@@ -532,13 +519,6 @@ img.img {
   border-top: #5c5c5c 1px solid; 
   border-left: #5c5c5c 1px solid; 
   border-bottom: #5c5c5c 1px solid
-}
-
-.text {
-  font-weight: normal; 
-  font-size: 11px; 
-  color: #000000; 
-  font-family: Arial, Helvetica
 }
 
 .formTitleII {  
@@ -743,14 +723,6 @@ img.img {
   color:#FFFFFF;
   border: #5c5c5c 1px solid;    
 }
-
-#downloadMgrTableCell img {
-  border: 0px;
-  
-  /* the input elements that are images dont seem to line up.  this is a hack to line them up */ 
-  margin-top: 0px;
-}
-
 
 /* begin - stolen from caNanoLab - dropped relative font stuff */
 .submissionView {

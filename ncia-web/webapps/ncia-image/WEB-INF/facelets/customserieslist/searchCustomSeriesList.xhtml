@@ -19,205 +19,206 @@
           <ice:outputText value="Search Shared List" />
         </h2>
         <ice:form id="searchCustomSeriesListForm">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-          <tr>
-            <td style="width:140px">
-              <ice:outputLabel for="name" value="Shared List Name: "/>
-            </td>
-            <td colspan="5">
-              <ice:inputText id="name" 
-                             required="true" 
-                             immediate="true"
-                             value="#{searchCustomSeriesListBean.name}"
-                             size="110"
-                             styleClass="formField"/>
-              <br/>
-              <h:message id="nameError" for="name" infoClass="infoLabel"/>
-            </td>
-          </tr>
-              
-          <tr>
-            <td colspan="6" align="right" >
-              <ice:commandButton id="search"
-                                 image="images/submit.gif" 
-                                 action="#{searchCustomSeriesListBean.search}"/>
-              <f:verbatim>&amp;nbsp;</f:verbatim>
-              <ice:commandButton image="images/reset.gif"
-                                 action="#{searchCustomSeriesListBean.reset}" />
-            </td>
-          </tr>          
-          <tr>
-            <td colspan="6" align="left">
-              <ice:outputLabel id="infoMessage" 
-                               for="search" 
-                               rendered="#{searchCustomSeriesListBean.errorMessage}"
-                               infoClass="errorLabel" 
-                               styleClass="infoLabel" 
-                               value="#{searchCustomSeriesListBean.message}"/>
-            </td>
-          </tr>
-        </table>
-        </ice:form>
-        <br/>
-		<ice:form id="sharedListForm">
-        <f:subview id="seriesUidCannotSeeView" 
-                   rendered="#{not empty searchCustomSeriesListBean.noPermissionSeries}">
-          <table width="100%" border="0" cellspacing="0">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <tr>
-              <td colspan="6">
-                <ice:panelCollapsible expanded="true" 
-                                      rendered="true">
-                  <f:facet name="header">
-                    <ice:panelGroup>
-                      <ice:outputText value="You do not have sufficient permission to view the selected list Series Instance UIDs (#{searchCustomSeriesListBean.selectedListName}). Please contact application support for assistance." 
-                                      style="margin-left:auto;margin-right:auto"/>
-                    </ice:panelGroup>
-                  </f:facet> 
-                  <ice:dataTable id="seriesNoPermissionDataTable"
-                                 width="750"
-                                 scrollable="true"
-                                 scrollFooter="false"
-                                 scrollHeight="150"
-                                 styleClass="dataTable"
-                                 headerClass="dataTableHeader"
-                                 value="#{searchCustomSeriesListBean.noPermissionSeries}"
-                                 rowClasses="dataRowLight, dataRowDark"
-                                 var="seriesInstanceUid" > 
-                    <ice:column id="seriesIdColumn">
-                      <ice:outputText value="#{seriesInstanceUid}" />
-                    </ice:column>
-                  </ice:dataTable>
-                </ice:panelCollapsible>
+              <td style="width:140px">
+                <ice:outputLabel for="name" value="Shared List Name: "/>
+              </td>
+              <td colspan="5">
+                <ice:inputText id="name" 
+                               required="true" 
+                               immediate="true"
+                               value="#{searchCustomSeriesListBean.name}"
+                               size="110"
+                               styleClass="formField"/>
+                <br/>
+                <h:message id="nameError" for="name" infoClass="infoLabel"/>
+              </td>
+            </tr>
+              
+            <tr>
+              <td colspan="6" align="right" >
+                <ice:commandButton id="search"
+                                   image="images/submit.gif" 
+                                   action="#{searchCustomSeriesListBean.search}"/>
+                <f:verbatim>&amp;nbsp;</f:verbatim>
+                <ice:commandButton image="images/reset.gif"
+                                   action="#{searchCustomSeriesListBean.reset}" />
+              </td>
+            </tr>          
+            <tr>
+              <td colspan="6" align="left">
+                <ice:outputLabel id="infoMessage" 
+                                 for="search" 
+                                 rendered="#{searchCustomSeriesListBean.errorMessage}"
+                                 infoClass="errorLabel" 
+                                 styleClass="infoLabel" 
+                                 value="#{searchCustomSeriesListBean.message}"/>
               </td>
             </tr>
           </table>
-        </f:subview>
+        </ice:form>
+        <br/>
+        <ice:form id="sharedListForm">
+          <f:subview id="seriesUidCannotSeeView" 
+                     rendered="#{not empty searchCustomSeriesListBean.noPermissionSeries}">
+            <table width="100%" border="0" cellspacing="0">
+              <tr>
+                <td colspan="6">
+                  <ice:panelCollapsible expanded="true" 
+                                        rendered="true">
+                    <f:facet name="header">
+                      <ice:panelGroup>
+                        <ice:outputText value="You do not have sufficient permission to view the selected list Series Instance UIDs (#{searchCustomSeriesListBean.selectedListName}). Please contact application support for assistance." 
+                                        style="margin-left:auto;margin-right:auto"/>
+                      </ice:panelGroup>
+                    </f:facet> 
+                    <ice:dataTable id="seriesNoPermissionDataTable"
+                                   width="750"
+                                   scrollable="true"
+                                   scrollFooter="false"
+                                   scrollHeight="150"
+                                   styleClass="dataTable"
+                                   headerClass="dataTableHeader"
+                                   value="#{searchCustomSeriesListBean.noPermissionSeries}"
+                                   rowClasses="dataRowLight, dataRowDark"
+                                   var="seriesInstanceUid" > 
+                      <ice:column id="seriesIdColumn">
+                        <ice:outputText value="#{seriesInstanceUid}" />
+                      </ice:column>
+                    </ice:dataTable>
+                  </ice:panelCollapsible>
+                </td>
+              </tr>
+            </table>
+          </f:subview>
         
-        <f:subview rendered="#{not empty searchCustomSeriesListBean.results}">
+          <f:subview rendered="#{not empty searchCustomSeriesListBean.results}">
               
-                <table width="100%" border="0" cellspacing="0">
-                   <tr>
-                      <td colspan="2">
-                          <ice:outputLabel id="msgNote" styleClass="formMessage" value="Note:" />
-                            <ice:outputText id="infoMsg" 
-                              infoClass="infoLabel" 
-                              styleClass="formMessage" 
-                              value="Click on the list name to add to the data basket. Please clear the basket if you only want to see data from the list."/>
-                      </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <ice:outputLabel for="SlctDispItemNum"  value="Results Per Page: "/>
-                      <ice:selectOneMenu id="SlctDispItemNum"
-                                         valueChangeListener="#{searchCustomSeriesListBean.numberChangeListener}"
-                                         value="#{searchCustomSeriesListBean.selectedDispItemNum}"
-                                         partialSubmit="true">
-                        <f:selectItems id="SlctDispItemNums" value="#{searchCustomSeriesListBean.dispItemNums}"/>
-                      </ice:selectOneMenu>
-                    </td>
-                    <td align="right">
-                      <ice:dataPaginator id="scroll_2"
+            <table width="100%" border="0" cellspacing="0">
+              <tr>
+                <td colspan="2">
+                  <ice:outputLabel id="msgNote" styleClass="formMessage" value="Note:" />
+                  <ice:outputText id="infoMsg" 
+                                  infoClass="infoLabel" 
+                                  styleClass="formMessage" 
+                                 value="Click on the list name to add to the data basket. Please clear the basket if you only want to see data from the list."/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <ice:outputLabel for="SlctDispItemNum"  value="Results Per Page: "/>
+                  <ice:selectOneMenu id="SlctDispItemNum"
+                                     valueChangeListener="#{searchCustomSeriesListBean.numberChangeListener}"
+                                     value="#{searchCustomSeriesListBean.selectedDispItemNum}"
+                                     partialSubmit="true">
+                    <f:selectItems id="SlctDispItemNums" value="#{searchCustomSeriesListBean.dispItemNums}"/>
+                  </ice:selectOneMenu>
+                </td>
+                <td align="right">
+                  <ice:dataPaginator id="scroll_2"
+                                     for="data"
+                                     rowsCountVar="rowsCount"
+                                     displayedRowsCountVar="displayedRowsCountVar"
+                                     firstRowIndexVar="firstRowIndex"
+                                     lastRowIndexVar="lastRowIndex"
+                                     pageCountVar="pageCount"
+                                     pageIndexVar="pageIndex">
+                    <ice:outputFormat value="{0} list found, displaying {1} records, from {2} to {3}. Page {4} / {5}" 
+                                      styleClass="standard" >
+                      <f:param value="#{rowsCount}" />
+                      <f:param value="#{displayedRowsCountVar}" />
+                      <f:param value="#{firstRowIndex}" />
+                      <f:param value="#{lastRowIndex}" />
+                      <f:param value="#{pageIndex}" />
+                      <f:param value="#{pageCount}" />
+                    </ice:outputFormat>
+                  </ice:dataPaginator>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="6">
+                  <ice:dataTable id="data" 
+                                 resizable="true" 
+                                 rendered="#{not empty searchCustomSeriesListBean.results}"
+                                 width="100%" 
+                                 border="1" 
+                                 cellpadding="0" 
+                                 cellspacing="0" 
+                                 styleClass="dataTable" 
+                                 headerClass="dataTableHeader" 
+                                 value="#{searchCustomSeriesListBean.results}"
+                                 binding="#{searchCustomSeriesListBean.table}"
+                                 rowClasses="dataRowLight, dataRowDark" 
+                                 var="item" 
+                                 rows="#{searchCustomSeriesListBean.selectedDispItemNum}">
+                    <ice:column id="name">
+                      <f:facet name="header">
+                        <ice:outputText value="Name" />  
+                      </f:facet>
+                      <ice:commandLink value="#{item.name}" 
+                                       action="#{searchCustomSeriesListBean.navToBasket}"
+                                       actionListener="#{searchCustomSeriesListBean.namedDetailsClicked}" />
+                    </ice:column>
+                    <ice:column id="comment">
+                      <f:facet name="header">  
+                        <ice:outputText value="Comment" /> 
+                      </f:facet>
+                      <ice:outputText value="#{item.comment}" />
+                    </ice:column>
+                    <ice:column id="date">
+                      <f:facet name="header">  
+                        <ice:outputText value="Date" /> 
+                      </f:facet>
+                      <ice:outputText value="#{item.dateString}" />
+                    </ice:column>
+                    <ice:column id="link">
+                      <f:facet name="header"> 
+                        <ice:outputText value="Hyperlink" />
+                      </f:facet>
+                      <ice:outputLink value="#{item.hyperlink}" target="_blank">
+                        <ice:outputText value="#{item.hyperlink}" />
+                      </ice:outputLink>
+                    </ice:column>
+                  </ice:dataTable>
+                  <center>
+                    <ice:panelGrid columns="1" 
+                                   styleClass="scrollerTable2" 
+                                   columnClasses="standardTable_ColumnCentered">
+                      <ice:dataPaginator id="scroll_1"
                                          for="data"
-                                         rowsCountVar="rowsCount"
-                                         displayedRowsCountVar="displayedRowsCountVar"
-                                         firstRowIndexVar="firstRowIndex"
-                                         lastRowIndexVar="lastRowIndex"
+                                         fastStep="#{searchCustomSeriesListBean.selectedDispItemNum}"
                                          pageCountVar="pageCount"
-                                         pageIndexVar="pageIndex">
-                        <ice:outputFormat value="{0} list found, displaying {1} records, from {2} to {3}. Page {4} / {5}" 
-                                          styleClass="standard" >
-                          <f:param value="#{rowsCount}" />
-                          <f:param value="#{displayedRowsCountVar}" />
-                          <f:param value="#{firstRowIndex}" />
-                          <f:param value="#{lastRowIndex}" />
-                          <f:param value="#{pageIndex}" />
-                          <f:param value="#{pageCount}" />
-                        </ice:outputFormat>
+                                         pageIndexVar="pageIndex"
+                                         paginator="true"
+                                         renderFacetsIfSinglePage="false"
+                                         paginatorMaxPages="20">
+                        <f:facet name="first">
+                          <ice:graphicImage url="images/arrow-first.gif" style="border:none;"/>
+                        </f:facet> 
+                        <f:facet name="last">
+                          <ice:graphicImage url="images/arrow-last.gif" style="border:none;"/>
+                        </f:facet> 
+                        <f:facet name="previous">
+                          <ice:graphicImage url="images/arrow-previous.gif" style="border:none;" />
+                        </f:facet> 
+                        <f:facet name="next">
+                          <ice:graphicImage url="images/arrow-next.gif" style="border:none;" />
+                        </f:facet> 
+                        <f:facet name="fastforward">
+                          <ice:graphicImage url="images/arrow-ff.gif" style="border:none;" />
+                        </f:facet> 
+                        <f:facet name="fastrewind">
+                          <ice:graphicImage url="images/arrow-fr.gif" style="border:none;" /> 
+                        </f:facet> 
                       </ice:dataPaginator>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="6">
-                      <ice:dataTable id="data" 
-                                     resizable="true" 
-                                     rendered="#{not empty searchCustomSeriesListBean.results}"
-                                     width="100%" 
-                                     border="1" 
-                                     cellpadding="0" 
-                                     cellspacing="0" 
-                                     styleClass="dataTable" 
-                                     headerClass="dataTableHeader" 
-                                     value="#{searchCustomSeriesListBean.results}"
-                                     binding="#{searchCustomSeriesListBean.table}"
-                                     rowClasses="dataRowLight, dataRowDark" 
-                                     var="item" 
-                                     rows="#{searchCustomSeriesListBean.selectedDispItemNum}">
-                        <ice:column id="name">
-                          <f:facet name="header">
-                            <ice:outputText value="Name" />  
-                          </f:facet>
-                          <ice:commandLink value="#{item.name}" action="#{searchCustomSeriesListBean.navToBasket}"
-                                           actionListener="#{searchCustomSeriesListBean.namedDetailsClicked}" />
-                        </ice:column>
-                        <ice:column id="comment">
-                          <f:facet name="header">  
-                            <ice:outputText value="Comment" /> 
-                          </f:facet>
-                          <ice:outputText value="#{item.comment}" />
-                        </ice:column>
-                        <ice:column id="date">
-                          <f:facet name="header">  
-                            <ice:outputText value="Date" /> 
-                          </f:facet>
-                          <ice:outputText value="#{item.dateString}" />
-                        </ice:column>
-                        <ice:column id="link">
-                          <f:facet name="header"> 
-                            <ice:outputText value="Hyperlink" />
-                          </f:facet>
-                          <ice:outputLink value="#{item.hyperlink}" target="_blank">
-                            <ice:outputText value="#{item.hyperlink}" />
-                          </ice:outputLink>
-                        </ice:column>
-                      </ice:dataTable>
-                      <center>
-                        <ice:panelGrid columns="1" 
-                                       styleClass="scrollerTable2" 
-                                       columnClasses="standardTable_ColumnCentered">
-                          <ice:dataPaginator id="scroll_1"
-                                             for="data"
-                                             fastStep="#{searchCustomSeriesListBean.selectedDispItemNum}"
-                                             pageCountVar="pageCount"
-                                             pageIndexVar="pageIndex"
-                                             paginator="true"
-                                             renderFacetsIfSinglePage="false"
-                                             paginatorMaxPages="20">
-                            <f:facet name="first">
-                              <ice:graphicImage url="images/arrow-first.gif" style="border:none;"/>
-                            </f:facet> 
-                            <f:facet name="last">
-                              <ice:graphicImage url="images/arrow-last.gif" style="border:none;"/>
-                            </f:facet> 
-                            <f:facet name="previous">
-                              <ice:graphicImage url="images/arrow-previous.gif" style="border:none;" />
-                            </f:facet> 
-                            <f:facet name="next">
-                              <ice:graphicImage url="images/arrow-next.gif" style="border:none;" />
-                            </f:facet> 
-                            <f:facet name="fastforward">
-                              <ice:graphicImage url="images/arrow-ff.gif" style="border:none;" />
-                            </f:facet> 
-                            <f:facet name="fastrewind">
-                              <ice:graphicImage url="images/arrow-fr.gif" style="border:none;" /> 
-                            </f:facet> 
-                          </ice:dataPaginator>
-                        </ice:panelGrid>
-                      </center>
-                    </td>
-                  </tr>
-                </table>              
-            </f:subview>
-          </ice:form>     
+                    </ice:panelGrid>
+                  </center>
+                </td>
+              </tr>
+            </table>              
+          </f:subview>
+        </ice:form>     
         <br/>
         <br/>
       </td>

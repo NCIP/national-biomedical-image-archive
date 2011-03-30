@@ -33,7 +33,7 @@
               <td>
                 <div align="center">
                  <b><h:outputText rendered="#{seriesDeletionBean.totalSeriesAffectPerormance ge 15}"
-                 	value="There are more than 15 series will be removed. It might slow down NBIA application performance." /></b>
+                   value="There are more than 15 series will be removed. It might slow down NBIA application performance." /></b>
                 </div>
               </td>
             </tr>
@@ -41,15 +41,15 @@
         </td>
       </tr>
       <tr>
-      	<td>
-      		<ice:outputText id="msg" value="The following series have been approved for deletion."
-      		 rendered="#{not seriesDeletionBean.showNoSeriesMessage}"/>
-		</td>
+        <td>
+          <ice:outputText id="msg" value="The following series have been approved for deletion."
+           rendered="#{not seriesDeletionBean.showNoSeriesMessage}"/>
+        </td>
       </tr>
       <tr>
         <td>
           <ice:dataTable value="#{seriesDeletionBean.displayObject}"
-          				 id="deletedSeriesTable"
+                         id="deletedSeriesTable"
                          var="item"
                          rows="10"
                          rendered="#{not seriesDeletionBean.showNoSeriesMessage}"
@@ -92,56 +92,56 @@
         </td>
       </tr>
       <tr align="center">
-      <td align="center">
-		  <ice:dataPaginator id="dataScroll_1"
-		                     for="deletedSeriesTable"
-		                     fastStep="2"
-		                     paginator="true"
-		                     paginatorMaxPages="4"
-		                     rendered="#{seriesDeletionBean.showNavigationBar}">
-		    <f:facet name="first">
-		      <ice:graphicImage id="firstpage_1"
-		                        url="/xmlhttp/css/rime/css-images/arrow-first.gif"
-		                        style="border:none;"/>
-		    </f:facet>
-		    <f:facet name="last">
-		      <ice:graphicImage id="lastpage_1"
-		                        url="/xmlhttp/css/rime/css-images/arrow-last.gif"
-		                        style="border:none;"/>
-		    </f:facet>
-		    <f:facet name="previous">
-		      <ice:graphicImage id="previouspage_1"
-		                        url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
-		                        style="border:none;"/>
-		    </f:facet>
-		    <f:facet name="next">
-		      <ice:graphicImage id="nextpage_1"
-		                        url="/xmlhttp/css/rime/css-images/arrow-next.gif"
-		                        style="border:none;"/>
-		    </f:facet>
-		    <f:facet name="fastforward">
-		      <ice:graphicImage id="fastforward_1"
-		                        url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
-		                        style="border:none;"/>
-		    </f:facet>
-		    <f:facet name="fastrewind">
-		      <ice:graphicImage id="fastrewind_1"
-		                        url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
-		                        style="border:none;"/>
-		    </f:facet>
-		  </ice:dataPaginator>
-      </td>
+        <td align="center">
+          <ice:dataPaginator id="dataScroll_1"
+                             for="deletedSeriesTable"
+                             fastStep="2"
+                             paginator="true"
+                             paginatorMaxPages="4"
+                             rendered="#{seriesDeletionBean.showNavigationBar}">
+            <f:facet name="first">
+              <ice:graphicImage id="firstpage_1"
+                                url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+                                style="border:none;"/>
+            </f:facet>
+            <f:facet name="last">
+              <ice:graphicImage id="lastpage_1"
+                                url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+                                style="border:none;"/>
+            </f:facet>
+            <f:facet name="previous">
+              <ice:graphicImage id="previouspage_1"
+                                url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+                                style="border:none;"/>
+            </f:facet>
+            <f:facet name="next">
+              <ice:graphicImage id="nextpage_1"
+                                url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+                                style="border:none;"/>
+            </f:facet>
+            <f:facet name="fastforward">
+              <ice:graphicImage id="fastforward_1"
+                                url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+                                style="border:none;"/>
+            </f:facet>
+            <f:facet name="fastrewind">
+              <ice:graphicImage id="fastrewind_1"
+                                url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+                                style="border:none;"/>
+            </f:facet>
+          </ice:dataPaginator>
+        </td>
       </tr>
       <tr>
         <td align="right" >
           <ice:commandButton id="submission"
-          					 image="images/submit.gif" 
-          					 rendered="#{not seriesDeletionBean.showNoSeriesMessage}"
+                             image="images/submit.gif" 
+                             rendered="#{not seriesDeletionBean.showNoSeriesMessage}"
                              action="#{seriesDeletionBean.removeSeries}"
                              onclick="if (!confirmDelete()){return false;};"/>
         </td>
       </tr>
-       <tr>
+      <tr>
         <td>
           <div id="notification" style="display: none;">
             <img src="images/ajax_indicator.gif" 
@@ -155,14 +155,20 @@
       </tr>
     </table>
     <ice:panelGroup rendered="#{seriesDeletionBean.showNoSeriesMessage}">
-          <br/><br/>   
-    	  <table border="2" width="40%">
-		  <tr><td align="center">	
-          <font size="2" color="darkblue"><b><ice:outputLabel id="noDeletion"
-          				    value="There are no series that need to be deleted"
-          				    /> </b></font>
-          </td></tr>
-          </table>	
+      <br/>
+      <br/>   
+      <table border="2" width="40%">
+        <tr>
+          <td align="center">  
+            <font size="2" color="darkblue">
+              <b>
+                <ice:outputLabel id="noDeletion"
+                                 value="There are no series that need to be deleted"/> 
+              </b>
+            </font>
+          </td>
+        </tr>
+      </table>  
     </ice:panelGroup>
   </ice:form>
 </div>

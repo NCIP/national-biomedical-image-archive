@@ -483,13 +483,6 @@ table.contentPageII {
 }
 /* ********************************* END WELCOME/HOME RULES ***************************************/
 
-img.img {
-  border-right: #5c5c5c 1px solid; 
-  border-top: #5c5c5c 1px solid; 
-  border-left: #5c5c5c 1px solid; 
-  border-bottom: #5c5c5c 1px solid
-}
-
 .formTitleII {  
   font-family:arial,helvetica,verdana,sans-serif;
   font-weight:bold;

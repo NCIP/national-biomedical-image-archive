@@ -4,6 +4,7 @@ import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
+import gov.nih.nci.ncia.util.DateValidator;
 import gov.nih.nci.ncia.util.JsfUtil;
 import gov.nih.nci.ncia.util.SelectItemComparator;
 import gov.nih.nci.ncia.util.SiteData;
@@ -13,7 +14,12 @@ import gov.nih.nci.ncia.qctool.VisibilityStatus;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**
@@ -165,6 +171,8 @@ public class QcToolBean {
     	String[] defaultCheckBoxLable = { "Not Yet Reviewed"  };
     	buttonLabel="Update";
         setSelectedQcStatus(defaultCheckBoxLable);
+        setFromDate(null);
+        setToDate(null);
     	return "qcTool";
     }
 
@@ -187,7 +195,55 @@ public class QcToolBean {
 	public List<String> getAuthCollectionList(){
 		return 	collectionNames;
 	}
-    /////////////////////////////////////PRIVATE////////////////////////////////
+	
+	
+    public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+	
+	/**
+     * This is to help workaround the timezone stuff in the calendar
+     * that uses GMT and causes days to be off
+     */
+    public TimeZone getDefaultTimeZone() {
+        return TimeZone.getDefault();
+    }
+    
+    /**
+     * Validate the date fields.  The dates should already
+     * be validated individually by the calender component
+     * by the time we are here.  This method is for validating
+     * the relationships between the dates and submission time.
+     */
+    public String validateDates() {
+    	if( fromDate == null && toDate == null ) {
+    		return null;
+    	}
+        DateValidator dateValidator = new DateValidator();
+        String result = dateValidator.validateDates(fromDate, toDate, true) ;
+
+        if(result!=null) {
+            FacesMessage facesMessage = new FacesMessage("Date Invalid: "+result);
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage("error", facesMessage);
+        }
+        return result;
+    }
+
+
+	/////////////////////////////////////PRIVATE////////////////////////////////
     private List<SelectItem> authorizedProjectsSitesSelectItems = new ArrayList<SelectItem>();
 
     /**
@@ -200,6 +256,8 @@ public class QcToolBean {
     private String buttonLabel="Update";
     private List<String> collectionNames = new ArrayList<String>();
     private String selectedCollectionSite;
+    private Date fromDate;
+    private Date toDate;
 
 
 }

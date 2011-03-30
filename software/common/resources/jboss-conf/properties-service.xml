@@ -172,6 +172,7 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   	qctool.search.results.per.page.option.6=10000
 
   	qctool.search.results.check.uncheck.option=1
+  	qctool.search.results.max.number.of.rows=100000
   </attribute>
 
   <attribute name="Properties">show.collection.search.criteria=@show.collection.search.criteria@</attribute>

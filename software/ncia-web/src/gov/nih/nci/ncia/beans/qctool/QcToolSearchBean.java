@@ -16,7 +16,7 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 
 import com.icesoft.faces.async.render.SessionRenderer;
-import gov.nih.nci.ncia.beans.qctool.QcUtil;
+
 
 /**
  *
@@ -42,12 +42,12 @@ public class QcToolSearchBean {
 	public void pageNumberChangeListener(ValueChangeEvent event)
 	{
 		this.getDataTable().setFirst(0);
-		
-		
+
+
 		/* To force the UI to show the updated values */
 		if (event.getNewValue() != null ) {
 			PhaseId phaseId = event.getPhaseId();
-			
+
 	        if (phaseId.equals(PhaseId.ANY_PHASE))
 	        {
 	            event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
@@ -56,7 +56,7 @@ public class QcToolSearchBean {
 	        else if (phaseId.equals(PhaseId.UPDATE_MODEL_VALUES))
 	        {
 	        	String retValue = (String)event.getNewValue();
-	        	
+
 	        	setSelectedDispItemNum(retValue);
 	        }
 		}
@@ -268,8 +268,8 @@ public class QcToolSearchBean {
     // we only want to resort if the oder or column has changed.
     private String oldSort = sortColumnName;
     private boolean oldAscending = ascending;
-    
-    private int maxRowsToShow = 0; 
+
+    private int maxRowsToShow = 0;
 
 //    private boolean descending = true;
 //    private boolean oldDescending = descending;
@@ -384,7 +384,7 @@ public class QcToolSearchBean {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * returns the max number of rows to show in search results
 	 */
@@ -392,7 +392,7 @@ public class QcToolSearchBean {
 		if( maxRowsToShow == 0 ) {
 			maxRowsToShow = QcUtil.getMaxNumberOfRowsToShow();
 		}
-		
+
 		return maxRowsToShow;
 	}
 

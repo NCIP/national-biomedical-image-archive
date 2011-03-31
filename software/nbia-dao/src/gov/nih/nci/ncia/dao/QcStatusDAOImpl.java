@@ -30,7 +30,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 			                                  String[] patients) throws DataAccessException {
 		return findSeries(qcStatus, collectionSites, patients, null, null, 100000);
 	}
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
 			                                  List<String> collectionSites,
@@ -47,7 +47,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 		String whereStmt = " WHERE " +
 		                   computeVisibilityCriteria(qcStatus) +
 		                   computeCollectionCriteria(collectionSites) +
-		                   computePatientCriteria(patients) + 
+		                   computePatientCriteria(patients) +
 		                   computeSubmissionDateCriteria(fromDate, toDate);
 
 		List<QcSearchResultDTO> searchResultDtos = new ArrayList<QcSearchResultDTO>();
@@ -55,7 +55,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 		String hql = selectStmt + fromStmt + whereStmt;
 
 //		List<Object[]> searchResults = getHibernateTemplate().find(hql);
-		
+
 		SessionFactory sf = getHibernateTemplate().getSessionFactory();
 		Session s = sf.getCurrentSession();
 		Query q = s.createQuery(hql);
@@ -151,12 +151,12 @@ public class QcStatusDAOImpl extends AbstractDAO
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		// add a day to toDate because Oracle between command does not include the toDate
-		Calendar cal = Calendar.getInstance(); 
+		Calendar cal = Calendar.getInstance();
 		cal.setTime(toDate);
-		cal.add( Calendar.DATE, 1 ); 
+		cal.add( Calendar.DATE, 1 );
 		toDate = cal.getTime();
-		
-		StringBuffer sb = new StringBuffer(48);
+
+		StringBuffer sb = new StringBuffer(49);
 		sb.append( " and gs.maxSubmissionTimestamp between '" );
 		sb.append( dateFormat.format(fromDate) );
 		sb.append( "' and '" );

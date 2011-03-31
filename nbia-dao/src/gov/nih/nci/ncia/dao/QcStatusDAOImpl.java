@@ -156,12 +156,12 @@ public class QcStatusDAOImpl extends AbstractDAO
 		cal.add( Calendar.DATE, 1 ); 
 		toDate = cal.getTime();
 		
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(48);
 		sb.append( " and gs.maxSubmissionTimestamp between '" );
 		sb.append( dateFormat.format(fromDate) );
 		sb.append( "' and '" );
 		sb.append(dateFormat.format(toDate) );
-		sb.append( "'" );
+		sb.append( '\'' );
 
 		return sb.toString();
 	}

@@ -40,8 +40,8 @@ public class MappingFrame extends JFrame implements com.altova.TraceTarget {
 	JTextArea	jTraceTextArea			= new JTextArea();
 
 
-	JLabel jAIM_v3_rv8_XML_beta_modLabel0 = new JLabel();
-	JTextField jAIM_v3_rv8_XML_beta_modTextField0 = new JTextField();
+	JLabel jAIM_v3_rv9_XMLLabel0 = new JLabel();
+	JTextField jAIM_v3_rv9_XMLTextField0 = new JTextField();
 
 	JLabel jAIM_v2_rv15_XMLLabel1 = new JLabel();
 	JTextField jAIM_v2_rv15_XMLTextField1 = new JTextField();
@@ -116,13 +116,13 @@ public class MappingFrame extends JFrame implements com.altova.TraceTarget {
 
 	protected void fillScrollPane() {
 
-		jAIM_v3_rv8_XML_beta_modLabel0.setText("Source instance of AIM_v3_rv8_XML_beta_mod.xsd:");
-		jAIM_v3_rv8_XML_beta_modLabel0.setBounds(new Rectangle(15, 10, 438, 23));
-		jPanelStructures.add(jAIM_v3_rv8_XML_beta_modLabel0, null);
-		jAIM_v3_rv8_XML_beta_modTextField0.setText("1.2.826.0.1.3680043.2.908.14.0.0.3000316.11_processed_aim20.xml");
-		jAIM_v3_rv8_XML_beta_modTextField0.setBounds(new Rectangle(15, 35, 438, 23));
-		jAIM_v3_rv8_XML_beta_modTextField0.setEditable(false);
-		jPanelStructures.add(jAIM_v3_rv8_XML_beta_modTextField0, null);
+		jAIM_v3_rv9_XMLLabel0.setText("Source instance of AIM_v3_rv9_XML.xsd:");
+		jAIM_v3_rv9_XMLLabel0.setBounds(new Rectangle(15, 10, 438, 23));
+		jPanelStructures.add(jAIM_v3_rv9_XMLLabel0, null);
+		jAIM_v3_rv9_XMLTextField0.setText("C:/workspace_nbia/software/cedaraAIMMapping/testdata/Project/Project-2671173954/88.8.91207792612776837059531024441738549904/000000/013.xml");
+		jAIM_v3_rv9_XMLTextField0.setBounds(new Rectangle(15, 35, 438, 23));
+		jAIM_v3_rv9_XMLTextField0.setEditable(false);
+		jPanelStructures.add(jAIM_v3_rv9_XMLTextField0, null);
 
 		jAIM_v2_rv15_XMLLabel1.setText("Instance of AIM_v2_rv15_XML.xsd:");
 		jAIM_v2_rv15_XMLLabel1.setBounds(new Rectangle(15, 60, 438, 23));
@@ -191,10 +191,10 @@ public class MappingFrame extends JFrame implements com.altova.TraceTarget {
 			// MappingMapToAIM_v2_rv15_XMLObject.setCloseObjectsAfterRun(false);
 
 			{
-				com.altova.io.Input AIM_v3_rv8_XML_beta_mod2Source = com.altova.io.StreamInput.createInput("1.2.826.0.1.3680043.2.908.14.0.0.3000316.11_processed_aim20.xml");
+				com.altova.io.Input AIM_v3_rv9_XML2Source = com.altova.io.StreamInput.createInput("C:/workspace_nbia/software/cedaraAIMMapping/testdata/Project/Project-2671173954/88.8.91207792612776837059531024441738549904/000000/013.xml");
 
 				MappingMapToAIM_v2_rv15_XMLObject.run(
-						AIM_v3_rv8_XML_beta_mod2Source);
+						AIM_v3_rv9_XML2Source);
 			}
 
 

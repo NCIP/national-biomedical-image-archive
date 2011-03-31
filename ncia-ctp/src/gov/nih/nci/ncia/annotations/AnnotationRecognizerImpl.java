@@ -52,6 +52,6 @@ public class AnnotationRecognizerImpl implements AnnotationRecognizer {
 		System.out.println("isAim:"+documentElement.getLocalName()+","+documentElement.getNamespaceURI());
 
 		return documentElement.getLocalName().equals("ImageAnnotation") &&
-		       documentElement.getNamespaceURI().equals("gme://caCORE/3.2/edu.northwestern.radiology.AIM");
+		       documentElement.getNamespaceURI().equals("gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM");
 	}
 }

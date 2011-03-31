@@ -30,7 +30,7 @@ public class MappingConsole {
 
 
 			MappingMapToAIM_v2_rv15_XMLObject.registerTraceTarget(ttc);
-
+	
 
 			// run mapping
 			//
@@ -55,23 +55,23 @@ public class MappingConsole {
 			// DOM documents (for XML only):
 			//   com.altova.io.DocumentInput(org.w3c.dom.Document document)
 			//   com.altova.io.DocumentOutput(org.w3c.dom.Document document)
-			//
+			// 
 			// By default, run will close all inputs and outputs. If you do not want this,
 			// call the following function:
 			// MappingMapToAIM_v2_rv15_XMLObject.setCloseObjectsAfterRun(false);
 
 			{
-				com.altova.io.Input AIM_v3_rv8_XML_beta_mod2Source = com.altova.io.StreamInput.createInput("H:\\My Documents\\Altova\\MapForce2011\\CedaraMapping\\com\\mapforce\\1.2.826.0.1.3680043.2.908.14.0.0.3000316.11_processed_aim20.xml");
+				com.altova.io.Input AIM_v3_rv9_XML2Source = com.altova.io.StreamInput.createInput("C:/workspace_nbia/software/cedaraAIMMapping/testdata/Project/Project-2671173954/88.8.91207792612776837059531024441738549904/000000/013.xml");
 
 				MappingMapToAIM_v2_rv15_XMLObject.run(
-						AIM_v3_rv8_XML_beta_mod2Source);
+						AIM_v3_rv9_XML2Source);
 			}
 
 
 
 			System.out.println("Finished");
-		}
-		catch (com.altova.UserException ue)
+		} 
+		catch (com.altova.UserException ue) 
 		{
 			System.out.print("USER EXCEPTION:");
 			System.out.println( ue.getMessage() );
@@ -95,7 +95,7 @@ public class MappingConsole {
 			e.printStackTrace();
 			System.exit(1);
 		}
-
+		
 		catch (Exception e) {
 			System.out.print("ERROR: ");
 			System.out.println( e.getMessage() );

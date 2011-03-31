@@ -24,6 +24,13 @@
 		</fileset>
 	</path>
 
+  <!-- hack -->
+  <path id="ctp.project.classpath">
+    <fileset dir="${basedir}/../ncia-ctp/lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
 	<!-- Task definitions -->
 	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath"/>
 
@@ -321,6 +328,8 @@
 			<classpath location="${classes.to.test.dir}"/>
 			<classpath location="${test.classes.dir}"/>
 			<classpath refid="project.test.classpath"/>
+      <classpath refid="ctp.project.classpath"/>
+
 			<formatter type="xml"/>
 			<!-- perhaps break down by project name if there are collisions? -->
 			<!-- the fork sets each test to have its own VM.  this is necessary           for db tests because of something not understood with the way Hibernate3DataAccess works -->

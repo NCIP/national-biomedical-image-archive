@@ -90,12 +90,10 @@ $HeadURL$
   <property name="ncia-web.base.dir" value="${software.dir}/ncia-web"/>
   <property name="ncia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
   <property name="ncia-download.base.dir" value="${software.dir}/nbia-download"/>
-  <property name="ncia-api.base.dir" value="${software.dir}/ncia-api" />
   <property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search" />
   <property name="global.ivy.settings.file" location="${software.dir}/common/ivysettings.xml" />
   <property name="db-install.src.dir" value="${common.dir}/resources/db/" />
   <property name="db-upgrade.src.dir" value="${common.dir}/resources/db-incr/" />
-  <property name="ncia-api.artifact.dir" value="${ncia-api.base.dir}/output/ncia/package" />
   <property name="ncia-resource.artifact.dir" value="${software.dir}/common/resources" />
 
   <!-- targets -->
@@ -680,6 +678,7 @@ $HeadURL$
       <property name="dtd.dir" value="${ncia-resource.artifact.dir}/grid/jboss"/>
     </ant>
 
+
     <delete>
       <fileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/WEB-INF/lib">
         <include name="*tests.jar" />
@@ -691,14 +690,6 @@ $HeadURL$
       <zipfileset dir="${ncia-core-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
     </zip>
 
-
-    <!-- copy the whole thing to the dist dir so that deployTomcat target
-         can be run on it during install/deploy -->
-    <copy todir="${ncia-core-grid.dist.dir}">
-      <fileset dir="${ncia-api.artifact.dir}">
-        <include name="*.war" />
-      </fileset>
-    </copy>
 
     <ant inheritAll="false"
          inheritRefs="false"
@@ -776,15 +767,6 @@ $HeadURL$
       <zipfileset dir="${nbia-grid.artifact.dir}/server/default/deploy/wsrf.war/"/>
     </zip>
 
-
-
-    <!-- copy the whole thing to the dist dir so that deployTomcat target
-         can be run on it during install/deploy -->
-    <copy todir="${nbia-grid.dist.dir}">
-      <fileset dir="${ncia-api.artifact.dir}">
-        <include name="*.war" />
-      </fileset>
-    </copy>
     <!--
     <ant inheritAll="false"
          inheritRefs="false"

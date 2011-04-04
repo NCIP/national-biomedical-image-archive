@@ -478,10 +478,10 @@
   <ns44:Property description="" isFromETC="false" key="sdk4Style_beansJarFileName" value="ncia-beans.jar"/>
   <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationName" value="ncia"/>
   <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_queryCaseInsensitive" value="true"/>
-  <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useLocalApiFlag" value="false"/>
+  <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useLocalApiFlag" value="true"/>
   <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_ormJarName" value=""/>
-  <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostName" value="http://localhost"/>
-  <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostPort" value="45210"/>
+  <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostName" value=""/>
+  <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_applicationHostPort" value=""/>
   <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useServiceLogin" value="false"/>
   <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_useGridIdentityLogin" value=""/>
   <ns44:Property description="" isFromETC="false" key="cqlQueryProcessorConfig_staticLoginUsername" value=""/>

@@ -16,7 +16,7 @@ public class Util {
 	/**
 	 * Load the specified properties file from the classpath, and add every property
 	 * as a system property.  This is typically used to assist testing.
-	 * 
+	 *
 	 * <P>If resrouce is not to be found, a RuntimeException will be thrown.
 	 */
     public static void loadSystemPropertiesFromPropertiesResource(String propertiesResourceName) {
@@ -65,6 +65,16 @@ public class Util {
     	else {
     		return obj.toString();
     	}
+    }
+
+	public static <T> Collection<T> removeNullElement(Collection<T> collection) {
+	    Collection<T> result = new ArrayList<T>();
+	    for(T t : collection) {
+            if(t!=null) {
+				result.add(t);
+			}
+		}
+		return result;
     }
 
 	/**
@@ -137,7 +147,7 @@ public class Util {
 		}
 		return false;
 	}
-	
+
 
     public static String calculateOffsetValue(Date date1, Date date2){
     	String offsetValue=null;

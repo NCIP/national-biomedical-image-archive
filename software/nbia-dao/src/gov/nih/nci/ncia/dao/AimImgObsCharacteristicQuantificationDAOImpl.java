@@ -2,6 +2,7 @@ package gov.nih.nci.ncia.dao;
 
 import gov.nih.nci.ncia.internaldomain.AimQuantification;
 import gov.nih.nci.ncia.dto.ImgObsCharacteristicQuantificationDTO;
+import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,10 +64,11 @@ public class AimImgObsCharacteristicQuantificationDAOImpl extends AbstractDAO
 
 			ImgObsCharacteristicQuantificationDTO dto = new ImgObsCharacteristicQuantificationDTO(name,
 			                                                                                      "Scale", //shortarm this for prototype
-			                                                                                      new TreeSet<String>(possibleValues));
+			                                                                                      new TreeSet<String>(Util.removeNullElement(possibleValues)));
 			dtos.add(dto);
 		}
 
         return dtos;
 	}
+
 }

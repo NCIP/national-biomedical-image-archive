@@ -3,11 +3,12 @@
 $Id$
 $HeadURL$
 -->
-<project name="ncia-build" default="build:all" basedir="."
-  xmlns:ivy="antlib:org.apache.ivy.ant"
-  >
+<project name="nbia-build"
+         default="build:all"
+         basedir="."
+         xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
-    This file is used to build, bundle and deploy the NCIA application.  The build targets of this file calls the appropriate targets in all the sub-projects.  The dist targets create a distribution that can be used by the local (a directory) and remote (a zip archive) deployment targets.  The deploy targets handle local and remote installation of the application.   The distribution is installed via ant.  Both install and upgrade distributions/installs are supported.
+    This file is used to build, bundle and deploy the NBIA application.  The build targets of this file calls the appropriate targets in all the sub-projects.  The dist targets create a distribution that can be used by the local (a directory) and remote (a zip archive) deployment targets.  The deploy targets handle local and remote installation of the application.   The distribution is installed via ant.  Both install and upgrade distributions/installs are supported.
   </description>
 
 
@@ -20,9 +21,6 @@ $HeadURL$
   <property name="properties.file" value="install.properties"/>
 
   <!-- **** begin: dealing with properties file chicanery -->
-  <!-- there are elements of building that actually require these "install" properties
-       there are two known properties jboss.server.hostname and jboss.server.port like
-       this for the ncia-query-grid target -->
   <!-- if you want upgrade properties you must pass in -Dproperties.file=*upgrade.properties
        Otherwise this code will pick the install properties for the platform as the default.
        install is a superset of upgrade so this should be safe even if it's slightly heavy handed -->
@@ -73,38 +71,38 @@ $HeadURL$
   <property name="pt.dir" location="${target.dir}/persistent-transient" />
 
   <!-- Generic build time properties -->
-  <property name="project.name" value="ncia"/>
-  <property name="ncia.build.file" value="build.xml"/>
+  <property name="project.name" value="nbia"/>
+  <property name="nbia.build.file" value="build.xml"/>
 
   <!-- Sourcebase layout properties -->
   <property name="resources.dir" value="${software.dir}/resources" />
   <property name="nbia-dao.base.dir" value="${software.dir}/nbia-dao"/>
   <property name="ncia-core-grid.base.dir" value="${software.dir}/ncia-core-grid-transfer"/>
   <property name="nbia-grid.base.dir" value="${software.dir}/nbia-service"/>
-  <property name="ncia-ctp.base.dir" value="${software.dir}/ncia-ctp-working"/>
-  <property name="ncia-services-commons.base.dir" value="${software.dir}/ncia-services-commons"/>
+  <property name="nbia-ctp.base.dir" value="${software.dir}/nbia-ctp-working"/>
+  <property name="nbia-services-commons.base.dir" value="${software.dir}/ncia-services-commons"/>
   <property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
   <property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
-  <property name="ncia-services-grid.base.dir" value="${software.dir}/ncia-services-grid"/>
-  <property name="ncia-domain.base.dir" value="${software.dir}/ncia-domain"/>
-  <property name="ncia-web.base.dir" value="${software.dir}/ncia-web"/>
-  <property name="ncia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
-  <property name="ncia-download.base.dir" value="${software.dir}/nbia-download"/>
+  <property name="nbia-services-grid.base.dir" value="${software.dir}/ncia-services-grid"/>
+  <property name="nbia-domain.base.dir" value="${software.dir}/ncia-domain"/>
+  <property name="nbia-web.base.dir" value="${software.dir}/ncia-web"/>
+  <property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
+  <property name="nbia-download.base.dir" value="${software.dir}/nbia-download"/>
   <property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search" />
   <property name="global.ivy.settings.file" location="${software.dir}/common/ivysettings.xml" />
   <property name="db-install.src.dir" value="${common.dir}/resources/db/" />
   <property name="db-upgrade.src.dir" value="${common.dir}/resources/db-incr/" />
-  <property name="ncia-resource.artifact.dir" value="${software.dir}/common/resources" />
+  <property name="nbia-resource.artifact.dir" value="${software.dir}/common/resources" />
 
   <!-- targets -->
-  <property name="ncia-ctp.build.target" value="all"/>
-  <property name="ncia-serives-commons.build.target" value="run"/>
+  <property name="nbia-ctp.build.target" value="all"/>
+  <property name="nbia-services-commons.build.target" value="run"/>
   <property name="nbia-dao.build.target" value="run"/>
-  <property name="ncia-services-grid.build.target" value="run"/>
-  <property name="ncia-domain.build.target" value="all"/>
-  <property name="ncia-web.build.target" value="run"/>
-  <property name="ncia-download-manager.build.target" value="run"/>
-  <property name="ncia-download.build.target" value="run"/>
+  <property name="nbia-services-grid.build.target" value="run"/>
+  <property name="nbia-domain.build.target" value="all"/>
+  <property name="nbia-web.build.target" value="run"/>
+  <property name="nbia-download-manager.build.target" value="run"/>
+  <property name="nbia-download.build.target" value="run"/>
   <!-- Default install time targets passed by deploy targets to the installer, can be overridden by being set on the command line if different target is desitred.  -->
   <property name="install.target" value="install"/>
   <property name="upgrade.target" value="upgrade"/>
@@ -122,7 +120,7 @@ $HeadURL$
   <!-- output directory properties -->
   <property name="ncia-core-grid.artifact.dir" value="${ncia-core-grid.base.dir}/target" />
   <property name="nbia-grid.artifact.dir" value="${nbia-grid.base.dir}/target" />
-  <property name="ncia-ctp.artifact.dir" value="${ncia-ctp.base.dir}/target" />
+  <property name="nbia-ctp.artifact.dir" value="${nbia-ctp.base.dir}/target" />
 
 
   <!-- Distribution Structure properties, used to copy files into the distribution area.
@@ -135,9 +133,9 @@ $HeadURL$
   <property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
   <property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}"/>
   <property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}"/>
-  <property name="ncia-ctp.dist.dir" value="${dist.exploded.dir}/${ncia-ctp.dist.relative.dir}"/>
-  <property name="ncia-web.dist.dir" value="${dist.exploded.dir}/${ncia-web.dist.relative.dir}"/>
-  <property name="ncia-resource.dist.dir" value="${dist.exploded.dir}/${ncia-resource.dist.relative.dir}" />
+  <property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
+  <property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
+  <property name="nbia-resource.dist.dir" value="${dist.exploded.dir}/${nbia-resource.dist.relative.dir}" />
   <property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 
   <!-- locally used paths, not needed by install -->
@@ -269,11 +267,6 @@ $HeadURL$
   </target>
 
 
-  <!-- Static Analysis wrapper, calls all statict analysis targets -->
-  <target name="static-analysis"
-          depends="static-analysis:simian"
-          if="static.analysis"
-          description="Performs static analysis" />
 
   <target name="diagnostics" description="diagnostics">
     <echoproperties/>
@@ -283,19 +276,19 @@ $HeadURL$
   <target name="compute-tag-properties">
     <condition property="tagged.file">
       <contains substring="nbia/tags"
-                string="${ncia_prod_build_tag}"/>
+                string="${nbia_prod_build_tag}"/>
     </condition>
 
     <if>
       <isset property="tagged.file"/>
       <then>
-        <propertyregex property="ncia_prod_build_tag.final"
-                       input="${ncia_prod_build_tag}"
+        <propertyregex property="nbia_prod_build_tag.final"
+                       input="${nbia_prod_build_tag}"
                        regexp="\$HeadURL\: .*/nbia/tags/([^/]*)/.*"
                        select="\1"/>
       </then>
       <else>
-        <property name="ncia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
+        <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
       </else>
     </if>
   </target>
@@ -320,8 +313,8 @@ $HeadURL$
     <mkdir dir="${nbia-grid.artifact.dir}"/>
     <mkdir dir="${ncia-core-grid.dist.dir}"/>
     <mkdir dir="${nbia-grid.dist.dir}"/>
-    <mkdir dir="${ncia-web.dist.dir}"/>
-    <mkdir dir="${ncia-resource.dist.dir}"/>
+    <mkdir dir="${nbia-web.dist.dir}"/>
+    <mkdir dir="${nbia-resource.dist.dir}"/>
     <mkdir dir="${db-install.dist.dir}"/>
     <mkdir dir="${db-upgrade.dist.dir}"/>
     <mkdir dir="${tools.dist.dir}"/>
@@ -376,18 +369,18 @@ $HeadURL$
     init,
     compute-tag-properties,
     keygen,
-    build:ncia-web,
-    build:ncia-ctp,
+    build:nbia-web,
+    build:nbia-ctp,
     build:ncia-core-grid,
     build:nbia-grid,
-    build:ncia-download-manager,
+    build:nbia-download-manager,
     build:nbia-liquibase,
-    static-analysis
+    static-analysis:simian
           "/>
 
   <target name="build:nbia-remote-search" depends="init,
                                                    build:ncia-core-grid,
-                                                   build:ncia-download-manager">
+                                                   build:nbia-download-manager">
     <ant inheritAll="false"
          inheritRefs="false"
          antfile="build.xml"
@@ -395,12 +388,12 @@ $HeadURL$
          dir="${nbia-remote-search.base.dir}"/>
   </target>
 
-  <target name="build:ncia-domain" depends="init">
+  <target name="build:nbia-domain" depends="init">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
-         target="${ncia-domain.build.target}"
-         dir="${ncia-domain.base.dir}">
+         antfile="${nbia.build.file}"
+         target="${nbia-domain.build.target}"
+         dir="${nbia-domain.base.dir}">
       <property name="project.name" value="${project.name}"/>
     </ant>
   </target>
@@ -408,7 +401,7 @@ $HeadURL$
   <target name="build:nbia-util" depends="init">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="run"
          dir="../nbia-util">
       <property name="project.name" value="${project.name}"/>
@@ -416,21 +409,21 @@ $HeadURL$
   </target>
 
   <!-- Build ncia-services-grid sub-project, artifacts are inluded in ncia-web -->
-  <target name="build:ncia-services-grid" depends="init">
-    <ant inheritAll="false" inheritRefs="false" antfile="${ncia.build.file}"
-      target="${ncia-services-grid.build.target}"
-      dir="${ncia-services-grid.base.dir}">
+  <target name="build:nbia-services-grid" depends="init">
+    <ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}"
+      target="${nbia-services-grid.build.target}"
+      dir="${nbia-services-grid.base.dir}">
       <property name="project.name" value="${project.name}"/>
     </ant>
   </target>
 
   <target name="build:nbia-dao" depends="init,
                                          build:nbia-util,
-                                         build:ncia-services-grid,
-                                         build:ncia-domain">
+                                         build:nbia-services-grid,
+                                         build:nbia-domain">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="${nbia-dao.build.target}"
          dir="${nbia-dao.base.dir}">
       <property name="project.name" value="${project.name}"/>
@@ -447,15 +440,15 @@ $HeadURL$
   </target>
 
   <!-- Build ncia-services-commons sub-project artifacts are included in ncia-web -->
-  <target name="build:ncia-services-commons" depends="init,
+  <target name="build:nbia-services-commons" depends="init,
                                                       build:nbia-util,
-                                                      build:ncia-services-grid,
+                                                      build:nbia-services-grid,
                                                       build:nbia-dao">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
-         target="${ncia-serives-commons.build.target}"
-         dir="${ncia-services-commons.base.dir}">
+         antfile="${nbia.build.file}"
+         target="${nbia-services-commons.build.target}"
+         dir="${nbia-services-commons.base.dir}">
       <property name="project.name" value="${project.name}"/>
 
       <property name="database.type" value="${database.type}"/>
@@ -473,33 +466,33 @@ $HeadURL$
   <target name="build:nbia-liquibase" depends="init">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="run"
          dir="../nbia-liquibase">
       <property name="project.name" value="${project.name}"/>
     </ant>
   </target>
 
-  <target name="build:ncia-download"
+  <target name="build:nbia-download"
           depends="init,
                    build:nbia-dao">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
-         target="${ncia-download.build.target}"
-         dir="${ncia-download.base.dir}">
+         antfile="${nbia.build.file}"
+         target="${nbia-download.build.target}"
+         dir="${nbia-download.base.dir}">
       <property name="project.name" value="${project.name}"/>
     </ant>
   </target>
 
-  <target name="build:ncia-download-manager"
+  <target name="build:nbia-download-manager"
           depends="init,
-                   build:ncia-services-commons">
+                   build:nbia-services-commons">
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
-         target="${ncia-download-manager.build.target}"
-         dir="${ncia-download-manager.base.dir}">
+         antfile="${nbia.build.file}"
+         target="${nbia-download-manager.build.target}"
+         dir="${nbia-download-manager.base.dir}">
       <property name="project.name" value="${project.name}"/>
 
       <property name="jar-signing.keystore.location" value="${jar-signing.keystore.location}"/>
@@ -515,7 +508,7 @@ $HeadURL$
   <!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
   <target name="-build:imagezipping-mdb"
           depends="init,
-                   build:ncia-services-commons">
+                   build:nbia-services-commons">
     <ant inheritAll="false"
          inheritRefs="false"
          antfile="build.xml"
@@ -533,7 +526,7 @@ $HeadURL$
   <!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
   <target name="-build:image-deletion-mdb"
           depends="init,
-                   build:ncia-services-commons">
+                   build:nbia-services-commons">
     <ant inheritAll="false"
          inheritRefs="false"
          antfile="build.xml"
@@ -545,11 +538,11 @@ $HeadURL$
   </target>
 
   <!-- Build ncia-web sub-project produces project level artifact of ncia.ear -->
-  <target name="build:ncia-web"
+  <target name="build:nbia-web"
           depends="init,
-                   build:ncia-services-commons,
-                   build:ncia-download-manager,
-                   build:ncia-download,
+                   build:nbia-services-commons,
+                   build:nbia-download-manager,
+                   build:nbia-download,
                    build:nbia-remote-search,
                    -build:image-deletion-mdb,
                    -build:imagezipping-mdb">
@@ -589,33 +582,37 @@ $HeadURL$
       </else>
     </if>
 
-    <ant inheritAll="false" inheritRefs="false" antfile="${ncia.build.file}"
-      target="${ncia-web.build.target}"
-      dir="${ncia-web.base.dir}">
+    <ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}"
+      target="${nbia-web.build.target}"
+      dir="${nbia-web.base.dir}">
       <property name="project.name" value="${project.name}"/>
-      <property name="ncia.version" value="${ncia.version}"/>
-      <property name="ncia_prod_build_tag.final" value="${ncia_prod_build_tag.final}"/>
+      <property name="nbia.version" value="${nbia.version}"/>
+      <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
     </ant>
 
   </target>
 
 
-  <target name="build:ncia-ctp" depends="init, build:nbia-util, build:ncia-domain, compute-tag-properties">
+  <target name="build:nbia-ctp" depends="init,
+                                         build:nbia-util,
+                                         build:nbia-domain,
+                                         compute-tag-properties">
+
     <!-- so we don't modify ncia-ctp directory and leave little pieces of poo that can be committed later by unsuspecting or uncaring people -->
-    <mkdir dir="../ncia-ctp-working"/>
-    <copy todir="../ncia-ctp-working">
+    <mkdir dir="../nbia-ctp-working"/>
+    <copy todir="../nbia-ctp-working">
       <fileset dir="../ncia-ctp"/>
     </copy>
 
 
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
-         target="${ncia-ctp.build.target}"
-         dir="${ncia-ctp.base.dir}">
+         antfile="${nbia.build.file}"
+         target="${nbia-ctp.build.target}"
+         dir="${nbia-ctp.base.dir}">
       <property name="project.name" value="${project.name}"/>
-      <property name="ncia.version" value="${ncia.version}"/>
-      <property name="ncia_prod_build_tag.final" value="${ncia_prod_build_tag.final}"/>
+      <property name="nbia.version" value="${nbia.version}"/>
+      <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
 
       <property name="database.user" value="${database.user}"/>
       <property name="database.password" value="${database.password}"/>
@@ -628,24 +625,24 @@ $HeadURL$
 
     </ant>
 
-    <mkdir dir="${ncia-ctp.dist.dir}"/>
-    <copy todir="${ncia-ctp.dist.dir}">
-      <fileset dir="${ncia-ctp.artifact.dir}">
+    <mkdir dir="${nbia-ctp.dist.dir}"/>
+    <copy todir="${nbia-ctp.dist.dir}">
+      <fileset dir="${nbia-ctp.artifact.dir}">
         <include name="CTP-installer.jar"/>
       </fileset>
     </copy>
 
-    <copy todir="${ncia-ctp.dist.dir}/FileSender">
-      <fileset dir="${ncia-ctp.base.dir}/FileSender"/>
+    <copy todir="${nbia-ctp.dist.dir}/FileSender">
+      <fileset dir="${nbia-ctp.base.dir}/FileSender"/>
     </copy>
 
-    <delete dir="../ncia-ctp-working"/>
+    <delete dir="../nbia-ctp-working"/>
   </target>
 
 
   <!-- Build ncia-core-grid sub-project produces project level artifacts -->
   <target name="build:ncia-core-grid" depends="init,
-                                               build:ncia-services-commons">
+                                               build:nbia-services-commons">
 
     <delete dir="${ncia-core-grid.base.dir}/build"/>
     <delete dir="${ncia-core-grid.base.dir}/target"/>
@@ -653,7 +650,7 @@ $HeadURL$
 
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="deployJBoss"
          dir="${ncia-core-grid.base.dir}">
       <property name="project.name" value="${project.name}"/>
@@ -669,13 +666,13 @@ $HeadURL$
          inheritRefs="false"
          antfile="jboss.xml"
          target="deployJBoss"
-         dir="${ncia-resource.artifact.dir}/grid/jboss">
+         dir="${nbia-resource.artifact.dir}/grid/jboss">
       <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
       <property name="env.JBOSS_HOME" value="${ncia-core-grid.artifact.dir}"/>
       <property name="jboss.dir" value="${ncia-core-grid.artifact.dir}"/>
 
       <!-- webapp23.dtd craps out occasionally.  this is for local xmlcatalog -->
-      <property name="dtd.dir" value="${ncia-resource.artifact.dir}/grid/jboss"/>
+      <property name="dtd.dir" value="${nbia-resource.artifact.dir}/grid/jboss"/>
     </ant>
 
 
@@ -693,7 +690,7 @@ $HeadURL$
 
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="test"
          dir="${ncia-core-grid.base.dir}">
       <property name="project.name" value="${project.name}"/>
@@ -713,7 +710,7 @@ $HeadURL$
 
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="inspect"
          dir="${ncia-core-grid.base.dir}">
       <property name="project.name" value="${project.name}"/>
@@ -731,7 +728,7 @@ $HeadURL$
 
     <ant inheritAll="false"
          inheritRefs="false"
-         antfile="${ncia.build.file}"
+         antfile="${nbia.build.file}"
          target="deployJBoss"
          dir="${nbia-grid.base.dir}">
       <property name="project.name" value="${project.name}"/>
@@ -747,13 +744,13 @@ $HeadURL$
          inheritRefs="false"
          antfile="jboss.xml"
          target="deployJBoss"
-         dir="${ncia-resource.artifact.dir}/grid/jboss">
+         dir="${nbia-resource.artifact.dir}/grid/jboss">
       <property name="env.GLOBUS_LOCATION" value="${env.GLOBUS_LOCATION}"/>
       <property name="env.JBOSS_HOME" value="${nbia-grid.artifact.dir}"/>
       <property name="jboss.dir" value="${nbia-grid.artifact.dir}"/>
 
       <!-- webapp23.dtd craps out occasionally.  this is for local xmlcatalog -->
-      <property name="dtd.dir" value="${ncia-resource.artifact.dir}/grid/jboss"/>
+      <property name="dtd.dir" value="${nbia-resource.artifact.dir}/grid/jboss"/>
     </ant>
 
     <delete>
@@ -997,7 +994,7 @@ $HeadURL$
 
   <!-- Creates the installer distribution used by automated or manual remote installations -->
   <target name="dist:installer" depends="dist:installer:prep">
-    <delete file="${dist.dir}/${ncia.install.zip.file}"/>
+    <delete file="${dist.dir}/${nbia.install.zip.file}"/>
     <!-- Set environment name to external -->
     <replaceregexp file="${dist.exploded.dir}/build.xml" byline="true" match="(&lt;property name=&quot;env.name&quot; value=&quot;)\w+(&quot;/&gt;)" replace="\1external\2" />
 
@@ -1011,7 +1008,7 @@ $HeadURL$
       replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"
       />
 
-    <zip destfile="${dist.dir}/${ncia.install.zip.file}"
+    <zip destfile="${dist.dir}/${nbia.install.zip.file}"
          basedir="${dist.exploded.dir}"
          excludes="ncia-ear/ncia.war, ncia-services-commons/**,/ncia-domain/*,ncia-download/*,ncia-download-manager/*"/>
   </target>
@@ -1057,7 +1054,7 @@ $HeadURL$
 
   <!-- Creates upgrader distribution -->
   <target name="dist:upgrader" depends="build:all, dist:upgrader:prep">
-    <delete file="${dist.dir}/${ncia.upgrade.zip.file}"/>
+    <delete file="${dist.dir}/${nbia.upgrade.zip.file}"/>
 
     <!-- Set environment name to external -->
     <copy todir="${dist.exploded.dir}" overwrite="true">
@@ -1090,7 +1087,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                    byline="true"
                    match="(&lt;property name=&quot;properties.file&quot;\s+value=&quot;).*(&quot;\s*\/&gt;)"
                    replace="\1upgrade.properties\2" />
-    <zip destfile="${dist.dir}/${ncia.upgrade.zip.file}"
+    <zip destfile="${dist.dir}/${nbia.upgrade.zip.file}"
          basedir="${dist.exploded.dir}"
          excludes="ncia-ear/ncia.war, ncia-services-commons/**,/ncia-domain/*,ncia-download/*,ncia-download-manager/*"/>
 
@@ -1136,7 +1133,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                    deploy:remote:ctp:upgrade:ahp"/>
 
   <target name="deploy:remote:jboss:upgrade:ahp">
-    <deploy-files dist.file="${ncia.upgrade.zip.file}" />
+    <deploy-files dist.file="${nbia.upgrade.zip.file}" />
     <override-properties-prep override.properties="${override.properties}"
                               override.properties.string.property.name="override.properties.string"/>
     <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${override.properties.string} ${upgrade.jboss.target}" />
@@ -1148,7 +1145,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                   ssh.host="${db.ssh.server.hostname}"
                   remote.directory.property.name="db.ssh.dir.temp"
                   properties.file="${properties.file}"
-                  dist.file="${ncia.upgrade.zip.file}"/>
+                  dist.file="${nbia.upgrade.zip.file}"/>
     <override-properties-prep override.properties="${override.properties}"
                               override.properties.string.property.name="override.properties.string"/>
     <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${override.properties.string} upgrade:database" />
@@ -1175,7 +1172,7 @@ jboss.home,ctp.server.home,ctp.client.home,
       ssh.host="${tomcat.ssh.server.hostname}"
       remote.directory.property.name="tomcat.ssh.dir.temp"
       properties.file="${properties.file}"
-      dist.file="${ncia.upgrade.zip.file}"
+      dist.file="${nbia.upgrade.zip.file}"
       />
     <override-properties-prep override.properties="${override.properties}"
                               override.properties.string.property.name="override.properties.string"/>
@@ -1227,7 +1224,7 @@ jboss.home,ctp.server.home,ctp.client.home,
   </target>
 
   <target name="deploy:remote:ctp:upgrade:ahp"
-          unless="exclude.ncia-ctp">
+          unless="exclude.ctp">
     <if>
       <not>
         <isset property="ctp.remote.install"/>
@@ -1239,7 +1236,7 @@ jboss.home,ctp.server.home,ctp.client.home,
           ssh.host="${ctp.ssh.server.hostname}"
           remote.directory.property.name="ctp.ssh.dir.temp"
           properties.file="${properties.file}"
-          dist.file="${ncia.upgrade.zip.file}"
+          dist.file="${nbia.upgrade.zip.file}"
           />
         <override-properties-prep override.properties="${override.properties}"
                                   override.properties.string.property.name="override.properties.string"/>
@@ -1264,7 +1261,7 @@ jboss.home,ctp.server.home,ctp.client.home,
   </target>
 
   <target name="deploy:remote:jboss:install:ahp">
-    <deploy-files dist.file="${ncia.upgrade.zip.file}" />
+    <deploy-files dist.file="${nbia.upgrade.zip.file}" />
     <override-properties-prep override.properties="${override.properties}"
                               override.properties.string.property.name="override.properties.string"/>
     <remote-ssh remotesshcommand=". .bash_profile;cd ${ssh.dir.temp}; ant -Dproperties.file=${properties.file.name} -Dforce.reinstall=true ${override.properties.string} ${install.jboss.target}" />
@@ -1292,7 +1289,7 @@ jboss.home,ctp.server.home,ctp.client.home,
       ssh.host="${tomcat.ssh.server.hostname}"
       remote.directory.property.name="tomcat.ssh.dir.temp"
       properties.file="${properties.file}"
-      dist.file="${ncia.upgrade.zip.file}"
+      dist.file="${nbia.upgrade.zip.file}"
       />
     <override-properties-prep override.properties="${override.properties}"
                               override.properties.string.property.name="override.properties.string"/>
@@ -1346,7 +1343,7 @@ jboss.home,ctp.server.home,ctp.client.home,
   </target>
 
   <target name="deploy:remote:ctp:install:ahp"
-          unless="exclude.ncia-ctp">
+          unless="exclude.ctp">
     <if>
       <not>
         <isset property="ctp.remote.install:ahp"/>
@@ -1358,7 +1355,7 @@ jboss.home,ctp.server.home,ctp.client.home,
           ssh.host="${ctp.ssh.server.hostname}"
           remote.directory.property.name="ctp.ssh.dir.temp"
           properties.file="${properties.file}"
-          dist.file="${ncia.upgrade.zip.file}"
+          dist.file="${nbia.upgrade.zip.file}"
           />
         <override-properties-prep override.properties="${override.properties}"
                                   override.properties.string.property.name="override.properties.string"/>
@@ -1370,32 +1367,17 @@ jboss.home,ctp.server.home,ctp.client.home,
   </target>
   <!-- End AHP3 fresh install for tiers -->
 
-  <!-- End of ncia-core-service remote deploy to Tomcat  -->
-
   <target name="usage" description="Explains how to use this build script">
     <echo message="To run a remote upgrade type: ant deploy:remote:upgrade -Dproperties.file=[path to environment proeprty file]" />
   </target>
 
-  <!-- Scorches checkout area and then checks out the ncia project from svn. Serval propeties influence what is checked out.  Each of the properites have defaults, which will check out trunk.  This target uses the svn-co macro from bda -->
-  <target name="svn:co">
-    <property name="svn.project.base.url" value="http://gforge.nci.nih.gov/svnroot/ncia"/>
-    <property name="svn.project.name" value="ncia"/>
-    <property name="svn.tag" value="trunk"/>
-    <property name="svn.co.base.dir" value="${user.home}/tmp"/>
 
-    <svn-co
-      svn.project.base.url="${svn.project.base.url}"
-      svn.project.name="${svn.project.name}"
-      svn.tag="${svn.tag}"
-      svn.co.base.dir="${svn.co.base.dir}"
-      />
-  </target>
   <target name="report:grand" description="Generates grand graphs for build.xml files">
     <mkdir dir="${grand.rpt.dir}"/>
     <report-grand
       build.file.location="build.xml"
       output.file.dir="${grand.rpt.dir}"
-      output.file.name="ncia-root-build.xml"
+      output.file.name="nbia-root-build.xml"
       />
 
     <!-- this one is a little ornery.  The install.xml doesn't expect
@@ -1405,7 +1387,7 @@ jboss.home,ctp.server.home,ctp.client.home,
     <report-grand
       build.file.location="${dist.exploded.dir}/build.xml"
       output.file.dir="${grand.rpt.dir}"
-      output.file.name="ncia-root-install.xml"
+      output.file.name="nbia-root-install.xml"
       />
 
 
@@ -1418,22 +1400,22 @@ jboss.home,ctp.server.home,ctp.client.home,
     <report-grand
       build.file.location="${software.dir}/ncia-ctp/build.xml"
       output.file.dir="${grand.rpt.dir}"
-      output.file.name="ncia-ctp-build.xml"
+      output.file.name="nbia-ctp-build.xml"
       />
     <report-grand
-      build.file.location="${ncia-services-commons.base.dir}/build.xml"
+      build.file.location="${nbia-services-commons.base.dir}/build.xml"
       output.file.dir="${grand.rpt.dir}"
-      output.file.name="ncia-services-commons-build.xml"
+      output.file.name="nbia-services-commons-build.xml"
       />
     <report-grand
-      build.file.location="${ncia-services-grid.base.dir}/build.xml"
+      build.file.location="${nbia-services-grid.base.dir}/build.xml"
       output.file.dir="${grand.rpt.dir}"
-      output.file.name="ncia-services-grid-build.xml"
+      output.file.name="nbia-services-grid-build.xml"
       />
     <report-grand
-      build.file.location="${ncia-web.base.dir}/build.xml"
+      build.file.location="${nbia-web.base.dir}/build.xml"
       output.file.dir="${grand.rpt.dir}"
-      output.file.name="ncia-web-build.xml"
+      output.file.name="nbia-web-build.xml"
       />
   </target>
 
@@ -1441,12 +1423,12 @@ jboss.home,ctp.server.home,ctp.client.home,
   <!-- this stuff is kinda sorta really install stuff - but putting in install.xml
        will make life difficult..... -->
   <target name="install:force-nciaprod">
-    <copy file="${ncia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml"
+    <copy file="${nbia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml"
           tofile="${jboss.home}/server/${jboss.server.name}/deploy/ncia-ds.xml"
           overwrite="true" />
 
     <!-- for grid jboss -->
-    <xmltask source="${ncia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml">
+    <xmltask source="${nbia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml">
       <copy path="//connection-url/text()"
             property="force.connection.url.read"/>
       <copy path="//user-name/text()"
@@ -1491,11 +1473,11 @@ jboss.home,ctp.server.home,ctp.client.home,
                    byline="true"/>
 
 
-    <ant antfile="${ncia.build.file}"
+    <ant antfile="${nbia.build.file}"
          target="test:selenium:noguest"
          inheritAll="false"
          inheritRefs="false"
-         dir="${ncia-web.base.dir}">
+         dir="${nbia-web.base.dir}">
       <property name="project.name" value="${project.name}"/>
       <property name="jboss.server.hostname" value="${jboss.server.hostname}"/>
       <property name="jboss.server.port" value="${jboss.server.port}"/>
@@ -1516,11 +1498,11 @@ jboss.home,ctp.server.home,ctp.client.home,
     <jboss-start-jboss />
     <sleep seconds="120" />
 
-    <ant antfile="${ncia.build.file}"
+    <ant antfile="${nbia.build.file}"
          target="test:selenium:guest"
          inheritAll="false"
          inheritRefs="false"
-         dir="${ncia-web.base.dir}">
+         dir="${nbia-web.base.dir}">
       <property name="project.name" value="${project.name}"/>
       <property name="jboss.server.hostname" value="${jboss.server.hostname}"/>
       <property name="jboss.server.port" value="${jboss.server.port}"/>
@@ -1688,13 +1670,13 @@ jboss.home,ctp.server.home,ctp.client.home,
 
   <target name="dist:ctp-client"
           description="build and configure ctp client"
-          depends="build:ncia-ctp" >
-    <mkdir dir="${ncia-ctp.dist.dir}/CTP_Client"/>
-    <mkdir dir="${ncia-ctp.dist.dir}/CTP_Client/CTP/logs" />
-    <unjar src="${ncia-ctp.dist.dir}/CTP-installer.jar"
-           dest="${ncia-ctp.dist.dir}/CTP_Client"/>
+          depends="build:nbia-ctp" >
+    <mkdir dir="${nbia-ctp.dist.dir}/CTP_Client"/>
+    <mkdir dir="${nbia-ctp.dist.dir}/CTP_Client/CTP/logs" />
+    <unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar"
+           dest="${nbia-ctp.dist.dir}/CTP_Client"/>
     <!-- copy common files to the client -->
-    <copy todir="${ncia-ctp.dist.dir}/CTP_Client/CTP">
+    <copy todir="${nbia-ctp.dist.dir}/CTP_Client/CTP">
       <fileset dir="${common.dir}/resources/ctp/client">
         <include name="**/*"/>
       </fileset>
@@ -1704,34 +1686,34 @@ jboss.home,ctp.server.home,ctp.client.home,
     </copy>
 
 
-    <ctp-configure ctp.home="${ncia-ctp.dist.dir}/CTP_Client"
+    <ctp-configure ctp.home="${nbia-ctp.dist.dir}/CTP_Client"
                    king.password="${ctp.client.king.password}"
                    admin.password="${ctp.client.admin.password}"
                    common.dir.src="${common.dir}"
                    ctp.resources.relative.dir="client"/>
 
 
-    <ctp-client-configure ctp.client.home="${ncia-ctp.dist.dir}/CTP_Client"/>
+    <ctp-client-configure ctp.client.home="${nbia-ctp.dist.dir}/CTP_Client"/>
 
-    <create-ctp-client-startup-scripts ctp.client.home="${ncia-ctp.dist.dir}/CTP_Client"/>
+    <create-ctp-client-startup-scripts ctp.client.home="${nbia-ctp.dist.dir}/CTP_Client"/>
 
-    <delete dir="${ncia-ctp.dist.dir}/CTP_Client/org"/>
-    <delete dir="${ncia-ctp.dist.dir}/CTP_Client/META-INF"/>
+    <delete dir="${nbia-ctp.dist.dir}/CTP_Client/org"/>
+    <delete dir="${nbia-ctp.dist.dir}/CTP_Client/META-INF"/>
 
     <!-- copy and configure FileSender files -->
-    <copy todir="${ncia-ctp.dist.dir}/CTP_Client/FileSender">
-      <fileset dir="${ncia-ctp.dist.dir}/FileSender"/>
+    <copy todir="${nbia-ctp.dist.dir}/CTP_Client/FileSender">
+      <fileset dir="${nbia-ctp.dist.dir}/FileSender"/>
     </copy>
 
-    <configure-filesender ctp.client.home="${ncia-ctp.dist.dir}/CTP_Client"/>
+    <configure-filesender ctp.client.home="${nbia-ctp.dist.dir}/CTP_Client"/>
 
     <!-- zip up -->
     <zip update="false"
          destfile="${dist.dir}/CTP_Client.zip">
-      <zipfileset dir="${ncia-ctp.dist.dir}/CTP_Client/"/>
+      <zipfileset dir="${nbia-ctp.dist.dir}/CTP_Client/"/>
     </zip>
 
-    <delete dir="${ncia-ctp.dist.dir}/CTP_Client/"/>
+    <delete dir="${nbia-ctp.dist.dir}/CTP_Client/"/>
 
 </target>
 </project>

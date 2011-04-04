@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<project name="ctp-installer" 
-         basedir="." 
-         xmlns:ivy="antlib:org.apache.ivy.ant">              
+<project name="ctp-installer"
+         basedir="."
+         xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <import file="ctp-macrodefs.xml"/>
-  
-  <target name="common:ctp:init" 
-          depends="common:common:init:pre" 
-          unless="exclude.ctp">    
-          
+
+  <target name="common:ctp:init"
+          depends="common:common:init:pre"
+          unless="exclude.ctp">
+
     <fail unless="application.base.path"/>
-    
-    <property name="ctp.server.home" value="${application.base.path}/CTP-server"/>    
-    <property name="ctp.client.home" value="${application.base.path}/CTP-client"/>  
+
+    <property name="ctp.server.home" value="${application.base.path}/CTP-server"/>
+    <property name="ctp.client.home" value="${application.base.path}/CTP-client"/>
     <basename property="ctp.server.home.dirname" file="${ctp.server.home}"/>
     <basename property="ctp.client.home.dirname" file="${ctp.client.home}"/>
-    <property name="deployed.ncia.jar" location="${ctp.server.home}/CTP/libraries/ncia.jar"/>    
+    <property name="deployed.nbia.jar" location="${ctp.server.home}/CTP/libraries/ncia.jar"/>
   </target>
-  
+
   <target name="install:ctp:server:post" unless="exclude.ctp">
 
     <ctp-create-change-logs/>
 
   </target>
-  
+
   <target name="install:ctp:server:clean"
-          unless="exclude.ctp">           
+          unless="exclude.ctp">
     <fail unless="application.base.path"/>
     <echoproperties/>
-    
+
     <property name="backup.ctp.server.base.dir" location="${application.base.path}/backup/ctp-server"/>
 
     <echo>FOO ${backup.ctp.server.base.dir}</echo>
     <ctp-backup/>
 
-  </target> 
-  
+  </target>
+
   <target name="install:ctp:client:post" unless="exclude.ctp">
-  
+
     <ctp-create-change-logs ctp.home="${ctp.client.home}"
                             exclude.backup="${exclude.ctp.client.backup}"
                             backup.ctp.base.dir="${backup.ctp.client.base.dir}"
-                            ctp.home.dirname="${ctp.client.home.dirname}"/> 
+                            ctp.home.dirname="${ctp.client.home.dirname}"/>
   </target>
-  
-  
+
+
   <target name="install:ctp:client:clean"
           unless="exclude.ctp-client">
     <fail unless="application.base.path"/>
-    
-    
+
+
     <property name="backup.ctp.client.base.dir" location="${application.base.path}/backup/ctp-client"/>
 
     <ctp-backup ctp.home="${ctp.client.home}"
-                exclude.backup="${exclude.ctp.client.backup}"    
+                exclude.backup="${exclude.ctp.client.backup}"
                 backup.ctp.base.dir="${backup.ctp.client.base.dir}"
-                server.or.client="client"/>   
-  </target> 
-  
+                server.or.client="client"/>
+  </target>
+
   <target name="install:ctp:stop" unless="exclude.ctp">
 
     <echo>Stopping CTP server...</echo>
-          
-    <ctp-shutdown hostAndPort="localhost:${ctp.server.port}" 
-                  adminPassword="${ctp.server.king.password}"/>          
-   
+
+    <ctp-shutdown hostAndPort="localhost:${ctp.server.port}"
+                  adminPassword="${ctp.server.king.password}"/>
+
   </target>
-  
-  
+
+
   <target name="install:ctp:server:start" unless="exclude.ctp">
     <if>
       <not>
         <isset property="exclude.start.servers"/>
-      </not> 
+      </not>
       <then>
         <echo>Starting CTP server...</echo>
 
@@ -81,60 +81,60 @@
               executable="${ctp.server.home}/CTP/ctp.sh"
               failonerror="false"
               spawn="true"
-              osfamily="unix"/>     
-          
-        
+              osfamily="unix"/>
+
+
         <exec dir="${ctp.server.home}/CTP"
-              executable="${bda-utils.dir}/resource/psexec.exe" 
-              failonerror="false"                            
-              spawn="true" 
+              executable="${bda-utils.dir}/resource/psexec.exe"
+              failonerror="false"
+              spawn="true"
               osfamily="windows">
           <arg line="-d -i -w &quot;${ctp.server.home}/CTP&quot;  &quot;${ctp.server.home}/CTP/ctp.bat&quot;" />
-        </exec>              
+        </exec>
 
       </then>
-    </if>   
+    </if>
   </target>
-  
+
   <target name="install:ctp:client:start" unless="exclude.ctp-client">
   <!--
-    dont bother 
-    --> 
-  </target>  
+    dont bother
+    -->
+  </target>
 
 
-  
-  <target name="install:ctp:server:binaries" unless="exclude.ctp">     
 
-    <unjar src="${ncia-ctp.dist.relative.dir}/CTP-installer.jar" 
+  <target name="install:ctp:server:binaries" unless="exclude.ctp">
+
+    <unjar src="${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
            dest="${ctp.server.home}"/>
-           
-    <!-- after unzipping CTP, move the users.xml back on top -->       
+
+    <!-- after unzipping CTP, move the users.xml back on top -->
     <if>
       <isset property="ctp.server.exists"/>
-      <then>    
+      <then>
         <copy todir="${ctp.server.home}/CTP"
               file="${application.base.path}/backup/ctp-server/users.xml"
               overwrite="true"/>
-        <delete dir="${application.base.path}/backup/ctp-server/users.xml"/>  
+        <delete dir="${application.base.path}/backup/ctp-server/users.xml"/>
       </then>
     </if>
-       
-    
+
+
     <delete dir="${ctp.server.home}/org"/>
-    <delete dir="${ctp.server.home}/META-INF"/>   
+    <delete dir="${ctp.server.home}/META-INF"/>
     <mkdir dir="${ctp.server.home}/CTP/logs"/>
-    
+
     <!-- for default index dir -->
     <mkdir dir="${ctp.server.home}/CTP/index"/>
     <mkdir dir="${ctp.server.storage_service.index}"/>
-    
+
     <osfamily property="os.type"/>
     <switch value="${os.type}">
       <case value="unix">
-        <unzip dest="${ctp.server.home}" 
+        <unzip dest="${ctp.server.home}"
                src="${tools.dir.src}/${jai.linux.binaries.file}" />
-        <property name="jai.classpath" 
+        <property name="jai.classpath"
                   value="${ctp.server.home}/${jai.linux.binaries.relative.dir}/lib/"/>
 
         <echo file="${ctp.server.home}/CTP/ctp.sh">
@@ -142,168 +142,168 @@
 #!/bin/sh
 nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$JAVA_HOME/jre/lib/ext" -jar CTP.jar &
         ]]>
-        </echo>       
+        </echo>
       </case>
       <case value="windows">
-        <unzip dest="${ctp.server.home}" 
+        <unzip dest="${ctp.server.home}"
                src="${tools.dir.src}/${jai.windows.binaries.file}" />
-        <property name="jai.classpath" 
+        <property name="jai.classpath"
                   value="${ctp.server.home}/${jai.windows.binaries.relative.dir}/lib/"/>
-                  
+
         <echo file="${ctp.server.home}/CTP/ctp.bat">
         <![CDATA[
-echo Starting CTP Server...        
-java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_HOME%/jre/lib/ext" -jar CTP.jar 
+echo Starting CTP Server...
+java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_HOME%/jre/lib/ext" -jar CTP.jar
         ]]>
-        </echo> 
+        </echo>
       </case>
       <default>
         <echo message="${os.type} has no match."/>
       </default>
-    </switch>   
-    
-     
-  </target>  
-  
-  <target name="install:ctp:client:binaries" unless="exclude.ctp-client">    
-     
-    <unjar src="${ncia-ctp.dist.relative.dir}/CTP-installer.jar" 
+    </switch>
+
+
+  </target>
+
+  <target name="install:ctp:client:binaries" unless="exclude.ctp-client">
+
+    <unjar src="${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
            dest="${ctp.client.home}"/>
-           
-    <!-- after unzipping CTP, move the users.xml back on top -->    
+
+    <!-- after unzipping CTP, move the users.xml back on top -->
     <if>
       <isset property="ctp.client.exists"/>
-      <then>    
+      <then>
         <copy todir="${ctp.client.home}/CTP"
               file="${application.base.path}/backup/ctp-client/users.xml"
               overwrite="true"/>
-        <delete dir="${application.base.path}/backup/ctp-client/users.xml"/>  
+        <delete dir="${application.base.path}/backup/ctp-client/users.xml"/>
       </then>
     </if>
-      
-    
+
+
     <delete dir="${ctp.client.home}/org"/>
-    <delete dir="${ctp.client.home}/META-INF"/>   
+    <delete dir="${ctp.client.home}/META-INF"/>
     <mkdir dir="${ctp.client.home}/CTP/logs"/>
-    
-    <create-ctp-client-startup-scripts/>       
-  </target>   
-  
 
-  
+    <create-ctp-client-startup-scripts/>
+  </target>
+
+
+
   <target name="install:ctp:server:patchdb" depends="install:ctp:server:binaries" unless="exclude.ctp">
-    <copy file="${deployed.ncia.jar}" tofile="${deployed.ncia.jar}.orig"/>
-    
-    
-    <mkdir dir="${ctp.server.home}/CTP/ncia_jar_tmp"/>
-    <unjar src="${deployed.ncia.jar}" 
-           dest="${ctp.server.home}/CTP/ncia_jar_tmp"/>
-    <delete file="${deployed.ncia.jar}"/>
-                        
+    <copy file="${deployed.nbia.jar}" tofile="${deployed.nbia.jar}.orig"/>
 
-    <replaceregexp file="${ctp.server.home}/CTP/ncia_jar_tmp/hibernate.properties" 
+
+    <mkdir dir="${ctp.server.home}/CTP/nbia_jar_tmp"/>
+    <unjar src="${deployed.nbia.jar}"
+           dest="${ctp.server.home}/CTP/nbia_jar_tmp"/>
+    <delete file="${deployed.nbia.jar}"/>
+
+
+    <replaceregexp file="${ctp.server.home}/CTP/nbia_jar_tmp/hibernate.properties"
                    byline="true"
                    match="^\s*hibernate.connection.url\s+(.*)$"
                    replace="hibernate.connection.url ${database.url}"/>
-    <replaceregexp file="${ctp.server.home}/CTP/ncia_jar_tmp/hibernate.properties" 
+    <replaceregexp file="${ctp.server.home}/CTP/nbia_jar_tmp/hibernate.properties"
                    byline="true"
-                   match="^\s*hibernate.connection.username\s+(.*)$" 
+                   match="^\s*hibernate.connection.username\s+(.*)$"
                    replace="hibernate.connection.username ${database.user}"/>
-    <replaceregexp file="${ctp.server.home}/CTP/ncia_jar_tmp/hibernate.properties" 
+    <replaceregexp file="${ctp.server.home}/CTP/nbia_jar_tmp/hibernate.properties"
                    byline="true"
-                   match="^\s*hibernate.connection.password\s+(.*)$" 
+                   match="^\s*hibernate.connection.password\s+(.*)$"
                    replace="hibernate.connection.password ${database.password}"/>
-    <replaceregexp file="${ctp.server.home}/CTP/ncia_jar_tmp/hibernate.properties" 
+    <replaceregexp file="${ctp.server.home}/CTP/nbia_jar_tmp/hibernate.properties"
                    byline="true"
-                   match="^\s*hibernate.connection.driver_class\s+(.*)$" 
+                   match="^\s*hibernate.connection.driver_class\s+(.*)$"
                    replace="hibernate.connection.driver_class ${database.driver}"/>
-    <replaceregexp file="${ctp.server.home}/CTP/ncia_jar_tmp/hibernate.properties" 
-                   byline="true"    
-                   match="^\s*hibernate.dialect\s+(.*)$" 
-                   replace="hibernate.dialect ${database.dialect}"/>    
-    
-    <jar jarfile="${deployed.ncia.jar}" 
+    <replaceregexp file="${ctp.server.home}/CTP/nbia_jar_tmp/hibernate.properties"
+                   byline="true"
+                   match="^\s*hibernate.dialect\s+(.*)$"
+                   replace="hibernate.dialect ${database.dialect}"/>
+
+    <jar jarfile="${deployed.nbia.jar}"
          compress="false">
-      <fileset dir="${ctp.server.home}/CTP/ncia_jar_tmp">
+      <fileset dir="${ctp.server.home}/CTP/nbia_jar_tmp">
         <include name="*/**" />
       </fileset>
-    </jar>           
-    
-    <delete dir="${ctp.server.home}/CTP/ncia_jar_tmp"/>
+    </jar>
+
+    <delete dir="${ctp.server.home}/CTP/nbia_jar_tmp"/>
   </target>
-  
+
   <target name="install:ctp:server:configure" unless="exclude.ctp">
 
     <ctp-configure/>
-                   
+
     <xmltask source="${ctp.server.home}/CTP/config.xml"
              dest="${ctp.server.home}/CTP/config.xml">
       <!-- no xmlcatalog necessary -->
-      <replace path="//Server/@port" 
+      <replace path="//Server/@port"
                withtext="${ctp.server.port}" />
-      <replace path="//ImportService/@requireAuthentication" 
+      <replace path="//ImportService/@requireAuthentication"
                withtext="${ctp.server.require_authentication}" />
-      <replace path="//ImportService/@port" 
-               withtext="${ctp.server.http_import_service.port}" />               
-      <replace path="//StorageService/@root" 
+      <replace path="//ImportService/@port"
+               withtext="${ctp.server.http_import_service.port}" />
+      <replace path="//StorageService/@root"
                withtext="${ctp.server.storage_service.root}" />
-      <replace path="//StorageService/@index" 
-               withtext="${ctp.server.storage_service.index}" />                                               
-      <replace path="//ExportService[@adapterClass='gov.nih.nci.ncia.dbadapter.NCIADatabase']/@port" 
-               withtext="${ctp.server.verifier.port}" /> 
-      <replace path="//ExportService[@adapterClass='gov.nih.nci.ncia.dbadapter.NCIADatabase']/@requireAuthentication" 
-               withtext="${ctp.server.require_authentication}" />                
-    </xmltask>   
-    
-    <prettify-xml in.xml.file="${ctp.server.home}/CTP/config.xml" 
+      <replace path="//StorageService/@index"
+               withtext="${ctp.server.storage_service.index}" />
+      <replace path="//ExportService[@adapterClass='gov.nih.nci.ncia.dbadapter.NCIADatabase']/@port"
+               withtext="${ctp.server.verifier.port}" />
+      <replace path="//ExportService[@adapterClass='gov.nih.nci.ncia.dbadapter.NCIADatabase']/@requireAuthentication"
+               withtext="${ctp.server.require_authentication}" />
+    </xmltask>
+
+    <prettify-xml in.xml.file="${ctp.server.home}/CTP/config.xml"
                   out.xml.file="${ctp.server.home}/CTP/config.xml.out"/>
-    <move file="${ctp.server.home}/CTP/config.xml"    
+    <move file="${ctp.server.home}/CTP/config.xml"
           tofile="${ctp.server.home}/CTP/config.xml.unpretty"/>
-    <move file="${ctp.server.home}/CTP/config.xml.out"    
+    <move file="${ctp.server.home}/CTP/config.xml.out"
           tofile="${ctp.server.home}/CTP/config.xml"/>
-          
+
     <chmod dir="${ctp.server.home}/CTP" perm="ugo+rx" includes="**/*.sh, **/*.bat"/>
-  </target>  
-  
+  </target>
+
   <target name="install:ctp:client:configure" unless="exclude.ctp-client">
-    
+
     <ctp-configure ctp.home="${ctp.client.home}"
                    king.password="${ctp.client.king.password}"
                    admin.password="${ctp.client.admin.password}"
                    ctp.resources.relative.dir="client"/>
-                      
-    <ctp-client-configure/>                      
-         
-  </target>   
-  
-  
+
+    <ctp-client-configure/>
+
+  </target>
+
+
   <target name="install:ctp:filesender" unless="exclude.ctp-client">
     <copy todir="${ctp.client.home}/FileSender">
-      <fileset dir="${ncia-ctp.dist.relative.dir}/FileSender"/>
-    </copy>  
-          
-           
-    <configure-filesender/>        
-  </target>
-  
+      <fileset dir="${nbia-ctp.dist.relative.dir}/FileSender"/>
+    </copy>
 
-  
-  
-  <target name="install:ctp" 
+
+    <configure-filesender/>
+  </target>
+
+
+
+
+  <target name="install:ctp"
           depends="common:ctp:init,
-                   common:common:init,             
+                   common:common:init,
                    install:ctp:client,
                    install:ctp:server"
           unless="exclude.ctp"/>
-                   
-  <target name="upgrade:ctp" 
+
+  <target name="upgrade:ctp"
           depends="common:ctp:init,
-                   common:common:init,             
+                   common:common:init,
                    upgrade:ctp:client,
                    upgrade:ctp:server"
           unless="exclude.ctp"/>
-                   
-  <target name="upgrade:ctp:client" 
+
+  <target name="upgrade:ctp:client"
           unless="exclude.ctp-client"
           depends="common:common:init,
                    common:ctp:init,
@@ -311,38 +311,38 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
                    install:ctp:stop,
                    install:ctp:client:clean,
                    install:ctp:client:binaries,
-                   install:ctp:client:configure,                
+                   install:ctp:client:configure,
                    install:ctp:client:start,
                    install:ctp:filesender"/>
-                   
+
   <!-- copy over all the contents of the server.
        leave out the install:clean which will wipe out service directories
        created through prior usage -->
-  <target name="upgrade:ctp:server" 
+  <target name="upgrade:ctp:server"
           unless="exclude.ctp"
           depends="common:common:init,
-                   common:ctp:init,                   
-                   upgrade:ctp:server:readers:custom,                   
+                   common:ctp:init,
+                   upgrade:ctp:server:readers:custom,
                    install:ctp:stop,
                    install:ctp:server:clean,
                    install:ctp:server:binaries,
                    install:ctp:server:configure,
-                   install:ctp:server:patchdb, 
-                   install:ctp:server:post,                   
+                   install:ctp:server:patchdb,
+                   install:ctp:server:post,
                    install:ctp:server:start"/>
-             
+
 
   <target name="install:ctp:validate-ports-preinstall"
           unless="exclude.ctp">
     <!--
     <validate-ports-preinstall validation.pre.port.list="${ctp.server.port},${ctp.server.http_import_service.port}"/>
       -->
-  </target>         
-             
-  <target name="install:ctp:server" 
+  </target>
+
+  <target name="install:ctp:server"
           unless="exclude.ctp"
     depends="common:common:init,
-             common:ctp:init,  
+             common:ctp:init,
              install:ctp:stop,
              install:ctp:validate-ports-preinstall,
              install:ctp:server:clean,
@@ -350,9 +350,9 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
              install:ctp:server:configure,
              install:ctp:server:patchdb,
              install:ctp:server:post,
-             install:ctp:server:start" /> 
-    
-  <target name="install:ctp:client" 
+             install:ctp:server:start" />
+
+  <target name="install:ctp:client"
           unless="exclude.ctp-client"
     depends="common:common:init,
              common:ctp:init,
@@ -363,43 +363,43 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
              install:ctp:client:configure,
              install:ctp:client:start,
              install:ctp:client:post,
-             install:ctp:filesender" />    
-    
-  
+             install:ctp:filesender" />
+
+
 
 
   <target name="upgrade:ctp:readers"
           depends="common:ctp:init,
                    upgrade:ctp:server:readers:custom,
-                   upgrade:ctp:client:readers:custom" 
+                   upgrade:ctp:client:readers:custom"
           unless="exclude.ctp"/>
-          
+
   <target name="upgrade:ctp:server:readers:custom"
           unless="exclude.ctp">
     <!-- call your custom readers here, two properties included in these scripts that don't have readers are "fs-data.base.dir, mail.smtp.server" -->
-    
-    <!-- begin read ctp stuff -->  
+
+    <!-- begin read ctp stuff -->
     <ctp-read-password ctp.password.file="${ctp.server.home}/CTP/users.xml"
                        ctp.password.property.name="ctp.server.admin.password" />
     <ctp-read-password ctp.password.file="${ctp.server.home}/CTP/users.xml"
-                       ctp.password.property.name="ctp.server.king.password" />      
+                       ctp.password.property.name="ctp.server.king.password" />
     <ctp-read-server-config/>
 
-    <!-- end read ctp stuff --> 
-  </target> 
-  
-  
+    <!-- end read ctp stuff -->
+  </target>
+
+
   <target name="upgrade:ctp:client:readers:custom"
           unless="exclude.ctp-client">
     <!-- call your custom readers here, two properties included in these scripts that don't have readers are "fs-data.base.dir, mail.smtp.server" -->
-    
-    <!-- begin read ctp stuff -->  
+
+    <!-- begin read ctp stuff -->
 
     <ctp-read-password ctp.password.file="${ctp.client.home}/CTP/users.xml"
-                       ctp.password.property.name="ctp.client.admin.password" />  
+                       ctp.password.property.name="ctp.client.admin.password" />
     <ctp-read-password ctp.password.file="${ctp.client.home}/CTP/users.xml"
-                       ctp.password.property.name="ctp.client.king.password" />                       
+                       ctp.password.property.name="ctp.client.king.password" />
     <ctp-read-client-config/>
-    <!-- end read ctp stuff --> 
-  </target>   
+    <!-- end read ctp stuff -->
+  </target>
 </project>

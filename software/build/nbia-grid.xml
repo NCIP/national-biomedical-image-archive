@@ -144,25 +144,7 @@
       <replace path="//:parameter[:name='databaseConnectionUrl']/:value/text()"
                withtext="${database.url}" />
 
-      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationName']/:value/text()"
-               withtext="ncia-api" />
-
-      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationHostPort']/:value/text()"
-               withtext="${jboss.server.port}" />
-
-      <replace path="//:parameter[:name='cqlQueryProcessorConfig_applicationHostName']/:value/text()"
-               withtext="http://${jboss.server.hostname}" />
-
-
-      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationName']/:value/text()"
-               withtext="ncia-api" />
-
-      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationHostPort']/:value/text()"
-               withtext="${jboss.server.port}" />
-
-      <replace path="//:parameter[:name='cql2QueryProcessorConfig_applicationHostName']/:value/text()"
-               withtext="http://${jboss.server.hostname}" />
-     <!--
+    <!--
 
       <replace path="//:parameter[:name='thumbnailUrl']/:value/text()"
                withtext="${nbia-grid.jboss.thumbnailUrl}" />
@@ -225,6 +207,33 @@
 
     <delete dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>
 -->
+
+    <!-- ******************** begin orm patch *********************** -->
+
+    <mkdir dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>
+    <unjar src="${nbia-grid.wsrf.path}/WEB-INF/lib/ncia-orm.jar"
+           dest="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp"/>
+    <delete file="${nbia-grid.wsrf.path}/WEB-INF/lib/ncia-orm.jar"/>
+
+    <xmltask source="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.cfg.xml"
+             dest="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp/hibernate.cfg.xml"
+             preservetype="true">
+      <xmlcatalog refid="bda.xml.catalog"/>
+
+
+      <replace path="//property[@name='dialect']/text()"
+               withtext="${database.dialect}" />
+    </xmltask>
+
+    <jar jarfile="${nbia-grid.wsrf.path}/WEB-INF/lib/ncia-orm.jar"
+         compress="false">
+      <fileset dir="${nbia-grid.wsrf.path}/WEB-INF/lib/tmp">
+        <include name="*/**" />
+      </fileset>
+    </jar>
+
+    <!-- ******************** end orm patch *********************** -->
+
     <copy file="${working.dir}/common/resources/grid/properties-service.xml"
           todir="${nbia-grid.jboss.home}/server/${nbia-grid.jboss.server.name}/deploy" overwrite="true" >
     </copy>

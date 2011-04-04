@@ -73,7 +73,7 @@
                      nullable="false"/>
       </column>
 
-      <column name="type" type="varchar(10)">
+      <column name="type" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
 

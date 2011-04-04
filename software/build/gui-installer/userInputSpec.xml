@@ -50,7 +50,7 @@
     <field type="title" txt="Existing Locations" bold="true" size="1" />
     <field type="divider" align="top"/>
     <field type="dir" variable="application.base.path">
-      <spec txt="Application Root Directory:" size="25" set="c:/apps/ncia"/>
+      <spec txt="Application Root Directory:" size="25" set="c:/apps/nbia"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Application Root Directory is a required field" />
     </field>
     <fileextractor>
@@ -1336,13 +1336,13 @@
 
     <field type="text" align="left" variable="gov.nih.nci.ncia.zip.location">
       <spec txt="NBIA Zip File Location:" size="50" set="/var/ftp/ncia"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA Zip File Location" />
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NBIA Zip File Location" />
     </field>
 
 
     <field type="text" align="left" variable="gov.nih.nci.ncia.ui.uid.display.length">
       <spec txt="NBIA UID Display Length:" size="10" set="100"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA UID Display Length" />
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NBIA UID Display Length" />
     </field>
 
     <variable name="gov.nih.nci.ncia.jboss.mq.url" value="${jboss.server.hostname}:${jboss.server.jndi.port}"/>
@@ -1350,7 +1350,7 @@
 
     <field type="text" align="left" variable="gov.nih.nci.ncia.installationSite">
       <spec txt="NBIA Site Name:" size="10" set="other"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA Site Name" />
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NBIA Site Name" />
     </field>
     <field type="text" align="left" variable="gov.nih.nci.ncia.admin.email">
       <spec txt="NBIA Admin Email:" size="10" set=""/>
@@ -1409,7 +1409,7 @@
 
     <field type="text" align="left" variable="gov.nih.nci.ncia.grid.local.node.name">
       <spec txt="NBIA Grid Node Local Name:" size="50" set="${grid.poc.tech.researchCenter.displayname}"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA Grid Node Local Name" />
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NBIA Grid Node Local Name" />
     </field>
 
     <field type="staticText"
@@ -1417,7 +1417,7 @@
            txt="DO NOT use localhost here.  Enter the actual proxy/host name or IP address where the grid server is being installed."/>
     <field type="text" align="left" variable="local.grid.uri">
       <spec txt="NBIA Grid Node Local URL:" size="50" set="http://${ncia-core-grid.jboss.server.hostname}:${ncia-core-grid.jboss.server.port}/wsrf/services/cagrid/NCIACoreService"/>
-      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NCIA Grid Node Local URL" />
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for NBIA Grid Node Local URL" />
     </field>
 
   </panel>
@@ -1778,7 +1778,7 @@
            txt="NOTE: the directory you specify MUST exist in order for the keystore to be created there.  (The actual keystore file doesn't need to exist)."/>
     <field type="staticText"
            align="left"
-           txt="NOTE: do not create the keystore as the file c:/tmp/ncia or it will cause the install to fail."/>
+           txt="NOTE: do not create the keystore as the file c:/tmp/ncia or c:/tmp/nbia or it will cause the install to fail."/>
 
     <field type="divider" align="top"/>
 

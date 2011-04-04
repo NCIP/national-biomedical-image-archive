@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<project name="ncia-jboss">
+<project name="nbia-jboss">
 
   <!-- Wrapper target to deploy JBOSS container -->
   <target name="install:jboss"
@@ -14,9 +14,9 @@
                    install:jboss:validation:pre-install:ports,
                    install:jboss:clean,
                    install:jboss:binaries,
-                   install:jboss:ncia:re-configure,
-                   install:jboss:ncia,
-                   install:jboss:ncia:configure,
+                   install:jboss:nbia:re-configure,
+                   install:jboss:nbia,
+                   install:jboss:nbia:configure,
                    install:jboss:configure,
                    install:jboss:configure:log4j,
                    install:jboss:post,
@@ -65,8 +65,7 @@
   </target>
 
 
-  <target name="install:jboss:ncia"
-          description="Deploy NCIA ncia.ear and common libraries"
+  <target name="install:jboss:nbia"
           unless="exclude.jboss"
           depends="common:jboss:init,
                    common:common:init">
@@ -87,8 +86,7 @@
           overwrite="true" />
   </target>
 
-  <target name="install:jboss:ncia:configure"
-          description="Configure NCIA application"
+  <target name="install:jboss:nbia:configure"
           unless="exclude.jboss"
           depends="common:jboss:init,
                    common:common:init">
@@ -182,9 +180,8 @@
           overwrite="true" />
   </target>
 
-  <!-- Remove JSF files that conflict with NCIA Application -->
   <target name="-install:jboss:remove:jsf"
-          description="Remove JSF library files from jbossweb to allow NCIA JSF to work"
+          description="Remove JSF library files from jbossweb to allow apps JSF to work"
           unless="exclude.jboss"
           depends="common:jboss:init,
                    common:common:init">
@@ -267,7 +264,7 @@
   <!-- Fixes hibernate dialect and other configurations in code generated at build time.
        This is requred because the properties/options selected at build time can be different
        than those used at install time. -->
-  <target name="install:jboss:ncia:re-configure" unless="exclude.jboss">
+  <target name="install:jboss:nbia:re-configure" unless="exclude.jboss">
     <!-- Clean up working area -->
     <delete dir="${temp.dir}/ncia-ear"/>
     <delete dir="${temp.dir}/ncia-war"/>
@@ -420,9 +417,9 @@
                    install:jboss:clean,
                    install:jboss:binaries,
                    install:jboss:configure,
-                   install:jboss:ncia:re-configure,
-                   install:jboss:ncia,
-                   install:jboss:ncia:configure,
+                   install:jboss:nbia:re-configure,
+                   install:jboss:nbia,
+                   install:jboss:nbia:configure,
                    upgrade:jboss:post,
                    install:jboss:post,
                    install:jboss:start,

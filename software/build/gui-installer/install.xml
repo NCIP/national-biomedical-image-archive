@@ -8,7 +8,7 @@
     - go in the bin directory where you installed IzPack
     - call "compile ../sample/install.xml -b ../sample"
 -->
-<project name="ncia-gui-installer" default="build:installer" basedir=".">
+<project name="nbia-gui-installer" default="build:installer" basedir=".">
 
   <property name="this.dir" location="${basedir}" />
   <property file="../project.properties" />
@@ -18,10 +18,10 @@
   <property name="bda-utils.dir" location="${target.location}/bda-utils" />
   <property name="custom.resource.dir" location="${target.location}/izpack-custom/resources"/>
 
-  <property name="project.name" value="ncia"/>
+  <property name="project.name" value="nbia"/>
   <property name="installer.dir" value=".installer-${project.name}"/>
-  <property name="gui-installer.dist.base.name" value="nbia_gui_distribution_${ncia.version}.jar"/>
-  <property name="install.zip.file" value="${ncia.install.zip.file}"/>
+  <property name="gui-installer.dist.base.name" value="nbia_gui_distribution_${nbia.version}.jar"/>
+  <property name="install.zip.file" value="${nbia.install.zip.file}"/>
 
 
   <echo message="compile.jar.dir ::: ${compile.jar.dir}"/>
@@ -62,8 +62,8 @@
         The meaning of the tags should be natural ...
         -->
         <info>
-          <appname>ncia</appname>
-          <appversion>@{ncia.version}</appversion>
+          <appname>nbia</appname>
+          <appversion>@{nbia.version}</appversion>
           <authors>
               <author name="NCI" email=""/>
           </authors>
@@ -540,7 +540,7 @@
         We specify here our packs.
         -->
         <packs>
-          <pack name="download_install" id="download_install" installGroups="ncia" required="no">
+          <pack name="download_install" id="download_install" installGroups="nbia" required="no">
               <description>The base files</description>
               <file src="@{dist.location}/@{install.zip.file}" targetdir="$SYSTEM_user_home/@{installer.dir}"/>
               <file src="@{this.dir}/build.xml" targetdir="$SYSTEM_user_home/@{installer.dir}"/>
@@ -551,12 +551,12 @@
 
           <pack name="parse-install" required="no" preselected="no" condition="install">
               <description>parse the input values</description>
-              <parsable targetfile="$SYSTEM_user_home/@{installer.dir}/ncia_installer/install.properties" type="javaprop" />
+              <parsable targetfile="$SYSTEM_user_home/@{installer.dir}/nbia_installer/install.properties" type="javaprop" />
           </pack>
 
           <pack name="parse-upgrade" required="no" preselected="no" condition="upgrade">
               <description>parse the input values</description>
-              <parsable targetfile="$SYSTEM_user_home/@{installer.dir}/ncia_installer/upgrade.properties" type="javaprop" />
+              <parsable targetfile="$SYSTEM_user_home/@{installer.dir}/nbia_installer/upgrade.properties" type="javaprop" />
           </pack>
 
           <pack name="convert-install-path" required="no" preselected="no" condition="install">

@@ -1,6 +1,6 @@
 <ivy-module version="1.0">
   <info organisation="ncicb"
-        module="ncia-web" />
+        module="nbia-web" />
   <configurations>
     <conf name="default" />
     <conf name="compile" />

@@ -4,7 +4,7 @@
 <project name="developer-conveniences">
 
   <target name="deploy2" depends="build:nbia-web">
-    <copy file="../target/dist/exploded/ncia-ear/ncia.ear"
+    <copy file="../target/dist/exploded/nbia-ear/nbia.ear"
           todir="${application.base.path.windows}/jboss-4.0.5.ga/server/${jboss.server.name}/deploy"/>
   </target>
 
@@ -17,7 +17,7 @@
       <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
     </ant>
 
-    <copy file="../target/dist/exploded/ncia-ear/ncia.ear"
+    <copy file="../target/dist/exploded/nbia-ear/nbia.ear"
           todir="${application.base.path.windows}/jboss-4.0.5.ga/server/${jboss.server.name}/deploy"/>
   </target>
 
@@ -25,7 +25,7 @@
   <target name="deploy_grid" depends="build:ncia-core-grid">
     <copy file="ncia-core-grid.xml"
           todir="../target/dist/exploded"/>
-    <copy file="../target/dist/exploded/ncia-ear/ncia.ear"
+    <copy file="../target/dist/exploded/nbia-ear/nbia.ear"
           todir="${application.base.path.windows}/jboss-4.0.5.ga/server/${jboss.server.name}/deploy"/>
         <copy todir="${dist.exploded.dir}/ncia-core-grid-transfer" overwrite="true">
           <fileset dir="${software.dir}/ncia-core-grid-transfer/conf">

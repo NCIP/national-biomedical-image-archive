@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl"
                  href="../common/ant2html.xsl"?>
 
-<project name="ncia-web" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="nbia-web" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Properties -->
   <property name="common.dir" value="${basedir}/../" />
@@ -17,21 +17,21 @@
   <property name="resources.dir" value="resources" />
   <property name="classes.dir" value="${basedir}/classes" />
 
-  <property name="target.dir" value="${common.dir}/target/dist/exploded/ncia-ear" />
-  <property name="war.name" value="ncia.war" />
-  <property name="ear.name" value="ncia.ear" />
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-ear" />
+  <property name="war.name" value="nbia.war" />
+  <property name="ear.name" value="nbia.ear" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
 
   <property name="webapp.dir" value="${classes.dir}/ncia-image" />
   <property name="web.classes.dir" value="${classes.dir}/ncia-image/WEB-INF/classes" />
   <property name="web.lib.dir" value="${classes.dir}/ncia-image/WEB-INF/lib" />
-  <property name="web.ncia.webapp.dir" value="webapps/ncia-image" />
+  <property name="web.nbia.webapp.dir" value="webapps/ncia-image" />
   <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${web.classes.dir}"/>
 
   <property name="web.j2ee.resources.dir" value="${resources.dir}/ear" />
 
-  <property name="project.lib.dir" value="${common.dir}/target/lib/ncia-web"/>
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-web"/>
   <property name="remote.search.lib.dir" value="${common.dir}/target/lib/nbia-remote-search"/>
   <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>
 
@@ -108,12 +108,12 @@
     <mkdir dir="${webapp.dir}/download-mgr-dependencies"/>
   </target>
 
-  <target name="copy-and-prepare-ncia_war" depends="-init, ivy-runtime">
+  <target name="copy-and-prepare-nbia_war" depends="-init, ivy-runtime">
     <echo message="**********************************************" />
-    <echo message="***  Copying NCIA webapp to the classes dir **" />
+    <echo message="***  Copying NBIA webapp to the classes dir **" />
     <echo message="**********************************************" />
     <copy todir="${webapp.dir}/">
-      <fileset dir="${web.ncia.webapp.dir}">
+      <fileset dir="${web.nbia.webapp.dir}">
         <include name="**/*.*" />
       </fileset>
     </copy>
@@ -168,14 +168,14 @@
     </javac>
   </target>
 
-  <target name="patch-footer-with-version" depends="copy-and-prepare-ncia_war">
+  <target name="patch-footer-with-version" depends="copy-and-prepare-nbia_war">
 
     <!-- start: Insert release/build info into footer -->
     <echo>*************** Tagging the footer.jsp with the value: ${nbia_prod_build_tag.final} </echo>
 
     <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/footer.xhtml"
                    match="\{NCIA_RELEASE_VERSION\}"
-                   replace="${ncia.version}" flags="g" />
+                   replace="${nbia.version}" flags="g" />
     <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/footer.xhtml"
                    match="\{NCIA_PROD_BUILD_TAG\}"
                    replace="${bcia_prod_build_tag.final}"
@@ -185,7 +185,7 @@
 
   </target>
 
-  <target name="patch-jnlp" depends="copy-and-prepare-ncia_war">
+  <target name="patch-jnlp" depends="copy-and-prepare-nbia_war">
     <for param="jar">
       <path>
         <fileset dir="${webapp.dir}/download-mgr-dependencies" includes="*"/>
@@ -205,7 +205,7 @@
     </for>
   </target>
 
-  <target name="war" depends="compile, copy-and-prepare-ncia_war, patch-jnlp, patch-footer-with-version">
+  <target name="war" depends="compile, copy-and-prepare-nbia_war, patch-jnlp, patch-footer-with-version">
 
     <war destfile="${target.dir}/${war.name}"
          webxml="${webapp.dir}/WEB-INF/web.xml"

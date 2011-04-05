@@ -157,7 +157,7 @@
 		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="project.test.pmd.classpath"/>
 		<mkdir dir="${reports.dir}/pmd/${ant.project.name}/target"/>
 		<switch value="${ant.project.name}">
-			<case value="ncia-web">
+			<case value="nbia-web">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
 			<case value="nbia-services-commons">
@@ -213,7 +213,7 @@
 
 	<target name="-checkstyle" if="static.analysis">
 		<switch value="${ant.project.name}">
-			<case value="ncia-web">
+			<case value="nbia-web">
 				<var name="checkstyle.maxErrors" value="10"/>
 			</case>
       <case value="nbia-dao">

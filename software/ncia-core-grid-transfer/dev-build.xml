@@ -11,20 +11,20 @@
   <!-- Place any other properties you will need here                  -->
   <!-- ============================================================== -->
   <property name="common.dir" value="${basedir}/../" />
-  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" /> 
+  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
   <property name="project.lib.dir" value="${common.dir}/target/lib/ncia-core-grid-transfer"/>
 
   <!-- a little dicey. the grid service MUST be buildable by itself to enable
        introduce to do its thing (add operations).  presume previous full build has already put ivy out there tho...  -->
-  <taskdef resource="org/apache/ivy/ant/antlib.xml" 
-           uri="antlib:org.apache.ivy.ant">  
+  <taskdef resource="org/apache/ivy/ant/antlib.xml"
+           uri="antlib:org.apache.ivy.ant">
     <classpath>
       <fileset dir="../target/lib">
         <include name="ivy-*.jar" />
-      </fileset>           
+      </fileset>
     </classpath>
-  </taskdef>         
-           
+  </taskdef>
+
   <taskdef resource="net/sf/antcontrib/antlib.xml">
     <classpath>
       <pathelement location="${tools.lib.dir}/ant-contrib.jar" />
@@ -41,26 +41,26 @@
     <path id="base.extended.classpath">
       <fileset dir="${project.lib.dir}/compile">
         <include name="*.jar" />
-      </fileset>   
+      </fileset>
     </path>
-    
+
     <path id="service.build.extended.classpath">
-    
+
     </path>
-    
-    
+
+
     <path id="service.run.extended.classpath">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="*.jar" />
-      </fileset>    
+      </fileset>
     </path>
-    
+
     <path id="test.build.extended.classpath">
     </path>
     <path id="test.run.extended.classpath">
     </path>
     <path id="run.extended.classpath">
-    
+
     </path>
     <path id="tasks.run.extended.classpath">
     </path>
@@ -135,15 +135,15 @@
     <mkdir dir="${project.lib.dir}/compile"/>
     <ivy:resolve file="ivy.xml" conf="compile" />
     <ivy:retrieve conf="compile" pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
-    
+
     <move todir="${project.lib.dir}/compile">
       <fileset dir="${project.lib.dir}/compile">
         <include name="*-working@*.jar" />
       </fileset>
       <mapper type="regexp" from="^(.*)\-working\@(.*)\.jar$" to="\1.jar" />
-    </move>    
+    </move>
     <property name="ivy.compile.run" value="t"/>
-  </target>  
+  </target>
   <target name="preCompile" depends="ivy-compile">
 
   </target>
@@ -160,19 +160,19 @@
   <!-- ============================================================== -->
   <target name="ivy-runtime" depends="ivy-settings" unless="ivy.runtime.run">
     <mkdir dir="${project.lib.dir}/runtime"/>
-    
+
     <ivy:resolve file="ivy.xml" conf="runtime" />
     <ivy:retrieve conf="runtime" pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
-    
-    
+
+
     <move todir="${project.lib.dir}/runtime">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="*-working@*.jar" />
       </fileset>
       <mapper type="regexp" from="^(.*)\-working\@(.*)\.jar$" to="\1.jar" />
-    </move>   
+    </move>
     <property name="ivy.runtime.run" value="t"/>
-  </target>   
+  </target>
   <target name="preJar" depends="ivy-runtime">
   </target>
 
@@ -181,7 +181,7 @@
   <!-- ============================================================== -->
   <target name="postJar">
 
-    
+
   </target>
 
   <!-- ============================================================== -->
@@ -190,17 +190,17 @@
   <!-- this doesnt need to depend on ivy-test because the inspect target already invokes it.... and the way
        things are wired ANT doesnt know its already run -->
   <target name="preCompileTests">
-    <!-- copy all the unit testing stuff for the compile.  heavy handed only need mockrunner.  rethink this --> 
+    <!-- copy all the unit testing stuff for the compile.  heavy handed only need mockrunner.  rethink this -->
 
-    
-    
+
+
     <copy overwrite="true" toDir="${test.build.dest}">
       <fileset dir="test/resources" casesensitive="yes">
         <include name="*.*" />
       </fileset>
 
     </copy>
-    
+
     <copy overwrite="true" toDir="${test.lib.dir}">
       <fileset dir="${project.lib.dir}/test" casesensitive="yes">
         <include name="*.*" />
@@ -214,7 +214,7 @@
         <include name="*.jar" />
       </fileset>
 
-    </copy>    
+    </copy>
 
 
   </target>
@@ -239,45 +239,45 @@
     <!-- just core-grid-transfer client classpath -->
     <zip destfile="client-jars-nodeps.zip">
       <fileset dir="lib">
-        <include name="ncia-beans.jar" />  
-      </fileset>  
-      
-      <fileset dir="build/lib">        
+        <include name="ncia-beans.jar" />
+      </fileset>
+
+      <fileset dir="build/lib">
         <include name="NCIACoreService-*.jar" />
 
         <exclude name="NCIACoreService-tests.jar" />
 
-      </fileset>              
-    
-      <fileset dir="${project.lib.dir}/runtime"> 
-        <include name="ncia-services-grid.jar" />
-      </fileset>    
-    </zip>  
+      </fileset>
+
+      <fileset dir="${project.lib.dir}/runtime">
+        <include name="nbia-services-grid.jar" />
+      </fileset>
+    </zip>
 
     <!-- full client classpath -->
     <zip destfile="client-jars-full.zip">
       <fileset dir="lib">
         <include name="ncia-beans.jar" />
-      </fileset>  
-      <fileset dir="build/lib">        
+      </fileset>
+      <fileset dir="build/lib">
         <include name="NCIACoreService-*.jar" />
-        <!--                   
+        <!--
         <exclude name="NCIACoreService-tests.jar" />
         -->
       </fileset>
-      
-      <fileset dir="${project.lib.dir}/runtime"> 
-        <include name="ncia-services-grid.jar" />
+
+      <fileset dir="${project.lib.dir}/runtime">
+        <include name="nbia-services-grid.jar" />
         <include name="log4j*.jar" />
       </fileset>
-      
+
       <fileset dir="${ext.globus.dir}/lib">
         <include name="addressing-1.0.jar"/>
         <include name="addressing-1.0.jar"/>
         <include name="axis.jar"/>
         <include name="cog-axis.jar"/>
         <include name="cog-jglobus.jar"/>
-        <include name="commons-discovery.jar"/>                
+        <include name="commons-discovery.jar"/>
         <include name="commons-logging.jar"/>
         <include name="jaxrpc.jar"/>
         <include name="jce-jdk13-125.jar"/>
@@ -285,10 +285,10 @@
         <include name="wsdl4j.jar"/>
         <include name="wsrf_core.jar"/>
         <include name="wsrf_core_stubs.jar"/>
-        <include name="wss4j.jar"/>        
-      </fileset>   
-         
-      <fileset dir="lib">  
+        <include name="wss4j.jar"/>
+      </fileset>
+
+      <fileset dir="lib">
         <include name="caGrid-ServiceSecurityProvider-client-1.3.jar"/>
         <include name="caGrid-ServiceSecurityProvider-common-1.3.jar"/>
         <include name="caGrid-ServiceSecurityProvider-service-1.3.jar"/>
@@ -314,12 +314,12 @@
         <include name="caGrid-sdkQuery4-style-1.3.jar"/>
         <include name="caGrid-sdkQuery4-tests-1.3.jar"/>
         <include name="caGrid-sdkQuery4-tests-resources-1.3.jar"/>
-        <include name="commons-httpclient-3.0.jar"/>      
+        <include name="commons-httpclient-3.0.jar"/>
         <include name="iviCore-1.2dev.jar"/>
         <include name="caGrid-core-1.3.jar"/>
       </fileset>
-      
-      <fileset dir="lib/secure">    
+
+      <fileset dir="lib/secure">
         <include name="caGrid-authentication-service-client-1.3.jar"/>
         <include name="caGrid-authentication-service-common-1.3.jar"/>
         <include name="caGrid-authentication-service-stubs-1.3.jar"/>
@@ -330,10 +330,10 @@
         <include name="caGrid-gaards-core-1.3.jar"/>
         <include name="caGrid-opensaml-1.3.jar"/>
         <include name="commons-codec-1.3.jar"/>
-        <include name="commons-httpclient-3.0.jar"/>        
+        <include name="commons-httpclient-3.0.jar"/>
       </fileset>
-      
-      <fileset dir="${ext.globus.dir}/lib">  
+
+      <fileset dir="${ext.globus.dir}/lib">
         <include name="cryptix.jar"/>
         <include name="cryptix32.jar"/>
         <include name="cryptix-asn1.jar"/>
@@ -342,14 +342,14 @@
         <include name="xmlsec.jar"/>
         <include name="xalan.jar"/>
       </fileset>
-      
-      <zipfileset dir="lib/secure/endorsed" 
-                  prefix="endorsed">      
+
+      <zipfileset dir="lib/secure/endorsed"
+                  prefix="endorsed">
         <include name="resolver.jar"/>
         <include name="xercesImpl.jar"/>
         <include name="xml-apis.jar"/>
       </zipfileset>
-   
+
     </zip>
   </target>
 

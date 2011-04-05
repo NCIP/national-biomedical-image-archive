@@ -66,7 +66,7 @@
                 conf="compile->master;runtime"/>
 
     <dependency org="ncicb"
-                name="ncia-services-grid"
+                name="nbia-services-grid"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
     <dependency org="ncicb"

@@ -1,58 +1,58 @@
 <ivy-module version="1.0">
-  <info organisation="ncicb" 
+  <info organisation="ncicb"
         module="imagedeletionmdb"/>
-        
+
   <configurations>
-       
-    <conf name="master" />  
+
+    <conf name="master" />
     <conf name="compile" />
-    <conf name="runtime" />                 
+    <conf name="runtime" />
   </configurations>
-  
+
   <publications>
-    <artifact name="imagedeletionmdb" 
-              type="jar" 
+    <artifact name="imagedeletionmdb"
+              type="jar"
               conf="master, compile, runtime" />
   </publications>
-  
+
   <dependencies>
 
 
-    <dependency org="jboss.jbossas.core-libs" 
-                name="jboss-j2ee" 
-                rev="4.0.4.GA" 
-                conf="compile->master"/>                 
-
-    <dependency org="log4j" 
-                name="log4j"
-                rev="1.2.15" 
+    <dependency org="jboss.jbossas.core-libs"
+                name="jboss-j2ee"
+                rev="4.0.4.GA"
                 conf="compile->master"/>
-                
-    <dependency org="ncicb" 
-                name="nbia-util" 
-                rev="latest.integration"
-                conf="compile->master;runtime"/>  
-                
-    <dependency org="ncicb" 
-                name="ncia-services-commons" 
-                rev="latest.integration"
-                conf="compile;runtime->master"/> 
 
-    <!-- dao and remote-search called out expclitly to avoid commons pulling in all of its @#$%@#$ -->                      
-    <dependency org="ncicb" 
-                name="nbia-dao" 
-                rev="latest.integration"
-                conf="runtime"/> 
-                
-    <dependency org="ncicb" 
-    		name="nbia-remote-search" 
-    		rev="latest.integration" 
-    		conf="runtime"/>
+    <dependency org="log4j"
+                name="log4j"
+                rev="1.2.15"
+                conf="compile->master"/>
 
-    <dependency org="ncicb" 
-    		name="ncia-services-grid" 
-    		rev="latest.integration" 
-    		conf="runtime->master"/>
+    <dependency org="ncicb"
+                name="nbia-util"
+                rev="latest.integration"
+                conf="compile->master;runtime"/>
+
+    <dependency org="ncicb"
+                name="ncia-services-commons"
+                rev="latest.integration"
+                conf="compile;runtime->master"/>
+
+    <!-- dao and remote-search called out expclitly to avoid commons pulling in all of its @#$%@#$ -->
+    <dependency org="ncicb"
+                name="nbia-dao"
+                rev="latest.integration"
+                conf="runtime"/>
+
+    <dependency org="ncicb"
+                name="nbia-remote-search"
+                rev="latest.integration"
+                conf="runtime"/>
+
+    <dependency org="ncicb"
+    		        name="nbia-services-grid"
+                rev="latest.integration"
+                conf="runtime->master"/>
 
   </dependencies>
 

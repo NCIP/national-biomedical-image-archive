@@ -160,7 +160,7 @@
 			<case value="ncia-web">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
-			<case value="ncia-services-commons">
+			<case value="nbia-services-commons">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
 			<case value="nbia-ctp">

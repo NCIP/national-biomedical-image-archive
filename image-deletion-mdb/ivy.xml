@@ -34,7 +34,7 @@
                 conf="compile->master;runtime"/>
 
     <dependency org="ncicb"
-                name="ncia-services-commons"
+                name="nbia-services-commons"
                 rev="latest.integration"
                 conf="compile;runtime->master"/>
 

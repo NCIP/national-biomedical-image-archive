@@ -30,7 +30,7 @@
     <copy toDir="${build.lib.dir}">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="nbia-dao.jar" />
-        <include name="ncia-services-commons.jar" />
+        <include name="nbia-services-commons.jar" />
         <include name="nbia-services-grid.jar" />
         <include name="nbia-util.jar" />
         <include name="nbia-domain.jar" />

@@ -80,7 +80,7 @@ $HeadURL$
   <property name="ncia-core-grid.base.dir" value="${software.dir}/ncia-core-grid-transfer"/>
   <property name="nbia-grid.base.dir" value="${software.dir}/nbia-service"/>
   <property name="nbia-ctp.base.dir" value="${software.dir}/nbia-ctp-working"/>
-  <property name="nbia-services-commons.base.dir" value="${software.dir}/ncia-services-commons"/>
+  <property name="nbia-services-commons.base.dir" value="${software.dir}/nbia-services-commons"/>
   <property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
   <property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
   <property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
@@ -253,7 +253,7 @@ $HeadURL$
     <taskdef resource="simiantask.properties" classpathref="simian.classpath" />
 
     <simian>
-      <fileset dir="${software.dir}/ncia-services-commons/src" includes="**/*.java"/>
+      <fileset dir="${software.dir}/nbia-services-commons/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-services-grid/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/ncia-web/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-ctp/src" includes="**/*.java"/>
@@ -439,7 +439,7 @@ $HeadURL$
     </ant>
   </target>
 
-  <!-- Build ncia-services-commons sub-project artifacts are included in ncia-web -->
+
   <target name="build:nbia-services-commons" depends="init,
                                                       build:nbia-util,
                                                       build:nbia-services-grid,
@@ -1010,7 +1010,7 @@ $HeadURL$
 
     <zip destfile="${dist.dir}/${nbia.install.zip.file}"
          basedir="${dist.exploded.dir}"
-         excludes="ncia-ear/ncia.war, ncia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+         excludes="ncia-ear/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
   </target>
 
   <!-- Copies install time resources into distribution tree -->
@@ -1089,7 +1089,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                    replace="\1upgrade.properties\2" />
     <zip destfile="${dist.dir}/${nbia.upgrade.zip.file}"
          basedir="${dist.exploded.dir}"
-         excludes="ncia-ear/ncia.war, ncia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+         excludes="ncia-ear/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 
   </target>
 
@@ -1650,21 +1650,6 @@ jboss.home,ctp.server.home,ctp.client.home,
                   database.driver.jar="mysql-connector-java-5.0.8.jar"/>
   </target>
 
-  <!-- this is broken in bda 1.5.17
-  <target name="report:uml">
-    <property name="uml.dir" value="${reports.dir}/uml"/>
-    <path id="ncia-services-commons.classpath.ref">
-      <fileset dir="${lib.dir}/ncia-services-commons">
-        <include name="**/*.jar" />
-      </fileset>
-    </path>
-    <generate-uml
-      uml.dir="${uml.dir}"
-      src.java.dir="${ncia-services-commons.base.dir}/src"
-      uml.source.path="ncia-services-commons.classpath.ref"
-      />
-  </target>
-  -->
 
   <import file="ctp-macrodefs.xml"/>
 

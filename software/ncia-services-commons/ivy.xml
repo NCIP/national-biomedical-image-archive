@@ -1,6 +1,6 @@
 <ivy-module version="1.0">
   <info organisation="ncicb"
-        module="ncia-services-commons"/>
+        module="nbia-services-commons"/>
 
   <configurations>
     <conf name="master" />
@@ -12,7 +12,7 @@
   </configurations>
 
   <publications>
-    <artifact name="ncia-services-commons"
+    <artifact name="nbia-services-commons"
               type="jar"
               conf="master, compile, runtime" />
   </publications>

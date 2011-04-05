@@ -51,7 +51,7 @@
                 conf="test->master"/>
 
     <dependency org="ncicb"
-                name="ncia-services-commons"
+                name="nbia-services-commons"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
 

@@ -62,9 +62,9 @@
         <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
       </filesystem>
 
-      <filesystem name="ncia-services-commons-resolver" local="true">
-        <artifact pattern="${nbia.basedir}/target/dist/exploded/ncia-services-commons/[module].[ext]" />
-        <ivy pattern="${nbia.basedir}/ncia-services-commons/ivy.xml" />
+      <filesystem name="nbia-services-commons-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-services-commons/[module].[ext]" />
+        <ivy pattern="${nbia.basedir}/nbia-services-commons/ivy.xml" />
       </filesystem>
 
       <filesystem name="ncia-core-grid-transfer-resolver" local="true">
@@ -104,8 +104,8 @@
              resolver="nbia-util-resolver"/>
 
      <module organisation="ncicb"
-             name="ncia-services-commons"
-             resolver="ncia-services-commons-resolver"/>
+             name="nbia-services-commons"
+             resolver="nbia-services-commons-resolver"/>
 
      <module organisation="ncicb"
              name="nbia-domain"

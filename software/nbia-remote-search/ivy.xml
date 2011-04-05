@@ -52,7 +52,7 @@
 
     <!-- leave runtime to a higher power to make a decision about runtime -->
     <dependency org="ncicb"
-                name="ncia-services-commons"
+                name="nbia-services-commons"
                 rev="latest.integration"
                 conf="compile,runtime->master;test->runtime"/>
 

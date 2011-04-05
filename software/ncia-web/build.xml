@@ -7,8 +7,8 @@
   <!-- Properties -->
   <property name="common.dir" value="${basedir}/../" />
 
-  <!-- directory where the compiled and configured ncia-services-commons target directory can be found -->
-  <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/ncia-services-commons" />
+  <!-- directory where the compiled and configured nbia-services-commons target directory can be found -->
+  <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
   <property name="download.mgr.target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
   <property name="download.webapp.target.dir" value="${common.dir}/target/dist/exploded/nbia-download"/>
 

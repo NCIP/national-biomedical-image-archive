@@ -10,7 +10,7 @@
   <!-- directory where the compiled and configured ncia-services-commons target directory can be found -->
   <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/ncia-services-commons" />
   <property name="download.mgr.target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
-  <property name="download.webapp.target.dir" value="${common.dir}/target/dist/exploded/ncia-download"/>
+  <property name="download.webapp.target.dir" value="${common.dir}/target/dist/exploded/nbia-download"/>
 
   <!-- The following should not need modifying -->
   <property name="src.java.dir" value="src" />

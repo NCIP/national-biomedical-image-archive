@@ -1,75 +1,75 @@
-<project name="nbia-download" 
-         default="" 
-         basedir="." 
+<project name="nbia-download"
+         default=""
+         basedir="."
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <property name="src.java.dir" location="src"/>
   <property name="build" location="bin"/>
   <property name="dist" location="dist"/>
   <property name="lib" location="lib" />
-  <property name="war.name" value="nbia-download.war" />  
+  <property name="war.name" value="nbia-download.war" />
   <property name="user.name" value="NBIA" />
 
 
-  <property name="common.dir" value="${basedir}/../" />  
-  <property name="target.dir" value="${common.dir}/target/dist/exploded/ncia-download" />
+  <property name="common.dir" value="${basedir}/../" />
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-download" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
-  
+
   <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${build}"/>
-  <property name="project.lib.dir" value="${common.dir}/target/lib/ncia-download"/>
-  <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>  
-  
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-download"/>
+  <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>
+
   <path id="classpath">
     <fileset dir="${project.lib.dir}/compile/">
       <include name="*.jar"/>
     </fileset>
-  </path>  
-  
+  </path>
+
   <import file="../common/unittesting.xml"/>
-  
+
   <target name="ivy-settings">
     <ivy:settings file="${global.ivy.settings.file}"/>
   </target>
-        
+
   <target name="ivy-compile" depends="ivy-settings">
     <ivy:resolve file="ivy.xml"
                  conf="compile" />
-    <ivy:retrieve conf="compile" 
+    <ivy:retrieve conf="compile"
                   pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
-                  
+
     <move todir="${project.lib.dir}/compile">
       <fileset dir="${project.lib.dir}/compile">
         <include name="*-working@*.jar"/>
       </fileset>
-      <mapper type="regexp" 
-              from="^(.*)\-working\@(.*)\.jar$" 
+      <mapper type="regexp"
+              from="^(.*)\-working\@(.*)\.jar$"
               to="\1.jar"/>
-    </move>                   
+    </move>
   </target>
-  
+
   <target name="ivy-runtime" depends="ivy-settings">
     <ivy:resolve file="ivy.xml"
                  conf="runtime" />
-    <ivy:retrieve conf="runtime" 
-                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />                 
+    <ivy:retrieve conf="runtime"
+                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
     <move todir="${project.lib.dir}/runtime">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="*-working@*.jar"/>
       </fileset>
-      <mapper type="regexp" 
-              from="^(.*)\-working\@(.*)\.jar$" 
+      <mapper type="regexp"
+              from="^(.*)\-working\@(.*)\.jar$"
               to="\1.jar"/>
-    </move>                  
-  </target> 
-  
-   
+    </move>
+  </target>
+
+
   <target name="-init" depends="-pre-clean, init-test">
     <mkdir dir="${target.dir}" />
-    <mkdir dir="${project.lib.dir}"/> 
+    <mkdir dir="${project.lib.dir}"/>
     <mkdir dir="${build}"/>
   </target>
-  
+
   <target name="compile" depends="ivy-compile">
     <mkdir dir="bin"/>
     <javac srcdir="${src.java.dir}"
@@ -81,47 +81,47 @@
       <classpath refid="classpath"/>
     </javac>
   </target>
-  
-  <target name="dist" depends="compile, ivy-runtime" >  
+
+  <target name="dist" depends="compile, ivy-runtime" >
     <mkdir dir="tmp.webapp/WEB-INF/classes"/>
     <mkdir dir="tmp.webapp/WEB-INF/lib"/>
     <copy todir="tmp.webapp/WEB-INF/classes">
       <fileset dir="${build}">
         <include name="**/*"/>
       </fileset>
-    </copy> 
-    
-    <copy todir="tmp.webapp/WEB-INF" 
+    </copy>
+
+    <copy todir="tmp.webapp/WEB-INF"
           file="config/applicationContext-service.xml"/>
     <copy todir="tmp.webapp/WEB-INF/lib">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="*.jar" />
         <!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
         <exclude name="log*.jar" />
-        <!-- avoid org.jboss.tm.TxManager class cast exception -->      
-        <exclude name="jta*.jar" />   
-        
-        <exclude name="commons-logging*.jar" />        
-      </fileset>      
-    </copy> 
-    
-    <war destfile="${target.dir}/${war.name}"  
-         webxml="config/web.xml" 
-         basedir="tmp.webapp" 
-         compress="false"/>  
-  </target>  
+        <!-- avoid org.jboss.tm.TxManager class cast exception -->
+        <exclude name="jta*.jar" />
 
-  
-  <target name="-pre-clean" description="Performs all necessary clean-up before a build">
- 
+        <exclude name="commons-logging*.jar" />
+      </fileset>
+    </copy>
+
+    <war destfile="${target.dir}/${war.name}"
+         webxml="config/web.xml"
+         basedir="tmp.webapp"
+         compress="false"/>
   </target>
-  
-  <target name="post-clean" depends="post-clean-test">
-    <delete dir="${build}" quiet="false" />  
-    <delete dir="tmp.webapp"/>
-  </target>  
 
-  <target name="run" 
-          depends="-pre-clean, -init, dist, test, inspect, post-clean" 
+
+  <target name="-pre-clean" description="Performs all necessary clean-up before a build">
+
+  </target>
+
+  <target name="post-clean" depends="post-clean-test">
+    <delete dir="${build}" quiet="false" />
+    <delete dir="tmp.webapp"/>
+  </target>
+
+  <target name="run"
+          depends="-pre-clean, -init, dist, test, inspect, post-clean"
           description="Default target" />
 </project>

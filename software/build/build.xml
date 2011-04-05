@@ -84,7 +84,7 @@ $HeadURL$
   <property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
   <property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
   <property name="nbia-services-grid.base.dir" value="${software.dir}/ncia-services-grid"/>
-  <property name="nbia-domain.base.dir" value="${software.dir}/ncia-domain"/>
+  <property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain"/>
   <property name="nbia-web.base.dir" value="${software.dir}/ncia-web"/>
   <property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
   <property name="nbia-download.base.dir" value="${software.dir}/nbia-download"/>
@@ -1010,7 +1010,7 @@ $HeadURL$
 
     <zip destfile="${dist.dir}/${nbia.install.zip.file}"
          basedir="${dist.exploded.dir}"
-         excludes="ncia-ear/ncia.war, ncia-services-commons/**,/ncia-domain/*,ncia-download/*,ncia-download-manager/*"/>
+         excludes="ncia-ear/ncia.war, ncia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
   </target>
 
   <!-- Copies install time resources into distribution tree -->
@@ -1089,7 +1089,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                    replace="\1upgrade.properties\2" />
     <zip destfile="${dist.dir}/${nbia.upgrade.zip.file}"
          basedir="${dist.exploded.dir}"
-         excludes="ncia-ear/ncia.war, ncia-services-commons/**,/ncia-domain/*,ncia-download/*,ncia-download-manager/*"/>
+         excludes="ncia-ear/ncia.war, ncia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 
   </target>
 

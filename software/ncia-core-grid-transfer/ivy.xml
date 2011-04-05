@@ -70,7 +70,7 @@
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
     <dependency org="ncicb"
-                name="ncia-domain"
+                name="nbia-domain"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
 

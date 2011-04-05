@@ -22,8 +22,8 @@
   <property name="src.java.dir" value="${basedir}/src" />
   <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-ctp" />
 
-  <property name="nbia-domain.dir" value="${common.dir}/target/dist/exploded/ncia-domain" />
-  <property name="nbia-domain.jar" value="${nbia-domain.dir}/ncia-domain.jar" />
+  <property name="nbia-domain.dir" value="${common.dir}/target/dist/exploded/nbia-domain" />
+  <property name="nbia-domain.jar" value="${nbia-domain.dir}/nbia-domain.jar" />
 
   <available file="${nbia-domain.jar}" property="nbia-domain.jar.present"/>
 

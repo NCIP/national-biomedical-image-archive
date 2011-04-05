@@ -26,7 +26,7 @@
 
   <!-- hack -->
   <path id="ctp.project.classpath">
-    <fileset dir="${basedir}/../ncia-ctp/lib">
+    <fileset dir="${basedir}/../nbia-ctp/lib">
       <include name="*.jar"/>
     </fileset>
   </path>
@@ -163,7 +163,7 @@
 			<case value="ncia-services-commons">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
-			<case value="ncia-ctp">
+			<case value="nbia-ctp">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
 			<case value="ncia-core-grid-transfer">
@@ -222,7 +222,7 @@
       <case value="nbia-dao">
         <var name="checkstyle.maxErrors" value="2"/>
       </case>
-			<case value="ncia-ctp">
+			<case value="nbia-ctp">
 				<var name="checkstyle.maxErrors" value="13"/>
 			</case>
 			<case value="ncia-core-grid-transfer">

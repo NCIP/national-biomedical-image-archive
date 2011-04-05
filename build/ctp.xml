@@ -16,7 +16,7 @@
     <property name="ctp.client.home" value="${application.base.path}/CTP-client"/>
     <basename property="ctp.server.home.dirname" file="${ctp.server.home}"/>
     <basename property="ctp.client.home.dirname" file="${ctp.client.home}"/>
-    <property name="deployed.nbia.jar" location="${ctp.server.home}/CTP/libraries/ncia.jar"/>
+    <property name="deployed.nbia.jar" location="${ctp.server.home}/CTP/libraries/nbia.jar"/>
   </target>
 
   <target name="install:ctp:server:post" unless="exclude.ctp">

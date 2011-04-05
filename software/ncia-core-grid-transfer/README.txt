@@ -18,3 +18,11 @@ To Build:
 "ant deployGlobus" will deploy to "GLOBUS_LOCATION"
 "ant deployTomcat" will deploy to "CATALINA_HOME"
 
+===============================
+We kept the name "ncia-core-grid-transfer" for the project since this is the
+embodiment of NCIACoreService....whose name cannot change without screwing up
+existing clients like caIntegrator2.
+
+Beware that while this is Introduce generated, we tweaked a few things to fit
+in our unit testing and static analysis processes.  If you regenerate, be
+careful not to overwrite these tweaks if you care about such stuff.

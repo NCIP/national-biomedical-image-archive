@@ -29,7 +29,6 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 	    Document document = file.getDocument();
 	    String seriesInstanceUID = AimXmlUtil.getSeriesInstanceUID(document);
 	    String studyInstanceUID = AimXmlUtil.getStudyInstanceUID(document);
-	    System.out.println("seriesInstanceUID="+seriesInstanceUID);
 
 	    storeToMarkupTable(document,seriesInstanceUID);
 	    storeAim(document,seriesInstanceUID);
@@ -73,16 +72,11 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 
 		getHibernateTemplate().flush();
 	}
-	
+
 	private void storeToMarkupTable(Document document, String seriesInstanceUID) {
-		
-		System.out.println("!!!!!outFilePath "+outFilePath);
 		try{
 				File outFileDir = new File(outFilePath);
-			    boolean success = outFileDir.mkdirs();
-			    if (success) {
-			      System.out.println("Directories: " + outFilePath + " created");
-			    }
+			    outFileDir.mkdirs();
 			    convertToCedaraAIM(document);
 				String xml = processFiles(outFilePath);
 				insertToMarkupDatabase(seriesInstanceUID, xml);
@@ -92,13 +86,12 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 				}
 		}
 		 catch (Exception e){// Catch exception if any
-			      System.err.println("Error: " + e.getMessage());
+			      e.printStackTrace();
 		}
-		
+
 	}
 	private void convertToCedaraAIM(Document document){
 
-		System.out.println("Mapping Application");
 		try { // Mapping
 			TraceTargetConsole ttc = new TraceTargetConsole();
 			MappingMapToAIM_v2_rv15_XML MappingMapToAIM_v2_rv15_XMLObject = new MappingMapToAIM_v2_rv15_XML();
@@ -107,36 +100,11 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 			// run mapping
 			{
 				com.altova.io.Input AIM_v3_rv8_XML_beta_mod2Source = new com.altova.io.DocumentInput(document);
-				System.out.println("@@@@@@input file name="+AIM_v3_rv8_XML_beta_mod2Source.getDocument().getDocumentURI());
-				System.out.println("@@@@@@input first node name="+AIM_v3_rv8_XML_beta_mod2Source.getDocument().getFirstChild().getNodeName());
 				MappingMapToAIM_v2_rv15_XMLObject
 						.run(AIM_v3_rv8_XML_beta_mod2Source);
 			}
-
-			System.out.println("Finished");
-		} catch (com.altova.UserException ue) {
-			System.out.print("USER EXCEPTION:");
-			System.out.println(ue.getMessage());
-		} catch (com.altova.AltovaException e) {
-			System.out.print("ERROR: ");
-			System.out.println(e.getMessage());
-			if (e.getInnerException() != null) {
-				System.out.print("Inner exception: ");
-				System.out.println(e.getInnerException().getMessage());
-				if (e.getInnerException().getCause() != null) {
-					System.out.print("Cause: ");
-					System.out.println(e.getInnerException().getCause()
-							.getMessage());
-				}
-			}
-			System.out.println("\nStack Trace: ");
-			e.printStackTrace();
 		}
-
 		catch (Exception e) {
-			System.out.print("ERROR: ");
-			System.out.println(e.getMessage());
-			System.out.println("\nStack Trace: ");
 			e.printStackTrace();
 		}
 	}
@@ -150,7 +118,6 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 			try {
 				//sbr.append("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n");
 				for (int i = 0; i < files.length; ++i) {
-					System.out.println(files[i].getName());
 
 					FileReader fr = new FileReader(files[i].getAbsoluteFile());
 					BufferedReader br = new BufferedReader(fr);
@@ -167,7 +134,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 					fr.close();
 				}
 				sbr.append("</Annotations>");
-				System.out.println("combined file"+sbr.toString());
+				//System.out.println("combined file"+sbr.toString());
 				return sbr.toString();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -175,7 +142,7 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		}
 		return null;
 	}
-	
+
 	private void insertToMarkupDatabase(String uid, String xml){
 		GeneralSeries exampleSeries = new GeneralSeries();
 		exampleSeries.setSeriesInstanceUID(uid);
@@ -183,8 +150,8 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
 		List<GeneralSeries> seriesList = getHibernateTemplate().findByExample(exampleSeries);
 
 		if(seriesList==null || seriesList.size()==0) {
-			//throw new RuntimeException("AIM annotation submitted for series that doesnt exist:"+uid);
-			System.out.println("AIM annotation submitted for series that doesnt exist:"+uid);
+			throw new RuntimeException("AIM annotation submitted for series that doesnt exist:"+uid);
+			//System.out.println("AIM annotation submitted for series that doesnt exist:"+uid);
 		}
          else {
         	 GeneralSeries series = seriesList.get(0);
@@ -196,7 +163,6 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
             	 im = imList.get(0);
             	 String oldXml = im.getMarkupContent();
             	 oldXml = oldXml.replaceFirst("</Annotations>", "");
-            	 //xml = xml.replaceFirst("<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"no\"?>\n<Annotations>\n", "");
             	 xml = oldXml.concat(xml);
              }
              else {
@@ -204,10 +170,9 @@ public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmi
              }
            	 im.setLoginName("LIDC");
            	 im.setMarkupContent(xml);
-            	 
+
 
              im.setSubmissionDate(new java.util.Date());
-           	 System.out.println("find series="+series.getSeriesInstanceUID());
         	 getHibernateTemplate().saveOrUpdate(im);
          }
         getHibernateTemplate().flush();

@@ -7,7 +7,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-dao"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ncia-services-commons"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ncia-services-grid"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-commons"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

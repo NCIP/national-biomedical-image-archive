@@ -8,8 +8,8 @@
 	<classpathentry kind="lib" path="resources"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-download-manager/compile/commons-compress-1.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-download-manager/compile/commons-io-1.4.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-download-manager/compile/ncia-services-grid.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ncia-services-commons"/>
+	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-download-manager/compile/nbia-services-grid.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-commons"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

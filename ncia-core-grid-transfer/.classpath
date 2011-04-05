@@ -123,8 +123,8 @@
 	<classpathentry kind="lib" path="lib/caGrid-sdkQuery4-beans-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/caGrid-sdkQuery4-processor-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/caGrid-sdkQuery4-style-1.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ncia-services-commons"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ncia-services-grid"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-commons"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
 	<classpathentry kind="lib" path="lib/secure/caGrid-authentication-service-client-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/secure/caGrid-authentication-service-common-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/secure/caGrid-authentication-service-stubs-1.3.jar"/>
@@ -284,7 +284,7 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/junit-4.4.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-test-2.5.5.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ncia-domain"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-domain"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

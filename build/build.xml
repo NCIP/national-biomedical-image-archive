@@ -1421,29 +1421,27 @@ jboss.home,ctp.server.home,ctp.client.home,
   <!-- this stuff is kinda sorta really install stuff - but putting in install.xml
        will make life difficult..... -->
   <target name="install:force-nciaprod">
-    <copy file="${nbia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml"
-          tofile="${jboss.home}/server/${jboss.server.name}/deploy/ncia-ds.xml"
-          overwrite="true" />
 
-    <!-- for grid jboss -->
-    <xmltask source="${nbia-resource.artifact.dir}/jboss-conf/ncia-ds-nciaprod.xml">
-      <copy path="//connection-url/text()"
-            property="force.connection.url.read"/>
-      <copy path="//user-name/text()"
-            property="force.user.read"/>
-      <copy path="//password/text()"
-            property="force.password.read"/>
-    </xmltask>
+    <xmltask source="${jboss.home}/server/${jboss.server.name}/deploy/nbia-ds.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/deploy/ncia-ds.xml">
+      <!-- no xmlcatalog necessary -->
+      <replace path="//:connection-url/text()"
+               withtext="${socalled.acceptance.testing.db.connection.url}" />
+      <replace path="//:user-name/text()"
+               withtext="${socalled.acceptance.testing.db.username}" />
+      <replace path="//:password/text()"
+               withtext="${socalled.acceptance.testing.db.password}" />
+     </xmltask>
 
     <xmltask source="${ncia-core-grid.jboss.home}/server/${ncia-core-grid.jboss.server.name}/deploy/wsrf.war/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml"
              dest="${ncia-core-grid.jboss.home}/server/${ncia-core-grid.jboss.server.name}/deploy/wsrf.war/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml">
       <!-- no xmlcatalog necessary -->
       <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='jdbcUrl']/:value/text()"
-               withtext="${force.connection.url.read}" />
+               withtext="${socalled.acceptance.testing.db.connection.url}" />
       <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='user']/:value/text()"
-               withtext="${force.user.read}" />
+               withtext="${socalled.acceptance.testing.db.username}" />
       <replace path="//:resource[@name='nciaDatabase']//:parameter[:name='password']/:value/text()"
-               withtext="${force.password.read}" />
+               withtext="${socalled.acceptance.testing.db.password}" />
      </xmltask>
   </target>
 

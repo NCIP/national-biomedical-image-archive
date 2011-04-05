@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xml-stylesheet type="text/xsl"
                  href="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-xsl/ivy.xsl"?>
-       
+
 <ivy-module version="1.0">
-	<info organisation="ncicb" module="ncia-domain" />
+	<info organisation="ncicb" module="nbia-domain" />
 
 	<configurations>
 		<conf name="default" />
@@ -15,7 +15,7 @@
 	</configurations>
 
 	<publications>
-		<artifact name="ncia-domain" type="jar" conf="default" />
+		<artifact name="nbia-domain" type="jar" conf="default" />
 	</publications>
 
 	<dependencies/>

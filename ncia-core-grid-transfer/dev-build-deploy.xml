@@ -21,25 +21,25 @@
   <target name="preDeployGlobus">
 
   </target>
-  
+
   <!-- ============================================================== -->
   <!-- Pre Deploy JBOSS                                               -->
   <!-- ============================================================== -->
   <target name="preDeployJBoss">
-  
+
     <copy toDir="${build.lib.dir}">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="nbia-dao.jar" />
         <include name="ncia-services-commons.jar" />
         <include name="ncia-services-grid.jar" />
         <include name="nbia-util.jar" />
-        <include name="ncia-domain.jar" />
+        <include name="nbia-domain.jar" />
         <include name="mircutil-*.jar" />
         <include name="dcm4che-*.jar" />
-      </fileset> 
-    </copy>    
+      </fileset>
+    </copy>
   </target>
-  
+
   <!-- ============================================================== -->
   <!-- Post UnDDeploy Tomcat                                              -->
   <!-- ============================================================== -->
@@ -54,7 +54,7 @@
   <target name="postUndeployGlobus">
 
   </target>
-  
+
   <!-- ============================================================== -->
   <!-- Post UnDeploy JBOSS                                               -->
   <!-- ============================================================== -->

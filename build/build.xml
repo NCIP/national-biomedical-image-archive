@@ -85,7 +85,7 @@ $HeadURL$
   <property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
   <property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
   <property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain"/>
-  <property name="nbia-web.base.dir" value="${software.dir}/ncia-web"/>
+  <property name="nbia-web.base.dir" value="${software.dir}/nbia-web"/>
   <property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
   <property name="nbia-download.base.dir" value="${software.dir}/nbia-download"/>
   <property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search" />
@@ -135,7 +135,6 @@ $HeadURL$
   <property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}"/>
   <property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
   <property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
-  <property name="nbia-resource.dist.dir" value="${dist.exploded.dir}/${nbia-resource.dist.relative.dir}" />
   <property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 
   <!-- locally used paths, not needed by install -->
@@ -255,7 +254,7 @@ $HeadURL$
     <simian>
       <fileset dir="${software.dir}/nbia-services-commons/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-services-grid/src" includes="**/*.java"/>
-      <fileset dir="${software.dir}/ncia-web/src" includes="**/*.java"/>
+      <fileset dir="${software.dir}/nbia-web/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-ctp/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-download/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-download-manager/src" includes="**/*.java"/>
@@ -314,7 +313,6 @@ $HeadURL$
     <mkdir dir="${ncia-core-grid.dist.dir}"/>
     <mkdir dir="${nbia-grid.dist.dir}"/>
     <mkdir dir="${nbia-web.dist.dir}"/>
-    <mkdir dir="${nbia-resource.dist.dir}"/>
     <mkdir dir="${db-install.dist.dir}"/>
     <mkdir dir="${db-upgrade.dist.dir}"/>
     <mkdir dir="${tools.dist.dir}"/>
@@ -408,7 +406,7 @@ $HeadURL$
     </ant>
   </target>
 
-  <!-- Build ncia-services-grid sub-project, artifacts are inluded in ncia-web -->
+
   <target name="build:nbia-services-grid" depends="init">
     <ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}"
       target="${nbia-services-grid.build.target}"
@@ -537,7 +535,7 @@ $HeadURL$
 
   </target>
 
-  <!-- Build ncia-web sub-project produces project level artifact of ncia.ear -->
+
   <target name="build:nbia-web"
           depends="init,
                    build:nbia-services-commons,
@@ -1010,7 +1008,7 @@ $HeadURL$
 
     <zip destfile="${dist.dir}/${nbia.install.zip.file}"
          basedir="${dist.exploded.dir}"
-         excludes="ncia-ear/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+         excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
   </target>
 
   <!-- Copies install time resources into distribution tree -->
@@ -1089,7 +1087,7 @@ jboss.home,ctp.server.home,ctp.client.home,
                    replace="\1upgrade.properties\2" />
     <zip destfile="${dist.dir}/${nbia.upgrade.zip.file}"
          basedir="${dist.exploded.dir}"
-         excludes="ncia-ear/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+         excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 
   </target>
 
@@ -1451,8 +1449,8 @@ jboss.home,ctp.server.home,ctp.client.home,
 
   <target name="test:selenium:init"
           depends="install:force-nciaprod">
-    <copy file="${ncia-core-grid.base.dir}/../ncia-web/test/selenium/selenium-server-1.0-beta-2-hacked-for-ff3_6.jar"
-          tofile="${ncia-core-grid.base.dir}/../target/lib/ncia-web/test-selenium/selenium-server-1.0-beta-2.jar"
+    <copy file="${ncia-core-grid.base.dir}/../nbia-web/test/selenium/selenium-server-1.0-beta-2-hacked-for-ff3_6.jar"
+          tofile="${ncia-core-grid.base.dir}/../target/lib/nbia-web/test-selenium/selenium-server-1.0-beta-2.jar"
           overwrite="true"/>
 
     <jboss-stop-jboss />

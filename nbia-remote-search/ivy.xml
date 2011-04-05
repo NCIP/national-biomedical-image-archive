@@ -107,7 +107,7 @@
                 conf="compile,runtime->master"/>
 
 
-    <!-- hmm should job go here with other remote search stuff, or in ncia-web with other jobs? -->
+    <!-- hmm should job go here with other remote search stuff, or in web with other jobs? -->
     <dependency org="opensymphony"
                 name="quartz"
                 rev="1.6.1"

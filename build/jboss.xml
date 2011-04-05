@@ -74,7 +74,7 @@
     <delete dir="${jboss.home}/server/${jboss.server.name}/tmp"/>
     <delete dir="${jboss.home}/server/${jboss.server.name}/work"/>
 
-    <copy file="${basedir}/ncia-ear/ncia.ear"
+    <copy file="${basedir}/nbia-ear/nbia.ear"
           todir="${jboss.home}/server/${jboss.server.name}/deploy"
           overwrite="true" />
 
@@ -266,22 +266,22 @@
        than those used at install time. -->
   <target name="install:jboss:nbia:re-configure" unless="exclude.jboss">
     <!-- Clean up working area -->
-    <delete dir="${temp.dir}/ncia-ear"/>
-    <delete dir="${temp.dir}/ncia-war"/>
+    <delete dir="${temp.dir}/nbia-ear"/>
+    <delete dir="${temp.dir}/nbia-war"/>
     <delete dir="${temp.dir}/nbia-dao-tmp"/>
     <delete dir="${temp.dir}/imageZippingMDB-jar"/>
 
     <!-- Make working directories -->
-    <mkdir dir="${temp.dir}/ncia-ear"/>
-    <mkdir dir="${temp.dir}/ncia-war"/>
+    <mkdir dir="${temp.dir}/nbia-ear"/>
+    <mkdir dir="${temp.dir}/nbia-war"/>
     <mkdir dir="${temp.dir}/nbia-dao-tmp"/>
     <mkdir dir="${temp.dir}/imageZippingMDB-jar"/>
 
     <!-- Extract required archives -->
-    <unzip src="${basedir}/ncia-ear/ncia.ear" dest="${temp.dir}/ncia-ear"/>
-    <unzip src="${temp.dir}/ncia-ear/ncia.war" dest="${temp.dir}/ncia-war"/>
-    <unzip src="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar" dest="${temp.dir}/nbia-dao-tmp"/>
-    <unzip src="${temp.dir}/ncia-ear/imageZippingMDB.jar" dest="${temp.dir}/imageZippingMDB-jar"/>
+    <unzip src="${basedir}/nbia-ear/nbia.ear" dest="${temp.dir}/nbia-ear"/>
+    <unzip src="${temp.dir}/nbia-ear/nbia.war" dest="${temp.dir}/nbia-war"/>
+    <unzip src="${temp.dir}/nbia-war/WEB-INF/lib/nbia-dao.jar" dest="${temp.dir}/nbia-dao-tmp"/>
+    <unzip src="${temp.dir}/nbia-ear/imageZippingMDB.jar" dest="${temp.dir}/imageZippingMDB-jar"/>
     <unzip src="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar" dest="${temp.dir}/zip-dao-jar"/>
 
     <!-- sign jars if set to install time signing -->
@@ -293,8 +293,8 @@
 
         <!-- this is a hack to workaround bda trying to sign everything in a wars directory -->
         <property name="temp.download-mgr-dependencies"
-                  location="${temp.dir}/ncia-war/download-mgr-dependencies/"/>
-        <copy file="${temp.dir}/ncia-war/NBIADownloadManager.jar"
+                  location="${temp.dir}/nbia-war/download-mgr-dependencies/"/>
+        <copy file="${temp.dir}/nbia-war/NBIADownloadManager.jar"
               todir="${temp.download-mgr-dependencies}"/>
 
         <unsignjar jar="${temp.download-mgr-dependencies}/bouncycastle-jdk1.3_1.25.jar"/>
@@ -305,7 +305,7 @@
                    jars.dir="${temp.download-mgr-dependencies}"/>
 
         <copy file="${temp.download-mgr-dependencies}/NBIADownloadManager.jar"
-              todir="${temp.dir}/ncia-war/"
+              todir="${temp.dir}/nbia-war/"
               overwrite="true"/>
         <delete file="${temp.download-mgr-dependencies}/NBIADownloadManager.jar"/>
       </then>
@@ -336,9 +336,11 @@
 
 
     <echo>Replace database type based on the deployment property. - ${database.type}</echo>
-    <replace file="${temp.dir}/ncia-war/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml" token="DB.TYPE" value="${database.type}" />
+    <replace file="${temp.dir}/nbia-war/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml"
+             token="DB.TYPE"
+             value="${database.type}" />
 
-    <branding webapp.dir.path="${temp.dir}/ncia-war"/>
+    <branding webapp.dir.path="${temp.dir}/nbia-war"/>
 
     <xmltask source="${temp.dir}/zip-dao-jar/applicationContext-hibernate.xml"
              dest="${temp.dir}/zip-dao-jar/applicationContext-hibernate.xml"
@@ -357,36 +359,43 @@
     </jar>
 
     <!-- Backup un-modified version of archives -->
-    <move file="${basedir}/ncia-ear/ncia.ear"
-          tofile="${basedir}/ncia-ear/ncia.ear.orig"/>
+    <move file="${basedir}/nbia-ear/nbia.ear"
+          tofile="${basedir}/nbia-ear/nbia.ear.orig"/>
 
     <!-- Regenerate archives -->
 
 
-    <delete file="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar"/>
-    <jar jarfile="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar"
+    <delete file="${temp.dir}/nbia-war/WEB-INF/lib/nbia-dao.jar"/>
+    <jar jarfile="${temp.dir}/nbia-war/WEB-INF/lib/nbia-dao.jar"
          compress="false">
       <fileset dir="${temp.dir}/nbia-dao-tmp">
         <include name="*/**" />
       </fileset>
     </jar>
 
-    <copy file="${temp.dir}/ncia-war/WEB-INF/lib/nbia-dao.jar"
+    <copy file="${temp.dir}/nbia-war/WEB-INF/lib/nbia-dao.jar"
           tofile="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar"/>
-    <jar jarfile="${temp.dir}/ncia-ear/imageZippingMDB.jar" compress="false" manifest="${temp.dir}/imageZippingMDB-jar/META-INF/MANIFEST.MF">
+    <jar jarfile="${temp.dir}/nbia-ear/imageZippingMDB.jar"
+         compress="false"
+         manifest="${temp.dir}/imageZippingMDB-jar/META-INF/MANIFEST.MF">
       <fileset dir="${temp.dir}/imageZippingMDB-jar">
         <include name="*/**" />
       </fileset>
     </jar>
 
-    <war destfile="${temp.dir}/ncia-ear/ncia.war" compress="false" webxml="${temp.dir}/ncia-war/WEB-INF/web.xml" >
-      <fileset dir="${temp.dir}/ncia-war">
+    <war destfile="${temp.dir}/nbia-ear/nbia.war"
+         compress="false"
+         webxml="${temp.dir}/nbia-war/WEB-INF/web.xml" >
+      <fileset dir="${temp.dir}/nbia-war">
         <include name="*/**" />
       </fileset>
     </war>
 
-    <ear compress="false" destfile="${basedir}/ncia-ear/ncia.ear" appxml="${temp.dir}/ncia-ear/META-INF/application.xml">
-      <fileset dir="${temp.dir}/ncia-ear">
+    <ear compress="false"
+         destfile="${basedir}/nbia-ear/nbia.ear"
+         appxml="${temp.dir}/nbia-ear/META-INF/application.xml">
+
+      <fileset dir="${temp.dir}/nbia-ear">
         <include name="*/**" />
       </fileset>
     </ear>

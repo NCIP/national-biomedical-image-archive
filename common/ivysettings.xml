@@ -52,7 +52,7 @@
         <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
       </filesystem>
 
-      <filesystem name="ncia-services-grid-resolver" local="true">
+      <filesystem name="nbia-services-grid-resolver" local="true">
         <artifact pattern="${nbia.basedir}/target/dist/exploded/[module].[ext]" />
         <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
       </filesystem>
@@ -96,8 +96,8 @@
    <!-- begin ncia specific stuff -->
    <modules>
      <module organisation="ncicb"
-             name="ncia-services-grid"
-             resolver="ncia-services-grid-resolver"/>
+             name="nbia-services-grid"
+             resolver="nbia-services-grid-resolver"/>
 
      <module organisation="ncicb"
              name="nbia-util"

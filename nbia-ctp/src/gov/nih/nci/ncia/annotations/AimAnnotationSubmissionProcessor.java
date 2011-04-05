@@ -20,7 +20,7 @@ import org.w3c.dom.Document;
 import com.mapforce.MappingMapToAIM_v2_rv15_XML;
 
 public class AimAnnotationSubmissionProcessor extends TraditionalAnnotationSubmissionProcessor {
-	String outFilePath = System.getProperty("java.io.tmpdir")+ "cedaraJava\\";
+	String outFilePath = System.getProperty("java.io.tmpdir")+ "/cedaraJava/";
 
 
 	@Transactional(propagation=Propagation.REQUIRED)

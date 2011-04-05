@@ -36,7 +36,7 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/log4j-1.2.9.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/mircutil-T32.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/mysql-connector-java-5.1.5.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/ncia-domain.jar"/>
+	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/nbia-domain.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/ojdbc14-10.2.0.3.0.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/oro-2.0.8.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/slf4j-api-1.4.3.jar"/>

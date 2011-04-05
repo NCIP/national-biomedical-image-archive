@@ -22,10 +22,10 @@
   <property name="ear.name" value="nbia.ear" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
 
-  <property name="webapp.dir" value="${classes.dir}/ncia-image" />
-  <property name="web.classes.dir" value="${classes.dir}/ncia-image/WEB-INF/classes" />
-  <property name="web.lib.dir" value="${classes.dir}/ncia-image/WEB-INF/lib" />
-  <property name="web.nbia.webapp.dir" value="webapps/ncia-image" />
+  <property name="webapp.dir" value="${classes.dir}/webapp" />
+  <property name="web.classes.dir" value="${classes.dir}/webapp/WEB-INF/classes" />
+  <property name="web.lib.dir" value="${classes.dir}/webapp/WEB-INF/lib" />
+  <property name="web.nbia.webapp.dir" value="webapp" />
   <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${web.classes.dir}"/>
 

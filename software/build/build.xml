@@ -256,7 +256,7 @@ $HeadURL$
       <fileset dir="${software.dir}/ncia-services-commons/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/ncia-services-grid/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/ncia-web/src" includes="**/*.java"/>
-      <fileset dir="${software.dir}/ncia-ctp/src" includes="**/*.java"/>
+      <fileset dir="${software.dir}/nbia-ctp/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-download/src" includes="**/*.java"/>
       <fileset dir="${software.dir}/nbia-download-manager/src" includes="**/*.java"/>
       <formatter type="xml" toFile="${reports.dir}/simian-log.xml"/>
@@ -601,7 +601,7 @@ $HeadURL$
     <!-- so we don't modify ncia-ctp directory and leave little pieces of poo that can be committed later by unsuspecting or uncaring people -->
     <mkdir dir="../nbia-ctp-working"/>
     <copy todir="../nbia-ctp-working">
-      <fileset dir="../ncia-ctp"/>
+      <fileset dir="../nbia-ctp"/>
     </copy>
 
 
@@ -1398,7 +1398,7 @@ jboss.home,ctp.server.home,ctp.client.home,
       />
 
     <report-grand
-      build.file.location="${software.dir}/ncia-ctp/build.xml"
+      build.file.location="${software.dir}/nbia-ctp/build.xml"
       output.file.dir="${grand.rpt.dir}"
       output.file.name="nbia-ctp-build.xml"
       />

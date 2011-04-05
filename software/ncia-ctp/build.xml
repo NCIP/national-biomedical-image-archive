@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="ncia-ctp"
+<project name="nbia-ctp"
          default="build-jar"
          basedir="."
          xmlns:ivy="antlib:org.apache.ivy.ant">
@@ -20,7 +20,7 @@
   <property name="common.dir" value="${basedir}/../" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
   <property name="src.java.dir" value="${basedir}/src" />
-  <property name="project.lib.dir" value="${common.dir}/target/lib/ncia-ctp" />
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-ctp" />
 
   <property name="nbia-domain.dir" value="${common.dir}/target/dist/exploded/ncia-domain" />
   <property name="nbia-domain.jar" value="${nbia-domain.dir}/ncia-domain.jar" />
@@ -159,7 +159,7 @@
     </copy>
 
     <echo message="${output.dir}"/>
-    <jar destfile="${output.dir}/ncia.jar">
+    <jar destfile="${output.dir}/nbia.jar">
       <manifest>
         <attribute name="Implementation-Version" value="${today} @ ${now}"/>
       </manifest>
@@ -170,10 +170,10 @@
                          applicationContext.xml"/>
     </jar>
 
-    <!-- if the ncia.jar had any extra runtime depedencies over and above what
+    <!-- if the nbia.jar had any extra runtime depedencies over and above what
          is already in ctp... copy here too so its wrapped up in the ctp installer -->
     <copy overwrite="true" todir="${ctp.library.dir}">
-      <fileset dir="${output.dir}/" includes="ncia.jar" />
+      <fileset dir="${output.dir}/" includes="nbia.jar" />
       <fileset dir="${lib.dir}/" includes="cedaraAIMMapping.jar" />
       <fileset file="${nbia-domain.jar}"/>
     </copy>

@@ -1,5 +1,8 @@
 package gov.nih.nci.ncia.search;
 
+import gov.nih.nci.nbia.search.PatientSearchCompletionService;
+import gov.nih.nci.nbia.search.PatientSearchResults;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;

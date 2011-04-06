@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion;
+package gov.nih.nci.nbia.deletion;
 
 /**
  * This class holds the all deletion information before the deletion occurs.  

@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.verifysubmission;
 
 import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
 
 import java.util.Calendar;
 import java.util.Date;

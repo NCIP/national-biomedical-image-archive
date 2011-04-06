@@ -1,5 +1,8 @@
 package gov.nih.nci.ncia.verifysubmission;
 
+import gov.nih.nci.nbia.verifysubmission.SeriesDetails;
+import gov.nih.nci.nbia.verifysubmission.StudyDetails;
+
 import java.util.ArrayList;
 import java.util.List;
 

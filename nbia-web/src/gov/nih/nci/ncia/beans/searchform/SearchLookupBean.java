@@ -8,10 +8,10 @@ import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
+import gov.nih.nci.nbia.factories.ApplicationFactory;
+import gov.nih.nci.nbia.lookup.LookupManager;
+import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.factories.ApplicationFactory;
-import gov.nih.nci.ncia.lookup.LookupManager;
-import gov.nih.nci.ncia.lookup.LookupManagerFactory;
 
 import java.util.ArrayList;
 import java.util.Date;

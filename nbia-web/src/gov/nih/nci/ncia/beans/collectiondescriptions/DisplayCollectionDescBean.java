@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.beans.collectiondescriptions;
 
+import gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;
-import gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;

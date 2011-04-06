@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.security;
 
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.PublicData;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 
 import org.junit.Assert;

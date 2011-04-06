@@ -1,6 +1,8 @@
 package gov.nih.nci.ncia.search;
 
 import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.search.LocalDrillDown;
+import gov.nih.nci.nbia.search.ThumbnailURLResolver;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;

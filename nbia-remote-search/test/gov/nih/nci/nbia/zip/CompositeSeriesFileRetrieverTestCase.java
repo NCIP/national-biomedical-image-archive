@@ -15,11 +15,11 @@ import gov.nih.nci.nbia.dto.DicomFileDTO;
 import gov.nih.nci.nbia.dto.ImageFileDTO;
 import gov.nih.nci.nbia.remotesearch.RemoteDrillDown;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.search.LocalDrillDown;
+import gov.nih.nci.nbia.zip.LocalSeriesFileRetriever;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
-import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.zip.LocalSeriesFileRetriever;
 
 import java.util.ArrayList;
 import java.util.List;

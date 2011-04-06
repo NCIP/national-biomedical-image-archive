@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.verifysubmission;
 
+import gov.nih.nci.nbia.verifysubmission.ImageSubmissionCountReport;
 import junit.framework.TestCase;
 
 public class ImageSubmissionCountReportTestCase extends TestCase {

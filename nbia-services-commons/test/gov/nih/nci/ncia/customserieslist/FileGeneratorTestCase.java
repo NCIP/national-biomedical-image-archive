@@ -1,6 +1,7 @@
 package gov.nih.nci.ncia.customserieslist;
 
-import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.customserieslist.FileGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

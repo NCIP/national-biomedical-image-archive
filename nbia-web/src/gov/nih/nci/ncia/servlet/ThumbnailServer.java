@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.servlet;
 
-import gov.nih.nci.ncia.lookup.ImageRegisterMap;
+import gov.nih.nci.nbia.lookup.ImageRegisterMap;
 import gov.nih.nci.ncia.util.ThumbnailUtil;
 
 import java.io.File;

@@ -41,12 +41,11 @@
 */
 package gov.nih.nci.nbia.jms;
 
+import gov.nih.nci.nbia.basket.DownloadRecorder;
+import gov.nih.nci.nbia.mail.MailManager;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.basket.DownloadRecorder;
-import gov.nih.nci.ncia.mail.MailManager;
-import gov.nih.nci.ncia.zip.ZipManager;
-import gov.nih.nci.ncia.jms.ImageZippingMessage;
+import gov.nih.nci.nbia.zip.ZipManager;
 
 import java.io.File;
 import java.io.IOException;

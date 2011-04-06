@@ -5,29 +5,29 @@
  */
 package gov.nih.nci.ncia.beans.basket;
 
+import gov.nih.nci.nbia.basket.Basket;
+import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.basket.BasketUtil;
+import gov.nih.nci.nbia.basket.DownloadRecorder;
+import gov.nih.nci.nbia.customserieslist.FileGenerator;
+import gov.nih.nci.nbia.jms.ImageZippingMessage;
+import gov.nih.nci.nbia.jms.JMSClient;
+import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
-import gov.nih.nci.ncia.basket.Basket;
-import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
-import gov.nih.nci.ncia.basket.BasketUtil;
+import gov.nih.nci.nbia.zip.ZipManager;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.ncia.beans.searchresults.ImageResultWrapper;
 import gov.nih.nci.ncia.beans.security.AnonymousLoginBean;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.customserieslist.FileGenerator;
 import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModelInterface;
-import gov.nih.nci.ncia.jms.ImageZippingMessage;
-import gov.nih.nci.ncia.jms.JMSClient;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.util.DynamicJNLPGenerator;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.SlideShowUtil;
-import gov.nih.nci.ncia.zip.ZipManager;
-import gov.nih.nci.ncia.basket.DownloadRecorder;
 
 import java.io.File;
 import java.io.Serializable;

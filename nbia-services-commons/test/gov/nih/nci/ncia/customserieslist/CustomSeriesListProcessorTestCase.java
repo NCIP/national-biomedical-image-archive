@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.ncia.customserieslist;
 
+import gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor;
 import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
 import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
@@ -27,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJunit4 {
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#CustomSeriesListProcessor(java.lang.String, gov.nih.nci.nbia.security.AuthorizationManager)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#CustomSeriesListProcessor(java.lang.String, gov.nih.nci.nbia.security.AuthorizationManager)}.
 	 */
 	@Test
 	public void testCustomSeriesListProcessor() throws Exception {
@@ -39,7 +40,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#validate(java.util.List)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#validate(java.util.List)}.
 	 */
 	@Test	
 	public void testValidate() {
@@ -47,7 +48,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#isAnyPrivate(java.util.List)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#isAnyPrivate(java.util.List)}.
 	 */
 	@Test	
 	public void testIsAnyPrivate() {
@@ -55,7 +56,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#isDuplicateName(java.lang.String)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#isDuplicateName(java.lang.String)}.
 	 */
 	@Test	
 	public void testIsDuplicateName() {
@@ -64,7 +65,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#searchByName(java.lang.String)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#searchByName(java.lang.String)}.
 	 */
 	@Test	
 	public void testSearchByName() {
@@ -73,7 +74,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#getSeriesDTO(java.util.List)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getSeriesDTO(java.util.List)}.
 	 */
 	@Test	
 	public void testGetSeriesDTO() {
@@ -81,7 +82,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#getCustomListByUser(java.lang.String)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getCustomListByUser(java.lang.String)}.
 	 */
 	@Test	
 	public void testGetCustomListByUser() {
@@ -91,7 +92,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#create(gov.nih.nci.nbia.dto.CustomSeriesListDTO)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#create(gov.nih.nci.nbia.dto.CustomSeriesListDTO)}.
 	 */
 	@Test	
 	public void testCreate() {
@@ -114,7 +115,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#getCustomseriesListAttributesById(java.lang.Integer)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getCustomseriesListAttributesById(java.lang.Integer)}.
 	 */
 	@Test	
 	public void testGetCustomseriesListAttributesById() {
@@ -123,7 +124,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#update(gov.nih.nci.nbia.dto.CustomSeriesListDTO, java.lang.Boolean)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#update(gov.nih.nci.nbia.dto.CustomSeriesListDTO, java.lang.Boolean)}.
 	 */
 	@Test	
 	public void testUpdate() {

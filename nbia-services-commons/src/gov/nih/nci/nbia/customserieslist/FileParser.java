@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.customserieslist;
+package gov.nih.nci.nbia.customserieslist;
 
 import gov.nih.nci.nbia.util.StringUtil;
 

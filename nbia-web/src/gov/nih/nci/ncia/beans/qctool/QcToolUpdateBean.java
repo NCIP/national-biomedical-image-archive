@@ -2,20 +2,20 @@ package gov.nih.nci.ncia.beans.qctool;
 
 import gov.nih.nci.nbia.dao.CustomSeriesListDAO;
 import gov.nih.nci.nbia.dao.QcStatusDAO;
+import gov.nih.nci.nbia.dicomtags.LocalDicomTagViewer;
 import gov.nih.nci.nbia.dto.QcCustomSeriesListDTO;
 import gov.nih.nci.nbia.dto.QcSearchResultDTO;
+import gov.nih.nci.nbia.mail.MailManager;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
+import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorQCBean;
 import gov.nih.nci.ncia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.dicomtags.LocalDicomTagViewer;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.mail.MailManager;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.SlideShowUtil;
 

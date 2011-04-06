@@ -7,7 +7,6 @@ import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.Model;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.lookup.LookupManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

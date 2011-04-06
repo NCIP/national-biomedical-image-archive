@@ -1,6 +1,8 @@
 package gov.nih.nci.ncia.search;
 
 import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.search.ThumbnailResolverFactory;
+import gov.nih.nci.nbia.search.ThumbnailURLResolver;
 import junit.framework.TestCase;
 
 public class ThumbnailResolverFactoryTestCase extends TestCase {

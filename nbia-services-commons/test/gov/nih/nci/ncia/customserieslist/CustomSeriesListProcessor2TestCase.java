@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.ncia.customserieslist;
 
+import gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 
@@ -26,7 +27,7 @@ public class CustomSeriesListProcessor2TestCase extends AbstractDbUnitTestForJun
 
 	
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#validate(java.util.List)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#validate(java.util.List)}.
 	 */
 	@Test
 	public void testValidate() {
@@ -40,7 +41,7 @@ public class CustomSeriesListProcessor2TestCase extends AbstractDbUnitTestForJun
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#isAnyPrivate(java.util.List)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#isAnyPrivate(java.util.List)}.
 	 */
 	@Test
 	public void testIsAnyPrivate() {
@@ -57,7 +58,7 @@ public class CustomSeriesListProcessor2TestCase extends AbstractDbUnitTestForJun
 	
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#getSeriesDTO(java.util.List)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getSeriesDTO(java.util.List)}.
 	 */
 	@Test
 	public void testGetSeriesDTO() {

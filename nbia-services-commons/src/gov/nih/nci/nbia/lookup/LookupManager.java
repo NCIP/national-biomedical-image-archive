@@ -9,7 +9,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;

@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
 import gov.nih.nci.ncia.beans.searchresults.StudyResultWrapper;
 import gov.nih.nci.ncia.beans.searchresults.SeriesResultWrapper;
 

@@ -1,13 +1,13 @@
 package gov.nih.nci.ncia.beans.customserieslist;
 
+import gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor;
 import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SeriesDTOConverter;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor;
-import gov.nih.nci.ncia.util.SeriesDTOConverter;
 
 import java.util.ArrayList;
 import java.util.List;

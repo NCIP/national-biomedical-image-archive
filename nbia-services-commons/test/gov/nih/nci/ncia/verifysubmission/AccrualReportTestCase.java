@@ -1,5 +1,7 @@
 package gov.nih.nci.ncia.verifysubmission;
 
+import gov.nih.nci.nbia.verifysubmission.AccrualReport;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

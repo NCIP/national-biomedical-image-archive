@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 
 public class DrillDownFactory {

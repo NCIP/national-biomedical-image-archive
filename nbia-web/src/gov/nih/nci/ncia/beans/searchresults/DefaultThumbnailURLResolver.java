@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
 import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.lookup.ImageRegisterMap;
+import gov.nih.nci.nbia.search.ThumbnailURLResolver;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.lookup.ImageRegisterMap;
-import gov.nih.nci.ncia.search.ThumbnailURLResolver;
 import gov.nih.nci.ncia.util.JsfUtil;
 
 /**

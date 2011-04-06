@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.basket;
+package gov.nih.nci.nbia.basket;
 
 import gov.nih.nci.nbia.dao.DownloadDataDAO;
 import gov.nih.nci.nbia.util.SpringApplicationContext;

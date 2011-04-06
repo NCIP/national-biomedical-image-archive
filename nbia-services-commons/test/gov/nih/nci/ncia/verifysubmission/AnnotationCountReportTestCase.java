@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.verifysubmission;
 
+import gov.nih.nci.nbia.verifysubmission.AnnotationCountReport;
 import junit.framework.TestCase;
 
 public class AnnotationCountReportTestCase extends TestCase {

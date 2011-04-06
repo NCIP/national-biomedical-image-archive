@@ -2,10 +2,10 @@ package gov.nih.nci.nbia.remotesearch;
 
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.remotesearch.requests.RemoteSearchForPatientsRequest;
-import gov.nih.nci.ncia.search.AbstractPatientSearcherService;
-import gov.nih.nci.ncia.search.LocalSearchForPatientsRequest;
+import gov.nih.nci.nbia.search.AbstractPatientSearcherService;
+import gov.nih.nci.nbia.search.LocalSearchForPatientsRequest;
+import gov.nih.nci.nbia.search.PatientSearchResults;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.PatientSearchResults;
 
 import java.util.ArrayList;
 import java.util.List;

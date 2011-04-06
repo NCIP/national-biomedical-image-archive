@@ -3,6 +3,8 @@
  */
 package gov.nih.nci.ncia.customserieslist;
 
+import gov.nih.nci.nbia.customserieslist.FileParser;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,7 +37,7 @@ public class FileParserTestCase extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.FileParser#parse(java.io.File)}.
+	 * Test method for {@link gov.nih.nci.nbia.customserieslist.FileParser#parse(java.io.File)}.
 	 */
 	public void testParse() throws Exception{		
 		

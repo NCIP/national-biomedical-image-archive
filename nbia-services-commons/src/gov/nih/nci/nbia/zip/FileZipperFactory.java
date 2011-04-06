@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.zip;
+package gov.nih.nci.nbia.zip;
 
 /**
  * Gets an instance of a file zipper 

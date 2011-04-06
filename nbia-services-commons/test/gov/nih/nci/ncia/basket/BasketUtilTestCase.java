@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.basket;
 
+import gov.nih.nci.nbia.basket.BasketUtil;
 import junit.framework.TestCase;
 
 public class BasketUtilTestCase extends TestCase {

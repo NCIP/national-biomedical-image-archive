@@ -15,7 +15,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.mail;
+package gov.nih.nci.nbia.mail;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
 

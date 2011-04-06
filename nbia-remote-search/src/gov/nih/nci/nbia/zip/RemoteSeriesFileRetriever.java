@@ -6,9 +6,8 @@ import gov.nih.nci.nbia.dto.DicomFileDTO;
 import gov.nih.nci.nbia.dto.ImageFileDTO;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.nbia.util.NBIAIOUtils;
+import gov.nih.nci.nbia.util.NCIADicomObject;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.NCIADicomObject;
-import gov.nih.nci.ncia.zip.SeriesFileRetriever;
 
 import java.io.File;
 import java.io.IOException;

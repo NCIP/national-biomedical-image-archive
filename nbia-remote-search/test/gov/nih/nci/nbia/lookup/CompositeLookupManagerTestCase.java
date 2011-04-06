@@ -9,10 +9,10 @@ import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.lookup.LookupManagerImpl;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.lookup.LookupManagerImpl;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
 

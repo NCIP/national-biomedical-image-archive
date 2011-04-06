@@ -9,7 +9,6 @@ import gov.nih.nci.nbia.search.*;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearchResults;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.StringEncrypter;
-import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
 
 import java.io.IOException;
 import java.io.InputStream;

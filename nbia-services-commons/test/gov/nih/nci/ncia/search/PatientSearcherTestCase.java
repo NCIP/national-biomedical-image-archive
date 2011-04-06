@@ -3,6 +3,7 @@ package gov.nih.nci.ncia.search;
 import gov.nih.nci.nbia.criteria.AuthorizationCriteria;
 import gov.nih.nci.nbia.criteria.ImageModalityCriteria;
 import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.search.PatientSearcher;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.SiteData;

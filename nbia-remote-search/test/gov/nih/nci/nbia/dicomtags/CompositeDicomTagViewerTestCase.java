@@ -6,7 +6,7 @@ import static org.powermock.api.easymock.PowerMock.createMock;
 import static org.powermock.api.easymock.PowerMock.expectNew;
 import static org.powermock.api.easymock.PowerMock.replay;
 import static org.powermock.api.easymock.PowerMock.verify;
-import gov.nih.nci.ncia.dicomtags.LocalDicomTagViewer;
+import gov.nih.nci.nbia.dicomtags.LocalDicomTagViewer;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 

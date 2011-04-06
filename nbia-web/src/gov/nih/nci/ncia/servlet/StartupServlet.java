@@ -23,9 +23,9 @@
 */
 package gov.nih.nci.ncia.servlet;
 
+import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.jobs.NodeLookupJob;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.factories.ApplicationFactory;
 import gov.nih.nci.ncia.newresults.LatestCurationDateJob;
 import gov.nih.nci.ncia.newresults.NewResultsProcessor;
 

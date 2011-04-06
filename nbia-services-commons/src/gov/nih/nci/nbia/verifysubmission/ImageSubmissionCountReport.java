@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.verifysubmission;
+package gov.nih.nci.nbia.verifysubmission;
 
 /**
  * This is a piece of the ImageSubmissionReport that captures

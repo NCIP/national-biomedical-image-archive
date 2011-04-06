@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.basket;
+package gov.nih.nci.nbia.basket;
 
 import gov.nih.nci.nbia.util.HashCodeUtil;
 import gov.nih.nci.ncia.search.SeriesSearchResult;

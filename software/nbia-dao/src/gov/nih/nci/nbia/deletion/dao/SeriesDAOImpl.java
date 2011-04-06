@@ -1,11 +1,11 @@
-package gov.nih.nci.ncia.deletion.dao;
+package gov.nih.nci.nbia.deletion.dao;
 
+import gov.nih.nci.nbia.deletion.DeletionAuditSeriesInfo;
+import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
+import gov.nih.nci.nbia.exception.DataAccessException;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.deletion.DeletionAuditSeriesInfo;
-import gov.nih.nci.ncia.deletion.DeletionDisplayObject;
-import gov.nih.nci.ncia.exception.DataAccessException;
-import gov.nih.nci.ncia.util.NCIAConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;

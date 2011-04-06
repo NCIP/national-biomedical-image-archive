@@ -1,13 +1,13 @@
 package gov.nih.nci.ncia.zip;
 
-import gov.nih.nci.ncia.dao.AnnotationDAO;
-import gov.nih.nci.ncia.dao.ImageDAO;
-import gov.nih.nci.ncia.dto.AnnotationFileDTO;
-import gov.nih.nci.ncia.dto.DicomFileDTO;
-import gov.nih.nci.ncia.dto.ImageDTO;
-import gov.nih.nci.ncia.dto.ImageFileDTO;
+import gov.nih.nci.nbia.dao.AnnotationDAO;
+import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.dto.AnnotationFileDTO;
+import gov.nih.nci.nbia.dto.DicomFileDTO;
+import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageFileDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Collections;

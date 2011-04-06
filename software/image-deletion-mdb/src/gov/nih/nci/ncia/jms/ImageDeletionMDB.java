@@ -6,10 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import gov.nih.nci.ncia.deletion.ImageDeletionService;
-import gov.nih.nci.ncia.deletion.ImageFileDeletionService;
+import gov.nih.nci.nbia.deletion.ImageDeletionService;
+import gov.nih.nci.nbia.deletion.ImageFileDeletionService;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.mail.MailManager;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import javax.ejb.EJBException;
 import javax.ejb.MessageDrivenBean;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="gov.nih.nci.ncia.internaldomain">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
   <class name="CTImage" table="CT_IMAGE" lazy="true" polymorphism="explicit">
     <cache usage="read-write" />
     <id name="id" type="integer" column="CT_IMAGE_PK_ID">
@@ -28,10 +28,10 @@
     <property name="totalCollimationWidth" type="double" column="TOTAL_COLLIMATION_WIDTH"/>
     <property name="XRayTubeCurrent" type="integer" column="X_RAY_TUBE_CURRENT"/>
     <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID"/>
-    
+
     <!-- Associations mapping for the CTImage class -->
-    <many-to-one name="generalImage" class="gov.nih.nci.ncia.internaldomain.GeneralImage" column="IMAGE_PK_ID" unique="true" lazy="proxy" />
-    <many-to-one name="generalSeries" class="gov.nih.nci.ncia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>
-        
+    <many-to-one name="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" column="IMAGE_PK_ID" unique="true" lazy="proxy" />
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>
+
   </class>
 </hibernate-mapping>

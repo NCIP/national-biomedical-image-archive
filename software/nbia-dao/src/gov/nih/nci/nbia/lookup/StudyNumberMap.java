@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
-import gov.nih.nci.ncia.dao.StudyNumberDAO;
-import gov.nih.nci.ncia.dto.StudyNumberDTO;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dao.StudyNumberDAO;
+import gov.nih.nci.nbia.dto.StudyNumberDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.Map;
 

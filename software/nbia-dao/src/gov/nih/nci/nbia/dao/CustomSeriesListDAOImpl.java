@@ -1,15 +1,15 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
+import gov.nih.nci.nbia.dto.CustomSeriesDTO;
+import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
+import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
+import gov.nih.nci.nbia.dto.QcCustomSeriesListDTO;
+import gov.nih.nci.nbia.internaldomain.CustomSeriesList;
+import gov.nih.nci.nbia.internaldomain.CustomSeriesListAttribute;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.security.NCIAUser;
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.dto.CustomSeriesDTO;
-import gov.nih.nci.ncia.dto.CustomSeriesListAttributeDTO;
-import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
-import gov.nih.nci.ncia.dto.QcCustomSeriesListDTO;
-import gov.nih.nci.ncia.internaldomain.CustomSeriesList;
-import gov.nih.nci.ncia.internaldomain.CustomSeriesListAttribute;
-import gov.nih.nci.ncia.security.NCIAUser;
-import gov.nih.nci.ncia.util.SiteData;
 
 import java.util.ArrayList;
 import java.util.Date;

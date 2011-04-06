@@ -1,12 +1,12 @@
-package gov.nih.nci.ncia.internaldomain;
+package gov.nih.nci.nbia.internaldomain;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import gov.nih.nci.ncia.querystorage.PersistentQuery;
-import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
-import gov.nih.nci.ncia.security.NCIAUser;
+import gov.nih.nci.nbia.querystorage.PersistentQuery;
+import gov.nih.nci.nbia.querystorage.QueryAttributeWrapper;
+import gov.nih.nci.nbia.security.NCIAUser;
 
 import java.io.Serializable;
 	/**

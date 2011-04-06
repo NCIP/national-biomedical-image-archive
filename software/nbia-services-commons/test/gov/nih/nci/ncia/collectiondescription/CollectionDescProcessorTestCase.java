@@ -3,8 +3,8 @@
  */
 package gov.nih.nci.ncia.collectiondescription;
 
+import gov.nih.nci.nbia.dto.CollectionDescDTO;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.CollectionDescDTO;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class CollectionDescProcessorTestCase extends AbstractDbUnitTestForJunit4
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor#update(gov.nih.nci.ncia.dto.CollectionDescDTO)}.
+	 * Test method for {@link gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor#update(gov.nih.nci.nbia.dto.CollectionDescDTO)}.
 	 */
 	@Test	
 	public void testUpdate() {

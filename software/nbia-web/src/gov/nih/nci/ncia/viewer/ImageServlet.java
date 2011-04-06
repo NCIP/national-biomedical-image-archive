@@ -1,12 +1,12 @@
 package gov.nih.nci.ncia.viewer;
 
+import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.dto.ImageSecurityDTO;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.dao.ImageDAO;
-import gov.nih.nci.ncia.dto.ImageSecurityDTO;
-import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.io.IOException;
 import java.io.PrintWriter;

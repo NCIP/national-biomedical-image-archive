@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dto;
+package gov.nih.nci.nbia.dto;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
 

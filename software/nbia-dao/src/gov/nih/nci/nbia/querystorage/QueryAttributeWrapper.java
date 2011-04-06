@@ -18,7 +18,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.querystorage;
+package gov.nih.nci.nbia.querystorage;
 
 /**
  * Lightweight class used by Criteria subclasses to set

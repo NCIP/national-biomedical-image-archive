@@ -12,20 +12,20 @@ import javax.faces.validator.ValidatorException;
 
 public class RangeValidator {
 
-	public void validateRange(FacesContext context, 
-			                  UIComponent component, 
+	public void validateRange(FacesContext context,
+			                  UIComponent component,
 			                  Object value) {
-		
+
 	    String opLeft = retrieveInputComponentValue(component, "cmpLeftId");
 	    String valLeft = retrieveInputComponentValue(component, "cmpLeftValue");
 	    String opRight = retrieveInputComponentValue(component, "cmpRightId");
 	    String valRight = retrieveInputComponentValue(component, "cmpRightValue");
-    
+
 	    String error = RangeData.validateRange(opLeft, valLeft, opRight, valRight);
 
         if (error != null) {
         	throw new ValidatorException(new FacesMessage(error));
-        }	    
+        }
 	}
 
 	private String retrieveInputComponentValue(UIComponent anchor, String componentId) {

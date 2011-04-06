@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="gov.nih.nci.ncia.internaldomain">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
 	<class name="SavedQueryAttribute" table="saved_query_attribute" lazy="true" polymorphism="explicit">
 		<cache usage="read-write" />
 		<id name="id" column="SAVED_QUERY_ATTRIBUTE_PK_ID" unsaved-value="0">
@@ -15,6 +15,6 @@
 		<property name="instanceNumber" type="integer" column="instance_number"/>
 		<property name="subAttributeName" type="string" column="subattribute_name"/>
 		<!-- Associations mapping for the SavedQueryAttribute class -->
-		<many-to-one name="parentQuery" class="gov.nih.nci.ncia.internaldomain.SavedQuery" column="saved_query_pk_id" lazy="proxy" />
+		<many-to-one name="parentQuery" class="gov.nih.nci.nbia.internaldomain.SavedQuery" column="saved_query_pk_id" lazy="proxy" />
 	</class>
 </hibernate-mapping>

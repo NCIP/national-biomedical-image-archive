@@ -3,9 +3,9 @@
  */
 package gov.nih.nci.ncia.collectiondescription;
 
-import gov.nih.nci.ncia.dao.CollectionDescDAO;
-import gov.nih.nci.ncia.dto.CollectionDescDTO;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dao.CollectionDescDAO;
+import gov.nih.nci.nbia.dto.CollectionDescDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.List;
 

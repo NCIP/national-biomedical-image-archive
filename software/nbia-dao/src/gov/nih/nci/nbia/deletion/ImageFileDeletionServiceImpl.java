@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion;
+package gov.nih.nci.nbia.deletion;
 
 import java.io.File;
 import java.io.FilenameFilter;

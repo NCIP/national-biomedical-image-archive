@@ -14,7 +14,7 @@
 */
 package gov.nih.nci.ncia.datamodel;
 
-import gov.nih.nci.ncia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.dto.SavedQueryDTO;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -1,12 +1,12 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
+import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageSecurityDTO;
+import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.internaldomain.CTImage;
 import gov.nih.nci.nbia.internaldomain.GeneralImage;
 import gov.nih.nci.nbia.util.HqlUtils;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.dto.ImageDTO;
-import gov.nih.nci.ncia.dto.ImageSecurityDTO;
-import gov.nih.nci.ncia.dto.SeriesDTO;
 
 import java.util.ArrayList;
 import java.util.Collection;

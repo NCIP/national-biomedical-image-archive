@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.search;
 
+import gov.nih.nci.nbia.search.PatientStudySeriesTriple;
 import junit.framework.TestCase;
 
 public class PatientStudySeriesTripleTestCase extends TestCase {

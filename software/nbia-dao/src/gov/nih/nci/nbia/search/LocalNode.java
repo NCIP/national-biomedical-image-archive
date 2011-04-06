@@ -1,6 +1,7 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.ncia.search.NBIANode;
 
 /**
  * This is a factory to retrieve an NBIANode that represents the

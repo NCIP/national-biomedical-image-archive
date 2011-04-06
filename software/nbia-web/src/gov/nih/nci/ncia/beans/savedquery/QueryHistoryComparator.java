@@ -14,7 +14,7 @@
 */
 package gov.nih.nci.ncia.beans.savedquery;
 
-import gov.nih.nci.ncia.dto.QueryHistoryDTO;
+import gov.nih.nci.nbia.dto.QueryHistoryDTO;
 
 import java.util.Comparator;
 import java.util.Date;

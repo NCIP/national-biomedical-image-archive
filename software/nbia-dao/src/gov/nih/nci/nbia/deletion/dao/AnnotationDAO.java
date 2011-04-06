@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion.dao;
+package gov.nih.nci.nbia.deletion.dao;
 
 import java.util.List;
 

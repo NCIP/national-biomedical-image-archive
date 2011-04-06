@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.EquipmentDTO;
-import gov.nih.nci.ncia.dto.SeriesDTO;
-import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.nbia.dto.EquipmentDTO;
+import gov.nih.nci.nbia.dto.SeriesDTO;
+import gov.nih.nci.nbia.util.SiteData;
 
 import java.util.Collection;
 import java.util.List;

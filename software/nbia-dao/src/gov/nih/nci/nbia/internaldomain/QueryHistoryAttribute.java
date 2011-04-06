@@ -16,10 +16,10 @@
  *
  * copyright
  */
-package gov.nih.nci.ncia.internaldomain;
+package gov.nih.nci.nbia.internaldomain;
 
-import gov.nih.nci.ncia.querystorage.QueryAttribute;
-import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
+import gov.nih.nci.nbia.querystorage.QueryAttribute;
+import gov.nih.nci.nbia.querystorage.QueryAttributeWrapper;
 
 import java.io.Serializable;
 

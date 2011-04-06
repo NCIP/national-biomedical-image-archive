@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dto;
+package gov.nih.nci.nbia.dto;
 
 /**
  * This class holds the part of patient information from Patient object.

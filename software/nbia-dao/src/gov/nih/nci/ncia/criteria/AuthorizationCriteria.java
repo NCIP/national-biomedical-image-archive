@@ -14,7 +14,7 @@
 */
 package gov.nih.nci.ncia.criteria;
 
-import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.nbia.util.SiteData;
 
 import java.util.ArrayList;
 import java.util.List;

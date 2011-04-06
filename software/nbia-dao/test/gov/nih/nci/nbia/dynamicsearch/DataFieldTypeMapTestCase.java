@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 import java.io.File;
 import java.net.URL;

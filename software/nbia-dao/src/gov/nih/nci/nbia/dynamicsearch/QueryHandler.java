@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
+import gov.nih.nci.nbia.lookup.StudyNumberMap;
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.lookup.StudyNumberMap;
 
 import java.util.List;
 

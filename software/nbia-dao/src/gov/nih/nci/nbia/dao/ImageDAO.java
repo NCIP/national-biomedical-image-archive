@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.ImageDTO;
-import gov.nih.nci.ncia.dto.ImageSecurityDTO;
-import gov.nih.nci.ncia.dto.SeriesDTO;
+import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageSecurityDTO;
+import gov.nih.nci.nbia.dto.SeriesDTO;
 
 import java.util.Collection;
 import java.util.Date;

@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.beans.searchform.aim;
 
-import gov.nih.nci.ncia.dao.AimImgObsCharacteristicDAO;
-import gov.nih.nci.ncia.dao.AimImgObsCharacteristicQuantificationDAO;
-import gov.nih.nci.ncia.dto.ImgObsCharacteristicDTO;
-import gov.nih.nci.ncia.dto.ImgObsCharacteristicQuantificationDTO;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dao.AimImgObsCharacteristicDAO;
+import gov.nih.nci.nbia.dao.AimImgObsCharacteristicQuantificationDAO;
+import gov.nih.nci.nbia.dto.ImgObsCharacteristicDTO;
+import gov.nih.nci.nbia.dto.ImgObsCharacteristicQuantificationDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.beans.searchform.aim.Quantification.TYPE;
 
 import java.util.ArrayList;

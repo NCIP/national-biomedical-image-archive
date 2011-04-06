@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.beans.searchform;
 
-import gov.nih.nci.ncia.query.DICOMQuery;
+import gov.nih.nci.nbia.query.DICOMQuery;
 
 import org.apache.log4j.Logger;
 

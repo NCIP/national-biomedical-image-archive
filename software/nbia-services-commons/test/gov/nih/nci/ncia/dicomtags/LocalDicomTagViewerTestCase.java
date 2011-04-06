@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.dicomtags;
 
+import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultImpl;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 
 import java.io.File;
 import java.net.URL;

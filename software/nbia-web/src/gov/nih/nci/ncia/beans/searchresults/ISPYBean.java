@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.beans.searchresults;
+import gov.nih.nci.ncia.criteria.UrlParamCriteria;
+import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
 import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
-import gov.nih.nci.ncia.criteria.UrlParamCriteria;
 import gov.nih.nci.ncia.ispy.UrlParams;
-import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.PatientSearchResult;
@@ -26,10 +26,10 @@ public class ISPYBean {
 	public String viewSeriesForRefImage() throws Exception {
 		ISPYImageWrapper ispyImageWrapper = (ISPYImageWrapper) getRefImageData().getRowData();
 		List<PatientSearchResult> patients = extractPatientDTO(getPatients());
-		
-		PatientSearchResult selectedPatient = StudyUtil.findLastMatchingPatientForSeries(patients, 
+
+		PatientSearchResult selectedPatient = StudyUtil.findLastMatchingPatientForSeries(patients,
 				                                                                         ispyImageWrapper.getImage().getSeriesId());
-		
+
 		LocalDrillDown drillDown = new LocalDrillDown();
 		drillDown.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
 		StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient);
@@ -43,20 +43,20 @@ public class ISPYBean {
 
 		return "viewImages";
 	}
-	
+
 	/**
 	 * Adds all of the selected images to the data basket.
 	 */
 	public String addImagesToBasketForRefImage() throws Exception {
 		BasketBean dataBasket = BeanManager.getBasketBean();
-		
+
 		ISPYImageWrapper imageSearchResult = (ISPYImageWrapper) refImageData.getRowData();
 
 		dataBasket.getBasket().addThumbnail(imageSearchResult.getImage());
 
 		return null;
 	}
-	
+
 
 
 	/**
@@ -76,9 +76,9 @@ public class ISPYBean {
 
 			LocalDrillDown drillDown = new LocalDrillDown();
 			drillDown.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
-			
+
 			ImageSearchResult[] results = drillDown.retrieveImagesbySeriesPkID(seriesIds);
-			
+
 			UrlParamCriteria leftCrit = searchWorkflowBean.getQuery().getUrlParamCriteria().get(0);
 			UrlParamCriteria rightCrit = searchWorkflowBean.getQuery().getUrlParamCriteria().get(1);
 			ISPYImageWrapper tempRightImage = null;
@@ -104,14 +104,14 @@ public class ISPYBean {
 			if (tempRightImage != null) {
 				if (referencedImages.size() == 0) {
 					referencedImages.add(0, tempRightImage);
-				} 
-				else 
+				}
+				else
 				if (referencedImages.size() == 1) {
 					referencedImages.add(1, tempRightImage);
 				}
 				//else error?
 			}
-		} 
+		}
 		catch (Exception e) {
 			e.printStackTrace();
 			MessageUtil.addErrorMessage("MAINbody:errorMsgForm:errorMsg",
@@ -136,7 +136,7 @@ public class ISPYBean {
 		//setDataBasketStateForDTO();
 		return "referencedImages";
 	}
-	
+
 	/**
 	 * Returns true if it is a URL query
 	 */
@@ -146,8 +146,8 @@ public class ISPYBean {
 		} else {
 			return false;
 		}
-	}	
-	
+	}
+
 	public SearchWorkflowBean getSearchWorkflowBean() {
 		return searchWorkflowBean;
 	}
@@ -170,7 +170,7 @@ public class ISPYBean {
 
 	public void setSearchResultBean(SearchResultBean searchResultBean) {
 		this.searchResultBean = searchResultBean;
-	}	
+	}
 
 	////////////////////////////////////PRIVATE//////////////////////////////////////////
 
@@ -178,15 +178,15 @@ public class ISPYBean {
 	 * Holds the referenced images from a URL query
 	 */
 	private List<ISPYImageWrapper> referencedImages;
-	
-	private UIData refImageData;	
-	
+
+	private UIData refImageData;
+
 	private SearchResultBean searchResultBean;
-	
+
 	private StudiesSearchResultBean studiesSearchResultBean;
-	
+
 	private SearchWorkflowBean searchWorkflowBean;
-	
+
     private void queryUsingUrl() throws Exception {
         DICOMQuery query = new DICOMQuery();
 
@@ -207,10 +207,10 @@ public class ISPYBean {
 
         query.addUrlParamCriteria(crit2);
         query.setQueryFromUrl(true);
-        
+
 		searchWorkflowBean.synchronousLocalQuery(query);
     }
-    
+
 	private static List<Integer> getSeriesIdsFromPatients(List<PatientResultWrapper> patientDtoList) {
 		List<Integer> seriesIds = new ArrayList<Integer>();
 
@@ -220,18 +220,18 @@ public class ISPYBean {
 			}
 		}
 		return seriesIds;
-	}    
-	
-	private static boolean seriesAndSopMatch(ImageSearchResult imageDto, 
+	}
+
+	private static boolean seriesAndSopMatch(ImageSearchResult imageDto,
                                              UrlParamCriteria urlParamCriteria ) {
 		return imageDto.getSeriesInstanceUid().equals(urlParamCriteria.getSeriesInstanceUid()) &&
-		       imageDto.getSopInstanceUid().equals(urlParamCriteria.getImageSopInstanceUid());		
+		       imageDto.getSopInstanceUid().equals(urlParamCriteria.getImageSopInstanceUid());
 	}
 
 	private List<PatientResultWrapper> getPatients() {
 		return (List<PatientResultWrapper>) searchResultBean.getPatientResults();
 	}
-	
+
 	private static List<PatientSearchResult> extractPatientDTO(List<PatientResultWrapper> wrappers) {
 		List<PatientSearchResult> dtos = new ArrayList<PatientSearchResult>();
 		for(PatientResultWrapper wrapper : wrappers) {

@@ -1,6 +1,7 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 import junit.framework.TestCase;
+import gov.nih.nci.ncia.search.NBIANode;
 
 public class LocalNodeTestCase extends TestCase {
 

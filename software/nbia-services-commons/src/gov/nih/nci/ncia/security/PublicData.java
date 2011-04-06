@@ -1,13 +1,14 @@
 package gov.nih.nci.ncia.security;
 
-import gov.nih.nci.ncia.dao.GeneralSeriesDAO;
-import gov.nih.nci.ncia.dao.ImageDAO;
-import gov.nih.nci.ncia.dao.PatientDAO;
-import gov.nih.nci.ncia.dto.ImageDTO;
-import gov.nih.nci.ncia.dto.PatientDTO;
-import gov.nih.nci.ncia.dto.SeriesDTO;
-import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.dao.PatientDAO;
+import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.PatientDTO;
+import gov.nih.nci.nbia.dto.SeriesDTO;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.List;
 

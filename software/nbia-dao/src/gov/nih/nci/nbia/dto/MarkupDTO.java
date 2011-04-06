@@ -18,7 +18,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.dto;
+package gov.nih.nci.nbia.dto;
 
 import java.io.Serializable;
 

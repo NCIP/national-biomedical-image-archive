@@ -9,9 +9,9 @@
 
 package gov.nih.nci.ncia.viewer;
 
-import gov.nih.nci.ncia.dto.MarkupDTO;
-import gov.nih.nci.ncia.markup.MarkupManager;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dto.MarkupDTO;
+import gov.nih.nci.nbia.markup.MarkupManager;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 public class MarkupDelegate {
 

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.xmlobject;
+package gov.nih.nci.nbia.xmlobject;
 
 public class SourceItem {
 	

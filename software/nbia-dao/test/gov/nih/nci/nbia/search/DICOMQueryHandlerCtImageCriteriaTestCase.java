@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.ncia.criteria.AcquisitionMatrixCriteria;
 import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
 import gov.nih.nci.ncia.criteria.ConvolutionKernelCriteria;
@@ -8,10 +8,10 @@ import gov.nih.nci.ncia.criteria.DataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ReconstructionDiameterCriteria;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
+import gov.nih.nci.nbia.util.SiteData;
 
 import java.util.ArrayList;
 import java.util.Collection;

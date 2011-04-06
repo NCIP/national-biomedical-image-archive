@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.CollectionDescDTO;
-import gov.nih.nci.ncia.internaldomain.CollectionDesc;
+import gov.nih.nci.nbia.dto.CollectionDescDTO;
+import gov.nih.nci.nbia.internaldomain.CollectionDesc;
 
 import java.util.Date;
 import java.util.List;

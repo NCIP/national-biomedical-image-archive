@@ -6,6 +6,7 @@
 package gov.nih.nci.ncia.beans.basket;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.ncia.basket.Basket;
 import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
 import gov.nih.nci.ncia.basket.BasketUtil;
@@ -24,7 +25,6 @@ import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.util.DynamicJNLPGenerator;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.NCIAConstants;
 import gov.nih.nci.ncia.util.SlideShowUtil;
 import gov.nih.nci.ncia.zip.ZipManager;
 import gov.nih.nci.ncia.basket.DownloadRecorder;

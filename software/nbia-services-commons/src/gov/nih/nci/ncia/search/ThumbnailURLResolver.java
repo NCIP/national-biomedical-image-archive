@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.search;
 
-import gov.nih.nci.ncia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageDTO;
 
 /**
  * This object encapsulates the act of computing the thumbnail URL for a given

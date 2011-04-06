@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.QcSearchResultDTO;
-import gov.nih.nci.ncia.dto.QcStatusHistoryDTO;
+import gov.nih.nci.nbia.dto.QcSearchResultDTO;
+import gov.nih.nci.nbia.dto.QcStatusHistoryDTO;
 
 import java.util.Date;
 import java.util.List;

@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
 import java.util.List;
 
-import gov.nih.nci.ncia.dto.ModalityDescDTO;
+import gov.nih.nci.nbia.dto.ModalityDescDTO;
 
 import org.springframework.dao.DataAccessException;
 

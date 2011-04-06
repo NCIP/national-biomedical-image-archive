@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 
-import gov.nih.nci.ncia.xmlobject.SourceItem;
+import gov.nih.nci.nbia.xmlobject.SourceItem;
 
 import java.util.Comparator;
 

@@ -1,9 +1,12 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
+import gov.nih.nci.nbia.xmlobject.SourceItem;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import junit.framework.TestCase;
-import java.util.*;
-import gov.nih.nci.ncia.xmlobject.SourceItem;
-import java.util.*;
 
 public class DynamicSearchSourceItemComparatorTestCase extends TestCase {
 

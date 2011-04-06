@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.search;
 
-import gov.nih.nci.ncia.query.DICOMQuery;
+import gov.nih.nci.nbia.query.DICOMQuery;
 
 import java.util.ArrayList;
 import java.util.List;

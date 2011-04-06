@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.verifysubmission;
 
-import gov.nih.nci.ncia.dao.SubmissionHistoryDAO;
-import gov.nih.nci.ncia.dto.DayCountDTO;
-import gov.nih.nci.ncia.dto.SeriesSubmissionCountDTO;
-import gov.nih.nci.ncia.dto.SubmissionCountsDTO;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dao.SubmissionHistoryDAO;
+import gov.nih.nci.nbia.dto.DayCountDTO;
+import gov.nih.nci.nbia.dto.SeriesSubmissionCountDTO;
+import gov.nih.nci.nbia.dto.SubmissionCountsDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.Date;
 import java.util.List;

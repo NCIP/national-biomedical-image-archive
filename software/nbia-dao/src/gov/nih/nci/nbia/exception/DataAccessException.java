@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.exception;
+package gov.nih.nci.nbia.exception;
 
 public class DataAccessException extends RuntimeException {
 

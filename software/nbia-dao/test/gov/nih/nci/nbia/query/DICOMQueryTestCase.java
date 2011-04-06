@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.query;
+package gov.nih.nci.nbia.query;
 
 import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;

@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.beans.qctool;
 
-import gov.nih.nci.ncia.dao.QcStatusDAO;
-import gov.nih.nci.ncia.dto.QcSearchResultDTO;
-import gov.nih.nci.ncia.dto.QcStatusHistoryDTO;
+import gov.nih.nci.nbia.dao.QcStatusDAO;
+import gov.nih.nci.nbia.dto.QcSearchResultDTO;
+import gov.nih.nci.nbia.dto.QcStatusHistoryDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Collections;

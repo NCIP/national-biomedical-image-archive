@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.util;
 
-import gov.nih.nci.ncia.dto.SeriesDTO;
-import gov.nih.nci.ncia.search.LocalNode;
+import gov.nih.nci.nbia.dto.SeriesDTO;
+import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.ArrayList;

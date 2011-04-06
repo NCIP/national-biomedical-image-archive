@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
+import gov.nih.nci.nbia.dto.ImgObsCharacteristicQuantificationDTO;
 import gov.nih.nci.nbia.internaldomain.AimQuantification;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.dto.ImgObsCharacteristicQuantificationDTO;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -18,14 +18,14 @@
  *
  *
  */
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 
 /**
  * Returned from DICOMQueryHandler.  Represents one series for a patient.
  * @author shinohaa
  */
-class PatientStudySeriesTriple {
+public class PatientStudySeriesTriple {
     private int seriesPkId;
     private int studyPkId;
     private int patientPkId;

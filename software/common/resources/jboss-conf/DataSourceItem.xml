@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
-<dataGroup>  
+<dataGroup>
    <dataSource>
-    <sourcePackageName>gov.nih.nci.ncia.internaldomain</sourcePackageName>
-  <sourceLabel>Collection</sourceLabel> 
+    <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+  <sourceLabel>Collection</sourceLabel>
   <sourceName>TrialDataProvenance</sourceName>
        <sourceItem>
           <itemLabel>Collection Site Name</itemLabel>
           <itemName>dpSiteName</itemName>
           <itemType>java.lang.String</itemType>
-       </sourceItem> 
+       </sourceItem>
        <sourceItem>
           <itemLabel>Collection Name</itemLabel>
           <itemName>project</itemName>
           <itemType>java.lang.String</itemType>
           <itemPrimaryValue>true</itemPrimaryValue>
-       </sourceItem> 
-   </dataSource>  
+       </sourceItem>
+   </dataSource>
    <dataSource>
-      <sourcePackageName>gov.nih.nci.ncia.internaldomain</sourcePackageName>
-      <sourceLabel>Patient</sourceLabel>  
-      <sourceName>Patient</sourceName>  
+      <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+      <sourceLabel>Patient</sourceLabel>
+      <sourceName>Patient</sourceName>
     <sourceItem>
       <itemLabel>Patient ID</itemLabel>
       <itemName>patientId</itemName>
       <itemType>java.lang.String</itemType>
-    </sourceItem> 
+    </sourceItem>
     <sourceItem>
       <itemLabel>Patient Name</itemLabel>
       <itemName>patientName</itemName>
@@ -48,7 +48,7 @@
     </sourceItem>
    </dataSource>
    <dataSource>
-      <sourcePackageName>gov.nih.nci.ncia.internaldomain</sourcePackageName>
+      <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
       <sourceLabel>Study</sourceLabel>
       <sourceName>Study</sourceName>
       <sourceItem>
@@ -65,7 +65,7 @@
         <itemLabel>Study Time</itemLabel>
         <itemName>studyTime</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>     
+      </sourceItem>
       <sourceItem>
         <itemLabel>Study Description</itemLabel>
         <itemName>studyDesc</itemName>
@@ -105,27 +105,27 @@
         <itemLabel>Patient Height</itemLabel>
         <itemName>patientSize</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>           
+      </sourceItem>
       <sourceItem>
         <itemLabel>Patient Weight</itemLabel>
         <itemName>patientWeight</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem> 
+      </sourceItem>
       <sourceItem>
         <itemLabel>Occupation</itemLabel>
         <itemName>occupation</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem> 
+      </sourceItem>
       <sourceItem>
         <itemLabel>Patient History</itemLabel>
         <itemName>additionalPatientHistory</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
    </dataSource>
    <dataSource>
-      <sourcePackageName>gov.nih.nci.ncia.internaldomain</sourcePackageName>
-      <sourceLabel>Series</sourceLabel> 
-      <sourceName>GeneralSeries</sourceName>  
+      <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+      <sourceLabel>Series</sourceLabel>
+      <sourceName>GeneralSeries</sourceName>
     <sourceItem>
       <itemLabel>Modality</itemLabel>
       <itemName>modality</itemName>
@@ -136,28 +136,28 @@
         <itemLabel>Series Instance UID</itemLabel>
         <itemName>seriesInstanceUID</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>    
+      </sourceItem>
        <sourceItem>
               <itemLabel>Series Description</itemLabel>
               <itemName>seriesDesc</itemName>
               <itemType>java.lang.String</itemType>
-      </sourceItem>   
+      </sourceItem>
       <sourceItem>
         <itemLabel>Series Laterality</itemLabel>
         <itemName>laterality</itemName>
         <itemType>java.lang.String</itemType>
         <itemPrimaryValue>true</itemPrimaryValue>
-      </sourceItem>       
+      </sourceItem>
       <sourceItem>
         <itemLabel>Series Date</itemLabel>
         <itemName>seriesDate</itemName>
         <itemType>java.util.Date</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Protocol Name</itemLabel>
         <itemName>protocolName</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>     
+      </sourceItem>
         <sourceItem>
         <itemLabel>Anatomical Site</itemLabel>
         <itemName>bodyPartExamined</itemName>
@@ -168,72 +168,72 @@
         <itemLabel>Series Number</itemLabel>
         <itemName>seriesNumber</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>     
+      </sourceItem>
         <sourceItem>
         <itemLabel>Synchronization Frame Of Reference UID</itemLabel>
         <itemName>syncFrameOfRefUID</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>     
+      </sourceItem>
         <sourceItem>
         <itemLabel>Frame of Reference UID</itemLabel>
         <itemName>frameOfReferenceUID</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
     </dataSource>
   <dataSource>
-      <sourcePackageName>gov.nih.nci.ncia.internaldomain</sourcePackageName>
-    <sourceLabel>Image</sourceLabel>  
+      <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+    <sourceLabel>Image</sourceLabel>
       <sourceName>GeneralImage</sourceName>
         <sourceItem>
         <itemLabel>Instance Number</itemLabel>
         <itemName>instanceNumber</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Content Date</itemLabel>
         <itemName>contentDate</itemName>
         <itemType>java.util.Date</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Content Time</itemLabel>
         <itemName>contentTime</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Image Type</itemLabel>
         <itemName>imageType</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Acquisition Date</itemLabel>
         <itemName>acquisitionDate</itemName>
         <itemType>java.util.Date</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Acquisition Time</itemLabel>
         <itemName>acquisitionTime</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Acquisition Number</itemLabel>
         <itemName>acquisitionNumber</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Lossy Image Compression</itemLabel>
         <itemName>lossyImageCompression</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Image Orientation Patient</itemLabel>
         <itemName>imageOrientationPatient</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
         <sourceItem>
         <itemLabel>Pixel Spacing</itemLabel>
         <itemName>pixelSpacing</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>  
+      </sourceItem>
         <sourceItem>
         <itemLabel>Image Position Patient</itemLabel>
         <itemName>imagePositionPatient</itemName>
@@ -243,12 +243,12 @@
         <itemLabel>Slice Thickness</itemLabel>
         <itemName>sliceThickness</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>       
+      </sourceItem>
           <sourceItem>
         <itemLabel>Slice Location</itemLabel>
         <itemName>sliceLocation</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>       
+      </sourceItem>
           <sourceItem>
         <itemLabel>Contrast Bolus Agent</itemLabel>
         <itemName>contrastBolusAgent</itemName>
@@ -295,17 +295,17 @@
         <itemLabel>Storage Media File Set UID</itemLabel>
         <itemName>storageMediaFileSetUID</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>     
+      </sourceItem>
           <sourceItem>
         <itemLabel>Acquisition Date Time</itemLabel>
         <itemName>acquisitionDatetime</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
           <sourceItem>
         <itemLabel>Image Comments</itemLabel>
         <itemName>imageComments</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>       
+      </sourceItem>
           <sourceItem>
         <itemLabel>Image Laterality</itemLabel>
         <itemName>imageLaterality</itemName>
@@ -316,58 +316,58 @@
         <itemLabel>Acquisition Matrix</itemLabel>
         <itemName>acquisitionMatrix</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>       
+      </sourceItem>
           <sourceItem>
         <itemLabel>Column Count</itemLabel>
         <itemName>columns</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>           
+      </sourceItem>
           <sourceItem>
         <itemLabel>Row Count</itemLabel>
         <itemName>rows</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>    
+      </sourceItem>
       <sourceItem>
         <itemLabel>Number of Frame(s)</itemLabel>
         <itemName>usFrameNum</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem> 
+      </sourceItem>
       <sourceItem>
         <itemLabel>Ultrasound Color Data Present</itemLabel>
         <itemName>usColorDataPresent</itemName>
         <itemPrimaryValue>true</itemPrimaryValue>
         <itemType>java.lang.String</itemType>
-      </sourceItem> 
+      </sourceItem>
       <sourceItem>
         <itemLabel>Ultrasound Image Mode</itemLabel>
         <itemName>usMultiModality</itemName>
         <itemPrimaryValue>true</itemPrimaryValue>
         <itemType>java.lang.String</itemType>
-      </sourceItem> 
+      </sourceItem>
     <sourceItem>
       <itemLabel>KVP</itemLabel>
       <itemName>KVP</itemName>
       <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>  
+      <actualSource>CTImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Scan Option</itemLabel>
       <itemName>scanOperions</itemName>
       <itemType>java.lang.String</itemType>
-      <actualSource>CTImage</actualSource>  
+      <actualSource>CTImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Data Collection Diameter (CT)</itemLabel>
       <itemName>dataCollectionDiameter</itemName>
       <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>  
-    </sourceItem>   
+      <actualSource>CTImage</actualSource>
+    </sourceItem>
     <sourceItem>
       <itemLabel>Reconstruction Diameter</itemLabel>
       <itemName>reconstructionDiameter</itemName>
       <itemType>java.lang.Double</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Gantry Detector Tilt</itemLabel>
       <itemName>gantryDetectorTilt</itemName>
@@ -379,44 +379,44 @@
       <itemName>exposureTime</itemName>
       <itemType>java.lang.Integer</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>X Ray Tube Current</itemLabel>
       <itemName>XRayTubeCurrent</itemName>
       <itemType>java.lang.Integer</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Exposure</itemLabel>
       <itemName>exposure</itemName>
       <itemType>java.lang.Integer</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Exposure In Micro As</itemLabel>
       <itemName>exposureInMicroAs</itemName>
       <itemType>java.lang.Integer</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Convolution Kernel</itemLabel>
       <itemName>convolutionKernel</itemName>
       <itemType>java.lang.String</itemType>
       <itemPrimaryValue>true</itemPrimaryValue>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Revolution Time</itemLabel>
       <itemName>revolutionTime</itemName>
       <itemType>java.lang.Double</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Single Collimation Width</itemLabel>
       <itemName>singleCollimationWidth</itemName>
       <itemType>java.lang.Double</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Total Collimation Width</itemLabel>
       <itemName>totalCollimationWidth</itemName>
@@ -428,24 +428,24 @@
       <itemName>tableSpeed</itemName>
       <itemType>java.lang.Double</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Table Feed Per Rotation</itemLabel>
       <itemName>tableFeedPerRotation</itemName>
       <itemType>java.lang.Double</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>CT Pitch Factor</itemLabel>
       <itemName>CTPitchFactor</itemName>
       <itemType>java.lang.Double</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
     <sourceItem>
       <itemLabel>Anatomic Region Sequence</itemLabel>
       <itemName>anatomicRegionSeq</itemName>
       <itemType>java.lang.String</itemType>
       <actualSource>CTImage</actualSource>
-    </sourceItem>   
+    </sourceItem>
   </dataSource>
  </dataGroup>

@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.internaldomain.DownloadDataHistory;
+import gov.nih.nci.nbia.internaldomain.DownloadDataHistory;
 
 import java.util.Date;
 

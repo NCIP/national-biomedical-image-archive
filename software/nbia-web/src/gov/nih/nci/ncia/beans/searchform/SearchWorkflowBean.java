@@ -8,24 +8,26 @@
  */
 package gov.nih.nci.ncia.beans.searchform;
 
+import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
+import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
+import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
+import gov.nih.nci.ncia.criteria.NodeCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
+import gov.nih.nci.ncia.criteria.RangeData;
+import gov.nih.nci.nbia.dto.ModalityDescDTO;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.querystorage.QueryStorageManager;
+import gov.nih.nci.nbia.search.LocalNode;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
-import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
-import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
-import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
-import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
-import gov.nih.nci.ncia.criteria.NodeCriteria;
-import gov.nih.nci.ncia.criteria.RangeData;
 import gov.nih.nci.ncia.lookup.LookupManager;
 import gov.nih.nci.ncia.lookup.LookupManagerFactory;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.querystorage.QueryStorageManager;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
-import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchCompletionService;
 import gov.nih.nci.ncia.search.PatientSearchResult;
@@ -35,8 +37,6 @@ import gov.nih.nci.ncia.search.PatientSearcherServiceFactory;
 import gov.nih.nci.ncia.util.DateValidator;
 import gov.nih.nci.ncia.util.JsfUtil;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.dto.ModalityDescDTO;
 import gov.nih.nci.ncia.modalitydescription.ModalityDescProcessor;
 
 import java.util.ArrayList;
@@ -100,7 +100,7 @@ public class SearchWorkflowBean {
         collectionItems = JsfUtil.getBooleanSelectItemsFromStrings(collectionNames);
 
         populateModalityDescMap();
-        
+
         List<String> modalities = lookupMgr.getModality();
     	Collections.sort(modalities);
     	modalityItems = JsfUtil.constructModalitySelectItems(modalities, modalityDescMap);
@@ -119,16 +119,16 @@ public class SearchWorkflowBean {
 
         searchableNodeMap = lookupMgr.getSearchableNodes();
         usSearchableNodeMap = lookupMgr.getSearchableNodesForUs();
-        
+
         searchableNodes = mergeNodeList(searchableNodeMap.keySet(), usSearchableNodeMap.keySet());
-        
+
         Collections.sort(searchableNodes);
         remoteNodeItems = JsfUtil.constructNodeSelectItems(searchableNodes);
         this.aimSearchWorkflowBean.loggedIn();
 
         setDefaultValues();
     }
-    
+
     private ArrayList<NBIANode> mergeNodeList(Set<NBIANode> set1, Set<NBIANode> set2) {
     	ArrayList<NBIANode> nodeList = new ArrayList<NBIANode>(set1);
     	for (NBIANode aNode: set2){
@@ -355,7 +355,7 @@ public class SearchWorkflowBean {
     	}
     	return selectedAnatomicalSiteNames;
     }
-    
+
     ///////////////////////////////////END ANATOMICAL SITE ITEMS////////////////////
 
     //////////////////////////////////BEGIN Image Type ITEMS//////////////////////
@@ -1137,8 +1137,8 @@ public class SearchWorkflowBean {
      */
     private Map<NBIANode, AvailableSearchTerms> searchableNodeMap;
     private Map<NBIANode, UsAvailableSearchTerms> usSearchableNodeMap;
-    
-    
+
+
     /**
      * map holds modality description
      */
@@ -1203,7 +1203,7 @@ public class SearchWorkflowBean {
             colorModeOptions = new String[2];
             colorModeOptions[0] = ColorModeOptionCriteria.BMode;
             colorModeOptions[1] = ColorModeOptionCriteria.ColorMode;
-            unselectAllUsMultiModalityItems();       	
+            unselectAllUsMultiModalityItems();
         }
 
         contrastAgents = new String[2];
@@ -1212,13 +1212,13 @@ public class SearchWorkflowBean {
         annotationOptions = new String[2];
         annotationOptions[0] = AnnotationOptionCriteria.AnnotationOnly;
         annotationOptions[1] = AnnotationOptionCriteria.NoAnnotation;
-        
+
 
         unselectAllKernels();
         unselectAllCollections();
         unselectAllModalities();
         unselectAllAnatomicalSites();
-       
+
         this.aimSearchWorkflowBean.setDefaultValues();
     }
 
@@ -1524,7 +1524,7 @@ public class SearchWorkflowBean {
     private void populateModalityDescMap() {
     	ModalityDescProcessor processor = new ModalityDescProcessor();
         List<ModalityDescDTO> dtoList = processor.findAllModalityDesc();
-        
+
         modalityDescMap.clear();
         for( ModalityDescDTO dto : dtoList) {
         	modalityDescMap.put(dto.getModalityName(), dto.getDescription());

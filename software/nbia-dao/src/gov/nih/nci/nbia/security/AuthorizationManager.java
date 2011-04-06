@@ -1,15 +1,15 @@
 /**
 * $Id$
 */
-package gov.nih.nci.ncia.security;
+package gov.nih.nci.nbia.security;
 
-import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
+import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;

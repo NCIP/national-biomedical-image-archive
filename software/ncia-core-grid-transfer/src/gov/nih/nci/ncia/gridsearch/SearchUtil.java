@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.gridsearch;
 
+import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.ncia.dicomtags.LocalDicomTagViewer;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.lookup.LookupManagerImpl;
@@ -7,7 +8,6 @@ import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.LocalDrillDown;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 
 import java.rmi.RemoteException;
 import java.util.List;

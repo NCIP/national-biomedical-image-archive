@@ -2,12 +2,12 @@ package gov.nih.nci.ncia.gridsearch;
 
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
-import gov.nih.nci.ncia.internaldomain.QueryHistoryAttribute;
-import gov.nih.nci.ncia.query.DICOMQuery;
+import gov.nih.nci.nbia.internaldomain.QueryHistoryAttribute;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.PatientSearcher;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

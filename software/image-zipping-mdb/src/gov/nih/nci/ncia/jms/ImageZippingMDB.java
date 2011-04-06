@@ -42,9 +42,9 @@
 package gov.nih.nci.ncia.jms;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.basket.DownloadRecorder;
 import gov.nih.nci.ncia.mail.MailManager;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.zip.ZipManager;
 
 import java.io.File;

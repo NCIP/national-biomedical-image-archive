@@ -3,10 +3,10 @@
  */
 package gov.nih.nci.ncia.customserieslist;
 
+import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
+import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
+import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.CustomSeriesListAttributeDTO;
-import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJunit4 {
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#CustomSeriesListProcessor(java.lang.String, gov.nih.nci.ncia.security.AuthorizationManager)}.
+	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#CustomSeriesListProcessor(java.lang.String, gov.nih.nci.nbia.security.AuthorizationManager)}.
 	 */
 	@Test
 	public void testCustomSeriesListProcessor() throws Exception {
@@ -91,7 +91,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#create(gov.nih.nci.ncia.dto.CustomSeriesListDTO)}.
+	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#create(gov.nih.nci.nbia.dto.CustomSeriesListDTO)}.
 	 */
 	@Test	
 	public void testCreate() {
@@ -123,7 +123,7 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#update(gov.nih.nci.ncia.dto.CustomSeriesListDTO, java.lang.Boolean)}.
+	 * Test method for {@link gov.nih.nci.ncia.customserieslist.CustomSeriesListProcessor#update(gov.nih.nci.nbia.dto.CustomSeriesListDTO, java.lang.Boolean)}.
 	 */
 	@Test	
 	public void testUpdate() {

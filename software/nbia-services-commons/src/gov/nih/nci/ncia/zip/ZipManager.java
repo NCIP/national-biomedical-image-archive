@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.zip;
 
+import gov.nih.nci.nbia.dto.AnnotationFileDTO;
+import gov.nih.nci.nbia.dto.DicomFileDTO;
+import gov.nih.nci.nbia.dto.ImageFileDTO;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.dto.AnnotationFileDTO;
-import gov.nih.nci.ncia.dto.DicomFileDTO;
-import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.io.File;

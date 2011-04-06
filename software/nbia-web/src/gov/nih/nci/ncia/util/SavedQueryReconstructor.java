@@ -31,7 +31,7 @@ import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
-import gov.nih.nci.ncia.query.DICOMQuery;
+import gov.nih.nci.nbia.query.DICOMQuery;
 
 import java.util.ArrayList;
 import java.util.Collection;

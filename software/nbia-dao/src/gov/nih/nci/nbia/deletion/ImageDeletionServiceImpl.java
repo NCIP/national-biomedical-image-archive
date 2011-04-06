@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion;
+package gov.nih.nci.nbia.deletion;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,13 +6,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import gov.nih.nci.ncia.deletion.dao.AnnotationDAO;
-import gov.nih.nci.ncia.deletion.dao.DeletionAuditTrailDAO;
-import gov.nih.nci.ncia.deletion.dao.ImageDAO;
-import gov.nih.nci.ncia.deletion.dao.PatientDAO;
-import gov.nih.nci.ncia.deletion.dao.SeriesDAO;
-import gov.nih.nci.ncia.deletion.dao.StudyDAO;
-import gov.nih.nci.ncia.exception.DataAccessException;
+import gov.nih.nci.nbia.deletion.dao.AnnotationDAO;
+import gov.nih.nci.nbia.deletion.dao.DeletionAuditTrailDAO;
+import gov.nih.nci.nbia.deletion.dao.ImageDAO;
+import gov.nih.nci.nbia.deletion.dao.PatientDAO;
+import gov.nih.nci.nbia.deletion.dao.SeriesDAO;
+import gov.nih.nci.nbia.deletion.dao.StudyDAO;
+import gov.nih.nci.nbia.exception.DataAccessException;
+import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
+import gov.nih.nci.nbia.deletion.ImageDeletionService;
 
 import java.util.ArrayList;
 import java.util.Iterator;

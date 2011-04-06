@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
-import gov.nih.nci.ncia.dynamicsearch.criteria.CriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaFactory;
 import junit.framework.TestCase;
 
 public class LogicalOperatorCriteriaFactoriesTestCase extends TestCase {

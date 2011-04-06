@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.ModalityDescDTO;
-import gov.nih.nci.ncia.internaldomain.ModalityDesc;
+import gov.nih.nci.nbia.dto.ModalityDescDTO;
+import gov.nih.nci.nbia.internaldomain.ModalityDesc;
 
 import java.util.ArrayList;
 import java.util.List;

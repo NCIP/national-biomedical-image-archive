@@ -42,11 +42,8 @@
 /**
  * @copyright
  */
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.nbia.util.HqlUtils;
-import gov.nih.nci.nbia.util.Ultrasound_Util;
-import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.criteria.AcquisitionMatrixCriteria;
 import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
@@ -60,7 +57,6 @@ import gov.nih.nci.ncia.criteria.DataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.DateRangeCriteria;
 import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
-import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
@@ -76,12 +72,16 @@ import gov.nih.nci.ncia.criteria.ReconstructionDiameterCriteria;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.UrlParamCriteria;
-import gov.nih.nci.ncia.criteriahandler.CriteriaHandler;
-import gov.nih.nci.ncia.criteriahandler.CriteriaHandlerFactory;
-import gov.nih.nci.ncia.dao.AbstractDAO;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.util.CrossDatabaseUtil;
-import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
+import gov.nih.nci.nbia.criteriahandler.CriteriaHandler;
+import gov.nih.nci.nbia.criteriahandler.CriteriaHandlerFactory;
+import gov.nih.nci.nbia.dao.AbstractDAO;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.util.CrossDatabaseUtil;
+import gov.nih.nci.nbia.util.HqlUtils;
+import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.Ultrasound_Util;
+import gov.nih.nci.nbia.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

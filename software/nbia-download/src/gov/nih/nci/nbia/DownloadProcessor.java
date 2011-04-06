@@ -1,16 +1,17 @@
 package gov.nih.nci.nbia;
 
-import gov.nih.nci.ncia.dao.AnnotationDAO;
+import gov.nih.nci.nbia.dao.AnnotationDAO;
+import gov.nih.nci.nbia.dao.DownloadDataDAO;
 import gov.nih.nci.nbia.dao.ImageDAO2;
-import gov.nih.nci.ncia.dto.AnnotationDTO;
+import gov.nih.nci.nbia.dto.AnnotationDTO;
 import gov.nih.nci.nbia.dto.ImageDTO2;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.dao.DownloadDataDAO;
-import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
+
 import java.util.List;
 
 

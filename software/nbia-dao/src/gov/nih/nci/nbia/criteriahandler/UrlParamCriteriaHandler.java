@@ -9,12 +9,16 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.criteriahandler;
+package gov.nih.nci.nbia.criteriahandler;
 
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.UrlParamCriteria;
-import static gov.nih.nci.ncia.search.DICOMQueryHandler.*;
-
+import static gov.nih.nci.nbia.search.DICOMQueryHandler.OPEN_PARENTHESIS;
+import static gov.nih.nci.nbia.search.DICOMQueryHandler.PATIENT_ID;
+import static gov.nih.nci.nbia.search.DICOMQueryHandler.AND;
+import static gov.nih.nci.nbia.search.DICOMQueryHandler.SERIES_INSTANCE_UID;
+import static gov.nih.nci.nbia.search.DICOMQueryHandler.STUDY_INSTANCE_UID;
+import static gov.nih.nci.nbia.search.DICOMQueryHandler.CLOSE_PARENTHESIS;
 
 public class UrlParamCriteriaHandler implements CriteriaHandler {
     public String handle(String field, Criteria inputCrit)

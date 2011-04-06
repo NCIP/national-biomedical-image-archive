@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.referencedimages;
+package gov.nih.nci.nbia.referencedimages;
 
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 /**
  * Attempts to verify the Referenced Images Functionality from ISPY

@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.submissionreport;
+package gov.nih.nci.nbia.submissionreport;
 
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 
 public class ImageSubmissionReportSelenTestCase extends AbstractSelenTestCaseImpl {
@@ -12,7 +12,7 @@ public class ImageSubmissionReportSelenTestCase extends AbstractSelenTestCaseImp
         selectSubmissionReportCollection("TCGA//Henry Ford");
         selectSubmissionReportDateRange("04/13/1980", "01/13/1987");
         submitImageSubmissionReport();
-        
+
         waitForImageSubmissionReportResults();
 
   		assertTrue(isThereANoResultsMessageForImageSubmissionReport());

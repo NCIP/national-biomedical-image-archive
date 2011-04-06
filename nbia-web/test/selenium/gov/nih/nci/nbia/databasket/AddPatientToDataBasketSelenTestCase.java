@@ -1,36 +1,36 @@
-package gov.nih.nci.ncia.databasket;
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+package gov.nih.nci.nbia.databasket;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 public class AddPatientToDataBasketSelenTestCase extends AbstractSelenTestCaseImpl {
 
 	public void testAddPatient() throws Exception {
 		login();
-		
+
 		navigateToSearchPage();
 
 		selectModalitySearchCriteria("CT");
 
 		selectCollectionCriteria("RIDER Pilot");
-		
+
 		submitSearch();
-		
+
 		addFirstPatientOfFirstNodeResultsToBasket();
 
 		//since on same page... not sure there's really a good condition
 		//to wait for?
 		pause(30000);
-		
+
 		navigateToDataBasketPage();
-		
+
 		///////////////////////////////////////////////////////////////////////
-		
+
 		verifyPatientIds();
 		verifyStudyIds();
 		verifySeriesIds();
 	}
 
 	//////////////////////////////////PRIVATE//////////////////////////////////////////////////////
-	
+
 	private void verifyPatientIds() {
         assertEquals(getNumOfRowsInDataBasket(),
        	             12);

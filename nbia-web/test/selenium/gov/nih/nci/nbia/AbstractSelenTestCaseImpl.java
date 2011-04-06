@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia;
+package gov.nih.nci.nbia;
 
 import com.thoughtworks.selenium.SeleneseTestCase;
 
@@ -46,7 +46,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.open("/ncia/login.jsf");
 		selenium.click("link=SEARCH IMAGES");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm')",
-                                  "30000");		
+                                  "30000");
 	}
 
 /////////////////////////////////////////SELECT OR TWEAK PAGE CONTROLS///////////////////////////////////
@@ -64,8 +64,8 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 			selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:"+rowNumber+":addPatientToBasketCheckbox");
 		}
 	}
-	
-	
+
+
 	public void selectAnatomicalSite(String anatomicalSite) {
 		String id = selenium.getValue("xpath=id('MAINbody:searchForm:anatomicalSitesCheckboxesTable')//tr[td='"+anatomicalSite+"']/td//input/@id");
 		selenium.click(id);
@@ -100,26 +100,26 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 
 	}
 
-	public void submitImageSubmissionReport() {	
+	public void submitImageSubmissionReport() {
 		selenium.click("MAINbody:submissionReportCriteriaForm:imageReportSubmit");
 
 	}
-	
+
 	public void submitAnnotationReport() {
 		selenium.click("MAINbody:submissionReportCriteriaForm:annotationReportSubmit");
 	}
 
 	public void waitForImageSubmissionReportResults() {
   		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet')",
-                                  "30000");			
+                                  "30000");
 	}
-	
-	
+
+
 	public void waitForEmptyAnnotationResults() {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:annotationNoResultsMsg')",
                                   "30000");
     }
-	
+
 	public void waitForNonEmptyAnnotationResults() {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('overallResultsCount')",
                                   "30000");
@@ -132,7 +132,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 
 	public void waitForAccrualResults() {
 
-		
+
         selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualByDayForm:accrualByDayTable')",
                                   "30000");
     }
@@ -194,31 +194,31 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 //////////////////////////////////////////READ FROM PAGE///////////////////////////////////////
 	public boolean isThereANoResultsMessageForImageSubmissionReport() {
 		String noResultsMsg = selenium.getText("MAINbody:imageSubmissionsByDayForm:imageSubmissionPanelTabSet:0:noNewImagesPanel");
-  		return noResultsMsg.startsWith("There were no submissions");	
+  		return noResultsMsg.startsWith("There were no submissions");
 	}
-	
+
 	public boolean isThereANoResultsMessageForAccrualReport() {
 		String noResultsMsg = selenium.getText("MAINbody:accrualNoResultsMsg");
-		return noResultsMsg.startsWith("There were no submissions");		
+		return noResultsMsg.startsWith("There were no submissions");
 	}
-	
+
 	public String getSubmissionReportErrorText() {
-		return selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");		
+		return selenium.getText("xpath=//table[@id='MAINbody:submissionReportCriteriaForm:submissionReportErrorField']//span");
 	}
-	
+
 	public boolean isViewSavedQueriesLinkVisible() {
-		return selenium.isElementPresent("SUBmenu:sideMenuForm:queryView:viewSavedQueriesLink");		
+		return selenium.isElementPresent("SUBmenu:sideMenuForm:queryView:viewSavedQueriesLink");
 	}
-	
+
 	public boolean isPatientResultHighlighted(int nodeResultNumber, int patientResultNumber) {
-	    return "highlightedData".equals(selenium.getAttribute("xpath=id('MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable')/tbody/tr["+patientResultNumber+"]/td[3]/div@class"));	                                
+	    return "highlightedData".equals(selenium.getAttribute("xpath=id('MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable')/tbody/tr["+patientResultNumber+"]/td[3]/div@class"));
 	}
-	
+
 	public String getOverallCountOfImageAccrual() {
 		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
 		return selenium.getTable(overallCntTableLocator+".1.1").trim();
 	}
-	
+
 	public String getOverallCountOfPatientsAccrual() {
 		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[2]";
 		return selenium.getTable(overallCntTableLocator+".1.1").trim();
@@ -233,7 +233,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[2]";
 		return selenium.getTable(overallCntTableLocator+".3.1").trim();
 	}
-	
+
 	public String getOverallCountOfPatientsAffected() {
 		String overallCntTableLocator =	"xpath=id('overallResultsCount')//table[1]";
 		return selenium.getTable(overallCntTableLocator+".1.1").trim();
@@ -402,68 +402,68 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
 
 		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy+nSeries)+".3").trim();
-	}	
+	}
 
 	public String getSeriesId(int nthDay, int nthPatient, int nthStudy, int nSeries) {
 		String patientDetailsTable =
 			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";
 
 		return selenium.getTable(patientDetailsTable+"."+(nthPatient+nthStudy+nSeries)+".2").trim();
-	}	
-	
-	
+	}
+
+
 	public String getNewAccrualImageCountForDay(int nthDay) {
 		String dayTableLocator =
 			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[1]";
-		return selenium.getTable(dayTableLocator+".1.1").trim();		
+		return selenium.getTable(dayTableLocator+".1.1").trim();
 	}
-	
+
 	public String getNewAccrualPatientCountForDay(int nthDay) {
 		String dayTableLocator =
 			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[2]";
 		return selenium.getTable(dayTableLocator+".1.1").trim();
 	}
-	
+
 	public String getNewAccrualStudyCountForDay(int nthDay) {
 		String dayTableLocator =
 			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[2]";
 		return selenium.getTable(dayTableLocator+".2.1").trim();
 	}
-	
+
 	public String getNewAccrualSeriesCountForDay(int nthDay) {
 		String dayTableLocator =
 			"xpath=id('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')//table[2]";
 		return selenium.getTable(dayTableLocator+".3.1").trim();
-	}	
-		
-	
-	public String getISPYImage1Label() {
-		return selenium.getText("xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[1]/table[1]/tbody/tr[1]/td");		
 	}
-	
+
+
+	public String getISPYImage1Label() {
+		return selenium.getText("xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[1]/table[1]/tbody/tr[1]/td");
+	}
+
 	public String getISPYDataName(int nth) {
 		final String patientAttributesTable1 =
 			"xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[1]/table[2]";
 
-		return selenium.getText(patientAttributesTable1+"/tbody/tr["+nth+"]/td[1]");		
+		return selenium.getText(patientAttributesTable1+"/tbody/tr["+nth+"]/td[1]");
 	}
-	
+
 	public String getISPYDataValue(int nth) {
 		final String patientAttributesTable1 =
 			"xpath=//table[@id='MAINbody:imageForm:imageTable']/tbody/tr/td[1]/table[2]";
 
-		return selenium.getText(patientAttributesTable1+"/tbody/tr["+nth+"]/td[2]");		
+		return selenium.getText(patientAttributesTable1+"/tbody/tr["+nth+"]/td[2]");
 	}
-	
-	
+
+
 /////////////////////////////////////////////////NAVIGATE////////////////////////////////////////
 	public void drillDownIntoPatientResult(int nodeResultNumber, int patientResultNumber) {
 		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:"+nodeResultNumber+":notWaitingView:patientResultsTable:"+patientResultNumber+":viewPatientLink");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:dataForm:visualizeImages')",
-                                  "30000");		
+                                  "30000");
 	}
-	
-	
+
+
 	public void navigateToDataBasketPage() {
 		selenium.click("MAINbody:dataForm:viewBasketButton");
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:basketForm:dataBasketDataTable')",
@@ -515,7 +515,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
         "&image1dataName=Longest%20Diameter_PCT_CHANGE_T1-T2" +
         "&image1dataValue=-10.34" +
         "&image1dataName=Clinical%20Response_T1-T2" +
-        "&image1dataValue=3_Stable%20Disease" +  
+        "&image1dataValue=3_Stable%20Disease" +
         "&image2StudyInstanceUid=" + image2StudyInstanceUid +
         "&image2SeriesInstanceUid=" + image2SeriesInstanceUid +
         "&image2ImageSopInstanceUid=" + image2ImageSopInstanceUid+
@@ -551,7 +551,7 @@ public class AbstractSelenTestCaseImpl extends SeleneseTestCase {
 		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:accrualByDayForm:accrualByDayTable:"+nthDay+":accrualDayDetailsTableContainer')",
                                   "30000");
 	}
-	
+
 	public void expandAnnotationSubmissionReportDailyDetails(int nthDay) {
 		String patientDetailsTable =
 			"MAINbody:annotationByDayForm:annotationByDayTable:"+nthDay+":patientDetailsTable";

@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.beans.submissionreports;
+package gov.nih.nci.nbia.beans.submissionreports;
 
 import gov.nih.nci.nbia.verifysubmission.PatientDetails;
 import gov.nih.nci.nbia.verifysubmission.SeriesDetails;
 import gov.nih.nci.nbia.verifysubmission.StudyDetails;
-import gov.nih.nci.ncia.beans.submissionreports.DailyReportUtil.DailyReportWrapperFactory;
+import gov.nih.nci.nbia.beans.submissionreports.DailyReportUtil.DailyReportWrapperFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

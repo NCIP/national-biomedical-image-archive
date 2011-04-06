@@ -1,5 +1,5 @@
-package gov.nih.nci.ncia.savedquery;
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+package gov.nih.nci.nbia.savedquery;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 public class SimpleSavedQuerySelenTestCase extends AbstractSelenTestCaseImpl {
 

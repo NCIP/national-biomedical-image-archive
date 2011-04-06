@@ -45,7 +45,6 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/mail-1.4.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/mysql-connector-java-5.1.5.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/nbia-util.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/nbia-domain.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/nbia-services-grid.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/oro-2.0.8.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-dao/test/slf4j-api-1.4.3.jar"/>

@@ -33,7 +33,6 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/javancss-29.50.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/jhbasic-29.50.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/jta-1.0.1B.jar"/>
-	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/log4j-1.2.9.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/mircutil-T32.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/mysql-connector-java-5.1.5.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/nbia-domain.jar"/>
@@ -49,5 +48,6 @@
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/junit-4.4.jar"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-ctp/test/util-X42.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
+	<classpathentry kind="lib" path="lib/cedaraAIMMapping.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

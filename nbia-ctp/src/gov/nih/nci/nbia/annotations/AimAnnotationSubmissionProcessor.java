@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.annotations;
+package gov.nih.nci.nbia.annotations;
 
 import gov.nih.nci.nbia.internaldomain.AimImagingObservationCharacteristic;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;

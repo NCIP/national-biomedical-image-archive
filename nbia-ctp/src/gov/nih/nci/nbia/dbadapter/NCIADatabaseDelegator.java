@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.dbadapter;
+package gov.nih.nci.nbia.dbadapter;
 
-import gov.nih.nci.ncia.query.DicomSOPInstanceUIDQueryInterface;
-import gov.nih.nci.ncia.util.AdapterUtil;
-import gov.nih.nci.ncia.util.DicomConstants;
-import gov.nih.nci.ncia.annotations.AnnotationStorage;
+import gov.nih.nci.nbia.annotations.AnnotationStorage;
+import gov.nih.nci.nbia.query.DicomSOPInstanceUIDQueryInterface;
+import gov.nih.nci.nbia.util.AdapterUtil;
+import gov.nih.nci.nbia.util.DicomConstants;
 
 import java.io.File;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.annotations;
+package gov.nih.nci.nbia.annotations;
 
 import java.io.File;
 import org.rsna.ctp.objects.XmlObject;

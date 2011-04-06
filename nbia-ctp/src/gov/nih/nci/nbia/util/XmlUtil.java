@@ -6,7 +6,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

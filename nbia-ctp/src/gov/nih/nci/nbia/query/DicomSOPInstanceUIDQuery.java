@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.query;
+package gov.nih.nci.nbia.query;
 
 import java.util.Date;
 import java.util.HashMap;

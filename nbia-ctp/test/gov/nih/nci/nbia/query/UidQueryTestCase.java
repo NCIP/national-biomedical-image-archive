@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.query;
+package gov.nih.nci.nbia.query;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

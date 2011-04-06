@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.*;

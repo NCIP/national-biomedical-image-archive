@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import java.io.File;
 import java.util.Calendar;
 
-import gov.nih.nci.ncia.dbadapter.NCIADatabase;
+import gov.nih.nci.nbia.dbadapter.NCIADatabase;
 
 import org.rsna.ctp.objects.DicomObject;
 import org.rsna.ctp.pipeline.Status;

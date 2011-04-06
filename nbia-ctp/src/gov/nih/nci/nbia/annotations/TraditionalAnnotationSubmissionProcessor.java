@@ -1,14 +1,14 @@
-package gov.nih.nci.ncia.annotations;
+package gov.nih.nci.nbia.annotations;
 
 import java.io.File;
 import java.util.Date;
 
+import gov.nih.nci.nbia.domain.operation.AnnotationOperationInterface;
+import gov.nih.nci.nbia.domain.operation.AnnotationSubmissionHistoryOperationInterface;
 import gov.nih.nci.nbia.internaldomain.Annotation;
 import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
-import gov.nih.nci.ncia.util.AnnotationUtil;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.domain.operation.AnnotationOperationInterface;
-import gov.nih.nci.ncia.domain.operation.AnnotationSubmissionHistoryOperationInterface;
+import gov.nih.nci.nbia.util.AnnotationUtil;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import org.apache.log4j.Logger;
 import org.rsna.ctp.objects.XmlObject;

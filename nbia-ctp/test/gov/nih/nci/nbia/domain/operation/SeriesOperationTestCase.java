@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
 import gov.nih.nci.nbia.internaldomain.GeneralEquipment;
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.internaldomain.Study;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.util.Hashtable;
 

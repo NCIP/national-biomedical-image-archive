@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -11,7 +11,7 @@ import java.text.NumberFormat;
  */
 public class UltrasoundUtil {
 
-public static final int[] MASKS = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020,0x0040, 0x0100, 0x0200};
+    public static final int[] MASKS = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020,0x0040, 0x0100, 0x0200};
 
 	public static String getMultiModalityByCode(String code) throws Exception
 	{
@@ -28,15 +28,5 @@ public static final int[] MASKS = {0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x002
 	   }
 	   String result = buff.toString();
 	   return result.substring(0,result.length()-1);
-	}
-
-	public static void main(String[] args) throws Exception{
-		String result = null;
-		try{
-		 	result = getMultiModalityByCode("00tt4");
-		}catch(Exception e){
-			System.out.println("No big deal !!");
-		}
-		System.out.println("result: " + result );
 	}
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="gov.nih.nci.ncia.internaldomain">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
   <class name="GeneralImage" table="GENERAL_IMAGE" lazy="true" polymorphism="explicit">
     <cache usage="read-write" />
     <id name="id" type="integer" column="IMAGE_PK_ID">
@@ -35,13 +35,13 @@
     <property name="instanceNumber" type="integer" column="INSTANCE_NUMBER"/>
     <property name="lossyImageCompression" type="string" column="LOSSY_IMAGE_COMPRESSION"/>
     <property name="patientId" type="string" column="PATIENT_ID"/>
-    <property name="patientPkId" type="integer" column="PATIENT_PK_ID" insert="false" update="false"/>    
+    <property name="patientPkId" type="integer" column="PATIENT_PK_ID" insert="false" update="false"/>
     <property name="patientPosition" type="string" column="PATIENT_POSITION"/>
     <property name="pixelSpacing" type="double" column="PIXEL_SPACING"/>
     <property name="project" type="string" column="PROJECT"/>
     <property name="rows" type="integer" column="I_ROWS"/>
     <property name="seriesInstanceUID" type="string" column="SERIES_INSTANCE_UID"/>
-    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID" update="false" insert="false"/>    
+    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID" update="false" insert="false"/>
     <property name="sliceLocation" type="double" column="SLICE_LOCATION"/>
     <property name="sliceThickness" type="double" column="SLICE_THICKNESS"/>
     <property name="SOPClassUID" type="string" column="SOP_CLASS_UID"/>
@@ -51,18 +51,18 @@
     <property name="storageMediaFileSetUID" type="string" column="STORAGE_MEDIA_FILE_SET_UID"/>
     <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
     <property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
-    <property name="md5Digest" type="string" column="MD5_DIGEST"/>    
+    <property name="md5Digest" type="string" column="MD5_DIGEST"/>
     <property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
 	  <property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
   	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
-	
-  
-  
+
+
+
     <!-- Associations mapping for the GeneralImage class -->
-    <many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
-    <many-to-one name="generalSeries" class="gov.nih.nci.ncia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" />
-    <one-to-one name="ctimage" class="gov.nih.nci.ncia.internaldomain.CTImage" property-ref="generalImage" />    
-    <many-to-one name="dataProvenance" class="gov.nih.nci.ncia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
-    <many-to-one name="study" class="gov.nih.nci.ncia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
+    <many-to-one name="patient" class="gov.nih.nci.nbia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" />
+    <one-to-one name="ctimage" class="gov.nih.nci.nbia.internaldomain.CTImage" property-ref="generalImage" />
+    <many-to-one name="dataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
+    <many-to-one name="study" class="gov.nih.nci.nbia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
   </class>
 </hibernate-mapping>

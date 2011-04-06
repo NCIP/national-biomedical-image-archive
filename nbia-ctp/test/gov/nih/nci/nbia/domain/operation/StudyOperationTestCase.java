@@ -1,14 +1,11 @@
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
-import gov.nih.nci.nbia.internaldomain.GeneralImage;
-import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.nbia.internaldomain.Patient;
-import gov.nih.nci.nbia.internaldomain.Study;
-import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.util.DicomConstants;
 
 import java.util.Hashtable;
+
+import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-
-import junit.framework.Assert;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationContext.xml" })

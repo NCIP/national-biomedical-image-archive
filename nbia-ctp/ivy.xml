@@ -1,6 +1,6 @@
 <ivy-module version="1.0">
   <info organisation="ncicb"
-        module="ncia-ctp"/>
+        module="nbia-ctp"/>
 
   <configurations>
     <conf name="master" />

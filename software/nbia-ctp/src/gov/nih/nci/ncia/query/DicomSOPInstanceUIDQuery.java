@@ -11,7 +11,8 @@ import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import gov.nih.nci.ncia.internaldomain.GeneralImage;
+import gov.nih.nci.nbia.internaldomain.GeneralImage;
+
 import org.rsna.ctp.stdstages.database.UIDResult;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Propagation;

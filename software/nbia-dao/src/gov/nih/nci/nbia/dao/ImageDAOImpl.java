@@ -4,8 +4,8 @@
 package gov.nih.nci.nbia.dao;
 
 import gov.nih.nci.nbia.dto.ImageDTO;
-import gov.nih.nci.ncia.internaldomain.GeneralImage;
-import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
+import gov.nih.nci.nbia.internaldomain.GeneralImage;
+import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
 
 import java.util.ArrayList;
 import java.util.List;

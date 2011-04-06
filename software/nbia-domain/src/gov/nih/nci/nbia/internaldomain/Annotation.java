@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.internaldomain;
+package gov.nih.nci.nbia.internaldomain;
 
 
 import java.io.File;

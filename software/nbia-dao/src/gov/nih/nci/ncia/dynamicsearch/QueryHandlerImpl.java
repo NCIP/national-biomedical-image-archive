@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.dynamicsearch;
 
+import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.ncia.dao.AbstractDAO;
 import gov.nih.nci.ncia.dto.StudyNumberDTO;
 import gov.nih.nci.ncia.dynamicsearch.criteria.CriteriaFactory;
 import gov.nih.nci.ncia.dynamicsearch.criteria.CriteriaForAuthorizedSiteData;
-import gov.nih.nci.ncia.internaldomain.Patient;
 import gov.nih.nci.ncia.lookup.StudyNumberMap;
 import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.PatientSearchResult;

@@ -1,8 +1,8 @@
 package gov.nih.nci.ncia.dao;
 
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.ncia.dto.QcSearchResultDTO;
 import gov.nih.nci.ncia.dto.QcStatusHistoryDTO;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
 import gov.nih.nci.ncia.internaldomain.QCStatusHistory;
 import gov.nih.nci.ncia.qctool.VisibilityStatus;
 

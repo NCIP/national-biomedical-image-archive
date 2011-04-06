@@ -1,8 +1,8 @@
 package gov.nih.nci.ncia.dao;
 
+import gov.nih.nci.nbia.internaldomain.Annotation;
 import gov.nih.nci.nbia.util.HqlUtils;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.internaldomain.Annotation;
 import gov.nih.nci.ncia.dto.AnnotationDTO;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
 

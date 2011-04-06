@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.domain.operation;
 
-import gov.nih.nci.ncia.internaldomain.Annotation;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.Annotation;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 
 import java.util.Map;
 

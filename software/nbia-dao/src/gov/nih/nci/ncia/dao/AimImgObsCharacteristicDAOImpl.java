@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.dao;
 
+import gov.nih.nci.nbia.internaldomain.AimImagingObservationCharacteristic;
 import gov.nih.nci.ncia.dto.ImgObsCharacteristicDTO;
-import gov.nih.nci.ncia.internaldomain.AimImagingObservationCharacteristic;
 
 import java.util.ArrayList;
 import java.util.Collection;

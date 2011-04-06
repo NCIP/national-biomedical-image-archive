@@ -37,7 +37,7 @@
   <target name="dist"
           depends="compile">
     <jar destfile="${output.jar}">
-      <fileset dir="${assembly.classes.dir}" includes="gov/nih/nci/ncia/**" />
+      <fileset dir="${assembly.classes.dir}" includes="gov/nih/nci/nbia/**" />
     </jar>
   </target>
 

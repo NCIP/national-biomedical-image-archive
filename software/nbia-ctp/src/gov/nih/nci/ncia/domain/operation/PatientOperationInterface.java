@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.domain.operation;
 
-import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
-import gov.nih.nci.ncia.internaldomain.TrialSite;
+import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
+import gov.nih.nci.nbia.internaldomain.TrialSite;
 
 import java.util.Map;
 

@@ -5,7 +5,6 @@ import gov.nih.nci.nbia.util.*;
 import gov.nih.nci.ncia.criteria.*;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.util.*;
 import java.text.*;

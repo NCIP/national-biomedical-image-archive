@@ -10,8 +10,8 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import junit.framework.Assert;
 
 
+import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.internaldomain.SubmissionHistory;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import org.springframework.beans.factory.annotation.Autowired;

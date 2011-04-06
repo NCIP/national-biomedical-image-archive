@@ -3,8 +3,8 @@
  */
 package gov.nih.nci.ncia.domain.operation;
 
-import gov.nih.nci.ncia.internaldomain.CTImage;
-import gov.nih.nci.ncia.internaldomain.GeneralImage;
+import gov.nih.nci.nbia.internaldomain.CTImage;
+import gov.nih.nci.nbia.internaldomain.GeneralImage;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 

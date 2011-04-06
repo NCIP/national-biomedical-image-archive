@@ -3,8 +3,8 @@ package gov.nih.nci.ncia.annotations;
 import java.io.File;
 import java.util.Date;
 
-import gov.nih.nci.ncia.internaldomain.Annotation;
-import gov.nih.nci.ncia.internaldomain.SubmissionHistory;
+import gov.nih.nci.nbia.internaldomain.Annotation;
+import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
 import gov.nih.nci.ncia.util.AnnotationUtil;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.domain.operation.AnnotationOperationInterface;

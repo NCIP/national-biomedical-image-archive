@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="gov.nih.nci.ncia.internaldomain">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
   <class name="GeneralSeries" table="GENERAL_SERIES" lazy="true" polymorphism="explicit">
     <cache usage="read-write" />
     <id name="id" type="integer" column="GENERAL_SERIES_PK_ID">
@@ -35,12 +35,12 @@
     <property name="trialProtocolName" type="string" column="TRIAL_PROTOCOL_NAME"/>
     <property name="trialSiteName" type="string" column="TRIAL_SITE_NAME"/>
     <property name="visibility" type="string" column="VISIBILITY"/>
-    
+
     <property name="maxSubmissionTimestamp" type="java.util.Date" column="MAX_SUBMISSION_TIMESTAMP" />
     <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
     <property name="project" type="string" column="project"/>
     <property name="site" type="string" column="site"/>
-    
+
     <!-- Associations mapping for the GeneralSeries class -->
     <many-to-one name="study" class="gov.nih.nci.ncia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
     <set name="generalImageCollection" lazy="true">
@@ -54,34 +54,34 @@
       <key column="GENERAL_SERIES_PK_ID" />
       <one-to-many class="gov.nih.nci.ncia.internaldomain.Annotation"/>
     </set>
-    
-    <!--  return the sum of the annotation file size for 
+
+    <!--  return the sum of the annotation file size for
           this series, or else 0 if no rows to sum
           coalesce returns the first non-null entry in its args -->
     <property name="annotationTotalSize">
       <formula>
           ( SELECT coalesce(sum(a.file_size),0)
             FROM annotation a
-            WHERE a.general_series_pk_id = general_series_pk_id  )  
+            WHERE a.general_series_pk_id = general_series_pk_id  )
       </formula>
     </property>
-    
+
     <!--  mysql cares about space between SUM and parens??? -->
         <property name="totalSize">
-          <formula>        
+          <formula>
           ( SELECT SUM(gi.dicom_size)
             FROM general_image gi
-            WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )           
+            WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )
           </formula>
-        </property>  
-        
+        </property>
+
         <property name="imageCount">
           <formula>
           ( SELECT COUNT(*)
             FROM general_image gi
-            WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )            
+            WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )
           </formula>
-        </property>         
+        </property>
 
   </class>
 </hibernate-mapping>

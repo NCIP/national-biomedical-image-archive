@@ -7,8 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-import gov.nih.nci.ncia.internaldomain.Patient;
-import gov.nih.nci.ncia.internaldomain.Study;
+import gov.nih.nci.nbia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.Study;
 import gov.nih.nci.ncia.deletion.DeletionAuditPatientInfo;
 import gov.nih.nci.ncia.exception.DataAccessException;
 

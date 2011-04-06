@@ -79,7 +79,7 @@ public class TrialDataProvenanceDAO extends HibernateDaoSupport implements Trial
 
 		for(Object[] result : rs) {
 			String id = (String)result[0];
-			gov.nih.nci.ncia.internaldomain.TrialDataProvenance tdp = (gov.nih.nci.ncia.internaldomain.TrialDataProvenance)result[1];
+			gov.nih.nci.nbia.internaldomain.TrialDataProvenance tdp = (gov.nih.nci.nbia.internaldomain.TrialDataProvenance)result[1];
 			//needs to convert internalDomain TrialDataProvenance to domain TrialDataProvenance
 			TrialDataProvenance tdp_domain = new TrialDataProvenance();
 			tdp_domain.setProject(tdp.getProject());

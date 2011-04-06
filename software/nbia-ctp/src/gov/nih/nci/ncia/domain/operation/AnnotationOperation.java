@@ -3,10 +3,10 @@
  */
 package gov.nih.nci.ncia.domain.operation;
 
+import gov.nih.nci.nbia.internaldomain.Annotation;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.Study;
 import gov.nih.nci.ncia.dbadapter.NCIADatabase;
-import gov.nih.nci.ncia.internaldomain.Annotation;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.Study;
 
 import java.util.Map;
 import java.util.Iterator;

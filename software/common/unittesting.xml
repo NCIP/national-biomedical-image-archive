@@ -12,7 +12,7 @@
 	<property name="findbugs.conf.dir" value="${project.lib.dir}/test-findbugs"/>
 	<!-- realtive to src.java.dir -->
 	<property name="inspection.includes" value="**/*.java"/>
-	<property name="cobertura.includes" value="gov/nih/nci/ncia/**"/>
+	<property name="cobertura.includes" value="gov/nih/nci/nbia/**"/>
   <property name="test.resources.dir" value="${basedir}/test/" />
 
 	<fail unless="classes.to.test.dir" message="must define classes.to.test.dir for unittesting.xml to work.  it's typically same as classes.dir in host build file"/>

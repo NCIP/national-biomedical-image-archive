@@ -1,7 +1,5 @@
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.ncia.util.ResourceBundleUtil;
-
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;

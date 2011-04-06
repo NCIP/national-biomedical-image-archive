@@ -83,9 +83,6 @@
 */
 package gov.nih.nci.nbia.util;
 
-
-import gov.nih.nci.ncia.util.NCIAConfig;
-
 import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
@@ -109,7 +106,7 @@ public class NCIAConfig {
          checkProperty("show.collection.search.criteria", propertyValue);
          return Boolean.valueOf(propertyValue);
      }
-     
+
      public static String getDatabaseType() {
          String propertyValue = System.getProperty("database.type");
          checkProperty("database.type", propertyValue);

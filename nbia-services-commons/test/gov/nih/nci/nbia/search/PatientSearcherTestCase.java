@@ -7,6 +7,7 @@ import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.ncia.search.PatientSearchResult;
 
 import java.util.List;
 

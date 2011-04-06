@@ -11,7 +11,7 @@
   <property name="output.dir" value="target"/>
   <property name="build.dir" value="classes/"/>
   <property name="lib.dir" value="lib/"/>
-  <property name="xml.dir" value="gov/nih/nci/ncia/internaldomain/"/>
+  <property name="xml.dir" value="gov/nih/nci/nbia/internaldomain/"/>
   <property name="ctp.library.dir" value="${ctp.dir.name}/CTP/libraries" />
 
   <!-- define this for unittesting.xml import -->
@@ -164,7 +164,7 @@
         <attribute name="Implementation-Version" value="${today} @ ${now}"/>
       </manifest>
       <fileset dir="${build.dir}/"
-               includes="gov/nih/nci/ncia/**,
+               includes="gov/nih/nci/nbia/**,
                          dicom.properties,
                          hibernate.properties,
                          applicationContext.xml"/>

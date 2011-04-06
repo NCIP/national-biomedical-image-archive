@@ -1,12 +1,12 @@
 /**
  * 
  */
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
+import gov.nih.nci.nbia.dbadapter.NCIADatabase;
 import gov.nih.nci.nbia.internaldomain.Annotation;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.nbia.internaldomain.Study;
-import gov.nih.nci.ncia.dbadapter.NCIADatabase;
 
 import java.util.Map;
 import java.util.Iterator;

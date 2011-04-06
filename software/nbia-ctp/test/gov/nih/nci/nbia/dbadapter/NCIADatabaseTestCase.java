@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dbadapter;
+package gov.nih.nci.nbia.dbadapter;
 
 import java.io.InputStream;
 

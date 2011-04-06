@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.nbia.internaldomain.Patient;

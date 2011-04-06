@@ -1,13 +1,13 @@
 /**
  * 
  */
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.internaldomain.Study;
-import gov.nih.nci.ncia.util.AdapterUtil;
-import gov.nih.nci.ncia.util.DicomConstants;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.util.AdapterUtil;
+import gov.nih.nci.nbia.util.DicomConstants;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.List;
 import java.util.Map;

@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
 import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
-import gov.nih.nci.ncia.util.DicomConstants;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.util.DicomConstants;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.Map;
 import java.util.List;

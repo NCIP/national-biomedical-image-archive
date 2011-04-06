@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.domain.operation;
+package gov.nih.nci.nbia.domain.operation;
 
 import java.util.Map;
 import org.apache.log4j.Logger;

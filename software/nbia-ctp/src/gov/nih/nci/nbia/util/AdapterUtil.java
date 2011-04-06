@@ -1,7 +1,7 @@
 /**
  *
  */
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 

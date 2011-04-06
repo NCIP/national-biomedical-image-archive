@@ -6,7 +6,6 @@ import gov.nih.nci.nbia.dao.StudyDAO;
 import gov.nih.nci.nbia.dto.ImageDTO;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.StudyDTO;
-import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.PublicData;
 import gov.nih.nci.nbia.util.SeriesDTOConverter;
@@ -99,7 +98,7 @@ public class LocalDrillDown implements DrillDown {
         }
 		return retrieveImagesForSeries(seriesSearchResult.getId());
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -118,7 +117,7 @@ public class LocalDrillDown implements DrillDown {
         }
 		return retrieveImagesForSeriesEx(seriesSearchResult.getId());
 	}
-	
+
 	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
 		return retrieveImagesForSeriesEx(seriesSearchResult);
 	}
@@ -297,7 +296,7 @@ public class LocalDrillDown implements DrillDown {
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
 		return result;
 	}
-	
+
 	private ImageSearchResultExImpl constructResultEx(ImageDTO imageDTO) {
 		ImageSearchResultExImpl result = new ImageSearchResultExImpl();
 		result.setId(imageDTO.getImagePkId());

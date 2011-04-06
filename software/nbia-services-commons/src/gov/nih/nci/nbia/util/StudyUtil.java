@@ -1,6 +1,5 @@
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
@@ -11,12 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 public class StudyUtil {
-	
+
 	public static class StudySeriesPair {
         public SeriesSearchResult seriesDto;
-        public StudySearchResult studyDto;        
+        public StudySearchResult studyDto;
 	}
-	
+
 	public static StudySeriesPair findFirstMatchingStudyForSeries(StudySearchResult[] studies,
 		                                                          int seriesPkId) {
 
@@ -34,37 +33,37 @@ public class StudyUtil {
 		}
 		return null;
 	}
-	
+
 	public static PatientSearchResult findLastMatchingPatientForSeries(Collection<PatientSearchResult> patients,
 			                                                           int seriesPkId) {
-		
-		PatientSearchResult matchingPatient = null;		
+
+		PatientSearchResult matchingPatient = null;
 		for (PatientSearchResult patient : patients) {
 			if (patient.computeListOfSeriesIds().contains(seriesPkId)) {
 				//this.patient = patient;
 				matchingPatient = patient;
 			}
 		}
-		
+
 		return matchingPatient;
 	}
-	
+
 	public static List<StudySearchResultImpl> calculateOffsetValues(List<StudySearchResultImpl> studyResults) {
 		List<StudySearchResultImpl> studyWithOffsetValues = new ArrayList<StudySearchResultImpl>();
 		if(!studyResults.isEmpty()){
 			StudySearchResultImpl sdto0 = studyResults.get(0);
 			studyWithOffsetValues.add(sdto0);
 		    //sdto0.setOffsetMonth(0);
-		    
-			for(int i=1, n=studyResults.size(); i<n; i++){				
+
+			for(int i=1, n=studyResults.size(); i<n; i++){
 				StudySearchResultImpl sdto = studyResults.get(i);
-				String offsetValue = Util.calculateOffsetValue(sdto0.getDate(), 
+				String offsetValue = Util.calculateOffsetValue(sdto0.getDate(),
 						                                       sdto.getDate());
-				
+
 				sdto.setOffSetDesc(offsetValue);
 				studyWithOffsetValues.add(sdto);
 			}
 		}
-		return studyWithOffsetValues;				
-	}		
+		return studyWithOffsetValues;
+	}
 }

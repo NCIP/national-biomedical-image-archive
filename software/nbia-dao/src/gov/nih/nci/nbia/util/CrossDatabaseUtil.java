@@ -1,7 +1,5 @@
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.nbia.util.NCIAConfig;
-
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +31,7 @@ public class CrossDatabaseUtil {
         }
         throw new RuntimeException("bad db type:getDatabaseSpecificDatePattern");
 	}
-	
+
 	public static SimpleDateFormat getOracleDBFormat() {
 		return new SimpleDateFormat("dd-MMM-yyyy");
 	}
@@ -41,7 +39,7 @@ public class CrossDatabaseUtil {
 	public static SimpleDateFormat getMySqlDBFormat() {
 		return new SimpleDateFormat("yyyy-MM-dd");
 	}
-	
+
 	public static boolean isDateInOracleFormat(String value){
 		Pattern pattern = Pattern.compile("\\d{2}-[A-Za-z]{3}-\\d{4}");
 		Matcher matcher = pattern.matcher(value);
@@ -53,7 +51,7 @@ public class CrossDatabaseUtil {
 	        return false;
 	    }
 	}
-	
+
 	public static String submissionTimeStampRange(String startDateStr, String endDateStr) {
         if(NCIAConfig.getDatabaseType().equals("mysql")) {
 			return "date(submission_timestamp)"+

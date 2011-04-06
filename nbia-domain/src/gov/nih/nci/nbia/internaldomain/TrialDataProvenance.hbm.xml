@@ -17,12 +17,12 @@
 		<set name="generalImageCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="TRIAL_DP_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.GeneralImage"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralImage"/>
 		</set>
 		<set name="patientCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="TRIAL_DP_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.Patient"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.Patient"/>
 		</set>
 	</class>
 </hibernate-mapping>

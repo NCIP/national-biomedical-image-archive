@@ -21,7 +21,7 @@
 		<set name="generalSeriesCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="GENERAL_EQUIPMENT_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.GeneralSeries"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralSeries"/>
 		</set>
 	</class>
 </hibernate-mapping>

@@ -22,7 +22,7 @@
 
 
     <many-to-one name="aimImagingObservationCharacteristic"
-                 class="gov.nih.nci.ncia.internaldomain.AimImagingObservationCharacteristic"
+                 class="gov.nih.nci.nbia.internaldomain.AimImagingObservationCharacteristic"
                  column="aim_img_obs_characteristic_pk_" />
 
   </class>

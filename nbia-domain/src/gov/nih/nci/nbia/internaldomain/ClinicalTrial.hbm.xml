@@ -18,7 +18,7 @@
 		<set name="siteCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="TRIAL_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.TrialSite"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.TrialSite"/>
 		</set>
 	</class>
 </hibernate-mapping>

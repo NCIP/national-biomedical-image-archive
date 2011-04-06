@@ -13,11 +13,11 @@
 		<property name="trialSiteId" type="string" column="TRIAL_SITE_ID"/>
 		<property name="trialSiteName" type="string" column="TRIAL_SITE_NAME"/>
 		<!-- Associations mapping for the TrialSite class -->
-		<many-to-one name="trial" class="gov.nih.nci.ncia.internaldomain.ClinicalTrial" column="TRIAL_PK_ID" lazy="proxy" />
+		<many-to-one name="trial" class="gov.nih.nci.nbia.internaldomain.ClinicalTrial" column="TRIAL_PK_ID" lazy="proxy" />
 		<set name="patientCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="TRIAL_SITE_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.Patient"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.Patient"/>
 		</set>
 	</class>
 </hibernate-mapping>

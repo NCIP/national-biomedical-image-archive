@@ -57,7 +57,5 @@
    <!-- Define all the services below -->
   <bean id="imageFileDeletionService" class="gov.nih.nci.nbia.deletion.ImageFileDeletionServiceImpl">
   </bean>
-  <!--
-  <bean id="imageFileDeletionCheck" class="gov.nih.nci.ncia.deletion.ImageFileDeletionTestCaseSupportImpl"/>
-  -->
+
 </beans>

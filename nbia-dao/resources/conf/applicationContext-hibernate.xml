@@ -198,7 +198,7 @@
     </property>
   </bean>
   <bean id="nciaSecurityManager"
-        class="gov.nih.nci.ncia.security.NCIASecurityManagerImpl"
+        class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"
         init-method="init">
 
     <property name="sessionFactory">

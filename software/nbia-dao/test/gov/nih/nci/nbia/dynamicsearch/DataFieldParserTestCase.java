@@ -146,7 +146,7 @@ public class DataFieldParserTestCase extends TestCase {
 		Map<String, String> items = DataFieldParser.getPackageNames();
 		for (String packageName : items.values())
 		{
-			assertEquals(packageName, "gov.nih.nci.ncia.internaldomain");
+			assertEquals(packageName, "gov.nih.nci.nbia.internaldomain");
 		}
 	}
 

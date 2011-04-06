@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.dao;
 
+import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.dto.DayCountDTO;
 import gov.nih.nci.ncia.dto.SeriesSubmissionCountDTO;
 import gov.nih.nci.ncia.dto.SubmissionCountsDTO;
-import gov.nih.nci.ncia.internaldomain.SubmissionHistory;
 import gov.nih.nci.ncia.util.CrossDatabaseUtil;
 
 import java.sql.SQLException;

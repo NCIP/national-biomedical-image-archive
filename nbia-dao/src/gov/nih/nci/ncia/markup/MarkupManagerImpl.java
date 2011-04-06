@@ -8,10 +8,10 @@
 */
 package gov.nih.nci.ncia.markup;
 
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.ImageMarkup;
 import gov.nih.nci.ncia.dao.AbstractDAO;
 import gov.nih.nci.ncia.dto.MarkupDTO;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.ImageMarkup;
 
 import java.util.List;
 import org.apache.log4j.Logger;

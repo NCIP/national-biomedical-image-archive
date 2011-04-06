@@ -3,7 +3,7 @@ package gov.nih.nci.ncia.deletion.dao;
 import java.util.Date;
 import java.util.List;
 
-import gov.nih.nci.ncia.internaldomain.DeletionAuditTrail;
+import gov.nih.nci.nbia.internaldomain.DeletionAuditTrail;
 import gov.nih.nci.ncia.deletion.DeletionAuditPatientInfo;
 import gov.nih.nci.ncia.deletion.DeletionAuditSeriesInfo;
 import gov.nih.nci.ncia.deletion.DeletionAuditStudyInfo;

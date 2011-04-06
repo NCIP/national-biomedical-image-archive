@@ -3,7 +3,7 @@
  */
 package gov.nih.nci.ncia.griddao;
 
-import gov.nih.nci.ncia.internaldomain.Study;
+import gov.nih.nci.nbia.internaldomain.Study;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -4,7 +4,7 @@
 package gov.nih.nci.ncia.domain.operation;
 
 
-import gov.nih.nci.ncia.internaldomain.GeneralEquipment;
+import gov.nih.nci.nbia.internaldomain.GeneralEquipment;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 

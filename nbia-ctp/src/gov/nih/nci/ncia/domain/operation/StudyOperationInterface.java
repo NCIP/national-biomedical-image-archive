@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.domain.operation;
 
-import gov.nih.nci.ncia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.Patient;
 
 import java.util.Map;
 

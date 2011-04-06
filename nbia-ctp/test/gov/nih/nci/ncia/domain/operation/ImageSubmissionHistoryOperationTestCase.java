@@ -1,11 +1,11 @@
 package gov.nih.nci.ncia.domain.operation;
 
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.Study;
+import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
+import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.Patient;
-import gov.nih.nci.ncia.internaldomain.Study;
-import gov.nih.nci.ncia.internaldomain.SubmissionHistory;
-import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
 import gov.nih.nci.ncia.util.DicomConstants;
 
 import java.util.HashMap;

@@ -3,7 +3,7 @@
  */
 package gov.nih.nci.ncia.util;
 
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

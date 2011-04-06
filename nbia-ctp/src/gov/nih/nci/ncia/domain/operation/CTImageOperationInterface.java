@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.domain.operation;
 
-import gov.nih.nci.ncia.internaldomain.GeneralImage;
+import gov.nih.nci.nbia.internaldomain.GeneralImage;
 
 import java.util.Map;
 

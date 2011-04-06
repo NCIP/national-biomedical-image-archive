@@ -3,9 +3,9 @@
  */
 package gov.nih.nci.ncia.domain.operation;
 
-import gov.nih.nci.ncia.internaldomain.Patient;
-import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
-import gov.nih.nci.ncia.internaldomain.TrialSite;
+import gov.nih.nci.nbia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
+import gov.nih.nci.nbia.internaldomain.TrialSite;
 import gov.nih.nci.ncia.util.AdapterUtil;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;

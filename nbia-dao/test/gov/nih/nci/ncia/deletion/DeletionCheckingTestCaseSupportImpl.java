@@ -2,10 +2,10 @@ package gov.nih.nci.ncia.deletion;
 
 import java.util.List;
 
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.Study;
 import gov.nih.nci.ncia.exception.DataAccessException;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.Patient;
-import gov.nih.nci.ncia.internaldomain.Study;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;

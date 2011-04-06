@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import gov.nih.nci.ncia.internaldomain.AimImagingObservationCharacteristic;
-import gov.nih.nci.ncia.internaldomain.AimQuantification;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.AimImagingObservationCharacteristic;
+import gov.nih.nci.nbia.internaldomain.AimQuantification;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

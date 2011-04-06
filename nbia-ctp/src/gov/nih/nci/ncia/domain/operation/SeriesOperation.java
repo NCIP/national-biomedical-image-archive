@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import gov.nih.nci.ncia.internaldomain.GeneralEquipment;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.Patient;
-import gov.nih.nci.ncia.internaldomain.Study;
+import gov.nih.nci.nbia.internaldomain.GeneralEquipment;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.Study;
 import gov.nih.nci.ncia.util.AdapterUtil;
 import gov.nih.nci.ncia.util.DicomConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;

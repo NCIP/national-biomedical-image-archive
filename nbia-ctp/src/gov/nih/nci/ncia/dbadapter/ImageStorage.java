@@ -1,5 +1,13 @@
 package gov.nih.nci.ncia.dbadapter;
 
+import gov.nih.nci.nbia.internaldomain.CTImage;
+import gov.nih.nci.nbia.internaldomain.GeneralEquipment;
+import gov.nih.nci.nbia.internaldomain.GeneralImage;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.Patient;
+import gov.nih.nci.nbia.internaldomain.Study;
+import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
+import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
 import gov.nih.nci.ncia.domain.operation.AnnotationOperationInterface;
 import gov.nih.nci.ncia.domain.operation.CTImageOperationInterface;
 import gov.nih.nci.ncia.domain.operation.GeneralEquipmentOperationInterface;
@@ -9,14 +17,6 @@ import gov.nih.nci.ncia.domain.operation.PatientOperationInterface;
 import gov.nih.nci.ncia.domain.operation.SeriesOperationInterface;
 import gov.nih.nci.ncia.domain.operation.StudyOperationInterface;
 import gov.nih.nci.ncia.domain.operation.TrialDataProvenanceOperationInterface;
-import gov.nih.nci.ncia.internaldomain.CTImage;
-import gov.nih.nci.ncia.internaldomain.GeneralEquipment;
-import gov.nih.nci.ncia.internaldomain.GeneralImage;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.Patient;
-import gov.nih.nci.ncia.internaldomain.Study;
-import gov.nih.nci.ncia.internaldomain.SubmissionHistory;
-import gov.nih.nci.ncia.internaldomain.TrialDataProvenance;
 
 import java.util.HashMap;
 import java.util.Map;

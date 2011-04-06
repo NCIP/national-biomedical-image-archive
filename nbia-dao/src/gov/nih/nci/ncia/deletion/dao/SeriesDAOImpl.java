@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.deletion.dao;
 
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
 import gov.nih.nci.ncia.deletion.DeletionAuditSeriesInfo;
 import gov.nih.nci.ncia.deletion.DeletionDisplayObject;
 import gov.nih.nci.ncia.exception.DataAccessException;

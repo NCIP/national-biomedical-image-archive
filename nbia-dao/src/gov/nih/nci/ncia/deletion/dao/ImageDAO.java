@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.deletion.dao;
 
-import gov.nih.nci.ncia.internaldomain.GeneralImage;
+import gov.nih.nci.nbia.internaldomain.GeneralImage;
 import gov.nih.nci.ncia.exception.DataAccessException;
 
 import java.util.List;

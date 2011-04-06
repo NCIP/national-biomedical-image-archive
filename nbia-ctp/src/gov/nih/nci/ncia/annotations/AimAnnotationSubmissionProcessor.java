@@ -1,8 +1,9 @@
 package gov.nih.nci.ncia.annotations;
 
-import gov.nih.nci.ncia.internaldomain.AimImagingObservationCharacteristic;
-import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.internaldomain.ImageMarkup;
+import gov.nih.nci.nbia.internaldomain.AimImagingObservationCharacteristic;
+import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.internaldomain.ImageMarkup;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;

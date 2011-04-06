@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4" 
-         xmlns="http://java.sun.com/xml/ns/j2ee" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
   <display-name>nbia</display-name>
-  
+
   <!-- begin FACELETS -->
-  <!-- Use Documents Saved as *.xhtml -->  
+  <!-- Use Documents Saved as *.xhtml -->
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.xhtml</param-value>
   </context-param>
   <!-- Special Debug Output for Development -->
-  <!--   
+  <!--
   <context-param>
     <param-name>facelets.DEVELOPMENT</param-name>
     <param-value>true</param-value>
@@ -20,20 +20,20 @@
   <context-param>
     <param-name>com.sun.faces.verifyObjects</param-name>
     <param-value>true</param-value>
-  </context-param>  
+  </context-param>
   <context-param>
     <param-name>com.sun.faces.validateXml</param-name>
     <param-value>true</param-value>
-  </context-param>   
+  </context-param>
   <context-param>
     <param-name>com.icesoft.faces.debugDOMUpdate</param-name>
     <param-value>true</param-value>
   </context-param>
-   --> 
+   -->
   <context-param>
     <param-name>facelets.LIBRARIES</param-name>
     <param-value>/WEB-INF/ncia-facelets.taglib.xml</param-value>
-  </context-param>    
+  </context-param>
   <context-param>
     <param-name>javax.faces.CONFIG_FILES</param-name>
     <param-value>/WEB-INF/faces-config.xml</param-value>
@@ -57,22 +57,22 @@
   </context-param>
   <!--  required or else popup windows will make icefaces unresponsive -->
   <context-param>
-    <param-name>com.icesoft.faces.concurrentDOMViews</param-name> 
-    <param-value>true</param-value> 
-  </context-param> 
+    <param-name>com.icesoft.faces.concurrentDOMViews</param-name>
+    <param-value>true</param-value>
+  </context-param>
   <!-- experiment -->
-  <context-param> 
-    <param-name>com.icesoft.faces.coalesceUpdates</param-name> 
-    <param-value>false</param-value> 
-  </context-param> 
-  <context-param> 
-    <param-name>com.icesoft.faces.connectionLostRedirectURI</param-name> 
-    <param-value>'/connectionLost.jsp'</param-value> 
-  </context-param> 
-  <context-param> 
-    <param-name>com.icesoft.faces.sessionExpiredRedirectURI</param-name> 
-    <param-value>'/sessionExpired.jsp'</param-value> 
-  </context-param>   
+  <context-param>
+    <param-name>com.icesoft.faces.coalesceUpdates</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.icesoft.faces.connectionLostRedirectURI</param-name>
+    <param-value>'/connectionLost.jsp'</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.icesoft.faces.sessionExpiredRedirectURI</param-name>
+    <param-value>'/sessionExpired.jsp'</param-value>
+  </context-param>
 
 
   <filter>
@@ -91,7 +91,7 @@
   <filter-mapping>
     <filter-name>URL Parameter Filter</filter-name>
     <url-pattern>*.jsf</url-pattern>
-  </filter-mapping>   
+  </filter-mapping>
   <filter-mapping>
     <filter-name>Security Page Filter</filter-name>
     <url-pattern>*.jsf</url-pattern>
@@ -100,14 +100,14 @@
     <filter-name>Pretty Filter</filter-name>
     <url-pattern>*.jsf</url-pattern>
   </filter-mapping>
-    
+
   <listener>
      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-  <listener> 
-    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
-  </listener>  
-  
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -121,7 +121,7 @@
   </servlet>
   <servlet>
     <servlet-name>thumbnailViewer</servlet-name>
-    <servlet-class>gov.nih.nci.nbcia.servlet.ThumbnailServer</servlet-class>
+    <servlet-class>gov.nih.nci.nbia.servlet.ThumbnailServer</servlet-class>
   </servlet>
     <servlet>
     <servlet-name>ImageServlet</servlet-name>
@@ -138,7 +138,7 @@
     <servlet>
     <servlet-name>MarkupSaveServlet</servlet-name>
     <servlet-class>gov.nih.nci.nbia.viewer.MarkupSaveServlet</servlet-class>
-  </servlet>      
+  </servlet>
   <servlet>
     <servlet-name>BasketDownloadServlet</servlet-name>
     <servlet-class>gov.nih.nci.nbia.servlet.BasketDownloadServlet</servlet-class>
@@ -168,8 +168,8 @@
     <servlet-name>publicThumbnailServlet</servlet-name>
     <servlet-class>gov.nih.nci.nbia.servlet.PublicOnlyThumbnailServlet</servlet-class>
     <load-on-startup> 1 </load-on-startup>
-  </servlet>  
-  
+  </servlet>
+
 
   <servlet-mapping>
     <servlet-name>publicThumbnailServlet</servlet-name>
@@ -193,12 +193,12 @@
   </servlet-mapping>
 
   <!--  this is to block out direct access to xhtml files -->
-  
+
   <servlet-mapping>
     <servlet-name>Persistent Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
- 
+
   <servlet-mapping>
     <servlet-name>thumbnailViewer</servlet-name>
     <url-pattern>/thumbnailViewer</url-pattern>
@@ -218,29 +218,29 @@
   <servlet-mapping>
     <servlet-name>MarkupSaveServlet</servlet-name>
     <url-pattern>/MarkupSave</url-pattern>
-  </servlet-mapping>    
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>BasketDownloadServlet</servlet-name>
     <url-pattern>/servlet/BasketDownloadServlet</url-pattern>
-  </servlet-mapping>   
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>DynamicJNLPServlet</servlet-name>
     <url-pattern>/servlet/DynamicJNLPServlet</url-pattern>
-  </servlet-mapping>   
- 
+  </servlet-mapping>
+
   <session-config>
-    <session-timeout>30</session-timeout> 
+    <session-timeout>30</session-timeout>
   </session-config>
-  
+
   <mime-mapping>
     <extension>jnlp</extension>
     <mime-type>application/x-java-jnlp-file</mime-type>
   </mime-mapping>
-  
+
   <welcome-file-list>
     <welcome-file>welcome.jsp</welcome-file>
   </welcome-file-list>
-  
+
 
   <error-page>
     <error-code>500</error-code>

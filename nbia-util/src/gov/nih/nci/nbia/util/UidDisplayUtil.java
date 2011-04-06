@@ -1,7 +1,5 @@
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.ncia.util.UidDisplayUtil;
-
 import org.apache.log4j.Logger;
 
 public class UidDisplayUtil {	

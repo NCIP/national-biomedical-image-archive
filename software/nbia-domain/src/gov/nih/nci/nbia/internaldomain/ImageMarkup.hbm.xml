@@ -14,7 +14,7 @@
 		<property name="markupContent" type="string" column="markup_content"/>
 		<property name="seriesInstanceUID" type="string" column="series_instance_uid"/>
 		<property name="submissionDate" type="java.util.Date" column="submission_date"/>
-		<many-to-one name="series" class="gov.nih.nci.ncia.internaldomain.GeneralSeries"
+		<many-to-one name="series" class="gov.nih.nci.nbia.internaldomain.GeneralSeries"
 			column="GENERAL_SERIES_PK_ID"/>
 	</class>
 </hibernate-mapping>

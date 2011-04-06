@@ -30,13 +30,13 @@
     <set name="generalSeriesCollection" lazy="true">
       <cache usage="read-write" />
       <key column="STUDY_PK_ID" />
-      <one-to-many class="gov.nih.nci.ncia.internaldomain.GeneralSeries"/>
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralSeries"/>
     </set>
-    <many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
+    <many-to-one name="patient" class="gov.nih.nci.nbia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
     <set name="generalImageCollection" lazy="true">
       <cache usage="read-write" />
       <key column="STUDY_PK_ID" />
-      <one-to-many class="gov.nih.nci.ncia.internaldomain.GeneralImage"/>
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralImage"/>
     </set>
   </class>
 </hibernate-mapping>

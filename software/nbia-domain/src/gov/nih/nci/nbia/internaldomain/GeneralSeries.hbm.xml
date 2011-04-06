@@ -42,17 +42,17 @@
     <property name="site" type="string" column="site"/>
 
     <!-- Associations mapping for the GeneralSeries class -->
-    <many-to-one name="study" class="gov.nih.nci.ncia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
+    <many-to-one name="study" class="gov.nih.nci.nbia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
     <set name="generalImageCollection" lazy="true">
       <cache usage="read-write" />
       <key column="GENERAL_SERIES_PK_ID" />
-      <one-to-many class="gov.nih.nci.ncia.internaldomain.GeneralImage"/>
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralImage"/>
     </set>
-    <many-to-one name="generalEquipment" class="gov.nih.nci.ncia.internaldomain.GeneralEquipment" column="GENERAL_EQUIPMENT_PK_ID" lazy="proxy" />
+    <many-to-one name="generalEquipment" class="gov.nih.nci.nbia.internaldomain.GeneralEquipment" column="GENERAL_EQUIPMENT_PK_ID" lazy="proxy" />
     <set name="annotationCollection" lazy="true">
       <cache usage="read-write" />
       <key column="GENERAL_SERIES_PK_ID" />
-      <one-to-many class="gov.nih.nci.ncia.internaldomain.Annotation"/>
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.Annotation"/>
     </set>
 
     <!--  return the sum of the annotation file size for

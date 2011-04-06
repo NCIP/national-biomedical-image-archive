@@ -22,14 +22,14 @@
 		<set name="generalImageCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="PATIENT_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.GeneralImage"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralImage"/>
 		</set>
-		<many-to-one name="trialSite" class="gov.nih.nci.ncia.internaldomain.TrialSite" column="TRIAL_SITE_PK_ID" lazy="proxy" />
+		<many-to-one name="trialSite" class="gov.nih.nci.nbia.internaldomain.TrialSite" column="TRIAL_SITE_PK_ID" lazy="proxy" />
 		<set name="studyCollection" lazy="true">
 			<cache usage="read-write" />
 			<key column="PATIENT_PK_ID" />
-			<one-to-many class="gov.nih.nci.ncia.internaldomain.Study"/>
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.Study"/>
 		</set>
-		<many-to-one name="dataProvenance" class="gov.nih.nci.ncia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
+		<many-to-one name="dataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
 	</class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.nih.nci.nbia.dto;
 
@@ -9,9 +9,9 @@ import junit.framework.TestCase;
  * @author lethai
  *
  */
-public class ImageDTOTestCase extends TestCase {
+public class ImageDTO2TestCase extends TestCase {
 	public void testAccessors() {
-		
+
 		String SOPInstanceUID="1.2.3.4.5.6";
 		String fileName="1.2.3.4.5.6.7.dcm";
 		Long dicomSize = new Long(514);
@@ -19,14 +19,14 @@ public class ImageDTOTestCase extends TestCase {
 		String site="RIDER";
 		String ssg="test";
 		int frameNum = 0;
-        
+
         ImageDTO2 imageDTO = new ImageDTO2(SOPInstanceUID, fileName, dicomSize, project, site, ssg, 0);
 
         assertTrue(imageDTO.getSOPInstanceUID().equals("1.2.3.4.5.6"));
-        assertTrue(imageDTO.getFileName().equals("1.2.3.4.5.6.7.dcm"));        
+        assertTrue(imageDTO.getFileName().equals("1.2.3.4.5.6.7.dcm"));
         assertTrue(imageDTO.getDicomSize() ==514L);
-        assertTrue(imageDTO.getProject().equals("RIDER"));	
-        assertTrue(imageDTO.getSite().equals("RIDER"));	
+        assertTrue(imageDTO.getProject().equals("RIDER"));
+        assertTrue(imageDTO.getSite().equals("RIDER"));
         assertTrue(imageDTO.getSsg().equals("test"));
         assertTrue(imageDTO.getFrameNum()==0);
     }

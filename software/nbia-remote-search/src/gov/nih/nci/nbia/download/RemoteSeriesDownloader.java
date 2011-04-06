@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.download;
+package gov.nih.nci.nbia.download;
 
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.zip.RemoteSeriesFileRetriever;
+import gov.nih.nci.nbia.zip.RemoteSeriesFileRetriever;
 import gov.nih.nci.nbia.download.AbstractSeriesDownloader;
 
 /**

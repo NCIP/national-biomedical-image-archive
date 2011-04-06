@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.remotesearch;
+package gov.nih.nci.nbia.remotesearch;
 
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.ncia.search.DrillDown;

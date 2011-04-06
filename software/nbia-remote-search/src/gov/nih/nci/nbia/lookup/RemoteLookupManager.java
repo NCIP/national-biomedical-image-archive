@@ -1,12 +1,13 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
-import gov.nih.nci.ncia.remotesearch.RemoteNodes;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.remotesearch.RemoteNodes;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.Model;
 import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.lookup.LookupManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.jms;
+package gov.nih.nci.nbia.jms;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -10,6 +10,7 @@ import gov.nih.nci.nbia.deletion.ImageDeletionService;
 import gov.nih.nci.nbia.deletion.ImageFileDeletionService;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.mail.MailManager;
+import gov.nih.nci.ncia.jms.ImageDeletionMessage;
 
 import javax.ejb.EJBException;
 import javax.ejb.MessageDrivenBean;

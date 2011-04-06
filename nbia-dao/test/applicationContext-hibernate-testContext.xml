@@ -175,7 +175,7 @@
   </bean>
   <!--  because of how dbubnit works v spring life cycle, this must be proto -->
   <bean id="nciaSecurityManager"
-        class="gov.nih.nci.ncia.security.NCIASecurityManagerImpl"
+        class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"
         init-method="init"
         scope="prototype">
 

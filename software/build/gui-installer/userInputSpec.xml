@@ -866,11 +866,11 @@
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Database Port is a required field" />
     </field>
     <field type="text" variable="database.name">
-      <spec txt="Database Name:" size="25" set="nciadb"/>
+      <spec txt="Database Name:" size="25" set="nbiadb"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Database Name is a required field" />
     </field>
     <field type="text" variable="database.user">
-      <spec txt="Database Application User:" size="25" set="ncia_user"/>
+      <spec txt="Database Application User:" size="25" set="nbia_user"/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt=" Database Application User is a required field" />
     </field>
     <field type="password" allign="left" variable="database.password">

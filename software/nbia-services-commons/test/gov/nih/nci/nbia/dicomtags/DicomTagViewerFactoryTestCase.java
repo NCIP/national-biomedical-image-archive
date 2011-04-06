@@ -20,17 +20,17 @@ public class DicomTagViewerFactoryTestCase extends TestCase {
 		}
 
 	}
-	
+
 	public void testGetDrillDown() {
 		System.setProperty("dicomTagViewer.className",
-				           "gov.nih.nci.ncia.dicomtags.DicomTagViewerFactoryTestCase$FakeDicomTagViewer");
-		
+				           "gov.nih.nci.nbia.dicomtags.DicomTagViewerFactoryTestCase$FakeDicomTagViewer");
+
 		DicomTagViewer dd1 = DicomTagViewerFactory.getDicomTagViewer();
 		DicomTagViewer dd2 = DicomTagViewerFactory.getDicomTagViewer();
 
 		assertEquals(dd1, dd2);
 		assertTrue(dd1 instanceof DicomTagViewer);
-	}		
+	}
 
 	public static class FakeDicomTagViewer implements DicomTagViewer {
 		public List<DicomTagDTO> viewDicomHeader(ImageSearchResult image) {

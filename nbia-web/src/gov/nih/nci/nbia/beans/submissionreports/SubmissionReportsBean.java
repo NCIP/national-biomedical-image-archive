@@ -1,13 +1,13 @@
-package gov.nih.nci.ncia.beans.submissionreports;
+package gov.nih.nci.nbia.beans.submissionreports;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
+import gov.nih.nci.nbia.util.DateValidator;
+import gov.nih.nci.nbia.util.SelectItemComparator;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.util.DateValidator;
-import gov.nih.nci.ncia.util.SelectItemComparator;
 
 import java.util.ArrayList;
 import java.util.Calendar;

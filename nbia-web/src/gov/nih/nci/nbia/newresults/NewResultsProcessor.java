@@ -21,7 +21,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.newresults;
+package gov.nih.nci.nbia.newresults;
 
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
@@ -38,9 +38,9 @@ import gov.nih.nci.nbia.search.PatientSearchResults;
 import gov.nih.nci.nbia.search.PatientSearcherService;
 import gov.nih.nci.nbia.search.PatientSearcherServiceFactory;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SavedQueryReconstructor;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.util.SavedQueryReconstructor;
 
 import java.util.ArrayList;
 import java.util.List;

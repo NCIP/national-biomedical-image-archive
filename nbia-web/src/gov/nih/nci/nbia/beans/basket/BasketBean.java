@@ -3,31 +3,31 @@
  *
  * Created on August 15, 2005, 1:23 PM
  */
-package gov.nih.nci.ncia.beans.basket;
+package gov.nih.nci.nbia.beans.basket;
 
 import gov.nih.nci.nbia.basket.Basket;
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.basket.BasketUtil;
 import gov.nih.nci.nbia.basket.DownloadRecorder;
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
+import gov.nih.nci.nbia.beans.searchresults.ImageResultWrapper;
+import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.FileGenerator;
+import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
+import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.nbia.jms.ImageZippingMessage;
 import gov.nih.nci.nbia.jms.JMSClient;
 import gov.nih.nci.nbia.search.LocalDrillDown;
+import gov.nih.nci.nbia.util.DynamicJNLPGenerator;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
+import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.zip.ZipManager;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.searchresults.DefaultThumbnailURLResolver;
-import gov.nih.nci.ncia.beans.searchresults.ImageResultWrapper;
-import gov.nih.nci.ncia.beans.security.AnonymousLoginBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModel;
-import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.DynamicJNLPGenerator;
-import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.SlideShowUtil;
 
 import java.io.File;
 import java.io.Serializable;

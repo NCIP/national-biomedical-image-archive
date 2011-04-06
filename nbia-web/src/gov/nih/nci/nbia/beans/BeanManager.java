@@ -1,15 +1,15 @@
-package gov.nih.nci.ncia.beans;
+package gov.nih.nci.nbia.beans;
 
-import gov.nih.nci.ncia.beans.basket.BasketBean;
-import gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorQCBean;
-import gov.nih.nci.ncia.beans.qctool.QcToolUpdateBean;
-import gov.nih.nci.ncia.beans.savedquery.SavedQueryBean;
-import gov.nih.nci.ncia.beans.searchform.SearchLookupBean;
-import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
-import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
-import gov.nih.nci.ncia.beans.searchresults.SeriesSearchResultBean;
-import gov.nih.nci.ncia.beans.security.AnonymousLoginBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
+import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.populator.ViewSeriesPopulatorQCBean;
+import gov.nih.nci.nbia.beans.qctool.QcToolUpdateBean;
+import gov.nih.nci.nbia.beans.savedquery.SavedQueryBean;
+import gov.nih.nci.nbia.beans.searchform.SearchLookupBean;
+import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
+import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
+import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
+import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;

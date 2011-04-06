@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.beans.searchform.aim;
+package gov.nih.nci.nbia.beans.searchform.aim;
 
-import gov.nih.nci.ncia.beans.searchform.aim.Quantification.TYPE;
+import gov.nih.nci.nbia.beans.searchform.aim.Quantification.TYPE;
 
 import java.util.ArrayList;
 import java.util.HashSet;

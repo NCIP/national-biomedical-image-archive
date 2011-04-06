@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.servlet;
+package gov.nih.nci.nbia.servlet;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
 

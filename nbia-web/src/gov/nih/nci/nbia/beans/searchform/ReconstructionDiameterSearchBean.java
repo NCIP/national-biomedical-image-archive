@@ -6,7 +6,7 @@
 /*
  * Created on Jun 13, 2005
  */
-package gov.nih.nci.ncia.beans.searchform;
+package gov.nih.nci.nbia.beans.searchform;
 
 import gov.nih.nci.ncia.criteria.ReconstructionDiameterCriteria;
 import gov.nih.nci.nbia.query.DICOMQuery;

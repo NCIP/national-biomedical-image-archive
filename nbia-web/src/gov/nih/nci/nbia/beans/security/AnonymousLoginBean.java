@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.beans.security;
+package gov.nih.nci.nbia.beans.security;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
 import org.apache.log4j.Logger;
 /**
  * This is the Session scope bean that provides about anonymous loign information

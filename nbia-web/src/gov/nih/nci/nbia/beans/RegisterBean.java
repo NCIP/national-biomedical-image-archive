@@ -15,13 +15,13 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.beans;
+package gov.nih.nci.nbia.beans;
 
 import gov.nih.nci.nbia.ispy.UrlParams;
 import gov.nih.nci.nbia.mail.MailManager;
+import gov.nih.nci.nbia.util.MessageUtil;
+import gov.nih.nci.nbia.util.RegexUtil;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.util.RegexUtil;
-import gov.nih.nci.ncia.util.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;

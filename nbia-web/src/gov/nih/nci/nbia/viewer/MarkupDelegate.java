@@ -7,7 +7,7 @@
 *
 */
 
-package gov.nih.nci.ncia.viewer;
+package gov.nih.nci.nbia.viewer;
 
 import gov.nih.nci.nbia.dto.MarkupDTO;
 import gov.nih.nci.nbia.markup.MarkupManager;

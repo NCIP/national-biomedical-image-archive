@@ -293,19 +293,19 @@
   
   <component>
       <component-type>help</component-type>
-      <component-class>gov.nih.nci.ncia.components.HelpComponent</component-class>
+      <component-class>gov.nih.nci.nbia.components.HelpComponent</component-class>
   </component>  
   <component>
       <component-type>pager</component-type>
-      <component-class>gov.nih.nci.ncia.components.UIPager</component-class>
+      <component-class>gov.nih.nci.nbia.components.UIPager</component-class>
   </component>
   <component>
       <component-type>thumbnailImage</component-type>
-      <component-class>gov.nih.nci.ncia.components.UIThumbnail</component-class>
+      <component-class>gov.nih.nci.nbia.components.UIThumbnail</component-class>
   </component>
   <component>
       <component-type>imageDataTable</component-type>
-      <component-class>gov.nih.nci.ncia.components.UIImageTable</component-class>
+      <component-class>gov.nih.nci.nbia.components.UIImageTable</component-class>
   </component>        
   <component>
     <component-type>ProgressBar</component-type>
@@ -319,19 +319,19 @@
   <managed-bean>
     <description>Bean for the QC Tool</description>
     <managed-bean-name>qcToolBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcToolBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.qctool.QcToolBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean> 
     <managed-bean>
     <description>Bean for the QC Tool</description>
     <managed-bean-name>qcUtil</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcUtil</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.qctool.QcUtil</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean> 
   <managed-bean>
     <description>QC Tool Search Bean </description>
     <managed-bean-name>qcToolSearchBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcToolSearchBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.qctool.QcToolSearchBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -342,7 +342,7 @@
   <managed-bean>
     <description>QC Tool Update Bean </description>
     <managed-bean-name>qcToolUpdateBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.qctool.QcToolUpdateBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.qctool.QcToolUpdateBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -353,19 +353,19 @@
   <managed-bean>
     <description>Populates the view series page for a page load action</description>
     <managed-bean-name>viewSeriesPopulatorQCBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorQCBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.populator.ViewSeriesPopulatorQCBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>    
   <managed-bean>
     <description>Populates the view series page for a page load action</description>
     <managed-bean-name>viewSeriesPopulatorMgBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorMgBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.populator.ViewSeriesPopulatorMgBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean> 
   <managed-bean>
     <description>Populates the dicom tag view page for a page load action</description>
     <managed-bean-name>dicomTagViewerPopulatorMgBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.populator.DicomTagViewerPopulatorMgBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.populator.DicomTagViewerPopulatorMgBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>    
 
@@ -373,56 +373,56 @@
   <managed-bean>
     <description>Populates the databasket page for direct bookmarking</description>
     <managed-bean-name>dataBasketPopulatorMgBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.populator.DataBasketPopulatorMgBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.populator.DataBasketPopulatorMgBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Create Customized Image Series List</description>
     <managed-bean-name>customSeriesListBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.customserieslist.CustomSeriesListBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.customserieslist.CustomSeriesListBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Edit Customized Image Series List</description>
     <managed-bean-name>editCustomSeriesListBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.customserieslist.EditCustomSeriesListBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.customserieslist.EditCustomSeriesListBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Search Customized Image Series List</description>
     <managed-bean-name>searchCustomSeriesListBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.customserieslist.SearchCustomSeriesListBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.customserieslist.SearchCustomSeriesListBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Edit Collection Descriptions</description>
     <managed-bean-name>collectionDescBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.collectiondescriptions.CollectionDescBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.collectiondescriptions.CollectionDescBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Bean for Search Page to display collection description</description>
     <managed-bean-name>displayCollectionDescBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.collectiondescriptions.DisplayCollectionDescBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.collectiondescriptions.DisplayCollectionDescBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Lookup Bean for Search Page</description>
     <managed-bean-name>searchLookupBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.SearchLookupBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchform.SearchLookupBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   
   <managed-bean>
     <managed-bean-name>aimSearchWorkflowBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
     
   <managed-bean>
     <description>Workflow Bean for Search Page</description>
     <managed-bean-name>searchWorkflowBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -434,7 +434,7 @@
   <managed-bean>
     <description>Bean holding search results</description>
     <managed-bean-name>searchResultBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.SearchResultBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchresults.SearchResultBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     
@@ -447,7 +447,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>ispyBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.ISPYBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchresults.ISPYBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -466,7 +466,7 @@
   <managed-bean>
     <description>for Cedara UI</description>
     <managed-bean-name>cedaraBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.CedaraBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchresults.CedaraBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -481,14 +481,14 @@
   
   <managed-bean>
     <managed-bean-name>seriesSearchResultBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.SeriesSearchResultBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
   </managed-bean> 
   
   <managed-bean>
     <managed-bean-name>studiesSearchResultBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchresults.StudiesSearchResultBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchresults.StudiesSearchResultBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -500,25 +500,25 @@
   <managed-bean>
     <description>Bean to register new users</description>
     <managed-bean-name>registerBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.RegisterBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.RegisterBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Bean to manage the current user who is logged in</description>
     <managed-bean-name>securityBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.security.SecurityBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.security.SecurityBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Bean to manage the Data Basket</description>
     <managed-bean-name>basketBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.basket.BasketBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.basket.BasketBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Bean to manage the Saved Queries</description>
     <managed-bean-name>savedQueryBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.savedquery.SavedQueryBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.savedquery.SavedQueryBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
  
@@ -526,13 +526,13 @@
   <managed-bean>
     <description>Submission Report input controls beans</description>
     <managed-bean-name>submissionReportsBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.SubmissionReportsBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.submissionreports.SubmissionReportsBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>  
   <managed-bean>
     <description>Accrual Report Bean </description>
     <managed-bean-name>accrualReportSubmissionBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.AccrualReportSubmissionBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.submissionreports.AccrualReportSubmissionBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -544,7 +544,7 @@
   <managed-bean>
     <description>Annotation Submission Report Bean</description>
     <managed-bean-name>annotationSubmissionReportBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.AnnotationSubmissionReportBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.submissionreports.AnnotationSubmissionReportBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -558,7 +558,7 @@
   <managed-bean>
     <description>for VerifySubmission Page</description>
     <managed-bean-name>imageSubmissionReportBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.submissionreports.ImageSubmissionReportBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.submissionreports.ImageSubmissionReportBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     
     <managed-property>   
@@ -577,13 +577,13 @@
   <managed-bean>
     <description>Bean to manage the current guest user who is logged in</description>
     <managed-bean-name>anonymousLoginBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.security.AnonymousLoginBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.security.AnonymousLoginBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <description>Bean to manage the dynamic search GUI compenent</description>
     <managed-bean-name>dynamicSearchBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.DynamicSearchBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.DynamicSearchBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 <!--   <managed-bean>
@@ -596,7 +596,7 @@
   <managed-bean>
     <description>Available Search Terms Bean</description>
     <managed-bean-name>availabelSearchTermsBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.ncia.beans.searchform.AvailableSearchTermsBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.searchform.AvailableSearchTermsBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   
@@ -606,8 +606,8 @@
   <render-kit>
     <renderer>
       <component-family>javax.faces.Data</component-family>
-      <renderer-type>gov.nih.nci.ncia.components.ImageDataTable</renderer-type>
-      <renderer-class>gov.nih.nci.ncia.components.ImageTableRenderer</renderer-class>
+      <renderer-type>gov.nih.nci.nbia.components.ImageDataTable</renderer-type>
+      <renderer-class>gov.nih.nci.nbia.components.ImageTableRenderer</renderer-class>
     </renderer>
   </render-kit>
 

@@ -12,7 +12,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.datamodel;
+package gov.nih.nci.nbia.datamodel;
 
 import gov.nih.nci.nbia.dto.SavedQueryDTO;
 

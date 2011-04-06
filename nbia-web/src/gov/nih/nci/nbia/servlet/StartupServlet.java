@@ -21,13 +21,13 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.servlet;
+package gov.nih.nci.nbia.servlet;
 
 import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.jobs.NodeLookupJob;
+import gov.nih.nci.nbia.newresults.LatestCurationDateJob;
+import gov.nih.nci.nbia.newresults.NewResultsProcessor;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.newresults.LatestCurationDateJob;
-import gov.nih.nci.ncia.newresults.NewResultsProcessor;
 
 import java.util.Date;
 import javax.servlet.http.HttpServlet;

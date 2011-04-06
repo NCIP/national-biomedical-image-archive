@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.populator;
+package gov.nih.nci.nbia.beans.populator;
 
 import java.util.Map;
 

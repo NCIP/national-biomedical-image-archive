@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.components;
+package gov.nih.nci.nbia.components;
 
 import javax.faces.component.UIData;
 

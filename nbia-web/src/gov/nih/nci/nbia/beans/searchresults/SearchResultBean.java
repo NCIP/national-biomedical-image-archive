@@ -1,21 +1,21 @@
-package gov.nih.nci.ncia.beans.searchresults;
+package gov.nih.nci.nbia.beans.searchresults;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.savedquery.SavedQueryBean;
+import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.exception.DuplicateQueryException;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.querystorage.QueryStorageManager;
 import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.search.PatientSearchCompletionService;
 import gov.nih.nci.nbia.search.PatientSearchResults;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.savedquery.SavedQueryBean;
-import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.util.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;

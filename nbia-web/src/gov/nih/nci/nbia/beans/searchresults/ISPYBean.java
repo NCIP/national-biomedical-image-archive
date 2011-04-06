@@ -1,16 +1,16 @@
-package gov.nih.nci.ncia.beans.searchresults;
+package gov.nih.nci.nbia.beans.searchresults;
 import gov.nih.nci.ncia.criteria.UrlParamCriteria;
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.nbia.ispy.UrlParams;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.search.LocalDrillDown;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.StudyUtil;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.basket.BasketBean;
-import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
-import gov.nih.nci.ncia.util.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.List;

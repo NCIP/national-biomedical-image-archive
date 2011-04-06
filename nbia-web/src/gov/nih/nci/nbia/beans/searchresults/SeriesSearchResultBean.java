@@ -1,18 +1,18 @@
-package gov.nih.nci.ncia.beans.searchresults;
+package gov.nih.nci.nbia.beans.searchresults;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
+import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.basket.BasketBean;
-import gov.nih.nci.ncia.beans.security.AnonymousLoginBean;
-import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModel;
-import gov.nih.nci.ncia.datamodel.IcefacesRowColumnDataModelInterface;
+import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.SlideShowUtil;
 
 import java.text.DecimalFormat;
 import java.util.Collections;

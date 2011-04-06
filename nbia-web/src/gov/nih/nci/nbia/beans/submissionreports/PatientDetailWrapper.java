@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.submissionreports;
+package gov.nih.nci.nbia.beans.submissionreports;
 
 /**
  * This object is basically a row in the patient details

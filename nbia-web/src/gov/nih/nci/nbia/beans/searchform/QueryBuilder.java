@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.searchform;
+package gov.nih.nci.nbia.beans.searchform;
 
 import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
@@ -24,11 +24,11 @@ import gov.nih.nci.ncia.criteria.PatientCriteria;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
+import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
+import gov.nih.nci.nbia.beans.searchform.aim.Quantification;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
-import gov.nih.nci.ncia.beans.searchform.aim.Quantification;
 
 import java.util.Date;
 import java.util.List;

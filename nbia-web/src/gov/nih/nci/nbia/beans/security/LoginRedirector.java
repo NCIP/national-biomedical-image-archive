@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.security;
+package gov.nih.nci.nbia.beans.security;
 
 import java.io.IOException;
 import java.util.Map;

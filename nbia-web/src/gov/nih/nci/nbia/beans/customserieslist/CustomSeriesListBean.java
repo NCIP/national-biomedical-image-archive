@@ -1,15 +1,15 @@
-package gov.nih.nci.ncia.beans.customserieslist;
+package gov.nih.nci.nbia.beans.customserieslist;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor;
 import gov.nih.nci.nbia.customserieslist.FileParser;
 import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.basket.BasketBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.util.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.EventObject;

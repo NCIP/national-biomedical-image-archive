@@ -9,7 +9,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.components;
+package gov.nih.nci.nbia.components;
 
 import java.io.IOException;
 import java.util.ArrayList;

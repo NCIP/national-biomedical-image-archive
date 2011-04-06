@@ -6,7 +6,7 @@
 /*
  * Created on Jun 13, 2005
  */
-package gov.nih.nci.ncia.beans.searchform;
+package gov.nih.nci.nbia.beans.searchform;
 
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
@@ -14,6 +14,10 @@ import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
 import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
+import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.dto.ModalityDescDTO;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
@@ -25,19 +29,15 @@ import gov.nih.nci.nbia.search.PatientSearchCompletionService;
 import gov.nih.nci.nbia.search.PatientSearcher;
 import gov.nih.nci.nbia.search.PatientSearcherService;
 import gov.nih.nci.nbia.search.PatientSearcherServiceFactory;
+import gov.nih.nci.nbia.util.DateValidator;
+import gov.nih.nci.nbia.util.JsfUtil;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
-import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.util.DateValidator;
-import gov.nih.nci.ncia.util.JsfUtil;
-import gov.nih.nci.ncia.util.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;

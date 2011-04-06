@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.components;
+package gov.nih.nci.nbia.components;
 
 import java.io.IOException;
 

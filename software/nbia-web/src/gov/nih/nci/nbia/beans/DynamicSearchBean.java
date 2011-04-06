@@ -1,5 +1,7 @@
-package gov.nih.nci.ncia.beans;
+package gov.nih.nci.nbia.beans;
 
+import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.dynamicsearch.DataFieldParser;
 import gov.nih.nci.nbia.dynamicsearch.DataFieldTypeMap;
 import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
@@ -10,6 +12,7 @@ import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SelectItemLabelComparator;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
@@ -18,10 +21,7 @@ import gov.nih.nci.nbia.xmlobject.DataGroup;
 import gov.nih.nci.nbia.xmlobject.DataSource;
 import gov.nih.nci.nbia.xmlobject.Element;
 import gov.nih.nci.nbia.xmlobject.SourceItem;
-import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.util.SelectItemLabelComparator;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

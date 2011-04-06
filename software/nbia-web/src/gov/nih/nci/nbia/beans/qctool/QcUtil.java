@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.qctool;
+package gov.nih.nci.nbia.beans.qctool;
 
 import javax.faces.model.SelectItem;
 

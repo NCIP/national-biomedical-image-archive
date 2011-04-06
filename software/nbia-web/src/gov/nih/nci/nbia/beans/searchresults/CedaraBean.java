@@ -1,15 +1,15 @@
-package gov.nih.nci.ncia.beans.searchresults;
+package gov.nih.nci.nbia.beans.searchresults;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
+import gov.nih.nci.nbia.util.CedaraUtil;
+import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.basket.BasketBean;
-import gov.nih.nci.ncia.beans.security.AnonymousLoginBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.CedaraUtil;
-import gov.nih.nci.ncia.util.MessageUtil;
 
 import java.util.Collection;
 import java.util.List;

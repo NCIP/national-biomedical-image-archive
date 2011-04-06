@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.searchform.aim;
+package gov.nih.nci.nbia.beans.searchform.aim;
 
 import java.util.List;
 

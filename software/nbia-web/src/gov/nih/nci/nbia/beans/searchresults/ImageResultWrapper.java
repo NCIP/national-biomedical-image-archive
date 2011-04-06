@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.searchresults;
+package gov.nih.nci.nbia.beans.searchresults;
 
 import gov.nih.nci.nbia.util.UidDisplayUtil;
 import gov.nih.nci.ncia.search.ImageSearchResult;

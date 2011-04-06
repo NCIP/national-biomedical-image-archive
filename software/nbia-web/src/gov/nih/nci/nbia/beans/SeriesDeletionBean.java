@@ -1,17 +1,17 @@
-package gov.nih.nci.ncia.beans;
+package gov.nih.nci.nbia.beans;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
 import gov.nih.nci.nbia.deletion.ImageDeletionService;
 import gov.nih.nci.nbia.deletion.ImageFileDeletionService;
 import gov.nih.nci.nbia.jms.ImageDeletionMessage;
 import gov.nih.nci.nbia.jms.JMSClient;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
 
 public class SeriesDeletionBean {
 	

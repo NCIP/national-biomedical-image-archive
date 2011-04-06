@@ -9,7 +9,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.beans.submissionreports;
+package gov.nih.nci.nbia.beans.submissionreports;
 
 import gov.nih.nci.nbia.verifysubmission.AccrualReport;
 import gov.nih.nci.nbia.verifysubmission.AccrualReportGenerator;

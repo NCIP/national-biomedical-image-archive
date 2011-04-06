@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.datamodel;
+package gov.nih.nci.nbia.datamodel;
 
-import gov.nih.nci.ncia.beans.searchresults.ImageResultWrapper;
+import gov.nih.nci.nbia.beans.searchresults.ImageResultWrapper;
 
 import javax.faces.model.DataModel;
 

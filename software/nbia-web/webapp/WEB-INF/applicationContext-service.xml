@@ -12,19 +12,19 @@
 
   <context:annotation-config/>
   
-  <bean id="springApplicationContext" class="gov.nih.nci.ncia.util.SpringApplicationContext"/>
+  <bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
   
   <!-- Define all the services below -->
-  <bean id="seriesDeletionBean" class="gov.nih.nci.ncia.beans.SeriesDeletionBean">
+  <bean id="seriesDeletionBean" class="gov.nih.nci.nbia.beans.SeriesDeletionBean">
   </bean> 
-  <bean id="imageDeletionService" class="gov.nih.nci.ncia.deletion.ImageDeletionServiceImpl">
+  <bean id="imageDeletionService" class="gov.nih.nci.nbia.deletion.ImageDeletionServiceImpl">
   </bean> 
-  <bean id="imageFileDeletionService" class="gov.nih.nci.ncia.deletion.ImageFileDeletionServiceImpl">
+  <bean id="imageFileDeletionService" class="gov.nih.nci.nbia.deletion.ImageFileDeletionServiceImpl">
   </bean> 
   
   <!-- Quartz Job In Spring -->
   <bean name="deletionQuartzJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-    <property name="jobClass" value="gov.nih.nci.ncia.util.DeletionQuartzJob" />
+    <property name="jobClass" value="gov.nih.nci.nbia.util.DeletionQuartzJob" />
   </bean>
   <bean id="deletionTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerBean">
     <property name="jobDetail" ref="deletionQuartzJob" />

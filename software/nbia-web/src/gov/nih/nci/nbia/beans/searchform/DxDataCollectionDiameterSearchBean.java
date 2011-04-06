@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.searchform;
+package gov.nih.nci.nbia.beans.searchform;
 
 import gov.nih.nci.ncia.criteria.DxDataCollectionDiameterCriteria;
 import gov.nih.nci.nbia.query.DICOMQuery;

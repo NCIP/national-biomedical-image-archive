@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.beans.searchresults.SeriesResultWrapper;
+import gov.nih.nci.nbia.beans.searchresults.StudyResultWrapper;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.beans.searchresults.StudyResultWrapper;
-import gov.nih.nci.ncia.beans.searchresults.SeriesResultWrapper;
 
 import java.util.ArrayList;
 import java.util.Collection;

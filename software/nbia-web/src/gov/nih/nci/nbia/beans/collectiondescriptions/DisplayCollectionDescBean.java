@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.collectiondescriptions;
+package gov.nih.nci.nbia.beans.collectiondescriptions;
 
 import gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;

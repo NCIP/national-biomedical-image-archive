@@ -15,7 +15,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.newresults;
+package gov.nih.nci.nbia.newresults;
 
 import gov.nih.nci.nbia.dao.ImageDAO;
 import gov.nih.nci.nbia.factories.ApplicationFactory;

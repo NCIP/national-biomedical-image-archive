@@ -3,7 +3,7 @@
 *
 * $Log: not supported by cvs2svn $
 */
-package gov.nih.nci.ncia.viewer;
+package gov.nih.nci.nbia.viewer;
 
 import java.io.IOException;
 import java.io.PrintWriter;

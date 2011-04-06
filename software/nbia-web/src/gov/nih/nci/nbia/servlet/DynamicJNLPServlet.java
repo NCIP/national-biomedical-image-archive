@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gov.nih.nci.ncia.servlet;
+package gov.nih.nci.nbia.servlet;
 
 /**
  * @author lethai

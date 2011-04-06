@@ -1,6 +1,5 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.ncia.criteria.AcquisitionMatrixCriteria;
 import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
@@ -31,6 +30,7 @@ import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
+import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.nbia.query.DICOMQuery;
 
 import java.util.ArrayList;

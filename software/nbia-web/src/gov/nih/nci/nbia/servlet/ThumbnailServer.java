@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.servlet;
+package gov.nih.nci.nbia.servlet;
 
 import gov.nih.nci.nbia.lookup.ImageRegisterMap;
-import gov.nih.nci.ncia.util.ThumbnailUtil;
+import gov.nih.nci.nbia.util.ThumbnailUtil;
 
 import java.io.File;
 import java.io.IOException;

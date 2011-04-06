@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.security;
+package gov.nih.nci.nbia.security;
 
 
-import gov.nih.nci.ncia.beans.security.SecurityBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 
 import java.io.IOException;
 import java.util.HashMap;

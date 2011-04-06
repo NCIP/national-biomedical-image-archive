@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.viewer;
+package gov.nih.nci.nbia.viewer;
 
 import gov.nih.nci.nbia.dao.ImageDAO;
 import gov.nih.nci.nbia.dto.ImageSecurityDTO;

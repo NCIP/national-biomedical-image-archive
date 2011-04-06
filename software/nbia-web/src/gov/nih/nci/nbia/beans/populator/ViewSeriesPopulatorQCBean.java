@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.beans.populator;
+package gov.nih.nci.nbia.beans.populator;
 
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.qctool.QcToolUpdateBean;
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.qctool.QcToolUpdateBean;
 
 /**
  * This bean became necessary after switching to ICEfaces.

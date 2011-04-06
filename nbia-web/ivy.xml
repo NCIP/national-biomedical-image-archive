@@ -12,7 +12,7 @@
   </configurations>
 
   <publications>
-    <artifact name="ncia" type="war" conf="default, compile, runtime" />
+    <artifact name="nbia" type="war" conf="default, compile, runtime" />
   </publications>
 
   <dependencies>

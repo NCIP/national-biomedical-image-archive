@@ -1,7 +1,7 @@
 /**
- * 
+ *
  */
-package gov.nih.nci.ncia.customserieslist;
+package gov.nih.nci.nbia.customserieslist;
 
 import gov.nih.nci.nbia.customserieslist.FileParser;
 
@@ -39,8 +39,8 @@ public class FileParserTestCase extends TestCase {
 	/**
 	 * Test method for {@link gov.nih.nci.nbia.customserieslist.FileParser#parse(java.io.File)}.
 	 */
-	public void testParse() throws Exception{		
-		
+	public void testParse() throws Exception{
+
 		File f;
 		f=new File("testfile.csv");
 		if(!f.exists()){
@@ -52,14 +52,14 @@ public class FileParserTestCase extends TestCase {
 			}
 		}
 		String seriesUids = "series 1, series 2, series 3, series 4";
-		
+
 		Writer output = null;
 	    output = new BufferedWriter(new FileWriter(f));
 	    output.write(seriesUids);
 	    output.close();
-	    
+
 	    List<String> parsedUids = parser.parse(f);
 	    System.out.println("parsed size: " + parsedUids.size());
-	    assertEquals(parsedUids.size() , 4);		
+	    assertEquals(parsedUids.size() , 4);
 	}
 }

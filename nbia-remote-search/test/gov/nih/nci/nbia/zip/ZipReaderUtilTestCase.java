@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.zip;
+package gov.nih.nci.nbia.zip;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

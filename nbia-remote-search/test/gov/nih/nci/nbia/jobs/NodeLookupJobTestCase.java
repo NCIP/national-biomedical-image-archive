@@ -1,12 +1,12 @@
-package gov.nih.nci.ncia.jobs;
+package gov.nih.nci.nbia.jobs;
 
 import static org.easymock.EasyMock.expect;
 import static org.powermock.api.easymock.PowerMock.createMock;
 import static org.powermock.api.easymock.PowerMock.mockStatic;
 import static org.powermock.api.easymock.PowerMock.replay;
 import static org.powermock.api.easymock.PowerMock.verify;
+import gov.nih.nci.nbia.remotesearch.RemoteNodes;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.remotesearch.RemoteNodes;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

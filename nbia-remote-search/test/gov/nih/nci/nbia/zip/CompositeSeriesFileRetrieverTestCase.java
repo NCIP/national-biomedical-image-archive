@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.zip;
+package gov.nih.nci.nbia.zip;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
@@ -10,15 +10,16 @@ import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.remotesearch.RemoteDrillDown;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
 import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
-import gov.nih.nci.ncia.remotesearch.RemoteDrillDown;
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.ncia.zip.LocalSeriesFileRetriever;
 
 import java.util.ArrayList;
 import java.util.List;

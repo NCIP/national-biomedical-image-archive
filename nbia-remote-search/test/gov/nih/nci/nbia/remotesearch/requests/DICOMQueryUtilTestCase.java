@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.remotesearch.requests;
+package gov.nih.nci.nbia.remotesearch.requests;
 
 import static org.junit.Assert.assertEquals;
 import gov.nih.nci.nbia.util.*;

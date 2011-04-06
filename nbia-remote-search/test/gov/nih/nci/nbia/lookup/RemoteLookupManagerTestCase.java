@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
@@ -10,9 +10,9 @@ import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.remotesearch.RemoteNodes;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
-import gov.nih.nci.ncia.remotesearch.RemoteNodes;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.Model;

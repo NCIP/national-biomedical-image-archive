@@ -4,9 +4,6 @@ import gov.nih.nci.nbia.dao.ImageDAO;
 import gov.nih.nci.nbia.dto.ImageSecurityDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.nbia.util.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -3,7 +3,6 @@ package gov.nih.nci.nbia.util;
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.beans.searchresults.SeriesResultWrapper;
 import gov.nih.nci.nbia.beans.searchresults.StudyResultWrapper;
-import gov.nih.nci.nbia.util.NCIAConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,29 +32,29 @@ public class CedaraUtil {
                     ++count;
                 }
             }
-        }    
+        }
         return uid;
-    }  
-    
-    
+    }
+
+
     public static boolean containsRemoteSeries(Collection<BasketSeriesItemBean> seriesItems) {
         for (BasketSeriesItemBean item : seriesItems) {
             if (item.isSelected() && !item.getSeriesSearchResult().associatedLocation().isLocal())
             {
                 return true;
-            }    
+            }
         }
-        return false;        
+        return false;
     }
-    
+
     public static boolean containsSeriesWhichImageLessThanFour(Collection<BasketSeriesItemBean> seriesItems)
     {
     	boolean containLess4 = false;
     	int selectedItemSize = 0;
-  
+
     	for (BasketSeriesItemBean item : seriesItems)
     	{
-    		if (item.isSelected()) 
+    		if (item.isSelected())
     		{
     			selectedItemSize++;
     			if (item.getTotalImagesSelectedFromSeries() < 4)
@@ -64,7 +63,7 @@ public class CedaraUtil {
     			}
     		}
     	}
-    	
+
     	if ( selectedItemSize <= 1)
     	{
     		return false;
@@ -72,8 +71,8 @@ public class CedaraUtil {
 
     	return containLess4;
     }
-    
-    
+
+
     public static boolean containsMultiplePatients(Collection<BasketSeriesItemBean> seriesItems) {
        // String localNodeName = NCIAConfig.getLocalNodeName();
         List<String> pIds = new ArrayList<String>();
@@ -91,11 +90,11 @@ public class CedaraUtil {
                 if (pIds.size() > 1)
                 {
                     return true;
-                }  
+                }
             }
         }
-        return false;        
-    }    
+        return false;
+    }
 
     public static String constructUidParameterString(Collection<BasketSeriesItemBean> seriesItems) {
         String localNodeName = NCIAConfig.getLocalGridURI();
@@ -114,5 +113,5 @@ public class CedaraUtil {
             }
         }
         return uid;
-    }    
+    }
 }

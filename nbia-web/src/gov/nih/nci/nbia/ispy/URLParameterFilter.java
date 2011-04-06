@@ -20,7 +20,6 @@
 */
 package gov.nih.nci.nbia.ispy;
 
-import gov.nih.nci.nbia.ispy.UrlParams;
 import gov.nih.nci.nbia.util.NameValueObj;
 
 import java.io.IOException;

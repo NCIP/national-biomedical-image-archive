@@ -1,7 +1,5 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.nbia.search.DrillDown;
-import gov.nih.nci.nbia.search.DrillDownFactory;
 import junit.framework.TestCase;
 
 public class DrillDownFactoryTestCase extends TestCase {

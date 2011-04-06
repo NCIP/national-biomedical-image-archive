@@ -1,6 +1,5 @@
-package gov.nih.nci.ncia.verifysubmission;
+package gov.nih.nci.nbia.verifysubmission;
 
-import gov.nih.nci.nbia.verifysubmission.SeriesDetails;
 import junit.framework.TestCase;
 
 public class SeriesDetailsTestCase extends TestCase {

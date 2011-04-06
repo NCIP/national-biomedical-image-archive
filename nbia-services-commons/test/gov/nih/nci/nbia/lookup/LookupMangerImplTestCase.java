@@ -1,7 +1,6 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
-import gov.nih.nci.nbia.lookup.LookupManagerImpl;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.util.ArrayList;
 import java.util.Collection;

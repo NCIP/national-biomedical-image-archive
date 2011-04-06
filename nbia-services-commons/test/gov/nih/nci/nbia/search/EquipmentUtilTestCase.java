@@ -1,9 +1,15 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 import gov.nih.nci.nbia.dto.EquipmentDTO;
-import gov.nih.nci.nbia.search.EquipmentUtil;
+import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.Manufacturer;
+import gov.nih.nci.ncia.search.Model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 import junit.framework.TestCase;
 

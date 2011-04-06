@@ -1,7 +1,9 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.nbia.search.PatientSearchResults;
 import junit.framework.TestCase;
+import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.PatientSearchResultImpl;
 
 public class PatientSearchResultsTestCase extends TestCase {
 

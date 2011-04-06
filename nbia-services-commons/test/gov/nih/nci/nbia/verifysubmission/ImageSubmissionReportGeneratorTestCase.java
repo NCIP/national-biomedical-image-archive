@@ -1,12 +1,6 @@
-package gov.nih.nci.ncia.verifysubmission;
+package gov.nih.nci.nbia.verifysubmission;
 
-import gov.nih.nci.nbia.verifysubmission.ImageSubmissionCountReport;
-import gov.nih.nci.nbia.verifysubmission.ImageSubmissionReport;
-import gov.nih.nci.nbia.verifysubmission.ImageSubmissionReportGenerator;
-import gov.nih.nci.nbia.verifysubmission.PatientDetails;
-import gov.nih.nci.nbia.verifysubmission.SeriesDetails;
-import gov.nih.nci.nbia.verifysubmission.StudyDetails;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

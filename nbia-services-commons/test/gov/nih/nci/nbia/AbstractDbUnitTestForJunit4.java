@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia;
+package gov.nih.nci.nbia;
 
 
 import java.io.InputStream;

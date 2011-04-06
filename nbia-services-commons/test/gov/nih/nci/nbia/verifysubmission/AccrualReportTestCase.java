@@ -1,6 +1,4 @@
-package gov.nih.nci.ncia.verifysubmission;
-
-import gov.nih.nci.nbia.verifysubmission.AccrualReport;
+package gov.nih.nci.nbia.verifysubmission;
 
 import java.util.Calendar;
 import java.util.Date;

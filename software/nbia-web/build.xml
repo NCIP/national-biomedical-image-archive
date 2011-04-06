@@ -163,7 +163,7 @@
   </target>
 
   <target name="compile" depends="ivy-compile">
-    <javac srcdir="${src.java.dir}" destdir="${web.classes.dir}" debug="true" excludes="gov/nih/nci/ncia/test/**">
+    <javac srcdir="${src.java.dir}" destdir="${web.classes.dir}" debug="true">
       <classpath refid="project.compile.classpath" />
     </javac>
   </target>

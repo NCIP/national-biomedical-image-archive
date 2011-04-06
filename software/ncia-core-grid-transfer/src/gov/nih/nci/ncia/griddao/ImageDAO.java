@@ -3,12 +3,12 @@
  */
 package gov.nih.nci.ncia.griddao;
 
+import gov.nih.nci.nbia.util.HqlUtils;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.domain.Image;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 import gov.nih.nci.ncia.internaldomain.Annotation;
 import gov.nih.nci.ncia.internaldomain.GeneralImage;
-import gov.nih.nci.ncia.util.HqlUtils;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.io.File;
 import java.text.DateFormat;

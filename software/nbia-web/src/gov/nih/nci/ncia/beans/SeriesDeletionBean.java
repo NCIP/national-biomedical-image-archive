@@ -5,13 +5,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.deletion.ImageDeletionService;
 import gov.nih.nci.ncia.deletion.ImageFileDeletionService;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.deletion.DeletionDisplayObject;
 import gov.nih.nci.ncia.jms.ImageDeletionMessage;
 import gov.nih.nci.ncia.jms.JMSClient;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 public class SeriesDeletionBean {
 	

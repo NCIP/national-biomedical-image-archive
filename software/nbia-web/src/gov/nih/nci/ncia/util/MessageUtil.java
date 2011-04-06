@@ -20,6 +20,8 @@
 */
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.nbia.util.ResourceBundleUtil;
+
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;

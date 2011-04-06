@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

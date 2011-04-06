@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.dynamicsearch;
 
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.util.Util;
 
 import java.io.File;
 import java.net.URL;

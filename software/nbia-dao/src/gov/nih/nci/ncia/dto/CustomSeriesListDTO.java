@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.dto;
 
-import gov.nih.nci.ncia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.NCIAConfig;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

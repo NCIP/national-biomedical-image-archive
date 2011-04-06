@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia;
 
 
-import gov.nih.nci.ncia.util.Util;
+import gov.nih.nci.nbia.util.Util;
 
 import java.io.InputStream;
 

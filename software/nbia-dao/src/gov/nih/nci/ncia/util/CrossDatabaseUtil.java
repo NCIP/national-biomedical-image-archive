@@ -1,5 +1,7 @@
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
+
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

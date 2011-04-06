@@ -1,4 +1,6 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
+
+import gov.nih.nci.ncia.util.ResourceBundleUtil;
 
 import java.text.MessageFormat;
 import java.util.Locale;

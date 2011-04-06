@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.servlet;
 
-import gov.nih.nci.ncia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.NCIAConfig;
 
 import java.io.BufferedInputStream;
 import java.io.File;

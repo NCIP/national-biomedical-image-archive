@@ -2,8 +2,8 @@ package gov.nih.nci.ncia.beans.searchresults;
 
 import java.util.List;
 
+import gov.nih.nci.nbia.util.NameValueObj;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.util.NameValueObj;
 
 public class ISPYImageWrapper {
 

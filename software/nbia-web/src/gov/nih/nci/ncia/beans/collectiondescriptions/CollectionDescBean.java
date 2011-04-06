@@ -1,11 +1,11 @@
 package gov.nih.nci.ncia.beans.collectiondescriptions;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor;
 import gov.nih.nci.ncia.dto.CollectionDescDTO;
-import gov.nih.nci.ncia.util.NCIAConfig;
-import gov.nih.nci.ncia.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.dao;
 
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.dto.CustomSeriesDTO;
 import gov.nih.nci.ncia.dto.CustomSeriesListAttributeDTO;
 import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
@@ -9,7 +10,6 @@ import gov.nih.nci.ncia.internaldomain.CustomSeriesListAttribute;
 import gov.nih.nci.ncia.internaldomain.GeneralSeries;
 import gov.nih.nci.ncia.security.NCIAUser;
 import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Date;

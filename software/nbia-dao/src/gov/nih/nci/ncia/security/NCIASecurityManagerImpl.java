@@ -29,8 +29,8 @@
 */
 package gov.nih.nci.ncia.security;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.dao.AbstractDAO;
-import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.security.AuthenticationManager;
 import gov.nih.nci.security.SecurityServiceProvider;
 import gov.nih.nci.security.UserProvisioningManager;

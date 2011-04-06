@@ -14,7 +14,7 @@
 */
 package gov.nih.nci.ncia.ispy;
 
-import gov.nih.nci.ncia.util.NameValueObj;
+import gov.nih.nci.nbia.util.NameValueObj;
 
 import java.util.List;
 

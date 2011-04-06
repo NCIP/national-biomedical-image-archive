@@ -3,11 +3,11 @@
 */
 package gov.nih.nci.ncia.security;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.SiteData;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 

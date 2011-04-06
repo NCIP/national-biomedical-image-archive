@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;

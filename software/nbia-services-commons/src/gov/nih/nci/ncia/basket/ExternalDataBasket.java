@@ -1,12 +1,12 @@
 package gov.nih.nci.ncia.basket;
 
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.dao.GeneralSeriesDAO;
 import gov.nih.nci.ncia.dto.SeriesDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.util.SeriesDTOConverter;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

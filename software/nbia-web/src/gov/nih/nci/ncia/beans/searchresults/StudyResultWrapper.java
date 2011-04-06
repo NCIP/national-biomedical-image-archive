@@ -1,8 +1,8 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.util.UidDisplayUtil;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
-import gov.nih.nci.ncia.util.UidDisplayUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

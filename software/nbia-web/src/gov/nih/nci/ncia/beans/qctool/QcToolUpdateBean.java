@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.beans.qctool;
 
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.populator.ViewSeriesPopulatorQCBean;
 import gov.nih.nci.ncia.beans.searchresults.DefaultThumbnailURLResolver;
@@ -17,7 +18,6 @@ import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.SlideShowUtil;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;

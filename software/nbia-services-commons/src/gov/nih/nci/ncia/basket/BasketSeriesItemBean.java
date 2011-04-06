@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.basket;
 
+import gov.nih.nci.nbia.util.HashCodeUtil;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.HashCodeUtil;
 
 import java.text.DecimalFormat;
 

@@ -1,5 +1,7 @@
 package gov.nih.nci.ncia.beans;
 
+import gov.nih.nci.nbia.util.StringUtil;
+import gov.nih.nci.nbia.util.Ultrasound_Util;
 import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.dynamicsearch.DataFieldParser;
@@ -16,8 +18,6 @@ import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.util.SelectItemLabelComparator;
 import gov.nih.nci.ncia.util.SiteData;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.util.StringUtil;
-import gov.nih.nci.ncia.util.Ultrasound_Util;
 import gov.nih.nci.ncia.xmlobject.DataGroup;
 import gov.nih.nci.ncia.xmlobject.DataSource;
 import gov.nih.nci.ncia.xmlobject.Element;

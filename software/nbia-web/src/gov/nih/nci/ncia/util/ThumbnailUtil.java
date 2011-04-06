@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.util;
 
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.dao.ImageDAO;
 import gov.nih.nci.ncia.dto.ImageSecurityDTO;
 import gov.nih.nci.ncia.security.AuthorizationManager;

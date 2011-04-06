@@ -44,6 +44,9 @@
  */
 package gov.nih.nci.ncia.search;
 
+import gov.nih.nci.nbia.util.HqlUtils;
+import gov.nih.nci.nbia.util.Ultrasound_Util;
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.criteria.AcquisitionMatrixCriteria;
 import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
@@ -78,10 +81,7 @@ import gov.nih.nci.ncia.criteriahandler.CriteriaHandlerFactory;
 import gov.nih.nci.ncia.dao.AbstractDAO;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.util.CrossDatabaseUtil;
-import gov.nih.nci.ncia.util.HqlUtils;
 import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.Ultrasound_Util;
-import gov.nih.nci.ncia.util.Util;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

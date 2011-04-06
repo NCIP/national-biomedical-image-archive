@@ -20,6 +20,7 @@
 */
 package gov.nih.nci.ncia.querystorage;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
 import gov.nih.nci.ncia.dao.AbstractDAO;
 import gov.nih.nci.ncia.dto.QueryHistoryDTO;
@@ -29,7 +30,6 @@ import gov.nih.nci.ncia.internaldomain.QueryHistory;
 import gov.nih.nci.ncia.internaldomain.SavedQuery;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.security.NCIAUser;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;

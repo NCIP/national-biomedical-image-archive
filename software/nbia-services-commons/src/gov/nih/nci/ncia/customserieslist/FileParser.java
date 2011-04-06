@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.customserieslist;
 
-import gov.nih.nci.ncia.util.StringUtil;
+import gov.nih.nci.nbia.util.StringUtil;
 
 import java.io.BufferedReader;
 import java.io.File;

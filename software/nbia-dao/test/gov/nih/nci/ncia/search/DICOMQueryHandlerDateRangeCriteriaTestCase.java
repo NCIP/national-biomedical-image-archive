@@ -1,11 +1,11 @@
 package gov.nih.nci.ncia.search;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
 import gov.nih.nci.ncia.criteria.DateRangeCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.SiteData;
 
 import java.text.SimpleDateFormat;

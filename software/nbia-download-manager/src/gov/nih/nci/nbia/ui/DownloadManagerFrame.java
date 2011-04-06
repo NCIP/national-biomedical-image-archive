@@ -4,9 +4,9 @@ import gov.nih.nci.nbia.Application;
 import gov.nih.nci.nbia.download.SeriesDownloaderFactory;
 import gov.nih.nci.nbia.download.AbstractSeriesDownloader;
 import gov.nih.nci.nbia.download.SeriesData;
+import gov.nih.nci.nbia.util.PropertyLoader;
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.ThreadPool;
-import gov.nih.nci.ncia.util.PropertyLoader;
-import gov.nih.nci.ncia.util.StringUtil;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

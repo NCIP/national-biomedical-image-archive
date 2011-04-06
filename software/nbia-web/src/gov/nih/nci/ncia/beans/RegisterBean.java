@@ -17,10 +17,10 @@
 */
 package gov.nih.nci.ncia.beans;
 
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.util.RegexUtil;
 import gov.nih.nci.ncia.mail.MailManager;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.StringUtil;
 import gov.nih.nci.ncia.ispy.UrlParams;
 
 import java.util.ArrayList;

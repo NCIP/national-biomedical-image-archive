@@ -4,8 +4,8 @@
 package gov.nih.nci.nbia.dao;
 
 import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.List;
 

@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.ncia.beans.searchform;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
@@ -21,7 +22,6 @@ import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import com.icesoft.faces.component.tree.IceUserObject;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 /**
  * This class holds all of the values needed to populate the drop downs on all

@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.beans.searchform;
 
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.criteria.AnatomicalSiteCriteria;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.CollectionCriteria;
@@ -26,7 +27,6 @@ import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCr
 import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.util.StringUtil;
 import gov.nih.nci.ncia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.ncia.beans.searchform.aim.Quantification;
 

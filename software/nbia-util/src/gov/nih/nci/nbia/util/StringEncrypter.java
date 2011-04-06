@@ -1,9 +1,12 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 /**
  * @author lethai
  *
  */
+import gov.nih.nci.ncia.util.EncryptionException;
+import gov.nih.nci.ncia.util.StringUtil;
+
 import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;

@@ -10,13 +10,13 @@ import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.remotesearch.RemoteNodes;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.Model;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;

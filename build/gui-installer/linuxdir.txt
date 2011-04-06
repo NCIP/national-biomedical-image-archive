@@ -1,1 +1,1 @@
-${APPLICATIONS_DEFAULT_ROOT}/apps/ncia-lsd
+${APPLICATIONS_DEFAULT_ROOT}/apps/nbia

@@ -3,7 +3,7 @@
  */
 package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageDTO2;
 import gov.nih.nci.nbia.internaldomain.GeneralImage;
 import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
 
@@ -19,16 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @author lethai
  *
  */
-public class ImageDAOImpl extends AbstractDAO
-                          implements ImageDAO {
-	private static Logger logger = Logger.getLogger(ImageDAO.class);
+public class ImageDAO2Impl extends AbstractDAO
+                          implements ImageDAO2 {
+	private static Logger logger = Logger.getLogger(ImageDAO2.class);
 
     /**
      * Return all the images for a given series.  Optionally exclude
      * sop instance uid's from the returned list.
      */
 	@Transactional(propagation=Propagation.REQUIRED)
-    public List<ImageDTO> findImagesBySeriesUid(String seriesUid,
+    public List<ImageDTO2> findImagesBySeriesUid(String seriesUid,
     		                                    String exclusionSopUidList) throws DataAccessException {
     	String query="";
     	if(exclusionSopUidList.equals("")) {
@@ -43,7 +43,7 @@ public class ImageDAOImpl extends AbstractDAO
 
 
         List<GeneralImage> results = getHibernateTemplate().find(query);
-        List<ImageDTO> imageResults = new ArrayList<ImageDTO>();
+        List<ImageDTO2> imageResults = new ArrayList<ImageDTO2>();
 
         if(results == null || results.isEmpty()){
         	logger.info("No image found for request seriesuid="+seriesUid);
@@ -52,7 +52,7 @@ public class ImageDAOImpl extends AbstractDAO
         TrialDataProvenance tdp = results.get(0).getDataProvenance();
         String ssg = results.get(0).getGeneralSeries().getSecurityGroup();
         for(GeneralImage gi: results){
-        	ImageDTO image = new ImageDTO(gi.getSOPInstanceUID(),
+        	ImageDTO2 image = new ImageDTO2(gi.getSOPInstanceUID(),
         			gi.getFilename(),
         			gi.getDicomSize(),
         			tdp.getProject(),

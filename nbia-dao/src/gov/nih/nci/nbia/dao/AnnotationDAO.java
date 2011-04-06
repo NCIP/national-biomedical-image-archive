@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.AnnotationDTO;
-import gov.nih.nci.ncia.dto.AnnotationFileDTO;
+import gov.nih.nci.nbia.dto.AnnotationDTO;
+import gov.nih.nci.nbia.dto.AnnotationFileDTO;
 
 import java.util.List;
 import java.util.Map;

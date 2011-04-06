@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.deletion.dao;
+package gov.nih.nci.nbia.deletion.dao;
 
-import gov.nih.nci.ncia.deletion.DeletionAuditStudyInfo;
-import gov.nih.nci.ncia.exception.DataAccessException;
+import gov.nih.nci.nbia.deletion.DeletionAuditStudyInfo;
+import gov.nih.nci.nbia.exception.DataAccessException;
 
 public interface StudyDAO {
 	public void removeStudy(Integer studyId) throws DataAccessException;

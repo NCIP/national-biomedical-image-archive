@@ -1,7 +1,7 @@
 package gov.nih.nci.nbia.servlet;
 
 import gov.nih.nci.nbia.DownloadProcessor;
-import gov.nih.nci.ncia.dto.AnnotationDTO;
+import gov.nih.nci.nbia.dto.AnnotationDTO;
 import gov.nih.nci.nbia.dto.ImageDTO2;
 import gov.nih.nci.security.util.StringEncrypter;
 

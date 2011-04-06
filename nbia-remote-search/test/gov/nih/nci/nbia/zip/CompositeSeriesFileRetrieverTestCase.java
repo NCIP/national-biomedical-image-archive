@@ -10,11 +10,11 @@ import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.dto.AnnotationFileDTO;
+import gov.nih.nci.nbia.dto.DicomFileDTO;
+import gov.nih.nci.nbia.dto.ImageFileDTO;
 import gov.nih.nci.nbia.remotesearch.RemoteDrillDown;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
-import gov.nih.nci.ncia.dto.AnnotationFileDTO;
-import gov.nih.nci.ncia.dto.DicomFileDTO;
-import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.NBIANode;
@@ -136,7 +136,7 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	gov.nih.nci.ncia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	gov.nih.nci.nbia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
     	List<ImageFileDTO> results = result.getImageFileDTOList(); 
     	assertEquals(results.size(), 2);
     	
@@ -176,7 +176,7 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	gov.nih.nci.ncia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	gov.nih.nci.nbia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
     	List<ImageFileDTO> results = result.getImageFileDTOList();
     	assertEquals(results.size(), 2);
     	
@@ -219,7 +219,7 @@ public class CompositeSeriesFileRetrieverTestCase {
 
     	//verify the OUT
     	CompositeSeriesFileRetriever compositeSeriesFileRetriever = new CompositeSeriesFileRetriever();
-    	gov.nih.nci.ncia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
+    	gov.nih.nci.nbia.dto.DicomFileDTO result = compositeSeriesFileRetriever.retrieveImages(seriesSearchResult);
     	List<ImageFileDTO> results = result.getImageFileDTOList();
     	compositeSeriesFileRetriever.cleanupResultsDirectory();
     	assertEquals(results.size(), 2);

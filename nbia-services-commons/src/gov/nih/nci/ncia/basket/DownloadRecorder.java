@@ -1,8 +1,8 @@
 package gov.nih.nci.ncia.basket;
 
-import gov.nih.nci.ncia.dao.DownloadDataDAO;
+import gov.nih.nci.nbia.dao.DownloadDataDAO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.Map;
 

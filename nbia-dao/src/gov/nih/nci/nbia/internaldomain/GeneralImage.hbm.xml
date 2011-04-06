@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="gov.nih.nci.ncia.internaldomain">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
 	<class name="GeneralImage" table="GENERAL_IMAGE" lazy="true" polymorphism="explicit">
 		<cache usage="read-write" />
 		<id name="id" type="integer" column="IMAGE_PK_ID">
@@ -52,12 +52,12 @@
 		<property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
 		<property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
     		<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
-    	
+
 		<!-- Associations mapping for the GeneralImage class -->
-		<many-to-one name="patient" class="gov.nih.nci.ncia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" insert="false" update="false"/>
-		<many-to-one name="generalSeries" class="gov.nih.nci.ncia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>
-		<one-to-one name="ctimage" class="gov.nih.nci.ncia.internaldomain.CTImage" property-ref="generalImage" />
-		<many-to-one name="dataProvenance" class="gov.nih.nci.ncia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
-		<many-to-one name="study" class="gov.nih.nci.ncia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />	
+		<many-to-one name="patient" class="gov.nih.nci.nbia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" insert="false" update="false"/>
+		<many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>
+		<one-to-one name="ctimage" class="gov.nih.nci.nbia.internaldomain.CTImage" property-ref="generalImage" />
+		<many-to-one name="dataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
+		<many-to-one name="study" class="gov.nih.nci.nbia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
 	</class>
 </hibernate-mapping>

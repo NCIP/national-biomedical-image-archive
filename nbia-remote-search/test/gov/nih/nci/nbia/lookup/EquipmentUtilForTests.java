@@ -4,7 +4,11 @@ import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
-import gov.nih.nci.ncia.search.*;
+import gov.nih.nci.nbia.search.*;
+import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.EquipmentUtil;
+import gov.nih.nci.ncia.search.Manufacturer;
+import gov.nih.nci.ncia.search.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;

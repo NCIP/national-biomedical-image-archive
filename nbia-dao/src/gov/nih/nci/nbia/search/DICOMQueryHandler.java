@@ -42,12 +42,11 @@
 /**
  * @copyright
  */
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.query.DICOMQuery;
+import gov.nih.nci.nbia.query.DICOMQuery;
 
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
 
 /**

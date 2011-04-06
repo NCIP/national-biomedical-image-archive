@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 public class QueryStorageConstants {
 	 public static final String FIRST_SUB_ATTR = "0";

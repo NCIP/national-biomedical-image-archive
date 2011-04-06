@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.CustomSeriesListAttributeDTO;
-import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
+import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
 
 import java.util.ArrayList;
 import java.util.List;

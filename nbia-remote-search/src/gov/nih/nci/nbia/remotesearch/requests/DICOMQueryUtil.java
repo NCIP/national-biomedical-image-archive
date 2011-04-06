@@ -1,9 +1,9 @@
 package gov.nih.nci.nbia.remotesearch.requests;
 
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.querystorage.QueryAttributeWrapper;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
 import gov.nih.nci.ncia.criteria.NodeCriteria;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
 
 import java.util.ArrayList;

@@ -57,17 +57,17 @@
  */
 package gov.nih.nci.ncia.lookup;
 
+import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.dto.EquipmentDTO;
+import gov.nih.nci.nbia.search.LocalNode;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.Ultrasound_Util;
-import gov.nih.nci.ncia.dao.GeneralSeriesDAO;
-import gov.nih.nci.ncia.dao.ImageDAO;
-import gov.nih.nci.ncia.dto.EquipmentDTO;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.EquipmentUtil;
-import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.Manufacturer;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Collection;

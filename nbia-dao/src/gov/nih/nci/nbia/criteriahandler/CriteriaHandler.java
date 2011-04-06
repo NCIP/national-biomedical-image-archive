@@ -9,7 +9,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.criteriahandler;
+package gov.nih.nci.nbia.criteriahandler;
 
 import gov.nih.nci.ncia.criteria.Criteria;
 

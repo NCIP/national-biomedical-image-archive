@@ -18,12 +18,12 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.querystorage;
+package gov.nih.nci.nbia.querystorage;
 
-import gov.nih.nci.ncia.dto.QueryHistoryDTO;
-import gov.nih.nci.ncia.dto.SavedQueryDTO;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.exception.DuplicateQueryException;
+import gov.nih.nci.nbia.dto.QueryHistoryDTO;
+import gov.nih.nci.nbia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.exception.DuplicateQueryException;
+import gov.nih.nci.nbia.query.DICOMQuery;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;

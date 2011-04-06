@@ -1,9 +1,10 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.lookup.StudyNumberMap;
 
 import java.io.File;
 import java.net.URL;
@@ -39,7 +40,7 @@ public class QueryHandlerImplTestCase extends AbstractDbUnitTestForJunit4 {
 
 		myList.add(dsc);
 
-		qb.setStudyNumberMap(new gov.nih.nci.ncia.lookup.StudyNumberMap());
+		qb.setStudyNumberMap(new StudyNumberMap());
 		qb.setQueryCriteria(myList, "AND", am.getAuthorizedSites(), am.getAuthorizedSeriesSecurityGroups());
 		qb.query();
 
@@ -79,7 +80,7 @@ public class QueryHandlerImplTestCase extends AbstractDbUnitTestForJunit4 {
 
 		myList.add(dsc);
 
-		qb.setStudyNumberMap(new gov.nih.nci.ncia.lookup.StudyNumberMap());
+		qb.setStudyNumberMap(new StudyNumberMap());
 		qb.setQueryCriteria(myList, "AND", am.getAuthorizedSites(), am.getAuthorizedSeriesSecurityGroups());
 		qb.query();
 
@@ -127,7 +128,7 @@ public class QueryHandlerImplTestCase extends AbstractDbUnitTestForJunit4 {
 		dsc.setOperator(o);
 		myList.add(dsc);
 
-		qb.setStudyNumberMap(new gov.nih.nci.ncia.lookup.StudyNumberMap());
+		qb.setStudyNumberMap(new StudyNumberMap());
 		qb.setQueryCriteria(myList, "AND", am.getAuthorizedSites(), am.getAuthorizedSeriesSecurityGroups());
 		qb.query();
 
@@ -163,7 +164,7 @@ public class QueryHandlerImplTestCase extends AbstractDbUnitTestForJunit4 {
 		dsc.setOperator(o);
 		myList.add(dsc);
 
-		qb.setStudyNumberMap(new gov.nih.nci.ncia.lookup.StudyNumberMap());
+		qb.setStudyNumberMap(new StudyNumberMap());
 		qb.setQueryCriteria(myList, "OR", am.getAuthorizedSites(), am.getAuthorizedSeriesSecurityGroups());
 		qb.query();
 
@@ -176,14 +177,14 @@ public class QueryHandlerImplTestCase extends AbstractDbUnitTestForJunit4 {
 	@Test	
 	public void testGetPermissibleData() throws Exception {
 
-		qb.setStudyNumberMap(new gov.nih.nci.ncia.lookup.StudyNumberMap());
-		List<String> permissibleData = qb.getPermissibleData("gov.nih.nci.ncia.internaldomain",
+		qb.setStudyNumberMap(new StudyNumberMap());
+		List<String> permissibleData = qb.getPermissibleData("gov.nih.nci.nbia.internaldomain",
                                                              "GeneralSeries",
                                                              "modality");
 		Assert.assertEquals(permissibleData.size(), 1);
 		Assert.assertEquals(permissibleData.get(0),"CT");
 
-		permissibleData = qb.getPermissibleData("gov.nih.nci.ncia.internaldomain",
+		permissibleData = qb.getPermissibleData("gov.nih.nci.nbia.internaldomain",
 				                                "Study",
 				                                "occupation");
 		Assert.assertEquals(permissibleData.size(), 1);

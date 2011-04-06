@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
 import org.springframework.dao.DataAccessException;
 

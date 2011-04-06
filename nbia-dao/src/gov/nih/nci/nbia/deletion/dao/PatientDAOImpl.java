@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion.dao;
+package gov.nih.nci.nbia.deletion.dao;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import gov.nih.nci.nbia.deletion.DeletionAuditPatientInfo;
+import gov.nih.nci.nbia.exception.DataAccessException;
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.internaldomain.Study;
-import gov.nih.nci.ncia.deletion.DeletionAuditPatientInfo;
-import gov.nih.nci.ncia.exception.DataAccessException;
 
 public class PatientDAOImpl extends HibernateDaoSupport implements PatientDAO {
 

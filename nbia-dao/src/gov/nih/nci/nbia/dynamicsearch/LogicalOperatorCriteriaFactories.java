@@ -1,18 +1,18 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import gov.nih.nci.ncia.dynamicsearch.criteria.ContainsCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.CriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.EndWithCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.EqCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.GeCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.GtCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.LeCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.LtCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.NeCriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.StartWithCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.ContainsCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.EndWithCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.EqCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.GeCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.GtCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.LeCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.LtCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.NeCriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.StartWithCriteriaFactory;
 
 class LogicalOperatorCriteriaFactories {
 

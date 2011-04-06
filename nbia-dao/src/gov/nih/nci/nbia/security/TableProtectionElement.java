@@ -12,9 +12,9 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.security;
+package gov.nih.nci.nbia.security;
 
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.security.authorization.domainobjects.ProtectionElement;
 import gov.nih.nci.security.authorization.domainobjects.Role;
 

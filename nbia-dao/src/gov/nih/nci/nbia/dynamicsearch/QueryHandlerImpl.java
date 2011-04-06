@@ -1,16 +1,16 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
+import gov.nih.nci.nbia.dao.AbstractDAO;
+import gov.nih.nci.nbia.dto.StudyNumberDTO;
+import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaFactory;
+import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaForAuthorizedSiteData;
 import gov.nih.nci.nbia.internaldomain.Patient;
-import gov.nih.nci.ncia.dao.AbstractDAO;
-import gov.nih.nci.ncia.dto.StudyNumberDTO;
-import gov.nih.nci.ncia.dynamicsearch.criteria.CriteriaFactory;
-import gov.nih.nci.ncia.dynamicsearch.criteria.CriteriaForAuthorizedSiteData;
-import gov.nih.nci.ncia.lookup.StudyNumberMap;
-import gov.nih.nci.ncia.search.LocalNode;
+import gov.nih.nci.nbia.lookup.StudyNumberMap;
+import gov.nih.nci.nbia.search.LocalNode;
+import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.xmlobject.Element;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.PatientSearchResultImpl;
-import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.xmlobject.Element;
 
 import java.util.ArrayList;
 import java.util.Collections;

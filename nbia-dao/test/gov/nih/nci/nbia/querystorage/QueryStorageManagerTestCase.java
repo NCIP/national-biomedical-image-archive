@@ -1,17 +1,13 @@
-package gov.nih.nci.ncia.querystorage;
+package gov.nih.nci.nbia.querystorage;
 
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.QueryHistoryDTO;
-import gov.nih.nci.ncia.dto.SavedQueryDTO;
-import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.dto.QueryHistoryDTO;
+import gov.nih.nci.nbia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.security.AuthorizationManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import junit.framework.Assert;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,10 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
+import gov.nih.nci.nbia.dto.AnnotationDTO;
+import gov.nih.nci.nbia.dto.AnnotationFileDTO;
 import gov.nih.nci.nbia.internaldomain.Annotation;
 import gov.nih.nci.nbia.util.HqlUtils;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.dto.AnnotationDTO;
-import gov.nih.nci.ncia.dto.AnnotationFileDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;

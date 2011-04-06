@@ -10,7 +10,6 @@ import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import gov.nih.nci.ncia.dao.AbstractDAO;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

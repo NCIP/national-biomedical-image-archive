@@ -17,9 +17,9 @@
 */
 package gov.nih.nci.ncia.newresults;
 
-import gov.nih.nci.ncia.dao.ImageDAO;
+import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.factories.ApplicationFactory;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.Date;
 

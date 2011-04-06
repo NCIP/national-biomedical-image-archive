@@ -1,10 +1,11 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
+import gov.nih.nci.nbia.xmlobject.Element;
+
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.net.URL;
-import java.io.File;
-import gov.nih.nci.ncia.xmlobject.Element;
 import junit.framework.TestCase;
 
 public class TableRelationshipsTestCase extends TestCase {

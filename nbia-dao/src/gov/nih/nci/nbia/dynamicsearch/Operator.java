@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 /**
  * <p>this object should instead use a constructor to pass in all values

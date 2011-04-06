@@ -27,10 +27,10 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.security;
+package gov.nih.nci.nbia.security;
 
+import gov.nih.nci.nbia.dao.AbstractDAO;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.dao.AbstractDAO;
 import gov.nih.nci.security.AuthenticationManager;
 import gov.nih.nci.security.SecurityServiceProvider;
 import gov.nih.nci.security.UserProvisioningManager;

@@ -2,7 +2,7 @@ package gov.nih.nci.ncia.criteria;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
+import gov.nih.nci.nbia.querystorage.QueryAttributeWrapper;
 
 
 public class ImagingObservationCharacteristicQuantificationCriteria extends MultipleValuePersistentCriteria

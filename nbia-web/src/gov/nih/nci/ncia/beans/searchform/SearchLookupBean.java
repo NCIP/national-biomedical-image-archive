@@ -3,12 +3,12 @@
  */
 package gov.nih.nci.ncia.beans.searchform;
 
-import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
-import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
+import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.factories.ApplicationFactory;
 import gov.nih.nci.ncia.lookup.LookupManager;
 import gov.nih.nci.ncia.lookup.LookupManagerFactory;
@@ -104,7 +104,7 @@ public class SearchLookupBean {
     public boolean isShowCollectionSearch() {
     	return NCIAConfig.getShowCollectionSearchCriteria();
     }
-    
+
     /**
      * Returns the latest curation date present in the database
      *
@@ -213,7 +213,7 @@ public class SearchLookupBean {
         						"Yes"));
     	colorModeOptionItems.add(new SelectItem(ColorModeOptionCriteria.BMode,
                                                  "No"));
-        
+
     }
 
     private void buildTree() {

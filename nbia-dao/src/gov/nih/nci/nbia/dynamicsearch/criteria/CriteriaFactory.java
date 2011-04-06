@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dynamicsearch.criteria;
+package gov.nih.nci.nbia.dynamicsearch.criteria;
 
 import org.hibernate.criterion.Criterion;
 

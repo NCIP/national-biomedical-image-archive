@@ -18,18 +18,18 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.querystorage;
+package gov.nih.nci.nbia.querystorage;
 
-import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
-import gov.nih.nci.ncia.dao.AbstractDAO;
-import gov.nih.nci.ncia.dto.QueryHistoryDTO;
-import gov.nih.nci.ncia.dto.SavedQueryDTO;
-import gov.nih.nci.ncia.exception.DuplicateQueryException;
-import gov.nih.nci.ncia.internaldomain.QueryHistory;
-import gov.nih.nci.ncia.internaldomain.SavedQuery;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.security.NCIAUser;
+import gov.nih.nci.nbia.dao.AbstractDAO;
+import gov.nih.nci.nbia.dto.QueryHistoryDTO;
+import gov.nih.nci.nbia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.exception.DuplicateQueryException;
+import gov.nih.nci.nbia.internaldomain.QueryHistory;
+import gov.nih.nci.nbia.internaldomain.SavedQuery;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.security.NCIAUser;
+import gov.nih.nci.nbia.util.NCIAConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +38,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;

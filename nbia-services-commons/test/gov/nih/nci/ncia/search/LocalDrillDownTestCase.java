@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.search;
 
+import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.ImageDTO;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 
 import java.text.SimpleDateFormat;
 

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 /**
  * This class is utility class for Query Builder. The purpose of this class is to figure out
@@ -6,8 +6,8 @@ package gov.nih.nci.ncia.dynamicsearch;
  * this class will analyze NBIA database, and return appropriate HQL statement for join
  * relation.
  */
-import gov.nih.nci.ncia.xmlobject.Element;
-import gov.nih.nci.ncia.xmlobject.Relation;
+import gov.nih.nci.nbia.xmlobject.Element;
+import gov.nih.nci.nbia.xmlobject.Relation;
 
 import java.io.File;
 import java.io.FileInputStream;

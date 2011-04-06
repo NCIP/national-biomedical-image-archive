@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.dto.StudyNumberDTO;
+import gov.nih.nci.nbia.dto.StudyNumberDTO;
 
 import java.util.Map;
 

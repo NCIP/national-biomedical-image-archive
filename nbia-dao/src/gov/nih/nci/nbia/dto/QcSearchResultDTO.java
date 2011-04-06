@@ -1,10 +1,10 @@
-package gov.nih.nci.ncia.dto;
+package gov.nih.nci.nbia.dto;
 
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import gov.nih.nci.ncia.qctool.VisibilityStatus;
+import gov.nih.nci.nbia.qctool.VisibilityStatus;
 
 public class QcSearchResultDTO {
 	private String collection;

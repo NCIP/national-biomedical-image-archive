@@ -44,8 +44,8 @@
  */
 package gov.nih.nci.ncia.factories;
 
+import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.ncia.lookup.ImageRegisterMap;
-import gov.nih.nci.ncia.lookup.StudyNumberMap;
 
 import java.util.Date;
 

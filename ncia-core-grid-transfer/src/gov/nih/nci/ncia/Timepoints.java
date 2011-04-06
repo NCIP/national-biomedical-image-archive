@@ -3,10 +3,10 @@
  */
 package gov.nih.nci.ncia;
 
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.griddao.ImageDAOInterface;
 import gov.nih.nci.ncia.griddao.PatientDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.Collections;
 import java.util.Date;

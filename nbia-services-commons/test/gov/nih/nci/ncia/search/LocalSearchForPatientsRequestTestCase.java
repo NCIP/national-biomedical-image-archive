@@ -1,12 +1,12 @@
 package gov.nih.nci.ncia.search;
 
+import gov.nih.nci.nbia.criteria.AuthorizationCriteria;
+import gov.nih.nci.nbia.criteria.ImageModalityCriteria;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
-import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.ncia.util.SiteData;
 
 import java.util.List;
 

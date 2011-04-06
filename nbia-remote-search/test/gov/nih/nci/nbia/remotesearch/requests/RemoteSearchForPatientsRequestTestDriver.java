@@ -3,10 +3,13 @@ package gov.nih.nci.nbia.remotesearch.requests;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.search.*;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.search.*;
+import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.PatientSearchResults;
 
 import java.util.ArrayList;
 import java.util.List;

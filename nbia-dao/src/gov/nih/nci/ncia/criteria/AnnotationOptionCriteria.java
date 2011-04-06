@@ -4,7 +4,7 @@ package gov.nih.nci.ncia.criteria;
  * $Log: not supported by cvs2svn $
  */
 
-import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
+import gov.nih.nci.nbia.querystorage.QueryAttributeWrapper;
 
 import java.io.Serializable;
 

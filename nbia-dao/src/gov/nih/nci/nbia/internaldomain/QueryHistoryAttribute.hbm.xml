@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC 
+<!DOCTYPE hibernate-mapping PUBLIC
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 
 <hibernate-mapping>
 
-	<class name="gov.nih.nci.ncia.internaldomain.QueryHistoryAttribute"
+	<class name="gov.nih.nci.nbia.internaldomain.QueryHistoryAttribute"
 		table="QUERY_HISTORY_ATTRIBUTE">
 
 		<id name="id" column="QUERY_HISTORY_ATTRIBUTE_PK_ID" unsaved-value="0">
@@ -23,11 +23,11 @@
 
 		<!-- Associations -->
 		<many-to-one name="parentQuery"
-			class="gov.nih.nci.ncia.internaldomain.QueryHistory"
+			class="gov.nih.nci.nbia.internaldomain.QueryHistory"
 			not-null="true">
 			<column name="QUERY_HISTORY_PK_ID"/>
 		</many-to-one>
-			
+
 
 	</class>
 </hibernate-mapping>

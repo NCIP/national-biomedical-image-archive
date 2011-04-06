@@ -1,6 +1,7 @@
 package gov.nih.nci.cagrid.ncia.service;
 
 import static java.lang.System.out;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.Timepoints;
 import gov.nih.nci.ncia.ServiceImplHelper;
 import gov.nih.nci.ncia.domain.Image;
@@ -13,7 +14,6 @@ import gov.nih.nci.ncia.griddao.TrialDataProvenanceDAOInterface;
 import gov.nih.nci.ncia.gridzip.ZipWorker;
 import gov.nih.nci.ncia.gridzip.ZippingDTO;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.io.IOException;
 import java.io.PipedInputStream;

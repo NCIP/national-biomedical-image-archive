@@ -15,7 +15,7 @@
  *
  *
  */
-package gov.nih.nci.ncia.query;
+package gov.nih.nci.nbia.query;
 
 import java.io.Serializable;
 import java.util.Date;

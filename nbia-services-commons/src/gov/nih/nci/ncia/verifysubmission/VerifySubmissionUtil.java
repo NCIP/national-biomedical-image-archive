@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.verifysubmission;
 
-import gov.nih.nci.ncia.dto.SeriesSubmissionCountDTO;
-import gov.nih.nci.ncia.util.SiteData;
+import gov.nih.nci.nbia.dto.SeriesSubmissionCountDTO;
+import gov.nih.nci.nbia.util.SiteData;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

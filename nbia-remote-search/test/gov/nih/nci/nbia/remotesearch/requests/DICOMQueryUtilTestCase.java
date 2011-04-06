@@ -1,9 +1,9 @@
 package gov.nih.nci.nbia.remotesearch.requests;
 
 import static org.junit.Assert.assertEquals;
+import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.util.*;
 import gov.nih.nci.ncia.criteria.*;
-import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
 
 import java.util.*;

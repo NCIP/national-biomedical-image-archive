@@ -6,10 +6,12 @@ import org.apache.axis.types.URI;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.search.*;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.PatientSearchResultImpl;
+import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudyIdentifiers;
-import gov.nih.nci.ncia.search.*;
+import gov.nih.nci.ncia.search.StudySearchResult;
 import junit.framework.TestCase;
 
 public class RemoteDrillDownTestDriver extends TestCase {

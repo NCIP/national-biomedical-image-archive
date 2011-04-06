@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.markup;
+package gov.nih.nci.nbia.markup;
 
 import org.springframework.dao.DataAccessException;
 
-import gov.nih.nci.ncia.dto.MarkupDTO;
+import gov.nih.nci.nbia.dto.MarkupDTO;
 
 public interface MarkupManager {
 

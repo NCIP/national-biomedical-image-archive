@@ -3,8 +3,8 @@
  */
 package gov.nih.nci.ncia.customserieslist;
 
+import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.SeriesDTO;
 
 import java.util.ArrayList;
 import java.util.List;

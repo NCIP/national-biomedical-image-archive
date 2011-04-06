@@ -1,5 +1,7 @@
 package gov.nih.nci.ncia.deletion;
 
+import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
+
 import java.util.List;
 import java.util.Map;
 

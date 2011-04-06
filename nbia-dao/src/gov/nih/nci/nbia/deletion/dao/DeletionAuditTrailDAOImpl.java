@@ -1,14 +1,14 @@
-package gov.nih.nci.ncia.deletion.dao;
+package gov.nih.nci.nbia.deletion.dao;
 
 import java.util.Date;
 import java.util.List;
 
+import gov.nih.nci.nbia.deletion.DeletionAuditPatientInfo;
+import gov.nih.nci.nbia.deletion.DeletionAuditSeriesInfo;
+import gov.nih.nci.nbia.deletion.DeletionAuditStudyInfo;
+import gov.nih.nci.nbia.exception.DataAccessException;
 import gov.nih.nci.nbia.internaldomain.DeletionAuditTrail;
-import gov.nih.nci.ncia.deletion.DeletionAuditPatientInfo;
-import gov.nih.nci.ncia.deletion.DeletionAuditSeriesInfo;
-import gov.nih.nci.ncia.deletion.DeletionAuditStudyInfo;
-import gov.nih.nci.ncia.exception.DataAccessException;
-import gov.nih.nci.ncia.util.NCIAConstants;
+import gov.nih.nci.nbia.util.NCIAConstants;
 
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;

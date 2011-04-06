@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
-import gov.nih.nci.ncia.xmlobject.DataGroup;
-import gov.nih.nci.ncia.xmlobject.DataSource;
-import gov.nih.nci.ncia.xmlobject.SourceItem;
+import gov.nih.nci.nbia.xmlobject.DataGroup;
+import gov.nih.nci.nbia.xmlobject.DataSource;
+import gov.nih.nci.nbia.xmlobject.SourceItem;
 
 import java.io.File;
 import java.io.FileInputStream;

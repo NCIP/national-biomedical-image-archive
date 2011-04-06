@@ -27,20 +27,20 @@ import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
 import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
-import gov.nih.nci.ncia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.querystorage.QueryStorageManager;
+import gov.nih.nci.nbia.search.LocalNode;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.lookup.LookupManager;
 import gov.nih.nci.ncia.lookup.LookupManagerFactory;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.querystorage.QueryStorageManager;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.LocalNode;
 import gov.nih.nci.ncia.search.PatientSearchCompletionService;
 import gov.nih.nci.ncia.search.PatientSearchResults;
 import gov.nih.nci.ncia.search.PatientSearcherService;
 import gov.nih.nci.ncia.search.PatientSearcherServiceFactory;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.util.SavedQueryReconstructor;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,15 +97,15 @@ public class NewResultsProcessor implements Job {
                     AuthorizationManager am = new AuthorizationManager(dto.getUserId());
                     am.authorizeCollections(newQuery);
                     am.authorizeSitesAndSSGs(newQuery);
-                    
+
                     LookupManager lookupMgr = LookupManagerFactory.createLookupManager(am.getAuthorizedCollections());
-                    boolean newResults = doResultsExist(newQuery, 
+                    boolean newResults = doResultsExist(newQuery,
                     		                            lookupMgr.getSearchableNodes().keySet());
-            		
+
                     if (newResults) {
                         qsm.addNewResultsForQuery(newQuery.getSavedQueryId());
                     }
-                } 
+                }
                 catch (Exception e) {
                 	System.out.println("Problem re-executing query");
                 	e.printStackTrace();
@@ -114,8 +114,8 @@ public class NewResultsProcessor implements Job {
         }
     }
 
-    
-    private static boolean doResultsExist(DICOMQuery newQuery, 
+
+    private static boolean doResultsExist(DICOMQuery newQuery,
     		                              Set<NBIANode> searchableNodes) {
 
         PatientSearcherService patientSeacherService =
@@ -124,7 +124,7 @@ public class NewResultsProcessor implements Job {
         List<NBIANode> selectedNodes = new ArrayList<NBIANode>();
 
         NodeCriteria nodeCriteria = newQuery.getNodeCriteria();
-        
+
         if(nodeCriteria!=null) {
 	        List<String> nodeUrls = nodeCriteria.getRemoteNodes();
 	    	for(NBIANode searchableNode : searchableNodes) {
@@ -133,20 +133,20 @@ public class NewResultsProcessor implements Job {
 	    		}
 	    	}
         }
-        
+
         if(selectedNodes.isEmpty()) {
         	selectedNodes.add(LocalNode.getLocalNode());
         }
-    	
+
         PatientSearchCompletionService results = patientSeacherService.searchForPatients(selectedNodes,
         		                                                                         newQuery);
-        
-		try {    		
+
+		try {
 			for(int i=0;i<results.getNodesToSearch().size();i++) {
 				//this is a blocking call
 				Future<PatientSearchResults> future = results.getCompletionService().take();
 				//this is a blocking call
-				    		
+
 				PatientSearchResults result = future.get();
 				//result.getResults will be null if there was an error in issuing query
 				if(result.getResults()!=null && result.getResults().length>0) {
@@ -159,7 +159,7 @@ public class NewResultsProcessor implements Job {
 			//any exceptions and results a search result that indicates
 			//there was an error
 			ex.printStackTrace();
-		}	
+		}
 		return false;
     }
 }

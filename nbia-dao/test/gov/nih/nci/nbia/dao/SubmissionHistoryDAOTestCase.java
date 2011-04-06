@@ -1,9 +1,9 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.dto.DayCountDTO;
-import gov.nih.nci.ncia.dto.SeriesSubmissionCountDTO;
-import gov.nih.nci.ncia.dto.SubmissionCountsDTO;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.dto.DayCountDTO;
+import gov.nih.nci.nbia.dto.SeriesSubmissionCountDTO;
+import gov.nih.nci.nbia.dto.SubmissionCountsDTO;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

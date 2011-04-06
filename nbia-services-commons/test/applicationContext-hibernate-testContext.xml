@@ -41,35 +41,35 @@
 
     <property name="mappingResources">
       <list>
-        <value>gov/nih/nci/ncia/internaldomain/ClinicalTrial.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/Patient.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/Study.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/GeneralSeries.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/GeneralImage.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/GeneralEquipment.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CTImage.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/StudyNumber.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/TrialDataProvenance.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/TrialSite.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/Annotation.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/DeletionAuditTrail.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ClinicalTrial.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Patient.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Study.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralSeries.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralEquipment.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CTImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/StudyNumber.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialDataProvenance.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialSite.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DeletionAuditTrail.hbm.xml</value>
 
-        <value>gov/nih/nci/ncia/security/NCIAUser.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CollectionDesc.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CustomSeriesList.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/DownloadDataHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/ImageMarkup.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/LoginHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/NumberMonth.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/QCStatusHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/QueryHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/QueryHistoryAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQuery.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQueryAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQueryLastExec.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/security/NCIAUser.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CollectionDesc.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QCStatusHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QueryHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QueryHistoryAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQuery.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQueryAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
       </list>
     </property>
 
@@ -89,89 +89,89 @@
     </property>
   </bean>
 
-  <bean id="annotationDAO2" class="gov.nih.nci.ncia.dao.AnnotationDAOImpl">
+  <bean id="annotationDAO2" class="gov.nih.nci.nbia.dao.AnnotationDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="collectionDescDAO" class="gov.nih.nci.ncia.dao.CollectionDescDAOImpl" scope="prototype">
+  <bean id="collectionDescDAO" class="gov.nih.nci.nbia.dao.CollectionDescDAOImpl" scope="prototype">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="customSeriesListDAO" class="gov.nih.nci.ncia.dao.CustomSeriesListDAOImpl">
+  <bean id="customSeriesListDAO" class="gov.nih.nci.nbia.dao.CustomSeriesListDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="downloadDataDAO" class="gov.nih.nci.ncia.dao.DownloadDataDAOImpl">
+  <bean id="downloadDataDAO" class="gov.nih.nci.nbia.dao.DownloadDataDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="generalSeriesDAO" class="gov.nih.nci.ncia.dao.GeneralSeriesDAOImpl">
+  <bean id="generalSeriesDAO" class="gov.nih.nci.nbia.dao.GeneralSeriesDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="imageDAO" class="gov.nih.nci.ncia.dao.ImageDAOImpl">
+  <bean id="imageDAO" class="gov.nih.nci.nbia.dao.ImageDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="loginHistoryDAO" class="gov.nih.nci.ncia.dao.LoginHistoryDAOImpl">
+  <bean id="loginHistoryDAO" class="gov.nih.nci.nbia.dao.LoginHistoryDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="patientDAO" class="gov.nih.nci.ncia.dao.PatientDAOImpl">
+  <bean id="patientDAO" class="gov.nih.nci.nbia.dao.PatientDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="qcStatusDAO" class="gov.nih.nci.ncia.dao.QcStatusDAOImpl">
+  <bean id="qcStatusDAO" class="gov.nih.nci.nbia.dao.QcStatusDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="studyDAO" class="gov.nih.nci.ncia.dao.StudyDAOImpl">
+  <bean id="studyDAO" class="gov.nih.nci.nbia.dao.StudyDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="studyNumberDAO" class="gov.nih.nci.ncia.dao.StudyNumberDAOImpl">
+  <bean id="studyNumberDAO" class="gov.nih.nci.nbia.dao.StudyNumberDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="submissionHistoryDAO" class="gov.nih.nci.ncia.dao.SubmissionHistoryDAOImpl">
+  <bean id="submissionHistoryDAO" class="gov.nih.nci.nbia.dao.SubmissionHistoryDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="queryHandler" class="gov.nih.nci.ncia.dynamicsearch.QueryHandlerImpl">
+  <bean id="queryHandler" class="gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="markupManager" class="gov.nih.nci.ncia.markup.MarkupManagerImpl">
+  <bean id="markupManager" class="gov.nih.nci.nbia.markup.MarkupManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="queryStorageManager" class="gov.nih.nci.ncia.querystorage.QueryStorageManagerImpl">
+  <bean id="queryStorageManager" class="gov.nih.nci.nbia.querystorage.QueryStorageManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="dicomQueryHandler" class="gov.nih.nci.ncia.search.DICOMQueryHandlerImpl" scope="prototype">
+  <bean id="dicomQueryHandler" class="gov.nih.nci.nbia.search.DICOMQueryHandlerImpl" scope="prototype">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
   <!--  because of how dbubnit works v spring life cycle, this must be proto -->
   <bean id="nciaSecurityManager"
-        class="gov.nih.nci.ncia.security.NCIASecurityManagerImpl"
+        class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"
         init-method="init"
         scope="prototype">
 
@@ -180,32 +180,32 @@
     </property>
   </bean>
 
-  <bean id="seriesDao" class="gov.nih.nci.ncia.deletion.dao.SeriesDAOImpl">
+  <bean id="seriesDao" class="gov.nih.nci.nbia.deletion.dao.SeriesDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="annotationDao" class="gov.nih.nci.ncia.deletion.dao.AnnotationDAOImpl">
+  <bean id="annotationDao" class="gov.nih.nci.nbia.deletion.dao.AnnotationDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="imageDao" class="gov.nih.nci.ncia.deletion.dao.ImageDAOImpl">
+  <bean id="imageDao" class="gov.nih.nci.nbia.deletion.dao.ImageDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="studyDao" class="gov.nih.nci.ncia.deletion.dao.StudyDAOImpl">
+  <bean id="studyDao" class="gov.nih.nci.nbia.deletion.dao.StudyDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="patientDao" class="gov.nih.nci.ncia.deletion.dao.PatientDAOImpl">
+  <bean id="patientDao" class="gov.nih.nci.nbia.deletion.dao.PatientDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="deletionAuditTrailDao" class="gov.nih.nci.ncia.deletion.dao.DeletionAuditTrailDAOImpl">
+  <bean id="deletionAuditTrailDao" class="gov.nih.nci.nbia.deletion.dao.DeletionAuditTrailDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>

@@ -1,20 +1,20 @@
 package gov.nih.nci.ncia.beans.savedquery;
-import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
-import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
+import gov.nih.nci.nbia.dto.AbstractStoredQueryDTO;
+import gov.nih.nci.nbia.dto.QueryHistoryDTO;
+import gov.nih.nci.nbia.dto.SavedQueryDTO;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.querystorage.QueryStorageManager;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.ncia.beans.BeanManager;
+import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
+import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.datamodel.SortSavedQueryModel;
-import gov.nih.nci.ncia.dto.AbstractStoredQueryDTO;
-import gov.nih.nci.ncia.dto.QueryHistoryDTO;
-import gov.nih.nci.ncia.dto.SavedQueryDTO;
 import gov.nih.nci.ncia.newresults.NewResultsFlagUpdater;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.querystorage.QueryStorageManager;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.SavedQueryReconstructor;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -300,7 +300,7 @@ public class SavedQueryBean {
     /**
      * Performs the action to edit a query. Repopulates the search values from
      * the criteria and then takes the user to the search page.
-     * 
+     *
      * @throws Exception
      */
     public String editQuery() throws Exception {
@@ -354,7 +354,7 @@ public class SavedQueryBean {
         }
         swb.setQuery(newQuery);
         swb.updateTree();
-        
+
         return newQuery;
     }
 

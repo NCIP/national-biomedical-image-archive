@@ -6,12 +6,12 @@
 * Removed unused code.
 *
 */
-package gov.nih.nci.ncia.markup;
+package gov.nih.nci.nbia.markup;
 
+import gov.nih.nci.nbia.dao.AbstractDAO;
+import gov.nih.nci.nbia.dto.MarkupDTO;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.nbia.internaldomain.ImageMarkup;
-import gov.nih.nci.ncia.dao.AbstractDAO;
-import gov.nih.nci.ncia.dto.MarkupDTO;
 
 import java.util.List;
 import org.apache.log4j.Logger;

@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.gridsearch;
 
-import gov.nih.nci.ncia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageDTO;
 import gov.nih.nci.ncia.search.ThumbnailURLResolver;
 import gov.nih.nci.cagrid.ncia.service.NCIACoreServiceConfiguration;
 import java.net.URI;

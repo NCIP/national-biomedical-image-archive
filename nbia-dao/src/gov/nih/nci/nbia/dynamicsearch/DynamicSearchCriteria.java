@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dynamicsearch;
+package gov.nih.nci.nbia.dynamicsearch;
 
 /**
  * This object encapsulates a criteria for what kind of results

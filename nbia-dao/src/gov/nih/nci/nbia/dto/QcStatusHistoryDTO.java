@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.dto;
+package gov.nih.nci.nbia.dto;
 
-import gov.nih.nci.ncia.qctool.VisibilityStatus;
+import gov.nih.nci.nbia.qctool.VisibilityStatus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;	

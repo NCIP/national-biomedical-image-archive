@@ -12,7 +12,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.exception;
+package gov.nih.nci.nbia.exception;
 
 public class DuplicateQueryException extends Exception {
     /**

@@ -10,11 +10,14 @@ import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
+import gov.nih.nci.nbia.search.*;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultImpl;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.PatientSearchResultImpl;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.*;
+import gov.nih.nci.ncia.search.StudySearchResult;
 import gov.nih.nci.ncia.search.StudySearchResultImpl;
 
 import org.apache.axis.message.addressing.AttributedURI;

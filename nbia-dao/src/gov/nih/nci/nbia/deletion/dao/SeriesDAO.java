@@ -1,8 +1,8 @@
-package gov.nih.nci.ncia.deletion.dao;
+package gov.nih.nci.nbia.deletion.dao;
 
-import gov.nih.nci.ncia.deletion.DeletionAuditSeriesInfo;
-import gov.nih.nci.ncia.deletion.DeletionDisplayObject;
-import gov.nih.nci.ncia.exception.DataAccessException;
+import gov.nih.nci.nbia.deletion.DeletionAuditSeriesInfo;
+import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
+import gov.nih.nci.nbia.exception.DataAccessException;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion;
+package gov.nih.nci.nbia.deletion;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;

@@ -3,9 +3,9 @@
  */
 package gov.nih.nci.ncia.modalitydescription;
 
-import gov.nih.nci.ncia.dao.ModalityDescDAO;
-import gov.nih.nci.ncia.dto.ModalityDescDTO;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.dao.ModalityDescDAO;
+import gov.nih.nci.nbia.dto.ModalityDescDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.util.List;
 

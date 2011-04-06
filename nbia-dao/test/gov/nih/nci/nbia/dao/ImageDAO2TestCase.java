@@ -5,7 +5,7 @@ package gov.nih.nci.nbia.dao;
 
 import gov.nih.nci.nbia.dto.ImageDTO2;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.util.List;
 

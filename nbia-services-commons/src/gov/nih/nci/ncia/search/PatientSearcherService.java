@@ -1,7 +1,9 @@
 package gov.nih.nci.ncia.search;
 
 import java.util.List;
-import gov.nih.nci.ncia.query.DICOMQuery;
+
+import gov.nih.nci.nbia.query.DICOMQuery;
+
 import java.util.concurrent.ExecutorService;
 
 /**

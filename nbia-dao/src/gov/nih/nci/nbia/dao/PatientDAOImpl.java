@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.dao;
+package gov.nih.nci.nbia.dao;
 
+import gov.nih.nci.nbia.dto.PatientDTO;
 import gov.nih.nci.nbia.internaldomain.Patient;
-import gov.nih.nci.ncia.dto.PatientDTO;
 
 import java.util.List;
 

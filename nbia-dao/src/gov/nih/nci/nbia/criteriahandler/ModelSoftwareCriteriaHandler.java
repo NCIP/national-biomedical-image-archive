@@ -15,12 +15,12 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.ncia.criteriahandler;
+package gov.nih.nci.nbia.criteriahandler;
 
 import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.ModelCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
-import gov.nih.nci.ncia.search.DICOMQueryHandler;
+import gov.nih.nci.nbia.search.DICOMQueryHandler;
 
 import java.util.Collection;
 

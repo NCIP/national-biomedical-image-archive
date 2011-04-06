@@ -1,15 +1,15 @@
 package gov.nih.nci.ncia.beans.security;
 
+import gov.nih.nci.nbia.dao.LoginHistoryDAO;
+import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.dao.LoginHistoryDAO;
-import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.security.AuthorizationManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager;
-import gov.nih.nci.ncia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.SpringApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;

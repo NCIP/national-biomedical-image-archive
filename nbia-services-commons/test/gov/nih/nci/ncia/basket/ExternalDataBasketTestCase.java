@@ -1,8 +1,8 @@
 package gov.nih.nci.ncia.basket;
 
+import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.security.AuthorizationManager;
 
 import java.util.ArrayList;
 import java.util.List;

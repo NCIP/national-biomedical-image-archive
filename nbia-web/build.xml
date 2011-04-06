@@ -178,7 +178,7 @@
                    replace="${nbia.version}" flags="g" />
     <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/footer.xhtml"
                    match="\{NCIA_PROD_BUILD_TAG\}"
-                   replace="${bcia_prod_build_tag.final}"
+                   replace="${nbia_prod_build_tag.final}"
                    flags="g" />
     <!-- end: Insert release/build info into footer -->
 

@@ -2,7 +2,7 @@ package gov.nih.nci.nbia.servlet;
 
 import gov.nih.nci.nbia.DownloadProcessor;
 import gov.nih.nci.ncia.dto.AnnotationDTO;
-import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.dto.ImageDTO2;
 import gov.nih.nci.security.util.StringEncrypter;
 
 import java.io.File;
@@ -72,7 +72,7 @@ public class DownloadServlet extends HttpServlet {
         }catch(Exception e){
             throw new RuntimeException(e);
         }
-        List<ImageDTO> imageResults = processor.process(seriesUid, sopUids);
+        List<ImageDTO2> imageResults = processor.process(seriesUid, sopUids);
         if((imageResults == null) || imageResults.isEmpty() ){
             //no data for this series
             logger.info("no data for series: " +seriesUid);
@@ -95,7 +95,7 @@ public class DownloadServlet extends HttpServlet {
         }
     }
     private void sendResponse(HttpServletResponse response,
-            List<ImageDTO> imageResults,
+            List<ImageDTO2> imageResults,
             List<AnnotationDTO> annoResults) throws IOException {
 
         TarArchiveOutputStream tos = new TarArchiveOutputStream(response.getOutputStream());
@@ -115,11 +115,11 @@ public class DownloadServlet extends HttpServlet {
         }
     }
 
-    private void sendImagesData(List<ImageDTO> imageResults,
+    private void sendImagesData(List<ImageDTO2> imageResults,
                                 TarArchiveOutputStream tos) throws IOException {
 
         InputStream dicomIn = null;
-        for (ImageDTO imageDto : imageResults){
+        for (ImageDTO2 imageDto : imageResults){
              String filePath = imageDto.getFileName();
              String sop = imageDto.getSOPInstanceUID();
 
@@ -172,10 +172,10 @@ public class DownloadServlet extends HttpServlet {
             return decrypter.decrypt(password);
         }
     }
-    private static long computeContentLength(List<ImageDTO> imageResults,
+    private static long computeContentLength(List<ImageDTO2> imageResults,
                     List<AnnotationDTO> annoResults) {
         long contentSize=0;
-        for(ImageDTO imageDto : imageResults){
+        for(ImageDTO2 imageDto : imageResults){
             contentSize += imageDto.getDicomSize();
         }
         for(AnnotationDTO annoDto : annoResults){

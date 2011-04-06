@@ -2,11 +2,11 @@
 <!--
   Application context definition for PetClinic on Hibernate.
 -->
-<beans xmlns="http://www.springframework.org/schema/beans" 
+<beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jee="http://www.springframework.org/schema/jee" 
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
@@ -20,8 +20,8 @@
   <!-- <context:property-placeholder location="classpath:database.properties"/> -->
   <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:hibernate.properties"/>
-  </bean> 
-  
+  </bean>
+
   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
     <property name="driverClass" value="${hibernate.connection.driver_class}"/>
     <property name="jdbcUrl" value="${hibernate.connection.url}"/>
@@ -31,14 +31,14 @@
 
   <bean id="hProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     <property name="location" value="classpath:hibernate.properties" />
-  </bean> 
+  </bean>
 
   <!-- Hibernate SessionFactory -->
-  <bean id="sessionFactory" 
+  <bean id="sessionFactory"
         class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-  
+
     <property name="dataSource" ref="dataSource"/>
-      
+
     <property name="mappingResources">
       <list>
         <value>gov/nih/nci/ncia/internaldomain/ClinicalTrial.hbm.xml</value>
@@ -53,7 +53,7 @@
         <value>gov/nih/nci/ncia/internaldomain/TrialSite.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/Annotation.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/DeletionAuditTrail.hbm.xml</value>
-        
+
         <value>gov/nih/nci/ncia/security/NCIAUser.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/CollectionDesc.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/CustomSeriesList.hbm.xml</value>
@@ -68,26 +68,26 @@
         <value>gov/nih/nci/ncia/internaldomain/QueryHistoryAttribute.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/SavedQuery.hbm.xml</value>
         <value>gov/nih/nci/ncia/internaldomain/SavedQueryAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQueryLastExec.hbm.xml</value>        
-        <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value> 
+        <value>gov/nih/nci/ncia/internaldomain/SavedQueryLastExec.hbm.xml</value>
+        <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value>
       </list>
     </property>
-    
+
     <property name="hibernateProperties" ref="hProperties"/>
   </bean>
 
   <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
-  <bean id="transactionManager" 
+  <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager"
         p:sessionFactory-ref="sessionFactory"/>
 
 
   <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
-  <bean id="imageDAO2" class="gov.nih.nci.nbia.dao.ImageDAOImpl">
+  <bean id="imageDAO2" class="gov.nih.nci.nbia.dao.ImageDAO2Impl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
 
   <bean id="annotationDAO2" class="gov.nih.nci.ncia.dao.AnnotationDAOImpl">
     <property name="sessionFactory">
@@ -98,12 +98,12 @@
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="customSeriesListDAO" class="gov.nih.nci.ncia.dao.CustomSeriesListDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="downloadDataDAO" class="gov.nih.nci.ncia.dao.DownloadDataDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
@@ -113,64 +113,64 @@
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="imageDAO" class="gov.nih.nci.ncia.dao.ImageDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>   
+  </bean>
   <bean id="loginHistoryDAO" class="gov.nih.nci.ncia.dao.LoginHistoryDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>   
+  </bean>
   <bean id="patientDAO" class="gov.nih.nci.ncia.dao.PatientDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean> 
+  </bean>
   <bean id="qcStatusDAO" class="gov.nih.nci.ncia.dao.QcStatusDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="studyDAO" class="gov.nih.nci.ncia.dao.StudyDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="studyNumberDAO" class="gov.nih.nci.ncia.dao.StudyNumberDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean> 
+  </bean>
   <bean id="submissionHistoryDAO" class="gov.nih.nci.ncia.dao.SubmissionHistoryDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>   
+  </bean>
   <bean id="queryHandler" class="gov.nih.nci.ncia.dynamicsearch.QueryHandlerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="markupManager" class="gov.nih.nci.ncia.markup.MarkupManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>    
+  </bean>
   <bean id="queryStorageManager" class="gov.nih.nci.ncia.querystorage.QueryStorageManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>  
+  </bean>
   <bean id="dicomQueryHandler" class="gov.nih.nci.ncia.search.DICOMQueryHandlerImpl" scope="prototype">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>          
+  </bean>
   <!--  because of how dbubnit works v spring life cycle, this must be proto -->
-  <bean id="nciaSecurityManager" 
+  <bean id="nciaSecurityManager"
         class="gov.nih.nci.ncia.security.NCIASecurityManagerImpl"
         init-method="init"
         scope="prototype">
@@ -178,28 +178,28 @@
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean> 
-      
+  </bean>
+
   <bean id="seriesDao" class="gov.nih.nci.ncia.deletion.dao.SeriesDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean> 
+  </bean>
   <bean id="annotationDao" class="gov.nih.nci.ncia.deletion.dao.AnnotationDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean> 
+  </bean>
   <bean id="imageDao" class="gov.nih.nci.ncia.deletion.dao.ImageDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean> 
+  </bean>
   <bean id="studyDao" class="gov.nih.nci.ncia.deletion.dao.StudyDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean>   
+  </bean>
   <bean id="patientDao" class="gov.nih.nci.ncia.deletion.dao.PatientDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>

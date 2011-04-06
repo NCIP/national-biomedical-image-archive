@@ -1,6 +1,6 @@
 package gov.nih.nci.nbia.dto;
 
-public class ImageDTO {
+public class ImageDTO2 {
 	private String SOPInstanceUID;
 	private String fileName;
 	private Long dicomSize;
@@ -8,7 +8,7 @@ public class ImageDTO {
 	private String site;
 	private String ssg;
 	private int frameNum;
-	public ImageDTO(String SOPInstanceUID, String fileName, Long dicomSize, String project, String site, String ssg, int frameNum){
+	public ImageDTO2(String SOPInstanceUID, String fileName, Long dicomSize, String project, String site, String ssg, int frameNum){
 		this.SOPInstanceUID = SOPInstanceUID;
 		this.fileName = fileName;
 		this.dicomSize = dicomSize;
@@ -18,7 +18,7 @@ public class ImageDTO {
 		this.frameNum = frameNum;
 	}
 	
-	public ImageDTO(String SOPInstanceUID, String fileName, Long dicomSize, String project, String site, String ssg, String frameNum){
+	public ImageDTO2(String SOPInstanceUID, String fileName, Long dicomSize, String project, String site, String ssg, String frameNum){
 		this.SOPInstanceUID = SOPInstanceUID;
 		this.fileName = fileName;
 		this.dicomSize = dicomSize;

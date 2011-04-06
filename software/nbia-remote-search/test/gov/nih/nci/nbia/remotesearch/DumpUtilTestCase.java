@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.remotesearch;
+package gov.nih.nci.nbia.remotesearch;
 
 import org.junit.Test;
 

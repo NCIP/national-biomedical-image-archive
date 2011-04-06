@@ -1,12 +1,10 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
-import gov.nih.nci.ncia.search.AvailableSearchTerms;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.search.*;
-import gov.nih.nci.ncia.search.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;

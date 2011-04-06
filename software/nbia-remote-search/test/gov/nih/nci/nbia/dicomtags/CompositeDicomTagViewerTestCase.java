@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dicomtags;
+package gov.nih.nci.nbia.dicomtags;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,7 @@ import static org.powermock.api.easymock.PowerMock.createMock;
 import static org.powermock.api.easymock.PowerMock.expectNew;
 import static org.powermock.api.easymock.PowerMock.replay;
 import static org.powermock.api.easymock.PowerMock.verify;
+import gov.nih.nci.ncia.dicomtags.LocalDicomTagViewer;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 

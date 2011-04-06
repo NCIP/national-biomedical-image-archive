@@ -1,10 +1,10 @@
-package gov.nih.nci.ncia.dicomtags;
+package gov.nih.nci.nbia.dicomtags;
 
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultImpl;

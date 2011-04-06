@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dicomtags;
+package gov.nih.nci.nbia.dicomtags;
 
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertTrue;

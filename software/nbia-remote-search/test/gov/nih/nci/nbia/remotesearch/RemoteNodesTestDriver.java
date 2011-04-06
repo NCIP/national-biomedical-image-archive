@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.remotesearch;
+package gov.nih.nci.nbia.remotesearch;
 
-import gov.nih.nci.ncia.remotesearch.RemoteNodes;
+import gov.nih.nci.nbia.remotesearch.RemoteNodes;
 import junit.framework.TestCase;
 import java.util.*;
 

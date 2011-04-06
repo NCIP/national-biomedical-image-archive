@@ -1,11 +1,10 @@
 /**
  * 
  */
-package gov.nih.nci.ncia.collectiondescription;
+package gov.nih.nci.nbia.collectiondescription;
 
-import gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.util.List;
 

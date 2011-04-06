@@ -1,7 +1,6 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.nbia.search.PatientSearchCompletionService;
-import gov.nih.nci.nbia.search.PatientSearchResults;
+import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.ArrayList;
 import java.util.List;

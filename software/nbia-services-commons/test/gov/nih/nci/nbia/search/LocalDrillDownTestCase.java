@@ -1,11 +1,9 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 import gov.nih.nci.nbia.dto.ImageDTO;
-import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.nbia.search.ThumbnailURLResolver;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.text.SimpleDateFormat;
 

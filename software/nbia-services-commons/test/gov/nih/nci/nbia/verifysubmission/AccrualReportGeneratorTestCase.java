@@ -1,8 +1,6 @@
-package gov.nih.nci.ncia.verifysubmission;
+package gov.nih.nci.nbia.verifysubmission;
 
-import gov.nih.nci.nbia.verifysubmission.AccrualReport;
-import gov.nih.nci.nbia.verifysubmission.AccrualReportGenerator;
-import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

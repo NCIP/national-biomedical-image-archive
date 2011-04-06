@@ -1,6 +1,5 @@
-package gov.nih.nci.ncia.basket;
+package gov.nih.nci.nbia.basket;
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import junit.framework.TestCase;
 
 public class BasketSeriesItemBeanTestCase extends TestCase {

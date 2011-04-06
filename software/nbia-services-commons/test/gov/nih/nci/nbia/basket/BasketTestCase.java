@@ -1,6 +1,5 @@
-package gov.nih.nci.ncia.basket;
+package gov.nih.nci.nbia.basket;
 
-import gov.nih.nci.nbia.basket.Basket;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 

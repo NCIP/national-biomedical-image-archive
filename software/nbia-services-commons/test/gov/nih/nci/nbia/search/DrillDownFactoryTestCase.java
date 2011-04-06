@@ -1,6 +1,10 @@
 package gov.nih.nci.nbia.search;
 
 import junit.framework.TestCase;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.ncia.search.StudySearchResult;
 
 public class DrillDownFactoryTestCase extends TestCase {
 

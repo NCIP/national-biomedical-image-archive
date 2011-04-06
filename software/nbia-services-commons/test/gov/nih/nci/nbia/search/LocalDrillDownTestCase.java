@@ -4,15 +4,19 @@ import gov.nih.nci.nbia.dto.ImageDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.ncia.search.PatientSearchResultImpl;
+import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.ncia.search.ImageSearchResult;
 
 import java.text.SimpleDateFormat;
-
 import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/applicationContext-service.xml", "/applicationContext-hibernate-testContext.xml"})
 public class LocalDrillDownTestCase extends AbstractDbUnitTestForJunit4 {

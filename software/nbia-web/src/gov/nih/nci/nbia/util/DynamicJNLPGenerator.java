@@ -1,8 +1,6 @@
 package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
-import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.nbia.util.StringEncrypter;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +33,7 @@ public class DynamicJNLPGenerator {
             StringBuffer argsBuilder = new StringBuffer();
             for(int i=0; i<size; i++){
             	BasketSeriesItemBean seriesItem = seriesItems.get(i);
-                
+
                 String collection = seriesItem.getProject();
                 String patientId = seriesItem.getPatientId();
                 String studyInstanceUid = seriesItem.getStudyId();
@@ -47,18 +45,18 @@ public class DynamicJNLPGenerator {
                 String url = seriesItem.getSeriesSearchResult().associatedLocation().getURL();
                 String displayName = seriesItem.getSeriesSearchResult().associatedLocation().getDisplayName();
                 boolean local = seriesItem.getSeriesSearchResult().associatedLocation().isLocal();
-                
+
                 String argument = "<argument>" +
-                                  collection + "|" + 
+                                  collection + "|" +
                                   patientId + "|"+
-                                  studyInstanceUid + "|" + 
-                                  seriesInstanceUid+ "|" + 
-                                  annotation + "|" + 
-                                  numberImages + "|" + 
-                                  imagesSize + "|" + 
-                                  annoSize + "|" + 
-                                  url + "|" + 
-                                  displayName+ "|" + 
+                                  studyInstanceUid + "|" +
+                                  seriesInstanceUid+ "|" +
+                                  annotation + "|" +
+                                  numberImages + "|" +
+                                  imagesSize + "|" +
+                                  annoSize + "|" +
+                                  url + "|" +
+                                  displayName+ "|" +
                                   local+
                                   "</argument>\n";
                 argsBuilder.append(argument);

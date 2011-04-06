@@ -20,8 +20,6 @@
 */
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.nbia.util.ResourceBundleUtil;
-
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
@@ -44,9 +42,9 @@ public class MessageUtil extends ResourceBundleUtil {
 
     public static String getString(String resourceId, Object[] params) {
         return getString(nciMessageBundle,
-        		         resourceId, 
+        		         resourceId,
         		         new Locale("en"),
-        		         getClassLoader(), 
+        		         getClassLoader(),
         		         params);
     }
 
@@ -92,13 +90,13 @@ public class MessageUtil extends ResourceBundleUtil {
 
 
     ////////////////////////////////PRIVATE/////////////////////////////////////////////
-    
+
     private static final Object[] EMPTY_ARRAY = new Object[] {  };
     private static final String nciMessageBundle = "ncia_messages";
-    
+
     private static void addMessage(String fieldId,
-    		                       FacesMessage.Severity severity, 
-    		                       String resourceId, 
+    		                       FacesMessage.Severity severity,
+    		                       String resourceId,
     		                       Object[] params) {
         FacesMessage msg = getMessage(resourceId, params);
         msg.setSeverity(severity);

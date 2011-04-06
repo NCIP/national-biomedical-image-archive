@@ -1,7 +1,7 @@
 /**
  *
  */
-package gov.nih.nci.ncia;
+package gov.nih.nci.nbia;
 
 /**
  * @author lethai
@@ -20,14 +20,14 @@ public class AnonymousGuestSelenTestCase extends AbstractSelenTestCaseImpl {
         selectPatientsFromSearchResults(new int[]{0,1,2,3,4,5});
         final int WHICH_NODE_RESULT_NUMBER = 0;
 		addPatientsToBasketFromSearchResult(WHICH_NODE_RESULT_NUMBER);
-		
+
 		//since on same page... not sure there's really a good condition
 		//to wait for?
 		pause(30000);
 
         selectPatientsFromSearchResults(new int[]{6,7,8,9,10});
 		addPatientsToBasketFromSearchResult(WHICH_NODE_RESULT_NUMBER);
-		
+
 		//since on same page... not sure there's really a good condition
 		//to wait for?
 		pause(30000);
@@ -50,7 +50,7 @@ public class AnonymousGuestSelenTestCase extends AbstractSelenTestCaseImpl {
 
 		final int WHICH_NODE_RESULT_NUMBER = 0;
 		drillDownIntoPatientResult(WHICH_NODE_RESULT_NUMBER,7);
-		
+
 		selectVisualizeImages();
 		assertEquals("Please select a series for visualization.", selenium.getAlert());
 

@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.submissionreport;
+package gov.nih.nci.nbia.submissionreport;
 
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 
 public class AnnotationSubmissionReportSelenTestCase extends AbstractSelenTestCaseImpl {

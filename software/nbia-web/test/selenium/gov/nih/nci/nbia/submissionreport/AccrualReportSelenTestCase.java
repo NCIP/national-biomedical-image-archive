@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.submissionreport;
+package gov.nih.nci.nbia.submissionreport;
 
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 
 public class AccrualReportSelenTestCase extends AbstractSelenTestCaseImpl {
@@ -62,7 +62,7 @@ public class AccrualReportSelenTestCase extends AbstractSelenTestCaseImpl {
 		assertTrue(getNewAccrualSeriesCountForDay(0).equals("77"));
 	}
 
-	
+
 	private void _testFutureDate1() throws Exception {
 		selectSubmissionReportDateRange("04/13/2500", "01/13/2510");
 		submitAccrualReport();

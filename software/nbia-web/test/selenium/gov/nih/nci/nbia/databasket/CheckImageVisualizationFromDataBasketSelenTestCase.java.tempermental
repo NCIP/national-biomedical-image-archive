@@ -1,6 +1,6 @@
-package gov.nih.nci.ncia.databasket;
+package gov.nih.nci.nbia.databasket;
 
-import gov.nih.nci.ncia.AbstractSelenTestCaseImpl;
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
 
 public class CheckImageVisualizationFromDataBasketSelenTestCase
 	extends AbstractSelenTestCaseImpl

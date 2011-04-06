@@ -10,41 +10,41 @@
       <tag-name>pager</tag-name>
       <component>
         <component-type>pager</component-type>
-        <renderer-type>gov.nih.nci.ncia.components.Pager</renderer-type>
+        <renderer-type>gov.nih.nci.nbia.components.Pager</renderer-type>
       </component>
     </tag>
-    
-    
+
+
     <tag>
       <tag-name>imageDataTable</tag-name>
       <component>
         <component-type>imageDataTable</component-type>
-        <renderer-type>gov.nih.nci.ncia.components.ImageDataTable</renderer-type>
+        <renderer-type>gov.nih.nci.nbia.components.ImageDataTable</renderer-type>
       </component>
-    </tag>    
-    
+    </tag>
+
     <tag>
       <tag-name>thumbnailImage</tag-name>
       <component>
         <component-type>thumbnailImage</component-type>
-        <renderer-type>gov.nih.nci.ncia.components.ThumbnailImage</renderer-type>
+        <renderer-type>gov.nih.nci.nbia.components.ThumbnailImage</renderer-type>
       </component>
     </tag>
-    
+
     <tag>
       <tag-name>popupCaption</tag-name>
       <component>
         <component-type>OutputCaption</component-type>
       </component>
     </tag>
-    
+
     <tag>
       <tag-name>progressBar</tag-name>
       <component>
         <component-type>ProgressBar</component-type>
         <renderer-type>ProgressBar</renderer-type>
       </component>
-    </tag>    
+    </tag>
 
     <tag>
       <tag-name>help</tag-name>
@@ -52,5 +52,5 @@
         <component-type>help</component-type>
       </component>
     </tag>
-    
+
 </facelet-taglib>

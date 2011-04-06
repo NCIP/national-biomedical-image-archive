@@ -1,9 +1,12 @@
-package gov.nih.nci.ncia.dicomtags;
+package gov.nih.nci.nbia.dicomtags;
 
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.dicomtags.DicomTagViewer;
+import gov.nih.nci.ncia.dicomtags.LocalDicomTagViewer;
 
 import java.util.List;
+
 
 /**
  * Implementation of DicomTagViewer that is smart enough to redirect

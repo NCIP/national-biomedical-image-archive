@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.zip;
+package gov.nih.nci.nbia.zip;
 
 import gov.nih.nci.ivi.utils.ZipEntryInputStream;
 import gov.nih.nci.nbia.util.NBIAIOUtils;

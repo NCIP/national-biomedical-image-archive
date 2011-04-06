@@ -1,8 +1,10 @@
-package gov.nih.nci.ncia.zip;
+package gov.nih.nci.nbia.zip;
 
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
 import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.ncia.zip.SeriesFileRetriever;
+import gov.nih.nci.ncia.zip.LocalSeriesFileRetriever;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.jobs;
+package gov.nih.nci.nbia.jobs;
 
+import gov.nih.nci.nbia.remotesearch.RemoteNodes;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.remotesearch.RemoteNodes;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

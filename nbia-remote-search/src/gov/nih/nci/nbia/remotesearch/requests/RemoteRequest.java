@@ -1,7 +1,8 @@
-package gov.nih.nci.ncia.remotesearch.requests;
+package gov.nih.nci.nbia.remotesearch.requests;
 
 import java.util.concurrent.Callable;
-import gov.nih.nci.ncia.remotesearch.RemoteNode;
+
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
 
 /**
  * It turns out there is only one asynchronous remote request we need to deal

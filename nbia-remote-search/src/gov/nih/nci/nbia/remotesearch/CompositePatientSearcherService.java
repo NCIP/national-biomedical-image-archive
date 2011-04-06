@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.remotesearch;
+package gov.nih.nci.nbia.remotesearch;
 
+import gov.nih.nci.nbia.remotesearch.requests.RemoteSearchForPatientsRequest;
 import gov.nih.nci.ncia.query.DICOMQuery;
-import gov.nih.nci.ncia.remotesearch.requests.RemoteSearchForPatientsRequest;
 import gov.nih.nci.ncia.search.AbstractPatientSearcherService;
 import gov.nih.nci.ncia.search.LocalSearchForPatientsRequest;
 import gov.nih.nci.ncia.search.NBIANode;

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.remotesearch;
+package gov.nih.nci.nbia.remotesearch;
 
 import gov.nih.nci.cagrid.discovery.client.DiscoveryClient;
 import gov.nih.nci.cagrid.metadata.MetadataUtils;

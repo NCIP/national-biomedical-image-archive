@@ -1,8 +1,10 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.lookup.LookupManager;
+import gov.nih.nci.ncia.lookup.LookupManagerImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;

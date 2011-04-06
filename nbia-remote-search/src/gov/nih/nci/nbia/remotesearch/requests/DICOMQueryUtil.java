@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.remotesearch.requests;
+package gov.nih.nci.nbia.remotesearch.requests;
 
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
 import gov.nih.nci.ncia.criteria.NodeCriteria;

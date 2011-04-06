@@ -6,7 +6,7 @@ package gov.nih.nci.nbia;
 import gov.nih.nci.nbia.download.SeriesData;
 import gov.nih.nci.nbia.ui.DownloadManagerFrame;
 import gov.nih.nci.nbia.util.JnlpArgumentsParser;
-import gov.nih.nci.ncia.util.PropertyLoader;
+import gov.nih.nci.nbia.util.PropertyLoader;
 
 import java.util.List;
 import java.util.Properties;

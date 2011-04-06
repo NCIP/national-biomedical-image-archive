@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.dto.ImageDTO;
 import gov.nih.nci.ncia.lookup.ImageRegisterMap;
 import gov.nih.nci.ncia.search.ThumbnailURLResolver;
 import gov.nih.nci.ncia.util.JsfUtil;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 /**
  * <p>This object dreams up a URL by which a given DICOM image's thumbnail can be viewed.

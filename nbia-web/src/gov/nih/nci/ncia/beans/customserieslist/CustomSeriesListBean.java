@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.beans.customserieslist;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
@@ -9,7 +10,6 @@ import gov.nih.nci.ncia.customserieslist.FileParser;
 import gov.nih.nci.ncia.dto.CustomSeriesListDTO;
 import gov.nih.nci.ncia.security.AuthorizationManager;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.util.ArrayList;
 import java.util.EventObject;

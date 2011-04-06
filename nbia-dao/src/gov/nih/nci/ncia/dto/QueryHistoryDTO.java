@@ -17,8 +17,8 @@
 */
 package gov.nih.nci.ncia.dto;
 
+import gov.nih.nci.nbia.util.ResourceBundleUtil;
 import gov.nih.nci.ncia.criteria.Criteria;
-import gov.nih.nci.ncia.util.ResourceBundleUtil;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.zip;
 
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.dto.AnnotationFileDTO;
 import gov.nih.nci.ncia.dto.DicomFileDTO;
 import gov.nih.nci.ncia.dto.ImageFileDTO;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.StringUtil;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -23,11 +23,11 @@
 */
 package gov.nih.nci.ncia.servlet;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.factories.ApplicationFactory;
 import gov.nih.nci.ncia.newresults.LatestCurationDateJob;
 import gov.nih.nci.ncia.newresults.NewResultsProcessor;
 import gov.nih.nci.ncia.jobs.NodeLookupJob;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.util.Date;
 import javax.servlet.http.HttpServlet;

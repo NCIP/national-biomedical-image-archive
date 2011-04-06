@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.util.UidDisplayUtil;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
-import gov.nih.nci.ncia.util.UidDisplayUtil;
 
 public class ImageResultWrapper {
 

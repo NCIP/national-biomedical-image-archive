@@ -3,8 +3,8 @@
  */
 package gov.nih.nci.ncia.griddao;
 
+import gov.nih.nci.nbia.util.HqlUtils;
 import gov.nih.nci.ncia.domain.TrialDataProvenance;
-import gov.nih.nci.ncia.util.HqlUtils;
 
 import java.util.Collection;
 import java.util.HashMap;

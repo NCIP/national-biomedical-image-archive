@@ -8,6 +8,7 @@
  */
 package gov.nih.nci.ncia.beans.searchform;
 
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
@@ -35,7 +36,6 @@ import gov.nih.nci.ncia.util.DateValidator;
 import gov.nih.nci.ncia.util.JsfUtil;
 import gov.nih.nci.ncia.util.MessageUtil;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.util.StringUtil;
 import gov.nih.nci.ncia.dto.ModalityDescDTO;
 import gov.nih.nci.ncia.modalitydescription.ModalityDescProcessor;
 

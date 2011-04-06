@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.dto;
 
-import gov.nih.nci.ncia.util.UidDisplayUtil;
+import gov.nih.nci.nbia.util.UidDisplayUtil;
 
 import org.apache.log4j.Logger;
 

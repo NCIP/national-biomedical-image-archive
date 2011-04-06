@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
@@ -9,7 +10,6 @@ import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.util.CedaraUtil;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.util.Collection;
 import java.util.List;

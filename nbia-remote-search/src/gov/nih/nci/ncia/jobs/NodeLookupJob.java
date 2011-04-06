@@ -1,12 +1,12 @@
 package gov.nih.nci.ncia.jobs;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.remotesearch.RemoteNodes;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 /**
  * This job is responsible for doing a discovery of remote nodes from the

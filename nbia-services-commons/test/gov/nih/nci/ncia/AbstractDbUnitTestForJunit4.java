@@ -2,9 +2,10 @@ package gov.nih.nci.ncia;
 
 
 import java.io.InputStream;
-import gov.nih.nci.ncia.util.Util;
+
+import gov.nih.nci.nbia.util.Util;
+
 import javax.sql.DataSource;
-import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.*;
 import org.dbunit.database.*;
 import org.dbunit.dataset.*;

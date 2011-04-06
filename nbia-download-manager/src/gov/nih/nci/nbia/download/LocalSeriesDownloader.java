@@ -1,7 +1,7 @@
 package gov.nih.nci.nbia.download;
 
 import gov.nih.nci.nbia.util.NBIAIOUtils;
-import gov.nih.nci.ncia.util.StringUtil;
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.search.NBIANode;
 
 import java.io.File;

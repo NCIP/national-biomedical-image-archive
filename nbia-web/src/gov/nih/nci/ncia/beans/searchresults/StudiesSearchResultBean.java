@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
 import gov.nih.nci.ncia.beans.security.AnonymousLoginBean;
@@ -9,7 +10,6 @@ import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.NCIAConfig;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

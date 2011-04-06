@@ -14,8 +14,8 @@
 */
 package gov.nih.nci.ncia.criteria;
 
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.querystorage.QueryAttributeWrapper;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;

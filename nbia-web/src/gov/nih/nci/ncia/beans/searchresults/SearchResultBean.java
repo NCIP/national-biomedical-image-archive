@@ -1,5 +1,6 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.savedquery.SavedQueryBean;
 import gov.nih.nci.ncia.beans.searchform.SearchWorkflowBean;
@@ -13,7 +14,6 @@ import gov.nih.nci.ncia.search.PatientSearchCompletionService;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.PatientSearchResults;
 import gov.nih.nci.ncia.util.MessageUtil;
-import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.ncia.util.NCIAConstants;
 import gov.nih.nci.ncia.util.SpringApplicationContext;
 

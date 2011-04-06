@@ -1,11 +1,11 @@
 package gov.nih.nci.ncia.dao;
 
+import gov.nih.nci.nbia.util.HqlUtils;
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.dto.EquipmentDTO;
 import gov.nih.nci.ncia.dto.SeriesDTO;
 import gov.nih.nci.ncia.internaldomain.GeneralSeries;
-import gov.nih.nci.ncia.util.HqlUtils;
 import gov.nih.nci.ncia.util.SiteData;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -29,8 +29,8 @@
 */
 package gov.nih.nci.ncia.mail;
 
-import gov.nih.nci.ncia.util.NCIAConfig;
-import gov.nih.nci.ncia.util.StringUtil;
+import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;

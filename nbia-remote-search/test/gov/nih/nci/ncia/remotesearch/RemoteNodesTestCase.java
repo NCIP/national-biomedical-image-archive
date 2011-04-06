@@ -14,9 +14,9 @@ import gov.nih.nci.cagrid.metadata.ServiceMetadataHostingResearchCenter;
 import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.cagrid.metadata.service.Service;
 import gov.nih.nci.cagrid.metadata.ServiceMetadataServiceDescription;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
-import gov.nih.nci.ncia.util.NCIAConfig;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 
 import org.apache.axis.message.addressing.Address;

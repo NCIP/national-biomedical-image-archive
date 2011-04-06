@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.criteria;
 
 import junit.framework.TestCase;
-import gov.nih.nci.ncia.util.ResourceBundleUtil;
+import gov.nih.nci.nbia.util.ResourceBundleUtil;
 
 public class RangeDataTestCase extends TestCase {
 

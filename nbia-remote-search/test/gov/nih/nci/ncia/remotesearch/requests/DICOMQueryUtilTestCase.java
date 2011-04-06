@@ -1,18 +1,15 @@
 package gov.nih.nci.ncia.remotesearch.requests;
 
 import static org.junit.Assert.assertEquals;
-import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
-import gov.nih.nci.ncia.criteria.CollectionCriteria;
+import gov.nih.nci.nbia.util.*;
 import gov.nih.nci.ncia.criteria.*;
 import gov.nih.nci.ncia.query.DICOMQuery;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
-import gov.nih.nci.ncia.util.*;
+import gov.nih.nci.ncia.util.NCIAConfig;
 
-import java.util.ArrayList;
 import java.util.*;
 import java.text.*;
 import org.junit.Test;
-import gov.nih.nci.ncia.util.Util;
 
 public class DICOMQueryUtilTestCase {
 

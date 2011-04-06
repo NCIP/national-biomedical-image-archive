@@ -4,10 +4,10 @@ import gov.nih.nci.cagrid.discovery.client.DiscoveryClient;
 import gov.nih.nci.cagrid.metadata.MetadataUtils;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
+import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
-import gov.nih.nci.ncia.util.NCIAConfig;
-import gov.nih.nci.ncia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;

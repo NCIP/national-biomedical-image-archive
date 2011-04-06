@@ -2,8 +2,8 @@ package gov.nih.nci.ncia.zip;
 
 import gov.nih.nci.ivi.utils.ZipEntryInputStream;
 import gov.nih.nci.nbia.util.NBIAIOUtils;
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.util.StringUtil;
 
 import java.io.EOFException;
 import java.io.File;

@@ -30,7 +30,7 @@
 package gov.nih.nci.ncia.security;
 
 
-import gov.nih.nci.ncia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.security.exceptions.CSException;
 import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
 

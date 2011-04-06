@@ -13,8 +13,6 @@ import gov.nih.nci.nbia.deletion.dao.PatientDAO;
 import gov.nih.nci.nbia.deletion.dao.SeriesDAO;
 import gov.nih.nci.nbia.deletion.dao.StudyDAO;
 import gov.nih.nci.nbia.exception.DataAccessException;
-import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
-import gov.nih.nci.nbia.deletion.ImageDeletionService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +40,7 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 	private PatientDAO patientDao;
 	@Autowired
 	private DeletionAuditTrailDAO deletionAuditTrailDao;
-	
+
 	private List<String> dicomFileNames;
 	//JPG file end with xxx.dicom[512;512;-1].jpeg
 	private List<String> annotationFile;
@@ -51,7 +49,7 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 	public List<Integer> getAllDeletedSeries(){
 		return seriesDao.listAllDeletedSeries();
 	}
-	
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Map<String, List<String>> removeSeries(String userName) throws DataAccessException{
 		List<Integer> seriesList = seriesDao.listAllDeletedSeries();
@@ -67,11 +65,11 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 		//seriesDao.setSeriesObject(seriesList);
 		Map<Integer, Integer> studyIds = seriesDao.getStudyMap(seriesList);
 		Map<Integer, Integer> patientIds = seriesDao.getPatientMap(seriesList);
-		
+
 		List<DeletionAuditSeriesInfo> seriesDeletionAuditInfoList = seriesDao.getDeletionAuditSeriesInfo(seriesList);
 		deletionAuditTrailDao.recordSeries(seriesDeletionAuditInfoList, userName);
 		seriesDao.removeSeries(seriesList);
-		
+
 		Map<Integer, Boolean>  patientsOfDeletedStudiesSet = new HashMap<Integer, Boolean>();
 		//check study to see if they need to be removed or not
 		Iterator<Integer> iterator = studyIds.keySet().iterator();
@@ -81,7 +79,7 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 			{
 				DeletionAuditStudyInfo dasi = studyDao.getDeletionAuditStudyInfo(studyId);
 				deletionAuditTrailDao.recordStudy(dasi, userName);
-				
+
 				Integer patientId = studyDao.getPatientId(studyId);
 				patientsOfDeletedStudiesSet.put(patientId, true);
 				studyDao.removeStudy(studyId);
@@ -94,8 +92,8 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 		while( iterator. hasNext() )
 		{
 			Integer patientId =  iterator.next();
-			
-			if (patientsOfDeletedStudiesSet.get(patientId) != null 
+
+			if (patientsOfDeletedStudiesSet.get(patientId) != null
 					&& patientsOfDeletedStudiesSet.get(patientId) == true
 					&& patientDao.checkPatientNeedToBeRemoved(patientId, patientIds.get(patientId)))
 			{
@@ -103,9 +101,9 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 					deletionAuditTrailDao.recordPatient(dapi, userName);
 					patientDao.removePatient(patientId);
 			}
-		
+
 		}
-		
+
 		Map<String, List<String>> fileMap = new HashMap<String, List<String>>();
 		fileMap.put("dicom", dicomFileNames);
 		fileMap.put("annotation", annotationFile);
@@ -121,9 +119,9 @@ public class ImageDeletionServiceImpl implements ImageDeletionService {
 		List<DeletionDisplayObject> object = new ArrayList<DeletionDisplayObject>();
 
 		List<Integer> seriesList = seriesDao.listAllDeletedSeries();
-		
+
 		object = seriesDao.getDeletionDisplayObjectDTO(seriesList);
-		
+
 		return object;
 	}
 }

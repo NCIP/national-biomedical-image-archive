@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/nnia-services-grid"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-dao"/>
 	<classpathentry kind="var" path="NCIA_BASE/target/lib/nbia-services-commons/compile/commons-io-1.3.2.jar"/>

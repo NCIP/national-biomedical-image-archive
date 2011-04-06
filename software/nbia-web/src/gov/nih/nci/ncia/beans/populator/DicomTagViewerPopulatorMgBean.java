@@ -1,10 +1,10 @@
 package gov.nih.nci.ncia.beans.populator;
 
+import gov.nih.nci.nbia.dicomtags.DicomTagViewer;
+import gov.nih.nci.nbia.dicomtags.DicomTagViewerFactory;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.searchresults.ImageResultWrapper;
 import gov.nih.nci.ncia.beans.searchresults.SeriesSearchResultBean;
-import gov.nih.nci.ncia.dicomtags.DicomTagViewer;
-import gov.nih.nci.ncia.dicomtags.DicomTagViewerFactory;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 
 import java.util.List;

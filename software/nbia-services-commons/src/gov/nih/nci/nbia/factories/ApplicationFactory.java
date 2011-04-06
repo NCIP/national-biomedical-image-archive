@@ -42,10 +42,10 @@
  *
  *
  */
-package gov.nih.nci.ncia.factories;
+package gov.nih.nci.nbia.factories;
 
+import gov.nih.nci.nbia.lookup.ImageRegisterMap;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
-import gov.nih.nci.ncia.lookup.ImageRegisterMap;
 
 import java.util.Date;
 

@@ -46,15 +46,17 @@
  *
  *
  */
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 import gov.nih.nci.nbia.dto.StudyNumberDTO;
+import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.search.DICOMQueryHandler;
 import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.search.PatientStudySeriesTriple;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.factories.ApplicationFactory;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.PatientSearchResultImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;

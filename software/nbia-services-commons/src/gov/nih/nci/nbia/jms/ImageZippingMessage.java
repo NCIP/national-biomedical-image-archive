@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.jms;
+package gov.nih.nci.nbia.jms;
 
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 

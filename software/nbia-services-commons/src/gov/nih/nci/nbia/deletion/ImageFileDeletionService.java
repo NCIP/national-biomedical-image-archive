@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.deletion;
+package gov.nih.nci.nbia.deletion;
 
 import java.util.List;
 import java.util.Map;

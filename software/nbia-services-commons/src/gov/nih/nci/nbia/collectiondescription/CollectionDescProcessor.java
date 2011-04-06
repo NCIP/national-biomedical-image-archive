@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gov.nih.nci.ncia.collectiondescription;
+package gov.nih.nci.nbia.collectiondescription;
 
 import gov.nih.nci.nbia.dao.CollectionDescDAO;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;

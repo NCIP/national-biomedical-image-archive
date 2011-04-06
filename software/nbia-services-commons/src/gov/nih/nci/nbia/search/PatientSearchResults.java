@@ -1,4 +1,7 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
+
+import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.search.PatientSearchResult;
 
 /**
  * A tuple of a node and actual patient results from a "top level" search against 

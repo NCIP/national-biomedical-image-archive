@@ -1,7 +1,7 @@
-package gov.nih.nci.ncia.basket;
+package gov.nih.nci.nbia.basket;
 
+import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.ArrayList;

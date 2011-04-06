@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.zip;
+package gov.nih.nci.nbia.zip;
 
 import gov.nih.nci.nbia.dao.AnnotationDAO;
 import gov.nih.nci.nbia.dao.ImageDAO;

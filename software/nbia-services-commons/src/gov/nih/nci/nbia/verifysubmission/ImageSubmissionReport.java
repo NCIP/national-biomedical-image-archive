@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.verifysubmission;
+package gov.nih.nci.nbia.verifysubmission;
 
 import java.util.Collections;
 import java.util.Date;

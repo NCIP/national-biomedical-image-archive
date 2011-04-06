@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.security;
+package gov.nih.nci.nbia.security;
 
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.dao.ImageDAO;

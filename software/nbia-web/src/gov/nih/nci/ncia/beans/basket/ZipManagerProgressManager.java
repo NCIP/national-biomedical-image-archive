@@ -1,5 +1,5 @@
 package gov.nih.nci.ncia.beans.basket;
-import gov.nih.nci.ncia.zip.ZipManager;
+import gov.nih.nci.nbia.zip.ZipManager;
 
 import com.icesoft.faces.async.render.SessionRenderer;
 

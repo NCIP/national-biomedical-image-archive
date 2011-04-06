@@ -1,12 +1,12 @@
 package gov.nih.nci.nbia.remotesearch;
-import gov.nih.nci.ncia.search.DrillDown;
+import gov.nih.nci.nbia.search.DrillDown;
+import gov.nih.nci.nbia.search.LocalDrillDown;
+import gov.nih.nci.nbia.search.ThumbnailResolverFactory;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
-import gov.nih.nci.ncia.search.ThumbnailResolverFactory;
 
 /**
  * <p>Depending on the result object, this composite drill down will send the

@@ -18,8 +18,8 @@
 package gov.nih.nci.ncia.newresults;
 
 import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.factories.ApplicationFactory;
 
 import java.util.Date;
 

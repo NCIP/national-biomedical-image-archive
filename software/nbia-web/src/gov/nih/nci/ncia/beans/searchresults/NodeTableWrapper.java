@@ -1,12 +1,12 @@
 package gov.nih.nci.ncia.beans.searchresults;
 
+import gov.nih.nci.nbia.search.DrillDown;
+import gov.nih.nci.nbia.search.DrillDownFactory;
+import gov.nih.nci.nbia.search.PatientSearchResults;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
-import gov.nih.nci.ncia.search.DrillDown;
-import gov.nih.nci.ncia.search.DrillDownFactory;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearchResults;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
 import gov.nih.nci.ncia.util.JsfUtil;

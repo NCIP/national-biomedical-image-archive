@@ -15,11 +15,11 @@ import gov.nih.nci.cagrid.metadata.common.ResearchCenter;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.search.PatientSearchResults;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.PatientSearchResultImpl;
-import gov.nih.nci.ncia.search.PatientSearchResults;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
 
 import java.util.ArrayList;

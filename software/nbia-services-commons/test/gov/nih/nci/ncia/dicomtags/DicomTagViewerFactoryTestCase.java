@@ -1,5 +1,7 @@
 package gov.nih.nci.ncia.dicomtags;
 
+import gov.nih.nci.nbia.dicomtags.DicomTagViewer;
+import gov.nih.nci.nbia.dicomtags.DicomTagViewerFactory;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 

@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.lookup;
+package gov.nih.nci.nbia.lookup;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;

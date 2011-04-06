@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.verifysubmission;
+package gov.nih.nci.nbia.verifysubmission;
 
 /**
  * This object corresponds to a GeneralSeries object.  It includes

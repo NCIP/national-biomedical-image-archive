@@ -1,7 +1,7 @@
 package gov.nih.nci.ncia.beans.searchform;
 
+import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.ncia.beans.BeanManager;
-import gov.nih.nci.ncia.lookup.LookupManager;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;

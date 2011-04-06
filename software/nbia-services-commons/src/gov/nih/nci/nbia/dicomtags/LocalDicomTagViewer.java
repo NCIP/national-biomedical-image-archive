@@ -1,12 +1,12 @@
-package gov.nih.nci.ncia.dicomtags;
+package gov.nih.nci.nbia.dicomtags;
 
 import gov.nih.nci.nbia.dao.ImageDAO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.PublicData;
+import gov.nih.nci.nbia.util.NCIADicomObject;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.security.PublicData;
-import gov.nih.nci.ncia.util.NCIADicomObject;
 
 import java.io.File;
 import java.util.ArrayList;

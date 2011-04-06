@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.dicomtags;
+package gov.nih.nci.nbia.dicomtags;
 
 
 public class DicomTagViewerFactory {

@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.ncia.collectiondescription;
 
+import gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;
 import gov.nih.nci.ncia.AbstractDbUnitTestForJunit4;
 
@@ -23,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class CollectionDescProcessorTestCase extends AbstractDbUnitTestForJunit4 {
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor#CollectionDescProcessor()}.
+	 * Test method for {@link gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor#CollectionDescProcessor()}.
 	 */
 	@Test
 	public void testCollectionDescProcessor() {
@@ -32,7 +33,7 @@ public class CollectionDescProcessorTestCase extends AbstractDbUnitTestForJunit4
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor#getCollectionNames()}.
+	 * Test method for {@link gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor#getCollectionNames()}.
 	 */
 	@Test	
 	public void testGetCollectionNames() {
@@ -41,7 +42,7 @@ public class CollectionDescProcessorTestCase extends AbstractDbUnitTestForJunit4
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor#getCollectionDescByCollectionName(java.lang.String)}.
+	 * Test method for {@link gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor#getCollectionDescByCollectionName(java.lang.String)}.
 	 */
 	@Test	
 	public void testGetCollectionDescByCollectionName() {
@@ -56,7 +57,7 @@ public class CollectionDescProcessorTestCase extends AbstractDbUnitTestForJunit4
 	}
 
 	/**
-	 * Test method for {@link gov.nih.nci.ncia.collectiondescription.CollectionDescProcessor#update(gov.nih.nci.nbia.dto.CollectionDescDTO)}.
+	 * Test method for {@link gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor#update(gov.nih.nci.nbia.dto.CollectionDescDTO)}.
 	 */
 	@Test	
 	public void testUpdate() {

@@ -1,4 +1,10 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
+
+import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.ncia.search.StudySearchResult;
 
 /**
  * This object is responsible for drilling down into a patient result to return

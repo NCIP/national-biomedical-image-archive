@@ -4,9 +4,9 @@ import gov.nih.nci.ncia.criteria.Criteria;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
 import gov.nih.nci.nbia.internaldomain.QueryHistoryAttribute;
 import gov.nih.nci.nbia.query.DICOMQuery;
+import gov.nih.nci.nbia.search.PatientSearcher;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearcher;
 import gov.nih.nci.ncia.search.SearchCriteriaDTO;
 
 import java.lang.reflect.Method;

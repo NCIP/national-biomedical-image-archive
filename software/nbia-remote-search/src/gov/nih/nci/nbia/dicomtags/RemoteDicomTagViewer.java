@@ -4,7 +4,6 @@ import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
 import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.dicomtags.DicomTagViewer;
 
 import java.util.Arrays;
 import java.util.List;

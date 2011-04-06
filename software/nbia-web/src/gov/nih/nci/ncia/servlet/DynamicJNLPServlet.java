@@ -8,8 +8,8 @@ package gov.nih.nci.ncia.servlet;
  *
  */
 
+import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.ncia.basket.BasketSeriesItemBean;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

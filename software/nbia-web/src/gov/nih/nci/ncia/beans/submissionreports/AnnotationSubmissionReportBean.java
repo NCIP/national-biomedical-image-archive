@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.beans.submissionreports;
 
-import gov.nih.nci.ncia.verifysubmission.AnnotationReport;
-import gov.nih.nci.ncia.verifysubmission.AnnotationReportGenerator;
-import gov.nih.nci.ncia.verifysubmission.PatientDetails;
-import gov.nih.nci.ncia.verifysubmission.VerifySubmissionUtil;
+import gov.nih.nci.nbia.verifysubmission.AnnotationReport;
+import gov.nih.nci.nbia.verifysubmission.AnnotationReportGenerator;
+import gov.nih.nci.nbia.verifysubmission.PatientDetails;
+import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
 
 import java.util.Date;
 import java.util.LinkedHashMap;

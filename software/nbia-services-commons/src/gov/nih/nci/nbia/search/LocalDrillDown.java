@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.search;
+package gov.nih.nci.nbia.search;
 
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.dao.ImageDAO;
@@ -8,10 +8,19 @@ import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.StudyDTO;
 import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.PublicData;
+import gov.nih.nci.nbia.util.SeriesDTOConverter;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.security.PublicData;
-import gov.nih.nci.ncia.util.StudyUtil;
-import gov.nih.nci.ncia.util.SeriesDTOConverter;
+import gov.nih.nci.nbia.util.StudyUtil;
+import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
+import gov.nih.nci.ncia.search.ImageSearchResultImpl;
+import gov.nih.nci.ncia.search.NameValuesPairs;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.ncia.search.StudySearchResultImpl;
 
 
 import java.util.ArrayList;

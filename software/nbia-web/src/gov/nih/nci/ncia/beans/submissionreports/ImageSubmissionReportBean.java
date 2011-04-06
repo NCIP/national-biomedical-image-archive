@@ -1,9 +1,9 @@
 package gov.nih.nci.ncia.beans.submissionreports;
 
-import gov.nih.nci.ncia.verifysubmission.ImageSubmissionReport;
-import gov.nih.nci.ncia.verifysubmission.ImageSubmissionReportGenerator;
-import gov.nih.nci.ncia.verifysubmission.PatientDetails;
-import gov.nih.nci.ncia.verifysubmission.VerifySubmissionUtil;
+import gov.nih.nci.nbia.verifysubmission.ImageSubmissionReport;
+import gov.nih.nci.nbia.verifysubmission.ImageSubmissionReportGenerator;
+import gov.nih.nci.nbia.verifysubmission.PatientDetails;
+import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
 
 import java.util.Date;
 import java.util.LinkedHashMap;

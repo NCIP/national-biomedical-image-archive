@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gov.nih.nci.ncia.modalitydescription;
+package gov.nih.nci.nbia.modalitydescription;
 
 import gov.nih.nci.nbia.dao.ModalityDescDAO;
 import gov.nih.nci.nbia.dto.ModalityDescDTO;

@@ -3,11 +3,11 @@ package gov.nih.nci.ncia.beans.submissionreports;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.security.SecurityBean;
 import gov.nih.nci.ncia.util.DateValidator;
 import gov.nih.nci.ncia.util.SelectItemComparator;
-import gov.nih.nci.ncia.verifysubmission.VerifySubmissionUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;

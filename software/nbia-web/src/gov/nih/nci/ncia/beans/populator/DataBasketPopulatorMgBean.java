@@ -1,6 +1,6 @@
 package gov.nih.nci.ncia.beans.populator;
 
-import gov.nih.nci.ncia.basket.ExternalDataBasket;
+import gov.nih.nci.nbia.basket.ExternalDataBasket;
 import gov.nih.nci.ncia.beans.BeanManager;
 import gov.nih.nci.ncia.beans.basket.BasketBean;
 import gov.nih.nci.ncia.search.SeriesSearchResult;

@@ -1,7 +1,7 @@
 package gov.nih.nci.nbia.remotesearch;
 
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
-import gov.nih.nci.ncia.search.DrillDown;
+import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResultExImpl;

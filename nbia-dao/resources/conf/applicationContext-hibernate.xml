@@ -42,13 +42,6 @@
 
     <property name="dataSource" ref="dataSource"/>
 
-
-    <!-- this goes haywire in ear.... claims to find dupes.  not sure what the issue is -->
-    <!--
-    <property name="mappingLocations">
-      <value>classpath*:gov/nih/nci/ncia/internaldomain/*.hbm.xml,classpath*:gov/nih/nci/ncia/security/*.hbm.xml</value>
-    </property>
-      -->
     <property name="mappingResources">
       <list>
         <value>gov/nih/nci/nbia/internaldomain/ClinicalTrial.hbm.xml</value>

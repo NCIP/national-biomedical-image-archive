@@ -32,7 +32,7 @@ import org.powermock.core.classloader.annotations.SuppressStaticInitializationFo
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@SuppressStaticInitializationFor("gov.nih.nci.ncia.remotesearch.RemoteNodes")
+@SuppressStaticInitializationFor("gov.nih.nci.nbia.remotesearch.RemoteNodes")
 public class RemoteLookupManagerTestCase {
 
 

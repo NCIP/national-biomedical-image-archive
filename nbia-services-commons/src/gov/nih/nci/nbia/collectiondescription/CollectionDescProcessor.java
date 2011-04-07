@@ -13,6 +13,10 @@ import java.util.List;
  * process request send from the UI
  * @author lethai
  *
+ * @todo This object is apparently a useless pass through for the DAO.
+ * maybe look to see if presentation is doing something extra, or DAO is doing
+ * something extra that should go here.  "Processor" is usually a clue that
+ * the responsibilities for the object are ill-defined....
  */
 public class CollectionDescProcessor {
 	private CollectionDescDAO collectionDescDAO;

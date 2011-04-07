@@ -25,7 +25,7 @@ public class DrillDownFactoryTestCase extends TestCase {
 
 	public void testGetDrillDown() {
 		System.setProperty("drilldown.className",
-				           "gov.nih.nci.ncia.search.DrillDownFactoryTestCase$FakeDrillDown");
+				           "gov.nih.nci.nbia.search.DrillDownFactoryTestCase$FakeDrillDown");
 
 		DrillDown dd1 = DrillDownFactory.getDrillDown();
 		DrillDown dd2 = DrillDownFactory.getDrillDown();

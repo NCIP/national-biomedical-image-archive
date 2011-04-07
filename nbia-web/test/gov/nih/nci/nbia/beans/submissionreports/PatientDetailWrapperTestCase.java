@@ -1,4 +1,4 @@
-backage gov.nih.nci.ncia.beans.submissionreports;
+package gov.nih.nci.ncia.beans.submissionreports;
 
 import junit.framework.TestCase;
 

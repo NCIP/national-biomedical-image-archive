@@ -36,197 +36,197 @@ public class CompositeDrillDownTestCase {
 	@Test
 	public void testRetrieveStudyAndSeriesForPatientRemote() throws Exception{
 		PatientSearchResult patientSearchResult = createRemotePatientSearchResult();
-		
-		System.setProperty("thumbnailResolver.className", 
-				           "gov.nih.nci.ncia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
+
+		System.setProperty("thumbnailResolver.className",
+				           "gov.nih.nci.nbia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
 		ThumbnailURLResolver resolver = ThumbnailResolverFactory.getThumbnailURLResolver();
-		
+
 		//create mocks
 		LocalDrillDown localDrillDownMock = createMock(LocalDrillDown.class);
 		RemoteDrillDown remoteDrillDownMock = createMock(RemoteDrillDown.class);
-		
+
 		//set expectations for mock
 		expectNew(LocalDrillDown.class).
 		    andReturn(localDrillDownMock);
 		localDrillDownMock.setThumbnailURLResolver(resolver);
 		expectLastCall();
 		expectNew(RemoteDrillDown.class).
-	        andReturn(remoteDrillDownMock);	
+	        andReturn(remoteDrillDownMock);
 		expect(remoteDrillDownMock.retrieveStudyAndSeriesForPatient(patientSearchResult)).
 		    andReturn(new StudySearchResult[]{null, null});
-		
+
 		//replay the mock
-    	replay(localDrillDownMock, LocalDrillDown.class);                
-    	replay(remoteDrillDownMock, RemoteDrillDown.class);                
+    	replay(localDrillDownMock, LocalDrillDown.class);
+    	replay(remoteDrillDownMock, RemoteDrillDown.class);
 
     	//verify the OUT
     	CompositeDrillDown compositeDrillDown = new CompositeDrillDown();
     	StudySearchResult[] results = compositeDrillDown.retrieveStudyAndSeriesForPatient(patientSearchResult);
     	assertEquals(results.length, 2);
-    	
+
     	//verify the mock
-    	verify(localDrillDownMock, LocalDrillDown.class);                
-    	verify(remoteDrillDownMock, RemoteDrillDown.class); 
+    	verify(localDrillDownMock, LocalDrillDown.class);
+    	verify(remoteDrillDownMock, RemoteDrillDown.class);
 	}
-	
+
 	@Test
 	public void testRetrieveStudyAndSeriesForPatientLocal() throws Exception{
 		PatientSearchResult patientSearchResult = createLocalPatientSearchResult();
-		
-		System.setProperty("thumbnailResolver.className", 
-				           "gov.nih.nci.ncia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
+
+		System.setProperty("thumbnailResolver.className",
+				           "gov.nih.nci.nbia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
 		ThumbnailURLResolver resolver = ThumbnailResolverFactory.getThumbnailURLResolver();
-		
+
 		//create mocks
 		LocalDrillDown localDrillDownMock = createMock(LocalDrillDown.class);
 		RemoteDrillDown remoteDrillDownMock = createMock(RemoteDrillDown.class);
-		
+
 		//set expectations for mock
 		expectNew(LocalDrillDown.class).
 		    andReturn(localDrillDownMock);
 		localDrillDownMock.setThumbnailURLResolver(resolver);
 		expectLastCall();
 		expect(localDrillDownMock.retrieveStudyAndSeriesForPatient(patientSearchResult)).
-	    andReturn(new StudySearchResult[]{null, null});		
+	    andReturn(new StudySearchResult[]{null, null});
 		expectNew(RemoteDrillDown.class).
-	        andReturn(remoteDrillDownMock);	
-		
+	        andReturn(remoteDrillDownMock);
+
 		//replay the mock
-    	replay(localDrillDownMock, LocalDrillDown.class);                
-    	replay(remoteDrillDownMock, RemoteDrillDown.class);                
+    	replay(localDrillDownMock, LocalDrillDown.class);
+    	replay(remoteDrillDownMock, RemoteDrillDown.class);
 
     	//verify the OUT
     	CompositeDrillDown compositeDrillDown = new CompositeDrillDown();
     	StudySearchResult[] results = compositeDrillDown.retrieveStudyAndSeriesForPatient(patientSearchResult);
     	assertEquals(results.length, 2);
-    	
+
     	//verify the mock
-    	verify(localDrillDownMock, LocalDrillDown.class);                
-    	verify(remoteDrillDownMock, RemoteDrillDown.class); 
-	}	
+    	verify(localDrillDownMock, LocalDrillDown.class);
+    	verify(remoteDrillDownMock, RemoteDrillDown.class);
+	}
 
 	@Test
 	public void testRetrieveImagesForSeriesRemote() throws Exception {
 		SeriesSearchResult seriesSearchResult = createRemoteSeriesSearchResult();
-		
-		System.setProperty("thumbnailResolver.className", 
-				           "gov.nih.nci.ncia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
+
+		System.setProperty("thumbnailResolver.className",
+				           "gov.nih.nci.nbia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
 		ThumbnailURLResolver resolver = ThumbnailResolverFactory.getThumbnailURLResolver();
-		
+
 		//create mocks
 		LocalDrillDown localDrillDownMock = createMock(LocalDrillDown.class);
 		RemoteDrillDown remoteDrillDownMock = createMock(RemoteDrillDown.class);
-		
+
 		//set expectations for mock
 		expectNew(LocalDrillDown.class).
 		    andReturn(localDrillDownMock);
 		localDrillDownMock.setThumbnailURLResolver(resolver);
 		expectLastCall();
 		expectNew(RemoteDrillDown.class).
-	        andReturn(remoteDrillDownMock);	
+	        andReturn(remoteDrillDownMock);
 		expect(remoteDrillDownMock.retrieveImagesForSeries(seriesSearchResult)).
 		    andReturn(new ImageSearchResult[]{null, null});
-		
+
 		//replay the mock
-    	replay(localDrillDownMock, LocalDrillDown.class);                
-    	replay(remoteDrillDownMock, RemoteDrillDown.class);                
+    	replay(localDrillDownMock, LocalDrillDown.class);
+    	replay(remoteDrillDownMock, RemoteDrillDown.class);
 
     	//verify the OUT
     	CompositeDrillDown compositeDrillDown = new CompositeDrillDown();
     	ImageSearchResult[] results = compositeDrillDown.retrieveImagesForSeries(seriesSearchResult);
     	assertEquals(results.length, 2);
-    	
+
     	//verify the mock
-    	verify(localDrillDownMock, LocalDrillDown.class);                
-    	verify(remoteDrillDownMock, RemoteDrillDown.class); 
+    	verify(localDrillDownMock, LocalDrillDown.class);
+    	verify(remoteDrillDownMock, RemoteDrillDown.class);
     }
-	
+
 	@Test
 	public void testRetrieveImagesForSeriesLocal() throws Exception {
 		SeriesSearchResult seriesSearchResult = createLocalSeriesSearchResult();
-		
-		System.setProperty("thumbnailResolver.className", 
-				           "gov.nih.nci.ncia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
+
+		System.setProperty("thumbnailResolver.className",
+				           "gov.nih.nci.nbia.remotesearch.CompositeDrillDownTestCase$DummyThumbnailURLResolver");
 		ThumbnailURLResolver resolver = ThumbnailResolverFactory.getThumbnailURLResolver();
-		
+
 		//create mocks
 		LocalDrillDown localDrillDownMock = createMock(LocalDrillDown.class);
 		RemoteDrillDown remoteDrillDownMock = createMock(RemoteDrillDown.class);
-		
+
 		//set expectations for mock
 		expectNew(LocalDrillDown.class).
 		    andReturn(localDrillDownMock);
 		localDrillDownMock.setThumbnailURLResolver(resolver);
 		expectLastCall();
 		expect(localDrillDownMock.retrieveImagesForSeries(seriesSearchResult)).
-	    andReturn(new ImageSearchResult[]{null, null});		
+	    andReturn(new ImageSearchResult[]{null, null});
 		expectNew(RemoteDrillDown.class).
-	        andReturn(remoteDrillDownMock);	
-		
+	        andReturn(remoteDrillDownMock);
+
 		//replay the mock
-    	replay(localDrillDownMock, LocalDrillDown.class);                
-    	replay(remoteDrillDownMock, RemoteDrillDown.class);                
+    	replay(localDrillDownMock, LocalDrillDown.class);
+    	replay(remoteDrillDownMock, RemoteDrillDown.class);
 
     	//verify the OUT
     	CompositeDrillDown compositeDrillDown = new CompositeDrillDown();
     	ImageSearchResult[] results = compositeDrillDown.retrieveImagesForSeries(seriesSearchResult);
     	assertEquals(results.length, 2);
-    	
+
     	//verify the mock
-    	verify(localDrillDownMock, LocalDrillDown.class);                
-    	verify(remoteDrillDownMock, RemoteDrillDown.class); 
+    	verify(localDrillDownMock, LocalDrillDown.class);
+    	verify(remoteDrillDownMock, RemoteDrillDown.class);
     }
-	
+
 	///////////////////////////////////////////PRIVATE///////////////////////////////////
-	
+
 	private static SeriesSearchResult createRemoteSeriesSearchResult() throws Exception {
 		SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
 		seriesSearchResult.associateLocation(constructRemoteNode());
 		return seriesSearchResult;
 	}
-	
+
 	private static SeriesSearchResult createLocalSeriesSearchResult() throws Exception {
 		SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
 		seriesSearchResult.associateLocation(constructLocalNode());
 		return seriesSearchResult;
-	}	
-	
+	}
+
 	private static PatientSearchResult createRemotePatientSearchResult() throws Exception {
 		PatientSearchResultImpl patientSearchResult = new PatientSearchResultImpl();
 		patientSearchResult.associateLocation(constructRemoteNode());
 		return patientSearchResult;
 	}
-	
+
 	private static PatientSearchResult createLocalPatientSearchResult() throws Exception {
 		PatientSearchResultImpl patientSearchResult = new PatientSearchResultImpl();
 		patientSearchResult.associateLocation(constructLocalNode());
 		return patientSearchResult;
-	}	
-	
+	}
+
 	private static RemoteNode constructRemoteNode() throws Exception {
 		ServiceMetadata serviceMetadata = new ServiceMetadata();
 		ServiceMetadataHostingResearchCenter serviceMetadataHostingResearchCenter = new ServiceMetadataHostingResearchCenter();
 		ResearchCenter researchCenter = new ResearchCenter();
 		researchCenter.setDisplayName("foo");
-		serviceMetadataHostingResearchCenter.setResearchCenter(researchCenter);		
+		serviceMetadataHostingResearchCenter.setResearchCenter(researchCenter);
 		serviceMetadata.setHostingResearchCenter(serviceMetadataHostingResearchCenter);
-		
+
 		EndpointReferenceType endpointReferenceType = new EndpointReferenceType();
 		endpointReferenceType.setAddress(new AttributedURI("http://fakeAddress"));
 		AvailableSearchTerms availableSearchTerms = new AvailableSearchTerms();
-		RemoteNode remoteNode = new RemoteNode(serviceMetadata, 
+		RemoteNode remoteNode = new RemoteNode(serviceMetadata,
 				                               endpointReferenceType,
-				                               availableSearchTerms);	
+				                               availableSearchTerms);
 		return remoteNode;
-	}	
+	}
 
 	private static NBIANode constructLocalNode() throws Exception {
-		NBIANode localNode = new NBIANode(true, 
+		NBIANode localNode = new NBIANode(true,
 				                          "displayName",
-				                          "http://fakeAddress");	
+				                          "http://fakeAddress");
 		return localNode;
-	}	
-	
+	}
+
 	public static class DummyThumbnailURLResolver implements ThumbnailURLResolver{
 
 		public String resolveThumbnailUrl(ImageDTO imageDto) {

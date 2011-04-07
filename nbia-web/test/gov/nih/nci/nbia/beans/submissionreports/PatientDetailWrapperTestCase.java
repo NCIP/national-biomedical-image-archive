@@ -1,4 +1,4 @@
-package gov.nih.nci.ncia.beans.submissionreports;
+package gov.nih.nci.nbia.beans.submissionreports;
 
 import junit.framework.TestCase;
 

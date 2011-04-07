@@ -1530,4 +1530,19 @@ public class SearchWorkflowBean {
         	modalityDescMap.put(dto.getModalityName(), dto.getDescription());
         }
     }
+    
+    /*
+     * returns whether to show anatomic criteria or not
+     */
+    public boolean isShowAnatomicCriteria() {
+    	String retValue = System.getProperty("show.anatomical.search.criteria");
+    	
+    	if( retValue.equals("true")) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+
 }

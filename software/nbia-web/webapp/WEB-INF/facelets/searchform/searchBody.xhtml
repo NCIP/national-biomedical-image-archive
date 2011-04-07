@@ -329,86 +329,88 @@
                       </td>
                     </tr>
                     <tr>
+                   	  <ice:panelGroup style="width:100%" rendered="#{searchWorkflowBean.showAnatomicCriteria}">
                       <td class="formLabel">
-                        <h:outputText value="#{msg.criteria_AnatomicalSiteCriteria}" />
+                        	<h:outputText value="#{msg.criteria_AnatomicalSiteCriteria}" />
                       </td>
                       <td width="63%" class="formField">
-                        <table width="90%" border="0" align="left" cellpadding="0"
-                               cellspacing="0">
-                          <tr>
-                            <td width="30%">
-                              <div align="center">
-                                <span class="formMessage">
-                                  <h:outputText value="#{msg.search_available}" />
-                                </span>
-                              </div>
-                            </td>
-                            <td width="40%" align="center" valign="middle">
-                              <f:verbatim>&amp;nbsp;</f:verbatim>
-                            </td>
-                            <td width="30%">
-                              <div align="center">
-                                <span class="formMessage">
-                                  <h:outputText value="#{msg.search_selected}" />
-                                </span>
-                              </div>
-                            </td>
-                            <td width="4%" valign="bottom">
-                              <f:verbatim>&amp;nbsp;</f:verbatim>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td valign="top">
-                              <div id="anatomicalSitesDiv"
-                                   class="searchFormSelector">
-                                                                                                                            
-                                <h:dataTable id="anatomicalSitesCheckboxesTable"
-                                             width="100%" 
-                                             border="0" 
-                                             cellpadding="0" 
-                                             cellspacing="0" 
-                                             value="#{searchWorkflowBean.anatomicalSiteItems}"
-                                             var="anatomicalSiteItem">
-                                  <h:column id="anatomicalSiteItemsColumn">
-                                    <span style="white-space:nowrap;">
-                                      <ice:selectBooleanCheckbox value="#{anatomicalSiteItem.value}" 
-                                                                 partialSubmit="true" /> 
-                                      <h:outputText value="#{anatomicalSiteItem.label}"/>
-                                    </span>                                        
-                                  </h:column>    
-                                </h:dataTable> 
-
-                              </div>
-                            </td>
-                            <td align="center" valign="middle">
-                              <h:commandButton id="selectAllAnatomicalSites" 
-                                                image="images/SELECTall-noarrow.gif" 
-                                                action="#{searchWorkflowBean.selectAllAnatomicalSites}" />                            
-                              <br/>
-                              <h:commandButton id="unselectAllAnatomicalSites"
-                                               image="images/REMOVE-all-noarrow.gif"
-                                               action="#{searchWorkflowBean.unselectAllAnatomicalSites}" /> 
-                            </td>
-                            <td valign="top">
-                              <div class="searchFormSelector">
-                                <h:dataTable id="selectedAnatomicalSitesTable"
-                                             width="100%" 
-                                             border="0" 
-                                             cellpadding="0" 
-                                             cellspacing="0" 
-                                             value="#{searchWorkflowBean.selectedAnatomicalSiteNames}"
-                                             var="item">
-                                  <h:column id="selectedAnatomicalSitesColumn">
-                                    <h:outputText value="#{item}"/> 
-                                  </h:column>    
-                                </h:dataTable>                            
-                              </div>
-                            </td>                          
-                            <td valign="top"></td>                         
-                          </tr>
-                        </table>
-                        <div align="left"></div>
+	                        <table width="90%" border="0" align="left" cellpadding="0"
+	                               cellspacing="0">
+	                          <tr>
+	                            <td width="30%">
+	                              <div align="center">
+	                                <span class="formMessage">
+	                                  <h:outputText value="#{msg.search_available}" />
+	                                </span>
+	                              </div>
+	                            </td>
+	                            <td width="40%" align="center" valign="middle">
+	                              <f:verbatim>&amp;nbsp;</f:verbatim>
+	                            </td>
+	                            <td width="30%">
+	                              <div align="center">
+	                                <span class="formMessage">
+	                                  <h:outputText value="#{msg.search_selected}" />
+	                                </span>
+	                              </div>
+	                            </td>
+	                            <td width="4%" valign="bottom">
+	                              <f:verbatim>&amp;nbsp;</f:verbatim>
+	                            </td>
+	                          </tr>
+	                          <tr>
+	                            <td valign="top">
+	                              <div id="anatomicalSitesDiv"
+	                                   class="searchFormSelector">
+	                                                                                                                            
+	                                <h:dataTable id="anatomicalSitesCheckboxesTable"
+	                                             width="100%" 
+	                                             border="0" 
+	                                             cellpadding="0" 
+	                                             cellspacing="0" 
+	                                             value="#{searchWorkflowBean.anatomicalSiteItems}"
+	                                             var="anatomicalSiteItem">
+	                                  <h:column id="anatomicalSiteItemsColumn">
+	                                    <span style="white-space:nowrap;">
+	                                      <ice:selectBooleanCheckbox value="#{anatomicalSiteItem.value}" 
+	                                                                 partialSubmit="true" /> 
+	                                      <h:outputText value="#{anatomicalSiteItem.label}"/>
+	                                    </span>                                        
+	                                  </h:column>    
+	                                </h:dataTable> 
+	
+	                              </div>
+	                            </td>
+	                            <td align="center" valign="middle">
+	                              <h:commandButton id="selectAllAnatomicalSites" 
+	                                                image="images/SELECTall-noarrow.gif" 
+	                                                action="#{searchWorkflowBean.selectAllAnatomicalSites}" />                            
+	                              <br/>
+	                              <h:commandButton id="unselectAllAnatomicalSites"
+	                                               image="images/REMOVE-all-noarrow.gif"
+	                                               action="#{searchWorkflowBean.unselectAllAnatomicalSites}" /> 
+	                            </td>
+	                            <td valign="top">
+	                              <div class="searchFormSelector">
+	                                <h:dataTable id="selectedAnatomicalSitesTable"
+	                                             width="100%" 
+	                                             border="0" 
+	                                             cellpadding="0" 
+	                                             cellspacing="0" 
+	                                             value="#{searchWorkflowBean.selectedAnatomicalSiteNames}"
+	                                             var="item">
+	                                  <h:column id="selectedAnatomicalSitesColumn">
+	                                    <h:outputText value="#{item}"/> 
+	                                  </h:column>    
+	                                </h:dataTable>                            
+	                              </div>
+	                            </td>                          
+	                            <td valign="top"></td>                         
+	                          </tr>
+	                        </table>
+	                        <div align="left"></div>
                       </td>
+                      </ice:panelGroup>
                     </tr>
                     <tr>
                       <td class="formLabel">

@@ -1,10 +1,7 @@
-package gov.nih.nci.ncia.util;
+package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
-import gov.nih.nci.nbia.util.StringEncrypter;
-import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.nbia.util.DynamicJNLPGenerator;
 import gov.nih.nci.ncia.search.NBIANode;
 import java.io.StringReader;
 import java.util.ArrayList;

@@ -17,19 +17,19 @@
   <context:annotation-config/>
   <bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
 
-  <bean id="imageDaoInterface" class="gov.nih.nci.nbia.griddao.ImageDAO">
+  <bean id="imageDaoInterface" class="gov.nih.nci.ncia.griddao.ImageDAO">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
 
-  <bean id="patientDaoInterface" class="gov.nih.nci.nbia.griddao.PatientDAO">
+  <bean id="patientDaoInterface" class="gov.nih.nci.ncia.griddao.PatientDAO">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
 
-  <bean id="trialDataProvenanceDaoInterface" class="gov.nih.nci.nbia.griddao.TrialDataProvenanceDAO">
+  <bean id="trialDataProvenanceDaoInterface" class="gov.nih.nci.ncia.griddao.TrialDataProvenanceDAO">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>

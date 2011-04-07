@@ -41,35 +41,35 @@
 
     <property name="mappingResources">
       <list>
-        <value>gov/nih/nci/ncia/internaldomain/ClinicalTrial.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/Patient.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/Study.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/GeneralSeries.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/GeneralImage.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/GeneralEquipment.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CTImage.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/StudyNumber.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/TrialDataProvenance.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/TrialSite.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/Annotation.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/DeletionAuditTrail.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ClinicalTrial.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Patient.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Study.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralSeries.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralEquipment.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CTImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/StudyNumber.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialDataProvenance.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialSite.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DeletionAuditTrail.hbm.xml</value>
 
-        <value>gov/nih/nci/ncia/security/NCIAUser.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CollectionDesc.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CustomSeriesList.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/DownloadDataHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/ImageMarkup.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/LoginHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/NumberMonth.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/QCStatusHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/QueryHistory.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/QueryHistoryAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQuery.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQueryAttribute.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SavedQueryLastExec.hbm.xml</value>
-        <value>gov/nih/nci/ncia/internaldomain/SubmissionHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/security/NCIAUser.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CollectionDesc.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QCStatusHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QueryHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QueryHistoryAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQuery.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQueryAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
       </list>
     </property>
 

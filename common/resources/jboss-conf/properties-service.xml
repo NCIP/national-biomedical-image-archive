@@ -176,6 +176,8 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   </attribute>
 
   <attribute name="Properties">show.collection.search.criteria=@show.collection.search.criteria@</attribute>
+  
+  <attribute name="Properties">show.anatomical.search.criteria=@show.anatomical.search.criteria@</attribute>
 
   </mbean>
 

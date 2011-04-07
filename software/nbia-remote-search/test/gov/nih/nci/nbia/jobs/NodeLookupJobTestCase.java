@@ -16,54 +16,54 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RemoteNodes.class, NCIAConfig.class, NodeLookupJob.class} )
-@SuppressStaticInitializationFor("gov.nih.nci.ncia.remotesearch.RemoteNodes")
+@SuppressStaticInitializationFor("gov.nih.nci.nbia.remotesearch.RemoteNodes")
 public class NodeLookupJobTestCase {
 
 	@Test
 	public void testDontExecute() throws Exception {
-		//create mocks	
+		//create mocks
 		mockStatic(RemoteNodes.class);
 		mockStatic(NCIAConfig.class);
 
-	    expect(NCIAConfig.getDiscoverRemoteNodes()).andReturn("false");                   
-	    expect(RemoteNodes.getInstance()).andThrow(new RuntimeException("shouldnt execute"));              
-                  			    
-		//replay the mock  
-    	replay(NCIAConfig.class);                
-    	replay(RemoteNodes.class);                
+	    expect(NCIAConfig.getDiscoverRemoteNodes()).andReturn("false");
+	    expect(RemoteNodes.getInstance()).andThrow(new RuntimeException("shouldnt execute"));
+
+		//replay the mock
+    	replay(NCIAConfig.class);
+    	replay(RemoteNodes.class);
 
     	//verify the OUT
 		NodeLookupJob job = new NodeLookupJob();
 		job.execute(null);
-		    	
-    	//verify the mock  	
+
+    	//verify the mock
     	verify(NCIAConfig.class);
     	//dont verify RemoteNodes - it will think getInstance should have been invoked
     	//and it shouldnt have been if code is working correctly - we are really
     	//doing a negative asserrtion throw the "andThrow" expectation.
 	}
-	
+
 	@Test
 	public void testExecute() throws Exception {
 
-		//create mocks	
+		//create mocks
 		RemoteNodes remoteNodesMock = createMock(RemoteNodes.class);
 		mockStatic(RemoteNodes.class);
 		mockStatic(NCIAConfig.class);
 
-	    expect(NCIAConfig.getDiscoverRemoteNodes()).andReturn("true");                   
-	    expect(RemoteNodes.getInstance()).andReturn(remoteNodesMock).times(1);                   
-                  			    
-		//replay the mock  
-    	replay(NCIAConfig.class);                
-    	replay(RemoteNodes.class);                
+	    expect(NCIAConfig.getDiscoverRemoteNodes()).andReturn("true");
+	    expect(RemoteNodes.getInstance()).andReturn(remoteNodesMock).times(1);
+
+		//replay the mock
+    	replay(NCIAConfig.class);
+    	replay(RemoteNodes.class);
 
     	//verify the OUT
 		NodeLookupJob job = new NodeLookupJob();
 		job.execute(null);
-		    	
-    	//verify the mock  	
+
+    	//verify the mock
     	verify(NCIAConfig.class);
     	verify(RemoteNodes.class);
-	}	
+	}
 }

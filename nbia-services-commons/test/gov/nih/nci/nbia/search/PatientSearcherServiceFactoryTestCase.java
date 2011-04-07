@@ -21,18 +21,18 @@ public class PatientSearcherServiceFactoryTestCase extends TestCase {
 		}
 
 	}
-	
+
 	public void testGetPatientSearcherService() {
 		System.setProperty("patientSearcherService.className",
-				           "gov.nih.nci.ncia.search.PatientSearcherServiceFactoryTestCase$FakePatientSearcherService");
-		
+				           "gov.nih.nci.nbia.search.PatientSearcherServiceFactoryTestCase$FakePatientSearcherService");
+
 		PatientSearcherService patientSearcherService = PatientSearcherServiceFactory.getPatientSearcherService();
 		PatientSearcherService patientSearcherService2 = PatientSearcherServiceFactory.getPatientSearcherService();
 
 		assertEquals(patientSearcherService, patientSearcherService2);
 		assertTrue(patientSearcherService instanceof FakePatientSearcherService);
-	}	
-	
+	}
+
 	public static class FakePatientSearcherService implements PatientSearcherService {
 		public PatientSearchCompletionService searchForPatients(List<NBIANode> nodesToSearch,
                                                                 DICOMQuery dicomQuery) {
@@ -40,7 +40,7 @@ public class PatientSearcherServiceFactoryTestCase extends TestCase {
 		}
 
 		public void setExecutorService(ExecutorService executorService) {
-			
+
 		}
 	}
 

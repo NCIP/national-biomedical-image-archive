@@ -343,12 +343,15 @@ $HeadURL$
   </target>
 
   <target name="validate:pre:build">
+    <delete dir="${application.base.path}/${wscore.relative.dir}"/>
     <validate-pre-build
       />
 
     <!-- i dont understand what is going on with globus... this may have something to do
          with tweaking the target dependencies for ahp3.  for now just force this unzip so build will
-         work without globus_location being set -->
+         work without globus_location being set
+
+         validate-pre-build is already trying to do this.... this code is a suck -->
     <if>
       <not>
         <isset property="env.GLOBUS_LOCATION"/>

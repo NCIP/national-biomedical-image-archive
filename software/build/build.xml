@@ -355,6 +355,8 @@ $HeadURL$
       </not>
       <then>
         <unzip dest="${target.dir}" src="${download.dir}/${wscore.file.name}"/>
+        <property name="env.GLOBUS_LOCATION" value="${target.dir}/${ws-core.binaries.relative.dir}"/>
+        <echo message="Setting GLOBUS_LOCATION to ${env.GLOBUS_LOCATION}."/>
       </then>
 
     </if>

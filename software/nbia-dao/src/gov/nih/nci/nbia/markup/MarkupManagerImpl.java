@@ -82,7 +82,7 @@ public class MarkupManagerImpl extends AbstractDAO
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
     public void insertMarkup(MarkupDTO dto) throws DataAccessException {
-        Session session = null;
+
         ImageMarkup im = new ImageMarkup();
         GeneralSeries series = new GeneralSeries();
         String hql = "from GeneralSeries as series where ";
@@ -103,16 +103,9 @@ public class MarkupManagerImpl extends AbstractDAO
         im.setSeriesInstanceUID(dto.getSeriesUID());
         im.setSubmissionDate(new java.util.Date());
 
-        try {
-            session.save(im);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        finally {
-            session.flush();
-            session.close();
-        }
+
+        getHibernateTemplate().saveOrUpdate(im);
+
     }
 
 

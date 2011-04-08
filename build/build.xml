@@ -354,9 +354,13 @@ $HeadURL$
         <isset property="env.GLOBUS_LOCATION"/>
       </not>
       <then>
+        <echo>globus not set</echo>
         <delete dir="${application.base.path}/ws-core-4.0.3"/>
         <unzip dest="${application.base.path}" src="${download.dir}/${wscore.file.name}"/>
-        <propert name="env.GLOBUS_LOCATION" value="${application.base.path}/ws-core-4.0.3"/>
+        <property name="env.GLOBUS_LOCATION" value="${application.base.path}/ws-core-4.0.3"/>
+        <exec executable="ls">
+          <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
+        </exec>
       </then>
     </if>
 

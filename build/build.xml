@@ -357,6 +357,11 @@ $HeadURL$
         <unzip dest="${application.base.path}" src="${download.dir}/${wscore.file.name}"/>
       </then>
     </if>
+
+    <exec executable="ls">
+      <arg value="${application.base.path}"/>
+    </exec>
+
   </target>
 
   <!-- Wrapper build target, call appropriate builds for sub-projects -->

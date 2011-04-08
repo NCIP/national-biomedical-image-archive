@@ -362,11 +362,11 @@ $HeadURL$
           <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
         </exec>
       </then>
+
+    </if>
               <exec executable="ls">
                 <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
         </exec>
-    </if>
-
   </target>
 
   <!-- Wrapper build target, call appropriate builds for sub-projects -->

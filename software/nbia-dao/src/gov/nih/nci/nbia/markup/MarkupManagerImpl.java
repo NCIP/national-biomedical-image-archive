@@ -15,7 +15,6 @@ import gov.nih.nci.nbia.internaldomain.ImageMarkup;
 
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.hibernate.Session;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

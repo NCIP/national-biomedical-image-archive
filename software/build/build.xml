@@ -354,19 +354,11 @@ $HeadURL$
         <isset property="env.GLOBUS_LOCATION"/>
       </not>
       <then>
-        <echo>globus not set</echo>
-        <delete dir="${application.base.path}/ws-core-4.0.3"/>
-        <unzip dest="${application.base.path}" src="${download.dir}/${wscore.file.name}"/>
-        <property name="env.GLOBUS_LOCATION" value="${application.base.path}/ws-core-4.0.3"/>
-        <exec executable="ls">
-          <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
-        </exec>
+        <unzip dest="${target.dir}" src="${download.dir}/${wscore.file.name}"/>
       </then>
 
     </if>
-              <exec executable="ls">
-                <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
-        </exec>
+
   </target>
 
   <!-- Wrapper build target, call appropriate builds for sub-projects -->

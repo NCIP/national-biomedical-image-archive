@@ -362,6 +362,9 @@ $HeadURL$
           <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
         </exec>
       </then>
+              <exec executable="ls">
+                <arg value="${application.base.path}/ws-core-4.0.3/lib"/>
+        </exec>
     </if>
 
   </target>

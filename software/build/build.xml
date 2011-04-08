@@ -359,7 +359,7 @@ $HeadURL$
     </if>
 
     <exec executable="ls">
-      <arg value="${application.base.path}"/>
+      <arg value="${application.base.path}/ws-core-4.0.3"/>
     </exec>
 
   </target>

@@ -343,7 +343,9 @@ $HeadURL$
   </target>
 
   <target name="validate:pre:build">
+     <!--
     <delete dir="${application.base.path}/${wscore.relative.dir}"/>
+    -->
     <validate-pre-build
       />
 

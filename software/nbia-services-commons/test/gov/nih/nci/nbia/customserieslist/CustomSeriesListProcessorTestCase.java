@@ -3,128 +3,136 @@
  */
 package gov.nih.nci.nbia.customserieslist;
 
-import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
-import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
-import gov.nih.nci.nbia.security.AuthorizationManager;
-import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import static org.easymock.EasyMock.expect;
+import static org.powermock.api.easymock.PowerMock.createMock;
+import static org.powermock.api.easymock.PowerMock.expectNew;
+import static org.powermock.api.easymock.PowerMock.mockStatic;
+import static org.powermock.api.easymock.PowerMock.replay;
+import static org.powermock.api.easymock.PowerMock.verify;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import gov.nih.nci.nbia.dao.CustomSeriesListDAO;
+import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.dto.CustomSeriesDTO;
+import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
+import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
+import gov.nih.nci.nbia.dto.SeriesDTO;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  * @author lethai
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/applicationContext-service.xml", "/applicationContext-hibernate-testContext.xml"})
-public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJunit4 {
+@RunWith(PowerMockRunner.class)
+@SuppressStaticInitializationFor({"gov.nih.nci.nbia.security.NCIASecurityManager$RoleType"})
+@PrepareForTest({CustomSeriesListProcessor.class,  
+                 SpringApplicationContext.class}) 
+public class CustomSeriesListProcessorTestCase {
 
 	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#CustomSeriesListProcessor(java.lang.String, gov.nih.nci.nbia.security.AuthorizationManager)}.
-	 */
-	@Test
-	public void testCustomSeriesListProcessor() throws Exception {
-		AuthorizationManager am = new AuthorizationManager("lethai");
-		System.out.println(am.getAuthorizedCollections());
-		System.out.println(am.getAuthorizedSites());
-		customSeriesListProcessor = new CustomSeriesListProcessor("lethai", am);
-		Assert.assertTrue(customSeriesListProcessor != null);
-	}
-
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#validate(java.util.List)}.
+	 * This is a really stupid test, but I think this object is ill-defined.
 	 */
 	@Test	
-	public void testValidate() {
-		//fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#isAnyPrivate(java.util.List)}.
-	 */
-	@Test	
-	public void testIsAnyPrivate() {
-		//fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#isDuplicateName(java.lang.String)}.
-	 */
-	@Test	
-	public void testIsDuplicateName() {
-		boolean duplicateName = customSeriesListProcessor.isDuplicateName("LIDC");
+	public void testIsDuplicateName() throws Exception {
+    
+        expect(customSeriesListDAOMock.isDuplicateName("LIDC")).
+            andReturn(true); 
+                   
+        replayMock();
+        
+        //OUT
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");
+        boolean duplicateName = customSeriesListProcessor.isDuplicateName("LIDC");
 		Assert.assertTrue(duplicateName);
 	}
 
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#searchByName(java.lang.String)}.
-	 */
+
+
 	@Test	
 	public void testSearchByName() {
-		CustomSeriesListDTO dto = customSeriesListProcessor.searchByName("LIDC");
-		Assert.assertEquals(dto.getName(), "LIDC");
+		CustomSeriesListDTO testDTO = new CustomSeriesListDTO();
+		testDTO.setName("LIDC");
+		
+        expect(customSeriesListDAOMock.findCustomSeriesListByName("LIDC")).
+            andReturn(testDTO); 
+               
+        replayMock();
+    
+        //OUT
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");
+        CustomSeriesListDTO actualDTO = customSeriesListProcessor.searchByName("LIDC");
+        Assert.assertEquals(actualDTO.getName(), "LIDC");		
 	}
 
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getSeriesDTO(java.util.List)}.
-	 */
-	@Test	
-	public void testGetSeriesDTO() {
-		//fail("Not yet implemented");
-	}
 
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getCustomListByUser(java.lang.String)}.
-	 */
 	@Test	
 	public void testGetCustomListByUser() {
-		List<CustomSeriesListDTO> dtos = customSeriesListProcessor.getCustomListByUser("lethai");
-		System.out.println("size: " + dtos.size());
-		Assert.assertEquals(dtos.size(), 9);
+		List<CustomSeriesListDTO> testDTOs = new ArrayList<CustomSeriesListDTO>();
+		testDTOs.add(new CustomSeriesListDTO());
+		testDTOs.add(new CustomSeriesListDTO());
+		testDTOs.add(new CustomSeriesListDTO());
+
+		
+        expect(customSeriesListDAOMock.findCustomSeriesListByUser("LIDC")).
+            andReturn(testDTOs); 
+               
+        replayMock();
+    
+        //OUT
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");
+        List<CustomSeriesListDTO> dtos= customSeriesListProcessor.getCustomListByUser("LIDC");
+		Assert.assertEquals(dtos.size(), 3);		
 	}
 
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#create(gov.nih.nci.nbia.dto.CustomSeriesListDTO)}.
-	 */
+
 	@Test	
 	public void testCreate() {
-		List<String> seriesInstanceUIDs = new ArrayList<String>();
-		seriesInstanceUIDs.add("1.2.840.113619.2.5.1762388187.1886.1039082614.131");
-		seriesInstanceUIDs.add("1.2.840.113619.2.5.1762388187.1886.1039082614.163");
-		seriesInstanceUIDs.add("1.2.840.113619.2.5.1762388187.1886.1039082614.192");
 		CustomSeriesListDTO customList = new CustomSeriesListDTO();
-		customList.setName("JUnit Test List");
-		customList.setHyperlink("http://www.yahoo.com");
-		customList.setComment("testing");
-		customList.setSeriesInstanceUIDs(seriesInstanceUIDs);
-		customList.setUserName("lethai");
-		customSeriesListProcessor.create(customList);
 		
-		String customSeriesListName = "JUnit Test List";
-		CustomSeriesListDTO listDTO = customSeriesListProcessor.searchByName(customSeriesListName);
+        expect(customSeriesListDAOMock.insert(customList, "lethai")).
+            andReturn(1L); 		
 		
-		Assert.assertEquals(listDTO.getName(),customSeriesListName);
+        replayMock();
+        
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");		
+		long result = customSeriesListProcessor.create(customList);
+		
+		Assert.assertEquals(result,1);
 	}
 
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#getCustomseriesListAttributesById(java.lang.Integer)}.
-	 */
+
 	@Test	
 	public void testGetCustomseriesListAttributesById() {
-		List<CustomSeriesListAttributeDTO> returnedList = customSeriesListProcessor.getCustomseriesListAttributesById(1378287616);
-		Assert.assertEquals(returnedList.size(), 51);
+		
+		List<CustomSeriesListAttributeDTO> list = new ArrayList<CustomSeriesListAttributeDTO>();
+		list.add(new CustomSeriesListAttributeDTO());
+		list.add(new CustomSeriesListAttributeDTO());
+		list.add(new CustomSeriesListAttributeDTO());
+
+        expect(customSeriesListDAOMock.findCustomSeriesListAttribute(666)).
+            andReturn(list); 
+        
+        replayMock();
+
+        
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");		
+		List<CustomSeriesListAttributeDTO> returnedList = customSeriesListProcessor.getCustomseriesListAttributesById(666);
+		Assert.assertEquals(returnedList.size(), 3);	
 	}
 
-	/**
-	 * Test method for {@link gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor#update(gov.nih.nci.nbia.dto.CustomSeriesListDTO, java.lang.Boolean)}.
-	 */
+
 	@Test	
 	public void testUpdate() {
 		CustomSeriesListDTO editList = new CustomSeriesListDTO();
@@ -134,26 +142,157 @@ public class CustomSeriesListProcessorTestCase extends AbstractDbUnitTestForJuni
 		editList.setComment("JUnit update testing");
 		editList.setId(1361281024);
 		Boolean updatedSeries=false;
-		customSeriesListProcessor.update(editList, updatedSeries);
 		
-		CustomSeriesListDTO dto = customSeriesListProcessor.searchByName(customSeriesListName);
-		Assert.assertEquals(dto.getName(), customSeriesListName);
-		Assert.assertEquals(dto.getComment(), "JUnit update testing");
-	}
-//////////////////////////////PROTECTED/////////////////////////////////
+        expect(customSeriesListDAOMock.update(editList, "lethai", updatedSeries)).
+            andReturn(2L); 		
+		
+        replayMock();
 
-    protected String getDataSetResourceSpec() {
-    	return TEST_DB_FLAT_FILE;
-    }
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");		
+        long result = customSeriesListProcessor.update(editList, updatedSeries);
+        
+        Assert.assertEquals(result, 2L);      
+	}
+
+	@Test
+	public void testValidate() {
+		List<String> seriesUids = new ArrayList<String>();
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122841");
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122844");
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122847");
+		
+		List<SeriesDTO> seriesDTOsFound = new ArrayList<SeriesDTO>();
+		SeriesDTO dto0 = new SeriesDTO();
+		dto0.setSeriesUID("1.3.6.1.4.1.9328.50.4.122841");
+		seriesDTOsFound.add(dto0);
+		
+        expect(generalSeriesDAOMock.findSeriesBySeriesInstanceUID(seriesUids, null,  null)).
+            andReturn(seriesDTOsFound);
+        
+        replayMock();
+
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");		
+		List<String> noPermissionSeries = customSeriesListProcessor.validate(seriesUids);
+		Assert.assertTrue(noPermissionSeries.contains("1.3.6.1.4.1.9328.50.4.122844"));
+		Assert.assertTrue(noPermissionSeries.contains("1.3.6.1.4.1.9328.50.4.122847"));
+		Assert.assertEquals(noPermissionSeries.size(), 2);
+	}
+
+
+	@Test
+	public void testIsAnyPrivate() {
+		//fail("Not yet implemented");
+		List<String> seriesUids = new ArrayList<String>();
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122841");
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122844");
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122847");
+		
+		
+		List<CustomSeriesDTO> seriesDTOsFound = new ArrayList<CustomSeriesDTO>();
+		CustomSeriesDTO dto0 = new CustomSeriesDTO();
+		dto0.setSeriesUID("1.3.6.1.4.1.9328.50.4.122841");
+		seriesDTOsFound.add(dto0);
+		
+        expect(customSeriesListDAOMock.findSeriesForPublicCollection(seriesUids, null)).
+            andReturn(seriesDTOsFound);
+        
+        replayMock();
+
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");	
+		List<String> anyPrivate = customSeriesListProcessor.isAnyPrivate(seriesUids);
+
+		Assert.assertTrue(anyPrivate.contains("1.3.6.1.4.1.9328.50.4.122844"));
+		Assert.assertTrue(anyPrivate.contains("1.3.6.1.4.1.9328.50.4.122847"));
+		Assert.assertEquals(anyPrivate.size(), 2);
+	}
+
+	
+
+
+	@Test
+	public void testGetSeriesDTO() {
+		List<String> seriesUids = new ArrayList<String>();
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122841");
+		seriesUids.add("1.3.6.1.4.1.9328.50.4.122844");
+		
+		
+		List<SeriesDTO> seriesDTOsFound = new ArrayList<SeriesDTO>();
+		SeriesDTO dto0 = new SeriesDTO();
+		dto0.setSeriesUID("1.3.6.1.4.1.9328.50.4.122841");
+		seriesDTOsFound.add(dto0);
+		SeriesDTO dto1 = new SeriesDTO();
+		dto1.setSeriesUID("1.3.6.1.4.1.9328.50.4.122844");
+		seriesDTOsFound.add(dto1);		
+		
+        expect(generalSeriesDAOMock.findSeriesBySeriesInstanceUID(seriesUids, null,  null)).
+            andReturn(seriesDTOsFound);		
+
+        replayMock();
+
+        CustomSeriesListProcessor customSeriesListProcessor = new CustomSeriesListProcessor("lethai");			
+		List<SeriesDTO> seriesDTOs = customSeriesListProcessor.getSeriesDTO(seriesUids);
+		Assert.assertTrue(findBySeriesInstanceUid(seriesDTOs,"1.3.6.1.4.1.9328.50.4.122841"));
+		Assert.assertTrue(findBySeriesInstanceUid(seriesDTOs,"1.3.6.1.4.1.9328.50.4.122844"));
+		Assert.assertEquals(seriesDTOs.size(), 2);
+	}	
+ 
 	
     @Before
     public void setUp() throws Exception {
-		customSeriesListProcessor = new CustomSeriesListProcessor("lethai");
+        mockStatic(SpringApplicationContext.class);
+        customSeriesListDAOMock = createMock(CustomSeriesListDAO.class);
+        generalSeriesDAOMock = createMock(GeneralSeriesDAO.class);
+        authorizationManagerMock = createMock(AuthorizationManager.class);  
+        
+        expectNew(AuthorizationManager.class).
+            andReturn(authorizationManagerMock);        
+
+        expect(SpringApplicationContext.getBean("generalSeriesDAO")).
+            andReturn(generalSeriesDAOMock);
+        expect(SpringApplicationContext.getBean("customSeriesListDAO")).
+            andReturn(customSeriesListDAOMock); 
+        expect(authorizationManagerMock.getAuthorizedSeriesSecurityGroups()).            
+            andReturn(null).
+            anyTimes();
+        expect(authorizationManagerMock.getAuthorizedSites()).
+            andReturn(null).
+            anyTimes();
+        
+        expectNew(AuthorizationManager.class, "lethai").
+            andReturn(authorizationManagerMock);        
+    }
+
+    @After
+    public void tearDown() throws Exception {    
+    	verifyMock();
+    }
+    
+    ////////////////////////////////////PRIVATE/////////////////////////////////
+   
+    private CustomSeriesListDAO customSeriesListDAOMock;
+    private GeneralSeriesDAO generalSeriesDAOMock;
+    private AuthorizationManager authorizationManagerMock;    
+    
+	private void replayMock() {
+        replay(customSeriesListDAOMock);
+        replay(SpringApplicationContext.class);
+        replay(authorizationManagerMock, AuthorizationManager.class);
+        replay(generalSeriesDAOMock, GeneralSeriesDAO.class); 		
 	}
-
 	
-////////////////////////////////////PRIVATE/////////////////////////////////
-
-    private static final String TEST_DB_FLAT_FILE = "dbunitscripts/custom_series_list.xml";
-    private CustomSeriesListProcessor customSeriesListProcessor;
+	private void verifyMock() {
+		verify(customSeriesListDAOMock);
+		verify(SpringApplicationContext.class);
+		verify(authorizationManagerMock, AuthorizationManager.class);
+		verify(generalSeriesDAOMock, GeneralSeriesDAO.class); 	
+	}   
+	
+	private static boolean findBySeriesInstanceUid(List<SeriesDTO> dtos, String seriesInstanceUid) {
+		for(SeriesDTO dto : dtos) {
+			if(dto.getSeriesUID().equals(seriesInstanceUid)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

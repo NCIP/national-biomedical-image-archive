@@ -71,8 +71,8 @@ public class MarkupManagerImpl extends AbstractDAO
         getHibernateTemplate().bulkUpdate(hql,
         		                          new Object[] {
         		                              dto.getMarkupData(),
-        		                              dto.getSeriesUID(),
-        		                              new java.util.Date()
+        		                              new java.util.Date(),
+        		                              dto.getSeriesUID()
        		                              });
     }
 

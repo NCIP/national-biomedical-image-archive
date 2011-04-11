@@ -1,7 +1,8 @@
 package gov.nih.nci.nbia.beans.collectiondescriptions;
 
-import gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor;
+import gov.nih.nci.nbia.dao.CollectionDescDAO;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
@@ -54,8 +55,7 @@ public class DisplayCollectionDescBean {
     	SelectItem selectItem = (SelectItem)event.getComponent().getAttributes().get("collectionName");
     	selectedCollectionLabel = selectItem.getLabel();
     	logger.debug("selectedCollectionLabel : " + selectedCollectionLabel);
-		CollectionDescProcessor processor = new CollectionDescProcessor();		
-		CollectionDescDTO collectionDescByCollectionName = processor.getCollectionDescByCollectionName(selectedCollectionLabel);
+		CollectionDescDTO collectionDescByCollectionName = dao.findCollectionDescByCollectionName(selectedCollectionLabel);
 		System.out.println("collectionDescByCollectionName: " + collectionDescByCollectionName);
 		if(collectionDescByCollectionName != null){
 		    collectionDescription = collectionDescByCollectionName.getDescription();
@@ -65,4 +65,6 @@ public class DisplayCollectionDescBean {
 		collectionDescriptionPopupRendered = true;
 		logger.debug("collectionDescription: " + collectionDescription);
     }
+	
+	private CollectionDescDAO dao = (CollectionDescDAO)SpringApplicationContext.getBean("collectionDescDAO");
 }

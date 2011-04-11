@@ -31,6 +31,21 @@
     <!--
     <dependency org="p6spy" name="p6spy" rev="1.3" conf="test->runtime"/>
     -->
+
+    <dependency org="powermock"
+                name="powermock-easymock"
+                rev="1.3.5"
+                conf="test->default"/>
+    <dependency org="cglib"
+                name="cglib"
+                rev="2.1_3"
+                conf="test->master,runtime"/>
+    <!-- hmmmm easymock-classextensions not picking this up from how powermock dep is defined i guess?  fix when we have access -->
+    <dependency org="org.objenesis"
+                name="objenesis"
+                rev="1.1"
+                conf="test->master,runtime"/>
+
     <dependency org="org.slf4j"
                 name="slf4j-api"
                 rev="1.4.3"

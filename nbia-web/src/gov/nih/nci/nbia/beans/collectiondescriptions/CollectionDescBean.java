@@ -2,25 +2,23 @@ package gov.nih.nci.nbia.beans.collectiondescriptions;
 
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
-import gov.nih.nci.nbia.collectiondescription.CollectionDescProcessor;
+import gov.nih.nci.nbia.dao.CollectionDescDAO;
 import gov.nih.nci.nbia.dto.CollectionDescDTO;
 import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
 import org.apache.log4j.Logger;
-
 import com.icesoft.faces.component.inputrichtext.InputRichText;
 
 public class CollectionDescBean {
 	private static Logger logger = Logger.getLogger(CollectionDescBean.class);
 	private List<String> collectionNames = new ArrayList<String>();
-	private CollectionDescProcessor processor;
+	private CollectionDescDAO dao = (CollectionDescDAO)SpringApplicationContext.getBean("collectionDescDAO");
 	private List<SelectItem> collectionItems;
 	private String selectedCollectionName;
 	private String defaultSelectValue="please select";
@@ -38,7 +36,6 @@ public class CollectionDescBean {
 	public CollectionDescBean() {
 		collectionDescDTO = new CollectionDescDTO();
 		selectedCollection = new CollectionDescDTO();
-		processor = new CollectionDescProcessor();
 		collectionItems = new ArrayList<SelectItem>();
 		collectionItems.add(0, defaultSelectItem);
 		sb = BeanManager.getSecurityBean();
@@ -48,7 +45,7 @@ public class CollectionDescBean {
 	private CollectionDescDTO selectedCollection;
 
 	public String load() {
-		collectionNames = processor.getCollectionNames();
+		collectionNames = dao.findCollectionNames();
 		for(String s : collectionNames){
 			SelectItem item = new SelectItem(s, s);
 			collectionItems.add(item);
@@ -69,7 +66,7 @@ public class CollectionDescBean {
 		}else{
 			System.out.println("selectedCollectionName: " +selectedCollectionName);
 			// retrieve the description based on the collectionName
-			CollectionDescDTO dto = processor.getCollectionDescByCollectionName(name);
+			CollectionDescDTO dto = dao.findCollectionDescByCollectionName(name);
 			selectedCollection = dto;
 			this.inputRichText.resetValue();
 		}
@@ -95,7 +92,7 @@ public class CollectionDescBean {
 		dto.setId(selectedCollection.getId());
 		dto.setDescription(selectedCollection.getDescription());
 		dto.setUserName(sb.getUsername());
-		processor.update(dto);
+		dao.save(dto);
 		message="The description for (" + selectedCollection.getCollectionName() + ") has been saved successfully.";
 		infoMessage=true;
 		return "";

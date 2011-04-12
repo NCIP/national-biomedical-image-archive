@@ -4,6 +4,7 @@ import static org.easymock.EasyMock.expect;
 import static org.powermock.api.easymock.PowerMock.createMock;
 import static org.powermock.api.easymock.PowerMock.mockStatic;
 import static org.powermock.api.easymock.PowerMock.replay;
+import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.nbia.dto.StudyNumberDTO;
 import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
@@ -81,6 +82,11 @@ public class PatientSearcherTestCase {
         Assert.assertTrue(results.size()==2);
         Assert.assertTrue(results.get(0).getSubjectId().equals("1"));
         Assert.assertTrue(results.get(1).getSubjectId().equals("6"));
+        
+        verify(SpringApplicationContext.class);
+        verify(ApplicationFactory.class, applicationFactoryMock);        
+        verify(DICOMQueryHandler.class, dicomQueryHandlerMock);
+        verify(StudyNumberMap.class, studyNumberMapMock);  
 	}
 	
 	

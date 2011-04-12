@@ -1,14 +1,18 @@
 package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
-import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
+import static org.easymock.EasyMock.expect;
+import static org.powermock.api.easymock.PowerMock.createMock;
+import static org.powermock.api.easymock.PowerMock.mockStatic;
+import static org.powermock.api.easymock.PowerMock.replay;
+import gov.nih.nci.nbia.dto.StudyNumberDTO;
+import gov.nih.nci.nbia.factories.ApplicationFactory;
+import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.query.DICOMQuery;
-import gov.nih.nci.nbia.security.AuthorizationManager;
-import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -16,12 +20,18 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/applicationContext-service.xml", "/applicationContext-hibernate-testContext.xml"})
-public class PatientSearcherTestCase extends AbstractDbUnitTestForJunit4 {
+@RunWith(PowerMockRunner.class)
+@SuppressStaticInitializationFor({"gov.nih.nci.nbia.search.LocalNode"})
+@PrepareForTest({PatientSearcher.class,  
+                 SpringApplicationContext.class,
+                 ApplicationFactory.class,
+                 LocalNode.class,
+                 DICOMQueryHandler.class}) 
+public class PatientSearcherTestCase {
 
 	/**
 	 * Just test reduction of triples to patients... do the
@@ -35,51 +45,89 @@ public class PatientSearcherTestCase extends AbstractDbUnitTestForJunit4 {
 		ImageModalityCriteria imageModalityCriteria = new ImageModalityCriteria();
 		imageModalityCriteria.setImageModalityValue("CT");
 		dicomQuery.setCriteria(imageModalityCriteria);
-		dicomQuery.setCriteria(createAuthorizationCriteria());
+		
+		StudyNumberDTO studyNumberDTO0 = new StudyNumberDTO(1, "1", "p1", 2, 5);
+		StudyNumberDTO studyNumberDTO1 = new StudyNumberDTO(6, "6", "p2", 1, 1);
+		
+		/////////////////////////////////
+		
+		mockStatic(SpringApplicationContext.class);
+		mockStatic(ApplicationFactory.class);		
+		ApplicationFactory applicationFactoryMock = createMock(ApplicationFactory.class);
+		StudyNumberMap studyNumberMapMock = createMock(StudyNumberMap.class);
+		DICOMQueryHandler dicomQueryHandlerMock = createMock(DICOMQueryHandler.class);
 
+        expect(ApplicationFactory.getInstance()).
+            andReturn(applicationFactoryMock).anyTimes();  
+        expect(applicationFactoryMock.getStudyNumberMap()).
+            andReturn(studyNumberMapMock).anyTimes();    
+        expect(studyNumberMapMock.getStudiesForPatient(1)).
+            andReturn(studyNumberDTO0);
+        expect(studyNumberMapMock.getStudiesForPatient(6)).
+            andReturn(studyNumberDTO1);        
+        expect(SpringApplicationContext.getBean("dicomQueryHandler")).
+            andReturn(dicomQueryHandlerMock);
+        expect(dicomQueryHandlerMock.findTriples(dicomQuery)).
+            andReturn(constructTriples());
 
+        replay(SpringApplicationContext.class);
+        replay(ApplicationFactory.class, applicationFactoryMock);        
+        replay(DICOMQueryHandler.class, dicomQueryHandlerMock);
+        replay(StudyNumberMap.class, studyNumberMapMock);   
+        
+        //////////////////            
+          
         List<PatientSearchResult> results = patientSearcher.searchForPatients(dicomQuery);
-        System.out.println("results:"+results);
-        //3 patients have CT series (out of 6 triples)
-        Assert.assertTrue(results.size()==4);
+        Assert.assertTrue(results.size()==2);
+        Assert.assertTrue(results.get(0).getSubjectId().equals("1"));
+        Assert.assertTrue(results.get(1).getSubjectId().equals("6"));
 	}
-
-
-    //////////////////////////////PROTECTED/////////////////////////////////
-
-    protected String getDataSetResourceSpec() {
-    	return TEST_DB_FLAT_FILE;
-    }
-
+	
+	
     @Before
 	public void setUp() throws Exception {
-
 		patientSearcher = new PatientSearcher();
 	}
 
 
     ////////////////////////////////////PRIVATE/////////////////////////////////
 
-    private static final String TEST_DB_FLAT_FILE = "dbunitscripts/collections_testdata.xml";
-
     private PatientSearcher patientSearcher;
 
-
-	private static AuthorizationCriteria createAuthorizationCriteria()
-			throws Exception {
-		AuthorizationManager am = new AuthorizationManager("kascice");
-		List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.READ);
-		List<String> authorizedCollections = am
-				.getAuthorizedCollections(RoleType.READ);
-		List<String> authorizedSeriesSecurityGroups = am
-				.getAuthorizedSeriesSecurityGroups(RoleType.READ);
-
-		AuthorizationCriteria authorizationCriteria = new AuthorizationCriteria();
-		authorizationCriteria.setCollections(authorizedCollections);
-		authorizationCriteria.setSites(authorizedSites);
-		authorizationCriteria
-				.setSeriesSecurityGroups(authorizedSeriesSecurityGroups);
-
-		return authorizationCriteria;
-	}
+    private List<PatientStudySeriesTriple> constructTriples() {
+        List<PatientStudySeriesTriple> triples = new ArrayList<PatientStudySeriesTriple>();
+        
+        PatientStudySeriesTriple triple0 = new PatientStudySeriesTriple();
+        triple0.setPatientPkId(1);
+        triple0.setStudyPkId(1);
+        triple0.setSeriesPkId(1);
+        
+        PatientStudySeriesTriple triple1 = new PatientStudySeriesTriple();
+        triple1.setPatientPkId(1);
+        triple1.setStudyPkId(1);
+        triple1.setSeriesPkId(2);
+        
+        PatientStudySeriesTriple triple2 = new PatientStudySeriesTriple();
+        triple2.setPatientPkId(1);
+        triple2.setStudyPkId(1);
+        triple2.setSeriesPkId(3);
+        
+        PatientStudySeriesTriple triple3 = new PatientStudySeriesTriple();
+        triple3.setPatientPkId(1);
+        triple3.setStudyPkId(4);
+        triple3.setSeriesPkId(5);
+        
+        PatientStudySeriesTriple triple4= new PatientStudySeriesTriple();
+        triple4.setPatientPkId(6);
+        triple4.setStudyPkId(7);
+        triple4.setSeriesPkId(8);         
+        
+        triples.add(triple0);
+        triples.add(triple1);
+        triples.add(triple2);
+        triples.add(triple3);
+        triples.add(triple4);
+        
+        return triples;                	
+    }
 }

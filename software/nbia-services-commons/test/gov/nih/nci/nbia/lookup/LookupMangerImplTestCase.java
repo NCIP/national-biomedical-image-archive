@@ -74,7 +74,6 @@ public class LookupMangerImplTestCase {
 	@Test 
 	public void testDicomKernelType() throws Exception {
 		List<String> kernelTypes = lookupMangerImpl.getDICOMKernelType();
-System.out.println("kernelTypes:"+kernelTypes.size());
 		Assert.assertTrue(kernelTypes.contains("STANDARD"));
 		Assert.assertTrue(kernelTypes.contains("SOFT"));
 		Assert.assertTrue(kernelTypes.contains("T20s"));

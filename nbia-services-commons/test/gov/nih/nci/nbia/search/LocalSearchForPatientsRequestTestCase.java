@@ -1,39 +1,47 @@
 package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.criteria.AuthorizationCriteria;
+import static org.easymock.EasyMock.expect;
+import static org.powermock.api.easymock.PowerMock.createMock;
+import static org.powermock.api.easymock.PowerMock.expectNew;
+import static org.powermock.api.easymock.PowerMock.replay;
+import static org.powermock.api.easymock.PowerMock.verify;
+import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.nbia.query.DICOMQuery;
-import gov.nih.nci.nbia.search.LocalSearchForPatientsRequest;
-import gov.nih.nci.nbia.search.PatientSearchResults;
-import gov.nih.nci.nbia.security.AuthorizationManager;
-import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
-import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.ncia.search.PatientSearchResultImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/applicationContext-service.xml", "/applicationContext-hibernate-testContext.xml"})
-public class LocalSearchForPatientsRequestTestCase extends AbstractDbUnitTestForJunit4 {
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({LocalSearchForPatientsRequest.class}) 
+public class LocalSearchForPatientsRequestTestCase  {
 	@Test
 	public void testCall() throws Exception {
+		PatientSearcher patientSearcherMock = createMock(PatientSearcher.class);
+
 		NBIANode localNode = new NBIANode(true, "d1", "u1");
-
         DICOMQuery dicomQuery = new DICOMQuery();
-
 		ImageModalityCriteria imageModalityCriteria = new ImageModalityCriteria();
 		imageModalityCriteria.setImageModalityValue("CT");
 		dicomQuery.setCriteria(imageModalityCriteria);
-		dicomQuery.setCriteria(createAuthorizationCriteria());
 
+		expectNew(PatientSearcher.class).
+	        andReturn(patientSearcherMock);		
+		expect(patientSearcherMock.searchForPatients(dicomQuery)).
+		    andReturn(constructPatientSearchResultList());
+		
+		replay(PatientSearcher.class, patientSearcherMock);
+		
+		//OUT
 		LocalSearchForPatientsRequest localSearchForPatientsRequest =
 			new LocalSearchForPatientsRequest(localNode, dicomQuery);
 
@@ -41,34 +49,17 @@ public class LocalSearchForPatientsRequestTestCase extends AbstractDbUnitTestFor
 
 		Assert.assertEquals(patientSearchResults.getNode(), localNode);
 		Assert.assertTrue(patientSearchResults.getResults().length==4);
+		
+		verify(PatientSearcher.class, patientSearcherMock);
 	}
-
-    //////////////////////////////PROTECTED/////////////////////////////////
-
-    protected String getDataSetResourceSpec() {
-    	return TEST_DB_FLAT_FILE;
-    }
-
-
-    ////////////////////////////////////PRIVATE/////////////////////////////////
-
-    private static final String TEST_DB_FLAT_FILE = "dbunitscripts/collections_testdata.xml";
-
-	private static AuthorizationCriteria createAuthorizationCriteria()
-			throws Exception {
-		AuthorizationManager am = new AuthorizationManager("kascice");
-		List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.READ);
-		List<String> authorizedCollections = am
-				.getAuthorizedCollections(RoleType.READ);
-		List<String> authorizedSeriesSecurityGroups = am
-				.getAuthorizedSeriesSecurityGroups(RoleType.READ);
-
-		AuthorizationCriteria authorizationCriteria = new AuthorizationCriteria();
-		authorizationCriteria.setCollections(authorizedCollections);
-		authorizationCriteria.setSites(authorizedSites);
-		authorizationCriteria
-				.setSeriesSecurityGroups(authorizedSeriesSecurityGroups);
-
-		return authorizationCriteria;
+	
+	//////////////////////////////////////PRIVATE/////////////////////////////////////
+	
+	private List<PatientSearchResult> constructPatientSearchResultList() {
+		List<PatientSearchResult> list = new ArrayList<PatientSearchResult>();
+		for(int i=0;i<4;i++) {
+			list.add(new PatientSearchResultImpl());
+		}
+		return list;
 	}
 }

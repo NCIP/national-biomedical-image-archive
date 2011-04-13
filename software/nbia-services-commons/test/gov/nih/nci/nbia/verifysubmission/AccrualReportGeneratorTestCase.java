@@ -6,6 +6,7 @@ import static org.easymock.EasyMock.expect;
 import static org.powermock.api.easymock.PowerMock.createMock;
 import static org.powermock.api.easymock.PowerMock.mockStatic;
 import static org.powermock.api.easymock.PowerMock.replay;
+import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.nbia.dao.SubmissionHistoryDAO;
 import gov.nih.nci.nbia.dto.DayCountDTO;
 import gov.nih.nci.nbia.dto.SubmissionCountsDTO;
@@ -117,6 +118,9 @@ public class AccrualReportGeneratorTestCase   {
 		Assert.assertEquals(accrualReport.getNewImageCount(),newImageCount);
 		Assert.assertEquals(accrualReport.getCorrectedImageCount(),correctedImageCount);
 		
+        verify(SubmissionHistoryDAO.class, submissionHistoryDAOMock);
+        verify(SpringApplicationContext.class);		
+		
 	}
 
 	@Test
@@ -206,6 +210,9 @@ public class AccrualReportGeneratorTestCase   {
 		
 		Assert.assertEquals(accrualReport.getNewImageCount(),newImageCount);
 		Assert.assertEquals(accrualReport.getCorrectedImageCount(),correctedImageCount);
+
+        verify(SubmissionHistoryDAO.class, submissionHistoryDAOMock);
+        verify(SpringApplicationContext.class);			
 	}
 
     @Before

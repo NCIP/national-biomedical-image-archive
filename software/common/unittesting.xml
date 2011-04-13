@@ -315,6 +315,14 @@
                                 database.driver="${database.driver}"
                                 database.dialect="${database.dialect}"/>
 
+    <if>
+      <available file="${test.resources.dir}/NCIA.csm.new.hibernate.cfg.xml"/>
+      <then>
+        <patch-hibernate-cfg-direct file="${test.resources.dir}/NCIA.csm.new.hibernate.cfg.xml"/>
+      </then>
+    </if>
+
+
 		<junit printsummary="on" failureproperty="junit.failure" maxmemory="256m">
 			<sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.ser.file}"/>
 			<classpath location="${instrumented.dir}"/>

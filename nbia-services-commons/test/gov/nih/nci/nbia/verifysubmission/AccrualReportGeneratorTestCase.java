@@ -9,8 +9,6 @@ import static org.powermock.api.easymock.PowerMock.replay;
 import gov.nih.nci.nbia.dao.SubmissionHistoryDAO;
 import gov.nih.nci.nbia.dto.DayCountDTO;
 import gov.nih.nci.nbia.dto.SubmissionCountsDTO;
-import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.text.DateFormat;
@@ -27,15 +25,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@SuppressStaticInitializationFor({"gov.nih.nci.nbia.security.NCIASecurityManager$RoleType",
-	                              "gov.nih.nci.nbia.search.LocalNode"})
-@PrepareForTest({LocalDrillDown.class,  
-                 SpringApplicationContext.class,
-                 LocalNode.class}) 
+@PrepareForTest({SpringApplicationContext.class}) 
 public class AccrualReportGeneratorTestCase   {
 
 	@Test

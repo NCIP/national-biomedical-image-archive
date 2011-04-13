@@ -23,73 +23,11 @@ public class DICOMQueryHandlerImageSliceCriteriaTestCase extends AbstractDbUnitT
 
 	@Test
 	public void testThicknessCriteriaJustFrom() throws Exception {
-		ImageSliceThickness imageSliceThickness = new ImageSliceThickness("<" ,"1.1 mm",
-				                                                          "", "");
-
-		DICOMQuery dicomQuery = new DICOMQuery();
-		dicomQuery.setCriteria(imageSliceThickness);
-		dicomQuery.setCriteria(createAuthorizationCriteria());
-
-		List<PatientStudySeriesTriple> resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 4);
-
-		imageSliceThickness = new ImageSliceThickness("=" ,"1.0 mm", "", "");
-		dicomQuery.setCriteria(imageSliceThickness);
-
-		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 4);
-
-		imageSliceThickness = new ImageSliceThickness(">" ,"0.9 mm", "", "");
-		dicomQuery.setCriteria(imageSliceThickness);
-
-		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 9);
-
-	    imageSliceThickness = new ImageSliceThickness(">" ,"7.9 mm", "", "");
-		dicomQuery.setCriteria(imageSliceThickness);
-
-		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 0);
+		testThicknessCriteriaJustFrom();
+		testThicknessCriteriaFromAndTo();
 	}
-	@Test
-	public void testThicknessCriteriaFromAndTo() throws Exception {
-		ImageSliceThickness imageSliceThickness = new ImageSliceThickness(">" ,"0.9 mm",
-				                                                          "<", "1.1 mm");
+	
 
-		DICOMQuery dicomQuery = new DICOMQuery();
-		dicomQuery.setCriteria(imageSliceThickness);
-		dicomQuery.setCriteria(createAuthorizationCriteria());
-
-		List<PatientStudySeriesTriple> resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		System.out.println("resultsets0:"+resultSets.size());
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 4);
-
-		//this is goofy but works...
-		imageSliceThickness = new ImageSliceThickness("=" ,"1.0 mm",
-		                                              "<", "1.1 mm");
-		dicomQuery.setCriteria(imageSliceThickness);
-
-		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		System.out.println("resultsets0:"+resultSets.size());
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 4);
-
-		imageSliceThickness = new ImageSliceThickness(">=" ,"1.0 mm",
-		                                              "<=", "2.5 mm");
-		dicomQuery.setCriteria(imageSliceThickness);
-
-		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		System.out.println("resultsets0:"+resultSets.size());
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 9);
-
-
-	}
 
 
     //////////////////////////////PROTECTED/////////////////////////////////
@@ -123,4 +61,71 @@ public class DICOMQueryHandlerImageSliceCriteriaTestCase extends AbstractDbUnitT
 		return authorizationCriteria;
 	}
 
+	private void testThicknessCriteriaJustFrom() throws Exception {
+		ImageSliceThickness imageSliceThickness = new ImageSliceThickness("<" ,"1.1 mm",
+				                                                          "", "");
+
+		DICOMQuery dicomQuery = new DICOMQuery();
+		dicomQuery.setCriteria(imageSliceThickness);
+		dicomQuery.setCriteria(createAuthorizationCriteria());
+
+		List<PatientStudySeriesTriple> resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 4);
+
+		imageSliceThickness = new ImageSliceThickness("=" ,"1.0 mm", "", "");
+		dicomQuery.setCriteria(imageSliceThickness);
+
+		resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 4);
+
+		imageSliceThickness = new ImageSliceThickness(">" ,"0.9 mm", "", "");
+		dicomQuery.setCriteria(imageSliceThickness);
+
+		resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 9);
+
+	    imageSliceThickness = new ImageSliceThickness(">" ,"7.9 mm", "", "");
+		dicomQuery.setCriteria(imageSliceThickness);
+
+		resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 0);
+	}
+	private void testThicknessCriteriaFromAndTo() throws Exception {
+		ImageSliceThickness imageSliceThickness = new ImageSliceThickness(">" ,"0.9 mm",
+				                                                          "<", "1.1 mm");
+
+		DICOMQuery dicomQuery = new DICOMQuery();
+		dicomQuery.setCriteria(imageSliceThickness);
+		dicomQuery.setCriteria(createAuthorizationCriteria());
+
+		List<PatientStudySeriesTriple> resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		System.out.println("resultsets0:"+resultSets.size());
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 4);
+
+		//this is goofy but works...
+		imageSliceThickness = new ImageSliceThickness("=" ,"1.0 mm",
+		                                              "<", "1.1 mm");
+		dicomQuery.setCriteria(imageSliceThickness);
+
+		resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		System.out.println("resultsets0:"+resultSets.size());
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 4);
+
+		imageSliceThickness = new ImageSliceThickness(">=" ,"1.0 mm",
+		                                              "<=", "2.5 mm");
+		dicomQuery.setCriteria(imageSliceThickness);
+
+		resultSets = dicomQueryHandler.findTriples(dicomQuery);
+		System.out.println("resultsets0:"+resultSets.size());
+		Assert.assertTrue("manufacturer criteria should yield non-zero results",
+				    resultSets.size() == 9);
+
+
+	}	
 }

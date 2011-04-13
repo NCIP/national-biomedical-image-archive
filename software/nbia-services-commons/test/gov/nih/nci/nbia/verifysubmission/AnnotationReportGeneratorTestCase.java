@@ -1,6 +1,17 @@
 package gov.nih.nci.nbia.verifysubmission;
 
-import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
+import static org.easymock.EasyMock.aryEq;
+import static org.easymock.EasyMock.eq;
+import static org.easymock.EasyMock.expect;
+import static org.powermock.api.easymock.PowerMock.createMock;
+import static org.powermock.api.easymock.PowerMock.mockStatic;
+import static org.powermock.api.easymock.PowerMock.replay;
+import static org.powermock.api.easymock.PowerMock.verify;
+import gov.nih.nci.nbia.dao.SubmissionHistoryDAO;
+import gov.nih.nci.nbia.dto.DayCountDTO;
+import gov.nih.nci.nbia.dto.SeriesSubmissionCountDTO;
+import gov.nih.nci.nbia.dto.SubmissionCountsDTO;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,22 +23,49 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
-
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"/applicationContext-service.xml", "/applicationContext-hibernate-testContext.xml"})
-public class AnnotationReportGeneratorTestCase extends AbstractDbUnitTestForJunit4 {
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({SpringApplicationContext.class}) 
+public class AnnotationReportGeneratorTestCase  {
 
 	@Test
 	public void testGenerateReportByDayExistingSeries() {
+		
 		Calendar cal = new GregorianCalendar();
 		cal.set(2007,7,5);
+        
+		SeriesSubmissionCountDTO dto0 = new SeriesSubmissionCountDTO("1.10", 
+				                                                     "2.12",
+				                                                     "3.12", 
+                                                                     1);
+		
+		SeriesSubmissionCountDTO dto1 = new SeriesSubmissionCountDTO("1.10", 
+                                                                     "2.12",
+                                                                     "3.13",
+                                                                     1);		
+		
+		List<SeriesSubmissionCountDTO> seriesSubmissionCountDTOs =
+			new ArrayList<SeriesSubmissionCountDTO>();
+		seriesSubmissionCountDTOs.add(dto0);
+		seriesSubmissionCountDTOs.add(dto1);
+
+        expect(submissionHistoryDAOMock.findSeriesSubmissionCountInTimeFrame(cal.getTime(),
+        		                                                             cal.getTime(), 
+        		                                                             "p4", 
+        		                                                             "s4", 
+        		                                                             /*opType*/2)).
+            andReturn(seriesSubmissionCountDTOs);        		                                                             
+        
+
+        
+        replayMocks();
         
 		List<PatientDetails> patientDetailsList = 
 			annotationReportGenerator.generateReportByDay(cal.getTime(),
@@ -59,17 +97,44 @@ public class AnnotationReportGeneratorTestCase extends AbstractDbUnitTestForJuni
 		
 		SeriesDetails ser1 = sorted.get(1);
 		Assert.assertEquals(ser1.getSeriesInstanceUid(), "3.13");
-		Assert.assertEquals(ser1.getSubmissionCount(),1);				
+		Assert.assertEquals(ser1.getSubmissionCount(),1);	
 	}
 	
 	@Test	
 	public void testGenerateReport() throws Exception {
+        
 		Calendar startDate = new GregorianCalendar();
 		startDate.set(2007,7,1);
 		
 		Calendar endDate = new GregorianCalendar();
 		endDate.set(2007,7,31);		
         
+		
+		SubmissionCountsDTO submissionCountsDTO = new SubmissionCountsDTO(1,1,2,2);
+
+
+        expect(submissionHistoryDAOMock.findAnnotationCounts(startDate.getTime(),
+        		                                             endDate.getTime(),
+        		                                             "p4",
+        		                                             "s4")).
+            andReturn(submissionCountsDTO);  		
+		
+        
+        DayCountDTO dto0 = new DayCountDTO(new Date(107,7,5), 2);
+        
+        List<DayCountDTO> dayCountList = new ArrayList<DayCountDTO>();
+        dayCountList.add(dto0);
+        
+        expect(submissionHistoryDAOMock.findSubmissionDatesInTimeFrame(eq(startDate.getTime()),
+        		                                                       eq(endDate.getTime()),
+        		                                                       eq("p4"),
+        		                                                       eq("s4"),
+        		                                                       aryEq(new Integer[]{SubmissionHistoryDAO.ANNOTATION_SUBMISSION_OPERATION}))).
+           andReturn(dayCountList);  	
+        
+        replayMocks();
+        
+		/////////////////////////////////////////////////////
 		AnnotationReport annotationReport = 
 			annotationReportGenerator.generateReport(startDate.getTime(),
                                                      endDate.getTime(),
@@ -95,24 +160,40 @@ public class AnnotationReportGeneratorTestCase extends AbstractDbUnitTestForJuni
 		
 		Assert.assertTrue(submissionDaysStringSet.contains("2007-08-05"));
 
-        Assert.assertTrue(submissionDays.get(VerifySubmissionUtil.dateParse("08/05/2007")).equals(2));
+        Assert.assertTrue(submissionDays.get(VerifySubmissionUtil.dateParse("08/05/2007")).equals(2));      
 	}
 
-    //////////////////////////////PROTECTED/////////////////////////////////
-
-    protected String getDataSetResourceSpec() {
-    	return TEST_DB_FLAT_FILE;
-    }
 
     @Before
 	public void setUp() throws Exception {
-
-		annotationReportGenerator = new AnnotationReportGenerator();
+        mockStatic(SpringApplicationContext.class);
+		submissionHistoryDAOMock = createMock(SubmissionHistoryDAO.class);
+		
+        expect(SpringApplicationContext.getBean("submissionHistoryDAO")).
+        andReturn(submissionHistoryDAOMock);	
+        
+		
+		annotationReportGenerator = new AnnotationReportGenerator();        
 	}
 	
+    @After
+    public void tearDown() {
+    	verifyMocks();
+    }
+    
     ////////////////////////////////////PRIVATE/////////////////////////////////
 
-    private static final String TEST_DB_FLAT_FILE = "dbunitscripts/submission_history.xml";
+	private SubmissionHistoryDAO submissionHistoryDAOMock;
 
-	private AnnotationReportGenerator annotationReportGenerator;		
+	private AnnotationReportGenerator annotationReportGenerator;	
+	
+	private void replayMocks() {
+        replay(SubmissionHistoryDAO.class, submissionHistoryDAOMock);
+        replay(SpringApplicationContext.class);		
+	}
+	
+	private void verifyMocks() {
+        verify(SubmissionHistoryDAO.class, submissionHistoryDAOMock);
+        verify(SpringApplicationContext.class);			
+	}
 }

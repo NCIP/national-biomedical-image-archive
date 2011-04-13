@@ -22,13 +22,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DICOMQueryHandlerImageSliceCriteriaTestCase extends AbstractDbUnitTestForJunit4 {
 
 	@Test
-	public void testThicknessCriteriaJustFrom() throws Exception {
+	public void testThicknessCriteria() throws Exception {
 		testThicknessCriteriaJustFrom();
 		testThicknessCriteriaFromAndTo();
 	}
-	
-
-
 
     //////////////////////////////PROTECTED/////////////////////////////////
 

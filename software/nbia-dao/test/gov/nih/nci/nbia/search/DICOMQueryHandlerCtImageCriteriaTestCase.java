@@ -29,7 +29,56 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTestForJunit4 {
 
 	@Test
-	public void testKiloVoltagePeakDistributionJustFrom() throws Exception {
+	public void testCtImageCriteria() throws Exception {
+		testKiloVoltagePeakDistributionJustFrom();
+		testKiloVoltagePeakDistributionFromAndTo();
+		
+		testReconstructionDiameterJustFrom();
+		testReconstructionDiameterFromAndTo();
+		
+		testCtDataCollectionDiameterJustFrom();
+		testCtDataCollectionDiameterFromAndTo();
+		
+		testDxDataCollectionDiameterJustFrom();
+		testDxDataCollectionDiameterFromAndTo();
+		
+		testConvolutionKernel();
+		testAcquisitionMatrixJustFrom();
+		
+		testAcquisitionMatrixFromAndTo();
+	}
+
+    //////////////////////////////PROTECTED/////////////////////////////////
+
+    protected String getDataSetResourceSpec() {
+    	return TEST_DB_FLAT_FILE;
+    }
+
+    ////////////////////////////////////PRIVATE/////////////////////////////////
+
+    private static final String TEST_DB_FLAT_FILE = "dbunitscripts/collections_testdata.xml";
+    @Autowired
+    private DICOMQueryHandler dicomQueryHandler;
+
+	private static AuthorizationCriteria createAuthorizationCriteria()
+			throws Exception {
+		AuthorizationManager am = new AuthorizationManager("kascice");
+		List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.READ);
+		List<String> authorizedCollections = am
+				.getAuthorizedCollections(RoleType.READ);
+		List<String> authorizedSeriesSecurityGroups = am
+				.getAuthorizedSeriesSecurityGroups(RoleType.READ);
+
+		AuthorizationCriteria authorizationCriteria = new AuthorizationCriteria();
+		authorizationCriteria.setCollections(authorizedCollections);
+		authorizationCriteria.setSites(authorizedSites);
+		authorizationCriteria
+				.setSeriesSecurityGroups(authorizedSeriesSecurityGroups);
+
+		return authorizationCriteria;
+	}
+
+	private void testKiloVoltagePeakDistributionJustFrom() throws Exception {
 		KilovoltagePeakDistribution kilovoltagePeakDistribution = new KilovoltagePeakDistribution("<" ,"80",
 				                                                                                  "", "");
 
@@ -38,32 +87,30 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 		dicomQuery.setCriteria(createAuthorizationCriteria());
 
 		List<PatientStudySeriesTriple> resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 0);
+		Assert.assertTrue(resultSets.size() == 0);
 
 		kilovoltagePeakDistribution = new KilovoltagePeakDistribution("=" ,"80", "", "");
 		dicomQuery.setCriteria(kilovoltagePeakDistribution);
 
 		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 2);
+		Assert.assertTrue(resultSets.size() == 2);
 
 		kilovoltagePeakDistribution = new KilovoltagePeakDistribution(">=" ,"80", "", "");
 		dicomQuery.setCriteria(kilovoltagePeakDistribution);
 
 		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 8);
+		Assert.assertTrue(resultSets.size() == 8);
 
 		kilovoltagePeakDistribution = new KilovoltagePeakDistribution(">" ,"120", "", "");
 		dicomQuery.setCriteria(kilovoltagePeakDistribution);
 
 		resultSets = dicomQueryHandler.findTriples(dicomQuery);
-		Assert.assertTrue("manufacturer criteria should yield non-zero results",
-				    resultSets.size() == 0);
+		Assert.assertTrue(resultSets.size() == 0);
+		
+		testKiloVoltagePeakDistributionFromAndTo();
 	}
-	@Test
-	public void testKiloVoltagePeakDistributionFromAndTo() throws Exception {
+
+	private void testKiloVoltagePeakDistributionFromAndTo() throws Exception {
 		KilovoltagePeakDistribution kilovoltagePeakDistribution = new KilovoltagePeakDistribution(">" ,"80",
 				                                                                                  "<", "120");
 
@@ -90,8 +137,8 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 		Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 2);
 	}
-	@Test
-	public void testReconstructionDiameterJustFrom() throws Exception {
+	
+	private void testReconstructionDiameterJustFrom() throws Exception {
 		ReconstructionDiameterCriteria reconstructionDiameterCriteria = new ReconstructionDiameterCriteria("<" ,"300",
 				                                                                                           "", "");
 
@@ -133,8 +180,8 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
         Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 7);
 	}
-	@Test
-	public void testReconstructionDiameterFromAndTo() throws Exception {
+	
+	private void testReconstructionDiameterFromAndTo() throws Exception {
 		ReconstructionDiameterCriteria reconstructionDiameterCriteria = new ReconstructionDiameterCriteria(">=" ,"300",
 				                                                                                           "<=", "310");
 
@@ -156,9 +203,10 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 
         Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 1);
-	}
-	@Test
-	public void testCtDataCollectionDiameterJustFrom() throws Exception {
+	}	
+	
+	
+	private void testCtDataCollectionDiameterJustFrom() throws Exception {
 		DataCollectionDiameterCriteria dataCollectionDiameterCriteria = new DataCollectionDiameterCriteria("=" ,"500.084",
 				                                                                                           "", "");
 
@@ -173,8 +221,8 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 
 	    /////////////////////
 	}
-	@Test
-	public void testCtDataCollectionDiameterFromAndTo() throws Exception {
+	
+	private void testCtDataCollectionDiameterFromAndTo() throws Exception {
 		DataCollectionDiameterCriteria dataCollectionDiameterCriteria = new DataCollectionDiameterCriteria(">" ,"500",
 				                                                                                           "<", "501");
 
@@ -198,10 +246,9 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 
 		Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 8);
-	}
-
-	@Test
-	public void testDxDataCollectionDiameterJustFrom() throws Exception {
+	}	
+	
+	private void testDxDataCollectionDiameterJustFrom() throws Exception {
 		DxDataCollectionDiameterCriteria dxDataCollectionDiameterCriteria = new DxDataCollectionDiameterCriteria("=" ,"1",
 				                                                                                           "", "");
 
@@ -225,8 +272,8 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 				   resultSets.size() == 7);
 
 	}
-	@Test
-	public void testDxDataCollectionDiameterFromAndTo() throws Exception {
+
+	private void testDxDataCollectionDiameterFromAndTo() throws Exception {
 		DxDataCollectionDiameterCriteria dxDataCollectionDiameterCriteria = new DxDataCollectionDiameterCriteria(">" ,"0",
   			                                                                                                  "<", "2");
 
@@ -238,9 +285,9 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 
 		Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 1);
-	}
-	@Test
-	public void testConvolutionKernel() throws Exception {
+	}	
+	
+	private void testConvolutionKernel() throws Exception {
 		Collection<String> convolutionKernels = new ArrayList<String>();
 		convolutionKernels.add("B30f");
 		ConvolutionKernelCriteria convolutionKernelCriteria = new ConvolutionKernelCriteria();
@@ -282,8 +329,8 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 		Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 4);
 	}
-	@Test
-	public void testAcquisitionMatrixJustFrom() throws Exception {
+
+	private void testAcquisitionMatrixJustFrom() throws Exception {
 		AcquisitionMatrixCriteria acquisitionMatrixCriteria = new AcquisitionMatrixCriteria("=" ,"96",
 				                                                                            "", "");
 
@@ -339,8 +386,8 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 		Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 7);
 	}
-	@Test
-	public void testAcquisitionMatrixFromAndTo() throws Exception {
+		
+	private void testAcquisitionMatrixFromAndTo() throws Exception {
 		AcquisitionMatrixCriteria acquisitionMatrixCriteria = new AcquisitionMatrixCriteria(">=" ,"96",
 				                                                                            "<=", "128");
 
@@ -384,38 +431,5 @@ public class DICOMQueryHandlerCtImageCriteriaTestCase extends AbstractDbUnitTest
 		resultSets = dicomQueryHandler.findTriples(dicomQuery);
 		Assert.assertTrue("manufacturer criteria should yield non-zero results",
 				    resultSets.size() == 0);
-	}
-
-    //////////////////////////////PROTECTED/////////////////////////////////
-
-    protected String getDataSetResourceSpec() {
-    	return TEST_DB_FLAT_FILE;
-    }
-
-
-
-    ////////////////////////////////////PRIVATE/////////////////////////////////
-
-    private static final String TEST_DB_FLAT_FILE = "dbunitscripts/collections_testdata.xml";
-    @Autowired
-    private DICOMQueryHandler dicomQueryHandler;
-
-	private static AuthorizationCriteria createAuthorizationCriteria()
-			throws Exception {
-		AuthorizationManager am = new AuthorizationManager("kascice");
-		List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.READ);
-		List<String> authorizedCollections = am
-				.getAuthorizedCollections(RoleType.READ);
-		List<String> authorizedSeriesSecurityGroups = am
-				.getAuthorizedSeriesSecurityGroups(RoleType.READ);
-
-		AuthorizationCriteria authorizationCriteria = new AuthorizationCriteria();
-		authorizationCriteria.setCollections(authorizedCollections);
-		authorizationCriteria.setSites(authorizedSites);
-		authorizationCriteria
-				.setSeriesSecurityGroups(authorizedSeriesSecurityGroups);
-
-		return authorizationCriteria;
-	}
-
+	}	
 }

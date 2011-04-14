@@ -61,7 +61,7 @@ public class MappingConsole {
 			// MappingMapToAIM_v2_rv15_XMLObject.setCloseObjectsAfterRun(false);
 
 			{
-				com.altova.io.Input AIM_v3_rv9_XML2Source = com.altova.io.StreamInput.createInput("C:/workspace_nbia/software/cedaraAIMMapping/testdata/Project/Project-2671173954/88.8.91207792612776837059531024441738549904/000000/013.xml");
+				com.altova.io.Input AIM_v3_rv9_XML2Source = com.altova.io.StreamInput.createInput("C:/workspace_nbia/software_apr08/cedaraAIMMapping/testdata/222/218/218_aim1.xml");
 
 				MappingMapToAIM_v2_rv15_XMLObject.run(
 						AIM_v3_rv9_XML2Source);

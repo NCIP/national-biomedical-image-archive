@@ -119,7 +119,7 @@ public class MappingFrame extends JFrame implements com.altova.TraceTarget {
 		jAIM_v3_rv9_XMLLabel0.setText("Source instance of AIM_v3_rv9_XML.xsd:");
 		jAIM_v3_rv9_XMLLabel0.setBounds(new Rectangle(15, 10, 438, 23));
 		jPanelStructures.add(jAIM_v3_rv9_XMLLabel0, null);
-		jAIM_v3_rv9_XMLTextField0.setText("C:/workspace_nbia/software/cedaraAIMMapping/testdata/Project/Project-2671173954/88.8.91207792612776837059531024441738549904/000000/013.xml");
+		jAIM_v3_rv9_XMLTextField0.setText("C:/workspace_nbia/software_apr08/cedaraAIMMapping/testdata/222/218/218_aim1.xml");
 		jAIM_v3_rv9_XMLTextField0.setBounds(new Rectangle(15, 35, 438, 23));
 		jAIM_v3_rv9_XMLTextField0.setEditable(false);
 		jPanelStructures.add(jAIM_v3_rv9_XMLTextField0, null);
@@ -191,7 +191,7 @@ public class MappingFrame extends JFrame implements com.altova.TraceTarget {
 			// MappingMapToAIM_v2_rv15_XMLObject.setCloseObjectsAfterRun(false);
 
 			{
-				com.altova.io.Input AIM_v3_rv9_XML2Source = com.altova.io.StreamInput.createInput("C:/workspace_nbia/software/cedaraAIMMapping/testdata/Project/Project-2671173954/88.8.91207792612776837059531024441738549904/000000/013.xml");
+				com.altova.io.Input AIM_v3_rv9_XML2Source = com.altova.io.StreamInput.createInput("C:/workspace_nbia/software_apr08/cedaraAIMMapping/testdata/222/218/218_aim1.xml");
 
 				MappingMapToAIM_v2_rv15_XMLObject.run(
 						AIM_v3_rv9_XML2Source);

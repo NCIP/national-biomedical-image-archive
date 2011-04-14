@@ -31,8 +31,9 @@ public abstract class AbstractDbUnitTestForJunit4 {
 		Util.loadSystemPropertiesFromPropertiesResource("ncia.properties");
 
 		if(databaseTester==null) {
-	        databaseTester = platformTester();		
+	        databaseTester = platformTester();
 		}
+		System.out.println("databaseTester for"+getClass()+" is "+databaseTester);
 		//else reuse for performance
 
 		IDataSet dataSet = getDataSet();
@@ -80,23 +81,23 @@ public abstract class AbstractDbUnitTestForJunit4 {
 
 
     ///////////////////////////////PRIVATE///////////////////////////////
-    
-	
+
+
 	/**
 	 * cache this... creating dbunit connection is expensive
 	 * because of querying for metadata and whatnot
-	 */    
+	 */
 	private static IDatabaseTester databaseTester;
 
 	@Autowired
 	private DataSource dataSource;
-	
+
 	private IDatabaseTester platformTester() {
         if(System.getProperty("database.type").equals("oracle")) {
             return new OracleDataSourceDatabaseTester(dataSource);
 	    }
 	    else {
 	    	return new DataSourceDatabaseTester(dataSource);
-		}		
+		}
 	}
 }

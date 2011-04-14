@@ -33,7 +33,7 @@ public abstract class AbstractDbUnitTestForJunit4 {
 		if(databaseTester==null) {
 	        databaseTester = platformTester();
 		}
-		System.out.println("databaseTester for"+getClass()+" is "+databaseTester);
+		System.out.println("databaseTester for"+getClass()+" is "+databaseTester.hashCode());
 		//else reuse for performance
 
 		IDataSet dataSet = getDataSet();

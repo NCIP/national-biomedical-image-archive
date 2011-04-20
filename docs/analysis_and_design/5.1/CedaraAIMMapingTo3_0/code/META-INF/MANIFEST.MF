@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: MapForce 2011r2sp1
+Main-Class: com.mapforce.MappingConsole
+

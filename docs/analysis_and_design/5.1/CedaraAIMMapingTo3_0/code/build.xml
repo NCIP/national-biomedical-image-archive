@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<project name="Mapping" default="test" basedir=".">
+	<property name="build.sysclasspath" value="last"/>
+	<property name="cmdline" value="./testData/cedaraAIMtest2.xml"/>
+	
+
+	<target name="compile">
+		<javac srcdir="." classpath="." />
+	</target>
+	<target name="test" depends="compile">
+		<java classpath="C:\workspace_nbia\software\cedaraAIMMapping\CedaraAIMtoAIM" classname="com.mapforce.MappingConsole" fork="true" failonerror="true">
+			<arg line="${cmdline}"/>
+		</java>
+	</target>
+	<target name="clean">
+		<delete>
+			<fileset dir=".">
+				<include name="**/*.class"/>
+				<include name="*.jar"/>
+			</fileset>
+		</delete>
+	</target>
+	<target name="jar" depends="compile">
+		<jar destfile="Mapping.jar" manifest="C:\workspace_nbia\software\cedaraAIMMapping\CedaraAIMtoAIM/META-INF/MANIFEST.MF" basedir="." includes="**/*.xml **/*.class **/*.wsdl **/MANIFEST.MF" excludes="**/*.java"/>
+	</target>
+</project>

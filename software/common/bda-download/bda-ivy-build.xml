@@ -26,11 +26,14 @@ This ant build file downloads the bda project from the official NCICB Ivy Reposi
   <property name="ivy.settings.file" value="ivy-bda-settings.xml" />
   <property name="ivy.bda.file" value="ivy-bda.xml" />
 
-  <property name="ivy.src.url" value="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo/apache/ivy/2.0.0/${ivy.file}" />
-  <property name="ivy-bda.src.url.base" value="http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download" />
+  <!--property name="ivy.src.url" value="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo/apache/ivy/2.0.0/${ivy.file}" /-->
+  <!--property name="ivy-bda.src.url.base" value="http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download" /-->
 
+  <property name="ivy.src.url" value="https://ncisvn.nci.nih.gov/svn/deprecated-ivy-repo/trunk/apache/ivy/2.0.0/${ivy.file}" />
+  <property name="ivy-bda.src.url.base" value="https://ncisvn.nci.nih.gov/svn/automation/trunk/software/bda-download" />
+    
   <property name="ivy.dest.file" value="${lib.dir}/${ivy.file}" />
-  
+   
   <!-- Paths-->
   <path id="ivy.classpath">
     <fileset dir="${lib.dir}">
@@ -103,7 +106,7 @@ This ant build file downloads the bda project from the official NCICB Ivy Reposi
   <!-- This is an example target demonstrating publishing modules to the local ivy repository.  It is currently not working because of cache naming patterns -->
   <target name="ivy-publish">
     <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath" />
-    <property name="ivy.repo.url" value="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk" />
+    <property name="ivy.repo.url" value="https://ncisvn.nci.nih.gov/svn/deprecated-ivy-repo/trunk/" />
     <property name="ivy.sample.path" value="ivy-repo/jakarta/commons-logging/1.0.4" />
     <property name="ivy.sample.file" value="commons-logging-1.0.4.jar" />
     <property name="ivy.sample.ivy.file" value="ivy.xml" />

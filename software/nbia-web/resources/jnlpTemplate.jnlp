@@ -30,7 +30,7 @@
     -->
     
     <property name="localSeriesDownloader.className" value="gov.nih.nci.nbia.download.LocalSeriesDownloader"/> 
-    <property name="remoteSeriesDownloader.className" value="gov.nih.nci.ncia.download.RemoteSeriesDownloader"/> 
+    <property name="remoteSeriesDownloader.className" value="gov.nih.nci.nbia.download.RemoteSeriesDownloader"/> 
 
     $$properties
   </resources>

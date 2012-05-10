@@ -190,7 +190,8 @@ $HeadURL$
   <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="bda-utils.classpath"/>
 
   <!-- Includes- include BDA marcos -->
-  <import file="${bda-utils.dir}/bda-build-utils-${bda.version}.xml" />
+  <!--import file="${bda-utils.dir}/bda-build-utils-${bda.version}.xml" /-->
+   <import file="${bda-download.dir}\bda-build-utils-${bda.version}.xml" />
 
   <!-- Conditionals -->
   <available file="${jboss.home}/server/default/conf/jboss-service.xml" property="jboss.exists"/>

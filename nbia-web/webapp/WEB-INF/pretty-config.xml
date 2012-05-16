@@ -30,7 +30,8 @@
     <pattern> /viewSeriesPopup.jsf</pattern>
     
     <query-param name="seriesId">#{viewSeriesPopulatorMgBean.seriesId}</query-param>
-
+	<query-param name="location">#{viewSeriesPopulatorMgBean.location}</query-param>
+	<query-param name="url">#{viewSeriesPopulatorMgBean.url}</query-param>
     <view-id> /viewSeriesImages.jsf </view-id>
     <action>#{viewSeriesPopulatorMgBean.populate}</action>
   </url-mapping> 

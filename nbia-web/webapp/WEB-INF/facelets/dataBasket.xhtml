@@ -244,7 +244,7 @@
                       <!-- 
                       action="#{basketBean.viewSeriesData}"  -->
                       <h:commandLink target="newWin"
-                                     onclick="doViewSeriesPopup('#{item.seriesId}'); return false;">
+                                     onclick="doViewSeriesPopup('#{item.seriesId}','#{item.locationDisplayName}','#{item.gridLocation}'); return false;">
                         <h:graphicImage value="images/old_new_magnifying_glass.png"
                                         style="border: none;"/>
                       </h:commandLink> 

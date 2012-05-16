@@ -10,6 +10,8 @@ import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.basket.BasketUtil;
 import gov.nih.nci.nbia.basket.DownloadRecorder;
 import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.search.DrillDown;
+import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.beans.searchresults.ImageResultWrapper;
 import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
@@ -439,8 +441,28 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
         imageList = new ListDataModel(wrappers);
 		icefacesDataModel = new IcefacesRowColumnDataModel(wrappers);
     }
+    
+    /**
+     * Used by the view data basket to view remote and local images.
+     * @param theSeries
+     * @throws Exception
+     */
+    public void viewSeriesData(SeriesSearchResult theSeries) throws Exception {
+        try {
+            this.series = theSeries;
+            DrillDown drillDown = DrillDownFactory.getDrillDown();
+            thumbnailImageDto = drillDown.retrieveImagesForSeries(theSeries);
+            List<ImageResultWrapper> wrappers= computeWrapperList(Arrays.asList(thumbnailImageDto));
+            imageList =  new ListDataModel(wrappers);
+            icefacesDataModel = new IcefacesRowColumnDataModel(wrappers);
+        }catch (Exception e) {
+            System.out.println("inside the exception" );
+            e.printStackTrace();
+    	}
+    }
 
     /**
+     * This does not search on remote node so not using it
      * Used by view series details from data basket
      */
     public String viewSeriesData() throws Exception

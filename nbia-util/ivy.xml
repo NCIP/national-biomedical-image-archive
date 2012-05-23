@@ -24,7 +24,7 @@
     <dependency org="log4j" name="log4j" rev="1.2.15" conf="*->master" />  
 
     <dependency org="javancss" name="javancss" rev="29.50" conf="test->default"/>
-    <dependency org="junit" name="junit" rev="3.8.1" conf="test->master"/>
+    <dependency org="junit" name="junit" rev="4.5" conf="test->master"/>
     
     <dependency org="cobertura" name="cobertura" rev="1.9.3-asmhack" conf="test->default"/>
     

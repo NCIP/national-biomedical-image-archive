@@ -26,6 +26,9 @@
   <property name="web.classes.dir" value="${classes.dir}/webapp/WEB-INF/classes" />
   <property name="web.lib.dir" value="${classes.dir}/webapp/WEB-INF/lib" />
   <property name="web.nbia.webapp.dir" value="webapp" />
+  
+  <property name="ear.lib" value="${common.dir}/target/lib/imagedeletionmdb/runtime" />
+  
   <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${web.classes.dir}"/>
 
@@ -216,6 +219,7 @@
 
   <target name="ear" depends="war">
     <ear compress="false" destfile="${target.dir}/${ear.name}" appxml="${web.j2ee.resources.dir}/application.xml">
+      <zipfileset dir="${ear.lib}" prefix="lib" excludes="xalan-2.6.0.jar,xercesImpl-2.6.2.jar"/> 
       <fileset dir="${target.dir}" includes="${war.name}" />
       <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
       <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />

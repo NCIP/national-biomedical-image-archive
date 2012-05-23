@@ -73,7 +73,10 @@
     <param-name>com.icesoft.faces.sessionExpiredRedirectURI</param-name>
     <param-value>'/sessionExpired.jsp'</param-value>
   </context-param>
-
+  <context-param> 
+    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name> 
+    <param-value>true</param-value> 
+ </context-param> 
 
   <filter>
     <filter-name>Security Page Filter</filter-name>
@@ -107,7 +110,9 @@
   <listener>
     <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
-
+  <listener>
+    <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+  </listener> 
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -258,14 +263,14 @@
       <url-pattern>/*</url-pattern>
       <http-method>DELETE</http-method>
       <http-method>OPTIONS</http-method>
-      <http-method>SEARCH</http-method>
+      <!-- http-method>SEARCH</http-method>
       <http-method>COPY</http-method>
       <http-method>MOVE</http-method>
       <http-method>PROPFIND</http-method>
       <http-method>PROPPATCH</http-method>
       <http-method>MKCOL</http-method>
       <http-method>LOCK</http-method>
-      <http-method>UNLOCK</http-method>
+      <http-method>UNLOCK</http-method-->
     </web-resource-collection>
     <auth-constraint/>
   </security-constraint>

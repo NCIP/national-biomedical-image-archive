@@ -19,10 +19,10 @@
 
     <dependency org="openqa" name="selenium-server" rev="1.0-beta-2" conf="test-selenium->master, compile"/>
     <dependency org="openqa" name="selenium-java-client-driver" rev="1.0-beta-2" conf="test-selenium->master, compile"/>
-    <dependency org="junit" name="junit" rev="3.8.2" conf="test-selenium->master"/>
+    <dependency org="junit" name="junit" rev="4.5" conf="test-selenium->master"/>
 
 
-    <dependency org="junit" name="junit" rev="4.3.1" conf="test->master"/>
+    <dependency org="junit" name="junit" rev="4.5" conf="test->master"/>
     <dependency org="cobertura" name="cobertura" rev="1.9.3-asmhack" conf="test->default"/>
     <dependency org="javancss" name="javancss" rev="29.50" conf="test->default"/>
     <dependency org="checkstyle" name="checkstyle" rev="4.4" conf="test->default"/>

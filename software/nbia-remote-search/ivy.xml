@@ -18,7 +18,7 @@
   </publications>
 
   <dependencies>
-    <dependency org="junit" name="junit" rev="3.8.2" conf="test->default"/>
+    <dependency org="junit" name="junit" rev="4.5" conf="test->default"/>
     <dependency org="cobertura" name="cobertura" rev="1.9.3-asmhack" conf="test->default"/>
     <dependency org="javancss" name="javancss" rev="29.50" conf="test->default"/>
     <dependency org="checkstyle" name="checkstyle" rev="4.4" conf="test->default"/>

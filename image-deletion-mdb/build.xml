@@ -112,9 +112,9 @@
         <include name="**/**" />
       </fileset>
        <!-- ivy pulls this down -->
-      <fileset dir="${project.lib.dir}/runtime">
+      <!--fileset dir="${project.lib.dir}/runtime">
         <include name="*.jar" />
-      </fileset>
+      </fileset-->
     </jar>
 
   <!--  <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml"

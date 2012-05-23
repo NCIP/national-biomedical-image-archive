@@ -108,13 +108,76 @@
                 conf="compile->master;runtime->master"/>
 
     <dependency org="org.springframework"
-                name="spring"
-                rev="2.5.6"
+                    name="spring-aop"
+                    rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+                
+    <dependency org="org.springframework"
+                name="spring-asm"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+               
+    <dependency org="org.springframework"
+                    name="spring-beans"
+                    rev="3.1.1.RELEASE"
+                    conf="compile->master;runtime->master"/>
+
+    <dependency org="org.springframework"
+                name="spring-context-support"
+                rev="3.1.1.RELEASE"
                 conf="compile->master;runtime->master"/>
 
     <dependency org="org.springframework"
-                name="spring-test"
-                rev="2.5.5"
+                name="spring-context"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+
+    <dependency org="org.springframework"
+                name="spring-core"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+
+    <dependency org="org.springframework"
+                name="spring-expression"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+    
+
+    <dependency org="org.springframework"
+                name="spring-jdbc"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+                
+   <dependency org="org.springframework"
+                   name="spring-jms"
+                   rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+
+   <dependency org="org.springframework"
+                   name="spring-orm"
+                   rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>
+
+   <dependency org="org.springframework"
+                name="spring-tx"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>  
+                
+   <dependency org="org.springframework"
+                name="spring-web"
+                rev="3.1.1.RELEASE"
+                conf="compile->master;runtime->master"/>      
+   
+   <dependency org="aopalliance"
+		name="aopalliance"
+		rev="1.0"
+                conf="compile->master;runtime->master"/>           
+
+
+    
+        <dependency org="org.springframework"
+                    name="spring-test"
+                    rev="3.1.1.RELEASE"
                 conf="test->default"/>
 
     <dependency org="c3p0"

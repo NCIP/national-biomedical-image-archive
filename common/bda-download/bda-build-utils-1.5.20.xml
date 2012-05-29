@@ -2243,7 +2243,7 @@ $HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/utils/bda
 	</macrodef>
 
 	<macrodef name="check-wscore-exists">
-		<attribute name="wscore.download.url" default="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+		<attribute name="wscore.download.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
 		<attribute name="wscore.relative.dir" default="ws-core-4.0.3"/>
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="download.dir" default="${download.dir}"/>
@@ -2843,7 +2843,7 @@ $HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/utils/bda
 		</sequential>
 	</macrodef>
 	<macrodef name="ivy-module-add2repo">
-		<attribute name="ivy-repo.base.url" default="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo"/>
+		<attribute name="ivy-repo.base.url" default="https://ncisvn.nci.nih.gov/svn/deprecated-ivy-repo/trunk"/>
 		<attribute name="ivy-repo.base.dir"/>
 		<attribute name="ivy.add.org" />
 		<attribute name="ivy.add.module" />
@@ -3769,13 +3769,13 @@ $HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/utils/bda
 		<attribute name="dist.dir" default="${dist.dir}"/>
 		<attribute name="izpack.binary.name" default="izpack-4.3" />
 		<attribute name="izpack.binary.file" default="izpack-4.3.zip" />
-		<attribute name="izpack.binary.uri" default="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2008/os-independent" />
-		<attribute name="izpack-custom.svn.url" default="http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-installer/src-custom-4.3"/>
+		<attribute name="izpack.binary.uri" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2008/os-independent" />
+		<attribute name="izpack-custom.svn.url" default="https://ncisvn.nci.nih.gov/svn/automation/trunk/software/bda-installer/src-custom-4.3"/>
 		<attribute name="izpack-custom.svn.dir" default="${target.dir}/izpack-custom"/>
 		<attribute name="product.name" default="caArray-installer" />
 		<attribute name="product.version" default="2.1.0" />
 		<attribute name="ant.binary.file" default="apache-ant-1.7.0-bin.zip"/>
-		<attribute name="ant.binary.url" default="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/apache-ant-1.7.0-bin.zip"/>
+		<attribute name="ant.binary.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2007/os-independent/apache-ant-1.7.0-bin.zip"/>
 		<attribute name="ant.binary.dir" default="${target.dir}/apache-ant-1.7.0"/>
 		<sequential>
 			<tstamp>

@@ -185,6 +185,16 @@
       <propertymap propertyname="jboss.ssl.keystore.location" mapname="jboss.ssl.keystore.location"/>
       <propertymap propertyname="jboss.grid.secure.cert.location" mapname="jboss.grid.secure.cert.location"/>
       <propertymap propertyname="jboss.grid.secure.key.location" mapname="jboss.grid.secure.key.location"/>
+      <!--for JBOSS 5.1 migration -->
+      <propertymap propertyname="jboss.unifiedinvoker.port" mapname="jboss.unifiedinvoker.port"/>
+      <propertymap propertyname="jboss.hajndi.auto.port" mapname="jboss.hajndi.auto.port"/>
+      <propertymap propertyname="jboss.ssl.port" mapname="jboss.ssl.port"/>
+      <propertymap propertyname="jboss.jms2.netty.port" mapname="jboss.jms2.netty.port"/>
+      <propertymap propertyname="jboss.jms2.netty-ssl.port" mapname="jboss.jms2.netty-ssl.port"/>
+      <propertymap propertyname="jboss.transaction.recovery.port" mapname="jboss.transaction.recovery.port"/>
+      <propertymap propertyname="jboss.transaction.status.port" mapname="jboss.transaction.status.port"/>
+      <propertymap propertyname="jboss.transaction.processid.port" mapname="jboss.transaction.processid.port"/>
+      <!--end of JBOSS 5.1 migration -->
 
       <propertymap propertyname="ctp.server.port" mapname="ctp.server.port"/>
       <propertymap propertyname="ctp.server.http_import_service.port" mapname="ctp.server.http_import_service.port"/>
@@ -343,6 +353,16 @@
       <propertymap propertyname="jboss.ssl.keystore.location" mapname="jboss.ssl.keystore.location"/>
       <propertymap propertyname="jboss.grid.secure.cert.location" mapname="jboss.grid.secure.cert.location"/>
       <propertymap propertyname="jboss.grid.secure.key.location" mapname="jboss.grid.secure.key.location"/>
+      <!--for JBOSS 5.1 migration -->
+      <propertymap propertyname="jboss.unifiedinvoker.port" mapname="jboss.unifiedinvoker.port"/>
+      <propertymap propertyname="jboss.hajndi.auto.port" mapname="jboss.hajndi.auto.port"/>
+      <propertymap propertyname="jboss.ssl.port" mapname="jboss.ssl.port"/>
+      <propertymap propertyname="jboss.jms2.netty.port" mapname="jboss.jms2.netty.port"/>
+      <propertymap propertyname="jboss.jms2.netty-ssl.port" mapname="jboss.jms2.netty-ssl.port"/>
+      <propertymap propertyname="jboss.transaction.recovery.port" mapname="jboss.transaction.recovery.port"/>
+      <propertymap propertyname="jboss.transaction.status.port" mapname="jboss.transaction.status.port"/>
+      <propertymap propertyname="jboss.transaction.processid.port" mapname="jboss.transaction.processid.port"/>
+      <!--end of JBOSS 5.1 migration -->
 
 
 
@@ -710,6 +730,40 @@
       <spec txt="JBoss web service port:" size="5" set="45250"/>
       <validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss web service port number is already in use" />
     </field>
+    <!--for JBOSS 5.1 migration -->
+    <field type="text" variable="jboss.unifiedinvoker.port">
+	<spec txt="JBoss unifiedinvoker port:" size="5" set="49360"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss unifiedinvoker port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.hajndi.auto.port">
+	<spec txt="JBoss hajndi auto port:" size="5" set="49370"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss  hajndi auto port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.ssl.port">
+	<spec txt="JBoss SSL port:" size="5" set="49380"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss SSL port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.jms2.netty.port">
+	<spec txt="JBoss jms netty port:" size="5" set="49390"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss jms netty port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.jms2.netty-ssl.port">
+	<spec txt="JBoss jsm netty SSL port:" size="5" set="49400"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss jsm netty SSL port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.transaction.recovery.port">
+	<spec txt="JBoss transaction recovery port:" size="5" set="49410"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss transaction recovery port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.transaction.status.port">
+	<spec txt="JBoss transaction status port:" size="5" set="49420"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss transaction status port number is already in use" />
+    </field>
+    <field type="text" variable="jboss.transaction.processid.port">
+	<spec txt="JBoss transaction processid port:" size="5" set="49430"/>
+	<validator class="com.izforge.izpack.util.PortValidator" txt="The JBoss  transaction processid port number is already in use" />
+    </field>
+    <!--end of JBOSS 5.1 migration -->
   </panel>
 
   <!-- Jboss SSL 0.9.0 -->

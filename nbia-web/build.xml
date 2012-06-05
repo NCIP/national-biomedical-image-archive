@@ -6,6 +6,18 @@
 
   <!-- Properties -->
   <property name="common.dir" value="${basedir}/../" />
+  <!-- Properties file related properties and tasks add for JBOSS 5.1
+  <property environment="env" />
+  <property file="local.properties"/>
+  <property file="project.properties"/>
+  <!-- beware: it is likely that this value was passed in on the command line -->
+  <property name="properties.file" value="${basedir}/../build/install.properties"/>
+  <echo message="Using properties file of ${properties.file}."/>
+  <!-- strip whitespace out of the properties file -->
+  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=(.*[\w\d\/\{\}\\]+)[ \t]+\r*$" replace="\1=\2"/>
+  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=[ \t]+(.*[\w\d\/\{\}\\]+)\r*$" replace="\1=\2"/>
+  <property file="${properties.file}" />
+  -->
 
   <!-- directory where the compiled and configured nbia-services-commons target directory can be found -->
   <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
@@ -29,6 +41,7 @@
   
   <property name="ear.lib" value="${common.dir}/target/lib/imagedeletionmdb/runtime" />
   
+  
   <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${web.classes.dir}"/>
 
@@ -37,7 +50,11 @@
   <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-web"/>
   <property name="remote.search.lib.dir" value="${common.dir}/target/lib/nbia-remote-search"/>
   <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>
-
+  <!--
+  <property name="jboss-conf" location="../common/resources/jboss-conf" />
+  <property name="bda-utils.dir" location="${basedir}/../target/bda-utils" />
+  <property name="jboss.setting" value="${target.dir}/jboss" />
+  -->
   <!-- Paths -->
   <path id="common.classpath">
     <fileset dir="${common.dir}/target/lib">
@@ -226,8 +243,77 @@
       <fileset dir="${download.webapp.target.dir}" includes="*.war" />
     </ear>
     <ivy:report todir="${reports.dir}/ivy/" graph="false"/>
+    <!--antcall target="jboss-config.files"/-->
   </target>
 
+ <target name="jboss-config.files">
+    <delete dir="${jboss.setting}" quiet="false" />
+    <!-- doing to create artificate needed for jboss deployment-->
+    <filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}"/>
+    <filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}"/>
+    <filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}"/>
+    <filter token="gov.nih.nci.ncia.frontier.http.address" value="${gov.nih.nci.ncia.frontier.http.address}"/>
+    <filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
+    <filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
+    <filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
+    <filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
+    <filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
+    <filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
+    <filter token="gov.nih.nci.ncia.jboss.public.url" value="${gov.nih.nci.ncia.jboss.public.url}"/>
+    <filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}"/>
+    <filter token="mail.smtp.server" value="${mail.smtp.server}"/>
+    <filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}"/>
+    <filter token="enabled_guest_account" value="${enabled_guest_account}"/>
+    <filter token="guest_username" value="${guest_username}"/>
+    <filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}"/>
+    <filter token="enable_classic_download" value="${enable_classic_download}"/>
+    <filter token="registration.email.subject" value="${registration.email.subject}"/>
+    <filter token="grid.index.url" value="${grid.index.url}"/>
+    <filter token="local.grid.uri" value="${local.grid.uri}"/>
+    <filter token="discover.remote.nodes" value="${discover.remote.nodes}"/>
+    <filter token="database.type" value="${database.type}"/>
+    <filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
+    <filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
+        
+    <copy file="${jboss-conf}/properties-service.xml" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
+        
+    <switch value="${database.type}">
+    	<case value="oracle">
+        	<property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
+                <property name="database.driver.file" value="${bda-utils.dir}/ojdbc14-10.2.0.3.0.jar"/>
+                <property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="database.schema" value="${database.name}"/>
+        </case>
+        <case value="mysql">
+                <property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+                <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.1.13.jar"/>
+                <property name="database.driver" value="com.mysql.jdbc.Driver"/>
+                <property name="database.schema" value="${database.name}"/>
+        </case>
+        <case value="postgresql">
+                <property name="database.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+                <property name="database.driver.file" value="${bda-utils.dir}/postgresql-jdbc3-8.3-604.jar"/>
+                <property name="database.driver" value="org.postgresql.Driver"/>
+                <property name="database.schema" value="public"/>
+        </case>
+        <default>
+        </default>
+    </switch>
+    <filter token="database.url" value="${database.url}"/>
+    <filter token="database.driver" value="${database.driver}"/>
+    <filter token="database.user" value="${database.user}"/>
+    <filter token="database.password" value="${database.password}"/>
+        
+    <copy file="${jboss-conf}/${database.resource.file.ds-xml}" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
+    <copy file="${database.driver.file}" todir="${jboss.setting}/deploy" overwrite="true"> </copy>   
+    
+    <copy file="${jboss-conf}/DataSourceItem.xml" todir="${jboss.setting}/data" overwrite="true" > </copy>
+        
+    <copy file="${jboss-conf}/relationship.xml" todir="${jboss.setting}/data" overwrite="true" > </copy>
+        
+    <copy file="${jboss-conf}/jbossmq-destinations-service.block.xml" todir="${jboss.setting}/deploy/messaging" overwrite="true" > </copy>
+  </target>
+  
   <target name="post-clean" depends="post-clean-test">
     <delete dir="${classes.dir}" quiet="false" />
   </target>

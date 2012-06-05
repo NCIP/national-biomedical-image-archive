@@ -575,7 +575,7 @@
         <jar src="@{bda-utils.dir}/ant-1.7.0.jar" stage="both" />
         <jar src="@{bda-utils.dir}/ant-launcher-1.7.0.jar" stage="both"/>
         <jar src="@{bda-utils.dir}/ant-nodeps-1.7.0.jar" stage="both"/>
-        <jar src="@{bda-utils.dir}/mysql-connector-java-5.0.8.jar" stage="both"/>
+        <jar src="@{bda-utils.dir}/mysql-connector-java-5.1.13.jar" stage="both"/>
         <jar src="@{bda-utils.dir}/ojdbc14-10.2.0.3.0.jar" stage="both"/>
       </installation>
     ]]></config>

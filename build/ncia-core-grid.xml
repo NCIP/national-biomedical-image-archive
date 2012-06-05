@@ -66,8 +66,11 @@
     <echo message="ncia-core-grid.jboss.base.path is ${ncia-core-grid.jboss.base.path}"/>
 
     <jboss-install-binaries jboss.home="${ncia-core-grid.jboss.home}"
-                            jboss.server.name="${ncia-core-grid.jboss.server.name}"/>
-
+                            jboss.server.name="${ncia-core-grid.jboss.server.name}"
+                            jboss.binaries.file="${tools.dir}/${ncia-core-grid.jboss.binaries.file}"/>
+                            
+    <jboss-version jboss.home="${ncia-core-grid.jboss.home}"/>
+    
     <jboss-nci-customizations jboss.home="${ncia-core-grid.jboss.home}"
                               jboss.server.name="${ncia-core-grid.jboss.server.name}"
                               jboss.server.jndi.port="${ncia-core-grid.jboss.server.jndi.port}"
@@ -627,7 +630,7 @@
       <then>
         <!-- Read some port properties from standard bindings file -->
         <echo message="Using JBoss NCICB Standard port configurations"/>
-        <property name="ncia-core-grid.jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+        <property name="ncia-core-grid.jboss.server.binding.template.location" value="${basedir}/${ncia-core-grid.jboss-bindings.file}"/>
         <jboss-read-ports
           jboss.server.bindingfile.location="${ncia-core-grid.jboss.server.binding.template.location}"
           jboss.server.ports.name="${ncia-core-grid.jboss.server.ports.name}"
@@ -646,7 +649,7 @@
       <else>
         <!-- else ensure that all ports are set, since these will be removed from install-properties.template we will verify here.  They have to be removed so the validator works with or without the properties or we have to change the format of the file. -->
         <echo message="Using custom JBoss port configurations"/>
-        <property name="ncia-core-grid.jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+        <property name="ncia-core-grid.jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${ncia-core-grid.jboss.binaries.relative.dir}/bindings.xml"/>
         <properties-exist
           properties.list="ncia-core-grid.jboss.server.jndi.port,ncia-core-grid.jboss.server.port,ncia-core-grid.jboss.cobraorb.port,ncia-core-grid.jboss.ejbinvoker.port,ncia-core-grid.jboss.hajndi.port,ncia-core-grid.jboss.hajrmi.port,ncia-core-grid.jboss.jms.port,ncia-core-grid.jboss.jmx-rmi.port,ncia-core-grid.jboss.messaging.port,ncia-core-grid.jboss.pooledha.port,ncia-core-grid.jboss.remoting.port,ncia-core-grid.jboss.server.bind.port,ncia-core-grid.jboss.server.rmi.port,ncia-core-grid.jboss.service.rmiobject.port,ncia-core-grid.jboss.snmp.port,ncia-core-grid.jboss.snmp-trapd.port,ncia-core-grid.jboss.web.service.port"
           />
@@ -719,7 +722,7 @@
                   value="${basedir}/${jboss-bindings.file}"/>
       </then>                       <else>
         <property name="ncia-core-grid.jboss.server.binding.template.location"
-                  value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+                  value="${bda-utils.dir}/resource/${ncia-core-grid.jboss.binaries.relative.dir}/bindings.xml"/>
       </else>
     </if>
 

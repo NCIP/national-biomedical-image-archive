@@ -10,10 +10,8 @@
   <property environment="env" />
   <property file="local.properties"/>
   <property file="project.properties"/>
-  <!-- beware: it is likely that this value was passed in on the command line -->
   <property name="properties.file" value="${basedir}/../build/install.properties"/>
   <echo message="Using properties file of ${properties.file}."/>
-  <!-- strip whitespace out of the properties file -->
   <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=(.*[\w\d\/\{\}\\]+)[ \t]+\r*$" replace="\1=\2"/>
   <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=[ \t]+(.*[\w\d\/\{\}\\]+)\r*$" replace="\1=\2"/>
   <property file="${properties.file}" />

@@ -60,7 +60,7 @@
                    common:common:init">
 
     <jboss-install-binaries/>
-
+    <jboss-version/>
     <jboss-nci-customizations/>
   </target>
 
@@ -116,7 +116,7 @@
           unless="exclude.jboss"
           depends="common:jboss:init,
                    common:common:init">
-
+    <!--
     <echo message="Configuring Log4J"/>
 
     <property name="log4j.file.name" value="log4j.xml"/>
@@ -147,7 +147,7 @@
       match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;"
       replace="\1"
       />
-
+	-->
   </target>
 
   <target name="install:jboss:configure"
@@ -167,10 +167,28 @@
     appserver-configure-external-hostname - configures jboss for use through a reverse proxy
     grid-secure-configure-connector - configures secure grid
     -->
-    <jboss-configure
-      jboss.server.ports.name="${jboss.server.ports.name}"
-      jboss.server.binding.template.location="${jboss.server.binding.template.location}"
-      />
+   	<!-- Use below if you are defining all the ports in your install.xml not the NCICB port configuraitons-->
+    		<if>
+    			<equals arg1="${jboss.major.version}" arg2="4"/>
+    			<then>
+    				<jboss-configure
+    					jboss.grid.configure="true"
+    					/>
+    			</then>
+    		</if>
+    		<if>
+    			<equals arg1="${jboss.major.version}" arg2="5"/>
+    			<then>
+    			<echo message="before calling jboss-configure jboss.server.binding.template.location=${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings-jboss-beans.xml"/>
+    			<echo message="before calling jboss-configure jboss.server.bindingfile.location=${jboss.home}/server/${jboss.server.name}/conf/bindingservice.beans/META-INF/bindings-jboss-beans.xml"/>
+                    <jboss-configure
+                            jboss.grid.configure="false"
+                            jboss.server-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml"
+                            jboss.server.binding.template.location="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings-jboss-beans.xml"
+                            jboss.server.bindingfile.location="${jboss.home}/server/${jboss.server.name}/conf/bindingservice.beans/META-INF/bindings-jboss-beans.xml"
+                            proxy.update.connector.port.ssl="${jboss.ssl.port}"/>
+    			</then>
+     </if>
 
     <copy file="${jboss-conf.dir.src}/relationship.xml"
           tofile="${jboss.home}/server/${jboss.server.name}/data/relationship.xml"
@@ -213,16 +231,16 @@
 
     <property name="jboss-mq.block.file" value="${jboss-conf.dir.dest}/jbossmq-destinations-service.block.xml"/>
 
-    <xmltask source="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml"
-             dest="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml">
+    <xmltask source="${jboss.home}/server/${jboss.server.name}/deploy/messaging/destinations-service.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/deploy/messaging/destinations-service.xml">
       <!-- no xmlcatalog necessary -->
       <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=imageQueue']"/>
       <!-- in case its still there -->
       <remove path="/server/mbean[@name='jboss.mq.destination:service=Queue,name=deletionQueue']"/>
     </xmltask>
     <xmltask failWithoutMatch="true"
-             source="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml"
-             dest="${jboss.home}/server/${jboss.server.name}/deploy/jms/jbossmq-destinations-service.xml">
+             source="${jboss.home}/server/${jboss.server.name}/deploy/messaging/destinations-service.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/deploy/messaging/destinations-service.xml">
       <!-- no xmlcatalog necessary -->
       <insert path="/server" file="${jboss-mq.block.file}"/>
     </xmltask>
@@ -282,7 +300,7 @@
     <unzip src="${temp.dir}/nbia-ear/nbia.war" dest="${temp.dir}/nbia-war"/>
     <unzip src="${temp.dir}/nbia-war/WEB-INF/lib/nbia-dao.jar" dest="${temp.dir}/nbia-dao-tmp"/>
     <unzip src="${temp.dir}/nbia-ear/imageZippingMDB.jar" dest="${temp.dir}/imageZippingMDB-jar"/>
-    <unzip src="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar" dest="${temp.dir}/zip-dao-jar"/>
+    <unzip src="${temp.dir}/nbia-ear/lib/nbia-dao.jar" dest="${temp.dir}/zip-dao-jar"/>
 
     <!-- sign jars if set to install time signing -->
     <if>
@@ -350,8 +368,8 @@
       <insert path="/:beans"
               xml="&lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.transaction.jta.JtaTransactionManager&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;/&gt;"/>
     </xmltask>
-    <delete file="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar"/>
-    <jar jarfile="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar"
+    <delete file="${temp.dir}/nbia-ear/lib/nbia-dao.jar"/>
+    <jar jarfile="${temp.dir}/nbia-ear/lib/nbia-dao.jar"
          compress="false">
       <fileset dir="${temp.dir}/zip-dao-jar/">
         <include name="*/**" />
@@ -374,14 +392,14 @@
     </jar>
 
     <copy file="${temp.dir}/nbia-war/WEB-INF/lib/nbia-dao.jar"
-          tofile="${temp.dir}/imageZippingMDB-jar/nbia-dao.jar"/>
-    <jar jarfile="${temp.dir}/nbia-ear/imageZippingMDB.jar"
+          tofile="${temp.dir}/nbia-ear/lib/nbia-dao.jar"/>
+    <!--jar jarfile="${temp.dir}/nbia-ear/imageZippingMDB.jar"
          compress="false"
          manifest="${temp.dir}/imageZippingMDB-jar/META-INF/MANIFEST.MF">
       <fileset dir="${temp.dir}/imageZippingMDB-jar">
         <include name="*/**" />
       </fileset>
-    </jar>
+    </jar-->
 
     <war destfile="${temp.dir}/nbia-ear/nbia.war"
          compress="false"
@@ -635,10 +653,29 @@
       <then>
         <!-- Read some port properties from standard bindings file -->
         <echo message="Using JBoss NCICB Standard port configurations"/>
-        <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
-        <jboss-read-ports
-          jboss.server.bindingfile.location="${jboss.server.binding.template.location}"
-          />
+              <if>
+	                    <equals arg1="${jboss.major.version}" arg2="4"/>
+	                    <then>
+	                        <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+	                        <jboss-read-ports jboss.server.bindingfile.location="${jboss.server.binding.template.location}"/>
+	                        <jboss-bindings-validate jboss.server.bindingfile.location="${jboss.server.binding.template.location}"/>
+	                    </then>
+	                    <elseif>
+	                        <equals arg1="${jboss.major.version}" arg2="5"/>
+	                        <then>
+	                            <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings-jboss-beans.xml"/>
+	                            <property name="jboss.server.bindingfile.location" value="${jboss.home}/server/${jboss.server.name}/conf/bindingservice.beans/META-INF/bindings-jboss-beans.xml"/>
+	                            <property name="temp.ejb.file" value="${temp.dir}/ejb3-connectors-jboss-beans.xml"/>
+	                            <copy file="${bda-utils.dir}/resource/jboss-5.1.0.GA/ejb3-connectors-jboss-beans.xml" tofile="${temp.ejb.file}"/>
+	                            <!--
+	                            <jboss51-bindings-nci
+	                                jboss.server.bindingfile.location="${jboss-bindings.file}"
+	                                />
+	                            -->
+	                            <!--jboss51-read-ports-nci jboss.server.bindingfile.location="${jboss-bindings.file}" jboss.server.ejbfile.location="${temp.ejb.file}"/-->
+	                        </then>
+	                    </elseif>
+                </if>
         <echo message="http -${jboss.server.port} "/>
         <echo message="http -${jboss.server.jndi.port} "/>
         <properties-exist
@@ -652,7 +689,15 @@
       <else>
         <!-- else ensure that all ports are set, since these will be removed from install-properties.template we will verify here.  They have to be removed so the validator works with or without the properties or we have to change the format of the file. -->
         <echo message="Using custom JBoss port configurations"/>
-        <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+        <if>
+		<equals arg1="${jboss.major.version}" arg2="4"/>
+		<then>
+			<property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+		</then>
+		<else>
+			<property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings-jboss-beans.xml"/>
+		</else>
+        </if>
         <properties-exist
           properties.list="jboss.server.jndi.port,jboss.server.port,jboss.cobraorb.port,jboss.ejbinvoker.port,jboss.hajndi.port,jboss.hajrmi.port,jboss.jms.port,jboss.jmx-rmi.port,jboss.messaging.port,jboss.pooledha.port,jboss.remoting.port,jboss.server.bind.port,jboss.server.rmi.port,jboss.service.rmiobject.port,jboss.snmp.port,jboss.snmp-trapd.port,jboss.web.service.port"
           />

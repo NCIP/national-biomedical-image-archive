@@ -1,12 +1,10 @@
 
-<mbean code="org.jboss.mq.server.jmx.Queue" name="jboss.mq.destination:service=Queue,name=imageQueue">
-  <depends optional-attribute-name="DestinationManager">
-    jboss.mq:service=DestinationManager
-  </depends>
-</mbean>
-
- <mbean code="org.jboss.mq.server.jmx.Queue"
-      name="jboss.mq.destination:service=Queue,name=deletionQueue">
-      <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+ <mbean code="org.jboss.jms.server.destination.QueueService" name="jboss.messaging.destination:service=Queue,name=imageQueue" xmbean-dd="xmdesc/Queue-xmbean.xml">
+   <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+   <depends>jboss.messaging:service=PostOffice</depends>
  </mbean>
  
+ <mbean code="org.jboss.jms.server.destination.QueueService" name="jboss.messaging.destination:service=Queue,name=deletionQueue" xmbean-dd="xmdesc/Queue-xmbean.xml">
+   <depends optional-attribute-name="ServerPeer">jboss.messaging:service=ServerPeer</depends>
+   <depends>jboss.messaging:service=PostOffice</depends>
+ </mbean>

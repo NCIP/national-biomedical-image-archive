@@ -139,6 +139,7 @@ $HeadURL$
 
   <!-- locally used paths, not needed by install -->
   <property name="jboss.dest.file" value="${download.dir}/${jboss.binaries.file}"/>
+  <property name="ncia-core-grid.jboss.dest.file" value="${download.dir}/${ncia-core-grid.jboss.binaries.file}"/>
   <property name="jai.linux.dest.file" value="${download.dir}/${jai.linux.binaries.file}"/>
   <property name="jai.windows.dest.file" value="${download.dir}/${jai.windows.binaries.file}"/>
   <property name="ws-core.dest.file" value="${download.dir}/${ws-core.binaries.file}"/>
@@ -190,6 +191,8 @@ $HeadURL$
   <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="bda-utils.classpath"/>
 
   <!-- Includes- include BDA marcos -->
+  <copy todir="${bda-utils.dir}" file="${bda-download.dir}\bda-build-utils-${bda.version}.xml" overwrite="true"/>
+  
   <!--import file="${bda-utils.dir}/bda-build-utils-${bda.version}.xml" /-->
    <import file="${bda-download.dir}\bda-build-utils-${bda.version}.xml" />
 
@@ -212,7 +215,7 @@ $HeadURL$
     </case>
     <case value="mysql">
       <property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-      <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.0.8.jar"/>
+      <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.1.13.jar"/>
       <property name="database.driver" value="com.mysql.jdbc.Driver"/>
       <property name="database.schema" value="${database.name}"/>
     </case>
@@ -324,6 +327,7 @@ $HeadURL$
     <!-- start from scratch to make sure no stale
          lib definitinos, esp during dev -->
     <available file="${jboss.dest.file}" property="jboss.tools.exists"/>
+    <available file="${ncia-core-grid.jboss.dest.file}" property="ncia-core-grid.jboss.tools.exists"/>
     <available file="${ws-core.dest.file}" property="ws-core.tools.exists"/>
   </target>
 
@@ -846,6 +850,10 @@ $HeadURL$
   <target name="dist:tools:retrieve:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
     <get src="${jboss-bindings.src.url}" dest="${dist.exploded.dir}/${jboss-bindings.file}" />
   </target>
+  
+  <target name="dist:tools:retrieve:grid:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
+      <get src="${ncia-core-grid.jboss-bindings.src.url}" dest="${dist.exploded.dir}/${ncia-core-grid.jboss-bindings.file}" />
+  </target>
 
   <target name="dist:tools:retrieve:jbosscp"
           unless="jbosscp.tools.exists"
@@ -891,10 +899,11 @@ $HeadURL$
     depends="
     init,
     dist:tools:retrieve:jboss,
-    dist:tools:retrieve:jbosscp,
+    dist:tools:retrieve:grid:jboss,
     dist:tools:retrieve:jai,
     dist:tools:retrieve:ws-core,
     dist:tools:retrieve:jboss-bindings,
+    dist:tools:retrieve:grid:jboss-bindings,
     dist:tools:retrieve:sync-gts"
     />
 
@@ -941,6 +950,24 @@ $HeadURL$
         <fail message="Failed to download jboss file sucessfully."/>
       </else>
     </if>
+  </target>
+  
+  <!-- Downloads jboss from tools repository and compares checksum, based on properties set in project.properties -->
+  <target name="dist:tools:retrieve:grid:jboss" unless="ncia-core-grid.jboss.tools.exists">
+      <get src="${ncia-core-grid.jboss.src.url}"
+           dest="${ncia-core-grid.jboss.dest.file}"/>
+      <get src="${ncia-core-grid.jboss.src.url}.MD5"
+           dest="${ncia-core-grid.jboss.dest.file}.MD5"/>
+      <checksum file="${ncia-core-grid.jboss.dest.file}" verifyProperty="jboss.cksum.ok"/>
+      <if>
+        <equals arg1="${jboss.cksum.ok}" arg2="true"/>
+        <then>
+          <echo message="Downloaded jboss sucessfully"/>
+        </then>
+        <else>
+          <fail message="Failed to download jboss file sucessfully."/>
+        </else>
+      </if>
   </target>
 
   <!-- Copies install time resources into distribution tree -->
@@ -1112,7 +1139,7 @@ jboss.home,ctp.server.home,ctp.client.home,
 
   <!-- Installs the application locally. Requires a local instance of mysql. Will use the target from install.xml specified in ${install.target} (defaults to install unless passed in on command line).  Calls ant from exec task to ensure properties are do not carry over from current ant runtime and also to emulate a manual install. This target will use differnt properties based on linux (linux-install.properties) or windows (windows-install.properties) installs. It only supports using those properties files for now, so if you want to change install time properites edit these files. -->
   <target name="deploy:local:install"
-          depends="dist:installer:prep"
+          depends="build:all,dist:installer:prep"
           description="Installs the application and required binaries on the local machine, used for developer desktops and ci environments" >
     <deploy-local
       target.name="${install.target}"
@@ -1653,7 +1680,7 @@ jboss.home,ctp.server.home,ctp.client.home,
   <target name="report:erd">
     <generate-erd report.dir="${reports.dir}"
                   schemaspy.jar="schemaspy-4.1.1.jar"
-                  database.driver.jar="mysql-connector-java-5.0.8.jar"/>
+                  database.driver.jar="mysql-connector-java-5.1.13.jar"/>
   </target>
 
 

@@ -371,7 +371,7 @@
       </case>
       <case value="mysql">
         <property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-        <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.0.8.jar"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.1.13.jar"/>
         <property name="database.driver" value="com.mysql.jdbc.Driver"/>
         <property name="database.schema" value="${database.name}"/>
       </case>

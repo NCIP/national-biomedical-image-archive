@@ -81,7 +81,7 @@
     <copy file="${database.driver.file}"
           todir="${jboss.home}/server/${jboss.server.name}/lib"
           overwrite="true" />
-    <copy file="${bda-utils.dir}/clm-3.2.jar"
+    <copy file="${bda-utils.dir}/clm-4.0.jar"
           todir="${jboss.home}/server/${jboss.server.name}/lib"
           overwrite="true" />
   </target>

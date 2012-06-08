@@ -2276,7 +2276,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 	<macrodef name="validate-pre-build">
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="require.build.wscore" default="${require.build.wscore}"/>
-		<attribute name="wscore.download.url" default="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+		<attribute name="wscore.download.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
 		<attribute name="wscore.relative.dir" default="ws-core-4.0.3"/>
 		<attribute name="cacore-sdk.required" default="${cacore-sdk.required}"/>
 		<attribute name="cacore-sdk.src.url" default="${cacore-sdk.src.url}"/>
@@ -3323,7 +3323,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 									<if>
 										<isset property="wscore.src.url.unexpanded"/>
 										<then>
-											<property name="tmp.wscore.src.url" value="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+											<property name="tmp.wscore.src.url" value="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
 										</then>
 										<else>
 											<property name="tmp.wscore.src.url" value="@{wscore.src.url}"/>

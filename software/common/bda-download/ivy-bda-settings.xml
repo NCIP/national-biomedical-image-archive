@@ -23,17 +23,6 @@ This file is the is the settings file used by IVY.  It is a good starting point 
 		      <artifact pattern="${ivy-bda.local.repo}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
 		 </filesystem>
 		 <ibiblio name="central" m2compatible="true" root="https://ncimvn.nci.nih.gov/nexus/content/groups/public" />
-		 <url name="cbiit-ivy-repo">
-		     <!-- remote enterprise repository -->
-		     <!--artifact pattern="https://ncisvn.nci.nih.gov/svn/cbiit-ivy-repo/trunk/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-		     <ivy pattern="https://ncisvn.nci.nih.gov/svn/cbiit-ivy-repo/trunk/[organisation]/[module]/[revision]/ivy.xml" /-->
-		     <artifact pattern="https://ncisvn.nci.nih.gov/svn/deprecated-cbiit-ivy-repo/trunk/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-		     <ivy pattern="https://ncisvn.nci.nih.gov/svn/deprecated-cbiit-ivy-repo/trunk/[organisation]/[module]/[revision]/ivy.xml" />
-		 </url>   
-		 <!-- this is where you can publish to, either your own code or for testing new thirdparty files -->
-		<url name="cbiit-maven-mirror" m2compatible="true">
-		    <ivy pattern="https://ncisvn.nci.nih.gov/svn/maven-mirror/trunk/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
-                </url>      
 	    </chain>
 	</resolvers>
 </ivysettings>

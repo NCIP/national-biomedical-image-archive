@@ -9425,13 +9425,13 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 					<echo message="Database.type is not oracle, skipping pad"/>
 				</else>
 			</if>
-			<setup-apptab
+			<!--setup-apptab
 				jboss.home="@{jboss.home}"
 				jboss.server.name="@{jboss.server.name}"
 				application.base.path="@{application.base.path}"
 				logname="@{logname}"
 				start.jboss="@{start.jboss}"
-				/>
+				/-->
 		</sequential>
 	</macrodef>
 	<macrodef name="jboss51-nci-customizations" description="deploys customized jboss management files, this target only works for linux">
@@ -9606,13 +9606,13 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 				</else>
 			</if>
 			<!-- App Tab -->
-			<setup-apptab
+			<!--setup-apptab
 				jboss.home="@{jboss.home}"
 				jboss.server.name="@{jboss.server.name}"
 				application.base.path="@{application.base.path}"
 				logname="@{logname}"
 				start.jboss="@{start.jboss}"
-				/>
+				/-->
 		</sequential>
 	</macrodef>
 	<macrodef name="setup-apptab" description="">

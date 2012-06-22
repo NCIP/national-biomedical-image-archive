@@ -8,8 +8,25 @@ import gov.nih.nci.nbia.ui.DownloadManagerFrame;
 import gov.nih.nci.nbia.util.JnlpArgumentsParser;
 import gov.nih.nci.nbia.util.PropertyLoader;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.io.IOUtils;
 
 /**
  * @author Thai Thi Le
@@ -38,23 +55,33 @@ public class Application {
 		String userId = System.getProperty("userId");
 		String password = System.getProperty("password");
 		String codebase = System.getProperty("codebase");
-
 		Application.codebase = codebase;
 		String serverUrl = System.getProperty("downloadServerUrl");
-
 		boolean includeAnnotation = Boolean.valueOf((System.getProperty("includeAnnotation")));
-
-
-		if(args != null && ( args.length > 0)){
-
-			List<SeriesData> seriesData = JnlpArgumentsParser.parse(args);
+		//serverUrl="http://localhost:45210/nbia-download/servlet/DownloadServlet";
+		//codebase="http://localhost:45210/ncia/";
+		//args = new String[] {"http://localhost:45210/nbia-download/servlet/DataFileDownloadServlet","C:\\Users\\niktevv\\AppData\\Local\\Temp\\1\\jnlp-data1339682549208.txt"};
+		if(args != null && ( args.length > 0)) {
+			String fileName = args[0];
+			List<String> seriesInfo = null;
+	    	long start = System.currentTimeMillis();
+			try {
+				seriesInfo = connectAndReadFromURL(new URL(serverUrl),fileName);
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			}
+			String[] strResult=new String[seriesInfo.size()];   
+			seriesInfo.toArray(strResult); 
+			List<SeriesData> seriesData = JnlpArgumentsParser.parse(strResult);
+			long end = System.currentTimeMillis(); 
+	        System.out.println("launch time---"+(end - start) / 1000f + " seconds");
     		DownloadManagerFrame manager = new DownloadManagerFrame(userId,
     				                                                password,
     				                                                includeAnnotation,
     				                                                seriesData,
     				                                                serverUrl);
     		manager.setVisible(true);
-    	}
+		}
 		/*else{ // this is for testing only
 		 String [] myargs = new String[6];
 
@@ -70,8 +97,29 @@ public class Application {
     		DownloadManagerFrame manager = new DownloadManagerFrame("nbia_guest", "",includeAnnotation, seriesData, serverUrl);
     		manager.setVisible(true);
 		}*/
+		
+	
+
 	}
 
+    private  static List<String> connectAndReadFromURL(URL url, String fileName) {
+        HttpClient httpClient = new HttpClient();
+        PostMethod postMethod = new PostMethod(url.toString());
+        postMethod.addParameter("serverjnlpfileloc", fileName);
+        List<String>  data = null;
+        try {
+            int responseCode = httpClient.executeMethod(postMethod);
+            InputStream inputStream = postMethod.getResponseBodyAsStream();
+            data = IOUtils.readLines(inputStream);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            postMethod.releaseConnection();
+        }
+        return data;
+    }
 
 	 private static Properties NBIA_PROPERTIES = null;
 

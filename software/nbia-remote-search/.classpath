@@ -144,7 +144,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/commons-httpclient-3.0.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/commons-httpclient-3.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/commons-io-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/commons-lang-1.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/commons-lang-2.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/cryptix-1.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/cryptix32-3.2.jar"/>
@@ -188,7 +188,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/quartz-1.6.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/slf4j-api-1.4.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/slf4j-log4j12-1.4.3.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/spring-2.5.6.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/spring-core-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/ws-addressing-1.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/wsdl4j-1.5.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-remote-search/test/wsrf_core_stubs-4.0.3.jar"/>

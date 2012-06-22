@@ -542,7 +542,8 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 
 
     public Resource getLaunchDownloadManager() throws Exception{
-        jnlpFileName = "dynamic-jnlp-" + System.currentTimeMillis() + ".jnlp";
+        long currentTimeMillis = System.currentTimeMillis();
+        jnlpFileName = "dynamic-jnlp-" + currentTimeMillis + ".jnlp";
         if(basket.isEmpty()){
             System.out.println("No data in data basket, do not show the download manager");
             return null;
@@ -554,7 +555,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
                                       NCIAConfig.getImageServerUrl()+"/ncia",
                                       NCIAConfig.getDownloadServerUrl(),
                                       this.includeAnnotation,
-                                      this.getSeriesItems());
+                                      this.getSeriesItems(),currentTimeMillis);
 
         ByteArrayResource bar = new ByteArrayResource(jnlp.getBytes());
         return bar;

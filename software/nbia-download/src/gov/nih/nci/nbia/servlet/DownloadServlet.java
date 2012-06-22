@@ -7,8 +7,10 @@ import gov.nih.nci.security.util.StringEncrypter;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -37,23 +40,29 @@ public class DownloadServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request,
               HttpServletResponse response) throws ServletException,IOException {
-        String seriesUid = request.getParameter("seriesUid");
-        String userId = request.getParameter("userId");
-        String password = request.getHeader("password");
-        Boolean includeAnnotation = Boolean.valueOf(request.getParameter("includeAnnotation"));
-        Boolean hasAnnotation = Boolean.valueOf(request.getParameter("hasAnnotation"));
-        String sopUids = request.getParameter("sopUids");
+        //first check if its download for jnlpfile at server or dicom images download
+        String serverjnlpfileloc = request.getParameter("serverjnlpfileloc"); 
+        if(StringUtils.isNotBlank(serverjnlpfileloc)) {
+            downloadJNLPDataFile(serverjnlpfileloc, response);
+        } else {
+            String seriesUid = request.getParameter("seriesUid");
+            String userId = request.getParameter("userId");
+            String password = request.getHeader("password");
+            Boolean includeAnnotation = Boolean.valueOf(request.getParameter("includeAnnotation"));
+            Boolean hasAnnotation = Boolean.valueOf(request.getParameter("hasAnnotation"));
+            String sopUids = request.getParameter("sopUids");
 
-        logger.info("sopUids:"+sopUids);
-        logger.info("seriesUid: " + seriesUid + " userId: " + userId + " includeAnnotation: " + includeAnnotation + " hasAnnotation: " + hasAnnotation);
+            logger.info("sopUids:"+sopUids);
+            logger.info("seriesUid: " + seriesUid + " userId: " + userId + " includeAnnotation: " + includeAnnotation + " hasAnnotation: " + hasAnnotation);
 
-        processRequest(response,
+            processRequest(response,
                        seriesUid,
                        userId,
                        password,
                        includeAnnotation,
                        hasAnnotation,
                        sopUids);
+        	}
     }
     protected void processRequest(HttpServletResponse response,
             String seriesUid,
@@ -183,4 +192,18 @@ public class DownloadServlet extends HttpServlet {
         }
         return contentSize;
     }
+    private void downloadJNLPDataFile(String fileName, HttpServletResponse response) {
+            logger.info("looking for file name ..."+fileName);
+            System.out.println("looking for file name ..."+fileName);
+            response.setContentType("text/plain");
+            response.setHeader("Content-Disposition","attachment;filename=downloadname.txt");
+            try{
+                List <String> readLines = IOUtils.readLines(new FileReader(fileName));
+                OutputStream os = response.getOutputStream();
+                IOUtils.writeLines(readLines, System.getProperty("line.separator"), os);
+                os.close();	
+            } catch (IOException e){
+              e.printStackTrace();
+        }
+     }
 }

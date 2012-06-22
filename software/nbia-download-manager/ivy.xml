@@ -31,6 +31,11 @@
                 rev="1.4"
                 conf="compile->master;runtime->master"/>
 
+    <dependency org="commons-lang"
+                name="commons-lang"
+                rev="2.4"
+                conf="compile->master;runtime->master"/> 
+
     <dependency org="commons-httpclient"
                 name="commons-httpclient"
                 rev="3.0.1"

@@ -114,12 +114,24 @@
 	<classpathentry kind="lib" path="lib/jasciidammit-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.5.jar"/>
 	<classpathentry kind="lib" path="lib/ncia-beans.jar"/>
 	<classpathentry kind="lib" path="lib/ncia-config.jar"/>
 	<classpathentry kind="lib" path="lib/sdk-client-framework.jar"/>
 	<classpathentry kind="lib" path="lib/sdk-core.jar"/>
-	<classpathentry kind="lib" path="lib/spring.jar"/>
+	<!--  classpathentry kind="lib" path="lib/spring.jar"/>-->
+	<classpathentry kind="lib" path="lib/spring-aop-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-asm-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-beans-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-context-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-context-support-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-core-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-expression-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-jdbc-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-jms-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-orm-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-tx-3.1.1.RELEASE.jar"/>
+    <classpathentry kind="lib" path="lib/spring-web-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/caGrid-sdkQuery4-beans-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/caGrid-sdkQuery4-processor-1.3.jar"/>
 	<classpathentry kind="lib" path="lib/caGrid-sdkQuery4-style-1.3.jar"/>
@@ -255,7 +267,11 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/slf4j-api-1.4.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/slf4j-log4j12-1.4.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/slf4j-nop-1.4.3.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-2.5.6.jar"/>
+	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-2.5.6.jar"/>-->
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-core-3.1.1.RELEASE.jar"/>
+	
+	
+	
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/ws-addressing-1.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/wsdl4j-1.5.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/wsdl4j.jar"/>
@@ -281,9 +297,9 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/xml-apis.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/xmlsec.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/xstream-1.3.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/junit-4.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-test-2.5.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/junit-4.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/spring-test-3.1.1.RELEASE.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-domain"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="output" path="bin"/>

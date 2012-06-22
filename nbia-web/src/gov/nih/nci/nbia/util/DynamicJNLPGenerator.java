@@ -2,9 +2,14 @@ package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -24,13 +29,14 @@ public class DynamicJNLPGenerator {
                            String codebase,
                            String downloadServerUrl,
                            Boolean includeAnnotation,
-                           List<BasketSeriesItemBean> seriesItems){
+                           List<BasketSeriesItemBean> seriesItems,long currentTimeMillis){
         this.codebase = codebase;
         String jnlp="";
         try{
             StringBuffer jnlpBuilder = this.getJnlp();
             int size = seriesItems.size();
             StringBuffer argsBuilder = new StringBuffer();
+            List<String> seriesDownloadData = new ArrayList<String>();
             for(int i=0; i<size; i++){
             	BasketSeriesItemBean seriesItem = seriesItems.get(i);
 
@@ -46,7 +52,7 @@ public class DynamicJNLPGenerator {
                 String displayName = seriesItem.getSeriesSearchResult().associatedLocation().getDisplayName();
                 boolean local = seriesItem.getSeriesSearchResult().associatedLocation().isLocal();
 
-                String argument = "<argument>" +
+                String argument = "" +
                                   collection + "|" +
                                   patientId + "|"+
                                   studyInstanceUid + "|" +
@@ -57,11 +63,13 @@ public class DynamicJNLPGenerator {
                                   annoSize + "|" +
                                   url + "|" +
                                   displayName+ "|" +
-                                  local+
-                                  "</argument>\n";
-                argsBuilder.append(argument);
+                                  local;
+                seriesDownloadData.add(argument);
             }
-
+           File dataFile = new File(System.getProperty("java.io.tmpdir"), "jnlp-data"+currentTimeMillis+".txt");
+           OutputStream os = new FileOutputStream(dataFile);
+           IOUtils.writeLines(seriesDownloadData, System.getProperty("line.separator"), os);
+           argsBuilder.append("<argument>").append(dataFile.getAbsolutePath()).append("</argument>");
             //get user id and included annotation
             StringBuffer propXMLBuilder = new StringBuffer();
             propXMLBuilder.append(this.getPropertyXML( "includeAnnotation", includeAnnotation.toString()));

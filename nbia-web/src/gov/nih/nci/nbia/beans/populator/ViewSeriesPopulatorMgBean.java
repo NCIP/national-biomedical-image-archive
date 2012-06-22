@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * This bean became necessary after switching to ICEfaces.
- * 
+ *
  * <p>
  * The dicom tag view popup browser window worked historically by opening the
  * new browser window with javascript, then using a hidden form.... the target
@@ -18,7 +18,7 @@ import java.util.List;
  * to load the dicom tag info for the new page to use. This doesn't appear to
  * work with ICEfaces. Looks like iceSubmit() js method doesn't care at all
  * about the target attribute of a form.
- * 
+ *
  * <p>
  * So..... just open the new browser window, point it to the page... and here is
  * the page load action so all the dicom tag info is loaded in time to be
@@ -54,7 +54,7 @@ public class ViewSeriesPopulatorMgBean {
 		if (seriesItems != null) {
 			for (BasketSeriesItemBean item : seriesItems) {
 				if (item.getSeriesId() != null
-						&& seriesId.equalsIgnoreCase(seriesId)
+						&& item.getSeriesId().equalsIgnoreCase(seriesId)
 						&& item.getLocationDisplayName() != null
 						&& item.getLocationDisplayName().equalsIgnoreCase(
 								location)) {
@@ -73,7 +73,7 @@ public class ViewSeriesPopulatorMgBean {
 		}
 		return seriesItem;
 	}
-	
+
 
 	public String getLocation() {
 		return location;

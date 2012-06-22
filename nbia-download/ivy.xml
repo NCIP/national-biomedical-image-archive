@@ -54,6 +54,11 @@
                 rev="1.4"
                 conf="compile->master;runtime->master"/>
 
+    <dependency org="commons-lang"
+                name="commons-lang"
+                rev="2.4"
+                conf="compile->master;runtime->master"/> 
+
     <dependency org="ncicb"
                 name="nbia-dao"
                 rev="latest.integration"

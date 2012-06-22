@@ -212,6 +212,7 @@
                 name="xercesImpl"
                 rev="2.8.1"
                 conf="test->master"/>
+     <dependency org="javax.el" name="el-api" rev="2.2.1-b04" conf="test->master"/> 
 
 <!-- add spring framework 3.1.1-->
        <dependency org="org.springframework"

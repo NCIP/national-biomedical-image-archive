@@ -20,7 +20,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/commons-logging-1.0.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/javancss-29.50.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/jhbasic-29.50.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/junit-3.8.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/junit-4.5.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/log4j-1.2.15.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/mail-1.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/oro-2.0.8.jar"/>

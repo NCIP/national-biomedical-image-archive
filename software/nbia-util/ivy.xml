@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl"
                  href="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-xsl/ivy.xsl"?>
        
-<ivy-module version="1.0">
+<ivy-module version="2.0">
   <info organisation="ncicb" module="nbia-util" />
 
   <configurations>

@@ -6,16 +6,7 @@
 
   <!-- Properties -->
   <property name="common.dir" value="${basedir}/../" />
-  <!-- Properties file related properties and tasks add for JBOSS 5.1
-  <property environment="env" />
-  <property file="local.properties"/>
-  <property file="project.properties"/>
-  <property name="properties.file" value="${basedir}/../build/install.properties"/>
-  <echo message="Using properties file of ${properties.file}."/>
-  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=(.*[\w\d\/\{\}\\]+)[ \t]+\r*$" replace="\1=\2"/>
-  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=[ \t]+(.*[\w\d\/\{\}\\]+)\r*$" replace="\1=\2"/>
-  <property file="${properties.file}" />
-  -->
+  
 
   <!-- directory where the compiled and configured nbia-services-commons target directory can be found -->
   <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
@@ -47,12 +38,8 @@
 
   <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-web"/>
   <property name="remote.search.lib.dir" value="${common.dir}/target/lib/nbia-remote-search"/>
-  <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>
-  <!--
-  <property name="jboss-conf" location="../common/resources/jboss-conf" />
-  <property name="bda-utils.dir" location="${basedir}/../target/bda-utils" />
-  <property name="jboss.setting" value="${target.dir}/jboss" />
-  -->
+ <property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
+  
   <!-- Paths -->
   <path id="common.classpath">
     <fileset dir="${common.dir}/target/lib">
@@ -68,11 +55,14 @@
 
   <!-- Task definitions -->
   <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
-  <taskdef resource="net/sf/antcontrib/antcontrib.properties">
-    <classpath>
-      <pathelement location="${bda-utils.lib.dir}/ant-contrib-1.0nci.jar"/>
-    </classpath>
-  </taskdef>
+  <path id="common.lib.classpath">
+		<fileset dir="${common.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path> 
+ <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath refid="common.lib.classpath" />
+ </taskdef>
 
 
   <import file="../common/unittesting.xml"/>

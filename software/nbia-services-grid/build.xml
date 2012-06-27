@@ -4,8 +4,6 @@
 
 <project name="nbia-services-grid" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	<property name="common.dir" value="${basedir}/../" />
-	<property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
-
 	<property name="project.lib.dir" value="${common.dir}/target/lib/nbia-services-grid"/>
 	<property name="base.lib.dir" value="${common.dir}/target/lib" />
 
@@ -17,7 +15,6 @@
   <property name="target.dir" value="${common.dir}/target/dist/exploded" />
 	<property name="java.jar.name" value="nbia-services-grid.jar" />
 
-
 	<!-- Paths -->
 	<path id="compile.classpath">
 		<fileset dir="${project.lib.dir}/compile">
@@ -25,31 +22,9 @@
 		</fileset>
 	</path>
 
-
-
-	<path id="common.classpath">
-		<fileset dir="${base.lib.dir}">
-			<include name="*.jar" />
-		</fileset>
-	</path>
-
-	<!-- Task definitions -->
-	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
-
-
 	<import file="../common/unittesting.xml"/>
 
 	<!-- Targets -->
-
-	<target name="ivy-settings">
-		<ivy:settings file="${global.ivy.settings.file}" />
-	</target>
-
-	<target name="ivy-compile" depends="ivy-settings" description="Updates the local ivy repository">
-		<ivy:resolve refresh="true" conf="compile" />
-		<ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="compile" />
-	</target>
-
 	<target name="-pre-clean" description="Performs all necessary clean-up before a build">
 		<delete dir="${classes.dir}" quiet="false" />
 		<delete dir="${instrumented.dir}" quiet="false" />
@@ -68,7 +43,6 @@
 		</javac>
 	</target>
 
-
 	<target name="jar" depends="compile" description="Builds the services jar">
 		<jar jarfile="${target.dir}/${java.jar.name}" compress="false">
 			<fileset dir="${classes.dir}">
@@ -76,8 +50,6 @@
 			</fileset>
 		</jar>
 	</target>
-
-
 
 	<target name="-post-clean" depends="post-clean-test" description="Performs necessary clean-up after a build">
 		<delete dir="${classes.dir}" quiet="false" />

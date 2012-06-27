@@ -32,8 +32,8 @@
   </path>
 
 	<!-- Task definitions -->
-	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath"/>
-
+	<!--taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.classpath"/-->
+<import file="../common/InitIvy.xml"/>
 	<!-- note: this used to be lib.dir, but it collides with Introduce generated build scripts lib.dir -->
 	<fail unless="project.lib.dir" message="must define project.lib.dir for unittesting.xml to work"/>
 

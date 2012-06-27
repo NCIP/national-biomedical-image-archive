@@ -1,4 +1,4 @@
-<ivy-module version="1.0">
+<ivy-module version="2.0">
   <info organisation="ncicb"
         module="nbia-services-commons"/>
 

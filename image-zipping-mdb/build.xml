@@ -50,7 +50,7 @@
   <!-- out of the blue jboss started acting nuts wrt class-path in manifest.
        not sure what rustled to cause this.  just kill the class-path -->
   <target name="strip-classpath" depends="ivy-runtime">
-    <set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/castor-1.0.2.jar"
+    <!--set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/castor-1.0.2.jar"
                                    temp.dir="${project.lib.dir}/runtime/tmp"
                                    classpath.value=""/>
 
@@ -64,7 +64,7 @@
 
     <set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/mail-1.4.jar"
                                    temp.dir="${project.lib.dir}/runtime/tmp"
-                                   classpath.value=""/>
+                                   classpath.value=""/-->
   </target>
 
   <target name="compile" depends="ivy-compile">

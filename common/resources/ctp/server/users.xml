@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for AHP3 -->
+<users><user username="@ctp.server.admin.username@" password="@ctp.server.admin.password@"><role>qadmin</role><role>admin</role><role>delete</role><role>guest</role><role>proxy</role><role>read</role></user><user username="@ctp.server.king.username@" password="@ctp.server.king.password@"><role>qadmin</role><role>admin</role><role>delete</role><role>guest</role><role>proxy</role><role>read</role><role>shutdown</role></user>
+</users>

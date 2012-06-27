@@ -1,7 +1,8 @@
-<ivy-module version="1.0">
+<ivy-module version="2.0">
   <info organisation="ncicb"
         module="nbia-download" />
   <configurations>
+   <conf name="master" />
     <conf name="default" />
     <conf name="compile" />
     <conf name="runtime" />
@@ -11,7 +12,7 @@
   </configurations>
 
   <publications>
-    <artifact name="notsureyet" type="jar" conf="default, compile, runtime" />
+    <artifact name="nbia-download" type="jar" conf="master, default, compile, runtime" />
   </publications>
 
   <dependencies>
@@ -53,17 +54,44 @@
                 name="commons-io"
                 rev="1.4"
                 conf="compile->master;runtime->master"/>
-
-    <dependency org="commons-lang"
+	
+	<dependency org="commons-lang"
                 name="commons-lang"
                 rev="2.4"
                 conf="compile->master;runtime->master"/> 
+                
+     <dependency org="org.springframework"
+                   name="spring-core"
+                   rev="3.1.1.RELEASE"
+                   conf="compile->master;runtime->master"/>
+                               
+    <dependency org="org.springframework"
+                   name="spring-tx"
+                   rev="3.1.1.RELEASE"
+                   conf="compile->master;runtime->master"/>  
+                    
+    <dependency org="gov.nih.nci.security"
+                name="csm"
+                rev="4.0"
+                conf="compile->master;runtime->default">
+      <exclude module="jdom"/>
+    </dependency>            
 
     <dependency org="ncicb"
                 name="nbia-dao"
                 rev="latest.integration"
-                conf="compile;runtime"/>
-
+                conf="compile->master;runtime"/>
+                
+	<dependency org="ncicb"
+                name="nbia-util"
+                rev="latest.integration"
+                conf="compile->master;runtime"/>
+                
+    <dependency org="ncicb"
+                name="nbia-services-commons"
+                rev="latest.integration"
+                conf="compile->master;runtime"/>            
+                
     <dependency org="mysql"
                 name="mysql-connector-java"
                 rev="5.1.5"

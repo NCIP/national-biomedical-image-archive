@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="nbia-ctp"
-         default="build-jar"
+         default="all"
          basedir="."
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
@@ -18,17 +18,19 @@
   <property name="classes.to.test.dir" value="tmp_for_unit_tests/"/>
 
   <property name="common.dir" value="${basedir}/../" />
-  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
+  <!--property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" /-->
   <property name="src.java.dir" value="${basedir}/src" />
   <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-ctp" />
 
   <property name="nbia-domain.dir" value="${common.dir}/target/dist/exploded/nbia-domain" />
   <property name="nbia-domain.jar" value="${nbia-domain.dir}/nbia-domain.jar" />
+  <property name="nbia-util.dir" value="${common.dir}/target/dist/exploded/nbia-util" />
+  <property name="nbia-util.jar" value="${nbia-util.dir}/nbia-util.jar" />
 
   <available file="${nbia-domain.jar}" property="nbia-domain.jar.present"/>
-
-  <fail unless="nbia-domain.jar.present"
-        message="nbia-domain.jar must be built first and and in the target/dist dir"/>
+ <available file="${nbia-util.jar}" property="nbia-util.jar.present"/>
+  <!--fail unless="nbia-domain.jar.present"
+        message="nbia-domain.jar must be built first and and in the target/dist dir"/-->
 
   <import file="../common/unittesting.xml"/>
 
@@ -38,7 +40,7 @@
   <target name="-init" depends="init-test" description="Initializes the system before a build">
   </target>
 
-  <target name="ivy-settings">
+  <!--target name="ivy-settings">
     <ivy:settings file="${global.ivy.settings.file}" />
   </target>
 
@@ -46,7 +48,8 @@
   <target name="ivy-compile" depends="ivy-settings">
     <ivy:resolve refresh="true" conf="compile" />
     <ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="compile" />
-  </target>
+  </target-->
+  
 
   <target name="ivy-runtime" depends="ivy-settings">
       <ivy:resolve refresh="true" conf="runtime" />
@@ -100,8 +103,35 @@
     <copy overwrite="true" file="${conf.dir}/dicom.properties" tofile="${build.dir}/dicom.properties" />
     <copy overwrite="true" file="${lib.dir}/cedaraAIMMapping.jar" tofile="${project.lib.dir}/compile/cedaraAIMMapping.jar" />
   </target>
+  
+  <target name="buildDomainJar" unless="nbia-domain.jar.present" description="build nbia-domain jars if not present">
+                <subant target="all" buildpath="../nbia-domain/" inheritAll="false"
+         inheritRefs="false"></subant>
+    </target>
+    
+    <target name="buildUtilJar" unless="nbia-util.jar.present" description="build nbia-domain jars if not present">
+                <subant target="run" buildpath="../nbia-util/" inheritAll="false"
+         inheritRefs="false" ></subant>
+    </target> 
 
-  <target name="compile" depends="clean,init, ivy-compile">
+  <target name="compileStandAlone" depends="buildDomainJar, buildUtilJar, clean,init, ivy-compile">
+
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true">
+      <classpath>
+      <fileset dir="${project.lib.dir}/compile">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </javac>
+
+    <echo message="********************************************************"/>
+    <echo message="*                unzip ctp-installer.jar               *"/>
+    <echo message="********************************************************"/>
+    <mkdir dir="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X42.jar" dest="${ctp.dir.name}"/>
+  </target>
+  
+   <target name="compile" depends="clean,init, ivy-compile">
 
     <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true">
       <classpath>
@@ -212,4 +242,13 @@
                               pre-test,
                               test,
                               inspect"/>
+    <target name="allStandAlone" depends="compileStandAlone,
+                              copy-runtime,
+                              build-dbadapter-jar,
+                              config-log4j,
+                              config-version,
+                              build-ctp-jar,
+                              pre-test,
+                              test,
+                              inspect"/>                           
 </project>

@@ -13,26 +13,35 @@
 
   <property name="common.dir" value="${basedir}/../" />
   <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-download" />
-  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
+  <!--property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/-->
 
   <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${build}"/>
   <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-download"/>
-  <property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/>
+  <!--property name="bda-utils.lib.dir" value="${common.dir}/target/bda-utils"/-->
 
+   <!-- Paths --> 
   <path id="classpath">
     <fileset dir="${project.lib.dir}/compile/">
       <include name="*.jar"/>
     </fileset>
   </path>
 
+  <path id="common.classpath">
+    <fileset dir="${common.dir}/target/lib">
+      <include name="ivy-*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Task definitions -->
+  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
+
   <import file="../common/unittesting.xml"/>
 
   <target name="ivy-settings">
     <ivy:settings file="${global.ivy.settings.file}"/>
   </target>
-
-  <target name="ivy-compile" depends="ivy-settings">
+ <target name="ivy-compile" depends="ivy-settings">
     <ivy:resolve file="ivy.xml"
                  conf="compile" />
     <ivy:retrieve conf="compile"
@@ -47,6 +56,22 @@
               to="\1.jar"/>
     </move>
   </target>
+
+  <!--target name="ivy-copy" depends="ivy-settings, ivy-compile">
+    <ivy:resolve file="ivy.xml"
+                 conf="compile" />
+    <ivy:retrieve conf="compile"
+                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+
+    <move todir="${project.lib.dir}/compile">
+      <fileset dir="${project.lib.dir}/compile">
+        <include name="*-working@*.jar"/>
+      </fileset>
+      <mapper type="regexp"
+              from="^(.*)\-working\@(.*)\.jar$"
+              to="\1.jar"/>
+    </move>
+  </target-->
 
   <target name="ivy-runtime" depends="ivy-settings">
     <ivy:resolve file="ivy.xml"

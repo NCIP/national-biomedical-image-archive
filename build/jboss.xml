@@ -116,10 +116,9 @@
           unless="exclude.jboss"
           depends="common:jboss:init,
                    common:common:init">
-    <!--
     <echo message="Configuring Log4J"/>
 
-    <property name="log4j.file.name" value="log4j.xml"/>
+    <property name="log4j.file.name" value="jboss-log4j.xml"/>
     <copy file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
           tofile="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}.pre"/>
 
@@ -129,8 +128,8 @@
       replace="&lt;!\-\-\1\-\-&gt;"
       />
 
-    <xmltask source="${jboss.home}/server/${jboss.server.name}/conf/log4j.xml"
-             dest="${jboss.home}/server/${jboss.server.name}/conf/log4j.xml">
+    <xmltask source="${jboss.home}/server/${jboss.server.name}/conf/jboss-log4j.xml"
+             dest="${jboss.home}/server/${jboss.server.name}/conf/jboss-log4j.xml">
       <xmlcatalog refid="bda.xml.catalog"/>
       <insert path="/log4j:configuration/root"
               position="before"
@@ -147,7 +146,7 @@
       match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;"
       replace="\1"
       />
-	-->
+	
   </target>
 
   <target name="install:jboss:configure"

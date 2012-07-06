@@ -185,6 +185,7 @@
         <fileset dir="@{common.dir.src}/resources/ctp/@{ctp.resources.relative.dir}">
           <include name="**/*"/>
           <exclude name="example*"/>
+          <exclude name="users.xml"/>
         </fileset>
         <fileset dir="@{common.dir.src}/resources/ctp">
           <include name="*.*"/>

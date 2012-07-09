@@ -90,7 +90,10 @@
                       </td>
                     </tr>
                     
-                   
+                   <f:subview id="collectionSearchCriteriaRow"
+                               rendered="#{searchLookupBean.showCollectionSearch}">    
+                      <ui:include src="collectionSearchCriteria.xhtml"/>                     
+                    </f:subview>
                     <tr class="topBorder">
                       <td width="20%" class="formLabel">
                         <h:outputText value="#{msg.criteria_ImageModalityCriteria}" />
@@ -548,10 +551,6 @@
                       
                         </td>
                       </tr>
-                    </f:subview>
-                    <f:subview id="collectionSearchCriteriaRow"
-                               rendered="#{searchLookupBean.showCollectionSearch}">    
-                      <ui:include src="collectionSearchCriteria.xhtml"/>                     
                     </f:subview>
                     <tr>
                       <td width="24%" class="formLabel">

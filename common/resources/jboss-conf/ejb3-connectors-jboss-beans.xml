@@ -33,7 +33,7 @@
         <parameter>
           <null />
         </parameter>
-        <parameter>45150</parameter>
+        <parameter>@jboss.ejbinvoker.port@</parameter>
       </value-factory>
 
     </property>

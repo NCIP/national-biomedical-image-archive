@@ -21,6 +21,7 @@
             timeTag="00120050"/>
     <Anonymizer
             name="Anonymizer"
+            id="dicomAnonymizer"
             class="org.rsna.ctp.stdstages.DicomAnonymizer"
             root="roots/anonymizer"
             script="roots/anonymizer/scripts/da.script"

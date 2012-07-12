@@ -325,6 +325,7 @@
 		init,
 		build:nbia:portal:config">
 	</target>
+	
 	<target name="build:nbia-domain" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-domain.build.target}" dir="${nbia-domain.base.dir}">
 			<property name="project.name" value="${project.name}" />
@@ -335,11 +336,13 @@
 			<property name="project.name" value="${project.name}" />
 		</ant>
 	</target>
+	
 	<target name="build:nbia-services-grid" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-services-grid.build.target}" dir="${nbia-services-grid.base.dir}">
 			<property name="project.name" value="${project.name}" />
 		</ant>
 	</target>
+	
 	<target name="build:nbia-dao" depends="init,
                                          build:nbia-util,
                                          build:nbia-services-grid,
@@ -354,6 +357,7 @@
       <property name="database.driver" value="${database.driver}"/-->
 		</ant>
 	</target>
+	
 	<target name="compute-tag-properties">
 		<condition property="tagged.file">
 			<contains substring="nbia/tags" string="${nbia_prod_build_tag}" />
@@ -457,6 +461,7 @@
 		<delete dir="${nbia-ctp.dist.dir}/FileSender" />
 		<delete dir="${nbia-ctp.dist.dir}/CTP-installer.jar" />
 	</target>
+	
 	<target name="dist:ctp-server" description="build and configure ctp server" depends="build:nbia-ctp, dist:tools:retrieve:jai">
 		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server" />
 		<unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar" dest="${nbia-ctp.dist.dir}/CTP_Server" />
@@ -778,6 +783,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
 		</ant>
 	</target>
+	
 	<!--target name="build:nbia-grid" depends="init, build:ncia-core-grid"-->
 	<target name="build:nbia-grid" depends="init">
 		<delete dir="${nbia-grid.base.dir}/build" />
@@ -835,6 +841,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<fileset dir="${cagrid.target.co.dir}" />
 		</copy>
 	</target>
+	
 	<target name="build:nbia-secure-grid" depends="build:ncia-core-grid, dist:tools:retrieve:sync-gts">
 		<!--copy file="ncia-core-grid.xml" 
           todir="../target/dist/exploded"/>
@@ -1052,6 +1059,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<!-- install sync-gts in support of Secure Grid being enabled  see macro "appserver-install-sync-gts" -->
 	</target>
 	<!-- ############################ nbia-core-grid-unsecured#################### -->
+	
 	<target name="build:nbia-unsecure-grid" depends="build:ncia-core-grid">
 		<property name="grid.deploy.dir" location="${target.dir}/dist/exploded/nbia-core-grid-unsecured" />
 		<property name="wsrf.path" location="${grid.deploy.dir}/wsrf/wsrf.war" />
@@ -1295,5 +1303,23 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<!--basename property="changelog.file" file="${database.changelog.file}"/>
 <echo message="changelog.file=${changelog.file} database.changelog.file=${database.changelog.file}"/-->
 		<updateDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" defaultSchemaName="${database.schema}" dropFirst="false" changeLogFile="${database.changelog.file}" />
+	</target>
+	
+	<target name="install:ctp-server" description="install ctp to application base path" depends="dist:ctp-server">
+	<!-- Set application.base.path based on platform -->
+  <condition property="application.base.path" value="${application.base.path.linux}">
+    <or>
+      <os family="unix" />
+      <os family="mac" />
+    </or>
+  </condition>
+
+  <condition property="application.base.path" value="${application.base.path.windows}">
+    <os family="windows" />
+   </condition>
+   
+   <echo message= "Installed CTP Server in ${application.base.path}"/>
+   <delete dir="${application.base.path}/CTP-Server" />
+   <unzip dest="${application.base.path}/CTP-Server" src="${nbia-ctp.dist.dir}/CTP_Server.zip" />
 	</target>
 </project>

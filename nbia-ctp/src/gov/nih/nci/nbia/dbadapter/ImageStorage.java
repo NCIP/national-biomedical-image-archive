@@ -28,6 +28,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class ImageStorage extends HibernateDaoSupport{
 	private String md5 = "";
+	private long fileSize;
 
 	@Autowired
 	private TrialDataProvenanceOperationInterface tdpo;
@@ -55,7 +56,20 @@ public class ImageStorage extends HibernateDaoSupport{
 	public void setMd5(String md5) {
 		this.md5 = md5;
 	}
+	
+	public long getFileSize() {
+		return fileSize;
+	}
 
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+	
+	public Status storeDicomObject(Map numbers,
+            String fileName,
+            boolean visibility) {
+		return storeDicomObject(numbers, fileName, getFileSize(), visibility);
+	}
 	public Status storeDicomObject(Map numbers,
 			                       String fileName,
 			                       long fileSize,

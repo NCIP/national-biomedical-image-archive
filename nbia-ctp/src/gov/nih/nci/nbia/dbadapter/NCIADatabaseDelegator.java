@@ -41,9 +41,9 @@ public class NCIADatabaseDelegator {
         }
         String filename = storedFile.getAbsolutePath();
 
-        long filesize = storedFile.length();
+        //long filesize = storedFile.length();
         boolean visibility=false;
-        String md5 = file.getDigest()== null? " " : file.getDigest();
+        
         try {
             numbers = new HashMap();
             numbers.put("current_timestamp", new java.util.Date());
@@ -52,7 +52,7 @@ public class NCIADatabaseDelegator {
             //Based on what John Perry's request
             Dataset set = file.getDataset();
             parseDICOMPropertiesFile(set);
-
+           
             //enhancement of storage service
             if (!preProcess()) {
                 log.error("Storage Service - Preprocess: Error occurs when trying to find project, site in preprocess() for file " + file.getFile().getAbsolutePath());
@@ -67,8 +67,11 @@ public class NCIADatabaseDelegator {
             } else {
                 visibility = false;
             }
-            imageStorage.setMd5(md5);
-            Status status = imageStorage.storeDicomObject(numbers,filename, filesize,visibility);
+            
+         // Temporary fix until new CTP release provides a better solution
+            //String md5 = file.getDigest()== null? " " : file.getDigest();
+            //imageStorage.setMd5(md5);
+            Status status = imageStorage.storeDicomObject(numbers,filename,visibility);
             if(status.equals(Status.FAIL)) {
                 log.error("Rollback in process(DicomObject,String) for file " + file.getFile().getAbsolutePath());
                 failedSubmission("Rollback in process(DicomObject,String) for file " + file.getFile().getAbsolutePath());
@@ -317,5 +320,23 @@ public class NCIADatabaseDelegator {
     private void failedSubmission(String message) throws RuntimeException
     {
         throw new RuntimeException(message);
+    }
+    
+    public void setCorrectFileSize(File file) {
+    	 // Temporary fix until new CTP release provides a better solution
+    	long fileSize = file.length();
+        imageStorage.setFileSize(fileSize);
+    	try {
+        DicomObject tempFile = new DicomObject(file);
+        String md5 = tempFile.getDigest()== null? " " : tempFile.getDigest();            
+        
+        imageStorage.setMd5(md5);
+        //no need for this temp file anymore
+        file.delete();
+        }
+    	catch (Exception ex) {
+    		log.warn("Bad DICOM file:"+file.getAbsolutePath());
+    	}
+    	
     }
 }

@@ -555,7 +555,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
                                       NCIAConfig.getImageServerUrl()+"/ncia",
                                       NCIAConfig.getDownloadServerUrl(),
                                       this.includeAnnotation,
-                                      this.getSeriesItems(),currentTimeMillis);
+                                      this.getSeriesItems(),currentTimeMillis, NCIAConfig.getNoOfRetry());
 
         ByteArrayResource bar = new ByteArrayResource(jnlp.getBytes());
         return bar;

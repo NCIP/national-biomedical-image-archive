@@ -47,7 +47,7 @@
 
     <dependency org="org.apache.commons"
                 name="commons-compress"
-                rev="1.0"
+                rev="1.4.1"
                 conf="compile->master;runtime->master"/>
 
     <dependency org="commons-io"

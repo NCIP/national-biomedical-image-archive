@@ -77,7 +77,7 @@ public class DownloadManagerFrame extends JFrame implements Observer {
         this.userId = userId;
         this.includeAnnotation = includeAnnotation;
         this.noOfRetry = noOfRetry;
-        this.errorText = "An error has occurred. We tried the failed downloads until " + noOfRetry +" attempt(s). ";
+        this.errorText = "An error has occurred.";
         buildUI();
         PropertyLoader.loadProperties("config.properties");
         this.maxThreads = Application.getNumberOfMaxThreads();

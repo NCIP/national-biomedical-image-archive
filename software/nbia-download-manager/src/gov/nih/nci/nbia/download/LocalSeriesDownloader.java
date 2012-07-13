@@ -326,7 +326,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
         // Begin lrt additions
         if (status == COMPLETE) {
             if (sopUidsList.size() != Integer.valueOf(numberOfImages).intValue()) {
-                additionalInfo = " Number of image files mismatch.  Was "+sopUidsList.size()+" should be "+numberOfImages;
+                additionalInfo = "Number of image files mismatch. It Was supposed to be "+numberOfImages +" image files but we found "+sopUidsList.size()+" at server side";
                 System.out.println( this.seriesInstanceUid + additionalInfo);
                 error();
             }

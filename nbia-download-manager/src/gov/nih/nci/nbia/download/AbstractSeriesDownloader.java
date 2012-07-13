@@ -8,6 +8,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Observable;
 
+import org.apache.commons.lang.StringUtils;
+
 /**This class downloads each series.
  *
  * @author lethai
@@ -157,7 +159,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 	                  Integer imagesSize,
 	                  Integer annoSize,
 	                  NBIANode node,
-	                  String seriesIdentifier){
+	                  String seriesIdentifier, Integer noOfRetry){
 
 		this.serverUrl = serverUrl;
 		this.collection = collection;
@@ -173,7 +175,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 		this.annoSize = annoSize;
 		this.node = node;
 		this.seriesIdentifier = seriesIdentifier;
-
+		this.noOfRetry = noOfRetry;
 		computeTotalSize();
 		downloaded = 0;
     }
@@ -183,7 +185,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
      * Kick off the download for this series.
      */
     public final void run(){
-
+    	System.out.println("AT THE TOP OF run for series:"+seriesInstanceUid);
         status = DOWNLOADING;
         stateChanged();
 
@@ -192,6 +194,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 
             runImpl();
 
+            System.out.println("runImpl is done:"+status +" for series:"+seriesInstanceUid);
             //could be NO_DATA or ERROR i think
             if (status == COMPLETE) {
                 downloaded= size;
@@ -201,12 +204,29 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 
         }
         catch (Exception e){
+            //Changed by lrt for tcia -  we do wish to know what happened for debugging purposes.
+            System.out.println("Exception: " + e);
+            e.printStackTrace();
+           // additionalInfo = e.getLocalizedMessage();
             error();
-            throw new RuntimeException(e);
-        }
+            // Changed by lrt for tcia -
+            //    keep thread alive to work on other downloads, 
+            //    but wait a moment in case there is a network problem
+            //throw new RuntimeException(e);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+       }
         long end = System.currentTimeMillis();
-
-        System.out.println("total download time: " + (end - start)/1000 + " s.");
+        if(StringUtils.isBlank(additionalInfo)) {
+            additionalInfo = "total download time: " + (end - start)/1000 + " s.";
+        } else {
+        	additionalInfo = additionalInfo +" - total download time: " + (end - start)/1000 + "s.";
+        }
+        System.out.println(additionalInfo);
     }
 
     /**
@@ -242,6 +262,8 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
     protected String password;
     protected int imagesSize;
     protected int annoSize;
+    protected int noOfRetry;
+    protected String additionalInfo;
     protected PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     protected NBIAIOUtils.ProgressInterface progressUpdater = new ProgressUpdater();
@@ -266,5 +288,19 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
         downloaded = bytesReceived;
         stateChanged();
     }
+
+	/**
+	 * @return the additionalInfo
+	 */
+	public String getAdditionalInfo() {
+		return additionalInfo;
+	}
+
+	/**
+	 * @param additionalInfo the additionalInfo to set
+	 */
+	public void setAdditionalInfo(String additionalInfo) {
+		this.additionalInfo = additionalInfo;
+	}
 
 }

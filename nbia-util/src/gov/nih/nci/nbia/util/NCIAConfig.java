@@ -455,7 +455,17 @@ public class NCIAConfig {
         checkProperty("gov.nih.nci.ncia.download.server.url", propertyValue);
         return propertyValue;
     }
-
+    /**
+     * Externalized Property!
+     *  Property: gov.nih.nci.ncia.download.no.retry
+     *  This property is configured via the JBoss Property Service MDB (property-service.xml)
+     *  to contain value for the no of retry for downloading image.
+     */
+    public static String getNoOfRetry(){
+        String propertyValue = System.getProperty("gov.nih.nci.ncia.download.no.retry");
+        checkProperty("gov.nih.nci.ncia.download.no.retry", propertyValue);
+        return propertyValue;
+    }
     public static boolean getEnableClassicDownload(){
         String propertyValue = System.getProperty("enable_classic_download");
         checkProperty("enable_classic_download", propertyValue);

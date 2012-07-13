@@ -20,13 +20,31 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 /**
  * @author Thai Thi Le
@@ -58,9 +76,16 @@ public class Application {
 		Application.codebase = codebase;
 		String serverUrl = System.getProperty("downloadServerUrl");
 		boolean includeAnnotation = Boolean.valueOf((System.getProperty("includeAnnotation")));
-		//serverUrl="http://localhost:45210/nbia-download/servlet/DownloadServlet";
-		//codebase="http://localhost:45210/ncia/";
-		//args = new String[] {"http://localhost:45210/nbia-download/servlet/DataFileDownloadServlet","C:\\Users\\niktevv\\AppData\\Local\\Temp\\1\\jnlp-data1339682549208.txt"};
+		Integer noOfRetry = NumberUtils.toInt(System.getProperty("noofretry"));
+//		serverUrl="http://localhost:45210/nbia-download/servlet/DownloadServlet";
+//		codebase="http://localhost:45210/ncia/";
+//		args = new String[] {"C:\\Users\\niktevv\\AppData\\Local\\Temp\\1\\jnlp-data1341931874374.txt"};
+//		userId= "niktev";
+//		password="M4JcFJZEGzg=";
+//		noOfRetry = 4;
+//		System.setProperty("localSeriesDownloader.className","gov.nih.nci.nbia.download.LocalSeriesDownloader");
+//		System.setProperty("remoteSeriesDownloader.className","gov.nih.nci.nbia.download.RemoteSeriesDownloader");
+
 		if(args != null && ( args.length > 0)) {
 			String fileName = args[0];
 			List<String> seriesInfo = null;
@@ -70,16 +95,16 @@ public class Application {
 			} catch (MalformedURLException e1) {
 				e1.printStackTrace();
 			}
-			String[] strResult=new String[seriesInfo.size()];   
-			seriesInfo.toArray(strResult); 
+			String[] strResult=new String[seriesInfo.size()];
+			seriesInfo.toArray(strResult);
 			List<SeriesData> seriesData = JnlpArgumentsParser.parse(strResult);
-			long end = System.currentTimeMillis(); 
+			long end = System.currentTimeMillis();
 	        System.out.println("launch time---"+(end - start) / 1000f + " seconds");
     		DownloadManagerFrame manager = new DownloadManagerFrame(userId,
     				                                                password,
     				                                                includeAnnotation,
     				                                                seriesData,
-    				                                                serverUrl);
+    				                                                serverUrl, noOfRetry);
     		manager.setVisible(true);
 		}
 		/*else{ // this is for testing only
@@ -103,20 +128,61 @@ public class Application {
 	}
 
     private  static List<String> connectAndReadFromURL(URL url, String fileName) {
-        HttpClient httpClient = new HttpClient();
-        PostMethod postMethod = new PostMethod(url.toString());
-        postMethod.addParameter("serverjnlpfileloc", fileName);
         List<String>  data = null;
+        HttpClient httpClient = null;
         try {
-            int responseCode = httpClient.executeMethod(postMethod);
-            InputStream inputStream = postMethod.getResponseBodyAsStream();
+            SSLSocketFactory sslsf = new SSLSocketFactory(new TrustStrategy() {
+            @Override
+            public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                return false;
+            }
+            });
+            Scheme httpsScheme = new Scheme("https", 443, sslsf);
+            SchemeRegistry schemeRegistry = new SchemeRegistry();
+            schemeRegistry.register(httpsScheme);
+	        HttpParams httpParams = new BasicHttpParams();
+	        HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
+	        HttpConnectionParams.setSoTimeout(httpParams,  new Integer(12000));
+	        httpClient = new DefaultHttpClient(httpParams);
+	//        // Additions by lrt for tcia -
+	//        //    attempt to reduce errors going through a Coyote Point Equalizer load balance switch
+	        httpClient.getParams().setParameter("http.socket.timeout", new Integer(12000));
+	        httpClient.getParams().setParameter("http.socket.receivebuffer", new Integer(16384));
+	        httpClient.getParams().setParameter("http.tcp.nodelay", true);
+	        httpClient.getParams().setParameter("http.connection.stalecheck", false);
+	//        // end lrt additions
+
+	        HttpPost httpPostMethod = new HttpPost(url.toString());
+
+	        List<BasicNameValuePair> postParams = new ArrayList<BasicNameValuePair>();
+	        postParams.add(new BasicNameValuePair("serverjnlpfileloc",fileName));
+	        UrlEncodedFormEntity query = new UrlEncodedFormEntity(postParams);
+	        httpPostMethod.setEntity(query);
+	        HttpResponse response = httpClient.execute(httpPostMethod);
+            int responseCode = response.getStatusLine().getStatusCode();
+            System.out.println("response code for jnlp datda file: " + responseCode);
+            InputStream inputStream = response.getEntity().getContent();
             data = IOUtils.readLines(inputStream);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (KeyManagementException e) {
+            // 	TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } finally {
-            postMethod.releaseConnection();
+            if (httpClient != null) {
+                httpClient.getConnectionManager().shutdown();
+            }
         }
         return data;
     }

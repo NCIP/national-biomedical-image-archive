@@ -29,7 +29,7 @@ public class DynamicJNLPGenerator {
                            String codebase,
                            String downloadServerUrl,
                            Boolean includeAnnotation,
-                           List<BasketSeriesItemBean> seriesItems,long currentTimeMillis){
+                           List<BasketSeriesItemBean> seriesItems,long currentTimeMillis, String noOfRetry){
         this.codebase = codebase;
         String jnlp="";
         try{
@@ -79,7 +79,7 @@ public class DynamicJNLPGenerator {
             propXMLBuilder.append(this.getPropertyXML( "password", encryptedPassword));
             propXMLBuilder.append(this.getPropertyXML("codebase", this.codebase));
             propXMLBuilder.append(this.getPropertyXML("downloadServerUrl", downloadServerUrl));
-
+            propXMLBuilder.append(this.getPropertyXML("noofretry", noOfRetry));
             this.replaceProperties(propXMLBuilder, jnlpBuilder);
             this.replaceArguments(argsBuilder.toString(), jnlpBuilder);
 

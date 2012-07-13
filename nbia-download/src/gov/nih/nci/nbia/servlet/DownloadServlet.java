@@ -7,6 +7,7 @@ import gov.nih.nci.security.util.StringEncrypter;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -136,15 +137,15 @@ public class DownloadServlet extends HttpServlet {
              try {
                   File dicomFile = new File(filePath);
                   ArchiveEntry tarArchiveEntry = tos.createArchiveEntry(dicomFile, sop + ".dcm");
-
-                  tos.putArchiveEntry(tarArchiveEntry);
-
                   dicomIn = new FileInputStream(dicomFile);
-
+                  tos.putArchiveEntry(tarArchiveEntry);
                   IOUtils.copy(dicomIn, tos);
-
                   tos.closeArchiveEntry();
-             } finally {
+             } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                //just print the exception and continue the loop so rest of images will get download.
+             }
+             finally {
                   IOUtils.closeQuietly(dicomIn);
                   logger.info("DownloadServlet Image transferred at " + new Date().getTime());
              }
@@ -161,11 +162,14 @@ public class DownloadServlet extends HttpServlet {
             try {
                 File annotationFile = new File(filePath);
                 ArchiveEntry tarArchiveEntry = tos.createArchiveEntry(annotationFile, fileName);
-                tos.putArchiveEntry(tarArchiveEntry);
                 annoIn = new FileInputStream(annotationFile);
+                tos.putArchiveEntry(tarArchiveEntry);
                 IOUtils.copy(annoIn, tos);
                 tos.closeArchiveEntry();
-            }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                //just print the exception and continue the loop so rest of images will get download.
+             }
             finally {
                 IOUtils.closeQuietly(annoIn);
                 logger.info("DownloadServlet Annotation transferred at "

@@ -35,7 +35,7 @@ public class DynamicJNLPGeneratorTestCase extends TestCase {
 				                                    "fake_codebase",
 				                                    "fake_server_url",
 				                                    true,
-				                                    seriesItems,System.currentTimeMillis());
+				                                    seriesItems,System.currentTimeMillis(),"4");
 
 		//System.out.println("jnlp: " + jnlp);
 		SAXBuilder saxBuilder = new SAXBuilder("org.apache.xerces.parsers.SAXParser");

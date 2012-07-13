@@ -36,11 +36,16 @@
                 rev="2.4"
                 conf="compile->master;runtime->master"/> 
 
-    <dependency org="commons-httpclient"
-                name="commons-httpclient"
-                rev="3.0.1"
+    <dependency org="org.apache.httpcomponents"
+                name="httpclient"
+                rev="4.1.3"
                 conf="compile->master;runtime->master"/>
-
+    
+    <dependency org="org.apache.httpcomponents"
+                name="httpcore"
+                rev="4.1.3"
+                conf="compile->master;runtime->master"/>
+                
     <dependency org="commons-codec"
                 name="commons-codec"
                 rev="1.3"
@@ -73,7 +78,7 @@
         -->
     <dependency org="org.apache.commons"
                 name="commons-compress"
-                rev="1.0"
+                rev="1.4.1"
                 conf="compile->master;runtime->master"/>
 
     <!-- garbage from log4j as second order dependency -->

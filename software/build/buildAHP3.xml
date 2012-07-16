@@ -323,7 +323,7 @@
 	<target name="build:all" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 		clean,
 		init,
-		build:nbia:portal:config">
+		build:nbia:portal:config, build:nbia-web, build:nbia-secure-grid, build:nbia-unsecure-grid, dist:ctp-client, dist:ctp-server">
 	</target>
 	
 	<target name="build:nbia-domain" depends="init">
@@ -947,19 +947,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="jboss.server.name" value="${jboss.server.name}" />
 			</filterset>
 		</copy>
-		<!--*****************************************************>	
-	<appserver-install-sync-gts
-						appserver.home="@{appserver.home}"
-						appserver.server.name="@{appserver.server.name}"
-						grid.dir.dest="@{grid.application.relative.dir}"
-						appserver.grid.secure.enable="@{grid.secure.enable}"
-						sync-gts.build.dir="@{sync-gts.build.dir}"
-						cagrid-target.dir="@{cagrid-target.dir}"
-						grid.target="@{grid.target}"
-						/>
-						
-
-	<*****************************************************-->
+		
 		<!--	Change POC Info in	/server/ncicb-app39380/deploy/wsrf.war/WEB-INF/etc/cagrid_NBIAService/serviceMetadata.xml  -->
 		<echo message="Updateing POC info  at ${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" />
 		<var name="poc.science.string" value=" affiliation=&quot;${grid.poc.science.affiliation}&quot; email=&quot;${grid.poc.science.email}&quot; firstName=&quot;${grid.poc.science.name.first}&quot; lastName=&quot;${grid.poc.science.name.last}&quot; phoneNumber=&quot;${grid.poc.science.phone}&quot; role=&quot;${grid.poc.science.role}&quot; " />

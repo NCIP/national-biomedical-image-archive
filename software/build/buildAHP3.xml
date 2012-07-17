@@ -38,6 +38,7 @@
 	<property name="db-upgrade.src.dir" value="${common.dir}/resources/db-incr/" />
 	<property name="nbia-resource.artifact.dir" value="${software.dir}/common/resources" />
 	<property name="dist.exploded.dir" value="${dist.dir}/exploded" />
+	<property name="tools.dist.relative.dir" value="tools" />
 	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 	<property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}" />
 	<property name="db-install.dist.dir" value="${dist.exploded.dir}/db/db-install/" />
@@ -51,8 +52,6 @@
 	<property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}" />
 	<property name="nbia-web.dist.relative.dir" value="nbia-ear" />
 	<property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}" />
-	<property name="tools.dist.relative.dir" value="tools" />
-	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 	<property name="jai.linux.dest.file" value="${tools.dist.dir}/${jai.linux.binaries.file}" />
 	<property name="jai.windows.dest.file" value="${tools.dist.dir}/${jai.windows.binaries.file}" />
 	<property name="nbia-grid.artifact.file" value="NBIAService.zip" />

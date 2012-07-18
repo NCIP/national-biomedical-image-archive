@@ -51,8 +51,8 @@ public class RemoteNodes {
 				ServiceMetadata serviceMetadata = MetadataUtils.getServiceMetadata(endpoint);
 				String version = serviceMetadata.getServiceDescription().getService().getVersion();
 	    		String url = endpoint.getAddress().toString();
-
-				if(!version.equals("1.3") ||
+	    		System.out.println("url - version" + url + version);
+				if((!version.equals("1.3") && !version.equals("1.4")) ||
 			       url.equals(NCIAConfig.getLocalGridURI())) {
 
 					continue;

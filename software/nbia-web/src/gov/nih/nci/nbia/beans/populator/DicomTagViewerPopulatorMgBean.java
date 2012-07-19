@@ -38,6 +38,7 @@ public class DicomTagViewerPopulatorMgBean {
         	searchResultBean.setTagInfo(dicomTagViewer.viewDicomHeader(firstImageInSeries));
         } 
         catch (Exception e) {
+        	searchResultBean.setTagInfo(null);
             e.printStackTrace();
         }
 	}

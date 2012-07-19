@@ -17,10 +17,12 @@
 <body>
   <f:loadBundle basename="ncia_messages" var="msg" />
   <div align="center">
+    <h:outputText value="This version of remote node does not support DICOM tag view " rendered="#{seriesSearchResultBean.tagInfo == null}" styleClass="historyItemTitle"/>
     <h:outputText value="#{msg.qcTool_dicom} #{seriesSearchResultBean.currDicomSopId}" 
-                  styleClass="historyItemTitle"/>
+                  styleClass="historyItemTitle"  rendered="#{seriesSearchResultBean.tagInfo != null}"/>
     <br/>
     <br/>
+     
     <h:dataTable id="tagData" 
                  value="#{seriesSearchResultBean.tagInfo}" 
                  var="tag" 

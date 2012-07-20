@@ -497,7 +497,7 @@
 		<switch value="${os.type}">
 			<case value="unix">
 				<property name="jai.classpath" value="${jai.linux.binaries.relative.dir}/lib/" />
-				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${${tools.dist.dir}}/${jai.linux.binaries.file}" />
+				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.linux.binaries.file}" />
 				<!--echo file="${ctp.server.home}/CTP/ctp.sh">
         <![CDATA[
 #!/bin/sh

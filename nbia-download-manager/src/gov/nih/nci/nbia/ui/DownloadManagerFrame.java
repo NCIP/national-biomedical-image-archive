@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -140,6 +141,15 @@ public class DownloadManagerFrame extends JFrame implements Observer {
                 tableSelectionChanged();
             }
         });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                int row=table.rowAtPoint(e.getPoint());
+                int col= table.columnAtPoint(e.getPoint());
+                if (col == DownloadsTableModel.SERIES_ID_COLUMN + 4) {
+                    JOptionPane.showMessageDialog(null," Detail status :- " +tableModel.getValueAt(row,DownloadsTableModel.SERIES_ID_COLUMN+5).toString());
+                    }
+                }
+            });
     }
     private void createMenuBar(){
         JMenuBar menuBar = new MenuBar();

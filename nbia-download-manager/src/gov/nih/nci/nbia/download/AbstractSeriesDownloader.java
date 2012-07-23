@@ -178,6 +178,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 		this.noOfRetry = noOfRetry;
 		computeTotalSize();
 		downloaded = 0;
+		this.additionalInfo = new StringBuffer();
     }
 
 
@@ -221,12 +222,8 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
             }
        }
         long end = System.currentTimeMillis();
-        if(StringUtils.isBlank(additionalInfo)) {
-            additionalInfo = "total download time: " + (end - start)/1000 + " s.";
-        } else {
-        	additionalInfo = additionalInfo +" - total download time: " + (end - start)/1000 + "s.";
-        }
-        System.out.println(additionalInfo);
+        additionalInfo.append(" - total download time: " + (end - start)/1000 + "s.");
+        System.out.println(additionalInfo.toString());
     }
 
     /**
@@ -263,7 +260,7 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
     protected int imagesSize;
     protected int annoSize;
     protected int noOfRetry;
-    protected String additionalInfo;
+    protected StringBuffer additionalInfo;
     protected PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     protected NBIAIOUtils.ProgressInterface progressUpdater = new ProgressUpdater();
@@ -292,15 +289,15 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 	/**
 	 * @return the additionalInfo
 	 */
-	public String getAdditionalInfo() {
+	public StringBuffer getAdditionalInfo() {
 		return additionalInfo;
 	}
 
 	/**
 	 * @param additionalInfo the additionalInfo to set
 	 */
-	public void setAdditionalInfo(String additionalInfo) {
-		this.additionalInfo = additionalInfo;
+	public void setAdditionalInfo(StringBuffer additionalInfo) {
+		this.additionalInfo.append(additionalInfo);
 	}
 
 }

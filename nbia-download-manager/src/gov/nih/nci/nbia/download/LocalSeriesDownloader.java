@@ -128,9 +128,8 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 
     private void connectAndReadFromURL(URL url, int attempt) throws Exception {
         System.out.println("attempt" + attempt +" for the series" +this.seriesInstanceUid);
-        additionalInfo = "";
         if(attempt >= noOfRetry) {
-          additionalInfo = "Reached max retry ("+ noOfRetry+") attempt.";
+          additionalInfo.append("Reached max retry ("+ noOfRetry+") attempts.\n");
           System.out.println(additionalInfo);
           error();
           return;
@@ -178,7 +177,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
                 if (executionCount >= noOfRetry) { 
                     // Do not retry if over max retry count 
                     System.out.println("no retring since reached max retry attempt,"+ noOfRetry +", for series-" +  seriesInstanceUid);
-                    additionalInfo = "Reached max retry ("+ noOfRetry+") attempts.";
+                    additionalInfo.append("Reached max retry ("+ noOfRetry+") attempts using retry handler.\n");
                     return false; 
                 } 
                 if (exception instanceof NoHttpResponseException) {
@@ -194,11 +193,13 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
                 if (exception instanceof java.net.SocketTimeoutException) { 
                   // Retry on socket timeout exception 
                   System.out.println("java.net.SocketTimeoutException exception- retry the series" +  seriesInstanceUid);
+                  additionalInfo.append(" retry handler attempt").append(executionCount).append(" for SocketTimeOutException \n");;
                   return true; 
                 } 
                 if (exception instanceof java.net.SocketException) { 
                     // Retry on socket timeout exception 
                     System.out.println("java.net.SocketException - retry the series" +  seriesInstanceUid);
+                    additionalInfo.append(" retry handler attempt").append(executionCount).append(" for SocketException \n");
                     return true; 
                   } 
                 HttpRequest request = (HttpRequest) context.getAttribute( ExecutionContext.HTTP_REQUEST); 
@@ -223,9 +224,9 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 
             /* Make sure response code is in the 200 range.*/
             if (responseCode / 100 != 2) {
-                additionalInfo = "incorrect response code";
-                System.out.println(additionalInfo);
+                //additionalInfo.append("incorrect response code");
                 System.out.println("retry the rest of images from series as there was incorrect response code for the seriers " + this.seriesInstanceUid);
+                additionalInfo.append(" retry attempt").append(attempt+1).append("for incorrect response code \n");
                 connectAndReadFromURL(url, attempt+1);
             }
 
@@ -242,12 +243,14 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
             this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
             System.out.println("retry the rest of images from series as there was Socket timeout exception.........");
             e.printStackTrace();
+            additionalInfo.append(" retry image attempt").append(attempt+1).append(" for Socket timeout exception \n");
             connectAndReadFromURL(url, attempt+1);
         } catch (SocketException e) {
             //exclude downloading already download image.
             this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
             System.out.println("retry the rest of images from series as there was Socket exception.........");
             e.printStackTrace();
+            additionalInfo.append(" retry image attempt").append(attempt+1).append(" for Socket exception \n");
             connectAndReadFromURL(url, attempt+1);
         }
         finally {
@@ -304,7 +307,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
                 // 	Begin lrt additions
                 int bytesDownloaded = downloaded - startDownloaded;
                 if (bytesDownloaded != fileSize) {
-                   additionalInfo = " file size mismatch for instance "+sop;
+                   additionalInfo.append(" file size mismatch for instance "+sop +"\n");
                    System.out.println(this.seriesInstanceUid + additionalInfo);
                    error();
                 }
@@ -326,7 +329,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
         // Begin lrt additions
         if (status == COMPLETE) {
             if (sopUidsList.size() != Integer.valueOf(numberOfImages).intValue()) {
-                additionalInfo = "Number of image files mismatch. It Was supposed to be "+numberOfImages +" image files but we found "+sopUidsList.size()+" at server side";
+                additionalInfo.append("Number of image files mismatch. It Was supposed to be "+numberOfImages +" image files but we found "+sopUidsList.size()+" at server side\n");
                 System.out.println( this.seriesInstanceUid + additionalInfo);
                 error();
             }
@@ -337,7 +340,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 			}
 			*/
             else if (downloadedAnnoSize != annoSize) {
-                additionalInfo = " total size of annotation files mismatch.  Was "+downloadedAnnoSize+" should be "+annoSize;
+                additionalInfo.append(" total size of annotation files mismatch.  Was "+downloadedAnnoSize+" should be "+annoSize+"\n");
                 System.out.println(this.seriesInstanceUid + additionalInfo);
                 error();
             }

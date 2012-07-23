@@ -40,8 +40,7 @@ public class DownloadsTableModel extends AbstractTableModel
 		"Size",
 		"Number Of Images", 
 		"Progress", 
-		"Status",
-		"Additional info"};
+		"Status"};
 
 //	These are the classes for each column's values.
 	private static final Class[] columnClasses = {
@@ -53,7 +52,6 @@ public class DownloadsTableModel extends AbstractTableModel
 		String.class, 
 		String.class, 
 		JProgressBar.class, 
-		String.class,
 		String.class};
 
 //	The table's list of downloads.

@@ -689,11 +689,13 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="env.JBOSS_HOME" value="${ncia-core-grid.artifact.dir}" />
 		</ant>
 	</target>
+	
 	<target name="build:nbia-remote-search" depends="init,
                                                    build:ncia-core-grid,
                                                    build:nbia-download-manager">
 		<ant inheritAll="false" inheritRefs="false" antfile="build.xml" target="run" dir="${nbia-remote-search.base.dir}" />
 	</target>
+	
 	<target name="build:nbia-liquibase" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="run" dir="../nbia-liquibase">
 			<property name="project.name" value="${project.name}" />
@@ -781,6 +783,15 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="nbia.version" value="${nbia.version}" />
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
 		</ant>
+	</target>
+	
+	<target name="-branding">
+	<!-- Clean up working area -->
+    <delete dir="${target.dir}/temp/nbia-ear"/>
+    <delete dir="${target.dir}/temp/nbia-war"/>
+    <!-- Make working directories -->
+    <mkdir dir="${target.dir}/temp/nbia-ear"/>
+    <mkdir dir="${target.dir}/temp/nbia-war"/>
 	</target>
 	
 	<!--target name="build:nbia-grid" depends="init, build:ncia-core-grid"-->
@@ -1048,28 +1059,28 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	<!-- ############################ nbia-core-grid-unsecured#################### -->
 	
 	<target name="build:nbia-unsecure-grid" depends="build:ncia-core-grid">
-		<property name="grid.deploy.dir" location="${target.dir}/dist/exploded/nbia-core-grid-unsecured" />
-		<property name="wsrf.path" location="${grid.deploy.dir}/wsrf/wsrf.war" />
-		<mkdir dir="${wsrf.path}" />
-		<mkdir dir="${grid.deploy.dir}/lib" />
-		<unzip dest="${wsrf.path}" src="${common.resources.dir}/grid/tomcat-globus-wsrf.zip" />
-		<unzip dest="${wsrf.path}" src="${ncia-core-grid.dist.dir}/NciaCoreService.zip" />
+		<property name="unsecure.grid.deploy.dir" location="${target.dir}/dist/exploded/nbia-core-grid-unsecured" />
+		<property name="unsecure.wsrf.path" location="${unsecure.grid.deploy.dir}/wsrf/wsrf.war" />
+		<mkdir dir="${unsecure.wsrf.path}" />
+		<mkdir dir="${unsecure.grid.deploy.dir}/lib" />
+		<unzip dest="${unsecure.wsrf.path}" src="${common.resources.dir}/grid/tomcat-globus-wsrf.zip" />
+		<unzip dest="${unsecure.wsrf.path}" src="${ncia-core-grid.dist.dir}/NciaCoreService.zip" />
 		<!-- CP15 complains about commons-logging in war file? -->
 		<delete>
-			<fileset dir="${wsrf.path}/WEB-INF/lib" includes="commons-logging*.jar" />
+			<fileset dir="${unsecure.wsrf.path}/WEB-INF/lib" includes="commons-logging*.jar" />
 		</delete>
 		<!-- wsrf opened up for more configuration changes -->
-		<property name="caGridTransfer.war.path" location="${grid.deploy.dir}/caGridTransfer/caGridTransfer.war" />
-		<delete dir="${caGridTransfer.war.path}" />
-		<unzip dest="${grid.deploy.dir}/caGridTransfer" src="${common.resources.dir}/grid/caGridTransfer.zip" />
-		<replaceregexp file="${caGridTransfer.war.path}/WEB-INF/classes/server.properties" byline="true" match="^\s*transfer.service.persistence.relative.location\s*=(.*)$" replace="transfer.service.persistence.relative.location=wsrf.war/WEB-INF/etc/cagrid_TransferService/persisted/TransferServiceContextResourceProperties" />
+		<property name="unsecure.caGridTransfer.war.path" location="${unsecure.grid.deploy.dir}/caGridTransfer/caGridTransfer.war" />
+		<delete dir="${unsecure.caGridTransfer.war.path}" />
+		<unzip dest="${unsecure.grid.deploy.dir}/caGridTransfer" src="${common.resources.dir}/grid/caGridTransfer.zip" />
+		<replaceregexp file="${unsecure.caGridTransfer.war.path}/WEB-INF/classes/server.properties" byline="true" match="^\s*transfer.service.persistence.relative.location\s*=(.*)$" replace="transfer.service.persistence.relative.location=wsrf.war/WEB-INF/etc/cagrid_TransferService/persisted/TransferServiceContextResourceProperties" />
 		<delete>
-			<fileset dir="${caGridTransfer.war.path}/WEB-INF/lib">
+			<fileset dir="${unsecure.caGridTransfer.war.path}/WEB-INF/lib">
 				<include name="log4j*.jar" />
 				<include name="commons-logging*.jar" />
 			</fileset>
 		</delete>
-		<unzip dest="${wsrf.path}" src="${common.resources.dir}/grid/caGridTransfer-wsrf.zip" />
+		<unzip dest="${unsecure.wsrf.path}" src="${common.resources.dir}/grid/caGridTransfer-wsrf.zip" />
 		<!-- opened up caGridTransfer-wsrf.zip  -->
 		<if>
 			<equals arg1="${ncia-core-grid-unsecured.tempZipLocation}" arg2="" />
@@ -1077,13 +1088,13 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<var name="ncia-core-grid-unsecured.tempZipLocation" value="${java.io.tmpdir}/tempzip/" />
 			</then>
 		</if>
-		<copy file="${common.resources.dir}/grid/NCIACoreService_registration.xml" todir="${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/">
+		<copy file="${common.resources.dir}/grid/NCIACoreService_registration.xml" todir="${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/">
 			<filterset>
 				<filter token="grid.index.url" value="${grid.index.url}" />
 			</filterset>
 		</copy>
-		<copy file="${common.resources.dir}/grid/log4j.properties" todir="${wsrf.path}/WEB-INF/classes" overwrite="true" />
-		<copy file="${common.resources.dir}/grid/NCIA.csm.new.hibernate.cfg.xml" todir="${wsrf.path}/WEB-INF/classes">
+		<copy file="${common.resources.dir}/grid/log4j.properties" todir="${unsecure.wsrf.path}/WEB-INF/classes" overwrite="true" />
+		<copy file="${common.resources.dir}/grid/NCIA.csm.new.hibernate.cfg.xml" todir="${unsecure.wsrf.path}/WEB-INF/classes">
 			<filterset>
 				<filter token="database.dialect" value="${database.dialect}" />
 				<filter token="database.driver" value="${database.driver}" />
@@ -1091,20 +1102,20 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</copy>
 		<!-- done application -->
 		<echo message="Cleaning up hostname:port refereces in **/*.wsdl" />
-		<replace dir="${wsrf.path}" token="http://localhost:8080" value="http://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-unsecure.jboss.server.port}">
+		<replace dir="${unsecure.wsrf.path}" token="http://localhost:8080" value="http://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-unsecure.jboss.server.port}">
 			<include name="**/*.wsdl" />
 		</replace>
 		<!-- Fix default jndi-config -->
 		<echo message="Fixing grid jndi-config" />
-		<replace file="${wsrf.path}/WEB-INF/etc/globus_resolution_service/jndi-config.xml" token="http://localhost:8080" value="http://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-unsecure.jboss.server.port}" />
+		<replace file="${unsecure.wsrf.path}/WEB-INF/etc/globus_resolution_service/jndi-config.xml" token="http://localhost:8080" value="http://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-unsecure.jboss.server.port}" />
 		<!-- fix web.xml -->
 		<echo message="Updating grid web.xml" />
-		<copy file="${common.resources.dir}/grid/web.xml" todir="${wsrf.path}/WEB-INF/" overwrite="true">
+		<copy file="${common.resources.dir}/grid/web.xml" todir="${unsecure.wsrf.path}/WEB-INF/" overwrite="true">
 			<filterset>
 				<filter token="ncia-core-grid-secure.jboss.server.port" value="${ncia-core-grid-secure.jboss.server.port}" />
 			</filterset>
 		</copy>
-		<!--copy file="${common.resources.dir}/grid/server-config.wsdd" todir="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
+		<!--copy file="${common.resources.dir}/grid/server-config.wsdd" todir="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
 			<filterset>
 				<filter token="grid.external.secure.host" value="${grid.external.secure.host}"/>
 				<filter token="ncia-core-grid.jboss.home" value="${ncia-core-grid.jboss.home}"/>
@@ -1112,12 +1123,12 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			</filterset>
 		</copy-->
 		<!--	Change POC Info in	/server/ncicb-app39380/deploy/wsrf.war/WEB-INF/etc/cagrid_NBIAService/serviceMetadata.xml  ???-->
-		<echo message="Updateing POC info  at ${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" />
+		<echo message="Updateing POC info  at ${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" />
 		<var name="poc.science.string" value=" affiliation=&quot;${grid.poc.science.affiliation}&quot; email=&quot;${grid.poc.science.email}&quot; firstName=&quot;${grid.poc.science.name.first}&quot; lastName=&quot;${grid.poc.science.name.last}&quot; phoneNumber=&quot;${grid.poc.science.phone}&quot; role=&quot;${grid.poc.science.role}&quot; " />
-		<replaceregexp file="${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" match="^(\s+&lt;ns3:PointOfContact).*(xmlns:ns3.*&gt;)" replace="\1${poc.science.string}\2" flags="g" byline="true" />
+		<replaceregexp file="${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" match="^(\s+&lt;ns3:PointOfContact).*(xmlns:ns3.*&gt;)" replace="\1${poc.science.string}\2" flags="g" byline="true" />
 		<!-- Research Center info -->
 		<var name="research.center.lines" unset="true" />
-		<loadfile property="research.center.lines" srcFile="${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml">
+		<loadfile property="research.center.lines" srcFile="${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml">
 			<filterchain>
 				<linecontainsregexp>
 					<regexp pattern=":ResearchCenter" />
@@ -1135,21 +1146,21 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 &lt;/${ns.name}:pointOfContactCollection&gt;${line.separator}
 &lt;/${ns.name}:ResearchCenter&gt;${line.separator}
 " />
-		<replaceregexp file="${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" match="&lt;ns1:hostingResearchCenter&gt;.*&lt;\/ns1:hostingResearchCenter&gt;" replace="&lt;ns1:hostingResearchCenter&gt;${poc.tech.string}&lt;\/ns1:hostingResearchCenter&gt;" flags="sg" />
+		<replaceregexp file="${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" match="&lt;ns1:hostingResearchCenter&gt;.*&lt;\/ns1:hostingResearchCenter&gt;" replace="&lt;ns1:hostingResearchCenter&gt;${poc.tech.string}&lt;\/ns1:hostingResearchCenter&gt;" flags="sg" />
 		<echo message="Updating poll interval grid registration.xml" />
 		<replaceregexp match="(&lt;agg:PollIntervalMillis&gt;).*(&lt;\/agg:PollIntervalMillis&gt;)" replace="\13600000\2" flags="sg">
-			<fileset dir="${wsrf.path}/WEB-INF/etc">
+			<fileset dir="${unsecure.wsrf.path}/WEB-INF/etc">
 				<include name="**/*_registration.xml" />
 			</fileset>
 		</replaceregexp>
 		<!-- Change pointer to index service based on property -->
 		<echo message="Updating grid.index.url - ${grid.index.url}" />
 		<replaceregexp match="(&lt;wsa:Address&gt;).*(&lt;\/wsa:Address&gt;)" replace="\1${grid.index.url}\2" flags="sg">
-			<fileset dir="${wsrf.path}/WEB-INF/etc">
+			<fileset dir="${unsecure.wsrf.path}/WEB-INF/etc">
 				<include name="**/*_registration.xml" />
 			</fileset>
 		</replaceregexp>
-		<xmltask source="${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml" dest="${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml">
+		<xmltask source="${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml" dest="${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml">
 			<!-- no xmlcatalog necessary -->
 			<replace path="//:parameter[:name='databaseConnectionUrl']/:value/text()" withtext="${database.url}" />
 			<replace path="//:parameter[:name='thumbnailUrl']/:value/text()" withtext="${ncia-core-grid.jboss.thumbnailUrl}" />
@@ -1160,49 +1171,50 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<replace path="//:parameter[:name='tempZipLocation']/:value/text()" withtext="${ncia-core-grid.tempZipLocation}" />
 		</xmltask>
 		<!-- patch commons to use JNDI name that is globus friendly -->
-		<mkdir dir="${wsrf.path}/WEB-INF/lib/tmp" />
-		<unjar src="${wsrf.path}/WEB-INF/lib/nbia-dao.jar" dest="${wsrf.path}/WEB-INF/lib/tmp" />
-		<delete file="${wsrf.path}/WEB-INF/lib/nbia-dao.jar" />
-		<replaceregexp file="${wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" byline="true" match="^\s*hibernate.connection.datasource\s\s*(.*)$" replace="hibernate.connection.datasource java:comp/env/nciaDatabase" />
-		<replaceregexp file="${wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" byline="true" match="^\s*hibernate.connection.driver_class\s\s*(.*)$" replace="hibernate.connection.driver_class ${database.driver}" />
-		<replaceregexp file="${wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" byline="true" match="^\s*hibernate.dialect\s\s*(.*)$" replace="hibernate.dialect ${database.dialect}" />
-		<xmltask source="${wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml" dest="${wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml" preservetype="true">
+		<mkdir dir="${unsecure.wsrf.path}/WEB-INF/lib/tmp" />
+		<unjar src="${unsecure.wsrf.path}/WEB-INF/lib/nbia-dao.jar" dest="${unsecure.wsrf.path}/WEB-INF/lib/tmp" />
+		<delete file="${unsecure.wsrf.path}/WEB-INF/lib/nbia-dao.jar" />
+		<replaceregexp file="${unsecure.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" byline="true" match="^\s*hibernate.connection.datasource\s\s*(.*)$" replace="hibernate.connection.datasource java:comp/env/nciaDatabase" />
+		<replaceregexp file="${unsecure.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" byline="true" match="^\s*hibernate.connection.driver_class\s\s*(.*)$" replace="hibernate.connection.driver_class ${database.driver}" />
+		<replaceregexp file="${unsecure.wsrf.path}/WEB-INF/lib/tmp/hibernate.properties" byline="true" match="^\s*hibernate.dialect\s\s*(.*)$" replace="hibernate.dialect ${database.dialect}" />
+		<xmltask source="${unsecure.wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml" dest="${unsecure.wsrf.path}/WEB-INF/lib/tmp/NCIA.csm.new.hibernate.cfg.xml" preservetype="true">
 			<!--xmlcatalog refid="bda.xml.catalog"/-->
 			<replace path="//property[@name='connection.datasource']/text()" withtext="java:comp/env/nciaDatabase" />
 			<replace path="//property[@name='dialect']/text()" withtext="${database.dialect}" />
 			<replace path="//property[@name='connection.driver_class']/text()" withtext="${database.driver}" />
 		</xmltask>
-		<jar jarfile="${wsrf.path}//WEB-INF/lib/nbia-dao.jar" compress="false">
-			<fileset dir="${wsrf.path}/WEB-INF/lib/tmp">
+		<jar jarfile="${unsecure.wsrf.path}//WEB-INF/lib/nbia-dao.jar" compress="false">
+			<fileset dir="${unsecure.wsrf.path}/WEB-INF/lib/tmp">
 				<include name="*/**" />
 			</fileset>
 		</jar>
-		<delete dir="${wsrf.path}/WEB-INF/lib/tmp" />
-		<mkdir dir="${wsrf.path}/WEB-INF/lib/tmp" />
-		<unjar src="${wsrf.path}/WEB-INF/lib/ncia-orm.jar" dest="${wsrf.path}/WEB-INF/lib/tmp" />
-		<delete file="${wsrf.path}/WEB-INF/lib/ncia-orm.jar" />
-		<xmltask source="${wsrf.path}/WEB-INF/lib/tmp/hibernate.cfg.xml" dest="${wsrf.path}/WEB-INF/lib/tmp/hibernate.cfg.xml" preservetype="true">
+		<delete dir="${unsecure.wsrf.path}/WEB-INF/lib/tmp" />
+		<mkdir dir="${unsecure.wsrf.path}/WEB-INF/lib/tmp" />
+		<unjar src="${unsecure.wsrf.path}/WEB-INF/lib/ncia-orm.jar" dest="${unsecure.wsrf.path}/WEB-INF/lib/tmp" />
+		<delete file="${unsecure.wsrf.path}/WEB-INF/lib/ncia-orm.jar" />
+		<xmltask source="${unsecure.wsrf.path}/WEB-INF/lib/tmp/hibernate.cfg.xml" dest="${unsecure.wsrf.path}/WEB-INF/lib/tmp/hibernate.cfg.xml" preservetype="true">
 			<replace path="//property[@name='dialect']/text()" withtext="${database.dialect}" />
 		</xmltask>
-		<jar jarfile="${wsrf.path}/WEB-INF/lib/ncia-orm.jar" compress="false">
-			<fileset dir="${wsrf.path}/WEB-INF/lib/tmp">
+		<jar jarfile="${unsecure.wsrf.path}/WEB-INF/lib/ncia-orm.jar" compress="false">
+			<fileset dir="${unsecure.wsrf.path}/WEB-INF/lib/tmp">
 				<include name="*/**" />
 			</fileset>
 		</jar>
-		<delete dir="${wsrf.path}/WEB-INF/lib/tmp" />
-		<copy file="${common.resources.dir}/grid/resolution_port_type.wsdl" todir="${wsrf.path}/share/schema/resolutionService/" overwrite="true" />
-		<zip update="false" destfile="${grid.deploy.dir}/wsrf.zip">
-			<zipfileset dir="${grid.deploy.dir}/wsrf" />
+		<delete dir="${unsecure.wsrf.path}/WEB-INF/lib/tmp" />
+		<copy file="${common.resources.dir}/grid/resolution_port_type.wsdl" todir="${unsecure.wsrf.path}/share/schema/resolutionService/" overwrite="true" />
+		<zip update="false" destfile="${unsecure.grid.deploy.dir}/wsrf.zip">
+			<zipfileset dir="${unsecure.grid.deploy.dir}/wsrf" />
 		</zip>
-		<zip update="false" destfile="${grid.deploy.dir}/caGridTransfer.zip">
-			<zipfileset dir="${grid.deploy.dir}/caGridTransfer" />
+		<zip update="false" destfile="${unsecure.grid.deploy.dir}/caGridTransfer.zip">
+			<zipfileset dir="${unsecure.grid.deploy.dir}/caGridTransfer" />
 		</zip>
-		<copy file="${common.resources.dir}/grid/properties-service.xml" todir="${grid.deploy.dir}" overwrite="true">
+		<copy file="${common.resources.dir}/grid/properties-service.xml" todir="${unsecure.grid.deploy.dir}" overwrite="true">
 		</copy>
-		<delete dir="${grid.deploy.dir}/wsrf" />
-		<delete dir="${grid.deploy.dir}/caGridTransfer" />
+		<delete dir="${unsecure.grid.deploy.dir}/wsrf" />
+		<delete dir="${unsecure.grid.deploy.dir}/caGridTransfer" />
 		<!-- install sync-gts in support of Secure Grid being enabled  see macro "appserver-install-sync-gts" -->
 	</target>
+	
 	<target name="build:db:new" depends="build:nbia-liquibase" description="Create new database ">
 		<echoproperties prefix="database" />
 		<path id="liquibase_stuff">
@@ -1260,6 +1272,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<!-- should be part of the new database creation script TBD -->
 		<!--antcall target="create-guest-account"/-->
 	</target>
+	
 	<target name="build:db:update" description="Update database">
 		<echoproperties prefix="database" />
 		<if>

@@ -1292,7 +1292,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<updateDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" defaultSchemaName="${database.schema}" dropFirst="false" changeLogFile="${database.changelog.file}" />
 	</target>
 	
-	<target name="install:ctp-server" description="install ctp to application base path" depends="dist:ctp-server">
+	<target name="install:ctp" description="install ctp to application base path" depends="dist:ctp-client, dist:ctp-server">
 	<!-- Set application.base.path based on platform -->
   <condition property="application.base.path" value="${application.base.path.linux}">
     <or>
@@ -1304,6 +1304,10 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
   <condition property="application.base.path" value="${application.base.path.windows}">
     <os family="windows" />
    </condition>
+   
+   <echo message= "Installed CTP Client in ${application.base.path}"/>
+   <delete dir="${application.base.path}/CTP-Client" />
+   <unzip dest="${application.base.path}/CTP-Client" src="${nbia-ctp.dist.dir}/CTP_Client.zip" />
    
    <echo message= "Installed CTP Server in ${application.base.path}"/>
    <delete dir="${application.base.path}/CTP-Server" />

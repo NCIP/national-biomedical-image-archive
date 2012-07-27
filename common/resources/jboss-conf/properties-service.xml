@@ -179,7 +179,7 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   
   <attribute name="Properties">show.anatomical.search.criteria=@show.anatomical.search.criteria@</attribute>
   <attribute name="Properties">gov.nih.nci.ncia.download.no.retry=@gov.nih.nci.ncia.download.no.retry@</attribute>
-
+  <attribute name="Properties">remote.node.caGrid.version=1.3,1.4</attribute>
   </mbean>
 
 </server>

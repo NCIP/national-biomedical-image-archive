@@ -12,6 +12,9 @@ import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.axis.message.addressing.EndpointReferenceType;
 
 /**
@@ -51,13 +54,15 @@ public class RemoteNodes {
 				ServiceMetadata serviceMetadata = MetadataUtils.getServiceMetadata(endpoint);
 				String version = serviceMetadata.getServiceDescription().getService().getVersion();
 	    		String url = endpoint.getAddress().toString();
-	    		System.out.println("url - version" + url + version);
-				if((!version.equals("1.3") && !version.equals("1.4")) ||
+	    		String supportedVersion = NCIAConfig.getRemoteNodeCaGridVersion();
+	    		System.out.println("url - version" + url + version + "supported Version="+supportedVersion);
+	    		Pattern pattern = Pattern.compile(version);
+	    		Matcher matcher = pattern.matcher(supportedVersion);
+	    	
+				if(!matcher.find() ||
 			       url.equals(NCIAConfig.getLocalGridURI())) {
-
-					continue;
-					//old, new or different service that we don't know about.  too stringent?
-					//rather be conservative v. promiscuous i guess
+				   System.out.println("url - version" + url + version + " supported version="+supportedVersion);
+				   System.out.println("**************caGrid version of the node is not in supported");
 				}
 				else {
 					System.out.println("Retrieving search terms from:"+endpoint.getAddress());

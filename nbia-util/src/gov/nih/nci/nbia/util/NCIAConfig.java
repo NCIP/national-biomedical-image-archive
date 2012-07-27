@@ -517,6 +517,13 @@ public class NCIAConfig {
         checkProperty("discover.remote.nodes", propertyValue);
         return propertyValue;
     }
+    
+    public static String getRemoteNodeCaGridVersion() {
+        String propertyValue = System.getProperty("remote.node.caGrid.version");
+        checkProperty("remote.node.caGrid.version", propertyValue);
+        return propertyValue;
+    }
+
 
 
     public static int getCollectionDescriptionMaxlength() {

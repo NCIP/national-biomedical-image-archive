@@ -201,6 +201,7 @@
 				<filter token="database.type" value="${database.type}" />
 				<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}" />
 				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
+				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
 			</filterset>
 		</copy>
 		

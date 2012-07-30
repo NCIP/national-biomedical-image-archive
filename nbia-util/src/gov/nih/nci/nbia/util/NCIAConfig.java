@@ -536,6 +536,10 @@ public class NCIAConfig {
         checkProperty("discover.period.in.hrs", propertyValue);
         return propertyValue;
     }
+    
+    public static long getTimeoutInMin() {
+         return getIntProperty("future.task.timeout.in.min");
+    }
 
     /**
      * Utility method for retrieving a property

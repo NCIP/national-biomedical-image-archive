@@ -137,7 +137,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
         SSLSocketFactory sslsf = new SSLSocketFactory(new TrustStrategy() { 
             @Override
             public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-                return false;
+                return true;
             }
      
         }); 

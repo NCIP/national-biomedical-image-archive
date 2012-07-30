@@ -8,16 +8,8 @@ import gov.nih.nci.nbia.ui.DownloadManagerFrame;
 import gov.nih.nci.nbia.util.JnlpArgumentsParser;
 import gov.nih.nci.nbia.util.PropertyLoader;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
@@ -30,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
@@ -134,7 +126,7 @@ public class Application {
             SSLSocketFactory sslsf = new SSLSocketFactory(new TrustStrategy() {
             @Override
             public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-                return false;
+                return true;
             }
             });
             Scheme httpsScheme = new Scheme("https", 443, sslsf);

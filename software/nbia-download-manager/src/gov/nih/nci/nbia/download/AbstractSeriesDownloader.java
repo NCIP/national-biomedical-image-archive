@@ -8,8 +8,6 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.util.Observable;
 
-import org.apache.commons.lang.StringUtils;
-
 /**This class downloads each series.
  *
  * @author lethai

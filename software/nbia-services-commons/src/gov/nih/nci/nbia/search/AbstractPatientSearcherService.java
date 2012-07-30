@@ -76,7 +76,9 @@ public abstract class AbstractPatientSearcherService implements PatientSearcherS
 	 */
 	private void shutdownExistingFutures() {
 		for(Future<PatientSearchResults> future : existingFutures) {
-			future.cancel(true);
+			if(future.isDone()) {
+				future.cancel(true);
+			}
 		}
 	}
 }

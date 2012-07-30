@@ -19,7 +19,10 @@ import gov.nih.nci.ncia.search.PatientSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -342,19 +345,41 @@ public class SearchResultBean {
 	 * ...that is if the push can work more reliably.
 	 */
 	private void waitForSearchResults(PatientSearchCompletionService completionService) {
-		try {    					
+		try {    
+			System.out.println("#################"+completionService.getNodesToSearch().size());
+			List<NBIANode> noResponseNode = new ArrayList<NBIANode>();
+			for (NBIANode node : completionService.getNodesToSearch()) {
+				noResponseNode.add(node);
+			}
 			for(int i=0;i<completionService.getNodesToSearch().size();i++) {
-				//this is a blocking call
-				Future<PatientSearchResults> future = completionService.getCompletionService().take();
-				//this is a blocking call
-				    		
-				PatientSearchResults result = future.get();
+				try {
+					//this is a blocking call
+					Future<PatientSearchResults> future = completionService.getCompletionService().poll(NCIAConfig.getTimeoutInMin(), TimeUnit.MINUTES);
+					//	this is a blocking call
+					PatientSearchResults result = null;
+					if (future != null) {
+						result = future.get();
+						System.out.println("got response from node "+ result.getNode().getDisplayName() +" so remove it");
+						noResponseNode.remove(result.getNode()); // got response so remove it
+						logResult(result);
+						addNodeResult(result);
+					} 
+				} catch (CancellationException e) { 
+	                e.printStackTrace(); 
+	            } 
 
-				logResult(result);
-
-				addNodeResult(result);
 				//pushToBrowser();
 			}
+			if(noResponseNode !=null && !noResponseNode.isEmpty()) {
+				//	check is there are any node from where, no response came with configurable minutes.
+				for (NBIANode node : noResponseNode) {
+					System.out.println("no response Node" +node.getDisplayName());
+					Exception searchError = new Exception("no response from node");
+					PatientSearchResults result = new PatientSearchResults(node, searchError);
+					logResult(result);
+					addNodeResult(result);
+				}
+			}			
 			
 			System.out.println("done waiting for results");
 		}
@@ -371,12 +396,11 @@ public class SearchResultBean {
 	
  
     private static void logResult(PatientSearchResults result) {
-		System.out.println("PatientSearchResults node:"+result.getNode());
 		if(result.getResults()!=null) {
-			System.out.println("PatientSearchResults num results:"+result.getResults().length);
+			System.out.println("PatientSearchResults num results:"+result.getResults().length + " - Node " + result.getNode().getDisplayName());
 		}   
 		if(result.getSearchError()!=null) {
-			System.out.println("PatientSearchResults error:"+result.getSearchError());
+			System.out.println("PatientSearchResults error:"+result.getSearchError() + " - Node " + result.getNode().getDisplayName());
 		}   
     }
 }

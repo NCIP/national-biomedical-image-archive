@@ -206,6 +206,50 @@
           <name>thumbnailUrl</name>
           <value>@thumbnailUrl@</value>
         </parameter>
+        <parameter>
+          <name>cql2QueryProcessorClass</name>
+          <value>@cql2QueryProcessorClass@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_useGridIdentityLogin</name>
+          <value>@cql2QueryProcessorConfig_useGridIdentityLogin@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_useLocalApiFlag</name>
+          <value>@cql2QueryProcessorConfig_useLocalApiFlag@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_staticLoginUsername</name>
+          <value>@cql2QueryProcessorConfig_staticLoginUsername@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_applicationHostName</name>
+          <value>@cql2QueryProcessorConfig_applicationHostName@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_useServiceLogin</name>
+          <value>@cql2QueryProcessorConfig_useServiceLogin@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_applicationHostPort</name>
+          <value>@cql2QueryProcessorConfig_applicationHostPort@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_applicationName</name>
+          <value>@cql2QueryProcessorConfig_applicationName@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_ormJarName</name>
+          <value>@cql2QueryProcessorConfig_ormJarName@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_staticLoginPassword</name>
+          <value>@cql2QueryProcessorConfig_staticLoginPassword@</value>
+        </parameter>
+        <parameter>
+          <name>cql2QueryProcessorConfig_queryCaseInsensitive</name>
+          <value>@cql2QueryProcessorConfig_queryCaseInsensitive@</value>
+        </parameter>
       </resourceParams>
     </resource>
     <resource name="home" type="gov.nih.nci.cagrid.ncia.service.globus.resource.NCIACoreServiceResourceHome">

@@ -1,6 +1,6 @@
 <ns1:ServiceMetadata xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata">
  <ns1:serviceDescription>
-  <ns2:Service description="" name="NCIACoreService" version="1.3" xmlns:ns2="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.service">
+  <ns2:Service description="" name="NCIACoreService" version="1.4" xmlns:ns2="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.service">
    <ns2:pointOfContactCollection>
     <ns3:PointOfContact affiliation="x" email="x" firstName="x" lastName="x" phoneNumber="x" role="x" xmlns:ns3="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common"/>
    </ns2:pointOfContactCollection>
@@ -10,11 +10,11 @@
       <ns2:Operation description="" name="getServiceSecurityMetadata">
        <ns2:inputParameterCollection/>
        <ns2:Output qName="ns4:ServiceSecurityMetadata" dimensionality="1" isArray="false" xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security">
-        <ns5:UMLClass className="ServiceSecurityMetadata" description="An instance of the Security Service Metadata." id="9B362D9C-74EE-629B-E040-BB89AD4356B3" packageName="gov.nih.nci.cagrid.metadata.security" projectName="caGrid_Metadata_Models" projectVersion="1" xmlns:ns5="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
+        <ns5:UMLClass className="ServiceSecurityMetadata" description="An instance of the Security Service Metadata." id="C4EF3CA3-F1C4-CEF4-E040-BB89AD43675A" packageName="gov.nih.nci.cagrid.metadata.security" projectName="caGrid_Metadata_Models" projectVersion="1" xmlns:ns5="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
          <ns5:umlAttributeCollection/>
-         <ns5:SemanticMetadata conceptCode="C80736" conceptDefinition="A software system providing a public need." conceptName="Software Service" order="2"/>
          <ns5:SemanticMetadata conceptCode="C25669" conceptDefinition="Security; freedom from anxiety or fear." conceptName="Security" order="1"/>
          <ns5:SemanticMetadata conceptCode="C52095" conceptDefinition="Data about data; information that describes another set of data." conceptName="Metadata" order="0"/>
+         <ns5:SemanticMetadata conceptCode="C80736" conceptDefinition="A software system providing a public need." conceptName="Software Service" order="2"/>
         </ns5:UMLClass>
        </ns2:Output>
        <ns2:faultCollection/>
@@ -157,23 +157,35 @@
        <ns2:Output qName="ns29:ImageSearchResultEx" dimensionality="1" isArray="true" xmlns:ns29="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch"/>
        <ns2:faultCollection/>
       </ns2:Operation>
+      <ns2:Operation description="The standard caGrid Data Service query method." name="executeQuery">
+       <ns2:inputParameterCollection>
+        <ns2:InputParameter qName="ns30:CQLQuery" dimensionality="1" index="0" isArray="false" isRequired="false" name="query" xmlns:ns30="http://CQL.caBIG/2/org.cagrid.cql2"/>
+       </ns2:inputParameterCollection>
+       <ns2:Output qName="ns31:CQLQueryResults" dimensionality="1" isArray="false" xmlns:ns31="http://CQL.caBIG/2/org.cagrid.cql2.results"/>
+       <ns2:faultCollection>
+        <ns2:Fault description="Thrown when an error occurs in processing a CQL query" name="QueryProcessingException"/>
+        <ns2:Fault description="Thrown when a query is found to be improperly formed" name="MalformedQueryException"/>
+       </ns2:faultCollection>
+      </ns2:Operation>
      </ns2:operationCollection>
      <ns2:contextPropertyCollection>
       <ns2:ContextProperty description="" name="{gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice}DomainModel"/>
       <ns2:ContextProperty description="" name="{gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata}ServiceMetadata"/>
+      <ns2:ContextProperty description="Describes the level of support for CQL versions" name="{http://org.cagrid.dataservice.cql/QueryLanguageSupport}QueryLanguageSupport"/>
      </ns2:contextPropertyCollection>
     </ns2:ServiceContext>
    </ns2:serviceContextCollection>
-   <ns30:SemanticMetadata conceptCode="C63541" conceptDefinition="A service available on a system that coordinates resources that are not subject to central control, using open, general purpose protocols and interfaces to deliver nontrivial qualities of services." conceptName="Grid Service" order="0" xmlns:ns30="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common"/>
-   <ns31:SemanticMetadata conceptCode="C63544" conceptDefinition="A web service which accepts as input a query targeted at a data resource addressable by the system and returns information to the client in the form of one or more data objects." conceptName="Data Grid Service" order="1" xmlns:ns31="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common"/>
+   <ns32:SemanticMetadata conceptCode="C63541" conceptDefinition="A service available on a system that coordinates resources that are not subject to central control, using open, general purpose protocols and interfaces to deliver nontrivial qualities of services." conceptName="Grid Service" order="0" xmlns:ns32="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common"/>
+   <ns33:SemanticMetadata conceptCode="C63544" conceptDefinition="A web service which accepts as input a query targeted at a data resource addressable by the system and returns information to the client in the form of one or more data objects." conceptName="Data Grid Service" order="1" xmlns:ns33="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common"/>
   </ns2:Service>
  </ns1:serviceDescription>
  <ns1:hostingResearchCenter>
-  <ns32:ResearchCenter displayName="National Cancer Institute Center for Bioinformatics - NCICB" shortName="NCICB" xmlns:ns32="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
-   <ns32:Address country="USA" locality="Rockille" postalCode="20852" stateProvince="MD" street1="2115 E. Jefferson Street" street2=""/>
-   <ns32:pointOfContactCollection>
-    <ns32:PointOfContact affiliation="National Cancer Institute Center for Bioinformatics - NCICB" email="ncicb@pop.nci.nih.gov" firstName="Application Support" lastName="x" phoneNumber="301.451.4384" role="Application Support/Administration"/>
-   </ns32:pointOfContactCollection>
-  </ns32:ResearchCenter>
+  <ns34:ResearchCenter displayName="National Cancer Institute Center for Bioinformatics - NCICB" shortName="NCICB" xmlns:ns34="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common">
+   <ns34:Address country="USA" locality="Rockille" postalCode="20852" stateProvince="MD" street1="2115 E. Jefferson Street" street2=""/>
+   <ns34:ResearchCenterDescription description="" homepageURL="" imageURL="" rssNewsURL=""/>
+   <ns34:pointOfContactCollection>
+    <ns34:PointOfContact affiliation="National Cancer Institute Center for Bioinformatics - NCICB" email="ncicb@pop.nci.nih.gov" firstName="Application Support" lastName="x" phoneNumber="301.451.4384" role="Application Support/Administration"/>
+   </ns34:pointOfContactCollection>
+  </ns34:ResearchCenter>
  </ns1:hostingResearchCenter>
 </ns1:ServiceMetadata>

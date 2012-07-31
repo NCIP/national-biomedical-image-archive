@@ -278,4 +278,16 @@ public class NCIACoreServiceClient extends NCIACoreServiceClientBase implements 
     }
   }
 
+  public org.cagrid.cql2.results.CQLQueryResults executeQuery(org.cagrid.cql2.CQLQuery query) throws RemoteException, gov.nih.nci.cagrid.data.faults.QueryProcessingExceptionType, gov.nih.nci.cagrid.data.faults.MalformedQueryExceptionType {
+    synchronized(portTypeMutex){
+      configureStubSecurity((Stub)portType,"executeQuery");
+    org.cagrid.dataservice.ExecuteQueryRequest params = new org.cagrid.dataservice.ExecuteQueryRequest();
+    org.cagrid.dataservice.ExecuteQueryRequestQuery queryContainer = new org.cagrid.dataservice.ExecuteQueryRequestQuery();
+    queryContainer.setCQLQuery(query);
+    params.setQuery(queryContainer);
+    org.cagrid.dataservice.ExecuteQueryResponse boxedResult = portType.executeQuery(params);
+    return boxedResult.getCQLQueryResults();
+    }
+  }
+
 }

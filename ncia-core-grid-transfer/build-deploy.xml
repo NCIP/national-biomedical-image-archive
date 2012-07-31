@@ -33,7 +33,7 @@
 	</target>
 	
 	
-	<target name="setDeploymentProperties">
+	<target name="setDeploymentProperties" depends="init">
 		<property file="deploy.properties" />
 		<property name="globus.webapp" value="wsrf" />
 		<property name="service.deployment.path" value="${service.deployment.prefix}/${introduce.skeleton.service.name}" />

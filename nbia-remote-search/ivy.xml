@@ -92,12 +92,12 @@
 
     <dependency org="caGrid"
                 name="discovery"
-                rev="1.3"
+                rev="1.4"
                 conf="compile,runtime->default"/>
 
     <dependency org="caGrid"
                 name="transfer"
-                rev="1.3"
+                rev="1.4"
                 conf="compile,runtime->client"/>
 
 
@@ -116,17 +116,21 @@
     <!-- security stuff which is necessary if a remote discovered node has security enabled even if remote search doesnt use it -->
     <dependency org="caGrid"
                 name="cds"
-                rev="1.3"
+                rev="1.4"
                 conf="runtime->stubs"/>
 
     <dependency org="caGrid"
                 name="dorian"
-                rev="1.3"
+                rev="1.4"
                 conf="runtime->client">
       <!-- these dont follow the ivy pattern for the repo and they aren't necessary for us anyways -->
       <exclude module="dorian-deprecated"/>
       <exclude module="protecttoolkit-j"/>
     </dependency>
+    
+     <!-- something somewhere is including jdom with a conf, and this is pulling in source jars which
+         dont exist in the wonderful maven repo.  make it go away -->
+    <exclude org="jdom" module="jdom"/>
 
     <!-- garbage from log4j as second order dependency -->
     <exclude org="javax.jms" module="jms"/>

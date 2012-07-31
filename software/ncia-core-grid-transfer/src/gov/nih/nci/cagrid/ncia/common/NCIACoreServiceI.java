@@ -133,5 +133,18 @@ public interface NCIACoreServiceI {
 
   public gov.nih.nci.ncia.search.ImageSearchResultEx[] retrieveImagesForSeriesEx(gov.nih.nci.ncia.search.SeriesSearchResult seriesSearchResult) throws RemoteException ;
 
+  /**
+   * The standard caGrid Data Service query method.
+   *
+   * @param query
+   *	The CQL 2 query to be executed against the data source.
+   * @return The result of executing the CQL 2 query against the data source.
+   * @throws QueryProcessingException
+   *	Thrown when an error occurs in processing a CQL query
+   * @throws MalformedQueryException
+   *	Thrown when a query is found to be improperly formed
+   */
+  public org.cagrid.cql2.results.CQLQueryResults executeQuery(org.cagrid.cql2.CQLQuery query) throws RemoteException, gov.nih.nci.cagrid.data.faults.QueryProcessingExceptionType, gov.nih.nci.cagrid.data.faults.MalformedQueryExceptionType ;
+
 }
 

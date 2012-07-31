@@ -182,23 +182,23 @@
 
     <dependency org="caGrid"
                 name="data"
-                rev="1.3"
+                rev="1.4"
                 conf="*->common"/>
     <dependency org="caGrid"
                 name="metadata"
-                rev="1.3"
+                rev="1.4"
                 conf="*->common.jars"/>
     <dependency org="caGrid"
                 name="sdkQuery4"
-                rev="1.3"
+                rev="1.4"
                 conf="*->processor"/>
     <dependency org="caGrid"
                 name="service-security-provider"
-                rev="1.3"
+                rev="1.4"
                 conf="*->client"/>
     <dependency org="caGrid"
                 name="transfer"
-                rev="1.3"
+                rev="1.4"
                 conf="*->common"/>
 
     <!-- something somewhere is including jdom with a conf, and this is pulling in source jars which

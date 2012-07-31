@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema targetNamespace="http://transfer.cagrid.org/Transfer"
-	xmlns:tns="http://transfer.cagrid.org/Transfer"
-	xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns="http://www.w3.org/2001/XMLSchema"
-	attributeFormDefault="unqualified">
+	xmlns:tns="http://transfer.cagrid.org/Transfer" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified">
 
 
 	<xs:complexType name="DataTransferDescriptor">
@@ -13,8 +11,7 @@
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:element name="DataTransferDescriptor"
-		type="tns:DataTransferDescriptor">
+	<xs:element name="DataTransferDescriptor" type="tns:DataTransferDescriptor">
 	</xs:element>
 
 	<xs:complexType name="DataDescriptor">
@@ -29,6 +26,9 @@
 
 	<xs:complexType name="DataStorageDescriptor">
 		<xs:sequence>
+			<xs:element type="string" name="creatorResourceHomeJNDI"></xs:element>
+			<xs:element type="string" name="creatorResourceKeyName"></xs:element>
+			<xs:element type="string" name="creatorResourceKeyValue"></xs:element>
 			<xs:element type="string" name="location"></xs:element>
 			<xs:element type="string" name="userDN"></xs:element>
 			<xs:element type="boolean" name="deleteOnDestroy"></xs:element>
@@ -43,11 +43,10 @@
 			<xs:enumeration value="Staged" />
 		</xs:restriction>
 	</xs:simpleType>
-	
+
 	<xs:element name="Status" type="tns:Status"></xs:element>
 
-	<xs:element name="DataStorageDescriptor"
-		type="tns:DataStorageDescriptor">
+	<xs:element name="DataStorageDescriptor" type="tns:DataStorageDescriptor">
 	</xs:element>
 
 </xs:schema>

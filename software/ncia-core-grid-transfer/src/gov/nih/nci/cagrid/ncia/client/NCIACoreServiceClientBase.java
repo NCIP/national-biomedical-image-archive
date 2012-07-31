@@ -39,7 +39,7 @@ import gov.nih.nci.cagrid.introduce.security.client.ServiceSecurityClient;
  * On construction the class instance will contact the remote service and retrieve it's security
  * metadata description which it will use to configure the Stub specifically for each method call.
  * 
- * @created by Introduce Toolkit version 1.3
+ * @created by Introduce Toolkit version 1.4
  */
 public abstract class NCIACoreServiceClientBase extends ServiceSecurityClient {	
 	protected NCIACoreServicePortType portType;

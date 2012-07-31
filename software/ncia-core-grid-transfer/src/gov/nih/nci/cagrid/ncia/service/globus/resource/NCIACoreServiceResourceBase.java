@@ -85,7 +85,7 @@ import org.oasis.wsrf.lifetime.TerminationNotification;
  * of these resource as well as code for registering any properties selected
  * to the index service.
  * 
- * @created by Introduce Toolkit version 1.3
+ * @created by Introduce Toolkit version 1.4
  * 
  */
 public abstract class NCIACoreServiceResourceBase extends ReflectionResource implements Resource
@@ -148,6 +148,17 @@ public abstract class NCIACoreServiceResourceBase extends ReflectionResource imp
 	public void setServiceMetadata(gov.nih.nci.cagrid.metadata.ServiceMetadata serviceMetadata ) throws ResourceException {
         ResourceProperty prop = getResourcePropertySet().get(NCIACoreServiceConstants.SERVICEMETADATA);
 		prop.set(0, serviceMetadata);
+	}
+	
+	
+	
+	public org.cagrid.dataservice.cql.support.QueryLanguageSupport getQueryLanguageSupport(){
+		return ((NCIACoreServiceResourceProperties) getResourceBean()).getQueryLanguageSupport();
+	}
+	
+	public void setQueryLanguageSupport(org.cagrid.dataservice.cql.support.QueryLanguageSupport queryLanguageSupport ) throws ResourceException {
+        ResourceProperty prop = getResourcePropertySet().get(NCIACoreServiceConstants.QUERYLANGUAGESUPPORT);
+		prop.set(0, queryLanguageSupport);
 	}
 	
 
@@ -225,7 +236,7 @@ public abstract class NCIACoreServiceResourceBase extends ReflectionResource imp
                 + getConfiguration().getRegistrationTemplateFile());
 
             if (registrationFile.exists() && registrationFile.canRead()) {
-                logger.debug("Loading registration argumentsrmation from:" + registrationFile);
+                logger.debug("Loading registration arguments from:" + registrationFile);
 
                 try {
                     params = ServiceGroupRegistrationClient.readParams(registrationFile.getAbsolutePath());

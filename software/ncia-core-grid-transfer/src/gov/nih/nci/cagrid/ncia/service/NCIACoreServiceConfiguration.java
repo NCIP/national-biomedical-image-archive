@@ -16,7 +16,7 @@ import org.globus.wsrf.Constants;
  * This class holds all service properties which were defined for the service to have
  * access to.
  * 
- * @created by Introduce Toolkit version 1.3
+ * @created by Introduce Toolkit version 1.4
  * 
  */
 public class NCIACoreServiceConfiguration implements ServiceConfiguration {
@@ -90,6 +90,28 @@ public class NCIACoreServiceConfiguration implements ServiceConfiguration {
 	private String tempZipLocation;
 	
 	private String thumbnailUrl;
+	
+	private String cql2QueryProcessorClass;
+	
+	private String cql2QueryProcessorConfig_useGridIdentityLogin;
+	
+	private String cql2QueryProcessorConfig_useLocalApiFlag;
+	
+	private String cql2QueryProcessorConfig_staticLoginUsername;
+	
+	private String cql2QueryProcessorConfig_applicationHostName;
+	
+	private String cql2QueryProcessorConfig_useServiceLogin;
+	
+	private String cql2QueryProcessorConfig_applicationHostPort;
+	
+	private String cql2QueryProcessorConfig_applicationName;
+	
+	private String cql2QueryProcessorConfig_ormJarName;
+	
+	private String cql2QueryProcessorConfig_staticLoginPassword;
+	
+	private String cql2QueryProcessorConfig_queryCaseInsensitive;
 	
 	
     public String getEtcDirectoryPath() {
@@ -329,6 +351,116 @@ public class NCIACoreServiceConfiguration implements ServiceConfiguration {
 	
 	public void setThumbnailUrl(String thumbnailUrl) {
 		this.thumbnailUrl = thumbnailUrl;
+	}
+
+	
+	public String getCql2QueryProcessorClass() {
+		return cql2QueryProcessorClass;
+	}
+	
+	
+	public void setCql2QueryProcessorClass(String cql2QueryProcessorClass) {
+		this.cql2QueryProcessorClass = cql2QueryProcessorClass;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_useGridIdentityLogin() {
+		return cql2QueryProcessorConfig_useGridIdentityLogin;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_useGridIdentityLogin(String cql2QueryProcessorConfig_useGridIdentityLogin) {
+		this.cql2QueryProcessorConfig_useGridIdentityLogin = cql2QueryProcessorConfig_useGridIdentityLogin;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_useLocalApiFlag() {
+		return cql2QueryProcessorConfig_useLocalApiFlag;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_useLocalApiFlag(String cql2QueryProcessorConfig_useLocalApiFlag) {
+		this.cql2QueryProcessorConfig_useLocalApiFlag = cql2QueryProcessorConfig_useLocalApiFlag;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_staticLoginUsername() {
+		return cql2QueryProcessorConfig_staticLoginUsername;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_staticLoginUsername(String cql2QueryProcessorConfig_staticLoginUsername) {
+		this.cql2QueryProcessorConfig_staticLoginUsername = cql2QueryProcessorConfig_staticLoginUsername;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_applicationHostName() {
+		return cql2QueryProcessorConfig_applicationHostName;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_applicationHostName(String cql2QueryProcessorConfig_applicationHostName) {
+		this.cql2QueryProcessorConfig_applicationHostName = cql2QueryProcessorConfig_applicationHostName;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_useServiceLogin() {
+		return cql2QueryProcessorConfig_useServiceLogin;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_useServiceLogin(String cql2QueryProcessorConfig_useServiceLogin) {
+		this.cql2QueryProcessorConfig_useServiceLogin = cql2QueryProcessorConfig_useServiceLogin;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_applicationHostPort() {
+		return cql2QueryProcessorConfig_applicationHostPort;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_applicationHostPort(String cql2QueryProcessorConfig_applicationHostPort) {
+		this.cql2QueryProcessorConfig_applicationHostPort = cql2QueryProcessorConfig_applicationHostPort;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_applicationName() {
+		return cql2QueryProcessorConfig_applicationName;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_applicationName(String cql2QueryProcessorConfig_applicationName) {
+		this.cql2QueryProcessorConfig_applicationName = cql2QueryProcessorConfig_applicationName;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_ormJarName() {
+		return cql2QueryProcessorConfig_ormJarName;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_ormJarName(String cql2QueryProcessorConfig_ormJarName) {
+		this.cql2QueryProcessorConfig_ormJarName = cql2QueryProcessorConfig_ormJarName;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_staticLoginPassword() {
+		return cql2QueryProcessorConfig_staticLoginPassword;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_staticLoginPassword(String cql2QueryProcessorConfig_staticLoginPassword) {
+		this.cql2QueryProcessorConfig_staticLoginPassword = cql2QueryProcessorConfig_staticLoginPassword;
+	}
+
+	
+	public String getCql2QueryProcessorConfig_queryCaseInsensitive() {
+		return cql2QueryProcessorConfig_queryCaseInsensitive;
+	}
+	
+	
+	public void setCql2QueryProcessorConfig_queryCaseInsensitive(String cql2QueryProcessorConfig_queryCaseInsensitive) {
+		this.cql2QueryProcessorConfig_queryCaseInsensitive = cql2QueryProcessorConfig_queryCaseInsensitive;
 	}
 
 	

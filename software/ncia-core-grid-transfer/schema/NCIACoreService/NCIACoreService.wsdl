@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ncia.cagrid.nci.nih.gov/NCIACoreService" xmlns:wsrp="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.xsd" xmlns:wsrlw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceLifetime-1.2-draft-01.wsdl" xmlns:wsdlpp="http://www.globus.org/namespaces/2004/10/WSDLPreprocessor" xmlns:gtwsdl1="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ServiceGroup-1.2-draft-01.wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:wsntw="http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.wsdl" xmlns:wsrbfw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" xmlns:wsrpw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns1="http://gov.nih.nci.cagrid.data/DataService" xmlns:wns0="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" xmlns:wns2="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:ns0="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" xmlns:ns9="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" xmlns:ns11="http://gov.nih.nci.cagrid.data/DataServiceExceptions" xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" xmlns:ns12="http://transfer.cagrid.org/TransferService/Context/types" xmlns:ns3="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" xmlns:ns8="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" xmlns:ns13="http://transfer.cagrid.org/Transfer" xmlns:ns5="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" name="NCIACoreService" targetNamespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ncia.cagrid.nci.nih.gov/NCIACoreService" xmlns:wsrp="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:wsrbfw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" xmlns:wsrpw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns3="http://org.cagrid.dataservice/DataService" xmlns:wns1="http://gov.nih.nci.cagrid.data/DataService" xmlns:wns0="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" xmlns:wns2="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:ns0="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" xmlns:ns9="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" xmlns:ns11="http://gov.nih.nci.cagrid.data/DataServiceExceptions" xmlns:ns16="http://org.cagrid.dataservice.cql/QueryLanguageSupport" xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" xmlns:ns12="http://transfer.cagrid.org/TransferService/Context/types" xmlns:ns3="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" xmlns:ns14="http://CQL.caBIG/2/org.cagrid.cql2" xmlns:ns8="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" xmlns:ns13="http://transfer.cagrid.org/Transfer" xmlns:ns5="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" xmlns:ns15="http://CQL.caBIG/2/org.cagrid.cql2.results" xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" name="NCIACoreService" targetNamespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService">
   <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" location="../wsrf/properties/WS-ResourceProperties.wsdl" />
   <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" location="../wsrf/faults/WS-BaseFaults.wsdl" />
-  <import namespace="http://docs.oasis-open.org/wsn/2004/06/wsn-WS-BaseNotification-1.2-draft-01.wsdl" location="../wsrf/notification/WS-BaseN.wsdl" />
+  <import namespace="http://org.cagrid.dataservice/DataService" location="./Cql2DataService.wsdl" />
   <import namespace="http://gov.nih.nci.cagrid.data/DataService" location="./DataService.wsdl" />
   <import namespace="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" location="./ServiceSecurity.wsdl" />
-  <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" location="./../wsrf/properties/WS-ResourceProperties.wsdl" />
   <!--============================================================
 
                       T Y P E S
@@ -20,13 +19,16 @@
       <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" schemaLocation="./NCIACoreService_CQLResultTypes.xsd" />
       <import namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" schemaLocation="./DicomTags.xsd" />
       <import namespace="http://gov.nih.nci.cagrid.data/DataServiceExceptions" schemaLocation="./DataServiceExceptions.xsd" />
+      <import namespace="http://org.cagrid.dataservice.cql/QueryLanguageSupport" schemaLocation="./QueryLanguageSupportMetadata.xsd" />
       <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" schemaLocation="./xsd/cagrid/types/caGridMetadata.xsd" />
       <import namespace="http://transfer.cagrid.org/TransferService/Context/types" schemaLocation="./TransferServiceContextTypes.xsd" />
       <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" schemaLocation="./NCIACoreServiceTypes.xsd" />
+      <import namespace="http://CQL.caBIG/2/org.cagrid.cql2" schemaLocation="./CQLQueryComponents.xsd" />
       <import namespace="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" schemaLocation="./1_gov.nih.nci.cagrid.CQLResultSet.xsd" />
       <import namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" schemaLocation="./RemoteSearch.xsd" />
       <import namespace="http://transfer.cagrid.org/Transfer" schemaLocation="./caGrid_Transfer.xsd" />
       <import namespace="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" schemaLocation="gov.nih.nci.ncia.domain.xsd" />
+      <import namespace="http://CQL.caBIG/2/org.cagrid.cql2.results" schemaLocation="./CQLQueryResults.xsd" />
       <import namespace="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" schemaLocation="./1_gov.nih.nci.cagrid.CQLQuery.xsd" />
       <element name="RetrieveDicomDataRequest">
         <complexType>
@@ -304,6 +306,7 @@
           <sequence>
             <element ref="ns10:DomainModel" />
             <element ref="ns6:ServiceMetadata" />
+            <element ref="ns16:QueryLanguageSupport" />
           </sequence>
         </complexType>
       </element>
@@ -517,6 +520,12 @@
       <wsdl:fault name="InvalidQueryExpressionFault" message="wsrpw:InvalidQueryExpressionFault" />
       <wsdl:fault name="QueryEvaluationErrorFault" message="wsrpw:QueryEvaluationErrorFault" />
     </wsdl:operation>
+    <operation name="executeQuery">
+      <input message="wns3:ExecuteQueryRequest" wsa:Action="http://org.cagrid.dataservice/DataService/ExecuteQueryRequest" />
+      <output message="wns3:ExecuteQueryResponse" wsa:Action="http://org.cagrid.dataservice/DataService/ExecuteQueryResponse" />
+      <fault name="MalformedQueryException" message="wns3:MalformedQueryExceptionFaultMessage" wsa:Action="http://org.cagrid.dataservice/DataService/MalformedQueryExceptionFaultMessage" />
+      <fault name="QueryProcessingException" message="wns3:QueryProcessingExceptionFaultMessage" wsa:Action="http://org.cagrid.dataservice/DataService/QueryProcessingExceptionFaultMessage" />
+    </operation>
   </portType>
 </definitions>
 

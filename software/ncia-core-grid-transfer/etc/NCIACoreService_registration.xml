@@ -13,21 +13,24 @@
   <Content xsi:type="agg:AggregatorContent" xmlns:agg="http://mds.globus.org/aggregator/types">
     <agg:AggregatorConfig xsi:type="agg:AggregatorConfig">
       <agg:GetMultipleResourcePropertiesPollType
-			xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery"
-			xmlns:ns13="http://transfer.cagrid.org/Transfer"
-			xmlns:ns5="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain"
-			xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata"
-			xmlns:ns11="http://gov.nih.nci.cagrid.data/DataServiceExceptions"
-			xmlns:ns3="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types"
-			xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice"
-			xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch"
-			xmlns:xs="http://www.w3.org/2001/XMLSchema"
 			xmlns:ns0="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch"
+			xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice"
 			xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security"
 			xmlns:ns9="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes"
 			xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags"
+			xmlns:ns11="http://gov.nih.nci.cagrid.data/DataServiceExceptions"
+			xmlns:ns16="http://org.cagrid.dataservice.cql/QueryLanguageSupport"
+			xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata"
 			xmlns:ns12="http://transfer.cagrid.org/TransferService/Context/types"
-			xmlns:ns8="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet">
+			xmlns:ns3="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types"
+			xmlns:ns14="http://CQL.caBIG/2/org.cagrid.cql2"
+			xmlns:ns8="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet"
+			xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:ns13="http://transfer.cagrid.org/Transfer"
+			xmlns:ns5="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain"
+			xmlns:ns15="http://CQL.caBIG/2/org.cagrid.cql2.results"
+			xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery">
         <!-- Specifies that the index should refresh information
             every 300000 milliseconds (once every 5 minutes) -->
         <agg:PollIntervalMillis>INDEX_REFRESH</agg:PollIntervalMillis>
@@ -35,6 +38,8 @@
 		<agg:ResourcePropertyNames>ns10:DomainModel</agg:ResourcePropertyNames>
 	
 		<agg:ResourcePropertyNames>ns6:ServiceMetadata</agg:ResourcePropertyNames>
+	
+		<agg:ResourcePropertyNames>ns16:QueryLanguageSupport</agg:ResourcePropertyNames>
 	
       </agg:GetMultipleResourcePropertiesPollType>
     </agg:AggregatorConfig>

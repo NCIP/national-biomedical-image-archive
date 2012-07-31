@@ -13,6 +13,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.security.SecureRandom;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,14 @@ import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -136,37 +141,25 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
           error();
           return;
         }
-//        SSLSocketFactory sslsf = new SSLSocketFactory(new TrustStrategy() { 
-//            @Override
-//            public boolean isTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
-//                return true;
-//            }
-//     
-//        }); 
-        SSLContext sslContext = SSLContext.getInstance("SSL"); 
+        TrustStrategy easyStrategy = new TrustStrategy() { 
+            @Override 
+            public boolean isTrusted(X509Certificate[] certificate, String authType) 
+                    throws CertificateException { 
+                return true; 
+            } 
+        };
         // set up a TrustManager that trusts everything 
-        sslContext.init(null, new TrustManager[] { new X509TrustManager() { 
-            public X509Certificate[] getAcceptedIssuers() { 
-                System.out.println("getAcceptedIssuers ============="); 
-                return null; 
-            } 
-            public void checkClientTrusted(X509Certificate[] certs, String authType) { 
-                System.out.println("checkClientTrusted ============="); 
-            } 
-            public void checkServerTrusted(X509Certificate[] certs, String authType) { 
-                System.out.println("checkServerTrusted ============="); 
-            } 
-        } }, new SecureRandom()); 
-        SSLSocketFactory sslsf = new SSLSocketFactory(sslContext);
+        SSLSocketFactory sslsf = new SSLSocketFactory(easyStrategy,SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
         Scheme httpsScheme = new Scheme("https", 443, sslsf); 
         SchemeRegistry schemeRegistry = new SchemeRegistry(); 
         schemeRegistry.register(httpsScheme); 
+        schemeRegistry.register(new Scheme("http", 80,PlainSocketFactory.getSocketFactory()));
         HttpParams httpParams = new BasicHttpParams(); 
         // set timeout values     
         HttpConnectionParams.setConnectionTimeout(httpParams, 50000); 
         HttpConnectionParams.setSoTimeout(httpParams,  new Integer(12000));
- 
-        DefaultHttpClient httpClient = new DefaultHttpClient(httpParams);
+        ClientConnectionManager ccm = new ThreadSafeClientConnManager(schemeRegistry); 
+        DefaultHttpClient httpClient = new DefaultHttpClient(ccm,httpParams);
 
         //Additions by lrt for tcia - 
         //attempt to reduce errors going through a Coyote Point Equalizer load balance switch 

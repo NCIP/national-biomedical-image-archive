@@ -15,16 +15,12 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -32,10 +28,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -76,7 +76,20 @@ public class Application {
 //		codebase="http://localhost:45210/ncia/";
 //		args = new String[] {"C:\\Users\\niktevv\\AppData\\Local\\Temp\\1\\jnlp-data1341931874374.txt"};
 //		userId= "niktev";
-//		password="M4JcFJZEGzg=";
+//		password="M4JcFJZEGzg=";		
+		//DEV
+//		serverUrl="http://ncias-d816-v.nci.nih.gov:29080/nbia-download/servlet/DownloadServlet";
+//		codebase ="https://imaging-dev.nci.nih.gov/ncia";
+//		args = new String[] {"/tmp/jnlp-data1343751393423.txt"};
+//		userId= "nbia_guest";
+//		password="";
+
+		//vm
+//		serverUrl="http://165.112.132.171:45210/nbia-download/servlet/DownloadServlet";
+//		codebase ="http://165.112.132.171:45210/ncia";
+//		args = new String[] {"/tmp/jnlp-data1343751393423.txt"};
+//		userId= "nbia_guest";
+//		password="";
 //		noOfRetry = 4;
 //		System.setProperty("localSeriesDownloader.className","gov.nih.nci.nbia.download.LocalSeriesDownloader");
 //		System.setProperty("remoteSeriesDownloader.className","gov.nih.nci.nbia.download.RemoteSeriesDownloader");
@@ -125,30 +138,29 @@ public class Application {
     private  static List<String> connectAndReadFromURL(URL url, String fileName) {
         List<String>  data = null;
         HttpClient httpClient = null;
+        TrustStrategy easyStrategy = new TrustStrategy() { 
+            @Override 
+            public boolean isTrusted(X509Certificate[] certificate, String authType) 
+                    throws CertificateException { 
+                return true; 
+            } 
+        };
         try {
-            SSLContext sslContext = SSLContext.getInstance("SSL"); 
+            //SSLContext sslContext = SSLContext.getInstance("SSL"); 
             // set up a TrustManager that trusts everything 
-            sslContext.init(null, new TrustManager[] { new X509TrustManager() { 
-                public X509Certificate[] getAcceptedIssuers() { 
-                    System.out.println("getAcceptedIssuers ============="); 
-                    return null; 
-                } 
-                public void checkClientTrusted(X509Certificate[] certs, String authType) { 
-                    System.out.println("checkClientTrusted ============="); 
-                } 
-                public void checkServerTrusted(X509Certificate[] certs, String authType) { 
-                    System.out.println("checkServerTrusted ============="); 
-                } 
-            } }, new SecureRandom()); 
+            //sslContext.init(null, new TrustManager[] { new EasyX509TrustManager(null)}, null); 
 
-            SSLSocketFactory sslsf = new SSLSocketFactory(sslContext);
+            SSLSocketFactory sslsf = new SSLSocketFactory(easyStrategy,SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             Scheme httpsScheme = new Scheme("https", 443, sslsf);
             SchemeRegistry schemeRegistry = new SchemeRegistry();
             schemeRegistry.register(httpsScheme);
+            schemeRegistry.register(new Scheme("http", 80,PlainSocketFactory.getSocketFactory()));
+            ClientConnectionManager ccm = new ThreadSafeClientConnManager(schemeRegistry); 
+            
 	        HttpParams httpParams = new BasicHttpParams();
 	        HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
 	        HttpConnectionParams.setSoTimeout(httpParams,  new Integer(12000));
-	        httpClient = new DefaultHttpClient(httpParams);
+	        httpClient = new DefaultHttpClient(ccm,httpParams);
 	//        // Additions by lrt for tcia -
 	//        //    attempt to reduce errors going through a Coyote Point Equalizer load balance switch
 	        httpClient.getParams().setParameter("http.socket.timeout", new Integer(12000));
@@ -178,7 +190,13 @@ public class Application {
         } catch (NoSuchAlgorithmException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } finally {
+        } catch (KeyStoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnrecoverableKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
             if (httpClient != null) {
                 httpClient.getConnectionManager().shutdown();
             }

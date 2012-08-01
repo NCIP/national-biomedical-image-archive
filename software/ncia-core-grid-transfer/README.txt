@@ -26,3 +26,7 @@ existing clients like caIntegrator2.
 Beware that while this is Introduce generated, we tweaked a few things to fit
 in our unit testing and static analysis processes.  If you regenerate, be
 careful not to overwrite these tweaks if you care about such stuff.
+
+-----------------
+-----------------
+For successfull build using Ant 1.8.x, change the build.xml's name="stubGenerationPostProcessor"> to name="stubGenerationPostProcessor" depends="defineClasspaths"

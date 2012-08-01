@@ -137,6 +137,7 @@
 		<delete dir="${lib.dir}" />
 		<delete dir="${cagrid.target.co.dir}" />
 		<delete dir="${download.dir}" />
+		<delete dir="${target.dir}" />
 	</target>
 	
 	<target name="ivy:clean">

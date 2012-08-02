@@ -325,7 +325,7 @@
 	<target name="build:all" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 		clean,
 		init,
-		build:nbia:portal:config, build:nbia-web, build:nbia-secure-grid, build:nbia-unsecure-grid, dist:ctp-client, dist:ctp-server">
+		build:nbia:portal:config, compute-tag-properties, build:nbia-web, build:nbia-secure-grid, build:nbia-unsecure-grid, dist:ctp-client, dist:ctp-server">
 	</target>
 	
 		<target name="build:all:niams" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
@@ -378,6 +378,7 @@
 			</else>
 		</if>
 	</target>
+	
 	<target name="dist:tools:retrieve:jai">
 		<get src="${jai.linux.src.url}" dest="${jai.linux.dest.file}" />
 		<get src="${jai.windows.src.url}" dest="${jai.windows.dest.file}" />

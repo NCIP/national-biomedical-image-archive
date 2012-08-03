@@ -33,7 +33,7 @@
         <div align="center"></div>
       </td>
       <td valign="top">
-        <ncia:help label="images/help_icon.png" helpId="user_registration_help" />
+        <ncia:help alt="help" label="images/help_icon.png" helpId="user_registration_help" />
       </td>
     </tr>
     <tr>
@@ -64,19 +64,19 @@
                        cellspacing="3">
                   <tr class="formMessage">
                     <td width="20%">
-                      <h:outputText value="#{msg.register_title}"/>
+                      <LABEL FOR="MAINbody:registerForm:j_id286">Title:</LABEL>
                     </td>
                     <td width="30%">
                       <span>
                         <span>*</span>
                       </span> 
-                      <h:outputText value="#{msg.register_firstName}"/>
+                      <LABEL FOR="MAINbody:registerForm:firstName">First Name:</LABEL>
                     </td>               
                     <td width="37%">
                       <span>
                         <span>*</span>
                       </span>
-                      <h:outputText value="#{msg.register_lastName}"/>
+                       <LABEL FOR="MAINbody:registerForm:lastName">Last Name:</LABEL>
                     </td>
                   </tr>
                   <tr>
@@ -135,13 +135,13 @@
                       <span>
                         <span>*</span>
                       </span>
-                      <h:outputText value="#{msg.register_email}"/>
+                      <LABEL FOR="MAINbody:registerForm:email">Email:</LABEL>
                     </td>
                     <td>
                       <span>
                         <span>*</span>
                       </span>
-                      <h:outputText value="#{msg.register_phone}"/>
+                       <LABEL FOR="MAINbody:registerForm:phone">Phone:</LABEL>
                     </td>                    
                   </tr>
                   <tr>
@@ -176,10 +176,10 @@
                       <span>
                         <span>*</span>
                       </span>
-                      <h:outputText value="#{msg.register_organization}"/>
+                      <LABEL FOR="MAINbody:registerForm:fax">Fax:</LABEL>
                     </td>     
                     <td>
-                      <h:outputText value="#{msg.register_fax}"/>
+                      <LABEL FOR="MAINbody:registerForm:org">Organization Name:</LABEL>
                     </td>                
                   </tr>
                   <tr>
@@ -240,7 +240,8 @@
                 <table border="0" cellpadding="2" cellspacing="0">
                   <tr>
                     <td>
-                      <h:commandButton image="images/register.gif" 
+                      <h:commandButton alt="register"
+                                       image="images/register.gif" 
                                        action="#{registerBean.register}"/>
                     </td>
                     <td>
@@ -249,7 +250,7 @@
                              width="91" 
                              height="30" 
                              border="0"
-                             alt=""/>
+                             alt="cancel"/>
                       </a>
                     </td>
                   </tr>

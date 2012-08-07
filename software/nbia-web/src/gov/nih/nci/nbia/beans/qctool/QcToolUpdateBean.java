@@ -15,6 +15,7 @@ import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
@@ -100,7 +101,7 @@ public class QcToolUpdateBean {
 
 	private boolean isErrorFree(String type) {
 		if (type.equals(BULK)){
-		if (selectedQcStatus == null ) {
+		if (StringUtil.isEmptyTrim(selectedQcStatus)) {
 			MessageUtil.addErrorMessage(
 					"MAINbody:qcToolForm:slctQcStatusUpdate", REQUIRED_FIELD);
 			return false;
@@ -112,7 +113,7 @@ public class QcToolUpdateBean {
 		}
 		}
 		else {
-			if (selectedQcStatusSingle == null) {
+			if (StringUtil.isEmptyTrim(selectedQcStatusSingle)) {
 				MessageUtil.addErrorMessage(
 						"MAINbody:qcToolViewerForm:slctQcStatus", REQUIRED_FIELD);
 				return false;

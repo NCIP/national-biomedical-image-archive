@@ -201,7 +201,7 @@ public class SearchLookupBean {
         numFrameOptionItems.add(new SelectItem(NumFrameOptionCriteria.SingleFrameOnly,
                                                  "Single Frame"));
         numFrameOptionItems.add(new SelectItem(NumFrameOptionCriteria.MultiFrame,
-                                                 "Mulit-frame (Cine Loop)"));
+                                                 "Multi-frame (Cine Loop)"));
     }
 
     private void populateColorModeOptions() {

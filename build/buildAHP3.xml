@@ -209,7 +209,7 @@
 	 <copy file="${common.resources.dir}/jboss-conf/server.xml" tofile="${common.dist.dir}/server.xml">
 			<filterset>
 				<filter token="nbia.portal.jboss.home" value="${nbia.portal.jboss.home}" />
-				<filter token="jboss.server.name" value="${jboss.server.name}" />
+				<filter token="jboss.server.name" value="${nbia.portal.jboss.server.name}" />
 			</filterset>
 		</copy>
 		
@@ -1124,7 +1124,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<copy file="${common.resources.dir}/grid/global_security_descriptor.xml" todir="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
 			<filterset>
 				<filter token="ncia-core-grid.jboss.home" value="${ncia-core-grid.jboss.home}" />
-				<filter token="jboss.server.name" value="${jboss.server.name}" />
+				<filter token="jboss.server.name" value="${ncia-core-grid-secure.jboss.server.name}" />
 				<filter token="key_file" value="${ncia-core-grid-secure.jboss.key_file}" />
 				<filter token="cer_file" value="${ncia-core-grid-secure.jboss.cer_file}" />
 			</filterset>
@@ -1133,7 +1133,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<filterset>
 				<filter token="grid.external.secure.host" value="${grid.external.secure.host}" />
 				<filter token="ncia-core-grid.jboss.home" value="${ncia-core-grid.jboss.home}" />
-				<filter token="jboss.server.name" value="${jboss.server.name}" />
+				<filter token="jboss.server.name" value="${ncia-core-grid-secure.jboss.server.name}" />
 			</filterset>
 		</copy>
 		
@@ -1291,7 +1291,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<echo message="Updating grid web.xml" />
 		<copy file="${common.resources.dir}/grid/web.xml" todir="${unsecure.wsrf.path}/WEB-INF/" overwrite="true">
 			<filterset>
-				<filter token="ncia-core-grid-secure.jboss.server.port" value="${ncia-core-grid-secure.jboss.server.port}" />
+				<filter token="ncia-core-grid-secure.jboss.server.port" value="${ncia-core-grid-unsecure.jboss.server.port}" />
 			</filterset>
 		</copy>
 		<!--copy file="${common.resources.dir}/grid/server-config.wsdd" todir="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">

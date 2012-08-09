@@ -44,16 +44,6 @@
       id="idmap"
       class="org.rsna.ctp.stdstages.IDMap" 
       root="IDMap" />
-    <Processor
-    	       id="databaseverifier"
-               name="databaseverifier"
-               class="org.rsna.ctp.stdstages.DatabaseVerifier"
-               root="roots"
-               url="http://localhost:@ctp.server.verifier.port@"
-               username=""
-               password=""
-               maxAge="2"
-               interval="10000" />  
     <ExportService
             name="HTTP Export"
             class="org.rsna.ctp.stdstages.HttpExportService"

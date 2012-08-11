@@ -42,7 +42,7 @@
 	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 	<property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}" />
 	<property name="db-install.dist.dir" value="${dist.exploded.dir}/db/db-install/" />
-	<property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/db/db-upgrade" />
+	<property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" />
 	<property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
 	<property name="ncia-core-grid.dist.relative.dir" value="ncia-core-grid-transfer" />
 	<property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}" />

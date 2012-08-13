@@ -1294,13 +1294,26 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="ncia-core-grid-secure.jboss.server.port" value="${ncia-core-grid-unsecure.jboss.server.port}" />
 			</filterset>
 		</copy>
-		<!--copy file="${common.resources.dir}/grid/server-config.wsdd" todir="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
-			<filterset>
-				<filter token="grid.external.secure.host" value="${grid.external.secure.host}"/>
-				<filter token="ncia-core-grid.jboss.home" value="${ncia-core-grid.jboss.home}"/>
-				<filter token="jboss.server.name" value="${jboss.server.name}"/>
-			</filterset>
-		</copy-->
+		<xmltask preservetype="true" source="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd" dest="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd">
+						<remove path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='parameter' and @name='logicalHost']" />
+						<remove path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='parameter' and @name='publishHostName']" />
+					</xmltask>
+					<xmltask preservetype="true" source="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd" dest="${unsecure.wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd" failWithoutMatch="true">
+						<insert path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']">
+							<![CDATA[
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+								name="logicalHost"
+								value="${grid.external.unsecure.host}"/>
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+										name="publishHostName"
+								value="true"/>
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+								name="disableDNS"
+										value="true"/>
+							]]>
+						</insert>
+					</xmltask>
+		
 		<!--	Change POC Info in	/server/ncicb-app39380/deploy/wsrf.war/WEB-INF/etc/cagrid_NBIAService/serviceMetadata.xml  ???-->
 		<echo message="Updateing POC info  at ${unsecure.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" />
 		<var name="poc.science.string" value=" affiliation=&quot;${grid.poc.science.affiliation}&quot; email=&quot;${grid.poc.science.email}&quot; firstName=&quot;${grid.poc.science.name.first}&quot; lastName=&quot;${grid.poc.science.name.last}&quot; phoneNumber=&quot;${grid.poc.science.phone}&quot; role=&quot;${grid.poc.science.role}&quot; " />

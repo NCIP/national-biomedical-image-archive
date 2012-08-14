@@ -365,6 +365,9 @@
 	</target>
 	
 	<target name="compute-tag-properties">
+		<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
+		<echo message="build.tag =${build.tag}"/>
+		<echo message="nbia_prod_build_tag =${nbia_prod_build_tag}"/>
 		<condition property="tagged.file">
 			<contains substring="nbia/tags" string="${nbia_prod_build_tag}" />
 		</condition>
@@ -1107,7 +1110,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</copy>
 		<!-- done application -->
 		<echo message="Cleaning up hostname:port refereces in **/*.wsdl" />
-		<replace dir="${wsrf.path}" token="http://localhost:8080" value="http://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-secure.jboss.server.port}">
+		<replace dir="${wsrf.path}" token="http://localhost:8080" value="https://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-secure.jboss.server.port}">
 			<include name="**/*.wsdl" />
 		</replace>
 		<!-- Fix default jndi-config -->

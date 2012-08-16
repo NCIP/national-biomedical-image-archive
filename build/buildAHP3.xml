@@ -1039,6 +1039,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</copy>
 	</target>
 	
+	<!--- build Secured nciaCoreGrid -->
 	<target name="build:nbia-secure-grid" depends="build:ncia-core-grid, dist:tools:retrieve:sync-gts">
 		<!--copy file="ncia-core-grid.xml" 
           todir="../target/dist/exploded"/>
@@ -1120,7 +1121,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</replace>
 		<!-- Fix default jndi-config -->
 		<echo message="Fixing grid jndi-config" />
-		<replace file="${wsrf.path}/WEB-INF/etc/globus_resolution_service/jndi-config.xml" token="http://localhost:8080" value="http://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-secure.jboss.server.port}" />
+		<replace file="${wsrf.path}/WEB-INF/etc/globus_resolution_service/jndi-config.xml" token="http://localhost:8080" value="https://${ncia-core-grid-secure.jboss.server.hostname}:${ncia-core-grid-secure.jboss.server.port}" />
 		<!-- fix web.xml -->
 		<echo message="Updating grid web.xml" />
 		<copy file="${common.resources.dir}/grid/web.xml" todir="${wsrf.path}/WEB-INF/" overwrite="true">
@@ -1128,6 +1129,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="ncia-core-grid-secure.jboss.server.port" value="${ncia-core-grid-secure.jboss.server.port}" />
 			</filterset>
 		</copy>
+		<replace file="${wsrf.path}/WEB-INF/web.xml" token="&lt;param-value&gt;http" value="&lt;param-value&gt;https" />
 		<!-- Secure Grid configuraiotns -->
 		<copy file="${common.resources.dir}/grid/global_security_descriptor.xml" todir="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
 			<filterset>

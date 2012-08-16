@@ -1139,13 +1139,51 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="cer_file" value="${ncia-core-grid-secure.jboss.cer_file}" />
 			</filterset>
 		</copy>
-		<copy file="${common.resources.dir}/grid/server-config.wsdd" todir="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
+		
+		<xmltask preservetype="true" source="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd" dest="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd">
+						<remove path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='parameter' and @name='logicalHost']" />
+						<remove path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='parameter' and @name='publishHostName']" />
+						<remove path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='parameter' and @name='containerSecDesc']" />
+						<remove path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='requestFlow']/*[local-name()='handler' and @type='java:org.globus.wsrf.impl.security.authentication.transport.TomcatTransportSecurityHandler']" />
+					</xmltask>
+					<xmltask preservetype="true" source="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd" dest="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/server-config.wsdd" failWithoutMatch="true">
+						<insert path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']">
+							<![CDATA[
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+								name="logicalHost"
+								value="${grid.external.secure.host}"/>
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+										name="publishHostName"
+								value="true"/>
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+								name="disableDNS"
+										value="true"/>
+							]]>
+						</insert>
+						<insert path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']">
+							<![CDATA[
+							<parameter xmlns="http://xml.apache.org/axis/wsdd/"
+								name="containerSecDesc"								value="${ncia-core-grid.jboss.home}/server/${ncia-core-grid-secure.jboss.server.name}/deploy/wsrf.war/WEB-INF/etc/globus_wsrf_core/global_security_descriptor.xml"/>
+							]]>
+						</insert>
+						<insert path="/*[local-name()='deployment']/*[local-name()='globalConfiguration']/*[local-name()='requestFlow']/*[local-name()='handler' and @type='java:org.globus.wsrf.handlers.URLMapper']"
+							position="after">
+							<![CDATA[
+							<handler type="java:org.globus.wsrf.impl.security.authentication.transport.TomcatTransportSecurityHandler"
+								xmlns="http://xml.apache.org/axis/wsdd/"/>
+							]]>
+						</insert>
+						
+					</xmltask>
+		
+		
+		<!--copy file="${common.resources.dir}/grid/server-config.wsdd" todir="${wsrf.path}/WEB-INF/etc/globus_wsrf_core/" overwrite="true">
 			<filterset>
 				<filter token="grid.external.secure.host" value="${grid.external.secure.host}" />
 				<filter token="ncia-core-grid.jboss.home" value="${ncia-core-grid.jboss.home}" />
 				<filter token="jboss.server.name" value="${ncia-core-grid-secure.jboss.server.name}" />
 			</filterset>
-		</copy>
+		</copy-->
 		
 		<!--	Change POC Info in	/server/ncicb-app39380/deploy/wsrf.war/WEB-INF/etc/cagrid_NBIAService/serviceMetadata.xml  -->
 		<echo message="Updateing POC info  at ${wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/serviceMetadata.xml" />

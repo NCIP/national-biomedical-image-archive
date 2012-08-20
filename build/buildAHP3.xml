@@ -367,13 +367,20 @@
 	<target name="compute-tag-properties">
 		<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
 		<echo message="nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+		<condition property="build.env">
+			<contains substring="BDALite" string="${properties.file}" />
+		</condition>
 		<if>
-			<isset property="nbia_prod_build_tag" />
+			<and>
+			<isset property="build.env" />
+			<equals arg1="${nbia_prod_build_tag}" arg2=""/>
+			</and>
 			<then>
-				<echo message="set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+				<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
+				<echo message=" AHP3 set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
 			</then>
 			<else>
-				<echo message="!!!!not set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+				<echo message="AHP3 not set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
 			</else>
 		</if>
 		

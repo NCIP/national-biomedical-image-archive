@@ -366,13 +366,17 @@
 	
 	<target name="compute-tag-properties">
 		<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-		<echo message="build.tag =${build.tag}"/>
-		<echo message="build.tag =${p:build.tag}"/>
-		<echo message="build.tag =${p-:build.tag}"/>
-		<echo message="build.tag =${p?:build.tag}"/>
-		<echo message="build.tag =${a:build.tag}"/>
-		<echo message="build.tag =${a?:build.tag}"/>
 		<echo message="nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+		<if>
+			<isset property="nbia_prod_build_tag" />
+			<then>
+				<echo message="set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+			</then>
+			<else>
+				<echo message="!!!!not set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+			</else>
+		</if>
+		
 		<condition property="tagged.file">
 			<contains substring="nbia/tags" string="${nbia_prod_build_tag}" />
 		</condition>

@@ -373,18 +373,16 @@
 		<if>
 			<and>
 			<isset property="build.env" />
-			<equals arg1="${nbia_prod_build_tag}" arg2=""/>
+			<not> <equals arg1="${nbia_prod_build_tag}" arg2=""/></not> 
 			</and>
 			<then>
 				<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
-				<echo message=" AHP3 set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
+				<echo message=" AHP3 set!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
 			</then>
 			<else>
 				<echo message="AHP3 not set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
-			</else>
-		</if>
-		
-		<condition property="tagged.file">
+				
+				<condition property="tagged.file">
 			<contains substring="nbia/tags" string="${nbia_prod_build_tag}" />
 		</condition>
 		<if>
@@ -396,6 +394,12 @@
 				<property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}" />
 			</else>
 		</if>
+		
+		<echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+			</else>
+		</if>
+		
+		
 	</target>
 	
 	<target name="dist:tools:retrieve:jai">

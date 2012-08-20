@@ -27,8 +27,9 @@ abstract class MarkupServlet extends HttpServlet {
      * @param response servlet response
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException
+    throws ServletException, IOException    
     { 
+    	System.out.println("MstkupServlet_doGet--" + request.getQueryString());
         processRequest(request, response);
     }
     
@@ -39,6 +40,7 @@ abstract class MarkupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
     {
+       System.out.println("MstkupServlet_doPost--" + request.getQueryString());
        processRequest(request, response);
     }
     

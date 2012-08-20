@@ -88,6 +88,8 @@ public class ImageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException
     {
+    	logger.debug("ImageServlet--" + request.getQueryString());
+    	System.out.println("ImageServlet--" + request.getQueryString());
         String uid = request.getParameter("uid");
         String usr = request.getParameter("usr");
 

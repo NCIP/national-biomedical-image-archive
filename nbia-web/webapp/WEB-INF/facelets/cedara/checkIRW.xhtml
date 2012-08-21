@@ -116,14 +116,14 @@
   </h:panelGroup>
 
   <div style="text-align: center">
-    <h:commandButton id="sendRequestToIRWButton"  
+    <!--h:commandButton id="sendRequestToIRWButton"  
                      value="#{msg.irwStaus_continue}" 
                      style="display:none" 
                      rendered="#{cedaraBean.local or cedaraBean.fromBasket}" 
                      onclick="this.disabled=true;sendReqToIRW('#{cedaraBean.user}',
                                                               '#{cedaraBean.host}',
                                                               '#{cedaraBean.archiveValue}',
-                                                              '#{cedaraBean.uid}'); return false;" />
+                                                              '#{cedaraBean.uid}'); return false;" /-->
     <h:commandButton id="returnToStudyResultsPageButton" 
                      value="#{msg.irwStaus_return}" 
                      rendered="#{not cedaraBean.fromBasket}" 
@@ -134,6 +134,14 @@
                      action="displayDataBasket" />     
   </div>                                
 </h:form>
+<form id="hidden" method="get" target='popUp' action="http://localhost:8889" >
+  <input type="hidden" name="usr" value="#{cedaraBean.user}"/>
+  <input type="hidden" name="host" value="#{cedaraBean.host}" />
+  <input type="hidden" name="uid" value="#{cedaraBean.uid}" />  
+  <input type="hidden" name="archive" value="#{cedaraBean.archiveValue}" /> 
+  
+ <INPUT TYPE="button" NAME="button" value="#{msg.irwStaus_continue}" onClick="submit();"/>
+</form>
 
 <!-- onload and onerror arent in w3c standard.... -->
 <img src="#{cedaraBean.irwVersion}" 
@@ -153,11 +161,11 @@
      alt=""/>      
 
 
-<form id="hidden" method="post" action="http://localhost:8889" >
+<!--form id="hidden" method="post" action="http://localhost:8889" >
   <input type="hidden" name="usr" value=""/>
   <input type="hidden" name="host" value="" />
   <input type="hidden" name="uid" value="" />  
   <input type="hidden" name="archive" value="" />                                                                      
-</form>
+</form-->
 
 </ui:composition>

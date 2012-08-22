@@ -53,7 +53,7 @@ public class ImageServlet extends HttpServlet {
                     }
                 }
             }
-        } 
+        }
         catch (Exception e) {
             return false;
         }
@@ -89,12 +89,12 @@ public class ImageServlet extends HttpServlet {
     throws ServletException, IOException
     {
     	logger.debug("ImageServlet--" + request.getQueryString());
-    	System.out.println("ImageServlet--" + request.getQueryString());
+
         String uid = request.getParameter("uid");
         String usr = request.getParameter("usr");
 
         ImageDAO imageDao = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
-        
+
         Collection<ImageSecurityDTO> results = imageDao.findImageSecurityBySeriesInstanceUID(uid);
 
         if ((results == null) || results.isEmpty()) {

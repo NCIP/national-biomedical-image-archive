@@ -35,7 +35,7 @@
                   style="display:none; height:75px; width: 75px"/>
 </div>
 
-<h:form id="chkIRWForm">
+<h:form id="chkIRWFormMsg">
 
   <h:panelGroup id="wrongVersionOfCedaraFound"
                 style="display:none">
@@ -114,8 +114,18 @@
     </ol>
     
   </h:panelGroup>
-
+  </h:form>	
   <div style="text-align: center">
+  
+  <form id="sendToIRWForm" method="get" target='popUp' action="http://localhost:8889" >
+    <input type="hidden" name="usr" value="#{cedaraBean.user}"/>
+    <input type="hidden" name="host" value="#{cedaraBean.host}" />
+    <input type="hidden" name="uid" value="#{cedaraBean.uid}" />  
+    <input type="hidden" name="archive" value="#{cedaraBean.archiveValue}" /> 
+    
+   <input type="button" id="sendRequestToIRWButton" value="#{msg.irwStaus_continue}" onClick="submit();"/>
+  </form>
+  <h:form id="chkIRWForm">
     <!--h:commandButton id="sendRequestToIRWButton"  
                      value="#{msg.irwStaus_continue}" 
                      style="display:none" 
@@ -131,34 +141,28 @@
     <h:commandButton id="returnToDataBasketPageButton" 
                      value="#{msg.irwStaus_return_data_basket}" 
                      rendered="#{cedaraBean.fromBasket}" 
-                     action="displayDataBasket" />     
+                     action="displayDataBasket" /> 
+  </h:form>                   
   </div>                                
-</h:form>
-<form id="hidden" method="get" target='popUp' action="http://localhost:8889" >
-  <input type="hidden" name="usr" value="#{cedaraBean.user}"/>
-  <input type="hidden" name="host" value="#{cedaraBean.host}" />
-  <input type="hidden" name="uid" value="#{cedaraBean.uid}" />  
-  <input type="hidden" name="archive" value="#{cedaraBean.archiveValue}" /> 
-  
- <INPUT TYPE="button" NAME="button" value="#{msg.irwStaus_continue}" onClick="submit();"/>
-</form>
+
+
 
 <!-- onload and onerror arent in w3c standard.... -->
 <img src="#{cedaraBean.irwVersion}" 
-     onload="showStartingCedaraPage(document.getElementById('MAINbody:chkIRWForm:startingCedara'),
-                                    document.getElementById('MAINbody:chkIRWForm:sendRequestToIRWButton'))"
+     onload="showStartingCedaraPage(document.getElementById('MAINbody:chkIRWFormMsg:startingCedara'),
+                                    document.getElementById('sendRequestToIRWButton'))"
                                     
-     onerror="showCedaraNotFoundPage(document.getElementById('MAINbody:chkIRWForm:cedaraNotFound'),
-                                     document.getElementById('MAINbody:chkIRWForm:sendRequestToIRWButton'),
+     onerror="showCedaraNotFoundPage(document.getElementById('MAINbody:chkIRWFormMsg:cedaraNotFound'),
+                                     document.getElementById('sendRequestToIRWButton'),
                                      document.getElementById('MAINbody:wrnimage'))" 
      style="visibility:hidden;"
      alt=""/>
 <img src="#{cedaraBean.irwLink}" 
-     onerror="showWrongCedaraVersionPage(document.getElementById('MAINbody:chkIRWForm:wrongVersionOfCedaraFound'),     
-                                         document.getElementById('MAINbody:chkIRWForm:sendRequestToIRWButton'),
+     onerror="showWrongCedaraVersionPage(document.getElementById('MAINbody:chkIRWFormMsg:wrongVersionOfCedaraFound'),     
+                                         document.getElementById('sendRequestToIRWButton'),
                                          document.getElementById('MAINbody:wrnimage'))"
      style="visibility:hidden;"
-     alt=""/>      
+     alt=""/>
 
 
 <!--form id="hidden" method="post" action="http://localhost:8889" >

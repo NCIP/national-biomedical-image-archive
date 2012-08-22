@@ -94,13 +94,27 @@
 
     <dependency org="org.icefaces"
                 name="icefaces"
-                rev="1.8.2"
+                rev="1.8.3nci"
                 conf="compile->master;runtime->master"/>
-
-
+    
+    <dependency org ="backport-util-concurrent"
+		name="backport-util-concurrent"
+		rev="2.2"
+		conf="compile->master;runtime->master"/>
+    
+    <dependency org="com.sun.xml.fastinfoset" 
+    		name="FastInfoset" 
+    		rev="1.2.2" 
+    		conf="compile->master;runtime->master"/>
+    
+    <dependency org="commons-fileupload" 
+    		name="commons-fileupload" 
+    		rev="1.2.1"  
+    		conf="compile->master;runtime->master"/>
+    		
     <dependency org="org.icefaces"
                 name="icefaces"
-                rev="1.8.2"
+                rev="1.8.3nci"
                 conf="compile->master;runtime->master"/>
     <!-- we had these from old repo, but not listed as dependency in maven repo.
          i guess this el stuff may be particular to how we have jboss 4.0.x setup? -->
@@ -115,7 +129,7 @@
 
     <dependency org="org.icefaces"
                 name="icefaces-comps"
-                rev="1.8.2"
+                rev="1.8.3nci"
                 conf="compile->master;runtime->master"/>
     <dependency org="org.icefaces"
                 name="icefaces-facelets"

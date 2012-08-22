@@ -406,6 +406,7 @@
 		<get src="${jai.linux.src.url}" dest="${jai.linux.dest.file}" />
 		<get src="${jai.windows.src.url}" dest="${jai.windows.dest.file}" />
 	</target>
+	
 	<target name="build:nbia-ctp" depends="init,
                                          build:nbia-util,
                                          build:nbia-domain,
@@ -517,6 +518,11 @@
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Server/CTP">
 			<fileset dir="${common.dir}/resources/ctp/server">
 				<include name="ctp.*" />
+			</fileset>
+		</copy>
+		<copy todir="${nbia-ctp.dist.dir}/CTP_Server/CTP/examples">
+			<fileset dir="${common.dir}/resources/ctp/server">
+				<include name="example*" />
 			</fileset>
 		</copy>
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/org" />

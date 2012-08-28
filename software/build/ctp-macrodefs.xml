@@ -12,7 +12,7 @@
       <sleep seconds="5" />
 
       <var name="ctp.@{server.or.client}.exists" unset="true"/>
-      <available file="@{ctp.home}/CTP/CTP.jar" property="ctp.@{server.or.client}.exists"/>
+      <available file="@{ctp.home}/CTP/Runner.jar" property="ctp.@{server.or.client}.exists"/>
       <if>
         <isset property="ctp.@{server.or.client}.exists"/>
         <then>    
@@ -121,13 +121,13 @@
     <echo file="@{ctp.client.home}/CTP/ctp.bat">  
       <![CDATA[
       echo Starting CTP Client...
-      java -Xmx512m -jar CTP.jar
+      java -Xmx512m -jar Runner.jar
       ]]>          
       </echo>      
       <echo file="@{ctp.client.home}/CTP/ctp.sh">
       <![CDATA[
       #!/bin/sh
-      nohup java -Xmx512m -jar CTP.jar &
+      nohup java -Xmx512m -jar Runner.jar &
       ]]>
       </echo>     
     </sequential>

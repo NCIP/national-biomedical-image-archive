@@ -22,6 +22,7 @@
   <target name="install:ctp:server:post" unless="exclude.ctp">
 
     <ctp-create-change-logs/>
+    <delete dir="${ctp.server.home}/config" quiet="true" />
 
   </target>
 
@@ -43,6 +44,7 @@
                             exclude.backup="${exclude.ctp.client.backup}"
                             backup.ctp.base.dir="${backup.ctp.client.base.dir}"
                             ctp.home.dirname="${ctp.client.home.dirname}"/>
+    <delete dir="${ctp.client.home}/config" quiet="true" />                            
   </target>
 
 
@@ -140,7 +142,7 @@
         <echo file="${ctp.server.home}/CTP/ctp.sh">
         <![CDATA[
 #!/bin/sh
-nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$JAVA_HOME/jre/lib/ext" -jar CTP.jar &
+nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$JAVA_HOME/jre/lib/ext" -jar Runner.jar &
         ]]>
         </echo>
       </case>
@@ -153,7 +155,7 @@ nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$
         <echo file="${ctp.server.home}/CTP/ctp.bat">
         <![CDATA[
 echo Starting CTP Server...
-java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_HOME%/jre/lib/ext" -jar CTP.jar
+java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_HOME%/jre/lib/ext" -jar Runner.jar
         ]]>
         </echo>
       </case>

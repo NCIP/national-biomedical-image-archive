@@ -76,7 +76,6 @@
                 rev="T32"
                 conf="compile->master;runtime->master"/>
 
-
     <dependency org="mysql"
                 name="mysql-connector-java"
                 rev="5.1.5"
@@ -96,16 +95,17 @@
                 name="nbia-util"
                 rev="latest.integration"
                 conf="test->master"/>
-
-    <dependency org="rsna"
+                
+   <dependency org="rsna"
                 name="ctp"
-                rev="X42"
+                rev="X45"
                 conf="compile,test->master;"/>
 
     <dependency org="rsna"
                 name="ctp-installer"
-                rev="X42"
+                rev="X45"
                 conf="compile->master;runtime->master"/>
+             
 
     <dependency org="org.springframework"
                     name="spring-aop"
@@ -173,8 +173,6 @@
 		rev="1.0"
                 conf="compile->master;runtime->master"/>           
 
-
-    
         <dependency org="org.springframework"
                     name="spring-test"
                     rev="3.1.1.RELEASE"
@@ -184,12 +182,12 @@
                 name="c3p0"
                 rev="0.9.1.2"
                 conf="compile->master;runtime->master"/>
-
-    <dependency org="rsna"
+                
+	<dependency org="rsna"
                 name="util"
-                rev="X42"
+                rev="X45"
                 conf="compile,test->master;"/>
-
+                
  <!-- garbage from log4j as second order dependency -->
     <exclude org="javax.jms" module="jms"/>
     <exclude org="com.sun.jdmk" module="jmxtools"/>

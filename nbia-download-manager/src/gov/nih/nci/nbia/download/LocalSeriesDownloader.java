@@ -348,12 +348,12 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 				System.out.println(this.seriesInstanceUid+" total size of image files mismatch.  Was "+downloadedImgSize+" should be "+imagesSize);
 				error();
 			}
-			*/
+			
             else if (downloadedAnnoSize != annoSize) {
                 additionalInfo.append(" total size of annotation files mismatch.  Was "+downloadedAnnoSize+" should be "+annoSize+"\n");
                 System.out.println(this.seriesInstanceUid + additionalInfo);
                 error();
-            }
+            }*/
         }
         // End lrt additions
     }

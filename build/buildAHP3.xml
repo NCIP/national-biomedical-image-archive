@@ -451,6 +451,11 @@
 				<include name="ctp.*" />
 			</fileset>
 		</copy>
+		<copy todir="${nbia-ctp.dist.dir}/CTP_Client/CTP/examples" overwrite="true">
+			<fileset dir="${common.dir}/resources/ctp/client">
+				<include name="example*" />
+			</fileset>
+		</copy>
 		<copy file="${common.dir}/resources/ctp/client/users.xml" todir="${nbia-ctp.dist.dir}/CTP_Client/CTP">
 			<filterset>
 				<filter token="ctp.client.admin.username" value="${ctp.client.admin.username}" />
@@ -470,6 +475,7 @@
 		</copy>
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/org" />
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/META-INF" />
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/config" />
 		<!-- copy and configure FileSender files -->
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Client/FileSender">
 			<fileset dir="${nbia-ctp.dist.dir}/FileSender" />
@@ -520,13 +526,14 @@
 				<include name="ctp.*" />
 			</fileset>
 		</copy>
-		<copy todir="${nbia-ctp.dist.dir}/CTP_Server/CTP/examples">
+		<copy todir="${nbia-ctp.dist.dir}/CTP_Server/CTP/examples" overwrite="true">
 			<fileset dir="${common.dir}/resources/ctp/server">
 				<include name="example*" />
 			</fileset>
 		</copy>
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/org" />
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/META-INF" />
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/config" />
 		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/logs" />
 		<!-- for default index dir -->
 		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/index" />

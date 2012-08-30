@@ -4,6 +4,7 @@ import gov.nih.nci.cagrid.discovery.client.DiscoveryClient;
 import gov.nih.nci.cagrid.metadata.MetadataUtils;
 import gov.nih.nci.cagrid.metadata.ServiceMetadata;
 import gov.nih.nci.cagrid.ncia.client.NCIACoreServiceClient;
+import gov.nih.nci.nbia.dao.AnnotationDAO;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
@@ -16,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.axis.message.addressing.EndpointReferenceType;
+import org.apache.log4j.Logger;
 
 /**
  * This object is responsible for talking to the index server and capturing
@@ -43,7 +45,7 @@ public class RemoteNodes {
 
 		EndpointReferenceType[] endpoints = discoveryClient.discoverServicesByName("NCIACoreService");
 		if(endpoints==null) {
-			System.out.println("Discovery service returns null endpoint array which I guess means no matches.");
+			logger.debug("Discovery service returns null endpoint array which I guess means no matches.");
 			return;
 		}
 
@@ -55,24 +57,24 @@ public class RemoteNodes {
 				String version = serviceMetadata.getServiceDescription().getService().getVersion();
 	    		String url = endpoint.getAddress().toString();
 	    		String supportedVersion = NCIAConfig.getRemoteNodeCaGridVersion();
-	    		System.out.println("url - version" + url + version + "supported Version="+supportedVersion);
+	    		System.out.println("url - version " + url + version + " supported Version="+supportedVersion);
 	    		Pattern pattern = Pattern.compile(version);
 	    		Matcher matcher = pattern.matcher(supportedVersion);
 	    	
 				if(!matcher.find() ||
 			       url.equals(NCIAConfig.getLocalGridURI())) {
-				   System.out.println("url - version" + url + version + " supported version="+supportedVersion);
-				   System.out.println("**************caGrid version of the node is not in supported");
+				   logger.debug("url - version " + url + version + " supported version="+supportedVersion);
+				   logger.debug("**************caGrid version of the node is not in supported");
 				}
 				else {
-					System.out.println("Retrieving search terms from:"+endpoint.getAddress());
+					logger.debug("Retrieving search terms from:"+endpoint.getAddress());
 					long before = System.currentTimeMillis();
 					AvailableSearchTerms availableSearchTerms = retrieveAvailableSearchTerms(endpoint);
-					System.out.println("!!!!complete Retrieving search terms from:"+endpoint.getAddress());	
+					logger.debug("!!!!complete Retrieving search terms from:"+endpoint.getAddress());	
 					UsAvailableSearchTerms usAvailableSearchTerms = retrieveUsAvailableSearchTerms(endpoint);
 					//UsAvailableSearchTerms usAvailableSearchTerms = null;
 					long after = System.currentTimeMillis();
-					System.out.println("retrieveAvailableSearchTerms time lapse:"+(after-before));
+					logger.debug("retrieveAvailableSearchTerms time lapse:"+(after-before));
 					//DumpUtil.debug(availableSearchTerms);
 
 
@@ -85,8 +87,9 @@ public class RemoteNodes {
 			}
 			catch(Throwable ex) {
 				//	if any one fails, keep going and just don't add it to list
-				//	log that node was foudn but couldnt get info
-				ex.printStackTrace();
+				//	log that node was found but couldnt get info
+				logger.debug("node" + endpoint.getAddress()+ " was found but couldnt get info");
+				//ex.printStackTrace();
 			}
 		}
 		synchronized(lock) {
@@ -136,7 +139,6 @@ public class RemoteNodes {
 	 */
 	private RemoteNodes(String indexServerUrl)  {
 		try {
-			System.out.println("Using indexServerUrl:"+indexServerUrl);
 			discoveryClient = new DiscoveryClient(indexServerUrl);
 		}
 		catch(Exception ex){
@@ -173,8 +175,10 @@ public class RemoteNodes {
 			usAvailableSearchTerms = nciaCoreServiceClient.getUsAvailableSearchTerms();
 		}
 		catch (Exception e){
-			System.out.println("!!!!! no ultrasound data in system");
+			logger.debug("!!!!! no ultrasound data in system");
 		}
 		return usAvailableSearchTerms; 
 	}
+	
+	private static Logger logger = Logger.getLogger(RemoteNodes.class);
 }

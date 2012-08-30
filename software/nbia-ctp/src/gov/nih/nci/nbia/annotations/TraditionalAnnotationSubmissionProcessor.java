@@ -29,7 +29,7 @@ public class TraditionalAnnotationSubmissionProcessor extends HibernateDaoSuppor
 	    String studyInstanceUID = AnnotationUtil.getStudyInstanceUID(document);
 
 	    return processImpl(studyInstanceUID,
-	    		           seriesInstanceUID,
+    		           	   seriesInstanceUID,
 	    		           storedFile,
 	    		           file.getFile());
 	}
@@ -123,7 +123,13 @@ public class TraditionalAnnotationSubmissionProcessor extends HibernateDaoSuppor
 			                       String fileName,
 			                       long fileSize) {
 		Annotation annotation = (Annotation)SpringApplicationContext.getBean("annotation");
-        annotation.setAnnotationType("XML");
+		if (fileName.toUpperCase().endsWith(".XML")) {
+			annotation.setAnnotationType("XML");
+		}
+		else if (fileName.toUpperCase().endsWith(".ZIP")) {
+			annotation.setAnnotationType("ZIP");
+		}	
+			
         annotation.setFilePath(fileName);
         Integer i = Integer.valueOf((int)fileSize);
         annotation.setFileSize(i);

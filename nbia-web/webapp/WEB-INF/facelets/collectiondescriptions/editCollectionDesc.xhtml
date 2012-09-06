@@ -47,14 +47,24 @@
               <br/>
             </td>
           </tr>
+           <tr>
+           
+            <td>
+              <ice:outputLabel value="Toolbar Selection:"/>
+                 <ice:selectOneMenu  id="toolbarIn" 
+                                     partialSubmit="true"
+                                     value="#{collectionDescBean.toolbar}">
+                      <f:selectItems value="#{collectionDescBean.availableToolbars}"/>
+                 </ice:selectOneMenu>
+             </td>
+          </tr>
           <tr>
             <td>
               <ice:inputRichText id="inputRichTxtId" 
                                  saveOnSubmit="true" 
                                  height="275"
                                  width="600"
-                                 toolbar="NBIAToolbar"
-                                 customConfigPath="/js/config.js"
+                                 toolbar="#{collectionDescBean.toolbar}"
                                  binding="#{collectionDescBean.inputRichText}" 
                                  value="#{collectionDescBean.selectedCollection.description}" 
                                  skin="silver"/>

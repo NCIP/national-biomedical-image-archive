@@ -169,4 +169,18 @@ public class CollectionDescBean {
 	public void setSelectedCollectionName(String selectedCollectionName) {
 		this.selectedCollectionName = selectedCollectionName;
 	}
+    private SelectItem[] availableToolbars = new SelectItem[] {
+        new SelectItem("Basic", "Basic"),
+        new SelectItem("Default", "Rich")
+    };
+    private String toolbar = availableToolbars[0].getValue().toString();
+    public String getToolbar() {
+        return toolbar; 
+    }
+    public SelectItem[] getAvailableToolbars() { 
+        return availableToolbars; 
+    }
+    public void setToolbar(String toolbar) { 
+        this.toolbar = toolbar; 
+    }
 }

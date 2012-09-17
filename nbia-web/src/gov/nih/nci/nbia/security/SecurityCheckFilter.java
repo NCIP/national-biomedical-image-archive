@@ -133,6 +133,7 @@ public class SecurityCheckFilter implements Filter {
                !checkforloginpage.endsWith("qcViewSeries.jsf") &&
                !checkforloginpage.endsWith("viewSeriesPopup.jsf") &&
                !checkforloginpage.endsWith("download.jsp") &&
+               !checkforloginpage.endsWith("dataBasketDisplay.jsf") &&
                checkforloginpage.endsWith(".jsf");
     }
 }

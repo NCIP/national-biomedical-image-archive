@@ -129,6 +129,10 @@ public class SecurityCheckFilter implements Filter {
                !checkforloginpage.endsWith("welcome.jsf") &&
                !checkforloginpage.endsWith("registerMain.jsf") &&
                !checkforloginpage.endsWith("accountSupport.jsf") &&
+               !checkforloginpage.endsWith("showDicom.jsf") &&
+               !checkforloginpage.endsWith("qcViewSeries.jsf") &&
+               !checkforloginpage.endsWith("viewSeriesPopup.jsf") &&
+               !checkforloginpage.endsWith("download.jsp") &&
                checkforloginpage.endsWith(".jsf");
     }
 }

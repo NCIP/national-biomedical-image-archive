@@ -4,8 +4,11 @@ package gov.nih.nci.nbia.security;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -74,7 +77,28 @@ public class SecurityCheckFilter implements Filter {
             	httpServletResponse.sendRedirect("/ncia/login.jsf");
                 return;
             }
-        }
+            else {
+				// Change the session ID for fixing sessionID fixation problem
+				HashMap<String, Object> attributes = new HashMap<String, Object>();
+				// copy/save all attributes
+				Enumeration<String> enames = session.getAttributeNames();
+				while (enames.hasMoreElements()) {
+					String name = enames.nextElement();
+					if (!name.equals("JSESSIONID")) {
+						attributes.put(name, session.getAttribute(name));
+					}
+				}
+				// invalidate the session
+				session.invalidate();
+
+				// create a new session
+				session = hreq.getSession(true);
+				// "restore" the session values
+				for (Map.Entry<String, Object> et : attributes.entrySet()) {
+					session.setAttribute(et.getKey(), et.getValue());
+				}
+			}
+		}
 
         // deliver request to next filter
         chain.doFilter(request, response);

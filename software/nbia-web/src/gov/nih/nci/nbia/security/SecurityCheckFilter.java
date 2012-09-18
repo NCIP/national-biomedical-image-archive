@@ -46,6 +46,7 @@ public class SecurityCheckFilter implements Filter {
 
         HttpServletRequest hreq = (HttpServletRequest) request;
         HttpSession session = hreq.getSession();
+        String referer = hreq.getHeader("referer");
 
         String checkforloginpage = hreq.getServletPath();
 
@@ -77,7 +78,8 @@ public class SecurityCheckFilter implements Filter {
             	httpServletResponse.sendRedirect("/ncia/login.jsf");
                 return;
             }
-            else {
+            else if (referer.endsWith("login.jsf"))
+            {
 				// Change the session ID for fixing sessionID fixation problem
 				HashMap<String, Object> attributes = new HashMap<String, Object>();
 				// copy/save all attributes
@@ -129,11 +131,6 @@ public class SecurityCheckFilter implements Filter {
                !checkforloginpage.endsWith("welcome.jsf") &&
                !checkforloginpage.endsWith("registerMain.jsf") &&
                !checkforloginpage.endsWith("accountSupport.jsf") &&
-               !checkforloginpage.endsWith("showDicom.jsf") &&
-               !checkforloginpage.endsWith("qcViewSeries.jsf") &&
-               !checkforloginpage.endsWith("viewSeriesPopup.jsf") &&
-               !checkforloginpage.endsWith("download.jsp") &&
-               !checkforloginpage.endsWith("dataBasketDisplay.jsf") &&
-               checkforloginpage.endsWith(".jsf");
+              checkforloginpage.endsWith(".jsf");
     }
 }

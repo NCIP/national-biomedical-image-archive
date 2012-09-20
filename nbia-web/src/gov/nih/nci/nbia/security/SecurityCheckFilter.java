@@ -8,6 +8,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -46,10 +49,18 @@ public class SecurityCheckFilter implements Filter {
 
         HttpServletRequest hreq = (HttpServletRequest) request;
         HttpSession session = hreq.getSession();
-        String referer = hreq.getHeader("referer");
-
+           
         String checkforloginpage = hreq.getServletPath();
-
+        String referer = (String)session.getAttribute("previous");
+        System.out.println("!!!!previous= "+ referer);
+        
+        System.out.println("!!!!Now = "+ checkforloginpage);
+//        if (referer == null) {
+//        	
+//        	referer = "";
+//        }
+        session.setAttribute("previous", checkforloginpage);
+      
         logger.info("session:"+session.getId());
     	logger.info("request:"+hreq.getRequestURL());
     	logger.info("checkforloginpage:"+checkforloginpage);
@@ -78,7 +89,8 @@ public class SecurityCheckFilter implements Filter {
             	httpServletResponse.sendRedirect("/ncia/login.jsf");
                 return;
             }
-            else if (referer.endsWith("login.jsf"))
+            
+            if (loggedIn && referer.endsWith("login.jsf") && checkforloginpage.endsWith("home.jsf"))
             {
 				// Change the session ID for fixing sessionID fixation problem
 				HashMap<String, Object> attributes = new HashMap<String, Object>();
@@ -90,6 +102,7 @@ public class SecurityCheckFilter implements Filter {
 						attributes.put(name, session.getAttribute(name));
 					}
 				}
+				
 				// invalidate the session
 				session.invalidate();
 
@@ -105,6 +118,16 @@ public class SecurityCheckFilter implements Filter {
         // deliver request to next filter
         chain.doFilter(request, response);
     }
+    
+    public void refresh() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Application application = context.getApplication();
+        ViewHandler viewHandler = application.getViewHandler();
+        UIViewRoot viewRoot = viewHandler.createView(context, context
+         .getViewRoot().getViewId());
+        context.setViewRoot(viewRoot);
+        context.renderResponse(); //Optional
+      }
 
     private static Map<String, Object> saveRequestInfo(HttpServletRequest httpServletRequest) {
     	Map<String, Object>  originalRequestMap = new HashMap<String, Object> ();

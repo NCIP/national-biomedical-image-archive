@@ -118,7 +118,6 @@ public class ZipManager extends Thread {
         logger.info("Starting to zip: " + destinationFile);
         long startTime = System.currentTimeMillis();
 
-
         AbstractFileZipper zipit = FileZipperFactory.getInstance();
         // Initialize zipper
         try {
@@ -334,7 +333,9 @@ public class ZipManager extends Thread {
                    image.getFileURI(),
                    image.getSize(),
                    StringUtil.displayAsSixDigitString(imageCnt) + ".dcm");
-           fireProgressEvent();
+           if ( (imageCnt+1) < imageList.size()) {
+        	   fireProgressEvent();
+           }
            imageCnt += 1;
         }
     }
@@ -436,7 +437,7 @@ public class ZipManager extends Thread {
         for(ZipManagerListener listener : listeners) {
             listener.completed();
         }
-        listeners.clear();
+        //listeners.clear();
     }
 
     private void fireProgressEvent() {

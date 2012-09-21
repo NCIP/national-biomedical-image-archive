@@ -1,4 +1,5 @@
 package gov.nih.nci.nbia.beans.basket;
+
 import gov.nih.nci.nbia.zip.ZipManager;
 
 import com.icesoft.faces.async.render.SessionRenderer;
@@ -24,9 +25,8 @@ public class ZipManagerProgressManager implements ZipManager.ZipManagerListener 
 		//let ui set this
         //basketBean.setDownloading(false);
 		System.out.println("completed zipping!!!");
-        SessionRenderer.render(ALL);
+        SessionRenderer.render(ALL);       
 	}
-
-
+	
 	private static final String ALL = "all";
 }

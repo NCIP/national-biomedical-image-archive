@@ -4,7 +4,7 @@
          basedir="."
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <property name="ctp.dir.name" value="tempCTPX48"/>
+  <property name="ctp.dir.name" value="tempCTPX49"/>
 
   <property name="src.dir" value="src"/>
   <property name="conf.dir" value="conf"/>
@@ -128,7 +128,7 @@
     <echo message="*                unzip ctp-installer.jar               *"/>
     <echo message="********************************************************"/>
     <mkdir dir="${ctp.dir.name}"/>
-    <unjar src="${project.lib.dir}/compile/ctp-installer-X48.jar" dest="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X49.jar" dest="${ctp.dir.name}"/>
   </target>
   
    <target name="compile" depends="clean,init, ivy-compile">
@@ -145,7 +145,7 @@
     <echo message="*                unzip ctp-installer.jar               *"/>
     <echo message="********************************************************"/>
     <mkdir dir="${ctp.dir.name}"/>
-    <unjar src="${project.lib.dir}/compile/ctp-installer-X48.jar" dest="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X49.jar" dest="${ctp.dir.name}"/>
   </target>
 
   <target name="config-db">

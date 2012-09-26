@@ -44,13 +44,14 @@ public class CsrfCheckFilter implements Filter {
         System.out.println("$$$$$$$$$$$current req"+  currentPage);
         System.out.println("$$$$$$$$$$$url="+url);
         
+        
         if (!shouldApplyFilter(currentPage)) {
         	chain.doFilter(request, response);
         }
-        else if ((referer != null) && referer.startsWith(serverLoc) && url.startsWith(serverLoc)) {
+        else if ((referer == null)) {
         	chain.doFilter(request, response);
         }
-        else if ((referer == null) && url.startsWith(serverLoc)) {
+        else if ((referer != null) && referer.startsWith(serverLoc)) {
         	chain.doFilter(request, response);
         }
         else if (referer != null && !referer.startsWith(serverLoc)){

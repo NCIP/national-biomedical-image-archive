@@ -103,11 +103,12 @@ public class AnnotationOperation extends DomainOperation implements AnnotationOp
         	}
 	    	else 
     		if (ret.size() > 1) {
-    			throw new Exception("series table has duplicate records, please contact Data Team to fix data, then upload data again");
+    			throw new Exception("Annotation submission failed -- series table has duplicate records, please contact Data Team to fix data, then upload data again");
 	    	}
         }
         else {
-        	throw new Exception("Annotation cannot be submitted before an image from its series (anymore).  Series Instance UID:"+annotation.getSeriesInstanceUID());
+        	throw new Exception("Annotation submission failed -- GeneralSeries table does not have matching record for " + "Series Instance UID:"+annotation.getSeriesInstanceUID()
+        	+"\nAnnotation cannot be submitted before an image from its series (anymore).");
         }
         
         //make sure the series link to right study
@@ -122,13 +123,14 @@ public class AnnotationOperation extends DomainOperation implements AnnotationOp
                 }        	
             }
             else {
-            	log.error("Annotation file submitted: studyInstance UID (" + studyInstanceUID + ") is different with studyInstance UID in database (" + study.getStudyInstanceUID()+")");
-            	throw new Exception ("Annotation file submitted: studyInstance UID (" + studyInstanceUID + ") is different with studyInstance UID in database (" + study.getStudyInstanceUID()+")");
+            	log.error("Annotation submission failed -- study instance UID in annotation file:" + studyInstanceUID +" is different with studyInstance UID in database (" + study.getStudyInstanceUID()+")");
+            	throw new Exception ("Annotation submission failed -- study instance UID in annotation file:" + studyInstanceUID +" is different from studyInstance UID in database (" + study.getStudyInstanceUID()+")\n"+
+            	"The prossible cause of the error is that the uid of annotation file is not unique. It conflict with the annotation uid for study "+ study.getStudyInstanceUID());
             }
         }
         //first one should probably take care of things
         else {
-        	throw new Exception("Annotation cannot be submitted before an image from its series (anymore).  Series Instance UID:"+annotation.getSeriesInstanceUID());
+        	throw new Exception("Annotation submission failed -- null study with given series.  Series Instance UID:"+annotation.getSeriesInstanceUID());
         }  
 	}	
 }

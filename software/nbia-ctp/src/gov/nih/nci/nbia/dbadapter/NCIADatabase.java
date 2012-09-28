@@ -77,8 +77,7 @@ public class NCIADatabase extends DatabaseAdapter{
     	Status status = Status.OK;
     	
     	try{
-    		delegator.process(file, storedFile, url);
-    		status = Status.OK;
+    		status = delegator.process(file, storedFile, url);
     	}catch(RuntimeException rx){
     		log.error("XML Submission Failed!");
     		status = Status.FAIL;

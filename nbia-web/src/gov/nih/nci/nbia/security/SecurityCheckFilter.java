@@ -52,9 +52,9 @@ public class SecurityCheckFilter implements Filter {
            
         String checkforloginpage = hreq.getServletPath();
         String referer = (String)session.getAttribute("previous");
-        System.out.println("!!!!previous= "+ referer);
+        logger.debug("!!!!previous= "+ referer);
         
-        System.out.println("!!!!Now = "+ checkforloginpage);
+        logger.debug("!!!!Now = "+ checkforloginpage);
 //        if (referer == null) {
 //        	
 //        	referer = "";
@@ -82,7 +82,15 @@ public class SecurityCheckFilter implements Filter {
             }
             logger.info("loggedIn:"+loggedIn);
             if (!loggedIn) {
-            	session.setAttribute("originalRequest", saveRequestInfo(hreq));
+            	//get the value of request
+            	Map<String, Object> orgReq =saveRequestInfo(hreq);
+            	// invalidate the session
+				session.invalidate();
+				if(referer != null) {
+					// create a new session
+					session = hreq.getSession(true);
+					session.setAttribute("originalRequest", orgReq);
+				}
             	//RequestDispatcher rd = request.getRequestDispatcher("/login.jsf");
             	//rd.forward(request, response);
             	HttpServletResponse httpServletResponse = (HttpServletResponse)response;

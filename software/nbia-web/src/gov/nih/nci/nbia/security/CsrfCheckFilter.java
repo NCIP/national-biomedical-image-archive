@@ -40,9 +40,9 @@ public class CsrfCheckFilter implements Filter {
         String serverLoc=NCIAConfig.getImageServerUrl();
         String url = hreq.getRequestURL().toString();
         
-        System.out.println("$$$$$$$$$$$referer= "+ referer);
-        System.out.println("$$$$$$$$$$$current req"+  currentPage);
-        System.out.println("$$$$$$$$$$$url="+url);
+        //System.out.println("$$$$$$$$$$$referer= "+ referer);
+        //System.out.println("$$$$$$$$$$$current req"+  currentPage);
+        //System.out.println("$$$$$$$$$$$url="+url);
         
         
         if (!shouldApplyFilter(currentPage)) {
@@ -55,12 +55,12 @@ public class CsrfCheckFilter implements Filter {
         	chain.doFilter(request, response);
         }
         else if (referer != null && !referer.startsWith(serverLoc)){
-        	System.out.print("CSRF attack!");
+        	logger.info("CSRF attack! Found hidden site:" + referer);
         	((HttpServletResponse)response).sendRedirect(serverLoc+"/ncia/csrfErrorPage.jsp?hiddenSite="+referer);
         }
         else {
-        	System.out.println("?????????how reached here url="+url);
-        	System.out.println("??????????how reached here referer="+referer);
+        	logger.info("?????????CsrfCheckFilter--how reached here url="+url);
+        	logger.info("??????????CsrfCheckFilter--how reached here referer="+referer);
         }
     }
     

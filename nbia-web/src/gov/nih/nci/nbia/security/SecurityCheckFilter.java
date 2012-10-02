@@ -93,6 +93,7 @@ public class SecurityCheckFilter implements Filter {
 //				}
 //            	//RequestDispatcher rd = request.getRequestDispatcher("/login.jsf");
             	//rd.forward(request, response);
+            	session.setAttribute("originalRequest", saveRequestInfo(hreq));
             	HttpServletResponse httpServletResponse = (HttpServletResponse)response;
             	httpServletResponse.sendRedirect("/ncia/login.jsf");
                 return;

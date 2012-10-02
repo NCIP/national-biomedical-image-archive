@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+//import javax.servlet.ServletContext;
+//import javax.servlet.http.HttpServletResponse;
 
 /**
  * This encapsulates the logic that needs to run in the SecurityBean.login
@@ -21,20 +21,22 @@ class LoginRedirector {
     void afterLoginRedirect() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
-		ServletContext servletContext = (ServletContext)externalContext.getContext();
+		//ServletContext servletContext = (ServletContext)externalContext.getContext();
 		Map sessionMap = externalContext.getSessionMap();
 		Map originalRequestMap = (Map)sessionMap.get("originalRequest");
 		//System.out.println("originalRequest:"+originalRequestMap);
 
-		HttpServletResponse response = (HttpServletResponse)externalContext.getResponse();
+		//HttpServletResponse response = (HttpServletResponse)externalContext.getResponse();
 
 		if(originalRequestMap!=null) {
 			//should have leading slash
 			try {
 				//System.out.println("redirect:"+originalRequestMap.get("servletPath"));
-				response.sendRedirect("/"+
-						              servletContext.getServletContextName()+
-						              originalRequestMap.get("servletPath"));
+				String redirectURL = "/ncia"+ originalRequestMap.get("servletPath");
+				externalContext.redirect(redirectURL);
+//				response.sendRedirect("/"+
+//						              servletContext.getServletContextName()+
+//						              originalRequestMap.get("servletPath"));
 			}
 			catch(IOException ex) {
 				ex.printStackTrace();

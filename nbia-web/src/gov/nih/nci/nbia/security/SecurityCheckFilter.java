@@ -83,15 +83,15 @@ public class SecurityCheckFilter implements Filter {
             logger.info("loggedIn:"+loggedIn);
             if (!loggedIn) {
             	//get the value of request
-            	Map<String, Object> orgReq =saveRequestInfo(hreq);
-            	// invalidate the session
-				session.invalidate();
-				if(referer != null) {
-					// create a new session
-					session = hreq.getSession(true);
-					session.setAttribute("originalRequest", orgReq);
-				}
-            	//RequestDispatcher rd = request.getRequestDispatcher("/login.jsf");
+//            	Map<String, Object> orgReq =saveRequestInfo(hreq);
+//            	// invalidate the session
+//				session.invalidate();
+//				if(referer != null) {
+//					// create a new session
+//					session = hreq.getSession(true);
+//					session.setAttribute("originalRequest", orgReq);
+//				}
+//            	//RequestDispatcher rd = request.getRequestDispatcher("/login.jsf");
             	//rd.forward(request, response);
             	HttpServletResponse httpServletResponse = (HttpServletResponse)response;
             	httpServletResponse.sendRedirect("/ncia/login.jsf");

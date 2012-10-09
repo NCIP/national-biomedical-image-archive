@@ -39,12 +39,7 @@ public class CsrfCheckFilter implements Filter {
         String referer = hreq.getHeader("referer");
         String serverLoc=NCIAConfig.getImageServerUrl();
         String url = hreq.getRequestURL().toString();
-        
-        //System.out.println("$$$$$$$$$$$referer= "+ referer);
-        //System.out.println("$$$$$$$$$$$current req"+  currentPage);
-        //System.out.println("$$$$$$$$$$$url="+url);
-        
-        
+       
         if (!shouldApplyFilter(currentPage)) {
         	chain.doFilter(request, response);
         }
@@ -55,8 +50,17 @@ public class CsrfCheckFilter implements Filter {
         	chain.doFilter(request, response);
         }
         else if (referer != null && !referer.startsWith(serverLoc)){
-        	logger.info("CSRF attack! Found hidden site:" + referer);
-        	((HttpServletResponse)response).sendRedirect(serverLoc+"/ncia/csrfErrorPage.jsp?hiddenSite="+referer);
+        	  System.out.println("$$$$$$$$$$$serverLoc= "+ serverLoc);
+              System.out.println("$$$$$$$$$$$referer= "+ referer);
+              System.out.println("$$$$$$$$$$$current req"+  currentPage);
+              System.out.println("$$$$$$$$$$$url="+url);
+              if (url.contains("/ncia/publicThumbnails?imageId=") || url.contains("/ncia/thumbnailViewer?location=")){
+            	  chain.doFilter(request, response); 
+              }
+              else {        	
+            	  logger.info("CSRF attack! Found hidden site:" + referer);
+            	  ((HttpServletResponse)response).sendRedirect(serverLoc+"/ncia/csrfErrorPage.jsp?hiddenSite="+referer);
+              }
         }
         else {
         	logger.info("?????????CsrfCheckFilter--how reached here url="+url);

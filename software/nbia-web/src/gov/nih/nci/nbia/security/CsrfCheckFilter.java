@@ -54,7 +54,7 @@ public class CsrfCheckFilter implements Filter {
               System.out.println("$$$$$$$$$$$referer= "+ referer);
               System.out.println("$$$$$$$$$$$current req"+  currentPage);
               System.out.println("$$$$$$$$$$$url="+url);
-              if (url.contains("/ncia/publicThumbnails?imageId=") || url.contains("/ncia/thumbnailViewer?location=")){
+              if (url.contains("/ncia/publicThumbnails") || url.contains("/ncia/thumbnailViewer")){
             	  chain.doFilter(request, response); 
               }
               else {        	

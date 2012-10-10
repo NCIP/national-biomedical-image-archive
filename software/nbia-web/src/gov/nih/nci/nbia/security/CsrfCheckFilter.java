@@ -50,10 +50,10 @@ public class CsrfCheckFilter implements Filter {
         	chain.doFilter(request, response);
         }
         else if (referer != null && !referer.startsWith(serverLoc)){
-        	  System.out.println("$$$$$$$$$$$serverLoc= "+ serverLoc);
-              System.out.println("$$$$$$$$$$$referer= "+ referer);
-              System.out.println("$$$$$$$$$$$current req"+  currentPage);
-              System.out.println("$$$$$$$$$$$url="+url);
+        	  //System.out.println("$$$$$$$$$$$serverLoc= "+ serverLoc);
+              //System.out.println("$$$$$$$$$$$referer= "+ referer);
+              //System.out.println("$$$$$$$$$$$current req"+  currentPage);
+              //System.out.println("$$$$$$$$$$$url="+url);
               if (url.contains("/ncia/publicThumbnails") || url.contains("/ncia/thumbnailViewer")){
             	  chain.doFilter(request, response); 
               }

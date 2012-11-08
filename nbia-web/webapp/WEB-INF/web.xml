@@ -231,7 +231,7 @@
     </init-param>
     <init-param>
          <param-name>referer-pattern</param-name>
-         <param-value>http://ncias-d816-v.nci.nih.gov:29080.*</param-value>
+         <param-value>@referer-pattern@.*</param-value>
     </init-param>
     <init-param>			
     	<param-name>x-requested-with</param-name>			

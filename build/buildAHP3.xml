@@ -64,7 +64,6 @@
 	<!--These properties are the list of files used by the install of the database for each type -->
 	<property name="db.install.create.mysql.file.list" value="ncia_mysql_nodata.sql,nciaDbInit.sql" />
 	<property name="db.install.create.oracle.file.list" value="ddl.sql,dml_populate.sql,fk.sql" />
-	<property name="referer-pattern" value="${gov.nih.nci.ncia.jboss.public.url}" />
 	<!-- targets -->
 	<property name="nbia-ctp.build.target" value="all" />
 	<property name="nbia-services-commons.build.target" value="run" />
@@ -827,7 +826,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="project.name" value="${project.name}" />
 			<property name="nbia.version" value="${nbia.version}" />
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
-			<property name="referer-pattern" value="${referer-pattern}" />
 		</ant>
 	</target>
 	

@@ -231,7 +231,7 @@
     </init-param>
     <init-param>
          <param-name>referer-pattern</param-name>
-         <param-value>@referer-pattern@.*</param-value>
+         <param-value>.*/ncia.*</param-value>
     </init-param>
     <init-param>			
     	<param-name>x-requested-with</param-name>			

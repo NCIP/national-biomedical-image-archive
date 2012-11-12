@@ -195,7 +195,9 @@
 			if(target.charAt(0) == '.') {
 				result = current.endsWith(target);
 			} else {
-				result = current.endsWith('.' + target);
+				//customize for nih.gov
+                var target1 = target.substring(target.lastIndexOf(".")+1);
+				result = current.endsWith('.' + target1);
 			}
 		}
 		

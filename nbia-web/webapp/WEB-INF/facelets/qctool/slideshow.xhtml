@@ -8,39 +8,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
 	xmlns:f="http://java.sun.com/jsf/core">
-	
-  <script type="text/javascript" src="js/prototype.js"></script>
-  <script type="text/javascript" src="js/slider.js"></script>
-  <script type="text/javascript" src="js/imageSeriesSlideshow.js"></script>
-    <script type="text/javascript">
-    //interface point to get the image URLs from the backend
-    var slideShowImagesArray = #{imageSeriesJavascript};
-    
-    function dropProgressIndicator() {
-        $('loadingDiv').style.display = 'none'; 
-        setControlsVisible(true);    
-    }
-    
-    function prefetchAllWithProgress() {
-        stopPlayback();
-        setControlsVisible(false);
-        $('loadingDiv').style.display = 'block';
 
-        prefetchAll(dropProgressIndicator);                  
-    }
-    
-    function setControlsVisible(b) {
-        if(b) {
-            $('slideShowControlBarDiv').style.display = 'block';
-            $('prefetchButtonDiv').style.display = 'block';
-        }
-        else {
-            $('slideShowControlBarDiv').style.display = 'none';
-            $('prefetchButtonDiv').style.display = 'none';            
-        }           
-    }
-    </script>
-  
 	<ice:form id="moveImageForm">
 		<ice:inputHidden id="currentImgNum"
 			value="#{qcToolUpdateBean.currentImgNum}" />
@@ -60,13 +28,13 @@
 						<td rowspan="2">
 							<img id="navigateToBeginButton" src="images/begin.gif"
 								title="#{msg.slideshow_First_Image}"
-								onclick="navigateToBegin();"
+								onclick="navigateToBeginQC();"
 								alt="#{msg.slideshow_First_Image}" />
 							<img id="playBackwardButton" src="images/play_backward.gif"
 								title="#{msg.slideshow_Play_Backward}"
-								onclick="playBackward();" alt="#{msg.slideshow_Play_Backward}" />
+								onclick="playBackwardQC();" alt="#{msg.slideshow_Play_Backward}" />
 							<img id="backOneButton" src="images/prev.gif"
-								title="#{msg.slideshow_Previous_Image}" onclick="backOne();"
+								title="#{msg.slideshow_Previous_Image}" onclick="backOneQC();"
 								alt="#{msg.slideshow_Previous_Image}" />
 						</td>
 						<td>
@@ -101,13 +69,13 @@
 						</td>
 						<td rowspan="2">
 							<img id="forwardOneButton" src="images/next.gif"
-								title="#{msg.slideshow_Next_Image}" onclick="forwardOne();"
+								title="#{msg.slideshow_Next_Image}" onclick="forwardOneQC();"
 								alt="#{msg.slideshow_Next_Image}" />
 							<img id="playForwardButton" src="images/play_forward.gif"
-								title="#{msg.slideshow_Play_Forward}" onclick="playForward();"
+								title="#{msg.slideshow_Play_Forward}" onclick="playForwardQC();"
 								alt="#{msg.slideshow_Play_Forward}" />
 							<img id="navigateToEndButton" src="images/end.gif"
-								title="#{msg.slideshow_Last_Image}" onclick="navigateToEnd();"
+								title="#{msg.slideshow_Last_Image}" onclick="navigateToEndQC();"
 								alt="#{msg.slideshow_Last_Image}" />
 
 							<img id="loopBackAndForthButton" src="images/curve.gif"
@@ -119,7 +87,8 @@
 						<td>
 						</td>
 						<td>
-							<div id="slideShowSlider" style="width: 200px">
+							<div id="slideShowSlider" onmouseup="sliderPos()"
+								style="width: 200px">
 								<div id="currentHandle"></div>
 							</div>
 						</td>

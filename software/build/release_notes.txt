@@ -102,6 +102,7 @@ Known Issues/Defects
 [NBIA-502] Not required field Organization Name on User Registration page ask user input phone number
 [NBIA-503] See error message when user do remote download by using download manager to download large size file
 [NBIA-504] FTP remote download for large size file is not working
+[NBIA-433] Different search results show to two users if they select all nodes and search at the same times 
 
 
 

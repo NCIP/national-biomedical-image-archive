@@ -41,7 +41,7 @@ to confident clinical decisions in patient care.
 
 Release History
 ------------------------
-    * NBIA v5.1         -- ??????   2011
+    * NBIA v5.1         -- December 2012
     * NBIA v5.0.1       -- February 2011
     * NBIA v5.0         -- December 2010
     * NBIA v4.5         -- September2010
@@ -65,6 +65,12 @@ Features Addressed in This Release
 [NBIA-320] Please add a true "select all" feature to the QC tool 
 [NBIA-275] Add modality info to web search UI 
 [NBIA-276] Improvements to viewing multiple pages of search results 
+[NBIA-416] Tech Stack Upgrade
+[NBIA-415] caGrid 1.4 update
+[NBIA-412] move "Collections" search criteria box to top of the search UI
+[NBIA-399] External links disclaimer
+[NBIA-398] Maintain 508 compliance for NBIA
+[NBIA-422] Upgrade to BDA Lite
 
 Defects from 5.0.x Addressed in This Release
 --------------------------------------------
@@ -76,16 +82,30 @@ Defects from 5.0.x Addressed in This Release
 [NBIA-224] Remove storage service port number from the config file installer property files 
 [NBIA-286] FTP downloads do not record the download the same way the HTTP and Download Mgr downloads do 
 [NBIA-315] Invalid page linked to Help icon on Online Deletion page 
-
+[NBIA-411] search results are not readable when entering large numbers of subject IDs in Simple Search
+[NBIA-410] Thumbnail is not generated with CTP submission
+[NBIA-409] Cedara IRW Does Not Support 64 Bit Window 7 OS
+[NBIA-404] NBIA Download manager fails to start if the JNLP file is greater than or equal to 1 MB
+[NBIA-403] File size and checksum in NBIA's DB incorrect
+[NBIA-397] NBIA Download Manager fails to download images consistently for large collections
+[NBIA-393] NodeTraverser SOE in Hibernate 3.2
+[NBIA-391] Java 7 breaks Download Manager
 
 Known Issues/Defects
 ------------------------
-
 [NBIA-227] IE8 will not be supported for this release.  
 [NBIA-310] NBIA Download Manager remote series have completed downloading, but progress bar shows 99%.
 [NBIA-316] NBIA Download Manager cannot download annotations when NBIA server is running on Windows.
 [NBIA-317] NBIA Download Manager stops up on some Windows XP clients when download directory contains non-8.3 names.
 [NBIA-321] Performance issue with deleting a large amount series with online deletion
+[NBIA-438] caGrid will not work if JDK download to a directory with space in the folder's name
+[NBIA-502] Not required field Organization Name on User Registration page ask user input phone number
+[NBIA-503] See error message when user do remote download by using download manager to download large size file
+[NBIA-504] FTP remote download for large size file is not working
+
+
+
+
 
  
 See the Jira tracker for the latest use cases (implemented 

@@ -3,7 +3,7 @@ Release Notes
  
   #Product:#	NBIA
   #Version:#	5.1
-  #Date:#	?????, 2011
+  #Date:#	December, 2012
 
 Contents
 --------
@@ -94,10 +94,8 @@ Defects from 5.0.x Addressed in This Release
 Known Issues/Defects
 ------------------------
 [NBIA-227] IE8 will not be supported for this release.  
-[NBIA-310] NBIA Download Manager remote series have completed downloading, but progress bar shows 99%.
 [NBIA-316] NBIA Download Manager cannot download annotations when NBIA server is running on Windows.
 [NBIA-317] NBIA Download Manager stops up on some Windows XP clients when download directory contains non-8.3 names.
-[NBIA-321] Performance issue with deleting a large amount series with online deletion
 [NBIA-438] caGrid will not work if JDK download to a directory with space in the folder's name
 [NBIA-502] Not required field Organization Name on User Registration page ask user input phone number
 [NBIA-503] See error message when user do remote download by using download manager to download large size file

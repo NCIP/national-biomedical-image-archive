@@ -130,7 +130,7 @@ Documentation And Files
 
 Links to all documentation and files can be found at: 
 
-https://gforge.nci.nih.gov/frs/?group_id=312
+https://wiki.nci.nih.gov/display/NBIA/National+Biomedical+Imaging+Archive+-+NBIA
 
 
 NCICB Web Pages

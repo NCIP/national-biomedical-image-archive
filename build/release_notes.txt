@@ -93,7 +93,6 @@ Defects from 5.0.x Addressed in This Release
 
 Known Issues/Defects
 ------------------------
-[NBIA-227] IE8 will not be supported for this release.  
 [NBIA-316] NBIA Download Manager cannot download annotations when NBIA server is running on Windows.
 [NBIA-317] NBIA Download Manager stops up on some Windows XP clients when download directory contains non-8.3 names.
 [NBIA-438] caGrid will not work if JDK download to a directory with space in the folder's name

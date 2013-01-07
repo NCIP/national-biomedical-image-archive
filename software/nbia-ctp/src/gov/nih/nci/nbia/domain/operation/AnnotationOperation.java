@@ -79,7 +79,18 @@ public class AnnotationOperation extends DomainOperation implements AnnotationOp
         
         List res = getHibernateTemplate().find(hql);
         if(res != null && res.size() > 0) {
-        	annotation = (Annotation)res.get(0);
+        	Annotation annotationDB = (Annotation)res.get(0);
+        	//if found in db then update the annotation and save it 
+        	annotationDB.setAnnotationType(annotation.getAnnotationType());
+        	annotationDB.setFilePath(annotation.getFilePath());
+        	annotationDB.setFileSize(annotation.getFileSize());
+        	annotationDB.setSubmissionDate(annotation.getSubmissionDate());
+        	annotationDB.setSeriesInstanceUID(annotation.getSeriesInstanceUID());
+        	annotation = annotationDB;
+        	log.debug("annotation id" + annotation.getId());
+        	log.debug("annotation getFileSize" + annotation.getFileSize());
+        	log.debug("annotation getSubmissionDate" + annotation.getSubmissionDate());
+        	
         }
         //if we found it, why do we store it again?????
         getHibernateTemplate().saveOrUpdate(annotation);

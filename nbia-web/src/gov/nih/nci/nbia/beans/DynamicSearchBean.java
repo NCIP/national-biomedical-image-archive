@@ -230,7 +230,7 @@ public class DynamicSearchBean {
 		this.hasPermissibleData = checkPermissibleData(newFieldValue);
 		if(hasPermissibleData)
 		{
-			if (newValue.equals(initialDataGroup) && newFieldValue.equals(dataGroup.getDataSource().get(0).getSourceItem().get(1).getItemName()))
+			if (newValue.equals(initialDataGroup) && newFieldValue.equals(dataGroup.getDataSource().get(0).getSourceItem().get(0).getItemName()))
 			{
 				loadProjectName();
 			}
@@ -281,7 +281,7 @@ public class DynamicSearchBean {
 			for (String st : m_modality_list){
 				permissibleData.add(new SelectItem(st, Ultrasound_Util.getTextByGivenImageTypeCode(st)));
 			}
-			
+
 		}else{
 			for (String st : permissibleDataItems)
 			{
@@ -303,10 +303,10 @@ public class DynamicSearchBean {
 				}
 		}
 		Collections.sort(myList);
-		
+
 		return myList;
 	}
-	
+
 	private void loadProjectName() throws Exception
 	{
 		SecurityBean sb = BeanManager.getSecurityBean();

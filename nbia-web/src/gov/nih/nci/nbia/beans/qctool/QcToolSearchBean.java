@@ -12,8 +12,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.component.UIData;
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpSession;
 
 import com.icesoft.faces.async.render.SessionRenderer;
 
@@ -32,13 +34,18 @@ public class QcToolSearchBean {
 		this.dataTable = dataTable;
 	}
 	public QcToolSearchBean() {
-		SessionRenderer.addCurrentSession(ALL);
+		SessionRenderer.addCurrentSession(getSessionId());
+	}
+	private String getSessionId() {
+		FacesContext fCtx = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
+		String sessionId =session.getId();
+		return sessionId;
 	}
 	public void updateStatus() {
         // render the page
-       	SessionRenderer.render(ALL);
+       	SessionRenderer.render(getSessionId());
     }
-
 	public void pageNumberChangeListener(ValueChangeEvent event)
 	{
 		this.getDataTable().setFirst(0);

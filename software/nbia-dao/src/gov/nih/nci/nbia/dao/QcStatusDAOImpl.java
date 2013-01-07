@@ -42,7 +42,9 @@ public class QcStatusDAOImpl extends AbstractDAO
 		                           "gs.studyInstanceUID," +
 		                           "gs.seriesInstanceUID,"+
 		                           "gs.visibility," +
-		                           "gs.maxSubmissionTimestamp ";
+		                           "gs.maxSubmissionTimestamp,"+
+		                           "gs.modality, "+
+		                           "gs.seriesDesc ";
 		String fromStmt = "FROM GeneralSeries as gs";
 		String whereStmt = " WHERE " +
 		                   computeVisibilityCriteria(qcStatus) +
@@ -71,6 +73,8 @@ public class QcStatusDAOImpl extends AbstractDAO
 			String series = (String) row[4];
 			String visibilitySt = (String) row[5];
 			Timestamp submissionDate = (Timestamp) row[6];
+			String modality = (String) row[7];
+			String seriesDesc = (String) row[8];
 
 			QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
 					                                          site,
@@ -78,7 +82,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 					                                          study,
 					                                          series,
 					                                          new Date(submissionDate.getTime()),
-					                                          visibilitySt);
+					                                          visibilitySt, modality, seriesDesc);
 			searchResultDtos.add(qcSrDTO);
 		}
 

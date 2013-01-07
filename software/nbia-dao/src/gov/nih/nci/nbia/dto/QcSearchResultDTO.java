@@ -15,6 +15,9 @@ public class QcSearchResultDTO {
 	private Date creationDate;
 	private String visibility;
 	private boolean selected;
+	private String modality;
+	private String seriesDescription;
+	
 	
 	public QcSearchResultDTO(String collection, 
 							 String site,
@@ -22,7 +25,8 @@ public class QcSearchResultDTO {
 							 String study,
 							 String series,
 							 Date creationDate,
-							 String visibility) {
+							 String visibility,
+							 String modality, String seriesDesc) {
 		setCollection(collection);
 		setSite(site);
 		setPatientId(patientId);
@@ -31,6 +35,9 @@ public class QcSearchResultDTO {
 		setCreationDate(creationDate);
 		setVisibility(visibility);
 		selected = false;
+		setModality(modality);
+		setSeriesDescription(seriesDesc);
+		
 	}
 	
 	public QcSearchResultDTO(QcSearchResultDTO obj) {
@@ -42,6 +49,9 @@ public class QcSearchResultDTO {
 		setCreationDate(obj.creationDate);
 		setVisibility(obj.visibility);
 		selected = obj.selected;
+		setModality(obj.modality);
+		setSeriesDescription(obj.seriesDescription);
+		
 }
 
 	public String getCollection() {
@@ -121,6 +131,23 @@ public class QcSearchResultDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
 		return sdf.format(creationDate);
 	}
+
+	public String getModality() {
+		return modality;
+	}
+
+	public void setModality(String modality) {
+		this.modality = modality;
+	}
+
+	public String getSeriesDescription() {
+		return seriesDescription;
+	}
+
+	public void setSeriesDescription(String seriesDescription) {
+		this.seriesDescription = seriesDescription;
+	}
+
 	
 
 //	public VisibilityStatus getVisibilityStatus() {
@@ -130,4 +157,5 @@ public class QcSearchResultDTO {
 //	public void setVisibilityStatus(VisibilityStatus visibilityStatus) {
 //		this.visibilityStatus = visibilityStatus;
 //	}
+	
 }

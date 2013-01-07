@@ -249,8 +249,15 @@ public class QcToolSearchBean {
 	public String getVisibilityHeader() {
 		return visibilityHeader;
 	}
+    public String getModalityHeader() {
+		return modalityHeader;
+	}
+	public String getSeriesDescHeader() {
+		return seriesDescHeader;
+	}
 
-    ////////////////////////////PRIVATE///////////////////////////////////////
+
+	////////////////////////////PRIVATE///////////////////////////////////////
     private static final String REQUIRED_FIELD = "qcTool_requiedField_Search";
     private static final String ERRORMSG_RPT="qcTool_requiedSeries";
     private QcToolBean qcToolBean;
@@ -268,6 +275,8 @@ public class QcToolSearchBean {
     private static final String studyHeader = "Study";
     private static final String seriesHeader = "Series";
     private static final String visibilityHeader = "Visibility";
+    private static final String modalityHeader = "Modality";
+    private static final String seriesDescHeader = "Series Description";
 
     private String sortColumnName= "Creation Date";
     private boolean ascending = true;
@@ -359,8 +368,10 @@ public class QcToolSearchBean {
                 }else if (sortColumnName.equals(visibilityHeader)) {
                 	return compareObject(c1.getVisibilityStatus().compareTo(c2.getVisibilityStatus()),
                 		c2.getVisibilityStatus().compareTo(c1.getVisibilityStatus()));
-                }
-                else {
+                }else if (sortColumnName.equals(modalityHeader)) {
+                	return compareObject(c1.getModality().compareTo(c2.getModality()),
+                		c2.getModality().compareTo(c1.getModality()));
+               }else {
                 	return 0;
                 }
             }

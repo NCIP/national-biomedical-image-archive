@@ -1,5 +1,6 @@
 package gov.nih.nci.nbia.dynamicsearch;
 
+import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.ncia.search.PatientSearchResult;
@@ -20,6 +21,13 @@ public interface QueryHandler {
 	 * fail if setQueryCriteria hasnt been called?
 	 */
 	public void query()throws Exception;
+	
+	/**
+	 * 
+	 * @return Qc series dto
+	 * @throws Exception on error
+	 */
+	public List<QcSearchResultDTO> querySeries() throws Exception;
 
 	/**
 	 * Call this before executing the query method.  This
@@ -35,6 +43,19 @@ public interface QueryHandler {
 			                     List<SiteData> aData,
 			                     List<String> sGrooups) throws Exception;
 
+	/**
+	 * Call this before executing the query method.  This
+	 * determines the criteria to be used when going to the database.
+	 *
+	 * statementRelation should be an enumerated type or a constant
+	 * instead of formless String (AND/OR)
+	 *
+	 * any preconditions on this method?  length of criteria?
+	 */
+	public void setQueryCriteria(List<DynamicSearchCriteria> criteria,
+			                     String statementRelation,
+			                     List<SiteData> aData,
+			                     List<String> sGrooups, String[] visibilityStatus) throws Exception;
 	/**
 	 * This is returning a Hibernate object, so this should
 	 * be changed to a DTO, or this whole thing needs to be hidden

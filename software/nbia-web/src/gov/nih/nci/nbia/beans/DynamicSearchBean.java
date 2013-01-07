@@ -39,49 +39,49 @@ import javax.faces.model.SelectItem;
 public class DynamicSearchBean {
 
 	//private static Logger logger = Logger.getLogger(DynamicSearchBean.class);
-	private DataGroup dataGroup;
-	private Map<String, String> itemLabelTable;
-	private Map<String, String> itemActualSource;
-	private String initialDataGroup;
-	private Map<String, List<SourceItem>> dataFieldItems;
-	private Map<String, SourceItem> dataFieldSourceItems;
-	//private String initialDataFieldItem;
+	protected DataGroup dataGroup;
+	protected Map<String, String> itemLabelTable;
+	protected Map<String, String> itemActualSource;
+	protected String initialDataGroup;
+	protected Map<String, List<SourceItem>> dataFieldItems;
+	protected Map<String, SourceItem> dataFieldSourceItems;
+	//protected String initialDataFieldItem;
 
-	private String[] operands = {">","<",">=","<=","=","!=","starts with","ends with","contains","equals"};
-	private String[] otherOperands =  {">","<",">=","<=","=","!="};
-	private int[] stringOperandValues={6,7,8,9};
-	private int[] otherOperandValues={0,1,2,3,4,5};
-	private String[] stringOperands={"starts with","ends with","contains","equals"};
-	private int[] resultPerPage = {10,25,50,100};
-	private List<SourceItem> preLoadFieldItems;
-	private String selectedDataGroup;
-	private List<SelectItem> dataGroupItems;
-	private List<SelectItem> fieldItems;
-	private List<SelectItem> operandItems;
-	private List<SelectItem> resultPerPageItems;
-	private String selectedOperand;
-	private String inputValue;
-	private String newValue;
-	private List<DynamicSearchCriteria> criteria = new ArrayList<DynamicSearchCriteria>();
-	private boolean showCriteria = false;
-	private boolean hasDuplicate = false;
-	private UIData table;
-	private String relation = "AND";
-	private String selectedResultPerPage="10";
-	private boolean hasPermissibleData = false;
-	private List<SelectItem> permissibleData;
+	protected String[] operands = {">","<",">=","<=","=","!=","starts with","ends with","contains","equals"};
+	protected String[] otherOperands =  {">","<",">=","<=","=","!="};
+	protected int[] stringOperandValues={6,7,8,9};
+	protected int[] otherOperandValues={0,1,2,3,4,5};
+	protected String[] stringOperands={"starts with","ends with","contains","equals"};
+	protected int[] resultPerPage = {10,25,50,100};
+	protected List<SourceItem> preLoadFieldItems;
+	protected String selectedDataGroup;
+	protected List<SelectItem> dataGroupItems;
+	protected List<SelectItem> fieldItems;
+	protected List<SelectItem> operandItems;
+	protected List<SelectItem> resultPerPageItems;
+	protected String selectedOperand;
+	protected String inputValue;
+	protected String newValue;
+	protected List<DynamicSearchCriteria> criteria = new ArrayList<DynamicSearchCriteria>();
+	protected boolean showCriteria = false;
+	protected boolean hasDuplicate = false;
+	protected UIData table;
+	protected String relation = "AND";
+	protected String selectedResultPerPage="10";
+	protected boolean hasPermissibleData = false;
+	protected List<SelectItem> permissibleData;
 
-	private String defaultSelectValue="please select";
-	private String defaultSelectLabel="--Please Select--";
-	private SelectItem defaultSelectItem = new SelectItem(defaultSelectValue, defaultSelectLabel);
-	private String selectedField=defaultSelectItem.getValue().toString();
-	private AuthorizationManager man;
-	private List<SiteData> authorizedSiteData;
-	private List<String> seriesSecurityGroups;
-	private static final String notPopulated = "Not Populated (NULL)";
-	private String permissibleDataValue = "";
+	protected String defaultSelectValue="please select";
+	protected String defaultSelectLabel="--Please Select--";
+	protected SelectItem defaultSelectItem = new SelectItem(defaultSelectValue, defaultSelectLabel);
+	protected String selectedField=defaultSelectItem.getValue().toString();
+	protected AuthorizationManager man;
+	protected List<SiteData> authorizedSiteData;
+	protected List<String> seriesSecurityGroups;
+	protected static final String notPopulated = "Not Populated (NULL)";
+	protected String permissibleDataValue = "";
 
-	private SourceItem defaultSourceItem = new SourceItem();
+	protected SourceItem defaultSourceItem = new SourceItem();
 
 	public String getPermissibleDataValue() {
 		return permissibleDataValue;
@@ -250,7 +250,7 @@ public class DynamicSearchBean {
 		invalidDouble = false;
 	}
 
-	private void loadPermissibleData(String field) throws Exception
+	protected void loadPermissibleData(String field) throws Exception
 	{
 		List<String> permissibleDataItems = null;
 
@@ -291,7 +291,7 @@ public class DynamicSearchBean {
 		this.permissibleDataValue = defaultSelectValue;
 	}
 
-	private List<String> parseMultiModality(List<String> list){
+	protected List<String> parseMultiModality(List<String> list){
 		List<String> myList = new ArrayList<String>();
 		for (String s : list){
 			if (s == null){continue;}
@@ -307,7 +307,7 @@ public class DynamicSearchBean {
 		return myList;
 	}
 
-	private void loadProjectName() throws Exception
+	protected void loadProjectName() throws Exception
 	{
 		SecurityBean sb = BeanManager.getSecurityBean();
 		AuthorizationManager man = sb.getAuthorizationManager();
@@ -326,7 +326,7 @@ public class DynamicSearchBean {
 		Collections.sort(permissibleData, dssic);
 	}
 
-	private boolean checkPermissibleData(String field)
+	protected boolean checkPermissibleData(String field)
 	{
 		boolean hasPermissibleData = false;
 
@@ -396,7 +396,7 @@ public class DynamicSearchBean {
 
 	}
 
-	private boolean isDuplicate(DynamicSearchCriteria newOne)
+	protected boolean isDuplicate(DynamicSearchCriteria newOne)
 	{
 		boolean duplicate = false;
 		for (DynamicSearchCriteria item : criteria)
@@ -519,7 +519,7 @@ public class DynamicSearchBean {
 		return returnValue;
 	}
 
-	private void populateSearchResults(List<PatientSearchResult> patients) throws Exception {
+	protected void populateSearchResults(List<PatientSearchResult> patients) throws Exception {
 		SearchResultBean srb = BeanManager.getSearchResultBean();
         srb.setPatientResults(patients);
     	srb.setResultsPerPage(new Integer(selectedResultPerPage));
@@ -659,7 +659,7 @@ public class DynamicSearchBean {
 		return criteria.size();
 	}
 
-	private void defaultView(){
+	protected void defaultView(){
 		dataGroupItems = new ArrayList<SelectItem>();
 		List<DataSource> dataSourceList = dataGroup.getDataSource();
 
@@ -680,7 +680,7 @@ public class DynamicSearchBean {
 		permissibleDataValue="";
 
 	}
-	private List<SelectItem> setOperatorValues(String selectedValue){
+	protected List<SelectItem> setOperatorValues(String selectedValue){
 		List<SelectItem> operatorList = new ArrayList<SelectItem>();
 		if(selectedValue.equals(defaultSelectValue)){
 			operatorList.add(0, defaultSelectItem);
@@ -712,8 +712,8 @@ public class DynamicSearchBean {
 		operatorList.add(0, defaultSelectItem);
 		return operatorList;
 	}
-	private boolean errorMessage=false;
-	private boolean invalidDate = false;
-	private boolean invalidInteger = false;
-	private boolean invalidDouble = false;
+	protected boolean errorMessage=false;
+	protected boolean invalidDate = false;
+	protected boolean invalidInteger = false;
+	protected boolean invalidDouble = false;
 }

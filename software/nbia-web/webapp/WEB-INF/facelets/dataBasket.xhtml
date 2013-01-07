@@ -147,7 +147,7 @@
               <tr>
                 <td align="left">                                             
                   <h:selectBooleanCheckbox value="#{basketBean.includeAnnotation}" 
-                                           onclick="javascript:setChanged(document.getElementById('MAINbody:basketForm:basketChanged'),'yes')"/>
+                                           onclick="javascript:setChanged(document.getElementById('MAINbody:basketForm:basketChanged'),'yes');submit();"/>
                           
                   <h:outputText styleClass="formMessage" value="#{msg.dataBasket_includeAnnotation}" />
                 </td>
@@ -177,6 +177,7 @@
                                         resource="#{basketBean.launchDownloadManager}"                                                                              
                                         fileName="#{basketBean.jnlpFileName}" 
                                         mimeType="application/x-java-jnlp-file" 
+                                        rendered="true"
                                         attachment="false"/>  
                   </ice:panelGroup> 
                 </td>

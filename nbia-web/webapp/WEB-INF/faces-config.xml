@@ -315,7 +315,16 @@
     </component-extension>
   </component>
 
-  
+   <managed-bean>
+    <description>Bean for the Dynamic QC search</description>
+    <managed-bean-name>dynamicQcSearchBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.nbia.beans.DynamicQCSearchBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>   
+      <property-name>qcToolSearchBean</property-name>   
+      <value>#{qcToolSearchBean}</value>   
+    </managed-property>
+  </managed-bean> 
   <managed-bean>
     <description>Bean for the QC Tool</description>
     <managed-bean-name>qcToolBean</managed-bean-name>

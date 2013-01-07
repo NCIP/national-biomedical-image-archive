@@ -5,11 +5,6 @@
   <sourceLabel>Collection</sourceLabel>
   <sourceName>TrialDataProvenance</sourceName>
        <sourceItem>
-          <itemLabel>Collection Site Name</itemLabel>
-          <itemName>dpSiteName</itemName>
-          <itemType>java.lang.String</itemType>
-       </sourceItem>
-       <sourceItem>
           <itemLabel>Collection Name</itemLabel>
           <itemName>project</itemName>
           <itemType>java.lang.String</itemType>

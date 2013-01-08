@@ -165,7 +165,8 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		}
 		
 		letSleep(attempt);
-
+		System.out.println("After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + attempt);
+		
 		TrustStrategy easyStrategy = new TrustStrategy() {
 			@Override
 			public boolean isTrusted(X509Certificate[] certificate,
@@ -232,6 +233,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 					System.out.println(getTimeStamp() +"java.net.SocketTimeoutException exception- for series" + seriesInstanceUid  +"--attempt" + executionCount);
 					additionalInfo.append(getTimeStamp() + " Request Handler attempt").append(executionCount).append(" for SocketTimeOutException \n");
 					letSleep(executionCount);
+					System.out.println("After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + executionCount);
 					return true;
 				}
 				if (exception instanceof java.net.SocketException) {
@@ -239,6 +241,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 					System.out.println(getTimeStamp() + "java.net.SocketException - for series" + seriesInstanceUid +"--attempt" + executionCount);
 					additionalInfo.append(getTimeStamp() +" Request Handler attempt").append(executionCount) .append(" for SocketException \n");
 					letSleep(executionCount);
+					System.out.println("After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + executionCount);
 					return true;
 				}
 				HttpRequest request = (HttpRequest) context.getAttribute(ExecutionContext.HTTP_REQUEST);

@@ -136,26 +136,28 @@ public class QueryHandlerImpl extends AbstractDAO
 					                     seriesSecurityGroups);
 
 			List<Object[]> searchResults = executeQuery(criteria);
-
-			for (Object[] row : searchResults) {
-				String collection = (String) row[0];
-				String site = (String) row[1];
-				String patient = (String) row[2];
-				String study = (String) row[3];
-				String series = (String) row[4];
-				String visibilitySt = (String) row[5];
-				Timestamp submissionDate = (Timestamp) row[6];
-				String modality = (String) row[7];
-				String seriesDesc = (String) row[8];
-
-				QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
-						                                          site,
-						                                          patient,
-						                                          study,
-						                                          series,
-						                                          new Date(submissionDate.getTime()),
-						                                          visibilitySt, modality, seriesDesc);
-				searchResultDtos.add(qcSrDTO);
+			if (searchResults != null) { 
+				System.out.println("searchResults " + searchResults.size());
+				for (Object[] row : searchResults) {
+					String collection = (String) row[0];
+					String site = (String) row[1];
+					String patient = (String) row[2];
+					String study = (String) row[3];
+					String series = (String) row[4];
+					String visibilitySt = (String) row[5];
+					Timestamp submissionDate = (Timestamp) row[6];
+					String modality = (String) row[7];
+					String seriesDesc = (String) row[8];
+	
+					QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
+							                                          site,
+							                                          patient,
+							                                          study,
+							                                          series,
+							                                          new Date(submissionDate.getTime()),
+							                                          visibilitySt, modality, seriesDesc);
+					searchResultDtos.add(qcSrDTO);
+				}
 			}
 
 		}
@@ -182,7 +184,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			elementTree = ro.getRelationTree();
 			createMapKeys();
 			//add visibility = 1 in generalSeries level
-			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("1")));
+			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
 	
 			searchCriteria = ro.sortTableName(criteria);
 			//reset currentNode

@@ -66,12 +66,13 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 	 * authentication/authorization for non-public artifacts)
 	 */
 	public void runImpl() throws Exception {
-		this.sopUids = StringUtil
-				.encodeListEntriesWithSingleQuotes(this.sopUidsList);
+		this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
 
 		computeTotalSize();
 		URL url = new URL(serverUrl);
+		System.out.println(this.seriesInstanceUid +" -- start downloading");
 		this.connectAndReadFromURL(url, 0);
+		System.out.println(this.seriesInstanceUid +" -- downloading complete");
 	}
 
 	/**
@@ -111,10 +112,9 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 				if (!f.exists()) {
 					mkdirResult = f.mkdirs();
 					if (mkdirResult == false) {
-						System.out
-								.println("couldnt create directory: "
-										+ localLocation + " \tattempt number: "
-										+ count);
+						System.out.println("couldnt create directory: "
+							+ localLocation + " \tattempt number: "
+							+ count);
 						count++;
 					} else {
 						break;
@@ -125,14 +125,11 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 				}
 			}
 			if (!mkdirResult) {
-				throw new RuntimeException(
-						"Could not create directory after 3 attempts: "
-								+ localLocation);
+				throw new RuntimeException("Could not create directory after 3 attempts: " + localLocation);
 			}
 		} catch (SecurityException se) {
 			throw new RuntimeException(
-					"SecurityException on creating directory: " + localLocation
-							+ "  " + se);
+					"SecurityException on creating directory: " + localLocation + "  " + se);
 		}
 		return localLocation;
 	}
@@ -142,9 +139,9 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		if (attempt >= 1 && attempt < noOfRetry) {
 			Random randomGenerator = new Random();
 			int randomInt = randomGenerator.nextInt(10000) + attempt * 120000;
-			System.out
-					.println(getTimeStamp () +" attempt "+ attempt +"put into sleep for " + randomInt + "millisecond");
+			System.out .println(getTimeStamp () + this.seriesInstanceUid +" attempt "+ attempt +" put into sleep for " + randomInt + "millisecond");
 			try {
+				
 				Thread.sleep(randomInt);
 			} catch (InterruptedException ex) {
 				Thread.currentThread().interrupt();
@@ -159,12 +156,10 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 	}
 
 	private void connectAndReadFromURL(URL url, int attempt) throws Exception {
-		System.out.println("attempt" + attempt + " for the series"
-				+ this.seriesInstanceUid);
+		System.out.println("attempt" + attempt + " for the series" + this.seriesInstanceUid);
 		if (attempt >= noOfRetry) {
-			additionalInfo.append(getTimeStamp() + " For series " + this.seriesInstanceUid +" Reached max retry (" + noOfRetry
-					+ ") attempts.\n");
-			System.out.println(additionalInfo);
+			additionalInfo.append(getTimeStamp() + " For series " + this.seriesInstanceUid +" Reached max retry (" + noOfRetry + ") attempts.\n");
+			System.out.println(additionalInfo + "--attempt" + attempt +" changing to error status");
 			error();
 			return;
 		}
@@ -179,46 +174,36 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 			}
 		};
 		// set up a TrustManager that trusts everything
-		SSLSocketFactory sslsf = new SSLSocketFactory(easyStrategy,
-				SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		SSLSocketFactory sslsf = new SSLSocketFactory(easyStrategy, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
 		Scheme httpsScheme = new Scheme("https", 443, sslsf);
 		SchemeRegistry schemeRegistry = new SchemeRegistry();
 		schemeRegistry.register(httpsScheme);
-		schemeRegistry.register(new Scheme("http", 80, PlainSocketFactory
-				.getSocketFactory()));
+		schemeRegistry.register(new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
 		HttpParams httpParams = new BasicHttpParams();
 		// set timeout values
 		HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
 		HttpConnectionParams.setSoTimeout(httpParams, new Integer(12000));
-		ClientConnectionManager ccm = new ThreadSafeClientConnManager(
-				schemeRegistry);
+		ClientConnectionManager ccm = new ThreadSafeClientConnManager(schemeRegistry);
 		DefaultHttpClient httpClient = new DefaultHttpClient(ccm, httpParams);
 
 		// Additions by lrt for tcia -
 		// attempt to reduce errors going through a Coyote Point Equalizer load
 		// balance switch
-		httpClient.getParams().setParameter("http.socket.timeout",
-				new Integer(12000));
-		httpClient.getParams().setParameter("http.socket.receivebuffer",
-				new Integer(16384));
+		httpClient.getParams().setParameter("http.socket.timeout", new Integer(12000));
+		httpClient.getParams().setParameter("http.socket.receivebuffer", new Integer(16384));
 		httpClient.getParams().setParameter("http.tcp.nodelay", true);
-		httpClient.getParams()
-				.setParameter("http.connection.stalecheck", false);
+		httpClient.getParams() .setParameter("http.connection.stalecheck", false);
 		// end lrt additions
 
 		HttpPost httpPostMethod = new HttpPost(url.toString());
 		List<BasicNameValuePair> postParams = new ArrayList<BasicNameValuePair>();
 		postParams.add(new BasicNameValuePair("userId", this.userId));
 		postParams.add(new BasicNameValuePair("sopUids", this.sopUids));
-		postParams.add(new BasicNameValuePair("seriesUid",
-				this.seriesInstanceUid));
-		postParams.add(new BasicNameValuePair("includeAnnotation", Boolean
-				.toString(this.includeAnnotation)));
-		postParams.add(new BasicNameValuePair("hasAnnotation", Boolean
-				.toString(this.hasAnnotation)));
+		postParams.add(new BasicNameValuePair("seriesUid", this.seriesInstanceUid));
+		postParams.add(new BasicNameValuePair("includeAnnotation", Boolean .toString(this.includeAnnotation)));
+		postParams.add(new BasicNameValuePair("hasAnnotation", Boolean .toString(this.hasAnnotation)));
 		// this is ignored
-		postParams.add(new BasicNameValuePair("Range", "bytes=" + downloaded
-				+ "-"));
+		postParams.add(new BasicNameValuePair("Range", "bytes=" + downloaded + "-"));
 		postParams.add(new BasicNameValuePair("password", password));
 
 		httpPostMethod.addHeader("password", password);
@@ -228,49 +213,35 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 					int executionCount, HttpContext context) {
 				if (executionCount >= noOfRetry) {
 					// Do not retry if over max retry count
-					System.out
-							.println(getTimeStamp() + " For series " + seriesInstanceUid +" no retring since reached max retry attempt,"
-									+ noOfRetry);
-					additionalInfo.append("Reached max retry (" + noOfRetry
-							+ ") attempts using retry handler.\n");
+					System.out .println(getTimeStamp() + seriesInstanceUid +" reached max retry handler attempt," + noOfRetry + "  stop downloading");
+					additionalInfo.append("Reached max retry (" + noOfRetry + ") attempts using Request handler.\n");
 					return false;
 				}
 				if (exception instanceof NoHttpResponseException) {
 					// Retry on when server dropped connection
-					System.out
-							.println("NoHttpResponseException exception- Retry if the server dropped connection on us ");
+					System.out.println("NoHttpResponseException exception- Retry if the server dropped connection on us ");
 					return true;
 				}
 				if (exception instanceof SSLHandshakeException) {
 					// Do not retry on SSL handshake exception
-					System.out
-							.println("SSLHandshakeException exception - no retry");
+					System.out.println("SSLHandshakeException exception - no retry");
 					return false;
 				}
 				if (exception instanceof java.net.SocketTimeoutException) {
 					// Retry on socket timeout exception
-					System.out
-							.println(getTimeStamp() +"java.net.SocketTimeoutException exception- retry the series"
-									+ seriesInstanceUid);
-					additionalInfo.append(getTimeStamp() + " retry handler attempt")
-							.append(executionCount)
-							.append(" for SocketTimeOutException \n");
+					System.out.println(getTimeStamp() +"java.net.SocketTimeoutException exception- for series" + seriesInstanceUid  +"--attempt" + executionCount);
+					additionalInfo.append(getTimeStamp() + " Request Handler attempt").append(executionCount).append(" for SocketTimeOutException \n");
 					letSleep(executionCount);
 					return true;
 				}
 				if (exception instanceof java.net.SocketException) {
 					// Retry on socket timeout exception
-					System.out
-							.println(getTimeStamp() + "java.net.SocketException - retry the series"
-									+ seriesInstanceUid +"--attempt"+executionCount);
-					additionalInfo.append(getTimeStamp() +" retry handler attempt")
-							.append(executionCount)
-							.append(" for SocketException \n");
+					System.out.println(getTimeStamp() + "java.net.SocketException - for series" + seriesInstanceUid +"--attempt" + executionCount);
+					additionalInfo.append(getTimeStamp() +" Request Handler attempt").append(executionCount) .append(" for SocketException \n");
 					letSleep(executionCount);
 					return true;
 				}
-				HttpRequest request = (HttpRequest) context
-						.getAttribute(ExecutionContext.HTTP_REQUEST);
+				HttpRequest request = (HttpRequest) context.getAttribute(ExecutionContext.HTTP_REQUEST);
 				boolean idempotent = !(request instanceof HttpEntityEnclosingRequest);
 				if (idempotent) {
 					System.out.println("idempotent exception - Retry");
@@ -289,17 +260,14 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		try {
 			HttpResponse response = httpClient.execute(httpPostMethod);
 			int responseCode = response.getStatusLine().getStatusCode();
-			System.out.println("response code: " + responseCode
-					+ "for the seriers " + this.seriesInstanceUid);
+			System.out.println("response code: " + responseCode + "for the seriers " + this.seriesInstanceUid + "--attempt--"+ attempt);
 
 			/* Make sure response code is in the 200 range. */
 			if (responseCode / 100 != 2) {
 				// additionalInfo.append("incorrect response code");
-				System.out
-						.println(getTimeStamp() + " retry the rest of images from series as there was incorrect response code for the seriers "
-								+ this.seriesInstanceUid +"--attempt"+attempt);
-				additionalInfo.append(getTimeStamp() + " retry attempt").append(attempt + 1)
-						.append("for incorrect response code \n");
+				System.out.println(getTimeStamp() +" for the seriers "+ this.seriesInstanceUid +" incorrect response code received "
+						+"--attempt" + attempt);
+				additionalInfo.append(getTimeStamp() + " retry attempt").append(attempt + 1).append("for incorrect response code \n");
 				connectAndReadFromURL(url, attempt + 1);
 			}
 
@@ -313,69 +281,44 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 			}
 			readFromConnection(response.getEntity().getContent());	
 		} catch (javax.net.ssl.SSLPeerUnverifiedException e) {
-			System.out
-			.println(getTimeStamp() +"!!!!!SSLPeerUnverifiedException thrown for connect to server for series "+ this.seriesInstanceUid);
-			
 			// exclude downloading already download image.
-			this.sopUids = StringUtil
-					.encodeListEntriesWithSingleQuotes(this.sopUidsList);
-			System.out
-					.println(getTimeStamp() +" retry the rest of images from series as there was Socket timeout exception-- for series"+this.seriesInstanceUid);
+			this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
+			System.out.println(getTimeStamp() +" SSLPeerUnverifiedException-- for series "+this.seriesInstanceUid +" @ attempt--"+ attempt);
 			e.printStackTrace();
-			additionalInfo.append(getTimeStamp() +" retry image attempt").append(attempt + 1)
-					.append(" for Socket timeout exception \n");
+			additionalInfo.append(getTimeStamp() +" image retry attempt ").append(attempt + 1).append(" for SSLPeer Unverified Exception \n");
 			connectAndReadFromURL(url, attempt + 1);
 		} catch (SocketTimeoutException e) {
-			System.out
-			.println(getTimeStamp() +"!!!!!Exception thrown for connect to server for series "+ this.seriesInstanceUid);
-			
 			// exclude downloading already download image.
-			this.sopUids = StringUtil
-					.encodeListEntriesWithSingleQuotes(this.sopUidsList);
-			System.out
-					.println(getTimeStamp() +" retry the rest of images from series as there was Socket timeout exception-- for series"+this.seriesInstanceUid);
+			this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
+			System.out.println(getTimeStamp() +" SocketTimeoutException-- for series " + this.seriesInstanceUid +" @ attempt--"+ attempt);
 			e.printStackTrace();
-			additionalInfo.append(getTimeStamp() +" retry image attempt").append(attempt + 1)
-					.append(" for Socket timeout exception \n");
+			additionalInfo.append(getTimeStamp() +" image retry attempt ").append(attempt + 1).append(" for Socket timeout exception \n");
 			connectAndReadFromURL(url, attempt + 1);
 		} catch (SocketException e) {
 			// exclude downloading already download image.
-			this.sopUids = StringUtil
-					.encodeListEntriesWithSingleQuotes(this.sopUidsList);
-			System.out
-					.println(getTimeStamp() +" retry the rest of images from series as there was Socket exception-- for series"+this.seriesInstanceUid);
+			this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
+			System.out.println(getTimeStamp() +" SocketException-- for series " + this.seriesInstanceUid + " @ attempt--"+ attempt);
 			e.printStackTrace();
-			additionalInfo.append(getTimeStamp() +" retry image attempt").append(attempt + 1)
-					.append(" for Socket exception \n");
+			additionalInfo.append(getTimeStamp() +" image retry attempt ").append(attempt + 1).append(" for Socket exception \n");
 			connectAndReadFromURL(url, attempt + 1);
 		} catch (org.apache.http.MalformedChunkCodingException e) {
 			// exclude downloading already download image.
-			this.sopUids = StringUtil
-					.encodeListEntriesWithSingleQuotes(this.sopUidsList);
-			System.out
-					.println(getTimeStamp() +"retry the rest of images from series as there was MalformedChunkCodingException-- for series"+this.seriesInstanceUid);
+			this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
+			System.out.println(getTimeStamp() +" MalformedChunkCodingException-- for series " + this.seriesInstanceUid +" @ attempt--"+ attempt);
 			e.printStackTrace();
-			additionalInfo.append(getTimeStamp() +" retry image attempt").append(attempt + 1)
-					.append(" for MalformedChunkCodingException \n");
+			additionalInfo.append(getTimeStamp() +" image retry attempt ").append(attempt + 1).append(" for MalformedChunkCodingException \n");
 			connectAndReadFromURL(url, attempt + 1);
 		} catch (Exception e) {
 			if (e instanceof java.net.SocketTimeoutException){
-				System.out
-				.println(getTimeStamp() +"!!!!! catch Exception thrown for connect to server for series "+ this.seriesInstanceUid);
-				
 				// exclude downloading already download image.
-				this.sopUids = StringUtil
-						.encodeListEntriesWithSingleQuotes(this.sopUidsList);
-				System.out
-						.println(getTimeStamp() +" retry the rest of images from series as there was Socket timeout exception-- for series"+this.seriesInstanceUid);
+				this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
+				System.out.println(getTimeStamp() +" java.net.SocketTimeoutException-- for series"+this.seriesInstanceUid  + "@ attempt--"+ attempt);
 				e.printStackTrace();
-				additionalInfo.append(getTimeStamp() +" retry image attempt").append(attempt + 1)
-						.append(" for Socket timeout exception \n");
+				additionalInfo.append(getTimeStamp() +" image retry attempt").append(attempt + 1).append(" for Socket timeout exception \n");
 				connectAndReadFromURL(url, attempt + 1);
 			}
 			else {
-				System.out
-				.println(getTimeStamp() +"!!!!! cought exception for series "+ this.seriesInstanceUid);
+				System.out.println(getTimeStamp() +"!!!!! cought exception for series "+ this.seriesInstanceUid +" @attempt--"+ attempt);
 				e.printStackTrace();
 			}
 		}
@@ -383,6 +326,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		finally {
 			httpClient.getConnectionManager().shutdown();
 		}
+		System.out.println("Leaving connectAndReadFromURL.........for " + this.seriesInstanceUid +" @ attempt " + attempt);
 	}
 
 	private void readFromConnection(InputStream is) throws Exception {
@@ -419,13 +363,9 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 				if (pos > 0) {
 					// sopUidsList.add(sop.substring(0, pos)); - lrt moved to
 					// below, after file size check
-					outputStream = new FileOutputStream(location
-							+ File.separator
-							+ StringUtil.displayAsSixDigitString(imageCnt)
-							+ ".dcm");
+					outputStream = new FileOutputStream(location + File.separator + StringUtil.displayAsSixDigitString(imageCnt) + ".dcm");
 				} else {
-					outputStream = new FileOutputStream(location
-							+ File.separator + sop);
+					outputStream = new FileOutputStream(location + File.separator + sop);
 				}
 
 				try {
@@ -440,8 +380,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 				// Begin lrt additions
 				int bytesDownloaded = downloaded - startDownloaded;
 				if (bytesDownloaded != fileSize) {
-					additionalInfo.append(" file size mismatch for instance "
-							+ sop + "\n");
+					additionalInfo.append(" file size mismatch for instance " + sop + "\n");
 					System.out.println(this.seriesInstanceUid + additionalInfo);
 					error();
 				} else {
@@ -459,15 +398,18 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		}
 		// Begin lrt additions
 		if (status == COMPLETE) {
-			if (sopUidsList.size() != Integer.valueOf(numberOfImages)
-					.intValue()) {
+			if (sopUidsList.size() != Integer.valueOf(numberOfImages).intValue()) {
 				additionalInfo
-						.append("Number of image files mismatch. It Was supposed to be "
-								+ numberOfImages
-								+ " image files but we found "
-								+ sopUidsList.size() + " at server side\n");
+						.append("Number of image files mismatch. It Was supposed to be " + numberOfImages
+								+ " image files but we found " + sopUidsList.size() + " at server side\n");
 				System.out.println(this.seriesInstanceUid + additionalInfo);
 				error();
+			}
+			if (downloadedImgSize != imagesSize) {
+				System.out.println(this.seriesInstanceUid + " total size of image files mismatch.  Was " + downloadedImgSize+" should be "+imagesSize);
+			}
+			if (downloadedAnnoSize != annoSize) { 
+				System.out.println( this.seriesInstanceUid + " total size of annotation files mismatch.  Was " +downloadedAnnoSize+" should be "+annoSize+"\n");
 			}
 			/*
 			 * Cannot use this sanity check, since image sizes are not always

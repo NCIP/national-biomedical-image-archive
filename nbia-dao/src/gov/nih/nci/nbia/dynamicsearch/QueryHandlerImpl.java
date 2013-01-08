@@ -5,18 +5,18 @@ import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.dto.StudyNumberDTO;
 import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaFactory;
 import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaForAuthorizedSiteData;
-import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
 import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.xmlobject.Element;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.PatientSearchResultImpl;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -148,13 +148,26 @@ public class QueryHandlerImpl extends AbstractDAO
 					Timestamp submissionDate = (Timestamp) row[6];
 					String modality = (String) row[7];
 					String seriesDesc = (String) row[8];
-	
+					Date subDate = null;
+					if(submissionDate != null) {
+						subDate = new Date(submissionDate.getTime());
+					} else {
+						String date = 0000 + "/" + 00 + "/" + 00;
+				    try {
+					      SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+					      subDate = formatter.parse(date);
+					      System.out.println("utilDate:" + subDate);
+					    } catch (ParseException e) {
+					      System.out.println(e.toString());
+					      e.printStackTrace();
+					    }
+					}
 					QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
 							                                          site,
 							                                          patient,
 							                                          study,
 							                                          series,
-							                                          new Date(submissionDate.getTime()),
+							                                          subDate,
 							                                          visibilitySt, modality, seriesDesc);
 					searchResultDtos.add(qcSrDTO);
 				}

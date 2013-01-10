@@ -156,7 +156,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 	}
 
 	private void connectAndReadFromURL(URL url, int attempt) throws Exception {
-		System.out.println("attempt" + attempt + " for the series" + this.seriesInstanceUid);
+		System.out.println(getTimeStamp() + " attempt" + attempt + " for the series" + this.seriesInstanceUid);
 		if (attempt >= noOfRetry) {
 			additionalInfo.append(getTimeStamp() + " For series " + this.seriesInstanceUid +" Reached max retry (" + noOfRetry + ") attempts.\n");
 			System.out.println(additionalInfo + "--attempt" + attempt +" changing to error status");
@@ -165,7 +165,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		}
 		
 		letSleep(attempt);
-		System.out.println("After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + attempt);
+		System.out.println(getTimeStamp() + " After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + attempt);
 		
 		TrustStrategy easyStrategy = new TrustStrategy() {
 			@Override
@@ -233,7 +233,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 					System.out.println(getTimeStamp() +"java.net.SocketTimeoutException exception- for series" + seriesInstanceUid  +"--attempt" + executionCount);
 					additionalInfo.append(getTimeStamp() + " Request Handler attempt").append(executionCount).append(" for SocketTimeOutException \n");
 					letSleep(executionCount);
-					System.out.println("After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + executionCount);
+					System.out.println(getTimeStamp() +" After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + executionCount);
 					return true;
 				}
 				if (exception instanceof java.net.SocketException) {
@@ -241,7 +241,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 					System.out.println(getTimeStamp() + "java.net.SocketException - for series" + seriesInstanceUid +"--attempt" + executionCount);
 					additionalInfo.append(getTimeStamp() +" Request Handler attempt").append(executionCount) .append(" for SocketException \n");
 					letSleep(executionCount);
-					System.out.println("After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + executionCount);
+					System.out.println(getTimeStamp() +"After coming out from sleep for series " + seriesInstanceUid +" @ attempt" + executionCount);
 					return true;
 				}
 				HttpRequest request = (HttpRequest) context.getAttribute(ExecutionContext.HTTP_REQUEST);
@@ -263,7 +263,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		try {
 			HttpResponse response = httpClient.execute(httpPostMethod);
 			int responseCode = response.getStatusLine().getStatusCode();
-			System.out.println("response code: " + responseCode + "for the seriers " + this.seriesInstanceUid + "--attempt--"+ attempt);
+			System.out.println(getTimeStamp() +" response code: " + responseCode + "for the seriers " + this.seriesInstanceUid + "--attempt--"+ attempt);
 
 			/* Make sure response code is in the 200 range. */
 			if (responseCode / 100 != 2) {
@@ -312,7 +312,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 			additionalInfo.append(getTimeStamp() +" image retry attempt ").append(attempt + 1).append(" for MalformedChunkCodingException \n");
 			connectAndReadFromURL(url, attempt + 1);
 		} catch (Exception e) {
-			if (e instanceof java.net.SocketTimeoutException){
+			if ((e instanceof java.net.SocketTimeoutException) || (e instanceof java.io.IOException)){
 				// exclude downloading already download image.
 				this.sopUids = StringUtil.encodeListEntriesWithSingleQuotes(this.sopUidsList);
 				System.out.println(getTimeStamp() +" java.net.SocketTimeoutException-- for series"+this.seriesInstanceUid  + "@ attempt--"+ attempt);

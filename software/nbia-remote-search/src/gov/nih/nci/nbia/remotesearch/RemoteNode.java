@@ -16,6 +16,7 @@ import org.apache.axis.message.addressing.EndpointReferenceType;
  * index service).
  */
 public class RemoteNode extends NBIANode {
+	static final long serialVersionUID = 5025173765475901441L;
 	/**
 	 * Construct a remote node
 	 *

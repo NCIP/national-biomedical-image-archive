@@ -271,6 +271,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 				System.out.println(getTimeStamp() +" for the seriers "+ this.seriesInstanceUid +" incorrect response code received "
 						+"--attempt" + attempt);
 				additionalInfo.append(getTimeStamp() + " retry attempt").append(attempt + 1).append("for incorrect response code \n");
+				httpClient.getConnectionManager().shutdown();
 				connectAndReadFromURL(url, attempt + 1);
 			}
 

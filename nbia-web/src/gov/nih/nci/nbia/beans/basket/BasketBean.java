@@ -10,8 +10,6 @@ import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.basket.BasketUtil;
 import gov.nih.nci.nbia.basket.DownloadRecorder;
 import gov.nih.nci.nbia.beans.BeanManager;
-import gov.nih.nci.nbia.search.DrillDown;
-import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.beans.searchresults.ImageResultWrapper;
 import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
@@ -21,6 +19,9 @@ import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.nbia.jms.ImageZippingMessage;
 import gov.nih.nci.nbia.jms.JMSClient;
+import gov.nih.nci.nbia.remotesearch.RemoteNode;
+import gov.nih.nci.nbia.search.DrillDown;
+import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.nbia.util.DynamicJNLPGenerator;
 import gov.nih.nci.nbia.util.MessageUtil;
@@ -29,6 +30,7 @@ import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.zip.ZipManager;
 import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.io.File;
@@ -39,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import javax.faces.component.UIData;
 import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
@@ -46,6 +49,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 
 import com.icesoft.faces.async.render.SessionRenderer;
@@ -228,6 +232,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
             for(String key: keys){
                 BasketSeriesItemBean bsib = seriesItemMap.get(key);
                 SeriesSearchResult seriesDTO = bsib.getSeriesSearchResult();
+                NBIANode node = seriesDTO.associatedLocation();
+                if (node instanceof RemoteNode) {
+                    RemoteNode location = RemoteNode.constructPartialRemoteNode(node.getDisplayName(),node.getURL());
+                    seriesDTO.associateLocation(location);
+                }
                 localSeriesDTOs.put(seriesDTO.getId().toString(),seriesDTO);
             }
             izm.setItems(localSeriesDTOs);

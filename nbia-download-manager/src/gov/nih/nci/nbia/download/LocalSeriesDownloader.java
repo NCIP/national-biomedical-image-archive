@@ -138,7 +138,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		// Let it sleep some time when attempt is great than one already
 		if (attempt >= 1 && attempt < noOfRetry) {
 			Random randomGenerator = new Random();
-			int randomInt = randomGenerator.nextInt(10000) + attempt * 120000;
+			int randomInt = randomGenerator.nextInt(60000) + attempt * 120000;
 			System.out .println(getTimeStamp () + this.seriesInstanceUid +" attempt "+ attempt +" put into sleep for " + randomInt + "millisecond");
 			try {
 				

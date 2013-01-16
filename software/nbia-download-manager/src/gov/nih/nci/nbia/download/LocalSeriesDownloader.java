@@ -272,6 +272,15 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 						+"--attempt" + attempt);
 				additionalInfo.append(getTimeStamp() + " retry attempt").append(attempt + 1).append("for incorrect response code \n");
 				httpClient.getConnectionManager().shutdown();
+				//it could be caused by the exclusion list is large than 1000 and result in sql execution error.
+				if ( this.sopUidsList.size()>= 1000) {
+					System.out.println(getTimeStamp() +" for the seriers "+ this.seriesInstanceUid +" exclusion list size="+ this.sopUidsList.size()+ " so redo whole series");
+					additionalInfo.append(getTimeStamp() + "redo whole series because server internal error");
+					this.sopUidsList.clear();
+					this.sopUids="";
+					this.downloaded = 0;
+					this.progressUpdater.bytesCopied(0);
+				}
 				connectAndReadFromURL(url, attempt + 1);
 			}
 

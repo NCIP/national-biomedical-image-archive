@@ -264,7 +264,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 			HttpResponse response = httpClient.execute(httpPostMethod);
 			int responseCode = response.getStatusLine().getStatusCode();
 			System.out.println(getTimeStamp() +" response code: " + responseCode + "for the seriers " + this.seriesInstanceUid + "--attempt--"+ attempt);
-			System.out.println("!!!!!!!!!!new changes");
+			
 			/* Make sure response code is in the 200 range. */
 			if (responseCode / 100 != 2) {
 				// additionalInfo.append("incorrect response code");

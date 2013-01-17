@@ -264,7 +264,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 			HttpResponse response = httpClient.execute(httpPostMethod);
 			int responseCode = response.getStatusLine().getStatusCode();
 			System.out.println(getTimeStamp() +" response code: " + responseCode + "for the seriers " + this.seriesInstanceUid + "--attempt--"+ attempt);
-
+			System.out.println("!!!!!!!!!!new changes");
 			/* Make sure response code is in the 200 range. */
 			if (responseCode / 100 != 2) {
 				// additionalInfo.append("incorrect response code");
@@ -272,10 +272,11 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 						+"--attempt" + attempt);
 				additionalInfo.append(getTimeStamp() + " retry attempt").append(attempt + 1).append("for incorrect response code \n");
 				httpClient.getConnectionManager().shutdown();
+				
 				//it could be caused by the exclusion list is large than 1000 and result in sql execution error.
 				if ( this.sopUidsList.size()>= 1000) {
 					System.out.println(getTimeStamp() +" for the seriers "+ this.seriesInstanceUid +" exclusion list size="+ this.sopUidsList.size()+ " so redo whole series");
-					additionalInfo.append(getTimeStamp() + "redo whole series because server internal error");
+					additionalInfo.append(getTimeStamp() + "redo whole series because server internal error.");
 					this.sopUidsList.clear();
 					this.sopUids="";
 					this.downloaded = 0;

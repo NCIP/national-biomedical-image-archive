@@ -138,13 +138,13 @@ public class ZipManager extends Thread {
             studyIdToSeriesCntMap = new HashMap<String, Integer>();
             
             List<AnnotationFileDTO> annotationFilePaths = new ArrayList<AnnotationFileDTO>();
-            
+            StringBuffer seriesNotRetrieved = new StringBuffer();
             while (pointer < seriesToZip.size()) {
                 // The list of IDs to put in this query
                 List<SeriesSearchResult> seriesChunk = chunk(seriesToZip, pointer);
 
                 pointer += NUMBER_OF_SERIES_TO_RETRIEVE_AT_ONE_TIME;
-
+                System.out.println("total series to be download  " + seriesChunk.size());
                 for(SeriesSearchResult seriesSearchResult : seriesChunk) {
                     SeriesFileRetriever seriesFileRetriever = SeriesFileRetrieverFactory.getSeriesFileRetriever();
 
@@ -153,8 +153,15 @@ public class ZipManager extends Thread {
                     	seriesCnt = 0;
                     }
                     
-                    try {                    	
-                        DicomFileDTO dicomFile = seriesFileRetriever.retrieveImages(seriesSearchResult);
+                    try {
+                    	DicomFileDTO dicomFile = null;
+                        try {
+                            dicomFile = seriesFileRetriever.retrieveImages(seriesSearchResult);
+                        } catch(Exception e) {
+                            System.out.println("retry since there was exception for series " + seriesSearchResult.getSeriesInstanceUid() + e.getMessage() );
+                            //retry the series once
+                            dicomFile = seriesFileRetriever.retrieveImages(seriesSearchResult);
+                        }
                         List<ImageFileDTO> dicomFilePaths = dicomFile.getImageFileDTOList();
                         annotationFilePaths = dicomFile.getAnnotationDTOList();
                         
@@ -166,12 +173,13 @@ public class ZipManager extends Thread {
                         		        dicomFilePaths, 
                         		        zipit,
                         		        seriesCnt);
-
                         atLeastOneSeriesSuccessfullyRetrieved = true;
                     }
                     catch(Exception ex) {
-                        ex.printStackTrace();
+                    	System.out.println(ex.getMessage() + " exception no retry for series " + seriesSearchResult.getSeriesInstanceUid());
+                    	ex.printStackTrace();
                         //keep on trucking...maybe other series will be ok
+                        seriesNotRetrieved.append(seriesSearchResult.getSeriesInstanceUid()).append(System.getProperty("line.separator"));
                     }
 
                     if(!noAnnotation) {
@@ -198,7 +206,11 @@ public class ZipManager extends Thread {
             }
 
             if(!atLeastOneSeriesSuccessfullyRetrieved) {
-                createErrorMessageFile(zipit);
+                createErrorMessageFile(zipit,null);
+            }
+            if(!StringUtil.isEmptyTrim(seriesNotRetrieved.toString())) {
+            	createErrorMessageFile(zipit, "There was some network error during the download for series listed below. Please try again later."
+            			+ System.getProperty("line.separator") + seriesNotRetrieved.toString());
             }
             zipit.closeFile();
         }
@@ -333,7 +345,7 @@ public class ZipManager extends Thread {
                    image.getFileURI(),
                    image.getSize(),
                    StringUtil.displayAsSixDigitString(imageCnt) + ".dcm");
-           if ( (imageCnt+1) < imageList.size()) {
+           if ( (imageCnt+1) <= imageList.size()) {
         	   fireProgressEvent();
            }
            imageCnt += 1;
@@ -453,11 +465,15 @@ public class ZipManager extends Thread {
      * If not sites respond to series retrieval.... then put a single file
      * into zip explaining the problem.  A zip file must have at least one file....
      */
-    private static void createErrorMessageFile(AbstractFileZipper zipit) throws Exception {
+    private static void createErrorMessageFile(AbstractFileZipper zipit, String msg) throws Exception {
         File messageFile = File.createTempFile("pre", "suffix");
-
-        FileUtils.writeStringToFile(messageFile,
-                                    "No series could be retrieved.  It is possible that all remote nodes are down.  Please try again later.");
+        if (!StringUtil.isEmptyTrim(msg)) {
+        	FileUtils.writeStringToFile(messageFile, msg);
+        } else {
+        	FileUtils.writeStringToFile(messageFile,
+                    "No series could be retrieved.  It is possible that all remote nodes are down.  Please try again later.");
+        	        	
+        }
 
         zipit.zip("",
                   messageFile.getAbsolutePath(),

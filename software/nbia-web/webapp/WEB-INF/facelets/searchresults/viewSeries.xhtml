@@ -181,6 +181,12 @@
                             <ice:outputText value="#{seriesSearchResultBean.imageLabel}" 
                                             rendered="#{seriesSearchResultBean.cellVisibility}"/>
                             <br/>
+                            <ice:outputText value="#{seriesSearchResultBean.sopInstanceUid}" 
+                                            rendered="#{seriesSearchResultBean.cellVisibility}"/>
+                                            <br/>
+                            <ice:outputText value="#{seriesSearchResultBean.frameNum}" 
+                                            rendered="#{seriesSearchResultBean.cellVisibility}"/> 
+                             <br/>                               
                             <ice:graphicImage id="image"
                                               url="#{seriesSearchResultBean.cellValue.image.thumbnailURL}"
                                               style="border:none;"
@@ -191,7 +197,9 @@
                 <ui:param name="rendered" 
                           value="#{seriesSearchResultBean.frameNum gt 1}"/>
                 <ui:param name="slideshowTemplate"
-                          value="slideShowViewSeries.xhtml"/>                           
+                          value="slideShowViewSeries.xhtml"/>
+                <ui:param name="imageLabel"
+                          value="#{seriesSearchResultBean.imageLabel}"/>                                     
               </ui:include> 
    
                           </div>
@@ -263,10 +271,11 @@
       </table>
     </td>        
   </tr>
-</table>        
-
+</table> 
+	<h:inputHidden id="imageIdx" value="#{seriesSearchResultBean.imageIdx}"/>       
 </h:form>
-        
+
+
 <table summary="" 
        cellpadding="0"
        cellspacing="0"

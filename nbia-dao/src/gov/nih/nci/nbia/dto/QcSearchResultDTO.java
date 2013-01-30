@@ -128,8 +128,12 @@ public class QcSearchResultDTO {
 	}
 	
 	public String getDateTime() {
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
-		return sdf.format(creationDate);
+		if (creationDate != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
+			return sdf.format(creationDate);
+		} else {
+			return "N/A";
+		}
 	}
 
 	public String getModality() {

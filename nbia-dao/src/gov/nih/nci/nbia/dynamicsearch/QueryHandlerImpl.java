@@ -151,17 +151,7 @@ public class QueryHandlerImpl extends AbstractDAO
 					Date subDate = null;
 					if(submissionDate != null) {
 						subDate = new Date(submissionDate.getTime());
-					} else {
-						String date = 0000 + "/" + 00 + "/" + 00;
-				    try {
-					      SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-					      subDate = formatter.parse(date);
-					      System.out.println("utilDate:" + subDate);
-					    } catch (ParseException e) {
-					      System.out.println(e.toString());
-					      e.printStackTrace();
-					    }
-					}
+					} 
 					QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
 							                                          site,
 							                                          patient,

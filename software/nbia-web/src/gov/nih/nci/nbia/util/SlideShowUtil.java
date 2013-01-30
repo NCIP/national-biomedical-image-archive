@@ -42,6 +42,36 @@ public class SlideShowUtil {
 		return js.toString();
 	}
 	
+	public static String getImageSeriesJavascriptEx(
+			List<ImageSearchResultEx> thumbnailList, int i) {
+		ImageSearchResultEx image = thumbnailList.get(i - 1);
+		int frameSize = 0;
+		StringBuffer js = new StringBuffer("[");
+		
+		if (image.getNameValuesPairs() != null) {
+			String frameNumI = image.getNameValuesPairs().getValues()[0];
+			frameSize = (frameNumI == null) ? 0 : Integer.parseInt(frameNumI);
+System.out.println("!!!!!SOP="+image.getSopInstanceUid() +" Frame #="+frameSize);			
+		}
+
+		if (frameSize <= 1) {
+			String tnURL = "'" + image.getThumbnailURL() + "'";
+			js.append(tnURL);
+		} else { // frameSize > 1
+			for (int j = 0; j < frameSize; ++j) {
+
+				js.append("'" + image.getThumbnailURL() + "-" + j + "'");
+				if (j != frameSize - 1) {
+					js.append(',');
+				}
+			}
+		}
+
+		js.append(']');
+		// System.out.println("java script:" + js.toString());
+		return js.toString();
+	}
+	
 	public static String getImageSeriesJavascript(List<ImageSearchResult> thumbnailList) {
 		StringBuffer js = new StringBuffer("[");
 		for(int i=0;i<thumbnailList.size();i++) {

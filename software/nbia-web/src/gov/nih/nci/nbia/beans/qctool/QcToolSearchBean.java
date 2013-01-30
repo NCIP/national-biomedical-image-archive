@@ -346,9 +346,15 @@ public class QcToolSearchBean {
                     return 0;
                 }
                 if (sortColumnName.equals(dateHeader)) {
-                    return compareObject(
-                            c1.getCreationDate().compareTo(c2.getCreationDate()),
-                            c2.getCreationDate().compareTo(c1.getCreationDate()));
+                	if (c1.getCreationDate() != null && c2.getCreationDate()!= null) {
+                		return compareObject(
+                                c1.getCreationDate().compareTo(c2.getCreationDate()),
+                                c2.getCreationDate().compareTo(c1.getCreationDate()));
+                	} else{
+                		return compareObject(
+                            c1.getDateTime().compareTo(c2.getDateTime()),
+                            c2.getDateTime().compareTo(c1.getDateTime()));
+                	}
                 }
                 else if (sortColumnName.equals(siteHeader)) {
                     return compareObject(c1.getCollectionSite().compareTo(c2.getCollectionSite()),

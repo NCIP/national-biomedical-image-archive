@@ -64,6 +64,9 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	 * ['http://xxx1', 'http://xxx2', ...]
 	 */
 	public String getImageSeriesJavascript() {
+		if (getSeries().getModality().equals("US")){
+			return SlideShowUtil.getImageSeriesJavascriptEx(getUnwrappedImages(), Integer.parseInt(getImageIdx()));
+		}
 		return SlideShowUtil.getImageSeriesJavascriptEx(getUnwrappedImages());
 	}
 
@@ -144,6 +147,14 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
     	return 0;
     }
 
+    //Code for debug
+    public String getSopInstanceUid() {
+    	if (icefacesDataModel.getCellVisibility() &&
+        	    getSeries().getModality().equals("US")) {
+    		return getCellValue().getImageEx().getSopInstanceUid();
+    	}
+    	else return null;
+    }
 
 	public DataModel getRowDataModel() {
 		return icefacesDataModel.getRowDataModel();
@@ -160,11 +171,22 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	public boolean getShowPaginator() {
 		return icefacesDataModel.getShowPaginator();
 	}
-	///////////////////////////////////////////PRIVATE/////////////////////////////////
+	
 
-    private List<DicomTagDTO> tagInfo;
+    public String getImageIdx() {
+		return imageIdx;
+	}
+
+	public void setImageIdx(String imageIdx) {
+		this.imageIdx = imageIdx;
+	}
+	
+	///////////////////////////////////////////PRIVATE/////////////////////////////////
+	private List<DicomTagDTO> tagInfo;
 
 	private SeriesSearchResult series;
+	
+	private String imageIdx;
 
 
 	/**

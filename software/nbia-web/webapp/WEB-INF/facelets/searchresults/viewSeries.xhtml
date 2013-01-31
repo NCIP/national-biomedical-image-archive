@@ -180,13 +180,7 @@
                                class="#{empty basketBean.inBasketMap[seriesSearchResultBean.cellValue.basketKey] ? '' : 'highlightedData'}">
                             <ice:outputText value="#{seriesSearchResultBean.imageLabel}" 
                                             rendered="#{seriesSearchResultBean.cellVisibility}"/>
-                            <br/>
-                            <ice:outputText value="#{seriesSearchResultBean.sopInstanceUid}" 
-                                            rendered="#{seriesSearchResultBean.cellVisibility}"/>
-                                            <br/>
-                            <ice:outputText value="#{seriesSearchResultBean.frameNum}" 
-                                            rendered="#{seriesSearchResultBean.cellVisibility}"/> 
-                             <br/>                               
+                            <br/>                              
                             <ice:graphicImage id="image"
                                               url="#{seriesSearchResultBean.cellValue.image.thumbnailURL}"
                                               style="border:none;"
@@ -197,7 +191,7 @@
                 <ui:param name="rendered" 
                           value="#{seriesSearchResultBean.frameNum gt 1}"/>
                 <ui:param name="slideshowTemplate"
-                          value="slideShowViewSeries.xhtml"/>
+                          value="multiFrameSlideShow.jsf"/>
                 <ui:param name="imageLabel"
                           value="#{seriesSearchResultBean.imageLabel}"/>                                     
               </ui:include> 
@@ -271,8 +265,7 @@
       </table>
     </td>        
   </tr>
-</table> 
-	<h:inputHidden id="imageIdx" value="#{seriesSearchResultBean.imageIdx}"/>       
+</table>     
 </h:form>
 
 

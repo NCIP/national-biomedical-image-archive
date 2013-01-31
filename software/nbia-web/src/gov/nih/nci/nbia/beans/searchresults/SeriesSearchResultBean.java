@@ -181,6 +181,15 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		this.imageIdx = imageIdx;
 	}
 	
+	public void populate(String idx) {
+		
+		System.out.println("!!populated imageIdx="+idx);
+		if (idx == null){
+			setImageIdx ("1");
+		}
+		setImageIdx(idx);
+	}
+	
 	///////////////////////////////////////////PRIVATE/////////////////////////////////
 	private List<DicomTagDTO> tagInfo;
 

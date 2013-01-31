@@ -43,6 +43,15 @@
 
     <view-id> /qcToolSlideShow.jsf </view-id>
     <action>#{viewSeriesPopulatorQCBean.populate}</action>
+  </url-mapping>
+  
+  <url-mapping id="multiFrameSlideShowView">
+    <pattern> /multiFrameSlideShow.jsf</pattern>
+    
+    <query-param name="imageIdx">#{viewMultiFrameSSBean.imageIdx}</query-param>
+
+    <view-id> /slideShowViewSeries.jsf </view-id>
+    <action>#{viewMultiFrameSSBean.populate}</action>
   </url-mapping> 
   
        

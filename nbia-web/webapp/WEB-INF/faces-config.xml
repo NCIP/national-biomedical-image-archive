@@ -376,8 +376,13 @@
     <managed-bean-name>dicomTagViewerPopulatorMgBean</managed-bean-name>
     <managed-bean-class>gov.nih.nci.nbia.beans.populator.DicomTagViewerPopulatorMgBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
-  </managed-bean>    
-
+  </managed-bean>   
+  <managed-bean>
+      <description>Populates the multi-frame Cine Tool page for a page load action</description>
+      <managed-bean-name>viewMultiFrameSSBean </managed-bean-name>
+      <managed-bean-class>gov.nih.nci.nbia.beans.populator.ViewMultiFrameSSBean </managed-bean-class>
+      <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
   
   <managed-bean>
     <description>Populates the databasket page for direct bookmarking</description>

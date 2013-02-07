@@ -160,8 +160,17 @@
                                    tabindex="20"
                                    partialSubmit="true"
                                    value="#{dynamicSearchBean.selectedField}"
-                                   valueChangeListener="#{dynamicSearchBean.fieldItemChanged}">
+                                   valueChangeListener="#{dynamicSearchBean.fieldItemChanged}"
+                                   rendered="#{!dynamicSearchBean.modMR}">
                   <f:selectItems value="#{dynamicSearchBean.fieldItems}"/>
+                </ice:selectOneMenu>
+                <ice:selectOneMenu id="modalityFields" 
+                                   tabindex="20"
+                                   partialSubmit="true"
+                                   value="#{dynamicSearchBean.modalitySelectedField}"
+                                   valueChangeListener="#{dynamicSearchBean.modalityFieldItemChanged}"
+                                   rendered="#{dynamicSearchBean.modMR}">
+                  <f:selectItems value="#{dynamicSearchBean.modalityFieldItems}"/>
                 </ice:selectOneMenu>
               </td>
               <td>
@@ -181,7 +190,7 @@
                                size="55"/>
                 <ice:selectOneMenu id="permissibleDataValue" 
                                    tabindex="25"
-                                   partialSubmit="false"
+                                   partialSubmit="true"
                                    rendered="#{dynamicSearchBean.hasPermissibleData}"
                                    value="#{dynamicSearchBean.permissibleDataValue}">
                   <f:selectItems value="#{dynamicSearchBean.permissibleData}"/>
@@ -194,6 +203,26 @@
                                    title="Add Criteria"/>
               </td>
             </tr>
+            <!--tr>
+              <td>
+                <ice:selectOneMenu id="modalityFields" 
+                                   tabindex="20"
+                                   partialSubmit="true"
+                                   value="#{dynamicSearchBean.modalitySelectedField}"
+                                   valueChangeListener="#{dynamicSearchBean.fieldItemChanged}">
+                  <f:selectItems value="#{dynamicSearchBean.modalityFieldItems}"/>
+                </ice:selectOneMenu>
+              </td>            
+              <td>
+              
+                <ice:selectOneMenu id="operand"
+                                   tabindex="30"
+                                   partialSubmit="false"
+                                   value="#{dynamicSearchBean.selectedOperand}">
+                  <f:selectItems value="#{dynamicSearchBean.operandItems}"/>
+               </ice:selectOneMenu>
+              </td>            
+            </tr-->
             <tr>
               <td colspan="4">
                 <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidInteger}"                          

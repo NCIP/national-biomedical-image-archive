@@ -57,6 +57,7 @@ public class DynamicSearchBean {
 	protected String selectedDataGroup;
 	protected List<SelectItem> dataGroupItems;
 	protected List<SelectItem> fieldItems;
+	protected List<SelectItem> modalityFieldItems;
 	protected List<SelectItem> operandItems;
 	protected List<SelectItem> resultPerPageItems;
 	protected String selectedOperand;
@@ -69,12 +70,14 @@ public class DynamicSearchBean {
 	protected String relation = "AND";
 	protected String selectedResultPerPage="10";
 	protected boolean hasPermissibleData = false;
+	protected boolean isMr=false;
 	protected List<SelectItem> permissibleData;
 
 	protected String defaultSelectValue="please select";
 	protected String defaultSelectLabel="--Please Select--";
 	protected SelectItem defaultSelectItem = new SelectItem(defaultSelectValue, defaultSelectLabel);
 	protected String selectedField=defaultSelectItem.getValue().toString();
+	protected String modalitySelectedField=defaultSelectItem.getValue().toString();
 	protected AuthorizationManager man;
 	protected List<SiteData> authorizedSiteData;
 	protected List<String> seriesSecurityGroups;
@@ -113,6 +116,21 @@ public class DynamicSearchBean {
 
 		fieldItems = new ArrayList<SelectItem>();
 		fieldItems.add(0, defaultSelectItem);
+//		modalityFieldItems = new ArrayList<SelectItem>();
+//		modalityFieldItems.add(0, defaultSelectItem);
+//		modalityFieldItems.add(1, new SelectItem("Image Type", "Image Type" ));
+//		modalityFieldItems.add(2, new SelectItem("Scanning Sequence", "Scanning Sequence" ));
+//		modalityFieldItems.add(3, new SelectItem("Sequence Variant", "Sequence Variant" ));
+//		modalityFieldItems.add(4, new SelectItem("Repetition Time", "Repetition Time" ));
+//		modalityFieldItems.add(5, new SelectItem("Echo Time", "Echo Time" ));
+//		modalityFieldItems.add(6, new SelectItem("Inversion Time", "Inversion Time" ));
+//		modalityFieldItems.add(7, new SelectItem("Sequence Name", "Sequence Name" ));
+//		modalityFieldItems.add(8, new SelectItem("maged Nucleus", "maged Nucleus" ));
+//		modalityFieldItems.add(9, new SelectItem("Magnetic Field Strength", "Magnetic Field Strength" ));
+//		modalityFieldItems.add(10, new SelectItem("SAR", "SAR" ));
+//		modalityFieldItems.add(11, new SelectItem("dB/dt", "dB/dt" ));
+//		modalityFieldItems.add(12, new SelectItem("Trigger Time", "Trigger Time" ));
+//		modalityFieldItems.add(13, new SelectItem("Angio Flag", "Angio Flag" ));
 	}
 
 	public String getSelectedDataGroup() {
@@ -124,6 +142,7 @@ public class DynamicSearchBean {
 	}
 
 	public List<SelectItem> getDataGroupItems() {
+		System.out.println("!!!!called getDataGroupItems");
 		dataGroupItems = new ArrayList<SelectItem>();
 		List<DataSource> dataSourceList = dataGroup.getDataSource();
 		dataGroupItems.add(0, defaultSelectItem);
@@ -131,6 +150,11 @@ public class DynamicSearchBean {
 		{
 			dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
 		}
+		
+		if (isMr) {
+			dataGroupItems.add(new SelectItem("MR", "MR"));
+		}
+			
 		return dataGroupItems;
 	}
 
@@ -157,6 +181,11 @@ public class DynamicSearchBean {
 	{
 		return fieldItems;
 	}
+	
+	public List<SelectItem> getModalityFieldItems()
+	{
+		return modalityFieldItems;
+	}
 
 	public String getSelectedField() {
 		return selectedField;
@@ -164,6 +193,14 @@ public class DynamicSearchBean {
 
 	public void setSelectedField(String selectedField) {
 		this.selectedField = selectedField;
+	}
+	
+	public String getModalitySelectedField() {
+		return modalitySelectedField;
+	}
+
+	public void setModalitySelectedField(String modalitySelectedField) {
+		this.modalitySelectedField = modalitySelectedField;
 	}
 
 	public List<SelectItem> getOperandItems(){
@@ -196,7 +233,11 @@ public class DynamicSearchBean {
 
 	public void dataGroupChanged(ValueChangeEvent event) throws Exception
 	{
+		System.out.println("!!!called dataGroupChanged");
 		newValue = (String)event.getNewValue();
+		if (!newValue.equals("MR")) {
+			isMr = false;
+		}
 		if(newValue.equals(defaultSelectValue)){
 			System.out.println("no changes need");
 			fieldItems = new ArrayList<SelectItem>();
@@ -249,6 +290,46 @@ public class DynamicSearchBean {
 		invalidInteger = false;
 		invalidDouble = false;
 	}
+	
+	public void modalityFieldItemChanged(ValueChangeEvent event) throws Exception
+	{
+		String newFieldValue = (String)event.getNewValue();
+		//For demo purpose
+		
+		for(int i=0; i< stringOperands.length; i++){
+			operandItems.add(new SelectItem(""+stringOperandValues[i], stringOperands[i]));
+		}
+		
+		operandItems.add(0, defaultSelectItem);
+		selectedOperand = (String)operandItems.get(0).getValue();
+//		newFieldValue = "Image Type";
+//		operandItems =  setOperatorValues(newFieldValue);
+//		selectedOperand = (String)operandItems.get(0).getValue();
+//
+//		this.hasPermissibleData = checkPermissibleData(newFieldValue);
+//		if(hasPermissibleData)
+//		{
+//			if (newValue.equals(initialDataGroup) && newFieldValue.equals(dataGroup.getDataSource().get(0).getSourceItem().get(1).getItemName()))
+//			{
+//				loadProjectName();
+//			}
+//			else
+//			{
+//				loadPermissibleData(newFieldValue);
+//			}
+//
+//
+//		}
+//		else {
+//			this.permissibleDataValue = "";
+//		}
+		permissibleDataValue = "";
+		inputValue="";
+		invalidDate = false;
+		invalidInteger = false;
+		invalidDouble = false;
+	}
+
 
 	protected void loadPermissibleData(String field) throws Exception
 	{
@@ -368,6 +449,10 @@ public class DynamicSearchBean {
 		if (permissibleDataValue != null && permissibleDataValue.length() > 0)
 		{
 			dsc.setValue(permissibleDataValue.trim());
+			if (permissibleDataValue.equals("MR")) {
+				isMr=true;
+			}
+			else isMr=false;
 		}
 		if (itemActualSource.get(selectedField.trim()).length() > 1)
 		{
@@ -382,13 +467,31 @@ public class DynamicSearchBean {
 		{
 			dsc.setDataGroup(initialDataGroup.trim());
 		}
+		System.out.println("get selected field="+ selectedField.trim());		
+		if (!isMr) {		
 		dsc.setLabel(itemLabelTable.get(selectedField.trim()));
-
+		}
+		else { 
+			
+			if (permissibleDataValue.equals("MR")) {
+				dsc.setLabel(itemLabelTable.get(selectedField.trim()));
+			}
+			else
+			//temp code for demo needs to put into itemLabelTable
+			dsc.setLabel(modalitySelectedField.trim());
+		}
+		
 		if (!isDuplicate(dsc))
 		{
 			criteria.add(dsc);
 			hasDuplicate = false;
+			if (!isMr)
+			{			
 			defaultView();
+			}
+			else {
+				modalityView();
+			}
 		}else{
 			hasDuplicate = true;
 		}
@@ -537,6 +640,10 @@ public class DynamicSearchBean {
 	public boolean isHasPermissibleData() {
 		return hasPermissibleData;
 	}
+	
+	public boolean isModMR() {
+		return isMr;
+	}
 
 	public void setHasPermissibleData(boolean hasPermissibleData) {
 		this.hasPermissibleData = hasPermissibleData;
@@ -677,6 +784,45 @@ public class DynamicSearchBean {
 		invalidDate = false;
 		invalidInteger = false;
 		invalidDouble = false;
+		permissibleDataValue="";
+
+	}
+	
+	protected void modalityView(){
+System.out.println("!!!!!!MR Modality view");
+		dataGroupItems = new ArrayList<SelectItem>();
+		List<DataSource> dataSourceList = dataGroup.getDataSource();
+
+		dataGroupItems.add(0, defaultSelectItem);
+		for(DataSource ds : dataSourceList){
+			dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
+		}
+		
+		dataGroupItems.add(new SelectItem("MR", "MR"));
+		inputValue="";
+		modalityFieldItems = new ArrayList<SelectItem>();
+		modalityFieldItems.add(0, defaultSelectItem);
+		modalityFieldItems.add(1, new SelectItem("Image Type", "Image Type" ));
+		modalityFieldItems.add(2, new SelectItem("Scanning Sequence", "Scanning Sequence" ));
+		modalityFieldItems.add(3, new SelectItem("Sequence Variant", "Sequence Variant" ));
+		modalityFieldItems.add(4, new SelectItem("Repetition Time", "Repetition Time" ));
+		modalityFieldItems.add(5, new SelectItem("Echo Time", "Echo Time" ));
+		modalityFieldItems.add(6, new SelectItem("Inversion Time", "Inversion Time" ));
+		modalityFieldItems.add(7, new SelectItem("Sequence Name", "Sequence Name" ));
+		modalityFieldItems.add(8, new SelectItem("maged Nucleus", "maged Nucleus" ));
+		modalityFieldItems.add(9, new SelectItem("Magnetic Field Strength", "Magnetic Field Strength" ));
+		modalityFieldItems.add(10, new SelectItem("SAR", "SAR" ));
+		modalityFieldItems.add(11, new SelectItem("dB/dt", "dB/dt" ));
+		modalityFieldItems.add(12, new SelectItem("Trigger Time", "Trigger Time" ));
+		modalityFieldItems.add(13, new SelectItem("Angio Flag", "Angio Flag" ));
+		modalitySelectedField = defaultSelectValue;
+		selectedDataGroup = "MR";
+		hasPermissibleData=false;
+		errorMessage=false;
+		invalidDate = false;
+		invalidInteger = false;
+		invalidDouble = false;
+		isMr = true;
 		permissibleDataValue="";
 
 	}

@@ -64,7 +64,7 @@
                        cellspacing="3">
                   <tr class="formMessage">
                     <td width="20%">
-                      <LABEL FOR="MAINbody:registerForm:j_id286">Title:</LABEL>
+                      <LABEL FOR="MAINbody:d:j_id286">Title:</LABEL>
                     </td>
                     <td width="30%">
                       <span>
@@ -173,39 +173,40 @@
                   </tr>
                   <tr class="formMessage">
                     <td>
-                      <span>
-                        <span>*</span>
-                      </span>
+                      
                       <LABEL FOR="MAINbody:registerForm:fax">Fax:</LABEL>
                     </td>     
                     <td>
+                   	  <span>
+                        <span>*</span>
+                      </span>
                       <LABEL FOR="MAINbody:registerForm:org">Organization Name:</LABEL>
                     </td>                
                   </tr>
                   <tr>
-                    <td valign="top">
-                      <span>
-                        <h:inputText id="org" 
-                                     value="#{registerBean.organization}" 
-                                     maxlength="100" />
-                      </span>
-                    </td>
                     <td valign="top">
                       <span>                                    
                         <h:inputText id="fax" 
                                      value="#{registerBean.fax}"  
                                      maxlength="20"/>
                       </span>
-                    </td>                                  
+                    </td>     
+                    <td valign="top">
+                      <span>
+                        <h:inputText id="org" 
+                                     value="#{registerBean.organization}" 
+                                     maxlength="100" />
+                      </span>
+                    </td>                           
                   </tr>  
                   <tr>
+                  	<td>
+                      <h:message for="fax" styleClass="errorLabel"/>
+                    </td>  
                     <td>
                       <h:message for="org" 
                                  styleClass="errorLabel"/>
-                    </td>
-                    <td>
-                      <h:message for="fax" styleClass="errorLabel"/>
-                    </td>                        
+                    </td>                       
                   </tr>                   
                 </table>
               </td>

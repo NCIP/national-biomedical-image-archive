@@ -38,7 +38,8 @@ import java.util.Iterator;
  */
 public class CriteriaCollectionHandler implements CriteriaHandler {
 
-    private static final String wildChar = "%";
+    private static final String wildChar = "*";
+    private static final String queryWildChar = "%";
 
 	/**
      * This method will handle the construction of an HQL query for the collection
@@ -70,7 +71,7 @@ public class CriteriaCollectionHandler implements CriteriaHandler {
             if (tempQueryString.equals("")) {
                 if (tempString != null) {
                 	if(tempString.contains(wildChar) && inputCrit instanceof PatientCriteria) {
-                		tempQueryString += (" " + field + " like ('" + tempString +
+                		tempQueryString += (" " + field + " like ('" + tempString.replace(wildChar, queryWildChar) +
                 				"')");
                 	} else {
                 		tempQueryString += (" " + field + " IN ('" + tempString +
@@ -83,7 +84,7 @@ public class CriteriaCollectionHandler implements CriteriaHandler {
             } else {
                 if (tempString != null) {
                 	if(tempString.contains(wildChar) && inputCrit instanceof PatientCriteria) {
-                		tempQueryString += (" or (" + field + " like ('" + tempString +
+                		tempQueryString += (" or (" + field + " like ('" + tempString.replace(wildChar, queryWildChar) +
                 				"'))");
                 	} else {
                 		tempQueryString += (", '" + tempString + "'");

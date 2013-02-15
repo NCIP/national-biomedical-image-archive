@@ -858,6 +858,7 @@ System.out.println("!!!!!!MR Modality view");
 		operatorList.add(0, defaultSelectItem);
 		return operatorList;
 	}
+
 	protected boolean errorMessage=false;
 	protected boolean invalidDate = false;
 	protected boolean invalidInteger = false;

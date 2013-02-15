@@ -44,14 +44,13 @@ public class SlideShowUtil {
 	
 	public static String getImageSeriesJavascriptEx(
 			List<ImageSearchResultEx> thumbnailList, int i) {
-		ImageSearchResultEx image = thumbnailList.get(i - 1);
+		ImageSearchResultEx image = thumbnailList.get(i);
 		int frameSize = 0;
 		StringBuffer js = new StringBuffer("[");
 		
 		if (image.getNameValuesPairs() != null) {
 			String frameNumI = image.getNameValuesPairs().getValues()[0];
 			frameSize = (frameNumI == null) ? 0 : Integer.parseInt(frameNumI);
-System.out.println("!!!!!SOP="+image.getSopInstanceUid() +" Frame #="+frameSize);			
 		}
 
 		if (frameSize <= 1) {

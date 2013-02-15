@@ -165,6 +165,34 @@ public class LocalDrillDown implements DrillDown {
 			throw new RuntimeException(ex);
 		}
 	}
+	
+	/**
+	 * This method is only on the local drill down.  It's used by the
+	 * qc tool.  This method does not care about visibility status.
+	 */
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(String seriesInstanceUid) {
+        assert thumbnailURLResolver != null;
+
+		try {
+	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
+	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesInstandUid(Collections.singletonList(seriesInstanceUid));
+	        if(imageDtoList.size()>0) {
+				List<ImageSearchResultEx> imageSearchResultList = new ArrayList<ImageSearchResultEx>();
+				for(ImageDTO imageDto : imageDtoList) {
+					imageSearchResultList.add(constructResultEx(imageDto));
+				}
+
+	        	return imageSearchResultList.toArray(new ImageSearchResultEx[]{});
+	        }
+	        else {
+	        	return new ImageSearchResultEx[]{};
+	        }
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
+		}
+	}
 
 
 	/**

@@ -65,7 +65,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	 */
 	public String getImageSeriesJavascript() {
 		if (getSeries().getModality().equals("US")){
-			return SlideShowUtil.getImageSeriesJavascriptEx(getUnwrappedImages(), Integer.parseInt(getImageIdx()));
+			return SlideShowUtil.getImageSeriesJavascriptEx(getUnwrappedImages(), Integer.parseInt(getImageIdx())-1);
 		}
 		return SlideShowUtil.getImageSeriesJavascriptEx(getUnwrappedImages());
 	}
@@ -182,8 +182,6 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	}
 	
 	public void populate(String idx) {
-		
-		System.out.println("!!populated imageIdx="+idx);
 		if (idx == null){
 			setImageIdx ("1");
 		}

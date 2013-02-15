@@ -19,12 +19,16 @@ import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.ImageSearchResultEx;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 /**
  * This bean is used to update the QC status
@@ -231,6 +235,7 @@ public class QcToolUpdateBean {
 		}
 		imageCount = 0;
 		currentImgNum ="0";
+		selectedImgNumField = "1";
 		updateParam(seriesId);
 		return "qcToolSlideShow";
 	}
@@ -283,6 +288,7 @@ public class QcToolUpdateBean {
 		selectedQcStatusSingle = null;
 		imageCount = 0;
 		currentImgNum ="0";
+		selectedImgNumField = "1";
 		updateParam(seriesId);
 		return "qcToolSlideShow";
 
@@ -297,7 +303,6 @@ public class QcToolUpdateBean {
 	}
 
 	public String getImageSeriesJavascript() {
-System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@getImageSeriesJavascript");
 		String javaScriptbits = null;
 		List<String> seriesInstanceUids = new ArrayList<String>();
 
@@ -326,22 +331,35 @@ System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@getImageSeriesJavascript");
 				buttonLabel = "Update/Next Series";
 			}
 		}
+		
+		imageCount = Integer.parseInt(currentImgNum) - 1;
+		if (imageCount < 0) {
+			imageCount = 0;
+		}	
 
 		try {
 			LocalDrillDown drillDown = new LocalDrillDown();
 			drillDown
 					.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
-			List<ImageSearchResult> imageList = Arrays.asList(drillDown
-					.retrieveImagesForSeries(seriesId));
-			javaScriptbits = SlideShowUtil.getImageSeriesJavascript(imageList);
 
-			imageCount = Integer.parseInt(currentImgNum) - 1;
-			if (imageCount < 0) {
-				imageCount = 0;
+			if (isHasMultiFrame()) {
+				List<ImageSearchResultEx> imageList = Arrays.asList(drillDown
+						.retrieveImagesForSeriesEx(seriesId));
+				javaScriptbits = SlideShowUtil.getImageSeriesJavascriptEx(imageList, Integer.parseInt(getSelectedImgNumField())-1);
+				LocalDicomTagViewer ldtv = new LocalDicomTagViewer();
+				tagInfo = ldtv.viewDicomHeader(imageList.get(Integer.parseInt(getSelectedImgNumField())-1).getId());
+				currentSeriesSize = imageList.size();
+			}else {
+				
+				
+				List<ImageSearchResult> imageList = Arrays.asList(drillDown
+						.retrieveImagesForSeries(seriesId));
+				javaScriptbits = SlideShowUtil.getImageSeriesJavascript(imageList);
+				LocalDicomTagViewer ldtv = new LocalDicomTagViewer();
+				tagInfo = ldtv.viewDicomHeader(imageList.get(imageCount).getId());
+				currentSeriesSize = imageList.size();
 			}
-
-			LocalDicomTagViewer ldtv = new LocalDicomTagViewer();
-			tagInfo = ldtv.viewDicomHeader(imageList.get(imageCount).getId());
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -364,11 +382,13 @@ System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@getImageSeriesJavascript");
 				break;
 			}
 		}
+		setHasMultiFrame(slist.get(selectedRow).getModality().equalsIgnoreCase("US"));
 	}
 
 	public void populate(String seriesId) {
 		if (!seriesId.equals(this.seriesId)){
 			currentImgNum = "0";
+			selectedImgNumField = "1";
 		}
 		setSeriesId(seriesId);
 	}
@@ -443,6 +463,7 @@ System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@getImageSeriesJavascript");
 		selectedQcStatusSingle = null;
 		imageCount = 0;
 		currentImgNum ="0";
+		selectedImgNumField = "1";
 		sendMail();
 		updateParam(seriesId);
 		return "qcToolSlideShow";
@@ -509,6 +530,43 @@ System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@getImageSeriesJavascript");
 	public void setImageCount(int imageCount) {
 		this.imageCount = imageCount;
 	}
+	
+	public boolean isHasMultiFrame() {
+		return hasMultiFrame;
+	}
+
+	public void setHasMultiFrame(boolean hasMultiFrame) {
+		this.hasMultiFrame = hasMultiFrame;
+	}
+	
+	
+	public List<SelectItem> getImgNumItems() {
+		if (isHasMultiFrame()) {
+				imgNumItems = new ArrayList<SelectItem>();
+				for (int j = 0; j < currentSeriesSize; ++j)
+					imgNumItems.add(j,
+							new SelectItem(String.valueOf(j + 1),"Image #" + String.valueOf(j + 1)));
+
+				return imgNumItems;
+		}
+		else
+			return null;
+	}
+
+	public void setImgNumItems(List<SelectItem> imgNumItems) {
+		this.imgNumItems = imgNumItems;
+	}
+
+
+	public String getSelectedImgNumField() {
+		return selectedImgNumField;
+	}
+
+	public void setSelectedImgNumField(String selectedImgNumField) {
+		this.selectedImgNumField = selectedImgNumField;
+	}
+
+
 	// //////////////////////////PRIVATE///////////////////////////////////////
 	private static final String DELETE = "Delete";
 	private static final String VISIBLE = VisibilityStatus.VISIBLE.getText();
@@ -538,5 +596,8 @@ System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@getImageSeriesJavascript");
 	private List<String> statusList = new ArrayList<String>();
 	private static final String BULK="BulkUpdate";
 	private static final String SINGLE="SingleUpdate";
-
+	private boolean hasMultiFrame = false;
+	private List<SelectItem> imgNumItems;
+	private int currentSeriesSize = 0;
+	private String selectedImgNumField = "1";
 }

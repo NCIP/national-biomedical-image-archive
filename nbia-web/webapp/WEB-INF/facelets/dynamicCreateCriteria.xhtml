@@ -3,10 +3,119 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ncia="http://imaging.nci.nih.gov/ncia">
-<table width="80%" 
-                             border="0" 
+    <!--  ice:form id="iceForm"-->
+                        <table width="80%" class="submissionView">
+                            <tr>
+                        <td class="formTitleIIII" colspan="3">
+                          <h:outputText value="#{msg.search_selectedCriteria}" />
+                        </td>
+                      </tr>
+    
+                      <tr>
+                            <td width="12%" class="formLabel">
+                                #{msg.qcTool_qcStatus}
+                            </td>
+                            <td class="formField" colspan="2">
+                                <ice:selectManyCheckbox id="dslctQcStatus" value="#{dynamicQcSearchBean.selectedQcStatus}" partialSubmit="false" style="white-space:nowrap; ">
+                                <f:selectItems id="slctStatisItms" value="#{dynamicQcSearchBean.qcStatusItems}" />
+                                </ice:selectManyCheckbox>
+                           </td>
+                      </tr>
+                      <tr>
+                         <td class="formLabel">
+                                #{msg.qctool_sub_date}
+                         </td>
+                         <td class="formField" >
+                                #{msg.date_from}
+                                <ice:selectInputDate id="fromDate"
+                                                     value="#{dynamicQcSearchBean.fromDate}" 
+                                                     popupDateFormat="MM/dd/yyyy"
+                                                     renderAsPopup="true"
+                                                     partialSubmit="false"
+                                                     style="display:inline">
+                                  <f:convertDateTime pattern="MM/dd/yyyy"
+                                                     timeZone="#{dynamicQcSearchBean.defaultTimeZone}"/>
+                                </ice:selectInputDate>                                                 
+                         </td>
+                         <td class="formField"> 
+                                #{msg.date_to}
+                                <ice:selectInputDate id="toDate"
+                                                     value="#{dynamicQcSearchBean.toDate}" 
+                                                     popupDateFormat="MM/dd/yyyy"
+                                                     renderAsPopup="true"
+                                                     partialSubmit="false"
+                                                     style="display:inline">
+                                  <f:convertDateTime pattern="MM/dd/yyyy"
+                                                     timeZone="#{dynamicQcSearchBean.defaultTimeZone}"/>
+                                </ice:selectInputDate>
+                         </td>                  
+                     </tr>             
+                      <tr>
+                        <td class="formLabel">
+                        Additional Criteria
+                        </td>
+                        <td colspan="2" class="formLabel">
+                          <ice:outputLabel id="noCriteria"
+                                           value="No criteria selected"
+                                           rendered="#{!dynamicQcSearchBean.showCriteria}" />
+                          <ice:dataTable value="#{dynamicQcSearchBean.criteria}"
+                                         var="item"
+                                         rendered="#{dynamicQcSearchBean.showCriteria}"
+                                         rowClasses="oddRow, evenRow"
+                                         style="margin-top: 0px;"
+                                         width="100%"
+                                         border="1"
+                                         cellpadding="0"
+                                         cellspacing="0">
+                            <h:column>
+                              <f:facet name="header">
+                                <ice:outputText value="Element"/>
+                              </f:facet>
+                              <ice:outputText value="#{item.label}"/>
+                            </h:column>
+                            <h:column>
+                              <f:facet name="header">
+                                <ice:outputText value="Operator"/>
+                              </f:facet>
+                              <center> 
+                                <ice:outputText value="#{item.operator.value}"/>
+                              </center>
+                            </h:column>
+                            <h:column>
+                              <f:facet name="header">
+                                <ice:outputText value="Value"/>
+                              </f:facet>
+                              <ice:outputText value="#{item.value}"/>
+                            </h:column>
+                            <h:column>
+                              <f:facet name="header">
+                                <ice:outputText value="Action"/>
+                              </f:facet>
+                              <center>
+                                <ice:commandButton actionListener="#{dynamicQcSearchBean.removeItem}" 
+                                                   image="images/cancel.png"
+                                                   title="Remove Criteria"/>
+                              </center>
+                            </h:column>
+                          </ice:dataTable>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="right" colspan="3">
+                          <ice:commandButton id="submission"
+                                             image="images/submit.gif" 
+                                             action="#{dynamicQcSearchBean.submitQCSearch}"
+                                             onclick="if (!checkCriteriaAndShowProgress(#{dynamicQcSearchBean.criteriaLength})){return false;}"/>
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <ice:commandButton image="images/reset.gif"
+                                             action="#{dynamicQcSearchBean.resetAction}" 
+                                             onclick="document.getElementById('MAINbody:qcToolSearchCritForm:qcToolDeleteView:j_id290:0:inputValue').value='';"/>
+                            </td>
+                            </tr>
+                    </table>
+        <table width="80%"  border="0" 
                              class="submissionView"
-                             style="margin-top: 20px; margin-left: 5px; margin-right: 5px">
+                             style="margin-top: 20px; margin-left: 0px; margin-right: 0px">
                         <tr>
                           <th>
                            Construct Criteria

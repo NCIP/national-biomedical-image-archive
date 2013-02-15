@@ -56,231 +56,30 @@
 						<ice:outputText id="formHeader" value="Search Controls" />
 					</ice:panelGroup>
 				</f:facet>
-
-            <ice:panelTabSet tabChangeListener="#{dynamicQcSearchBean.tabChangeListener}" selectedIndex="#{dynamicQcSearchBean.tabIndex}">
-                <ice:panelTab id="tab1" label="classic">                
-				<center>
-					<table class="topBorderOnly qcToolControlsTable" cellpadding="3"
-						cellspacing="0" summary="criteria section">
-						<tr>
-							<td colspan="3" class="submissionReportFormTitle">
-								#{msg.search_criteria}
-							</td>
-						</tr>
-						<f:subview id="qcToolDeleteView"
-							rendered="#{not qcToolBean.superRole}">
-							<tr>
-								<td width="12%" class="formLabel">
-									#{msg.qcTool_qcStatus}
-								</td>
-								<td class="formField" colspan="2">
-									<ice:selectManyCheckbox id="slctQcStatus"
-										value="#{qcToolBean.selectedQcStatus}" partialSubmit="false"
-										style="white-space:nowrap; ">
-										<f:selectItems id="slctStatisItms"
-											value="#{qcToolBean.qcStatusItems}" />
-									</ice:selectManyCheckbox>
-								</td>
-							</tr>
-						</f:subview>
-						<tr>
-							<td width="12%" class="formLabel">
-								<h:outputText value="#{msg.criteria_CollectionCriteria}" />
-								<br />
-							</td>
-							<td class="formField" colspan="2">
-								<ice:selectOneMenu id="collectionSiteMenu"
-									value="#{qcToolBean.selectedCollectionSite}"
-									style="font-size:1em" partialSubmit="false">
-									<f:selectItems value="#{qcToolBean.collectionItems}" />
-								</ice:selectOneMenu>
-							</td>
-						</tr>
-
-						<tr>
-							<td width="12%" class="formLabel">
-								#{msg.qcTool_patientId}
-							</td>
-							<td class="formField" colspan="2">
-								<ice:inputTextarea id="patientID"
-									value="#{qcToolBean.selectedPatients}" cols="20" rows="4"
-									partialSubmit="false"
-									style="width:720px;height:60px;overflow: auto;">
-								</ice:inputTextarea>
-							</td>
-						</tr>
-						<tr>
-				          <td class="formLabel">
-				            #{msg.qctool_sub_date}
-				          </td>
-				          <td class="formField" >
-				            #{msg.date_from}
-				
-				            <ice:selectInputDate id="fromDate"
-				                                 value="#{qcToolBean.fromDate}" 
-				                                 popupDateFormat="MM/dd/yyyy"
-				                                 renderAsPopup="true"
-				                                 partialSubmit="false"
-				                                 style="display:inline">
-				              <f:convertDateTime pattern="MM/dd/yyyy"
-				                                 timeZone="#{qcToolBean.defaultTimeZone}"/>
-				            </ice:selectInputDate>                                                 
-				          </td>
-				          <td class="formField"> 
-				            #{msg.date_to}
-				         
-				            <ice:selectInputDate id="toDate"
-				                                 value="#{qcToolBean.toDate}" 
-				                                 popupDateFormat="MM/dd/yyyy"
-				                                 renderAsPopup="true"
-				                                 partialSubmit="false"
-				                                 style="display:inline">
-				              <f:convertDateTime pattern="MM/dd/yyyy"
-				                                 timeZone="#{qcToolBean.defaultTimeZone}"/>
-				            </ice:selectInputDate>
-				          </td>                  
-				        </tr>						
-						<tr>
-							<td colspan="3" class="formLabel" style="text-align: right">
-								<ice:commandButton id="qcToolSearch" partialSubmit="true"
-									action="#{qcToolSearchBean.submit}" image="/images/submit.gif"
-									onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});" />
-							</td>
-						</tr>
-					</table>
-				</center>
-                </ice:panelTab>         
-                <ice:panelTab id="tab2" label="Dynamic">                
-                    <center>
-                     <!--  ice:form id="iceForm"-->
-                    <table width="80%" class="submissionView">
-                        <tr>
-			        <td class="formTitleIIII" colspan="3">
-			          <h:outputText value="#{msg.search_selectedCriteria}" />
-			        </td>
-			      </tr>
-			      <f:subview id="qcToolDeleteView" rendered="#{not qcToolBean.superRole}">
-                  <tr>
-                        <td width="12%" class="formLabel">
-                            #{msg.qcTool_qcStatus}
-                        </td>
-                        <td class="formField" colspan="2">
-                            <ice:selectManyCheckbox id="dslctQcStatus" value="#{dynamicQcSearchBean.selectedQcStatus}" partialSubmit="false" style="white-space:nowrap; ">
-                            <f:selectItems id="slctStatisItms" value="#{dynamicQcSearchBean.qcStatusItems}" />
-                            </ice:selectManyCheckbox>
-                       </td>
-                  </tr>
-                  </f:subview>
-			      <tr>
-                     <td class="formLabel">
-                            #{msg.qctool_sub_date}
-                     </td>
-                     <td class="formField" >
-                            #{msg.date_from}
-                            <ice:selectInputDate id="fromDate"
-                                                 value="#{dynamicQcSearchBean.fromDate}" 
-                                                 popupDateFormat="MM/dd/yyyy"
-                                                 renderAsPopup="true"
-                                                 partialSubmit="false"
-                                                 style="display:inline">
-                              <f:convertDateTime pattern="MM/dd/yyyy"
-                                                 timeZone="#{dynamicQcSearchBean.defaultTimeZone}"/>
-                            </ice:selectInputDate>                                                 
-                     </td>
-                     <td class="formField"> 
-                            #{msg.date_to}
-                            <ice:selectInputDate id="toDate"
-                                                 value="#{dynamicQcSearchBean.toDate}" 
-                                                 popupDateFormat="MM/dd/yyyy"
-                                                 renderAsPopup="true"
-                                                 partialSubmit="false"
-                                                 style="display:inline">
-                              <f:convertDateTime pattern="MM/dd/yyyy"
-                                                 timeZone="#{dynamicQcSearchBean.defaultTimeZone}"/>
-                            </ice:selectInputDate>
-                     </td>                  
-                 </tr>             
-			      <tr>
-			        <td class="formLabel">
-                    Additional Criteria
-                    </td>
-                    <td colspan="2" class="formLabel">
-			          <ice:outputLabel id="noCriteria"
-			                           value="No criteria selected"
-			                           rendered="#{!dynamicQcSearchBean.showCriteria}" />
-			          <ice:dataTable value="#{dynamicQcSearchBean.criteria}"
-			                         var="item"
-			                         rendered="#{dynamicQcSearchBean.showCriteria}"
-			                         rowClasses="oddRow, evenRow"
-			                         style="margin-top: 0px;"
-			                         width="100%"
-			                         border="1"
-			                         cellpadding="0"
-			                         cellspacing="0">
-			            <h:column>
-			              <f:facet name="header">
-			                <ice:outputText value="Element"/>
-			              </f:facet>
-			              <ice:outputText value="#{item.label}"/>
-			            </h:column>
-			            <h:column>
-			              <f:facet name="header">
-			                <ice:outputText value="Operator"/>
-			              </f:facet>
-			              <center> 
-			                <ice:outputText value="#{item.operator.value}"/>
-			              </center>
-			            </h:column>
-			            <h:column>
-			              <f:facet name="header">
-			                <ice:outputText value="Value"/>
-			              </f:facet>
-			              <ice:outputText value="#{item.value}"/>
-			            </h:column>
-			            <h:column>
-			              <f:facet name="header">
-			                <ice:outputText value="Action"/>
-			              </f:facet>
-			              <center>
-			                <ice:commandButton actionListener="#{dynamicQcSearchBean.removeItem}" 
-			                                   image="images/cancel.png"
-			                                   title="Remove Criteria"/>
-			              </center>
-			            </h:column>
-			          </ice:dataTable>
-			        </td>
-			      </tr>
-			      <tr>
-			        <td align="right" colspan="3">
-			          <ice:commandButton id="submission"
-			                             image="images/submit.gif" 
-			                             action="#{dynamicQcSearchBean.submitQCSearch}"
-			                             onclick="if (!checkCriteriaAndShowProgress(#{dynamicQcSearchBean.criteriaLength})){return false;}"/>
-			          <f:verbatim>&amp;nbsp;</f:verbatim>
-			          <ice:commandButton image="images/reset.gif"
-			                             action="#{dynamicQcSearchBean.resetAction}" 
-			                             onclick="document.getElementById('MAINbody:fieldForm:inputValue').value='';"/>
-                        </td>
-                        </tr>
-                    </table>
-                      <!-- /ice:form-->
-                    <ui:include src="../dynamicCreateCriteria.xhtml"/>
-				     <!-- /ice:form-->
-                    </center> 
-                </ice:panelTab>
-            </ice:panelTabSet>
-				
-				<div id="notification" style="display: none;">
-					<!--  the title is so this will go away if there is validation error -->
-					<img src="images/ajax_indicator.gif" width="16" height="16"
-						title="#{qcToolSearchBean.notificationHack}" alt="" />
-					<f:verbatim>&amp;nbsp;</f:verbatim>
-					Searching...
-				</div>
-			</ice:panelCollapsible>
-			<ice:messages id="noQCStatusError" for="slctQcStatus"
-				showDetail="false" layout="table" errorClass="errorLabel"
-				infoClass="infoLabel" />
-		</div>
-	</ice:form>
+        <f:subview id="qcToolDeleteView" rendered="#{qcToolBean.superRole}">
+            <ui:include src="./qcToolClassicView.xhtml"/>
+        </f:subview>
+        <f:subview id="qcToolDeleteView" rendered="#{not qcToolBean.superRole}">
+                <ice:panelTabSet tabChangeListener="#{dynamicQcSearchBean.tabChangeListener}" selectedIndex="#{dynamicQcSearchBean.tabIndex}">
+                        <ice:panelTab id="tab1" label="classic">                
+                            <ui:include src="./qcToolClassicView.xhtml"/>
+                        </ice:panelTab>         
+                    <ice:panelTab id="tab2" label="Dynamic">                
+                        <ui:include src="../dynamicCreateCriteria.xhtml"/>
+                    </ice:panelTab>
+                </ice:panelTabSet>
+            </f:subview>            
+                <div id="notification" style="display: none;">
+                    <!--  the title is so this will go away if there is validation error -->
+                    <img src="images/ajax_indicator.gif" width="16" height="16"
+                        title="#{qcToolSearchBean.notificationHack}" alt="" />
+                    <f:verbatim>&amp;nbsp;</f:verbatim>
+                    Searching...
+                </div>
+            </ice:panelCollapsible>
+            <ice:messages id="noQCStatusError" for="slctQcStatus"
+                showDetail="false" layout="table" errorClass="errorLabel"
+                infoClass="infoLabel" />
+        </div>
+    </ice:form>
 </ui:composition>

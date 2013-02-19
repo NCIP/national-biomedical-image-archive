@@ -69,6 +69,7 @@ public class DynamicSearchBean {
 	protected String relation = "AND";
 	protected String selectedResultPerPage="10";
 	protected boolean hasPermissibleData = false;
+	protected boolean isMr=false;
 	protected List<SelectItem> permissibleData;
 
 	protected String defaultSelectValue="please select";
@@ -127,10 +128,19 @@ public class DynamicSearchBean {
 		dataGroupItems = new ArrayList<SelectItem>();
 		List<DataSource> dataSourceList = dataGroup.getDataSource();
 		dataGroupItems.add(0, defaultSelectItem);
-		for(DataSource ds : dataSourceList)
-		{
-			dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
+		for(DataSource ds : dataSourceList) {
+			if(! ds.getSourceName().equalsIgnoreCase("modalityType")) {
+				dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
+			}
 		}
+		if (isMr) {
+			for(DataSource ds : dataSourceList) {
+				if(ds.getSourceLabel().equalsIgnoreCase("MR Image")) {
+					dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
+				}
+			}
+		}
+			
 		return dataGroupItems;
 	}
 
@@ -368,11 +378,20 @@ public class DynamicSearchBean {
 		if (permissibleDataValue != null && permissibleDataValue.length() > 0)
 		{
 			dsc.setValue(permissibleDataValue.trim());
+			if (permissibleDataValue.equals("MR")) {
+				isMr=true;
+			}
 		}
-		if (itemActualSource.get(selectedField.trim()).length() > 1)
-		{
+		if (itemActualSource.get(selectedField.trim()).length() > 1) {
+			String actualItemSource = itemActualSource.get(selectedField.trim());
 			List<Element> elementTree = new TableRelationships().getRelationTree();
-			newValue = elementTree.get(elementTree.size()-1).getSource();
+			for ( Element e : elementTree) {
+				if (e.getSource().equalsIgnoreCase(actualItemSource)) {
+					newValue = e.getSource();
+					break;
+				}
+			}
+			
 		}
 		if (newValue != null)
 		{
@@ -382,10 +401,11 @@ public class DynamicSearchBean {
 		{
 			dsc.setDataGroup(initialDataGroup.trim());
 		}
+		System.out.println("get selected field="+ selectedField.trim());		
+				
 		dsc.setLabel(itemLabelTable.get(selectedField.trim()));
 
-		if (!isDuplicate(dsc))
-		{
+		if (!isDuplicate(dsc)) {
 			criteria.add(dsc);
 			hasDuplicate = false;
 			defaultView();
@@ -464,6 +484,10 @@ public class DynamicSearchBean {
 	      if (tmpRowData instanceof DynamicSearchCriteria)
 	      {
 	        tmpBean = (DynamicSearchCriteria) tmpRowData;
+	        if (tmpBean.getField().equalsIgnoreCase("modality") && tmpBean.getValue().equals("MR") ) {
+	        	//set is MR false;
+	        	isMr = false;
+	        }
 	        criteria.remove(tmpBean);
 	      }
 	    }
@@ -493,6 +517,7 @@ public class DynamicSearchBean {
 		selectedField = defaultSelectValue;
 		selectedDataGroup = defaultSelectValue;
 		selectedOperand = defaultSelectValue;
+		isMr = false;
 		inputValue = "";
 		relation = "AND";
 		criteria = new ArrayList<DynamicSearchCriteria>();

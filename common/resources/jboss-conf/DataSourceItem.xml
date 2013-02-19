@@ -443,4 +443,87 @@
       <actualSource>CTImage</actualSource>
     </sourceItem>
   </dataSource>
+  <dataSource>
+    <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+    <sourceLabel>MR Image</sourceLabel>
+    <sourceName>modalityType</sourceName>
+    <sourceItem>
+      <itemLabel>ImageType</itemLabel>
+      <itemName>ImageType</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Scanning Sequence</itemLabel>
+      <itemName>scanningSequence</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Sequence Variant</itemLabel>
+      <itemName>sequenceVariant</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Repetition Time</itemLabel>
+      <itemName>repetitionTime</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Echo Time</itemLabel>
+      <itemName>echoTime</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Inversion Time</itemLabel>
+      <itemName>inversionTime</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Sequence Name</itemLabel>
+      <itemName>sequenceName</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>maged Nucleus</itemLabel>
+      <itemName>magedNucleus</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Magnetic Field Strength</itemLabel>
+      <itemName>magneticFieldStrength</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>SAR</itemLabel>
+      <itemName>sar</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>dB/dt</itemLabel>
+      <itemName>dB_dt</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Trigger Time</itemLabel>
+      <itemName>triggerTime</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+    <sourceItem>
+      <itemLabel>Angio Flag</itemLabel>
+      <itemName>angioFlag</itemName>
+      <itemType>java.lang.String</itemType>
+      <actualSource>MRImage</actualSource>
+    </sourceItem>
+  </dataSource>
  </dataGroup>

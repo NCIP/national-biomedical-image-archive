@@ -65,8 +65,8 @@
       <tr>
         <td>
           <ice:outputLabel id="noCriteria"
-          				   value="No criteria selected"
-          				   rendered="#{!dynamicSearchBean.showCriteria}" />
+                           value="No criteria selected"
+                           rendered="#{!dynamicSearchBean.showCriteria}" />
           <ice:dataTable value="#{dynamicSearchBean.criteria}"
                          var="item"
                          rendered="#{dynamicSearchBean.showCriteria}"
@@ -111,7 +111,7 @@
       <tr>
         <td align="right" >
           <ice:commandButton id="submission"
-          					 image="images/submit.gif" 
+                             image="images/submit.gif" 
                              action="#{dynamicSearchBean.submitSearch}"
                              onclick="if (!checkCriteriaAndShowProgress(#{dynamicSearchBean.criteriaLength})){return false;}"/>
           <f:verbatim>&amp;nbsp;</f:verbatim>
@@ -180,7 +180,7 @@
                                size="55"/>
                 <ice:selectOneMenu id="permissibleDataValue" 
                                    tabindex="25"
-                                   partialSubmit="false"
+                                   partialSubmit="true"
                                    rendered="#{dynamicSearchBean.hasPermissibleData}"
                                    value="#{dynamicSearchBean.permissibleDataValue}">
                   <f:selectItems value="#{dynamicSearchBean.permissibleData}"/>
@@ -193,7 +193,7 @@
                                    title="Add Criteria"/>
               </td>
             </tr>
-			<tr>
+            <tr>
               <td colspan="4">
                 <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidInteger}"                          
                                  styleClass="errorLabel" 
@@ -274,15 +274,15 @@
       <tr>
         <td align="right" >
           <ice:commandButton id="submission"
-          					 image="images/submit.gif" 
+                             image="images/submit.gif" 
                              action="#{dynamicSearchBean.submitSearch}"
                               onclick="if (!checkCriteriaAndShowProgress(#{dynamicSearchBean.criteriaLength})) {return false;}"/>
           <f:verbatim>&amp;nbsp;</f:verbatim>
-		  <!-- I could not find out why the form value did not send to server when clicking -->
+          <!-- I could not find out why the form value did not send to server when clicking -->
           <!-- on reset button. That is why I added javascript to clear the text field -->
           <!--  NOTE FROM FUTURE: this button is in differet form from textfield.  it appears
                that if in same form, it works ok -->
-		  <ice:commandButton image="images/reset.gif"
+          <ice:commandButton image="images/reset.gif"
                              action="#{dynamicSearchBean.resetAction}"
                              onclick=" if (document.getElementById('MAINbody:fieldForm:inputValue') != null) document.getElementById('MAINbody:fieldForm:inputValue').value='';"/>
         </td>

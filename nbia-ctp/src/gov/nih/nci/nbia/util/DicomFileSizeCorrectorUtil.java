@@ -1,6 +1,8 @@
 package gov.nih.nci.nbia.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,12 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.rsna.ctp.objects.DicomObject;
 
 public final class DicomFileSizeCorrectorUtil {
-
+	private static Logger logger = Logger.getLogger(DicomFileSizeCorrectorUtil.class);
 	private String connectionUrl;
 	private String driverClass;
 	private String userName;
@@ -62,7 +67,15 @@ public final class DicomFileSizeCorrectorUtil {
 		
 		String userInputUserName = getUserInput("Enter Database User: ");
 		String userInputPassword = getUserInput("Enter Database Password: ");
-		
+		String LOG_FILE = getUserInput("location of log4.properties "); 
+	    Properties logProp = new Properties();      
+	    try {      
+	    	logProp.load(new FileInputStream (LOG_FILE));  
+	        PropertyConfigurator.configure(logProp);      
+	        logger.info("Logging enabled");    
+	    } catch(IOException e) {       
+	    	  System.out.println("Logging not enabled"); 
+	    }
 		DicomFileSizeCorrectorUtil sizeCorrector = new DicomFileSizeCorrectorUtil();
 		
 		if (uIDatabaseType.equalsIgnoreCase("mysql")) {
@@ -105,17 +118,17 @@ public final class DicomFileSizeCorrectorUtil {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
 					.executeQuery("Select image_pk_id,dicom_file_uri,dicom_size from general_image order by image_pk_id asc");
-			System.out.println("looping through......");
+			logger.info("looping through......");
 			while(rs.next()){				
 				 String imageId = rs.getString(1);
 				 String storedFileName = rs.getString(2);
 				 long storedFileSize = rs.getLong(3);
 				 File storedFile = new File(storedFileName);
 				 if (!storedFile.exists()) {
-					System.out.println("Current file Name: " + storedFileName
+					 logger.info("Current file Name: " + storedFileName
 							+ " was not found...");
 				 } else if(storedFileSize != storedFile.length()) {
-					 System.out.println("File size mismatch####### "+imageId+ "|| "+ storedFileName + " || " + storedFileSize);
+					 logger.info("File size mismatch####### "+imageId+ "|| "+ storedFileName + " || " + storedFileSize);
 					setCorrectFileSize(con, storedFile,imageId );
 				 } else {
 					 //Do nothing
@@ -126,9 +139,9 @@ public final class DicomFileSizeCorrectorUtil {
 			stmt.close();
 			con.close();
 		} catch (java.lang.Exception ex) {
-			System.out.println("Error occured" + ex.getMessage());
+			logger.info("Error occured" + ex.getMessage());
 		}
-		System.out.println("DICOM File size correction has been completed....");
+		logger.info("DICOM File size correction has been completed....");
 	}
 	 private void setCorrectFileSize(Connection con, File file, String imageId) throws SQLException {
     	 // Temporary fix until new CTP release provides a better solution
@@ -137,7 +150,7 @@ public final class DicomFileSizeCorrectorUtil {
     	try {
     		DicomObject tempFile = new DicomObject(file);
     		String md5 = tempFile.getDigest()== null? " " : tempFile.getDigest();
-    		System.out.println("updated filesize " + actualFileSize + "updated md5 " + md5);
+    		logger.info("updated filesize " + actualFileSize + "updated md5 " + md5);
 
     		String sql ="UPDATE general_image SET dicom_size =? , md5_digest=? where image_pk_id=?";
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -150,7 +163,7 @@ public final class DicomFileSizeCorrectorUtil {
 			stmt.close();
 			
 		} catch (Exception ex) {
-    		System.out.println("update failed for imageId "+ imageId +" exception is:- " + ex.getMessage());
+			logger.info("update failed for imageId "+ imageId +" exception is:- " + ex.getMessage());
     		con.rollback();
     	}
     	

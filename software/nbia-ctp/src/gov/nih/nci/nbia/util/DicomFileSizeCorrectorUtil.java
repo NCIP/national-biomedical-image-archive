@@ -58,7 +58,7 @@ public final class DicomFileSizeCorrectorUtil {
 		String uIDatabasePort = getUserInput("Enter Database Port (3306 Or 1521): ");
 		String uIDatabaseName = getUserInput("Enter Database Name (nbiadb Or nbiadev): ");
 
-		String databaseConnectionUrl = uIDatabaseServer +":"+uIDatabasePort+"/"+ uIDatabaseName;
+		String databaseConnectionUrl = uIDatabaseServer +":"+uIDatabasePort;
 		
 		String userInputUserName = getUserInput("Enter Database User: ");
 		String userInputPassword = getUserInput("Enter Database Password: ");
@@ -66,10 +66,10 @@ public final class DicomFileSizeCorrectorUtil {
 		DicomFileSizeCorrectorUtil sizeCorrector = new DicomFileSizeCorrectorUtil();
 		
 		if (uIDatabaseType.equalsIgnoreCase("mysql")) {
-			sizeCorrector.setConnectionUrl(mysqlConnectionUrl + databaseConnectionUrl);
+			sizeCorrector.setConnectionUrl(mysqlConnectionUrl + databaseConnectionUrl +"/"+ uIDatabaseName);
 			sizeCorrector.setDriverClass(mysqlDriverClass);
 		} else if(uIDatabaseType.equalsIgnoreCase("oracle")) {
-			sizeCorrector.setConnectionUrl(oracleConnectionUrl + databaseConnectionUrl);
+			sizeCorrector.setConnectionUrl(oracleConnectionUrl + databaseConnectionUrl +":"+ uIDatabaseName);
 			sizeCorrector.setDriverClass(oracleDriverClass);
 		} else {
 			System.out.println("Please enter valid database type. ");
@@ -105,7 +105,7 @@ public final class DicomFileSizeCorrectorUtil {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
 					.executeQuery("Select image_pk_id,dicom_file_uri,dicom_size from general_image order by image_pk_id asc");
-
+			System.out.println("looping through......");
 			while(rs.next()){				
 				 String imageId = rs.getString(1);
 				 String storedFileName = rs.getString(2);

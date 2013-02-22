@@ -363,7 +363,7 @@
         </sql>
   </changeSet>
   
-  <changeSet id="5.2.mr_image.create" author="panq" dbms="mysql">
+  <changeSet id="5.2.mr_image.create" author="panq" dbms="oracle">
     <comment>
      create new table and related constrain to support MR modality search feature
     </comment>

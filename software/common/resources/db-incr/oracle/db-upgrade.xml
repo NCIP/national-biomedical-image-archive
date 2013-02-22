@@ -362,5 +362,37 @@
 -->
         </sql>
   </changeSet>
+  
+  <changeSet id="5.2.mr_image.create" author="panq" dbms="mysql">
+    <comment>
+     create new table and related constrain to support MR modality search feature
+    </comment>
+  
+    <sql>
+      CREATE TABLE MR_IMAGE (
+        IMAGE_TYPE_VALUE_3 VARCHAR2(16 CHAR) NOT NULL,
+        SCANNING_SEQUENCE VARCHAR2(126 CHAR) NOT NULL,
+        SCANNING_VARIANT VARCHAR2(126 CHAR) NOT NULL,
+        REPETITION_TIME FLOAT(126),
+        ECHO_TIME FLOAT(126),
+        INVERSION_TIME FLOAT(126),
+        SEQUENCE_NAME VARCHAR2(64 CHAR),
+        IMAGED_NUCLEUS VARCHAR2(64 CHAR),
+        MAGNETIC_FIELD_STRENGTH FLOAT(126),
+        SAR FLOAT(126),
+        DB_DT FLOAT(126),
+        TRIGGER_TIME FLOAT(126),
+        ANGIO_FLAG VARCHAR2(1 CHAR),
+        IMAGE_PK_ID NUMBER(24) NOT NULL,
+        MR_IMAGE_PK_ID NUMBER(24) primary key,
+        GENERAL_SERIES_PK_ID NUMBER(24) 
+      );
+      ALTER TABLE MR_IMAGE ADD (
+      CONSTRAINT FK_MR_GEN_IMAGE_PK_ID
+      FOREIGN KEY (IMAGE_PK_ID) REFERENCES GENERAL_IMAGE (IMAGE_PK_ID),
+      CONSTRAINT FK_MR_GEN_SERIES_PK_ID
+      FOREIGN KEY (GENERAL_SERIES_PK_ID) REFERENCES GENERAL_SERIES (GENERAL_SERIES_PK_ID) ON DELETE CASCADE);
+    </sql>
+</changeSet>
 
 </databaseChangeLog>

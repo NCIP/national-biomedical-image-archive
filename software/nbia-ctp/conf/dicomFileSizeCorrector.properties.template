@@ -1,0 +1,4 @@
+connection.driver_class @DB_DRIVER@
+connection.username @DB_USER@
+connection.password @DB_PASS@
+connection.url @DB_URL@

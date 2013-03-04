@@ -26,7 +26,7 @@
   <property name="nbia-domain.jar" value="${nbia-domain.dir}/nbia-domain.jar" />
   <property name="nbia-util.dir" value="${common.dir}/target/dist/exploded/nbia-util" />
   <property name="nbia-util.jar" value="${nbia-util.dir}/nbia-util.jar" />
-
+  <property name="main.class"   value="gov.nih.nci.nbia.util.DicomFileSizeCorrectorUtil"/>
   <available file="${nbia-domain.jar}" property="nbia-domain.jar.present"/>
  <available file="${nbia-util.jar}" property="nbia-util.jar.present"/>
   <!--fail unless="nbia-domain.jar.present"
@@ -157,8 +157,15 @@
     <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_DRIVER@" replace="${database.driver}" flags="g"/>
     <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_DIALECT@" replace="${database.dialect}" flags="g"/>
   </target>
-
-  <target name="config-log4j">
+  <target name="config-db-dicomFSC">
+    <copy overwrite="true" file="${conf.dir}/dicomFileSizeCorrector.properties.template" tofile="${build.dir}/dicomFileSizeCorrector.properties" />
+  	<copy overwrite="true" file="${conf.dir}/dicomFileSizeCorrectorLog4j.properties" tofile="${build.dir}/dicomFileSizeCorrectorLog4j.properties" />
+    <replaceregexp file="${build.dir}/dicomFileSizeCorrector.properties" match="@DB_URL@" replace="${database.url}" flags="g"/>
+    <replaceregexp file="${build.dir}/dicomFileSizeCorrector.properties" match="@DB_USER@" replace="${database.user}" flags="g"/>
+    <replaceregexp file="${build.dir}/dicomFileSizeCorrector.properties" match="@DB_PASS@" replace="${database.password}" flags="g"/>
+    <replaceregexp file="${build.dir}/dicomFileSizeCorrector.properties" match="@DB_DRIVER@" replace="${database.driver}" flags="g"/>
+  </target>
+	<target name="config-log4j">
     <copy overwrite="true"
           file="${conf.dir}/log4j.properties.template"
           tofile="${ctp.dir.name}/CTP/log4j.properties" />
@@ -179,7 +186,7 @@
 
   </target>
 
-  <target name="build-dbadapter-jar" depends="config-db">
+  <target name="build-dbadapter-jar" depends="config-db ">
 
     <echo message="************************************************"/>
     <echo message="*      building jar file         *"/>
@@ -208,7 +215,37 @@
       <fileset file="${nbia-domain.jar}"/>
     </copy>
   </target>
-
+	
+  <target name="build-dbFileUpdapter-jar" depends="config-db-dicomFSC">
+    <echo message="************************************************"/>
+    <echo message="*      building jar file         *"/>
+    <echo message="************************************************"/>
+    <copy overwrite="true" todir="${build.dir}/${xml.dir}">
+      <fileset dir="${src.dir}/${xml.dir}" includes="*.xml"/>
+    </copy>
+    <echo message="${output.dir}"/>
+    <path id="build-classpath">
+  	<fileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar"/>
+  	<fileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar"/> 
+    </path>
+    <manifestclasspath property="lib.list" jarfile="${output.dir}/nbiaDbFileUpdate.jar">
+      <classpath refid="build-classpath"/>
+    </manifestclasspath>
+    <jar destfile="${output.dir}/nbiaDbFileUpdate.jar">
+      <manifest>
+        <attribute name="Implementation-Version" value="${today} @ ${now}"/>
+        <attribute name="Main-Class" value="${main.class}"/>
+      	<attribute name="Class-Path" value="lib/log4j-1.2.15.jar lib/commons-codec-1.3.jar lib/mysql-connector-java-5.1.5.jar lib/ojdbc14-10.2.0.3.0.jar"/>
+      </manifest>
+      <fileset dir="${build.dir}/"
+               includes="gov/nih/nci/nbia/util/**,
+                         dicomFileSizeCorrector.properties,
+                         dicomFileSizeCorrectorLog4j.properties"/>
+      <fileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar"/>
+      <fileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar"/>	
+    </jar>
+  </target>
+	
   <target name="build-ctp-jar">
     <jar jarfile="${output.dir}/CTP-installer.jar" basedir="${ctp.dir.name}"/>
   </target>
@@ -236,6 +273,7 @@
   <target name="all" depends="compile,
                               copy-runtime,
                               build-dbadapter-jar,
+                              build-dbFileUpdapter-jar,
                               config-log4j,
                               config-version,
                               build-ctp-jar,
@@ -245,6 +283,7 @@
     <target name="allStandAlone" depends="compileStandAlone,
                               copy-runtime,
                               build-dbadapter-jar,
+    	                      build-dbFileUpdapter-jar,
                               config-log4j,
                               config-version,
                               build-ctp-jar,

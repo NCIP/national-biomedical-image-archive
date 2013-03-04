@@ -3,7 +3,10 @@ package gov.nih.nci.nbia.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,13 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-import java.util.Scanner;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.rsna.ctp.objects.DicomObject;
 
 public final class DicomFileSizeCorrectorUtil {
+	private static final int elementsPerExecute = 1000;
 	private static Logger logger = Logger.getLogger(DicomFileSizeCorrectorUtil.class);
 	private String connectionUrl;
 	private String driverClass;
@@ -52,58 +55,42 @@ public final class DicomFileSizeCorrectorUtil {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String mysqlDriverClass = "com.mysql.jdbc.Driver";
-		String oracleDriverClass = "oracle.jdbc.driver.OracleDriver";
-		
-		String mysqlConnectionUrl = "jdbc:mysql://";
-		String oracleConnectionUrl = "jdbc:oracle:thin:@";
-
-		String uIDatabaseType = getUserInput("Enter Database Type (mysql Or oracle): ");
-		String uIDatabaseServer = getUserInput("Enter Database Server Name (localhost): ");
-		String uIDatabasePort = getUserInput("Enter Database Port (3306 Or 1521): ");
-		String uIDatabaseName = getUserInput("Enter Database Name (nbiadb Or nbiadev): ");
-
-		String databaseConnectionUrl = uIDatabaseServer +":"+uIDatabasePort;
-		
-		String userInputUserName = getUserInput("Enter Database User: ");
-		String userInputPassword = getUserInput("Enter Database Password: ");
-		String LOG_FILE = getUserInput("location of log4.properties "); 
+		String LOG_FILE = "dicomFileSizeCorrectorLog4j.properties"; 
+		String PROP_FILE = "dicomFileSizeCorrector.properties";
 	    Properties logProp = new Properties();      
-	    try {      
-	    	logProp.load(new FileInputStream (LOG_FILE));  
-	        PropertyConfigurator.configure(logProp);      
-	        logger.info("Logging enabled");    
-	    } catch(IOException e) {       
-	    	  System.out.println("Logging not enabled"); 
-	    }
-		DicomFileSizeCorrectorUtil sizeCorrector = new DicomFileSizeCorrectorUtil();
-		
-		if (uIDatabaseType.equalsIgnoreCase("mysql")) {
-			sizeCorrector.setConnectionUrl(mysqlConnectionUrl + databaseConnectionUrl +"/"+ uIDatabaseName);
+		ClassLoader classLoader = DicomFileSizeCorrectorUtil.class.getClassLoader();
+		try {
+			logProp.load(classLoader.getResourceAsStream(LOG_FILE));
+			PropertyConfigurator.configure(logProp);
+			System.out.println("Logging enabled");
+			logger.info("Logging enabled");
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Logging not enabled");
+		}
+		Properties prop = new Properties(); 
+	    try {
+	        //load a properties file from class path, inside static method
+	    	prop.load(classLoader.getResourceAsStream(PROP_FILE));
+	        //get the property value and print it out
+	    	String mysqlDriverClass = prop.getProperty("connection.driver_class");
+	        logger.info("mysqlDriverClass:-" + mysqlDriverClass);
+	        String databaseConnectionUrl = prop.getProperty("connection.url");
+	        logger.info("databaseConnectionUrl:-" + databaseConnectionUrl);
+	        String dbUserName = prop.getProperty("connection.username");
+	        logger.info("dbUserName:-" + dbUserName);
+	        String dbPassword = prop.getProperty("connection.password");
+			DicomFileSizeCorrectorUtil sizeCorrector = new DicomFileSizeCorrectorUtil();
+			sizeCorrector.setConnectionUrl(databaseConnectionUrl);
 			sizeCorrector.setDriverClass(mysqlDriverClass);
-		} else if(uIDatabaseType.equalsIgnoreCase("oracle")) {
-			sizeCorrector.setConnectionUrl(oracleConnectionUrl + databaseConnectionUrl +":"+ uIDatabaseName);
-			sizeCorrector.setDriverClass(oracleDriverClass);
-		} else {
-			System.out.println("Please enter valid database type. ");
-			return;
-		}
-		sizeCorrector.setUserName(userInputUserName);
-		sizeCorrector.setPassword(userInputPassword);
-		sizeCorrector.runFileSizeCorrector();
-	}
-	public static String getUserInput(String msg) {
-		//  prompt the user to enter 
-	    System.out.print(msg);
-	    // get their input
-	    Scanner scanner = new Scanner(System.in);
-	    String userInput = scanner.nextLine();
-	    // test the String if empty then prompt again
-	    if (userInput.trim().equals("")) {
-		   return getUserInput(msg);
-		} else {
-			return userInput.trim();
-		}
+			sizeCorrector.setUserName(dbUserName);
+			sizeCorrector.setPassword(dbPassword);
+			sizeCorrector.runFileSizeCorrector();
+	        } 
+	   catch (IOException ex) {
+	        ex.printStackTrace();
+	        logger.error(ex.getMessage());
+	    }
 	}
 	private Connection getJDBCConnection() throws ClassNotFoundException, SQLException {
 		// Load the JDBC-ODBC bridge
@@ -113,59 +100,74 @@ public final class DicomFileSizeCorrectorUtil {
 	}
 	public void runFileSizeCorrector() {
 		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
 			Connection con = getJDBCConnection();
 			con.setAutoCommit(false);
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt
 					.executeQuery("Select image_pk_id,dicom_file_uri,dicom_size from general_image order by image_pk_id asc");
 			logger.info("looping through......");
+			int batchSize = 0;
+	    	String sql ="UPDATE general_image SET dicom_size =? , md5_digest=? where image_pk_id=?";
+	    	PreparedStatement prepStmt = con.prepareStatement(sql);
 			while(rs.next()){				
 				 String imageId = rs.getString(1);
 				 String storedFileName = rs.getString(2);
 				 long storedFileSize = rs.getLong(3);
 				 File storedFile = new File(storedFileName);
 				 if (!storedFile.exists()) {
-					 logger.info("Current file Name: " + storedFileName
-							+ " was not found...");
+					 logger.info("Current file Name: " + storedFileName + " was not found...");
 				 } else if(storedFileSize != storedFile.length()) {
-					 logger.info("File size mismatch####### "+imageId+ "|| "+ storedFileName + " || " + storedFileSize);
-					setCorrectFileSize(con, storedFile,imageId );
+					logger.info("File size mismatch####### "+imageId+ "|| "+ storedFileName + " || " + storedFileSize);
+					setCorrectFileSize(prepStmt, storedFile,imageId ,md);
+					batchSize ++;
+					if ( batchSize == elementsPerExecute) {
+						logger.info("doing batch update...");
+						prepStmt.executeBatch();
+						con.commit();
+						prepStmt.clearBatch();
+					}
 				 } else {
 					 //Do nothing
 					 //System.out.println("file size is same.....");
 				 }
 			}
 			// close statement and connection
+    		con.commit();
 			stmt.close();
 			con.close();
 		} catch (java.lang.Exception ex) {
-			logger.info("Error occured" + ex.getMessage());
+			logger.info("Error occured:-" + ex.getMessage());
+			return;
 		}
 		logger.info("DICOM File size correction has been completed....");
 	}
-	 private void setCorrectFileSize(Connection con, File file, String imageId) throws SQLException {
+	 private void setCorrectFileSize(PreparedStatement stmt, File file, String imageId, MessageDigest md) throws Exception {
     	 // Temporary fix until new CTP release provides a better solution
     	long actualFileSize = file.length();
-    	
     	try {
-    		DicomObject tempFile = new DicomObject(file);
-    		String md5 = tempFile.getDigest()== null? " " : tempFile.getDigest();
+    		String md5 = getDigest(new FileInputStream(file), md);
     		logger.info("updated filesize " + actualFileSize + "updated md5 " + md5);
-
-    		String sql ="UPDATE general_image SET dicom_size =? , md5_digest=? where image_pk_id=?";
-			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setBigDecimal(1, BigDecimal.valueOf(actualFileSize));
 			stmt.setString(2, md5);
 			stmt.setString(3, imageId);
-    		stmt.execute() ;
-			// close statement 
-    		con.commit();
-			stmt.close();
-			
+    		stmt.addBatch() ;
 		} catch (Exception ex) {
-			logger.info("update failed for imageId "+ imageId +" exception is:- " + ex.getMessage());
-    		con.rollback();
+			logger.error("update failed for imageId "+ imageId +" exception is:- " + ex.getMessage());
     	}
     	
     }
+	 private String getDigest(InputStream is, MessageDigest md)
+				throws NoSuchAlgorithmException, IOException {
+		 	int byteArraySize = 2048; 
+			md.reset();
+			byte[] bytes = new byte[byteArraySize];
+			int numBytes;
+			while ((numBytes = is.read(bytes)) != -1) {
+				md.update(bytes, 0, numBytes);
+			}
+			byte[] digest = md.digest();
+			String result = new String(Hex.encodeHex(digest));
+			return result == null? " " : result;
+		} 
 }

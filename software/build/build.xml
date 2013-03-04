@@ -647,7 +647,9 @@ $HeadURL$
     <copy todir="${nbia-ctp.dist.dir}/FileSender">
       <fileset dir="${nbia-ctp.base.dir}/FileSender"/>
     </copy>
-
+    <copy todir="${nbia-ctp.dist.dir}/FileDBUpdator">
+	<fileset file="${nbia-ctp.base.dir}/target/nbiaDbFileUpdate.jar" />
+    </copy>
     <delete dir="../nbia-ctp-working"/>
   </target>
 
@@ -1734,4 +1736,17 @@ jboss.home,ctp.server.home,ctp.client.home,
     <delete dir="${nbia-ctp.dist.dir}/CTP_Client/"/>
 
 </target>
+<target name="nbia:runUtility" description="run the utility to correct db" depends="build:nbia-ctp">	
+	 <unjar src="${nbia-ctp.dist.dir}/FileDBUpdator/nbiaDbFileUpdate.jar" dest="${nbia-ctp.dist.dir}/FileDBUpdator/lib">
+	    <patternset>
+	         <exclude name="**/*.class"/>
+	         <exclude name="**/*.properties"/>
+            </patternset>
+	    <fileset dir=".">
+	           <include name="**/*.jar"/>
+	    </fileset>
+         </unjar>
+	 <java jar="${nbia-ctp.dist.dir}/FileDBUpdator/nbiaDbFileUpdate.jar" fork="true"/>
+	 <delete dir="${nbia-ctp.dist.dir}/FileDBUpdator/lib" />
+   </target>	
 </project>

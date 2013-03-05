@@ -956,7 +956,18 @@ public class GeneralImage  implements Serializable
 	public void setCtimage(CTImage ctimage){
 		this.ctimage = ctimage;
 	}
+	private MRImage mrImage;
+	
+	public MRImage getMrImage() {
+		return mrImage;
+	}
 
+	public void setMrImage(MRImage mrImage) {
+		this.mrImage = mrImage;
+	}
+
+	
+	
 
 
 		private String usFrameNum;

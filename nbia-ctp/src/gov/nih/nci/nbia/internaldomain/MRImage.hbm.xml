@@ -12,7 +12,7 @@
     <!-- Attributes mapping for the MRImage class -->
     <property name="imageTypeValue3" type="string" column="IMAGE_TYPE_VALUE_3"/>
     <property name="scanningSequence" type="string" column="SCANNING_SEQUENCE"/>
-    <property name="scanningVariant" type="string" column="SCANNING_VARIANT"/>
+    <property name="sequenceVariant" type="string" column="SEQUENCE_VARIANT"/>
     <property name="repetitionTime" type="double" column="REPETITION_TIME"/>
     <property name="echoTime" type="double" column="ECHO_TIME"/>
     <property name="inversionTime" type="double" column="INVERSION_TIME"/>

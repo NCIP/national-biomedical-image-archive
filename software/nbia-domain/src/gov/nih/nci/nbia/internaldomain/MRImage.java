@@ -96,23 +96,23 @@ public class MRImage  implements Serializable
 	
 	/**
 	* Variant of the Scanning Sequence. **/
-	private String scanningVariant;
+	private String sequenceVariant;
 	
 	/**
-	* Retrieves the value of scanningVariant attribute
-	* @return scanningVariant
+	* Retrieves the value of sequenceVariant attribute
+	* @return sequenceVariant
 	**/
 
-	public String getScanningVariant(){
-		return scanningVariant;
+	public String getSequenceVariant(){
+		return sequenceVariant;
 	}
 
 	/**
-	* Sets the value of scanningVariant attribute
+	* Sets the value of sequenceVariant attribute
 	**/
 
-	public void setScanningVariant(String scanningVariant){
-		this.scanningVariant = scanningVariant;
+	public void setSequenceVariant(String sequenceVariant){
+		this.sequenceVariant = sequenceVariant;
 	}	
 	
 	/**

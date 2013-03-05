@@ -1599,16 +1599,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	</target>
 	
    <target name="nbia:runUtility" description="run the utility to correct db" depends="build:nbia-ctp">	
-	 <unjar src="${nbia-ctp.dist.dir}/nbiaDatabaseUpdator.jar" dest="${nbia-ctp.dist.dir}/lib">
-	    <patternset>
-	         <exclude name="**/*.class"/>
-	         <exclude name="**/*.properties"/>
-            </patternset>
-	    <fileset dir=".">
-	           <include name="**/*.jar"/>
-	    </fileset>
-         </unjar>
 	 <java jar="${nbia-ctp.dist.dir}/nbiaDatabaseUpdator.jar" fork="true"/>
-	 <delete dir="${nbia-ctp.dist.dir}/lib" />
    </target>	
 </project>

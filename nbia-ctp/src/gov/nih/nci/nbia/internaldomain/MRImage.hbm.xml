@@ -22,7 +22,7 @@
     <property name="sar" type="double" column="SAR"/>
     <property name="dbDt" type="double" column="DB_DT"/>
     <property name="triggerTime" type="double" column="TRIGGER_TIME"/>
-    <property name="angioFlag" type="boolean" column="ANGIO_FLAG"/>
+    <property name="angioFlag" type="string" column="ANGIO_FLAG"/>
  
      <!-- Associations mapping for the MRImage class -->
     <many-to-one name="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" column="IMAGE_PK_ID" unique="true" lazy="proxy" />

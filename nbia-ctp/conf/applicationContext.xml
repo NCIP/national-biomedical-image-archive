@@ -138,6 +138,9 @@
    <bean id="ctio" class="gov.nih.nci.nbia.domain.operation.CTImageOperation">
     <property name="sessionFactory"><ref bean="sessionFactory"/></property>
    </bean>
+   <bean id="mrio" class="gov.nih.nci.nbia.domain.operation.MRImageOperation">
+       <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+   </bean>
    <bean id="imageSubmissionHistoryOperation" class="gov.nih.nci.nbia.domain.operation.ImageSubmissionHistoryOperation">
     <property name="sessionFactory"><ref bean="sessionFactory"/></property>
    </bean>
@@ -152,6 +155,7 @@
    <bean id="nciaDelegator" class="gov.nih.nci.nbia.dbadapter.NCIADatabaseDelegator" scope="prototype"/>
    <bean id="submissionHistory" class="gov.nih.nci.nbia.internaldomain.SubmissionHistory" scope="prototype"/>
    <bean id="ctimage" class="gov.nih.nci.nbia.internaldomain.CTImage" scope="prototype"/>
+   <bean id="mrimage" class="gov.nih.nci.nbia.internaldomain.MRImage" scope="prototype"/>
    <bean id="generalEquipment" class="gov.nih.nci.nbia.internaldomain.GeneralEquipment" scope="prototype"/>
    <bean id="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" scope="prototype"/>
    <bean id="patient" class="gov.nih.nci.nbia.internaldomain.Patient" scope="prototype"/>

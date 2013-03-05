@@ -326,13 +326,13 @@ public class MRImage  implements Serializable
 
 	/** 
 	 * Angio Image Indicator. Primary image for Angio processing.	**/
-	private Boolean angioFlag;
+	private String angioFlag;
 	/**
 	* Retrieves the value of angioFlag attribute
 	* @return angioFlag
 	**/
 
-	public Boolean getAngioFlag(){
+	public String getAngioFlag(){
 		return angioFlag;
 	}
 
@@ -340,7 +340,7 @@ public class MRImage  implements Serializable
 	* Sets the value of angioFlag attribute
 	**/
 
-	public void setAngioFlag(Boolean angioFlag){
+	public void setAngioFlag(String angioFlag){
 		this.angioFlag = angioFlag;
 	}
 	

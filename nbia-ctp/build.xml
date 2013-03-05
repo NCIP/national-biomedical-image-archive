@@ -241,8 +241,10 @@
                includes="gov/nih/nci/nbia/util/**,
                          dicomFileSizeCorrector.properties,
                          dicomFileSizeCorrectorLog4j.properties"/>
-      <fileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar"/>
-      <fileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar"/>	
+      <!--fileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar"/>
+      <fileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar"/-->	
+      <zipgroupfileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar" />
+      <zipgroupfileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar" />
     </jar>
   </target>
 	

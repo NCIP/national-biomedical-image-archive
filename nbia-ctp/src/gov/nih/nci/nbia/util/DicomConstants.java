@@ -117,4 +117,16 @@ public class DicomConstants {
     public static final String DX_DATA_COLLECTION_DIAMETER = "112";   
     public static final String US_COLOR_DATA_PRESENT = "113";
     public static final String US_NUM_FRAME = "114";
+    public static final String SCANNING_SEQUENCE = "115";
+    public static final String SEQUENCE_VARIANT = "116";
+    public static final String REPETITION_TIME = "117";
+    public static final String ECHO_TIME = "118";
+    public static final String INVERSION_TIME = "119";
+    public static final String SEQUENCE_NAME = "120";
+    public static final String IMAGED_NUCLEUS = "121";
+    public static final String MAGNETIC_FIELD_STRENGTH = "122";
+    public static final String SAR = "123";
+    public static final String DB_DT = "124";
+    public static final String TRIGGER_TIME = "125";
+    public static final String ANGIO_FLAG = "126";
 }

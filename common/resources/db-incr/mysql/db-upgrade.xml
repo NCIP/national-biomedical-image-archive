@@ -1603,5 +1603,39 @@ ALTER TABLE CSM_FILTER_CLAUSE CHANGE GENERATED_SQL GENERATED_SQL_USER VARCHAR (4
 ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT NULL;
         </sql>
   </changeSet>
+  
+<changeSet id="5.2.mr_image.create" author="panq" dbms="mysql">
+  <comment>
+   create new table and related constrain to support MR modality search feature
+  </comment>
+
+  <sql>
+    CREATE TABLE MR_IMAGE (
+      IMAGE_TYPE_VALUE_3 varchar(16) NOT NULL,
+      SCANNING_SEQUENCE varchar(126) NOT NULL,
+      SCANNING_VARIANT varchar(126) NOT NULL,
+      REPETITION_TIME decimal(22,6),
+      ECHO_TIME decimal(22,10),
+      INVERSION_TIME decimal(22,6),
+      SEQUENCE_NAME varchar(64),
+      IMAGED_NUCLEUS varchar(64),
+      MAGNETIC_FIELD_STRENGTH decimal(22,6),
+      SAR decimal(22,6),
+      DB_DT decimal(22,6),
+      TRIGGER_TIME decimal(22,6),
+      ANGIO_FLAG varchar(1),
+      IMAGE_PK_ID bigint(20) NOT NULL,
+      MR_IMAGE_PK_ID bigint(20) NOT NULL auto_increment,
+      GENERAL_SERIES_PK_ID bigint(20) ,
+      PRIMARY KEY  (MR_IMAGE_PK_ID)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+    ALTER TABLE  MR_IMAGE ADD CONSTRAINT FK_MR_GEN_IMAGE_PK_ID 
+    FOREIGN KEY FK_MR_GEN_IMAGE_PK_ID (IMAGE_PK_ID) REFERENCES general_image (image_pk_id);
+
+    ALTER TABLE  MR_IMAGE ADD CONSTRAINT FK_MR_GEN_SERIES_PK_ID 
+    FOREIGN KEY FK_MR_GEN_SERIES_PK_ID (GENERAL_SERIES_PK_ID) REFERENCES general_series (general_series_pk_id) ON DELETE CASCADE;
+  </sql>
+</changeSet>
 
 </databaseChangeLog>

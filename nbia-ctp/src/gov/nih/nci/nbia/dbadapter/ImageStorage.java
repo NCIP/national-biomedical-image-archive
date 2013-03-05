@@ -2,6 +2,7 @@ package gov.nih.nci.nbia.dbadapter;
 
 import gov.nih.nci.nbia.domain.operation.AnnotationOperationInterface;
 import gov.nih.nci.nbia.domain.operation.CTImageOperationInterface;
+import gov.nih.nci.nbia.domain.operation.MRImageOperationInterface;
 import gov.nih.nci.nbia.domain.operation.GeneralEquipmentOperationInterface;
 import gov.nih.nci.nbia.domain.operation.GeneralImageOperationInterface;
 import gov.nih.nci.nbia.domain.operation.ImageSubmissionHistoryOperationInterface;
@@ -10,6 +11,7 @@ import gov.nih.nci.nbia.domain.operation.SeriesOperationInterface;
 import gov.nih.nci.nbia.domain.operation.StudyOperationInterface;
 import gov.nih.nci.nbia.domain.operation.TrialDataProvenanceOperationInterface;
 import gov.nih.nci.nbia.internaldomain.CTImage;
+import gov.nih.nci.nbia.internaldomain.MRImage;
 import gov.nih.nci.nbia.internaldomain.GeneralEquipment;
 import gov.nih.nci.nbia.internaldomain.GeneralImage;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
@@ -44,6 +46,8 @@ public class ImageStorage extends HibernateDaoSupport{
 	private GeneralImageOperationInterface gio;
 	@Autowired
 	private CTImageOperationInterface ctio;
+	@Autowired
+	private MRImageOperationInterface mrio;
 	@Autowired
 	private ImageSubmissionHistoryOperationInterface imageSubmissionHistoryOperation;
 	@Autowired
@@ -151,6 +155,17 @@ public class ImageStorage extends HibernateDaoSupport{
 		}catch(Exception e) {
 			log.error("Exception in CTImageOperation " + e);
             errors.put("CTImage", e.getMessage());
+            return Status.FAIL;
+		}
+        
+        try {
+			mrio.setGeneralImage(gi);
+			MRImage mr = (MRImage)mrio.validate(numbers);
+			getHibernateTemplate().saveOrUpdate(mr);
+
+		}catch(Exception e) {
+			log.error("Exception in MRImageOperation " + e);
+            errors.put("MRImage", e.getMessage());
             return Status.FAIL;
 		}
 

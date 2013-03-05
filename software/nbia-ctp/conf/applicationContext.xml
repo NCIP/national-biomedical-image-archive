@@ -59,6 +59,7 @@
         <value>gov/nih/nci/nbia/internaldomain/GeneralImage.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/GeneralEquipment.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CTImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/MRImage.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/TrialDataProvenance.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/TrialSite.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>

@@ -57,6 +57,7 @@
 		<many-to-one name="patient" class="gov.nih.nci.nbia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" insert="false" update="false"/>
 		<many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" insert="false" update="false"/>
 		<one-to-one name="ctimage" class="gov.nih.nci.nbia.internaldomain.CTImage" property-ref="generalImage" />
+		<one-to-one name="mrImage" class="gov.nih.nci.nbia.internaldomain.MRImage" property-ref="generalImage" />
 		<many-to-one name="dataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
 		<many-to-one name="study" class="gov.nih.nci.nbia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
 	</class>

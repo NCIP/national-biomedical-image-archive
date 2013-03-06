@@ -24,4 +24,8 @@
    	    <source>CTImage</source>	
         <alias>ctimage</alias>   
    </element>
+   <element>
+      <source>MRImage</source>	
+      <alias>mrimage</alias>   
+   </element>
 </relation>

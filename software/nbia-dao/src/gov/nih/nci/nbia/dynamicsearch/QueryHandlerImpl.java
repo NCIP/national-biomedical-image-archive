@@ -295,6 +295,10 @@ public class QueryHandlerImpl extends AbstractDAO
 					}
 					else
 					{
+						//just some work around to support MR and CT in criteria
+						if(node.equalsIgnoreCase("MRImage") && previousKey.startsWith("ctimage")) {
+							previousKey = generateAlias(elementTree.get(4).getAlias());
+						} 
 						criti.createAlias(previousKey+"."+str,
 								          generateAlias(str));
 						previousKey = generateAlias(str);
@@ -411,6 +415,10 @@ public class QueryHandlerImpl extends AbstractDAO
 			}
 			//exclude current node
 			relations.remove(placeHolder);
+			//exclude CTImage if node is MRImage
+			if(node.equalsIgnoreCase("MRImage")) {
+				relations.remove("ctimage");
+			} 
 		}
 
 		return relations;

@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 public final class DicomFileSizeCorrectorUtil {
-	private static final int elementsPerExecute = 1000;
+	private static final int elementsPerExecute = 500;
 	private static Logger logger = Logger.getLogger(DicomFileSizeCorrectorUtil.class);
 	private String connectionUrl;
 	private String driverClass;

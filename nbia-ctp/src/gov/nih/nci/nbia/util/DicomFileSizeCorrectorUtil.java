@@ -146,12 +146,14 @@ public final class DicomFileSizeCorrectorUtil {
     	 // Temporary fix until new CTP release provides a better solution
     	long actualFileSize = file.length();
     	try {
-    		String md5 = getDigest(new FileInputStream(file), md);
+    		FileInputStream fIs = new FileInputStream(file);
+    		String md5 = getDigest(fIs, md);
     		logger.info("updated filesize " + actualFileSize + "updated md5 " + md5);
 			stmt.setBigDecimal(1, BigDecimal.valueOf(actualFileSize));
 			stmt.setString(2, md5);
 			stmt.setString(3, imageId);
-    		stmt.addBatch() ;
+    		stmt.addBatch();
+    		fIs.close();
 		} catch (Exception ex) {
 			logger.error("update failed for imageId "+ imageId +" exception is:- " + ex.getMessage());
     	}

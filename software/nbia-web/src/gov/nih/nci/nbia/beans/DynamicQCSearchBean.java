@@ -1,18 +1,26 @@
 package gov.nih.nci.nbia.beans;
 
 import gov.nih.nci.nbia.beans.qctool.QcToolSearchBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.dynamicsearch.QueryHandler;
 import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
+import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.DateValidator;
 import gov.nih.nci.nbia.util.MessageUtil;
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import com.icesoft.faces.component.paneltabset.TabChangeEvent;
@@ -142,6 +150,21 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
         if (qcToolSearchBean.getQsrDTOList() != null) {
         	qcToolSearchBean.getQsrDTOList().clear();
         }
+	}
+	public void fieldItemChanged(ValueChangeEvent event) throws Exception {
+		super.fieldItemChanged(event);
+		String newFieldValue = (String)event.getNewValue();
+		this.hasPermissibleData = checkPermissibleData(newFieldValue);
+		if(hasPermissibleData && newValue.equals(initialDataGroup) && newFieldValue.equals(dataGroup.getDataSource().get(0).getSourceItem().get(0).getItemName())) {
+			permissibleData = new ArrayList<SelectItem>();
+			permissibleData.add(new SelectItem(defaultSelectValue, defaultSelectLabel));
+			SecurityBean secure = BeanManager.getSecurityBean();
+	        AuthorizationManager am = secure.getAuthorizationManager();
+	        List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.MANAGE_VISIBILITY_STATUS);
+	        for (SiteData st : authorizedSites) {
+				permissibleData.add(new SelectItem(st.getCollection(),VerifySubmissionUtil.siteDataToString(st)));
+			}
+		}
 	}
 
 }

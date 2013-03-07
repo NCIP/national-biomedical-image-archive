@@ -51,7 +51,7 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
 		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
 		qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
 		qh.setQueryCriteria(getCriteria(), getRelation(), authorizedSiteData, seriesSecurityGroups,getSelectedQcStatus());
-		qcToolSearchBean.setQsrDTOList(qh.querySeries());
+		qcToolSearchBean.setQsrDTOList(qh.querySeries(fromDate,toDate));
 		setTabIndex(1);// set focus on dynamic tab
 		return "qcToolMain";
 	}

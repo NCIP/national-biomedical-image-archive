@@ -5,6 +5,7 @@ import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 
+import java.util.Date;
 import java.util.List;
 
 //this needs a different name that doesnt collide with other names in system
@@ -23,11 +24,12 @@ public interface QueryHandler {
 	public void query()throws Exception;
 	
 	/**
-	 * 
+	 * @param fromDate
+	 * @param toDate
 	 * @return Qc series dto
 	 * @throws Exception on error
 	 */
-	public List<QcSearchResultDTO> querySeries() throws Exception;
+	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws Exception;
 
 	/**
 	 * Call this before executing the query method.  This

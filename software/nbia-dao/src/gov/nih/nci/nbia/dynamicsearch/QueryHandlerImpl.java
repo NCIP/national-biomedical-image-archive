@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -104,7 +105,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		}
 	}
 	@Transactional(propagation=Propagation.REQUIRED) 	
-	public List<QcSearchResultDTO> querySeries() throws DataAccessException {
+	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws DataAccessException {
 		DetachedCriteria criteria = null;
 		List<QcSearchResultDTO> searchResultDtos = new ArrayList<QcSearchResultDTO>();
 		try
@@ -125,6 +126,7 @@ public class QueryHandlerImpl extends AbstractDAO
 
 			criteria = addAllJoinKeys(criteria);
 			criteria = addAllRestriction(criteria, searchCriteria);
+			computeSubmissionDateCriteria(criteria, fromDate, toDate);
 			//add user authorized site name and collection
 			CriteriaForAuthorizedSiteData casd = new CriteriaForAuthorizedSiteData();
 			casd.setAuthorizedSiteData(generateAlias(elementTree.get(0).getAlias()),
@@ -173,6 +175,20 @@ public class QueryHandlerImpl extends AbstractDAO
 			removeSeriesVisibilityCriteria();
 		}
 		return searchResultDtos;
+	}
+	private void computeSubmissionDateCriteria(DetachedCriteria criti, Date fromDate, Date toDate) {
+		if( fromDate == null && toDate == null ) {
+			return;
+		}
+		else if( fromDate != null && toDate == null ) {
+			toDate = Calendar.getInstance().getTime();
+		}
+		// add a day to toDate because Oracle between command does not include the toDate
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(toDate);
+		cal.add( Calendar.DATE, 1 );
+		toDate = cal.getTime();
+		criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".maxSubmissionTimestamp").between(fromDate, toDate));
 	}
 	/**
 	 * This method prepares all necessary conditions for Query builder method.

@@ -5,6 +5,7 @@ import gov.nih.nci.nbia.dto.QcStatusHistoryDTO;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
 import gov.nih.nci.nbia.internaldomain.QCStatusHistory;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
+import gov.nih.nci.nbia.util.CrossDatabaseUtil;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -152,7 +153,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 		else if( fromDate != null && toDate == null ) {
 			toDate = Calendar.getInstance().getTime();
 		}
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = CrossDatabaseUtil.getDatabaseSpecificDatePattern();
 
 		// add a day to toDate because Oracle between command does not include the toDate
 		Calendar cal = Calendar.getInstance();

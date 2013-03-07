@@ -449,7 +449,7 @@
     <sourceName>modalityType</sourceName>
     <sourceItem>
       <itemLabel>ImageType</itemLabel>
-      <itemName>ImageType</itemName>
+      <itemName>imageTypeValue3</itemName>
       <itemType>java.lang.String</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
@@ -461,26 +461,26 @@
     </sourceItem>
     <sourceItem>
       <itemLabel>Sequence Variant</itemLabel>
-      <itemName>sequenceVariant</itemName>
+      <itemName>scanningVariant</itemName>
       <itemType>java.lang.String</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Repetition Time</itemLabel>
       <itemName>repetitionTime</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Echo Time</itemLabel>
       <itemName>echoTime</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Inversion Time</itemLabel>
       <itemName>inversionTime</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
@@ -491,32 +491,32 @@
     </sourceItem>
     <sourceItem>
       <itemLabel>maged Nucleus</itemLabel>
-      <itemName>magedNucleus</itemName>
+      <itemName>imagedNucleus</itemName>
       <itemType>java.lang.String</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Magnetic Field Strength</itemLabel>
       <itemName>magneticFieldStrength</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>SAR</itemLabel>
       <itemName>sar</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>dB/dt</itemLabel>
-      <itemName>dB_dt</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemName>dbDt</itemName>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
       <itemLabel>Trigger Time</itemLabel>
       <itemName>triggerTime</itemName>
-      <itemType>java.lang.String</itemType>
+      <itemType>java.lang.Double</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>

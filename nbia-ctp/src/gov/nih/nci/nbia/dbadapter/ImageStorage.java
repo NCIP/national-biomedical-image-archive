@@ -19,6 +19,7 @@ import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.internaldomain.Study;
 import gov.nih.nci.nbia.internaldomain.SubmissionHistory;
 import gov.nih.nci.nbia.internaldomain.TrialDataProvenance;
+import gov.nih.nci.nbia.util.DicomConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -147,27 +148,31 @@ public class ImageStorage extends HibernateDaoSupport{
             return Status.FAIL;
         }
 
-        try {
-			ctio.setGeneralImage(gi);
-			CTImage ct = (CTImage)ctio.validate(numbers);
-			getHibernateTemplate().saveOrUpdate(ct);
+        if (numbers.get(DicomConstants.MODALITY).equals("CT")) {
+	        try {
+				ctio.setGeneralImage(gi);
+				CTImage ct = (CTImage)ctio.validate(numbers);
+				getHibernateTemplate().saveOrUpdate(ct);
+	
+			}catch(Exception e) {
+				log.error("Exception in CTImageOperation " + e);
+	            errors.put("CTImage", e.getMessage());
+	            return Status.FAIL;
+			}
+        }
 
-		}catch(Exception e) {
-			log.error("Exception in CTImageOperation " + e);
-            errors.put("CTImage", e.getMessage());
-            return Status.FAIL;
-		}
-        
-        try {
-			mrio.setGeneralImage(gi);
-			MRImage mr = (MRImage)mrio.validate(numbers);
-			getHibernateTemplate().saveOrUpdate(mr);
-
-		}catch(Exception e) {
-			log.error("Exception in MRImageOperation " + e);
-            errors.put("MRImage", e.getMessage());
-            return Status.FAIL;
-		}
+        if (numbers.get(DicomConstants.MODALITY).equals("MR")) {        
+	        try {
+				mrio.setGeneralImage(gi);
+				MRImage mr = (MRImage)mrio.validate(numbers);
+				getHibernateTemplate().saveOrUpdate(mr);
+	
+			}catch(Exception e) {
+				log.error("Exception in MRImageOperation " + e);
+	            errors.put("MRImage", e.getMessage());
+	            return Status.FAIL;
+			}
+        }
 
 		try {
 			 imageSubmissionHistoryOperation.setProperties(gio.isReplacement(),

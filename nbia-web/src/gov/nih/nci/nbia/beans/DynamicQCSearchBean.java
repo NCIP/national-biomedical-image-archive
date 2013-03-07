@@ -39,13 +39,17 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
 	}
 	public String submitQCSearch() throws Exception {
 		if(validateDates()!=null) {
-			qcToolSearchBean.getQsrDTOList().clear();
+			if (qcToolSearchBean.getQsrDTOList() != null) {
+	        	qcToolSearchBean.getQsrDTOList().clear();
+	        }
             return null;
         }
 		String [] qcStatus = getSelectedQcStatus();
 		if (qcStatus == null || qcStatus.length==0){
 	       MessageUtil.addErrorMessage("MAINbody:qcToolSearchCritForm:dslctQcStatus","qcTool_requiedField_Search");
-	       qcToolSearchBean.getQsrDTOList().clear();
+	       if (qcToolSearchBean.getQsrDTOList() != null) {
+	        	qcToolSearchBean.getQsrDTOList().clear();
+	        }
 	       return null;
 	    }
 		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
@@ -135,7 +139,9 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
         setSelectedQcStatus(defaultCheckBoxLable);
         setFromDate(null);
         setToDate(null);
-        qcToolSearchBean.getQsrDTOList().clear();
+        if (qcToolSearchBean.getQsrDTOList() != null) {
+        	qcToolSearchBean.getQsrDTOList().clear();
+        }
 	}
 
 }

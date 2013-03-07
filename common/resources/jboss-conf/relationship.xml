@@ -26,6 +26,6 @@
    </element>
    <element>
       <source>MRImage</source>	
-      <alias>mrimage</alias>   
+      <alias>mrImage</alias>   
    </element>
 </relation>

@@ -122,19 +122,20 @@ public final class DicomFileSizeCorrectorUtil {
 					setCorrectFileSize(prepStmt, storedFile,imageId ,md);
 					batchSize ++;
 					if ( batchSize == elementsPerExecute) {
-						logger.info("doing batch update...");
-						prepStmt.executeBatch();
-						con.commit();
-						prepStmt.clearBatch();
+						excuteBatchStmt(prepStmt);
 						batchSize = 0;
+						con.commit();
 					}
 				 } else {
 					 //Do nothing
 					 //System.out.println("file size is same.....");
 				 }
 			}
+			//final update
+			excuteBatchStmt(prepStmt);
 			// close statement and connection
     		con.commit();
+    		prepStmt.close();
 			stmt.close();
 			con.close();
 		} catch (java.lang.Exception ex) {
@@ -142,6 +143,12 @@ public final class DicomFileSizeCorrectorUtil {
 			return;
 		}
 		logger.info("DICOM File size correction has been completed....");
+	}
+	private void excuteBatchStmt(PreparedStatement prepStmt)
+			throws SQLException {
+		logger.info("doing batch update...");
+		prepStmt.executeBatch();
+		prepStmt.clearBatch();
 	}
 	 private void setCorrectFileSize(PreparedStatement stmt, File file, String imageId, MessageDigest md) throws Exception {
     	 // Temporary fix until new CTP release provides a better solution

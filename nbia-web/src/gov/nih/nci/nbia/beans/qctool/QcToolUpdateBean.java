@@ -27,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 /**
@@ -476,19 +475,21 @@ public class QcToolUpdateBean {
 	private void sendMail(){
 		SecurityBean sb = BeanManager.getSecurityBean();
         String email = sb.getEmail();
-        String impactList="";
-        String userInfo="";
+        StringBuffer userInfo=new StringBuffer();
         Set<String> set = new HashSet<String>();
-
+        Set<String> userInfoSet = new HashSet<String>();
         for (QcCustomSeriesListDTO aDTO : userNameList){
         	set.add(aDTO.getSeriesInstanceUID());
-			userInfo = aDTO.getName()+"\t"+ aDTO.getEmail();
+        	userInfoSet.add(aDTO.getName()+"\t"+ aDTO.getEmail());
         }
-
-        for (String sid: set){
-        	impactList = sid+"\n";
+        for (String s : userInfoSet) {
+        	userInfo.append(s).append(", ");
         }
-        MailManager.sendQCShareListEmail(email, impactList, userInfo);
+        StringBuffer impactList = new StringBuffer();
+        for (String series : set) {
+        	impactList.append(series).append(", ");
+        }
+        MailManager.sendQCShareListEmail(email, impactList.toString(), userInfo.toString());
 
 	}
 

@@ -209,7 +209,7 @@ public class MailManager {
         }
     }
 
-    public static void sendDeletionConfirmationMail(String mailTo, String username, List<Integer> allSeries, String initialzedDeletionTime)
+    public static void sendDeletionConfirmationMail(String mailTo, String username, List<String> allSeries, String initialzedDeletionTime)
     throws Exception {
     	String message = "Image deletion has been successfully completed. The process starts at " + initialzedDeletionTime + "\n\n";
     	message += "The following series has been removed from NBIA application database: \n";
@@ -221,7 +221,7 @@ public class MailManager {
     	new SendMail().sendMail(mailTo, message, deletionSubject);
     }
     
-    private static String stringForAllDeletedSeries(List<Integer> allSeries){
+    private static String stringForAllDeletedSeries(List<String> allSeries){
     	StringBuilder all = new StringBuilder();
     	for (int i = 0; i < allSeries.size(); i++){
     		all.append(allSeries.get(i));

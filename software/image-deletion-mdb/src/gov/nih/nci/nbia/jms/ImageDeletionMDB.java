@@ -1,15 +1,16 @@
 package gov.nih.nci.nbia.jms;
 
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import gov.nih.nci.nbia.deletion.DeletionDisplayObject;
 import gov.nih.nci.nbia.deletion.ImageDeletionService;
 import gov.nih.nci.nbia.deletion.ImageFileDeletionService;
 import gov.nih.nci.nbia.mail.MailManager;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJBException;
 import javax.ejb.MessageDrivenBean;
@@ -100,14 +101,14 @@ public class ImageDeletionMDB implements MessageDrivenBean, MessageListener {
 	public void onMessage(Message arg0) {
 		log.info("start processing series deletion...");
 		ImageDeletionMessage izm = null;
-		List<Integer> allSeries = null;
+		List<DeletionDisplayObject> deletionObjectLst = null;
 		String initializedDeletionTime = null;
 		
 		try{
 			ObjectMessage om = (ObjectMessage) arg0;
 			izm = (ImageDeletionMessage)om.getObject();
 			String userName = izm.getUserName();
-            allSeries = imageDeletionService.getAllDeletedSeries();
+			deletionObjectLst = imageDeletionService.getDeletionDisplayObject();
             initializedDeletionTime = getCurrentTime();
             
 			Map<String, List<String>> files = imageDeletionService.removeSeries(userName);
@@ -123,8 +124,12 @@ public class ImageDeletionMDB implements MessageDrivenBean, MessageListener {
 		}
 		
 		try{
+			List<String> deletedSeries = new ArrayList<String>();
+			for (DeletionDisplayObject obj: deletionObjectLst) {
+				deletedSeries.add(obj.getSeriesUID());
+			}
 			MailManager.sendDeletionConfirmationMail(izm.getEmailAddress(),
-						izm.getUserName(), allSeries, initializedDeletionTime);
+						izm.getUserName(), deletedSeries, initializedDeletionTime);
 		}catch(Exception ee){
 			ee.printStackTrace();
 			log.error("Fail to send an email to deletion requestor...");

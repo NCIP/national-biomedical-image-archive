@@ -461,7 +461,7 @@
     </sourceItem>
     <sourceItem>
       <itemLabel>Sequence Variant</itemLabel>
-      <itemName>scanningVariant</itemName>
+      <itemName>sequenceVariant</itemName>
       <itemType>java.lang.String</itemType>
       <actualSource>MRImage</actualSource>
     </sourceItem>

@@ -490,7 +490,7 @@
       <actualSource>MRImage</actualSource>
     </sourceItem>
     <sourceItem>
-      <itemLabel>maged Nucleus</itemLabel>
+      <itemLabel>Imaged Nucleus</itemLabel>
       <itemName>imagedNucleus</itemName>
       <itemType>java.lang.String</itemType>
       <actualSource>MRImage</actualSource>

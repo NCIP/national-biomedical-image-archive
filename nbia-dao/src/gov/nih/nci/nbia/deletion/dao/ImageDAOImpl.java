@@ -35,12 +35,17 @@ public class ImageDAOImpl extends HibernateDaoSupport implements ImageDAO {
 			if (seriesIds != null && seriesIds.size() > 0)
 			{
 				List<GeneralImage> deletedImageObject = getImageObject(seriesIds);
-
-				for (GeneralImage image : deletedImageObject)
-				{
+				boolean isMR = false;
+				for (GeneralImage image : deletedImageObject) {
 					imageFiles.add(image.getFilename());
+					if(!isMR && image.getGeneralSeries().getModality().equalsIgnoreCase("MR")) {
+						isMR = true;
+					}
 				}
 				deleteImage(seriesIds);
+				if(isMR) {
+					deleteMRImage(seriesIds); //include MR images
+				}
 				deleteCTImage(seriesIds);
 			}
 		}catch(org.springframework.dao.DataAccessException e)
@@ -50,6 +55,23 @@ public class ImageDAOImpl extends HibernateDaoSupport implements ImageDAO {
 		}
 
 		return imageFiles;
+	}
+	
+	private void deleteMRImage(List<Integer> seriesIds) {
+		for(final Integer seriesId : seriesIds) {
+			getHibernateTemplate().execute(
+		       new HibernateCallback() {
+		    	   public Object doInHibernate(Session session) throws HibernateException, SQLException {
+
+		    		   Query deleteGiQuery = session.createQuery("delete from MRImage where seriesPKId = ?");
+		    		   deleteGiQuery.setInteger(0, seriesId);
+		    		   /*int result = */deleteGiQuery.executeUpdate();
+
+		    		   return null;
+		    	   }
+		       }
+		    );
+		}
 	}
 
 	public void deleteCTImage(List<Integer> seriesIds)

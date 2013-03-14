@@ -23,10 +23,11 @@
     <property name="dbDt" type="double" column="DB_DT"/>
     <property name="triggerTime" type="double" column="TRIGGER_TIME"/>
     <property name="angioFlag" type="string" column="ANGIO_FLAG"/>
+    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID"/>
  
      <!-- Associations mapping for the MRImage class -->
     <many-to-one name="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" column="IMAGE_PK_ID" unique="true" lazy="proxy" />
-    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy"/>
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy"  insert="false" update="false"/>
 
   </class>
 </hibernate-mapping>

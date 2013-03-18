@@ -70,6 +70,7 @@ public class DynamicSearchBean {
 	protected String selectedResultPerPage="10";
 	protected boolean hasPermissibleData = false;
 	protected boolean isMr=false;
+	protected boolean isCT=false;
 	protected List<SelectItem> permissibleData;
 
 	protected String defaultSelectValue="please select";
@@ -129,7 +130,7 @@ public class DynamicSearchBean {
 		List<DataSource> dataSourceList = dataGroup.getDataSource();
 		dataGroupItems.add(0, defaultSelectItem);
 		for(DataSource ds : dataSourceList) {
-			if(! ds.getSourceName().equalsIgnoreCase("modalityType")) {
+			if(! ds.getSourceName().startsWith("modality")) {
 				dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
 			}
 		}
@@ -140,7 +141,13 @@ public class DynamicSearchBean {
 				}
 			}
 		}
-			
+		if (isCT) {
+			for(DataSource ds : dataSourceList) {
+				if(ds.getSourceLabel().equalsIgnoreCase("CT Image")) {
+					dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
+				}
+			}
+		}	
 		return dataGroupItems;
 	}
 
@@ -381,6 +388,9 @@ public class DynamicSearchBean {
 			if (permissibleDataValue.equals("MR")) {
 				isMr=true;
 			}
+			if (permissibleDataValue.equals("CT")) {
+				isCT=true;
+			}
 		}
 		if (itemActualSource.get(selectedField.trim()).length() > 1) {
 			String actualItemSource = itemActualSource.get(selectedField.trim());
@@ -488,6 +498,10 @@ public class DynamicSearchBean {
 	        	//set is MR false;
 	        	isMr = false;
 	        }
+	        if (tmpBean.getField().equalsIgnoreCase("modality") && tmpBean.getValue().equals("CT") ) {
+	        	//set is CT false;
+	        	isCT = false;
+	        }
 	        criteria.remove(tmpBean);
 	      }
 	    }
@@ -518,6 +532,7 @@ public class DynamicSearchBean {
 		selectedDataGroup = defaultSelectValue;
 		selectedOperand = defaultSelectValue;
 		isMr = false;
+		isCT=false;
 		inputValue = "";
 		relation = "AND";
 		criteria = new ArrayList<DynamicSearchCriteria>();

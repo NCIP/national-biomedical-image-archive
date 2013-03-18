@@ -339,114 +339,119 @@
         <itemPrimaryValue>true</itemPrimaryValue>
         <itemType>java.lang.String</itemType>
       </sourceItem>
-    <sourceItem>
-      <itemLabel>KVP</itemLabel>
-      <itemName>KVP</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Scan Option</itemLabel>
-      <itemName>scanOperions</itemName>
-      <itemType>java.lang.String</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Data Collection Diameter (CT)</itemLabel>
-      <itemName>dataCollectionDiameter</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Reconstruction Diameter</itemLabel>
-      <itemName>reconstructionDiameter</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Gantry Detector Tilt</itemLabel>
-      <itemName>gantryDetectorTilt</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Exposure Time</itemLabel>
-      <itemName>exposureTime</itemName>
-      <itemType>java.lang.Integer</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>X Ray Tube Current</itemLabel>
-      <itemName>XRayTubeCurrent</itemName>
-      <itemType>java.lang.Integer</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Exposure</itemLabel>
-      <itemName>exposure</itemName>
-      <itemType>java.lang.Integer</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Exposure In Micro As</itemLabel>
-      <itemName>exposureInMicroAs</itemName>
-      <itemType>java.lang.Integer</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Convolution Kernel</itemLabel>
-      <itemName>convolutionKernel</itemName>
-      <itemType>java.lang.String</itemType>
-      <itemPrimaryValue>true</itemPrimaryValue>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Revolution Time</itemLabel>
-      <itemName>revolutionTime</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Single Collimation Width</itemLabel>
-      <itemName>singleCollimationWidth</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Total Collimation Width</itemLabel>
-      <itemName>totalCollimationWidth</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Table Speed</itemLabel>
-      <itemName>tableSpeed</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Table Feed Per Rotation</itemLabel>
-      <itemName>tableFeedPerRotation</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>CT Pitch Factor</itemLabel>
-      <itemName>CTPitchFactor</itemName>
-      <itemType>java.lang.Double</itemType>
-      <actualSource>CTImage</actualSource>
-    </sourceItem>
-    <sourceItem>
-      <itemLabel>Anatomic Region Sequence</itemLabel>
-      <itemName>anatomicRegionSeq</itemName>
-      <itemType>java.lang.String</itemType>
-      <actualSource>CTImage</actualSource>
+  </dataSource>
+  <dataSource>
+    <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+    <sourceLabel>CT Image</sourceLabel>
+    <sourceName>modalityCT</sourceName>
+  <sourceItem>
+        <itemLabel>KVP</itemLabel>
+        <itemName>KVP</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Scan Option</itemLabel>
+        <itemName>scanOptions</itemName>
+        <itemType>java.lang.String</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Data Collection Diameter (CT)</itemLabel>
+        <itemName>dataCollectionDiameter</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Reconstruction Diameter</itemLabel>
+        <itemName>reconstructionDiameter</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Gantry Detector Tilt</itemLabel>
+        <itemName>gantryDetectorTilt</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Exposure Time</itemLabel>
+        <itemName>exposureTime</itemName>
+        <itemType>java.lang.Integer</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>X Ray Tube Current</itemLabel>
+        <itemName>XRayTubeCurrent</itemName>
+        <itemType>java.lang.Integer</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Exposure</itemLabel>
+        <itemName>exposure</itemName>
+        <itemType>java.lang.Integer</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Exposure In Micro As</itemLabel>
+        <itemName>exposureInMicroAs</itemName>
+        <itemType>java.lang.Integer</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Convolution Kernel</itemLabel>
+        <itemName>convolutionKernel</itemName>
+        <itemType>java.lang.String</itemType>
+        <itemPrimaryValue>true</itemPrimaryValue>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Revolution Time</itemLabel>
+        <itemName>revolutionTime</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Single Collimation Width</itemLabel>
+        <itemName>singleCollimationWidth</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Total Collimation Width</itemLabel>
+        <itemName>totalCollimationWidth</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Table Speed</itemLabel>
+        <itemName>tableSpeed</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Table Feed Per Rotation</itemLabel>
+        <itemName>tableFeedPerRotation</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>CT Pitch Factor</itemLabel>
+        <itemName>CTPitchFactor</itemName>
+        <itemType>java.lang.Double</itemType>
+        <actualSource>CTImage</actualSource>
+      </sourceItem>
+      <sourceItem>
+        <itemLabel>Anatomic Region Sequence</itemLabel>
+        <itemName>anatomicRegionSeq</itemName>
+        <itemType>java.lang.String</itemType>
+        <actualSource>CTImage</actualSource>
     </sourceItem>
   </dataSource>
   <dataSource>
     <sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
     <sourceLabel>MR Image</sourceLabel>
-    <sourceName>modalityType</sourceName>
+    <sourceName>modalityMR</sourceName>
     <sourceItem>
       <itemLabel>ImageType</itemLabel>
       <itemName>imageTypeValue3</itemName>

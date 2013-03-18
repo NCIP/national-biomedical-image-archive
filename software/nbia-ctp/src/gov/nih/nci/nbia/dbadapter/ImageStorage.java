@@ -80,6 +80,7 @@ public class ImageStorage extends HibernateDaoSupport{
 			                       long fileSize,
 			                       boolean visibility) {
         TrialDataProvenance tdp=null;
+        errors.clear();
         try {
 			tdp = (TrialDataProvenance)tdpo.validate(numbers);
 			getHibernateTemplate().saveOrUpdate(tdp);

@@ -308,6 +308,7 @@ public class NCIADatabaseDelegator {
             }
         }
         catch (Exception notAvailable) {
+        	notAvailable.printStackTrace();
             log.warn("in NICADatabase class, cannot get element value"+Integer.toHexString(tag));
         }
         if (value != null) {

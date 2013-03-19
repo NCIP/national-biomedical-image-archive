@@ -44,10 +44,19 @@
       id="idmap"
       class="org.rsna.ctp.stdstages.IDMap" 
       root="IDMap" />
+   <DatabaseVerifier
+                class="org.rsna.ctp.stdstages.DatabaseVerifier"
+                name="DatabaseVerifier"
+                root="roots/DatabaseVerifier"
+                url="http://localhost:@ctp.server.verifier.port@"
+            	username="@ctp.client.exportService.username@"
+            	password="@ctp.client.exportService.password@"/>        
     <ExportService
             name="HTTP Export"
             class="org.rsna.ctp.stdstages.HttpExportService"
             root="roots/http-export"
+            username="@ctp.client.exportService.username@"
+            password="@ctp.client.exportService.password@" 
             url="http://localhost:@ctp.server.http_import_service.port@" />
   </Pipeline>
 

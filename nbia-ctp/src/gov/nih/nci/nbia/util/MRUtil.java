@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class MRUtil {
     private static Logger logger = Logger.getLogger(MRUtil.class);
+    private static final int rowsPerCommit = 1000;
     private ClassPathXmlApplicationContext ctx = null;
     MRUtil mrUtil = null;
     @Autowired
@@ -72,21 +73,34 @@ public class MRUtil {
             Query q = s.createQuery(hql);
             q.setFirstResult(0);
             List<Object[]> searchResults = q.list();
+            int commitSize = 0;
             for (Object[] row : searchResults) {
-                Integer giId = (Integer) row[0];
-                String dicomUri = (String) row[1];
-                File storedFile = new File(dicomUri);
-                DicomObject dicomObjectFile = new DicomObject(storedFile);
-                Dataset set = dicomObjectFile.getDataset();
-                parseDICOMPropertiesFile(set);
-                Status stat = updateStoredDicomObject(s, giId);
-                logger.info("Status of reprocessed MR Image:- " + stat
-                        + " image pk Id:- " + giId + "  dicomUri:- " + dicomUri);
+                try {
+                    Integer giId = (Integer) row[0];
+                    String dicomUri = (String) row[1];
+                    File storedFile = new File(dicomUri);
+                    DicomObject dicomObjectFile = new DicomObject(storedFile);
+                    Dataset set = dicomObjectFile.getDataset();
+                    parseDICOMPropertiesFile(set);
+                    Status stat = updateStoredDicomObject(s, giId);
+                    logger.info("Status of reprocessed MR Image:- " + stat
+                            + " image pk Id:- " + giId + "  dicomUri:- "
+                            + dicomUri);
+                    commitSize++;
+                    if (commitSize == rowsPerCommit) {
+                        s.getTransaction().commit();
+                        commitSize = 0;
+                    }
+                } catch (Exception e) {
+                    logger.error(e);
+                    logger.info("continue processing");
+                }
             }
             s.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e);
         }
+
     }
 
     @Transactional

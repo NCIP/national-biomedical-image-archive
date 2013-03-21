@@ -10,7 +10,7 @@ public class EqCriteriaFactory implements CriteriaFactory {
 	{
 		if (fieldType.equalsIgnoreCase("java.lang.String"))
 		{
-			if (value.equalsIgnoreCase("Not Populated (NULL)"))
+			if (value.equalsIgnoreCase("Not Populated (NULL)") || value.equalsIgnoreCase("NULL"))
 			{
 				return Restrictions.isNull(fieldName);
 			}

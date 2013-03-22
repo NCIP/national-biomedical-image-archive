@@ -92,19 +92,21 @@ public class MRUtil {
                         s.getTransaction().commit();
                         commitSize = 0;
                     }
-                    
+
                 } catch (Exception e) {
                     logger.error(e);
                     logger.info("continue processing");
-                }
-                finally {
-                    dicomObjectFile.close();
+                } finally {
+                    if (dicomObjectFile != null) {
+                        dicomObjectFile.close();
+                    }
                 }
             }
             s.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e);
-        }   }
+        }
+    }
 
     @Transactional
     private Status updateStoredDicomObject(Session s, Integer imagePkId) {

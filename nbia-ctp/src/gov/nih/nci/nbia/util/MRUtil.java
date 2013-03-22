@@ -74,12 +74,13 @@ public class MRUtil {
             q.setFirstResult(0);
             List<Object[]> searchResults = q.list();
             int commitSize = 0;
+            DicomObject dicomObjectFile = null;
             for (Object[] row : searchResults) {
                 try {
                     Integer giId = (Integer) row[0];
                     String dicomUri = (String) row[1];
                     File storedFile = new File(dicomUri);
-                    DicomObject dicomObjectFile = new DicomObject(storedFile);
+                    dicomObjectFile = new DicomObject(storedFile);
                     Dataset set = dicomObjectFile.getDataset();
                     parseDICOMPropertiesFile(set);
                     Status stat = updateStoredDicomObject(s, giId);
@@ -91,17 +92,19 @@ public class MRUtil {
                         s.getTransaction().commit();
                         commitSize = 0;
                     }
+                    
                 } catch (Exception e) {
                     logger.error(e);
                     logger.info("continue processing");
+                }
+                finally {
+                    dicomObjectFile.close();
                 }
             }
             s.getTransaction().commit();
         } catch (Exception e) {
             logger.error(e);
-        }
-
-    }
+        }   }
 
     @Transactional
     private Status updateStoredDicomObject(Session s, Integer imagePkId) {
@@ -168,6 +171,7 @@ public class MRUtil {
                 }
             }
         } // while
+        in.close();
     }
 
     private boolean isSQFieldThatWeCareAbout(String propname) {

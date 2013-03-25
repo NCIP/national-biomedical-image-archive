@@ -89,6 +89,7 @@ public class MRUtil {
                             + dicomUri);
                     commitSize++;
                     if (commitSize == rowsPerCommit) {
+                        s.flush();
                         s.getTransaction().commit();
                         commitSize = 0;
                     }
@@ -124,7 +125,6 @@ public class MRUtil {
                 MRImage mr = (MRImage) mrio.validate(dicomTagMap);
                 mr.setGeneralSeries(gi.getGeneralSeries());
                 s.merge(mr);
-                s.flush();
             } catch (Exception e) {
                 logger.error("Exception in MRImageOperation " + e);
                 return Status.FAIL;

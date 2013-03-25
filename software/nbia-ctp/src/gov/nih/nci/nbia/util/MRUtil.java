@@ -87,12 +87,8 @@ public class MRUtil {
                             + dicomUri);
                     commitSize++;
                     if (commitSize == rowsPerCommit) {
-                        logger.info("flusing records..");
-                        s.flush();
-                        if (!s.getTransaction().wasCommitted()) {
-                            logger.info("committing records..");
-                            s.getTransaction().commit();
-                        }
+                        logger.info("committing records..");
+                        s.getTransaction().commit();
                         commitSize = 0;
                     }
 

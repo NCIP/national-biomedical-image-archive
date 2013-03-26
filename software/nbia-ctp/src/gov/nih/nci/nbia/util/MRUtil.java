@@ -27,6 +27,7 @@ import org.rsna.ctp.objects.DicomObject;
 import org.rsna.ctp.pipeline.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
 public class MRUtil {
     private static Logger logger = Logger.getLogger(MRUtil.class);
@@ -56,6 +57,7 @@ public class MRUtil {
         logger.info("completed the re processing of MR images");
     }
 
+    @Transactional
     public void reProcessMR() {
         ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         mrio = (MRImageOperationInterface) ctx.getBean("mrio");
@@ -67,7 +69,6 @@ public class MRUtil {
             String hql = "SELECT gi.id,"
                     + "gi.filename FROM GeneralImage as gi, GeneralSeries as gs  WHERE gi.seriesPKId = gs.id AND gs.modality = 'MR'"
                     + "and gi.id not in ( Select generalImage.id from MRImage)";
-            s.getTransaction().begin();
             Query q = s.createQuery(hql);
             q.setFirstResult(0);
             List<Object[]> searchResults = q.list();
@@ -88,8 +89,9 @@ public class MRUtil {
                     commitSize++;
                     if (commitSize == rowsPerCommit) {
                         logger.info("committing records..");
-                        s.getTransaction().commit();
                         commitSize = 0;
+                        // s.getTransaction().commit();
+                        s.flush();
                     }
 
                 } catch (Exception e) {
@@ -101,12 +103,15 @@ public class MRUtil {
                     }
                 }
             }
-            s.getTransaction().commit();
+            // s.getTransaction().commit();
+            s.flush();
+            s.close();
         } catch (Exception e) {
             logger.error(e);
         }
     }
 
+    @Transactional
     private Status updateStoredDicomObject(Session s, Integer imagePkId) {
         GeneralImage gi = null;
         try {

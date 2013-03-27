@@ -25,7 +25,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.rsna.ctp.objects.DicomObject;
 import org.rsna.ctp.pipeline.Status;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +33,6 @@ public class MRUtil {
     private static final int rowsPerCommit = 1000;
     private ClassPathXmlApplicationContext ctx = null;
     MRUtil mrUtil = null;
-    @Autowired
     private MRImageOperationInterface mrio;
     Map dicomTagMap = new HashMap();
     Properties dicomProp = new Properties();
@@ -92,9 +90,11 @@ public class MRUtil {
                         commitSize = 0;
                         // s.getTransaction().commit();
                         s.flush();
+                        s.clear();
                     }
 
                 } catch (Exception e) {
+                    s.clear();
                     logger.error(e);
                     logger.info("continue processing");
                 } finally {
@@ -126,6 +126,7 @@ public class MRUtil {
                 mrio.setGeneralImage(gi);
                 MRImage mr = (MRImage) mrio.validate(dicomTagMap);
                 mr.setGeneralSeries(gi.getGeneralSeries());
+                validate(mr);
                 s.merge(mr);
             } catch (Exception e) {
                 logger.error("Exception in MRImageOperation " + e);
@@ -133,6 +134,19 @@ public class MRUtil {
             }
         }
         return Status.OK;
+    }
+
+    private void validate(MRImage mri) throws Exception {
+        if (StringUtil.isEmptyTrim(mri.getImageTypeValue3())) {
+            throw new Exception("Image Type 3 cannot be null");
+        }
+        if (StringUtil.isEmptyTrim(mri.getScanningSequence())) {
+            throw new Exception("Scanning Sequence cannot be null");
+        }
+        if (StringUtil.isEmptyTrim(mri.getSequenceVariant())) {
+            throw new Exception("Scanning Variant cannot be null");
+        }
+
     }
 
     private void parseDICOMPropertiesFile(Dataset dicomSet) throws Exception {

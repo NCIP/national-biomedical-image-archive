@@ -44,7 +44,10 @@
                 name="commons-collections"
                 rev="2.1.1"
                 conf="compile->master;runtime->master"/>
-    
+    <dependency org="commons-lang"
+                name="commons-lang"
+                rev="2.1"
+                conf="compile->master;runtime->master"/>
     <dependency org="commons-codec" 
                 name="commons-codec"
                 rev="1.3"

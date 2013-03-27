@@ -7,11 +7,11 @@ import gov.nih.nci.nbia.internaldomain.GeneralImage;
 import gov.nih.nci.nbia.internaldomain.MRImage;
 import gov.nih.nci.nbia.util.DicomConstants;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.nbia.util.StringUtil;
 
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,13 +130,13 @@ public class MRImageOperation extends DomainOperation implements
         if ((temp = (String) numbers.get(DicomConstants.ANGIO_FLAG)) != null) {
             mri.setAngioFlag(temp.trim());
         }
-        if (StringUtil.isEmptyTrim(mri.getImageTypeValue3())) {
+        if (StringUtils.isEmpty(mri.getImageTypeValue3())) {
             throw new Exception("Image Type 3 cannot be null");
         }
-        if (StringUtil.isEmptyTrim(mri.getScanningSequence())) {
+        if (StringUtils.isEmpty(mri.getScanningSequence())) {
             throw new Exception("Scanning Sequence cannot be null");
         }
-        if (StringUtil.isEmptyTrim(mri.getSequenceVariant())) {
+        if (StringUtils.isEmpty(mri.getSequenceVariant())) {
             throw new Exception("Scanning Variant cannot be null");
         }
     }

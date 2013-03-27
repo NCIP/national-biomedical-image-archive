@@ -150,6 +150,9 @@
    <bean id="annotationSubmissionHistoryOperation" class="gov.nih.nci.nbia.domain.operation.AnnotationSubmissionHistoryOperation">
     <property name="sessionFactory"><ref bean="sessionFactory"/></property>
   </bean>
+  <bean id="processDicomObject" class="gov.nih.nci.nbia.util.ProcessDicomObject">
+    <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+  </bean>
    <bean id="annotation" class="gov.nih.nci.nbia.internaldomain.Annotation" scope="prototype"/>
    <bean id="series" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" scope="prototype" />
    <bean id="nciaDelegator" class="gov.nih.nci.nbia.dbadapter.NCIADatabaseDelegator" scope="prototype"/>

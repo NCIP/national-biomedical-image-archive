@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.dcm4che.data.Dataset;
@@ -137,15 +138,15 @@ public class MRUtil {
     }
 
     private void validate(MRImage mri) throws Exception {
-        if (StringUtil.isEmptyTrim(mri.getImageTypeValue3())) {
-            throw new Exception("Image Type 3 cannot be null");
-        }
-        if (StringUtil.isEmptyTrim(mri.getScanningSequence())) {
-            throw new Exception("Scanning Sequence cannot be null");
-        }
-        if (StringUtil.isEmptyTrim(mri.getSequenceVariant())) {
-            throw new Exception("Scanning Variant cannot be null");
-        }
+       if (StringUtils.isEmpty(mri.getImageTypeValue3())) {
+	       throw new Exception("Image Type 3 cannot be null");
+	   }
+	   if (StringUtils.isEmpty(mri.getScanningSequence())) {
+	       throw new Exception("Scanning Sequence cannot be null");
+	   }
+	   if (StringUtils.isEmpty(mri.getSequenceVariant())) {
+	   	   throw new Exception("Scanning Variant cannot be null");
+       }
 
     }
 

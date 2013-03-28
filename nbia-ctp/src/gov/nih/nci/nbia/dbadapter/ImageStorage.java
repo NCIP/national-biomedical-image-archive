@@ -149,19 +149,6 @@ public class ImageStorage extends HibernateDaoSupport{
             return Status.FAIL;
         }
 
-        if (numbers.get(DicomConstants.MODALITY).equals("CT")) {
-	        try {
-				ctio.setGeneralImage(gi);
-				CTImage ct = (CTImage)ctio.validate(numbers);
-				getHibernateTemplate().saveOrUpdate(ct);
-	
-			}catch(Exception e) {
-				log.error("Exception in CTImageOperation " + e);
-	            errors.put("CTImage", e.getMessage());
-	            return Status.FAIL;
-			}
-        }
-
         if (numbers.get(DicomConstants.MODALITY).equals("MR")) {        
 	        try {
 				mrio.setGeneralImage(gi);
@@ -171,6 +158,19 @@ public class ImageStorage extends HibernateDaoSupport{
 			}catch(Exception e) {
 				log.error("Exception in MRImageOperation " + e);
 	            errors.put("MRImage", e.getMessage());
+	            return Status.FAIL;
+			}
+        }
+        else //Modality is anything except "MR"
+        {
+	        try {
+				ctio.setGeneralImage(gi);
+				CTImage ct = (CTImage)ctio.validate(numbers);
+				getHibernateTemplate().saveOrUpdate(ct);
+	
+			}catch(Exception e) {
+				log.error("Exception in CTImageOperation " + e);
+	            errors.put("CTImage", e.getMessage());
 	            return Status.FAIL;
 			}
         }

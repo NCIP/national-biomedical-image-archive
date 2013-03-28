@@ -68,9 +68,9 @@ public class NCIADatabaseDelegator {
                 visibility = false;
             }
             
-         // Temporary fix until new CTP release provides a better solution
-            //String md5 = file.getDigest()== null? " " : file.getDigest();
-            //imageStorage.setMd5(md5);
+         // get the checksum with the file unannoymized for DB verifier to work
+            String md5 = file.getDigest()== null? " " : file.getDigest();
+            imageStorage.setMd5(md5);
             Status status = imageStorage.storeDicomObject(numbers,filename,visibility);
             if(status.equals(Status.FAIL)) {
                 log.error("Rollback in process(DicomObject,String) for file " + file.getFile().getAbsolutePath());
@@ -327,17 +327,17 @@ public class NCIADatabaseDelegator {
     	 // Temporary fix until new CTP release provides a better solution
     	long fileSize = file.length();
         imageStorage.setFileSize(fileSize);
+        /*JP needs the digest with file not being anonymized for DB Verifier to work
     	try {
         DicomObject tempFile = new DicomObject(file);
         String md5 = tempFile.getDigest()== null? " " : tempFile.getDigest();            
         
         imageStorage.setMd5(md5);
-        //no need for this temp file anymore
         file.delete();
         }
     	catch (Exception ex) {
     		log.warn("Bad DICOM file:"+file.getAbsolutePath());
     	}
-    	
+    	*/
     }
 }

@@ -9,11 +9,14 @@ import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.DateValidator;
 import gov.nih.nci.nbia.util.MessageUtil;
+import gov.nih.nci.nbia.util.SelectItemLabelComparator;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -164,6 +167,8 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
 	        for (SiteData st : authorizedSites) {
 				permissibleData.add(new SelectItem(st.getCollection(),VerifySubmissionUtil.siteDataToString(st)));
 			}
+	        Comparator<SelectItem> dssic = new SelectItemLabelComparator();
+			Collections.sort(permissibleData, dssic);
 		}
 	}
 

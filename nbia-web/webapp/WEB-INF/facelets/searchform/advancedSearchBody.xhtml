@@ -353,96 +353,7 @@
                       </td>
                     </tr> 
                     <!-- Criteria DataCollectionDiameter End Here -->
-              
-                    <!-- Criteria ReconstructionDiameter Start Here-->
-                    <tr>
-                      <td class="formLabel">0018</td>
-                      <td class="formField">1100</td>
-                      <td class="formField">
-                        <h:outputText value="#{msg.criteria_ReconstructionDiameterCriteria}" />
-                      </td>
-                      <td class="formField">
-                        <span class="formFieldWhite"></span>
-                        <table>
-                          <tr>
-                            <td>
-                              <table width="40" border="0" align="left"
-                                     cellpadding="0" cellspacing="0">
-                                <tr valign="middle">
-                                  <td width="79%">
-                                    <h:selectOneMenu id="rcdCriteriaCmpLeftSelectOneMenu" 
-                                                     value="#{searchWorkflowBean.rcdSearchBean.criteriaLeftCompare}">
-                                      <f:selectItems id="rcdCriteriaCmpLeftSelectItems"
-                                                     value="#{searchLookupBean.imageLeftCompareItems}" />
-                                    </h:selectOneMenu>
-                                  </td>
-                                  <td width="79%">
-                                    <h:inputText id="rcdCriteriaCmpLeftInputText" 
-                                                 value="#{searchWorkflowBean.rcdSearchBean.criteriaLeft}"
-                                                 size="5"
-                                                 maxlength="10">
-                                      <f:validateDoubleRange minimum="0"/>
-                                    </h:inputText>                
-                                  </td>
-                                </tr>
-                              </table>
-                              <table width="40" border="0" align="left"
-                                     cellpadding="0" cellspacing="0">
-                                <tr>
-                                  <td width="21%" class="formMessage">
-                                    <div align="left">
-                                      <f:verbatim>&amp;nbsp;</f:verbatim>
-                                      <f:verbatim>&amp;nbsp;</f:verbatim>
-                                      <h:outputText value="#{msg.search_and}" />
-                                      <f:verbatim>&amp;nbsp;</f:verbatim>
-                                      <f:verbatim>&amp;nbsp;</f:verbatim>
-                                    </div>
-                                  </td>
-                                  <td width="79%">
-                                    <h:selectOneMenu id="rcdCriteriaCmpRightSelectOneMenu"
-                                                     value="#{searchWorkflowBean.rcdSearchBean.criteriaRightCompare}">
-                                      <f:selectItems id="rcdCriteriaCmpRightSelectItems"
-                                                     value="#{searchLookupBean.imageRightCompareItems}" />
-                                    </h:selectOneMenu> 
-                                  </td>
-                                  <td width="79%">
-                                    <h:inputText id="rcdCriteriaCmpRightInputText" 
-                                                 value="#{searchWorkflowBean.rcdSearchBean.criteriaRight}" 
-                                                 size="5"
-                                                 maxlength="10">
-                                      <f:validateDoubleRange minimum="0"/>
-                                    </h:inputText>                
-                                  </td>
-                                  <td valign="top"></td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td valign="top">
-                              <h:inputHidden id="rcdValid"
-                                             value="needed" 
-                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
-                                <f:attribute name="cmpLeftId"
-                                             value="rcdCriteriaCmpLeftSelectOneMenu" />
-                                <f:attribute name="cmpLeftValue"
-                                             value="rcdCriteriaCmpLeftInputText" />
-                                <f:attribute name="cmpRightId"
-                                             value="rcdCriteriaCmpRightSelectOneMenu" />
-                                <f:attribute name="cmpRightValue"                                                                                          
-                                             value="rcdCriteriaCmpRightInputText" />                              
-                              </h:inputHidden>
-                              
-                              <h:message for="rcdValid" styleClass="errorLabel" />
-                              <h:message for="rcdCriteriaCmpLeftInputText" styleClass="errorLabel" />
-                              <h:message for="rcdCriteriaCmpRightInputText" styleClass="errorLabel" />                                 
-                            </td> 
-                          </tr>
-                        </table>
-                      </td>
-                    </tr> 
-                    <!-- Criteria ReconstructionDiameter End Here -->
-                                            
+                                       
                     <!-- Criteria AcquisitionMatrix Start Here-->
                     <tr>
                       <td class="formLabel">0018</td>
@@ -530,7 +441,8 @@
                       </td>
                     </tr> 
         
-                    <!-- Criteria AcquisitionMatrix End Here -->                              
+                    <!-- Criteria AcquisitionMatrix End Here -->      
+                    
                     <!-- Criteria DxDataCollectionDiameter Start Here-->
                     <tr>
                       <td class="formLabel">0050</td>

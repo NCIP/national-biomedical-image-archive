@@ -11,7 +11,6 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -130,14 +129,16 @@ public class MRImageOperation extends DomainOperation implements
         if ((temp = (String) numbers.get(DicomConstants.ANGIO_FLAG)) != null) {
             mri.setAngioFlag(temp.trim());
         }
-        if (StringUtils.isEmpty(mri.getImageTypeValue3())) {
-            throw new Exception("Image Type 3 cannot be null");
-        }
-        if (StringUtils.isEmpty(mri.getScanningSequence())) {
-            throw new Exception("Scanning Sequence cannot be null");
-        }
-        if (StringUtils.isEmpty(mri.getSequenceVariant())) {
-            throw new Exception("Scanning Variant cannot be null");
-        }
+        // Please un-comment this for next release for better debug. commented
+        // this bcoz need to add UNKNOWN for imageType3 for existing MR images
+        // if (StringUtils.isEmpty(mri.getImageTypeValue3())) {
+        // throw new Exception("Image Type 3 cannot be null");
+        // }
+        // if (StringUtils.isEmpty(mri.getScanningSequence())) {
+        // throw new Exception("Scanning Sequence cannot be null");
+        // }
+        // if (StringUtils.isEmpty(mri.getSequenceVariant())) {
+        // throw new Exception("Scanning Variant cannot be null");
+        // }
     }
 }

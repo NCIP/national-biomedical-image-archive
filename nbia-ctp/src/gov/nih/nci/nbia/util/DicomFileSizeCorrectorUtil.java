@@ -3,10 +3,8 @@ package gov.nih.nci.nbia.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import org.apache.commons.codec.binary.Hex;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -121,7 +118,9 @@ public final class DicomFileSizeCorrectorUtil {
                     .executeQuery("Select image_pk_id,dicom_file_uri,dicom_size from general_image order by image_pk_id asc");
             logger.info("looping through......");
             int batchSize = 0;
-            String sql = "UPDATE general_image SET dicom_size =? , md5_digest=? where image_pk_id=?";
+            // String sql =
+            // "UPDATE general_image SET dicom_size =? , md5_digest=? where image_pk_id=?";
+            String sql = "UPDATE general_image SET dicom_size =? where image_pk_id=?";
             PreparedStatement prepStmt = con.prepareStatement(sql);
             while (rs.next()) {
                 String imageId = rs.getString(1);
@@ -169,16 +168,16 @@ public final class DicomFileSizeCorrectorUtil {
 
     private void setCorrectFileSize(PreparedStatement stmt, File file,
             String imageId, MessageDigest md) throws Exception {
-        // Temporary fix until new CTP release provides a better solution
         long actualFileSize = file.length();
         FileInputStream fIs = new FileInputStream(file);
         try {
-            String md5 = getDigest(fIs, md);
-            logger.info("updated filesize " + actualFileSize + "updated md5 "
-                    + md5);
+            // String md5 = getDigest(fIs, md);
+            // logger.info("updated filesize " + actualFileSize + "updated md5 "
+            // + md5);
+            logger.info("updated filesize " + actualFileSize);
             stmt.setBigDecimal(1, BigDecimal.valueOf(actualFileSize));
-            stmt.setString(2, md5);
-            stmt.setString(3, imageId);
+            // stmt.setString(2, md5);
+            stmt.setString(2, imageId);
             stmt.addBatch();
         } catch (Exception ex) {
             logger.error("update failed for imageId " + imageId
@@ -188,17 +187,17 @@ public final class DicomFileSizeCorrectorUtil {
         }
     }
 
-    private String getDigest(InputStream is, MessageDigest md)
-            throws NoSuchAlgorithmException, IOException {
-        int byteArraySize = 2048;
-        md.reset();
-        byte[] bytes = new byte[byteArraySize];
-        int numBytes;
-        while ((numBytes = is.read(bytes)) != -1) {
-            md.update(bytes, 0, numBytes);
-        }
-        byte[] digest = md.digest();
-        String result = new String(Hex.encodeHex(digest));
-        return result == null ? " " : result;
-    }
+    // private String getDigest(InputStream is, MessageDigest md)
+    // throws NoSuchAlgorithmException, IOException {
+    // int byteArraySize = 2048;
+    // md.reset();
+    // byte[] bytes = new byte[byteArraySize];
+    // int numBytes;
+    // while ((numBytes = is.read(bytes)) != -1) {
+    // md.update(bytes, 0, numBytes);
+    // }
+    // byte[] digest = md.digest();
+    // String result = new String(Hex.encodeHex(digest));
+    // return result == null ? " " : result;
+    // }
 }

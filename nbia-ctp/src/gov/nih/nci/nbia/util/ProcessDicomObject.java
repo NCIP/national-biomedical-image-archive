@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.dcm4che.data.Dataset;
 import org.dcm4che.data.DcmElement;
@@ -74,7 +75,13 @@ public class ProcessDicomObject extends HibernateDaoSupport {
         gi = (GeneralImage) s.load(GeneralImage.class, imagePkId);
         if (dicomTagMap.get(DicomConstants.MODALITY).equals("MR")) {
             mrio.setGeneralImage(gi);
-            MRImage mr = (MRImage) mrio.validate(dicomTagMap);
+            MRImage mr = null;
+            mr = (MRImage) mrio.validate(dicomTagMap);
+            if (StringUtils.isEmpty(mr.getImageTypeValue3())) {
+                logger.info("Image type 3 is null; set it to UNKNOWN; image id:-"
+                        + imagePkId);
+                mr.setImageTypeValue3("UNKNOWN");
+            }
             mr.setGeneralSeries(gi.getGeneralSeries());
             getHibernateTemplate().saveOrUpdate(mr);
         }

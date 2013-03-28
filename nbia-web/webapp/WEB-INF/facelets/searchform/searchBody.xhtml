@@ -7,6 +7,9 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"                
                 xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+                
+                
+
 
 <h:form id="searchForm">
   <table class="contentPage" cellspacing="0" cellpadding="0" width="600"
@@ -705,10 +708,12 @@
 
 <ice:form id="collectionDescriptionPopupForm">
   <ice:panelPopup id="collectionDescriptionPopup"
-                  draggable="false" 
-                  modal="false" 
-                  autoCentre="true"                  
+		  style="z-index:999; background-color:#FFFFFF;"
+		  resizable="false"
+		  draggable="false"
+		  modal="true"
                   visible="#{displayCollectionDescBean.collectionDescriptionPopupRendered}">
+                  
     <f:facet name="header">
       <ice:panelGroup styleClass="popupHeaderWrapper">
         <table width="100%">
@@ -733,4 +738,5 @@
     </f:facet>
   </ice:panelPopup> 
 </ice:form>  
+
 </ui:composition>

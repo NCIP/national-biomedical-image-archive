@@ -68,5 +68,5 @@ public class HelpComponent extends UIComponentBase {
     }
 
 
-    private String link = "/ncia/HTML/help/index.html?single=true&amp;context=NBIA_Online_Help&amp;topic=";
+    private String link = "https://wiki.nci.nih.gov/display/NBIA/";
 }

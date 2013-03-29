@@ -43,7 +43,7 @@ public class GeneralImageOperation extends DomainOperation implements GeneralIma
 
     @Transactional(propagation=Propagation.REQUIRED)
     public Object validate(Map numbers) throws Exception {
-
+    	replacement = false;
         GeneralImage gi = (GeneralImage)SpringApplicationContext.getBean("generalImage");
         try {
             String sopInstanceUid = getTrimmedSopInstanceUid(numbers);

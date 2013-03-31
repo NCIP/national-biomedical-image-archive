@@ -54,6 +54,7 @@ public class ProcessDicomObject extends HibernateDaoSupport {
                     logger.info("committing records..");
                     commitSize = 0;
                     s.flush();
+                    s.clear();
                 }
 
             } catch (Exception e) {
@@ -66,7 +67,7 @@ public class ProcessDicomObject extends HibernateDaoSupport {
                 }
             }
         }
-
+        s.close();
     }
 
     private void updateStoredDicomObject(Session s, Integer imagePkId)

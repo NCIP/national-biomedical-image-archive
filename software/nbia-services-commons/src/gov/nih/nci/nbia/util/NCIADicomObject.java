@@ -147,8 +147,8 @@ public class NCIADicomObject extends FileObject {
     public List<DicomTagDTO> getTagElements() {
         List<DicomTagDTO> allElements = new ArrayList<DicomTagDTO>();
         SpecificCharacterSet cs = dataset.getSpecificCharacterSet(); 
-        allElements.addAll(walkDataset(dataset.getFileMetaInfo(), cs));
-        allElements.addAll(walkDataset(dataset, cs));
+        allElements.addAll(walkDataset(dataset.getFileMetaInfo(), cs,""));
+        allElements.addAll(walkDataset(dataset, cs,""));
 
         return allElements;
     }
@@ -159,7 +159,7 @@ public class NCIADicomObject extends FileObject {
      * @param dataset
      * @param cs
      */
-    private List<DicomTagDTO> walkDataset(DcmObject dataset, SpecificCharacterSet cs) {
+    private List<DicomTagDTO> walkDataset(DcmObject dataset, SpecificCharacterSet cs, String prefix) {
         List<DicomTagDTO> tagList = new ArrayList<DicomTagDTO>();
         //int maxLength = 80;
         DcmElement el;
@@ -174,31 +174,36 @@ public class NCIADicomObject extends FileObject {
             return null;
         }
 
-        for (Iterator it = dataset.iterator(); it.hasNext();) {
+        for (Iterator it = dataset.iterator(); it.hasNext();) { // not a sequence
             el = (DcmElement) it.next();
-
             int tag = el.tag();
             tagString = checkForNull(Tags.toString(tag));
-
             try {
                 tagName = checkForNull(tagDictionary.lookup(tag).name);
             } catch (Exception e) {
                 tagName = "";
             }
-
             vr = el.vr();
             vrString = VRs.toString(vr);
+            if (!vrString.toLowerCase().startsWith("sq")) {
+                 
+                 if (vrString.equals("")) {
+                     vrString = "[" + Integer.toHexString(vr) + "]";
+                  }
 
-            if (vrString.equals("")) {
-                vrString = "[" + Integer.toHexString(vr) + "]";
-            }
+                 el.vm();
 
-            el.vm();
+                 valueString = getElementValueString(cs, el);
 
-            valueString = getElementValueString(cs, el);
-
-            DicomTagDTO dtoTag = new DicomTagDTO(tagString, tagName, valueString);
-            tagList.add(dtoTag);
+                 DicomTagDTO dtoTag = new DicomTagDTO(prefix+tagString, tagName, valueString);
+                 tagList.add(dtoTag);
+            } else {//It's a sequence; get the tags
+            	int i = 0;
+				Dataset ds;
+				while ((ds=el.getItem(i++)) != null) {
+					tagList.addAll(walkDataset(ds, cs, prefix+">"));
+				}
+			}
         }
 
         return tagList;

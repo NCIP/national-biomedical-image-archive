@@ -141,7 +141,8 @@
     <attribute name="ctp.client.dicom.import.service.port" default="${ctp.client.dicom_import_service.port}"/>
     <attribute name="ctp.server.http.import.service.port" default="${ctp.server.http_import_service.port}"/>
     <attribute name="ctp.server.verifier.port" default="${ctp.server.verifier.port}"/>
-    
+    <attribute name="ctp.client.exportService.username" default="${ctp.client.exportService.username}"/>
+    <attribute name="ctp.client.exportService.password" default="${ctp.client.exportService.password}"/>
     <sequential>
     
    
@@ -158,6 +159,14 @@
                  withtext="http://localhost:@{ctp.server.http.import.service.port}" />
         <replace path="//Processor[@id='databaseverifier']/@url" 
                  withtext="http://localhost:@{ctp.server.verifier.port}" />
+        <replace path="//Processor[@id='databaseverifier']/@password" 
+                 withtext="@{ctp.client.exportService.password}" />
+        <replace path="//Processor[@id='databaseverifier']/@username" 
+                 withtext="@{ctp.client.exportService.username}" />         
+        <replace path="//ExportService[@class='org.rsna.ctp.stdstages.HttpExportService]/@username" 
+                 withtext="@{ctp.client.exportService.username}" /> 
+        <replace path="//ExportService[@class='org.rsna.ctp.stdstages.HttpExportService']/@password" 
+                 withtext="@{ctp.client.exportService.password}" />            
       </xmltask>    
       <echo>@{ctp.client.home}/CTP/config.xml.out</echo>
   

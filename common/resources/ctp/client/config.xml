@@ -58,7 +58,9 @@
             name="HTTP Export"
             class="org.rsna.ctp.stdstages.HttpExportService"
             root="roots/http-export"
-            url="http://localhost:23104" />
+            url="http://localhost:23104" 
+            username=""
+            password=""/>
   </Pipeline>
 
 </Configuration>

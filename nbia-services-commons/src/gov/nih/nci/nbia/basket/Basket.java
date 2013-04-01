@@ -106,7 +106,27 @@ public class Basket {
         
         fireChangeEvent();
     }
-    
+    /**
+     * Remove all series items 
+     */
+    public void removeAllSeries() {
+        List<String> seriesIdsToRemove = new ArrayList<String>();
+
+        // Build list of IDs to remove. We can't remove them yet
+        // because we're iterating through the list
+        for (BasketSeriesItemBean item : seriesItems.values()) {
+           seriesIdsToRemove.add(item.getSeriesSearchResult().getId() + 
+                		              DELIMETER + 
+                		              item.getGridLocation());
+        }
+
+        // Actually remove the items
+        for (String seriesId : seriesIdsToRemove) {
+            seriesItems.remove(seriesId);
+        }
+        
+        fireChangeEvent();
+    }
 
     /**
      * Remove all series items that are "selected".  Revisit the conception of 

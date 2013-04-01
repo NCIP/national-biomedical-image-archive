@@ -9,6 +9,7 @@
     <query-param name="patients">#{dataBasketPopulatorMgBean.patients}</query-param>
     <query-param name="studies">#{dataBasketPopulatorMgBean.studies}</query-param>
     <query-param name="serieses">#{dataBasketPopulatorMgBean.serieses}</query-param>
+    <query-param name="empty">#{dataBasketPopulatorMgBean.shouldEmpty}</query-param>
 
     <view-id> /dataBasketDisplay.jsf </view-id>
     <action>#{dataBasketPopulatorMgBean.populate}</action>

@@ -34,6 +34,13 @@ public class DataBasketPopulatorMgBean extends AbstractPopulatorMgBean {
 	public void setSerieses(String[] serieses) {
 		this.serieses = serieses;
 	}
+	public String[] getShouldEmpty() {
+		return shouldEmpty;
+	}
+
+	public void setShouldEmpty(String[] shouldEmpty) {
+		this.shouldEmpty = shouldEmpty;
+	}
 
 
 	//preconditino: parameterMap is not null
@@ -41,7 +48,7 @@ public class DataBasketPopulatorMgBean extends AbstractPopulatorMgBean {
 		List<String> patientList = null;
 		List<String> studyList = null;
 		List<String> seriesList = null;
-
+		List<String> emptyList = null;
 		if (patients != null && patients.length > 0)
 		{
 			patientList = Arrays.asList(patients);
@@ -54,16 +61,35 @@ public class DataBasketPopulatorMgBean extends AbstractPopulatorMgBean {
 		{
 			seriesList = Arrays.asList(serieses);
 		}
+		if (shouldEmpty != null && shouldEmpty.length > 0)
+		{
+			emptyList = Arrays.asList(shouldEmpty);
+		}
 
 		ExternalDataBasket rsh = new ExternalDataBasket();
 		List<SeriesSearchResult> sDto = rsh.getSeriesDTOList(patientList,
 				                                             studyList,
 				                                             seriesList,
 				                                             BeanManager.getSecurityBean().getAuthorizationManager());
-
+		BasketBean dataBasket = (BasketBean) BeanManager.getBasketBean();
+		try {
+		if (emptyList!=null)
+		{
+			if (!emptyList.isEmpty())
+			{
+		       String emptyString=(String)emptyList.get(0);
+		       if (emptyString.equalsIgnoreCase("yes"))
+		       {	
+			       dataBasket.getBasket().removeAllSeries();
+		       }
+			}
+		}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		if (sDto != null && sDto.size() > 0)
 		{
-			BasketBean dataBasket = (BasketBean) BeanManager.getBasketBean();
 			dataBasket.getBasket().addSeries(sDto);
 		}
 	}
@@ -75,6 +101,8 @@ public class DataBasketPopulatorMgBean extends AbstractPopulatorMgBean {
 	private String[] studies;
 
 	private String[] serieses;
+	
+	private String[] shouldEmpty;
 
 }
 

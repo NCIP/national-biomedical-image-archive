@@ -91,6 +91,7 @@
  <e en="F" t="00081197" n="FailureReason"></e>
  <e en="F" t="00081198" n="FailedSOPSeq"></e>
  <e en="F" t="00081199" n="RefSOPSeq"></e>
+ <e en="T" t="00081250" n="RelatedSeriesSeq">@process()</e>
  <e en="T" t="00082111" n="DerivationDescription">@keep()</e>
  <e en="T" t="00082112" n="SourceImageSeq">@remove()</e>
  <e en="F" t="00082120" n="StageName"></e>

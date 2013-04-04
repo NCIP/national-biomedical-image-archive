@@ -441,6 +441,7 @@
 		<copy todir="${nbia-ctp.dist.dir}">
 			<fileset file="${nbia-ctp.base.dir}/target/nbiaDatabaseUpdator.jar" />
 		</copy>
+		<copy file="${nbia-ctp.base.dir}/target/dbupdator.sh" todir="${nbia-ctp.dist.dir}"/>
 		<delete dir="../nbia-ctp-working" />
 	</target>
 

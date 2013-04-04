@@ -48,7 +48,7 @@
     	       id="databaseverifier"
                name="databaseverifier"
                class="org.rsna.ctp.stdstages.DatabaseVerifier"
-               root="roots"
+               root="roots/DatabaseVerifier"
                url="http://localhost:23104"
                username=""
                password=""

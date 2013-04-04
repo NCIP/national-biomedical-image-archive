@@ -174,7 +174,7 @@ public class NCIADicomObject extends FileObject {
             return null;
         }
 
-        for (Iterator it = dataset.iterator(); it.hasNext();) { // not a sequence
+        for (Iterator it = dataset.iterator(); it.hasNext();) { 
             el = (DcmElement) it.next();
             int tag = el.tag();
             tagString = checkForNull(Tags.toString(tag));
@@ -185,24 +185,21 @@ public class NCIADicomObject extends FileObject {
             }
             vr = el.vr();
             vrString = VRs.toString(vr);
-            if (!vrString.toLowerCase().startsWith("sq")) {
-                 
-                 if (vrString.equals("")) {
-                     vrString = "[" + Integer.toHexString(vr) + "]";
-                  }
-
-                 el.vm();
-
-                 valueString = getElementValueString(cs, el);
-
-                 DicomTagDTO dtoTag = new DicomTagDTO(prefix+tagString, tagName, valueString);
-                 tagList.add(dtoTag);
-            } else {//It's a sequence; get the tags
+            if (vrString.equals("")) {
+                vrString = "[" + Integer.toHexString(vr) + "]";
+             }
+             el.vm();
+             valueString = getElementValueString(cs, el);
+             DicomTagDTO dtoTag = new DicomTagDTO(prefix+tagString, tagName, valueString);
+             tagList.add(dtoTag);
+             if (vrString.toLowerCase().startsWith("sq")) {//It's a sequence; get the tags
+            	DicomTagDTO enddtoTag = new DicomTagDTO(prefix+tagString, "End "+tagName, valueString); //end tag
             	int i = 0;
 				Dataset ds;
 				while ((ds=el.getItem(i++)) != null) {
 					tagList.addAll(walkDataset(ds, cs, prefix+">"));
 				}
+				tagList.add(enddtoTag); // add end tag
 			}
         }
 

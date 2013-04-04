@@ -264,6 +264,7 @@
       <metainf  dir="${conf.dir}"  includes="**/spring.handlers" />     
     </jar>
     <delete dir="${output.dir}/lib" quiet="true"/>
+    <copy overwrite="true" file="${conf.dir}/dbupdator.sh" tofile="${output.dir}/dbupdator.sh"/>
   </target>
 	
   <target name="build-ctp-jar">

@@ -43,7 +43,7 @@ public class NCIADatabaseDelegator {
 
         //long filesize = storedFile.length();
         boolean visibility=false;
-        
+
         try {
             numbers = new HashMap();
             numbers.put("current_timestamp", new java.util.Date());
@@ -52,7 +52,7 @@ public class NCIADatabaseDelegator {
             //Based on what John Perry's request
             Dataset set = file.getDataset();
             parseDICOMPropertiesFile(set);
-           
+
             //enhancement of storage service
             if (!preProcess()) {
                 log.error("Storage Service - Preprocess: Error occurs when trying to find project, site in preprocess() for file " + file.getFile().getAbsolutePath());
@@ -67,7 +67,7 @@ public class NCIADatabaseDelegator {
             } else {
                 visibility = false;
             }
-            
+
          // get the checksum with the file unannoymized for DB verifier to work
             String md5 = file.getDigest()== null? " " : file.getDigest();
             imageStorage.setMd5(md5);
@@ -82,8 +82,8 @@ public class NCIADatabaseDelegator {
             failedSubmission("Rollback in process(DicomObject,String) for file " + file.getFile().getAbsolutePath());
         }
     }
-    
-    
+
+
     /* (non-Javadoc)
      * @see org.rsna.mircsite.util.DatabaseAdapter#process(org.rsna.mircsite.util.XmlObject, java.lang.String)
      */
@@ -308,7 +308,7 @@ public class NCIADatabaseDelegator {
             }
         }
         catch (Exception notAvailable) {
-        	notAvailable.printStackTrace();
+        	//notAvailable.printStackTrace();
             log.warn("in NICADatabase class, cannot get element value"+Integer.toHexString(tag));
         }
         if (value != null) {
@@ -322,7 +322,7 @@ public class NCIADatabaseDelegator {
     {
         throw new RuntimeException(message);
     }
-    
+
     public void setCorrectFileSize(File file) {
     	 // Temporary fix until new CTP release provides a better solution
     	long fileSize = file.length();
@@ -330,8 +330,8 @@ public class NCIADatabaseDelegator {
         /*JP needs the digest with file not being anonymized for DB Verifier to work
     	try {
         DicomObject tempFile = new DicomObject(file);
-        String md5 = tempFile.getDigest()== null? " " : tempFile.getDigest();            
-        
+        String md5 = tempFile.getDigest()== null? " " : tempFile.getDigest();
+
         imageStorage.setMd5(md5);
         file.delete();
         }

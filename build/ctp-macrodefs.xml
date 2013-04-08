@@ -163,9 +163,9 @@
                  withtext="@{ctp.client.exportService.password}" />
         <replace path="//Processor[@id='databaseverifier']/@username" 
                  withtext="@{ctp.client.exportService.username}" />         
-        <replace path="//ExportService[@class='org.rsna.ctp.stdstages.HttpExportService]/@username" 
+        <replace path="//ExportService/@username" 
                  withtext="@{ctp.client.exportService.username}" /> 
-        <replace path="//ExportService[@class='org.rsna.ctp.stdstages.HttpExportService']/@password" 
+        <replace path="//ExportService/@password" 
                  withtext="@{ctp.client.exportService.password}" />            
       </xmltask>    
       <echo>@{ctp.client.home}/CTP/config.xml.out</echo>

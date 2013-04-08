@@ -4,7 +4,7 @@
          basedir="."
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
-  <property name="ctp.dir.name" value="tempCTPX55"/>
+  <property name="ctp.dir.name" value="tempCTPX56"/>
 
   <property name="src.dir" value="src"/>
   <property name="conf.dir" value="conf"/>
@@ -128,7 +128,7 @@
     <echo message="*                unzip ctp-installer.jar               *"/>
     <echo message="********************************************************"/>
     <mkdir dir="${ctp.dir.name}"/>
-    <unjar src="${project.lib.dir}/compile/ctp-installer-X55.jar" dest="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X56.jar" dest="${ctp.dir.name}"/>
   </target>
   
    <target name="compile" depends="clean,init, ivy-compile">
@@ -145,7 +145,7 @@
     <echo message="*                unzip ctp-installer.jar               *"/>
     <echo message="********************************************************"/>
     <mkdir dir="${ctp.dir.name}"/>
-    <unjar src="${project.lib.dir}/compile/ctp-installer-X55.jar" dest="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X56.jar" dest="${ctp.dir.name}"/>
   </target>
 
   <target name="config-db">
@@ -256,7 +256,7 @@
                          dbUpdatorLog4j.properties"/>
       <!--fileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar"/>
       <fileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar"/-->	
-      <zipgroupfileset dir="${project.lib.dir}/compile" includes="log4j-1.2.15.jar,dcm4che-1.4.20.jar,nbia-domain-working@nbia-domain-resolver.jar,,log4j-1.2.15.jar,ctp-X55.jar" />
+      <zipgroupfileset dir="${project.lib.dir}/compile" includes="log4j-1.2.15.jar,dcm4che-1.4.20.jar,nbia-domain-working@nbia-domain-resolver.jar,,log4j-1.2.15.jar,ctp-X56.jar" />
       <zipgroupfileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar,commons*.jar, jta-1.0.1B.jar,dom4j-1.6.1.jar,c3p0-0.9.1.2.jar,hibernate-3.1.3.jar,a*.jar,cglib-2.1_3.jar" />
       <zipgroupfileset dir="${output.dir}/lib" includes="dependency-libs.jar" />
       <zipgroupfileset dir="${lib.dir}/" includes="cedaraAIMMapping.jar" />

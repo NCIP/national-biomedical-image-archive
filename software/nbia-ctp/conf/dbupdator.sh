@@ -1,4 +1,4 @@
-export PATH=/usr/local/jboss-5.1.0.GA/server/ncicb-29080/DBUpdater:$PATH
+export PATH=/usr/local/jboss-5.1.0.GA/server/ncicb-29080/DBUpdater:/usr/jdk1.6.0_30/bin:$PATH
 export CLASSPATH=$CLASSPATH:${PWD}/nbiaDatabaseUpdator.jar
 echo $CLASSPATH
 echo $PATH

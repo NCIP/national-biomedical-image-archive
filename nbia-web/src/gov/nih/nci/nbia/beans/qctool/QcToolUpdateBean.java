@@ -93,15 +93,6 @@ public class QcToolUpdateBean {
 	public void setTagInfo(List<DicomTagDTO> tagInfo) {
 		this.tagInfo = tagInfo;
 	}
-	
-	public String toggleDescriptionPopup() {
-		descriptionPopupRendered = false;
-    	return null;
-    }
-	
-	public boolean getdescriptionPopupRendered() {
-    	return this.descriptionPopupRendered;
-    }
 
 	/**
 	 * This gets list for search result displayed in QC serarch page
@@ -145,7 +136,7 @@ public class QcToolUpdateBean {
 	public String update() throws Exception {
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		List<String> seriesCheckList = new ArrayList<String>();
-		descriptionPopupRendered = true;
+
 		if (qcToolSearchBean.getQcToolBean().isSuperRole()) {
 			selectedQcStatus = DELETE;
 		}
@@ -339,11 +330,11 @@ public class QcToolUpdateBean {
 				buttonLabel = "Update/Next Series";
 			}
 		}
-
+		
 		imageCount = Integer.parseInt(currentImgNum) - 1;
 		if (imageCount < 0) {
 			imageCount = 0;
-		}
+		}	
 
 		try {
 			LocalDrillDown drillDown = new LocalDrillDown();
@@ -358,8 +349,8 @@ public class QcToolUpdateBean {
 				tagInfo = ldtv.viewDicomHeader(imageList.get(Integer.parseInt(getSelectedImgNumField())-1).getId());
 				currentSeriesSize = imageList.size();
 			}else {
-
-
+				
+				
 				List<ImageSearchResult> imageList = Arrays.asList(drillDown
 						.retrieveImagesForSeries(seriesId));
 				javaScriptbits = SlideShowUtil.getImageSeriesJavascript(imageList);
@@ -367,7 +358,7 @@ public class QcToolUpdateBean {
 				tagInfo = ldtv.viewDicomHeader(imageList.get(imageCount).getId());
 				currentSeriesSize = imageList.size();
 			}
-
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -540,7 +531,7 @@ public class QcToolUpdateBean {
 	public void setImageCount(int imageCount) {
 		this.imageCount = imageCount;
 	}
-
+	
 	public boolean isHasMultiFrame() {
 		return hasMultiFrame;
 	}
@@ -548,8 +539,8 @@ public class QcToolUpdateBean {
 	public void setHasMultiFrame(boolean hasMultiFrame) {
 		this.hasMultiFrame = hasMultiFrame;
 	}
-
-
+	
+	
 	public List<SelectItem> getImgNumItems() {
 		if (isHasMultiFrame()) {
 				imgNumItems = new ArrayList<SelectItem>();
@@ -607,7 +598,6 @@ public class QcToolUpdateBean {
 	private static final String BULK="BulkUpdate";
 	private static final String SINGLE="SingleUpdate";
 	private boolean hasMultiFrame = false;
-	private boolean descriptionPopupRendered = false;
 	private List<SelectItem> imgNumItems;
 	private int currentSeriesSize = 0;
 	private String selectedImgNumField = "1";

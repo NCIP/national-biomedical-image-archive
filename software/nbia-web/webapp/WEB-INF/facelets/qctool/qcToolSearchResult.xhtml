@@ -258,36 +258,5 @@
 		</ice:panelPopup>
 		<ice:messages for="SlctRec" showDetail="false" layout="table"
 			errorClass="errorLabel" infoClass="infoLabel" />
-		<ice:panelPopup id="DescriptionDeletion"
-				  style="z-index:999; background-color:#FFFFFF;"
-				  resizable="false"
-				  draggable="false"
-				  modal="true"
-				  rendered="#{not qcToolSearch}"
-		          visible="#{qcToolUpdateBean.descriptionPopupRendered and qcToolBean.buttonLabel=='Delete' and qcToolBean.superRole}">
-		                  
-		    <f:facet name="header">
-		      <ice:panelGroup styleClass="popupHeaderWrapper">
-		        <table width="100%">
-		          <tr>
-		            <td width="100%">
-		              <ice:outputText value="For Permanent Deletion"/>
-		            </td>
-		            <td>
-		              <ice:commandButton id="collectionDescriptionPopupCloseButton" image="images/cancel.png" 
-			                         action="#{qcToolUpdateBean.toggleDescriptionPopup}"
-			                         title="Close Popup"/>
-		            </td>               
-		          </tr>
-		        </table>                  
-		      </ice:panelGroup>
-		    </f:facet>
-		    
-		    <f:facet name="body">
-		      <ice:panelGroup style="overflow: auto; width:400px; height: 200px">
-		         <ice:outputText value="The images marked as delete will be removed from the system at system configured time or You can do a manual deletion."/>
-		      </ice:panelGroup>
-		    </f:facet>
-		</ice:panelPopup> 
 	</ice:form>
 </ui:composition>

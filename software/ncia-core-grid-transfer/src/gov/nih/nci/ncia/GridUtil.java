@@ -84,12 +84,13 @@ public class GridUtil {
 			gov.nih.nci.cagrid.cqlquery.Group constraintGroup) {
 		Attribute constraintGroupAttr = null;
 		Attribute[] constraintGroupAttrs = constraintGroup.getAttribute();
+		if (constraintGroupAttrs != null) {
+			for (int k = 0; k < constraintGroupAttrs.length; k++) {
+				constraintGroupAttr = constraintGroupAttrs[k];
 
-		for( int k=0; k < constraintGroupAttrs.length; k++ ) {
-			constraintGroupAttr = constraintGroupAttrs[k];
-
-			if( constraintGroupAttr.getName().equalsIgnoreCase("project")) {
-				break;
+				if (constraintGroupAttr.getName().equalsIgnoreCase("project")) {
+					break;
+				}
 			}
 		}
 		return constraintGroupAttr;
@@ -128,14 +129,15 @@ public class GridUtil {
 		
 		if( constraintGroup != null ) {
 			Attribute constraintGroupAttr = retrieveProjectAttribute(constraintGroup);
-		
-			String queryProject = constraintGroupAttr.getValue();
-			System.out.println("Value " + constraintGroupAttr.getValue() );
-			for(TrialDataProvenance t : tdpList){
-				String project = t.getProject();
-				
-				if(project.equals(queryProject)){
-					return true;
+			if (constraintGroupAttr != null) {
+				String queryProject = constraintGroupAttr.getValue();
+				System.out.println("Value " + constraintGroupAttr.getValue());
+				for (TrialDataProvenance t : tdpList) {
+					String project = t.getProject();
+
+					if (project.equals(queryProject)) {
+						return true;
+					}
 				}
 			}
 		}

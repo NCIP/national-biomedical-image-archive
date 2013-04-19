@@ -66,7 +66,8 @@ public class NCIAQueryProcessor extends SDK4QueryProcessor {
 		List<TrialDataProvenance> authorizedTdpList = trialDataProvenanceFilter.getDataFilter();
 		dumpList(authorizedTdpList);
   		if(authorizedTdpList.size() > 0){
-  			if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance") && cqlQuery.getTarget().getGroup() != null ) {
+  			if (cqlTarget.getName().equalsIgnoreCase("gov.nih.nci.ncia.domain.TrialDataProvenance") && cqlQuery.getTarget().getGroup() != null 
+  					&& GridUtil.retrieveProjectAttribute(cqlQuery.getTarget().getGroup()) !=null) {
   				boolean found = GridUtil.isProjectFound(cqlQuery, authorizedTdpList);
   				
   				if(!found) {

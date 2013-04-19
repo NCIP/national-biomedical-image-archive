@@ -80,7 +80,7 @@ public class GridUtil {
 		return newGroup;
 	}
 
-	private static Attribute retrieveProjectAttribute(
+	public static Attribute retrieveProjectAttribute(
 			gov.nih.nci.cagrid.cqlquery.Group constraintGroup) {
 		Attribute constraintGroupAttr = null;
 		Attribute[] constraintGroupAttrs = constraintGroup.getAttribute();

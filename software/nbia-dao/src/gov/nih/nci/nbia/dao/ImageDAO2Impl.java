@@ -31,32 +31,44 @@ public class ImageDAO2Impl extends AbstractDAO
     		                                    String exclusionSopUidList) throws DataAccessException {
     	String query="";
     	if(exclusionSopUidList.equals("")) {
-    		query = "select distinct gimg from GeneralImage gimg join gimg.dataProvenance dp where gimg.seriesInstanceUID = '"+
+    		query = "select distinct gimg.SOPInstanceUID, gimg.filename, gimg.dicomSize, gimg.usFrameNum,dp.project, dp.dpSiteName, gs.securityGroup " +
+    				"from GeneralImage gimg join gimg.dataProvenance dp  join gimg.generalSeries gs " +
+    				"where gimg.seriesInstanceUID = '"+
                     seriesUid + "'";
     	}
     	else {
-    		query = "select distinct gimg from GeneralImage gimg join gimg.dataProvenance dp where gimg.seriesInstanceUID = '"+
+    		query = "select distinct gimg.SOPInstanceUID, gimg.filename, gimg.dicomSize, gimg.usFrameNum,dp.project, dp.dpSiteName, gs.securityGroup " +
+    				"from GeneralImage gimg join gimg.dataProvenance dp  join gimg.generalSeries gs " +
+    				"where gimg.seriesInstanceUID = '"+
                     seriesUid +
                     "' and gimg.SOPInstanceUID not in (" + exclusionSopUidList + ")";
     	}
 
 
-        List<GeneralImage> results = getHibernateTemplate().find(query);
+        List results = getHibernateTemplate().find(query);
         List<ImageDTO2> imageResults = new ArrayList<ImageDTO2>();
 
         if(results == null || results.isEmpty()){
         	logger.info("No image found for request seriesuid="+seriesUid);
         	return imageResults;
         }
-        TrialDataProvenance tdp = results.get(0).getDataProvenance();
-        String ssg = results.get(0).getGeneralSeries().getSecurityGroup();
-        for(GeneralImage gi: results){
-        	ImageDTO2 image = new ImageDTO2(gi.getSOPInstanceUID(),
-        			gi.getFilename(),
-        			gi.getDicomSize(),
-        			tdp.getProject(),
-        			tdp.getDpSiteName(),
-        			ssg, gi.getUsFrameNum());
+//        TrialDataProvenance tdp = results.get(0).getDataProvenance();
+//        String ssg = results.get(0).getGeneralSeries().getSecurityGroup();
+        for(Object item: results){
+        	Object[] row = (Object[]) item;
+
+//        	ImageDTO2 image = new ImageDTO2(gi.getSOPInstanceUID(),
+//        			gi.getFilename(),
+//        			gi.getDicomSize(),
+//        			tdp.getProject(),
+//        			tdp.getDpSiteName(),
+//        			ssg, gi.getUsFrameNum());
+        	ImageDTO2 image = new ImageDTO2((String)row[0],
+        			(String)row[1],
+        			(Long)row[2],
+        			(String)row[4],
+        			(String)row[5],
+        			(String)row[6], (String)row[3]);
         	imageResults.add(image);
         }
         return imageResults;

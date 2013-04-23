@@ -157,11 +157,11 @@
                  withtext="@{ctp.client.dicom.import.service.port}" />                                                         
         <replace path="//ExportService/@url" 
                  withtext="http://localhost:@{ctp.server.http.import.service.port}" />
-        <replace path="//Processor[@id='databaseverifier']/@url" 
+        <replace path="//DatabaseVerifier/@url" 
                  withtext="http://localhost:@{ctp.server.verifier.port}" />
-        <replace path="//Processor[@id='databaseverifier']/@password" 
+        <replace path="//DatabaseVerifier/@password" 
                  withtext="@{ctp.client.exportService.password}" />
-        <replace path="//Processor[@id='databaseverifier']/@username" 
+        <replace path="//DatabaseVerifier/@username" 
                  withtext="@{ctp.client.exportService.username}" />         
         <replace path="//ExportService/@username" 
                  withtext="@{ctp.client.exportService.username}" /> 

@@ -48,7 +48,7 @@ public class ImageDAO2Impl extends AbstractDAO
     	logger.info("Issuing query: ");
         List results = getHibernateTemplate().find(query);
         long end = System.currentTimeMillis();
-        logger.debug("total query time: " + (end - start) + " ms");
+        logger.info("total query time: " + (end - start) + " ms");
         List<ImageDTO2> imageResults = new ArrayList<ImageDTO2>();
 
         if(results == null || results.isEmpty()){

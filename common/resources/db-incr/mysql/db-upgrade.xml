@@ -1638,4 +1638,19 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
   </sql>
 </changeSet>
 
+<changeSet id="5.2.mr_image.index" author="panq">
+    <comment>
+     create index for MR_IMAGE table
+    </comment>
+    
+    <createIndex tableName="mr_image" indexName="MR_IMAGE_IMAGE_PK_ID_INDX">
+             <column name="IMAGE_PK_ID"/>
+    </createIndex>
+    
+    <createIndex tableName="mr_image" indexName="MR_SERIES_PK_ID_INDX">
+                 <column name="GENERAL_SERIES_PK_ID"/>
+    </createIndex>
+ 
+  </changeSet>
+
 </databaseChangeLog>

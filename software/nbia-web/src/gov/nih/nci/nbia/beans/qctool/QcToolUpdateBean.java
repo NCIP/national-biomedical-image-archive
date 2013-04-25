@@ -102,6 +102,15 @@ public class QcToolUpdateBean {
 		return qsrDTOList;
 	}
 
+	public String toggleDescriptionPopup() {
+	    	descriptionPopupRendered = false;
+	    	return null;
+    }
+
+    public boolean getDescriptionPopupRendered() {
+	    	return this.descriptionPopupRendered;
+    }
+
 	private boolean isErrorFree(String type) {
 		if (type.equals(BULK)){
 		if (StringUtil.isEmptyTrim(selectedQcStatus)) {
@@ -137,8 +146,10 @@ public class QcToolUpdateBean {
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		List<String> seriesCheckList = new ArrayList<String>();
 
+		qcToolSearchBean.setIfNotClickedSubmit(true);
 		if (qcToolSearchBean.getQcToolBean().isSuperRole()) {
 			selectedQcStatus = DELETE;
+			qcToolSearchBean.setIfNotClickedSubmit(true);
 		}
 
 		if (!isErrorFree(BULK)){
@@ -590,6 +601,7 @@ public class QcToolUpdateBean {
 	private String currentImgNum = "0";
 	private boolean popupRendered = false;
 	private boolean lastRecord=false;
+	private boolean descriptionPopupRendered = false;
 	private boolean searchPgPopupRendered = false;
 	private List<QcCustomSeriesListDTO> userNameList;
 	private List<QcSearchResultDTO> newQsrDTOList = null;

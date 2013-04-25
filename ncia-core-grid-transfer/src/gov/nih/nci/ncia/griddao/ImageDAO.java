@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Date;
@@ -88,11 +89,11 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			List<GeneralImage> rs = getHibernateTemplate().find(hql);
 			Map<String, String> filePathes = process(rs);
 			if (rs != null && rs.size() > 0){
-				List<String> seriesIds = new ArrayList<String>();
+				Set<String> seriesIds = new HashSet<String>();
 				for(GeneralImage image : rs){
 					seriesIds.add(image.getSeriesInstanceUID());
 				}
-				filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
+				filePathes = getImageAnnotationFileBySeriesInstanceUID(new ArrayList<String>(seriesIds), filePathes);
 			}
 			return filePathes;
 	}

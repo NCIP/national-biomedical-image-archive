@@ -4,13 +4,25 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
-                xmlns:f="http://java.sun.com/jsf/core">
-
-  <div class="submissionReportTitleContainer">
-    <span class="submissionReportTitle">
-      Submission Reports             
-    </span>
-  </div>
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+                
+<ui:param name="helpId" value="6+-+NBIA+Administration#id-6-NBIAAdministration-ViewingSubmissionReports"/>
+  
+  <table>
+				<tr>
+					<td>
+						<div class="submissionReportTitleContainer">
+							<span class="submissionReportTitle"> Submission Reports </span>
+						</div>
+					</td>
+					<td>
+						<div align="right">
+							<ncia:help label="images/help_icon.png" helpId="#{helpId}" />
+						</div>
+					</td>
+				</tr>
+	</table>
   
   <div id="collectionAndDateRangeControls" >
     <ice:panelGroup id="noCollectionsMsg" 

@@ -205,6 +205,10 @@
       <propertymap propertyname="ctp.client.http_import_service.port" mapname="ctp.client.http_import_service.port"/>
       <propertymap propertyname="ctp.client.export_service.port" mapname="ctp.client.export_service.port"/>
       <propertymap propertyname="ctp.client.admin.password" mapname="ctp.client.admin.password"/>
+      
+      <!-- begin for 5.2 -->
+      <propertymap propertyname="ctp.client.exportService.username" mapname="ctp.client.exportService.username"/>
+      <propertymap propertyname="ctp.client.exportService.password" mapname="ctp.client.exportService.password"/>
 
       <propertymap propertyname="gov.nih.nci.ncia.imaging.server.url" mapname="gov.nih.nci.ncia.imaging.server.url"/>
       <propertymap propertyname="gov.nih.nci.ncia.image.path.pattern" mapname="gov.nih.nci.ncia.image.path.pattern"/>
@@ -1545,7 +1549,7 @@
     </field>
 
     <field type="check" align="left" variable="ctp.server.require_authentication">
-      <spec txt="Require authentication on Import Service" size="25" true="yes" false="no" set="false"/>
+      <spec txt="Require authentication on Import Service" size="25" true="yes" false="no" set="true"/>
     </field>
 
 
@@ -1602,6 +1606,18 @@
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for CTP Server Admin Password" />
       <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
     </field>
+	<field type="text" variable="ctp.client.exportService.username">
+      <spec txt="CTP Export Service UserName:"  size="25" set=""/>
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="CTP Export Service Username is a required field" />
+    </field>
+   <field type="password" align="left" variable="ctp.client.exportService.password">
+      <spec>
+        <pwd txt="CTP Export Service Password:" size="25" set=""/>
+        <pwd txt="Confirm Password:" size="25" set=""/>
+      </spec>
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Enter a value for CTP Export Service Password" />
+      <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Passwords Must Match." />
+    </field> 
 
   </panel>
 

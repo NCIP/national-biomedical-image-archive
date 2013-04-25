@@ -35,6 +35,7 @@ public class QcToolSearchBean {
 	}
 	public QcToolSearchBean() {
 		SessionRenderer.addCurrentSession(getSessionId());
+		
 	}
 	private String getSessionId() {
 		FacesContext fCtx = FacesContext.getCurrentInstance();
@@ -126,6 +127,7 @@ public class QcToolSearchBean {
         String [] qcStatus = {"To Be Deleted"};
         String patientIds = qcToolBean.getSelectedPatients();
         String [] patients = null;
+        ifNotClickedSubmit = false;
         if (! qcToolBean.isSuperRole()) {
         	qcStatus = qcToolBean.getSelectedQcStatus();
         }
@@ -255,6 +257,12 @@ public class QcToolSearchBean {
 	public String getSeriesDescHeader() {
 		return seriesDescHeader;
 	}
+	public boolean isIfNotClickedSubmit() {
+		return ifNotClickedSubmit;
+	}
+	public void setIfNotClickedSubmit(boolean ifNotClickedSubmit) {
+		this.ifNotClickedSubmit = ifNotClickedSubmit;
+	}
 
 
 	////////////////////////////PRIVATE///////////////////////////////////////
@@ -280,6 +288,7 @@ public class QcToolSearchBean {
 
     private String sortColumnName= "Creation Date";
     private boolean ascending = true;
+    private boolean ifNotClickedSubmit = true;
 
     // we only want to resort if the oder or column has changed.
     private String oldSort = sortColumnName;

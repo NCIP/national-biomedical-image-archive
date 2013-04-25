@@ -114,11 +114,11 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 			List<GeneralImage> result = getHibernateTemplate().find(hql);
 			Map<String, String> filePathes = process(result);
 			if (result != null && result.size() > 0){
-				List<String> seriesIds = new ArrayList<String>();
+				Set<String> seriesIds = new HashSet<String>();
 				for(GeneralImage image : result){
 					seriesIds.add(image.getSeriesInstanceUID());
 				}
-				filePathes = getImageAnnotationFileBySeriesInstanceUID(seriesIds, filePathes);
+				filePathes = getImageAnnotationFileBySeriesInstanceUID(new ArrayList<String>(seriesIds), filePathes);
 			}
 			return filePathes;
 	}
@@ -141,9 +141,9 @@ public class ImageDAO extends HibernateDaoSupport implements ImageDAOInterface{
 		Map<String, String> downloadFiles = new HashMap<String, String>();
 		downloadFiles = process(results);
 		if (results != null && results.size() > 0){
-			List<String> seriesIds = new ArrayList<String>();
+			Set<String> seriesIds = new HashSet<String>();
 			seriesIds.add(seriesInstanceUID);
-			downloadFiles = getImageAnnotationFileBySeriesInstanceUID(seriesIds, downloadFiles);
+			downloadFiles = getImageAnnotationFileBySeriesInstanceUID(new ArrayList<String>(seriesIds), downloadFiles);
 		}
 		return downloadFiles;
 	}

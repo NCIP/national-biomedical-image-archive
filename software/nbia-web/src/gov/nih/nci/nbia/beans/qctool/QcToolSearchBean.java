@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 
 import com.icesoft.faces.async.render.SessionRenderer;
 
-
 /**
  *
  * <p>This bean relies upon VerifySubmissionBean to manage the
@@ -35,7 +34,7 @@ public class QcToolSearchBean {
 	}
 	public QcToolSearchBean() {
 		SessionRenderer.addCurrentSession(getSessionId());
-		
+
 	}
 	private String getSessionId() {
 		FacesContext fCtx = FacesContext.getCurrentInstance();

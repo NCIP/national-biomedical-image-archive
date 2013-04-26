@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -260,35 +259,6 @@
 		<ice:messages for="SlctRec" showDetail="false" layout="table"
 			errorClass="errorLabel" infoClass="infoLabel" />
 			
-			<ice:panelPopup id="DescriptionDeletion"
-						  style="z-index:999; background-color:#FFFFFF;"
-						  resizable="false"
-						  draggable="false"
-						  modal="true"
-				          visible="#{qcToolUpdateBean.descriptionPopupRendered and qcToolBean.superRole and qcToolSearchBean.ifNotClickedSubmit}">
-				                  
-				    <f:facet name="header">
-				      <ice:panelGroup styleClass="popupHeaderWrapper">
-				        <table width="100%">
-				          <tr>
-				            <td width="100%">
-				              <ice:outputText value="For Permanent Deletion"/>
-				            </td>
-				            <td>
-				              <ice:commandButton id="collectionDescriptionPopupCloseButton" image="images/cancel.png" 
-					                         action="#{qcToolUpdateBean.toggleDescriptionPopup}"
-					                         title="Close Popup"/>
-				            </td>               
-				          </tr>
-				        </table>                  
-				      </ice:panelGroup>
-				    </f:facet>
-				    
-				    <f:facet name="body">
-				      <ice:panelGroup style="overflow: auto; width:400px; height: 200px">
-				         <ice:outputText value="The images updated as 'delete' in 'Visibility Status' will be removed from the system at system configured time or You can do a manual deletion."/>
-				      </ice:panelGroup>
-				   </f:facet>
-			</ice:panelPopup> 
+
 	</ice:form>
 </ui:composition>

@@ -145,7 +145,7 @@ public class QcToolUpdateBean {
 	public String update() throws Exception {
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		List<String> seriesCheckList = new ArrayList<String>();
-
+		descriptionPopupRendered = true;
 		qcToolSearchBean.setIfNotClickedSubmit(true);
 		if (qcToolSearchBean.getQcToolBean().isSuperRole()) {
 			selectedQcStatus = DELETE;

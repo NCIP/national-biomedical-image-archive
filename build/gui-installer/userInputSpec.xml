@@ -1,25 +1,29 @@
 <userInput>
   <panel order="0">
-    <field type="title" txt="Install or Upgrade software" bold="true" size="1" />
+    <field type="title" txt="Install software" bold="true" size="1" />
     <field type="staticText"
            align="left"
            txt="Choose Install if you haven't installed this software on this machine before."/>
+           
+    <field type="staticText"
+               align="left"
+           txt="If you installed this software on this machine before, please use Command-line Installer to upgrade."/>
+
+    <!--field type="staticText"
+           align="left"
+           txt="Choose Upgrade if the software has previously been installed."/-->
+
 
     <field type="staticText"
            align="left"
-           txt="Choose Upgrade if the software has previously been installed."/>
-
-
-    <field type="staticText"
-           align="left"
-           txt="WARNING: The installer (for install or upgrade) will remove any previously installed application servers (using caBIG installers) based on the information you provide, so be sure to backup your application server(s) if they exist."/>
+           txt="WARNING: The installer will remove any previously installed application servers (using caBIG installers) based on the information you provide, so be sure to backup your application server(s) if they exist."/>
 
     <field type="divider" align="top"/>
     <field type="radio" variable="setup.type">
-      <description align="left" txt="Choose a new Install or Upgrade an existing installation"/>
+      <description align="left" txt="Yes, I am ready to "/>
       <spec>
         <choice txt="Install" value="install" set="true" />
-        <choice txt="Upgrade" value="upgrade" />
+        <!--choice txt="Upgrade" value="upgrade" /-->
       </spec>
     </field>
   </panel>
@@ -37,7 +41,7 @@
         <choice txt="JBoss" value="install.jboss" />
         <choice txt="Grid Server" value="install.ncia-core-grid" />
         <choice txt="CTP" value="install.ctp" />
-        <choice txt="Database - (must be run on JBoss machine on upgrade)" value="install.database" />
+        <choice txt="Database" value="install.database" />
       </spec>
     </field>
     <variable name="validation.pre.port.list" value=""/>

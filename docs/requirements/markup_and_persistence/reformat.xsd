@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:openeyes.imaging.volume.Renderer3D/infoset.xml" elementFormDefault="qualified" xmlns="urn:openeyes.imaging.volume.Renderer3D/infoset.xml" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>Copyright &#xa9; 2002 - 2007 Cedara Software Corporation. All rights reserved.</xs:documentation>
+    <xs:documentation>Generated Jul 19, 2007 17:32:13</xs:documentation>
+  </xs:annotation>
+  <xs:element name="render3D">
+    <xs:annotation>
+      <xs:appinfo>2007,5101 SQ 0-1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Render3D" minOccurs="0" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Render3D">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="series" minOccurs="0" />
+        <xs:element ref="geometry" minOccurs="0" />
+        <xs:element ref="volume" minOccurs="0" />
+        <xs:element ref="type" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="series">
+    <xs:annotation>
+      <xs:appinfo>2007,5100 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Series" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geometry">
+    <xs:annotation>
+      <xs:appinfo>2007,5102 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Geometry" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="volume">
+    <xs:annotation>
+      <xs:appinfo>2007,5103 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Volume" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="type">
+    <xs:annotation>
+      <xs:appinfo>2007,5149 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="REFORMAT" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Series">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="seriesInstance" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Geometry">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="geometryType" minOccurs="0" />
+        <xs:element ref="geometryInterpolation" minOccurs="0" />
+        <xs:element ref="geometryThickness" minOccurs="0" />
+        <xs:element ref="geometryBaseplane" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Volume">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="mode" minOccurs="0" />
+        <xs:element ref="seriesInstance" minOccurs="0" />
+        <xs:element ref="background" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesInstance">
+    <xs:annotation>
+      <xs:appinfo>2007,5147 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geometryType">
+    <xs:annotation>
+      <xs:appinfo>2007,5104 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="SLAB" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geometryInterpolation">
+    <xs:annotation>
+      <xs:appinfo>2007,5105 CS 0-1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="NN" />
+          <xs:enumeration value="LINEAR" />
+          <xs:enumeration value="LINEAR_CUBIC" />
+          <xs:enumeration value="NN_LINEAR" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geometryThickness">
+    <xs:annotation>
+      <xs:appinfo>2007,5107 DS 0-1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="geometryBaseplane">
+    <xs:annotation>
+      <xs:appinfo>2007,5108 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BasePlane" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mode">
+    <xs:annotation>
+      <xs:appinfo>2007,5110 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="AVERAGE" />
+          <xs:enumeration value="MAXIP" />
+          <xs:enumeration value="MINIP" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="background">
+    <xs:annotation>
+      <xs:appinfo>2007,5262 IS 0-1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BasePlane">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="baseplaneCenter" minOccurs="0" />
+        <xs:element ref="baseplaneNormal" minOccurs="0" />
+        <xs:element ref="baseplaneUpvector" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="baseplaneCenter">
+    <xs:annotation>
+      <xs:appinfo>2007,5116 DS 3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="baseplaneNormal">
+    <xs:annotation>
+      <xs:appinfo>2007,5117 DS 3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="baseplaneUpvector">
+    <xs:annotation>
+      <xs:appinfo>2007,5118 DS 3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="model-enumeration">
+    <xs:simpleContent>
+      <xs:extension base="xs:normalizedString">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="int-list">
+    <xs:list itemType="xs:int" />
+  </xs:simpleType>
+  <xs:complexType name="int-array">
+    <xs:simpleContent>
+      <xs:extension base="int-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="double-list">
+    <xs:list itemType="xs:double" />
+  </xs:simpleType>
+  <xs:complexType name="double-array">
+    <xs:simpleContent>
+      <xs:extension base="double-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:attributeGroup name="model-attr-group">
+    <xs:attribute name="null" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:anyAttribute namespace="##targetNamespace" processContents="lax" />
+  </xs:attributeGroup>
+</xs:schema>

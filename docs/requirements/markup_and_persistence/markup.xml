@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Markup.xml Version 1.0 -->
+<dicom:PresentationState xmlns:dicom="urn:openeyes.data.dicom.Dicom/Dicom.xml">
+  <dicom:sopClassUid>1.2.840.10008.5.1.4.1.1.11.1</dicom:sopClassUid>
+  <dicom:sopInstanceUid>2.16.124.113531.4.7.1178741977830.1810410440.1145</dicom:sopInstanceUid>
+  <dicom:studyDate>20040917</dicom:studyDate>
+  <dicom:seriesDate>20040917</dicom:seriesDate>
+  <dicom:studyTime>115255</dicom:studyTime>
+  <dicom:seriesTime>115356</dicom:seriesTime>
+  <dicom:accessionNumber null="1" />
+  <dicom:modality>PR</dicom:modality>
+  <dicom:manufacturer>CEDARA</dicom:manufacturer>
+  <dicom:referencedSeriesSequence>
+    <dicom:ImagesPerSeriesReference>
+      <dicom:referencedImageSequence>
+        <dicom:ImageReference>
+          <dicom:referencedSopClassUid>1.2.840.10008.5.1.4.1.1.2</dicom:referencedSopClassUid>
+          <dicom:referencedSopInstanceUid>1.3.12.2.1107.5.1.4.48451.4.0.15314004646392965</dicom:referencedSopInstanceUid>
+        </dicom:ImageReference>
+      </dicom:referencedImageSequence>
+      <dicom:seriesInstanceUid>1.3.12.2.1107.5.1.4.48451.4.0.15313969376282968</dicom:seriesInstanceUid>
+    </dicom:ImagesPerSeriesReference>
+  </dicom:referencedSeriesSequence>
+  <dicom:patientName>Cine Speed^Test^^^</dicom:patientName>
+  <dicom:patientId>#JOE Cine Speed</dicom:patientId>
+  <dicom:patientBirthDate>20040917</dicom:patientBirthDate>
+  <dicom:patientBirthTime>115014</dicom:patientBirthTime>
+  <dicom:patientSex>M</dicom:patientSex>
+  <dicom:patientAge null="1" />
+  <dicom:additionalPatientHistory null="1" />
+  <dicom:studyInstanceUid>2.16.840.1.113669.632.2.27.2.1985726008.228.130334216112.29</dicom:studyInstanceUid>
+  <dicom:seriesInstanceUid>2.16.840.1.113669.632.2.27.3.1985726008.228.130334220028.30</dicom:seriesInstanceUid>
+  <dicom:studyId null="1" />
+  <dicom:seriesNumber>2</dicom:seriesNumber>
+  <dicom:instanceNumber>1</dicom:instanceNumber>
+  <dicom:rescaleIntercept>-1024.0</dicom:rescaleIntercept>
+  <dicom:rescaleSlope>1.0</dicom:rescaleSlope>
+  <dicom:rescaleType>US</dicom:rescaleType>
+  <dicom:softcopyVoiLutSequence>
+    <dicom:VOIGLTrafo>
+      <dicom:referencedImageSequence>
+        <dicom:ImageReference>
+          <dicom:referencedSopClassUid>1.2.840.10008.5.1.4.1.1.2</dicom:referencedSopClassUid>
+          <dicom:referencedSopInstanceUid>1.3.12.2.1107.5.1.4.48451.4.0.15314004646392965</dicom:referencedSopInstanceUid>
+        </dicom:ImageReference>
+      </dicom:referencedImageSequence>
+      <dicom:windowCenter>35.0</dicom:windowCenter>
+      <dicom:windowWidth>80.0</dicom:windowWidth>
+      <dicom:glTrafoType>LINEARVOI</dicom:glTrafoType>
+      <dicom:referencedPseudoImageSequence>
+        <dicom:PseudoImageReference>
+          <dicom:instanceNumber>1</dicom:instanceNumber>
+        </dicom:PseudoImageReference>
+      </dicom:referencedPseudoImageSequence>
+    </dicom:VOIGLTrafo>
+  </dicom:softcopyVoiLutSequence>
+  <dicom:graphicAnnotationSequence>
+    <dicom:GraphicAnnotation>
+      <dicom:referencedImageSequence>
+        <dicom:ImageReference>
+          <dicom:referencedSopClassUid>1.2.840.10008.5.1.4.1.1.2</dicom:referencedSopClassUid>
+          <dicom:referencedSopInstanceUid>1.3.12.2.1107.5.1.4.48451.4.0.15314004646392965</dicom:referencedSopInstanceUid>
+        </dicom:ImageReference>
+      </dicom:referencedImageSequence>
+      <dicom:graphicLayer>Tumor@Default</dicom:graphicLayer>
+      <dicom:textObjectSequence>
+        <dicom:Text>
+          <dicom:unformattedTextValue>1 Tumor</dicom:unformattedTextValue>
+          <dicom:anchorPoint>204.84468 290.3596</dicom:anchorPoint>
+          <dicom:textFont>Microsoft Sans Serif</dicom:textFont>
+          <dicom:textAnchorPointAlignment>TOPRIGHT</dicom:textAnchorPointAlignment>
+          <dicom:graphicNumber>1</dicom:graphicNumber>
+          <dicom:textColorForeground>4294940928</dicom:textColorForeground>
+          <dicom:textColorShadow>0</dicom:textColorShadow>
+        </dicom:Text>
+      </dicom:textObjectSequence>
+      <dicom:graphicObjectSequence>
+        <dicom:Graphic>
+          <dicom:graphicAnnotationUnits>PIXEL</dicom:graphicAnnotationUnits>
+          <dicom:graphicDimensions>2</dicom:graphicDimensions>
+          <dicom:numberOfGraphicPoints>44</dicom:numberOfGraphicPoints>
+          <dicom:graphicData>204.84468 290.3596 199.39787 289.2702 195.04042 288.18085 190.68298 288.18085 185.23618 288.18085 180.87872 288.18085 176.52127 289.2702 169.9851 290.3596 165.62766 292.5383 162.35957 293.62766 158.00212 294.717 154.73404 296.89575 152.55531 299.07446 150.3766 302.34256 148.19788 304.52127 147.1085 306.7 146.01915 309.96808 146.01915 313.23618 144.9298 316.50424 143.84042 319.77234 143.84042 325.21915 143.84042 329.5766 143.84042 335.0234 144.9298 340.4702 148.19788 343.7383 151.46596 349.18512 156.91277 354.63193 163.44893 357.9 171.07446 360.07874 176.52127 361.1681 184.1468 362.25745 191.77234 362.25745 198.30852 360.07874 205.93404 357.9 211.38084 354.63193 217.91702 350.27448 222.27448 345.91702 226.63191 339.38086 229.9 332.8447 232.07872 326.3085 233.16809 317.59363 233.16809 309.96808 229.9 301.2532 226.63191 293.62766 204.84468 290.3596</dicom:graphicData>
+          <dicom:graphicType>POLYLINE</dicom:graphicType>
+          <dicom:graphicLineColor>4294940928</dicom:graphicLineColor>
+          <dicom:graphicNumber>1</dicom:graphicNumber>
+        </dicom:Graphic>
+      </dicom:graphicObjectSequence>
+      <dicom:graphicAnnotationId>1</dicom:graphicAnnotationId>
+      <dicom:graphicAnnotationType>0</dicom:graphicAnnotationType>
+    </dicom:GraphicAnnotation>
+    <dicom:GraphicAnnotation>
+      <dicom:graphicLayer>Tumor@Default</dicom:graphicLayer>
+      <dicom:textObjectSequence>
+        <dicom:Text>
+          <dicom:unformattedTextValue>1 Tumor</dicom:unformattedTextValue>
+          <dicom:anchorPoint>216.32089 81.970146</dicom:anchorPoint>
+          <dicom:textFont>Microsoft Sans Serif</dicom:textFont>
+          <dicom:textAnchorPointAlignment>TOPRIGHT</dicom:textAnchorPointAlignment>
+          <dicom:graphicNumber>1</dicom:graphicNumber>
+          <dicom:textColorForeground>4294940928</dicom:textColorForeground>
+          <dicom:textColorShadow>0</dicom:textColorShadow>
+        </dicom:Text>
+      </dicom:textObjectSequence>
+      <dicom:graphicObjectSequence>
+        <dicom:Graphic>
+          <dicom:graphicAnnotationUnits>PIXEL</dicom:graphicAnnotationUnits>
+          <dicom:graphicDimensions>2</dicom:graphicDimensions>
+          <dicom:numberOfGraphicPoints>26</dicom:numberOfGraphicPoints>
+          <dicom:graphicData>216.32089 81.970146 179.27612 93.95522 172.7388 98.31343 167.29105 103.76119 162.93283 110.29851 159.66418 116.83582 157.48508 122.283585 156.39552 127.731346 156.39552 133.17911 156.39552 137.53731 158.57463 140.80597 162.93283 145.16418 166.20149 146.25374 170.55971 148.43283 176.00746 148.43283 181.45523 148.43283 187.99254 147.34328 195.6194 144.07463 202.15672 138.62686 209.78358 134.26866 215.23134 128.82089 221.76866 122.283585 227.21642 115.74627 232.66418 101.58209 233.75374 93.95522 233.75374 87.41791 216.32089 81.970146</dicom:graphicData>
+          <dicom:graphicType>POLYLINE</dicom:graphicType>
+          <dicom:graphicLineColor>4294940928</dicom:graphicLineColor>
+          <dicom:graphicNumber>1</dicom:graphicNumber>
+        </dicom:Graphic>
+        <dicom:Graphic>
+          <dicom:graphicData>216.32089 81.970146</dicom:graphicData>
+          <dicom:graphicType>POINT</dicom:graphicType>
+          <dicom:graphicFilled>N</dicom:graphicFilled>
+          <dicom:graphicMarkerType>marker.png</dicom:graphicMarkerType>
+          <dicom:contourFillTransparency>0.0</dicom:contourFillTransparency>
+          <dicom:graphicLineColor>16777215</dicom:graphicLineColor>
+        </dicom:Graphic>
+      </dicom:graphicObjectSequence>
+      <dicom:graphicAnnotationId>1</dicom:graphicAnnotationId>
+      <dicom:referencedPseudoImageSequence>
+        <dicom:PseudoImageReference>
+          <dicom:instanceNumber>1</dicom:instanceNumber>
+        </dicom:PseudoImageReference>
+      </dicom:referencedPseudoImageSequence>
+      <dicom:graphicAnnotationType>0</dicom:graphicAnnotationType>
+    </dicom:GraphicAnnotation>
+  </dicom:graphicAnnotationSequence>
+  <dicom:imageHorizontalFlip>N</dicom:imageHorizontalFlip>
+  <dicom:imageRotation>0</dicom:imageRotation>
+  <dicom:displayedAreaSelectionSequence>
+    <dicom:DisplayedAreaSelection>
+      <dicom:referencedImageSequence>
+        <dicom:ImageReference>
+          <dicom:referencedSopClassUid>1.2.840.10008.5.1.4.1.1.2</dicom:referencedSopClassUid>
+          <dicom:referencedSopInstanceUid>1.3.12.2.1107.5.1.4.48451.4.0.15314004646392965</dicom:referencedSopInstanceUid>
+        </dicom:ImageReference>
+      </dicom:referencedImageSequence>
+      <dicom:displayedAreaTopLeftHandCorner>1 1</dicom:displayedAreaTopLeftHandCorner>
+      <dicom:displayedAreaBottomRightHandCorner>512 512</dicom:displayedAreaBottomRightHandCorner>
+      <dicom:presentationSizeMode>SCALE TO FIT</dicom:presentationSizeMode>
+      <dicom:presentationPixelSpacing>1.3671875 1.3671875</dicom:presentationPixelSpacing>
+      <dicom:presentationPixelMagnificationRatio>1.0</dicom:presentationPixelMagnificationRatio>
+      <dicom:displayedAreaZoomInterpolationMeth>BI_CUBIC</dicom:displayedAreaZoomInterpolationMeth>
+    </dicom:DisplayedAreaSelection>
+    <dicom:DisplayedAreaSelection>
+      <dicom:displayedAreaTopLeftHandCorner>1 1</dicom:displayedAreaTopLeftHandCorner>
+      <dicom:displayedAreaBottomRightHandCorner>511 117</dicom:displayedAreaBottomRightHandCorner>
+      <dicom:presentationSizeMode>SCALE TO FIT</dicom:presentationSizeMode>
+      <dicom:presentationPixelSpacing>1.3671875 1.3671875</dicom:presentationPixelSpacing>
+      <dicom:presentationPixelMagnificationRatio>1.0</dicom:presentationPixelMagnificationRatio>
+      <dicom:displayedAreaZoomInterpolationMeth>BI_CUBIC</dicom:displayedAreaZoomInterpolationMeth>
+      <dicom:referencedPseudoImageSequence>
+        <dicom:PseudoImageReference>
+          <dicom:instanceNumber>1</dicom:instanceNumber>
+        </dicom:PseudoImageReference>
+      </dicom:referencedPseudoImageSequence>
+    </dicom:DisplayedAreaSelection>
+  </dicom:displayedAreaSelectionSequence>
+  <dicom:graphicLayerSequence>
+    <dicom:GraphicLayer>
+      <dicom:graphicLayer>Tumor@Default</dicom:graphicLayer>
+      <dicom:graphicLayerOrder>1</dicom:graphicLayerOrder>
+    </dicom:GraphicLayer>
+  </dicom:graphicLayerSequence>
+  <dicom:presentationLabel>Markups</dicom:presentationLabel>
+  <dicom:presentationCreationDate>20070509</dicom:presentationCreationDate>
+  <dicom:presentationCreationTime>161937</dicom:presentationCreationTime>
+  <dicom:presentationCreatorName>I-Response</dicom:presentationCreatorName>
+  <dicom:glTrafoType>LINEARMODALITY</dicom:glTrafoType>
+  <dicom:generatedVOIGlTrafo>1</dicom:generatedVOIGlTrafo>
+  <dicom:referencedPseudoSeriesSequence>
+    <dicom:PseudoImagesPerSeriesReference>
+      <dicom:seriesInstanceUid>1.3.12.2.1107.5.1.4.48451.4.0.15313969376282968</dicom:seriesInstanceUid>
+      <dicom:referencedPseudoImageSequence>
+        <dicom:PseudoImageReference>
+          <dicom:instanceNumber>1</dicom:instanceNumber>
+          <volume:render3D xmlns:volume="urn:openeyes.imaging.volume.Renderer3D/infoset.xml">
+            <volume:Render3D>
+              <volume:series>
+                <volume:Series>
+                  <volume:seriesInstance>0</volume:seriesInstance>
+                </volume:Series>
+              </volume:series>
+              <volume:geometry>
+                <volume:Geometry>
+                  <volume:geometryBaseplane>
+                    <volume:BasePlane>
+                      <volume:baseplaneCenter>-2.500003750000019 -135.00000375000002 -888.5</volume:baseplaneCenter>
+                      <volume:baseplaneNormal>-1.0 0.0 0.0</volume:baseplaneNormal>
+                      <volume:baseplaneUpvector>0.0 0.0 -1.0</volume:baseplaneUpvector>
+                    </volume:BasePlane>
+                  </volume:geometryBaseplane>
+                </volume:Geometry>
+              </volume:geometry>
+              <volume:volume>
+                <volume:Volume>
+                  <volume:seriesInstance>0</volume:seriesInstance>
+                </volume:Volume>
+              </volume:volume>
+              <volume:type>REFORMAT</volume:type>
+            </volume:Render3D>
+          </volume:render3D>
+        </dicom:PseudoImageReference>
+      </dicom:referencedPseudoImageSequence>
+    </dicom:PseudoImagesPerSeriesReference>
+  </dicom:referencedPseudoSeriesSequence>
+  <dicom:presentationLutShape>IDENTITY</dicom:presentationLutShape>
+  <dicom:measurementSequence>
+    <dicom:Measurement>
+      <dicom:seriesInstanceUid>1.2.840.113704.1.111.533.1019111372.2</dicom:seriesInstanceUid>
+      <dicom:instanceNumber>38</dicom:instanceNumber>
+      <dicom:graphicLayer>Tumor@abc@cedara.com</dicom:graphicLayer>
+      <dicom:graphicNumber>1</dicom:graphicNumber>
+      <dicom:measurementType>0</dicom:measurementType>
+      <dicom:measurementValue>144.861786</dicom:measurementValue>
+    </dicom:Measurement>
+    <dicom:Measurement>
+      <dicom:seriesInstanceUid>1.2.840.113704.1.111.533.1019111372.2</dicom:seriesInstanceUid>
+      <dicom:instanceNumber>143</dicom:instanceNumber>
+      <dicom:graphicLayer>Tumor@null</dicom:graphicLayer>
+      <dicom:graphicNumber>1</dicom:graphicNumber>
+      <dicom:measurementType>1</dicom:measurementType>
+      <dicom:measurementValue>4612.887 96.05089 48.0254478</dicom:measurementValue>
+    </dicom:Measurement>
+    <dicom:Measurement>
+      <dicom:seriesInstanceUid>1.2.840.113704.1.111.533.1019111372.2</dicom:seriesInstanceUid>
+      <dicom:instanceNumber>38</dicom:instanceNumber>
+      <dicom:graphicLayer>Tumor@null</dicom:graphicLayer>
+      <dicom:graphicNumber>1</dicom:graphicNumber>
+      <dicom:measurementType>2</dicom:measurementType>
+      <dicom:measurementValue>15315.0283</dicom:measurementValue>
+    </dicom:Measurement>
+  </dicom:measurementSequence>
+</dicom:PresentationState>

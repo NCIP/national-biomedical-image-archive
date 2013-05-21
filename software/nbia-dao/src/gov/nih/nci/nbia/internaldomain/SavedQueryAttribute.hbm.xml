@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="SavedQueryAttribute" table="saved_query_attribute" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+		<id name="id" column="SAVED_QUERY_ATTRIBUTE_PK_ID" unsaved-value="0">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the SavedQueryAttribute class -->
+		<property name="attributeName" type="string" column="attribute_name"/>
+		<property name="attributeValue" type="string" column="attribute_value"/>
+		<property name="instanceNumber" type="integer" column="instance_number"/>
+		<property name="subAttributeName" type="string" column="subattribute_name"/>
+		<!-- Associations mapping for the SavedQueryAttribute class -->
+		<many-to-one name="parentQuery" class="gov.nih.nci.nbia.internaldomain.SavedQuery" column="saved_query_pk_id" lazy="proxy" />
+	</class>
+</hibernate-mapping>

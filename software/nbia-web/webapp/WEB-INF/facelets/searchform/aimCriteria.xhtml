@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                
+<f:subview id="aimCriteria" rendered="#{aimSearchWorkflowBean.aimVisible}">  
+                            
+
+  <table border="0" width="100%" cellpadding="3" cellspacing="0"
+         class="topBorderOnly" summary="" style="margin-bottom: 20px">
+    <tr class="topBorder">
+      <td colspan="2" class="formTitleIIII">
+        <h:outputText value="AIM Imaging Observation Characteristics" />
+      </td>
+    </tr>
+
+    <tr class="topBorder">
+      <td width="20%" class="formLabel">
+        <h:outputText value="Code Meaning" />                
+      </td>
+      <td width="80%" class="formField">  
+        <table width="90%" border="0" align="left" cellpadding="0"
+               cellspacing="0">
+          <tr>                                                                             
+            <td width="30%">
+              <div align="center">
+                <span class="formMessage">
+                  <h:outputText value="#{msg.search_available}" />
+                </span>
+              </div>
+            </td>
+            <td width="40%" align="center" valign="middle">
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+            </td>
+            <td width="30%">
+              <div align="center">
+                <span class="formMessage">
+                  <h:outputText value="#{msg.search_selected} *" />
+                </span>
+              </div>
+            </td>
+            <td width="4%" valign="bottom">
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+            </td>
+          </tr>
+          <tr>                
+            <td width="80%" class="formField">                       
+              <div id="codeMeaningsDiv"
+                   class="searchFormSelector">
+                                                                                                            
+                <h:dataTable id="aimCodeMeaningsCheckboxesTable"
+                             width="100%" 
+                             border="0" 
+                             cellpadding="0" 
+                             cellspacing="0" 
+                             value="#{aimSearchWorkflowBean.imagingObservationCharacteristicCodeMeaningItems}"
+                             var="codeMeaning">
+                  <h:column id="codeMeaningColumn">
+                    <span style="white-space:nowrap;">
+                      <ice:selectBooleanCheckbox value="#{codeMeaning.value}" 
+                                                 partialSubmit="true"
+                                                 title="#{codeMeaning.description}"/> 
+                      <h:outputText value="#{codeMeaning.label}"
+                                    title="#{codeMeaning.description}"/>
+                    </span>                                      
+                  </h:column>    
+                </h:dataTable> 
+              </div>                        
+            </td>
+            <td align="center" valign="middle">
+              <h:commandButton id="selectAllCodeMeanings" 
+                                image="images/SELECTall-noarrow.gif" 
+                                action="#{aimSearchWorkflowBean.selectAllCodeMeanings}" />                            
+              <br/>
+              <h:commandButton id="unselectAllCodeMeanings"
+                               image="images/REMOVE-all-noarrow.gif"
+                               action="#{aimSearchWorkflowBean.unselectAllCodeMeanings}" /> 
+            </td>
+            <td valign="top">
+              <div class="searchFormSelector">
+                <h:dataTable id="selectedCodeMeaningsTable"
+                             width="100%" 
+                             border="0" 
+                             cellpadding="0" 
+                             cellspacing="0" 
+                             value="#{aimSearchWorkflowBean.selectedCodeMeaningNames}"
+                             var="item">
+                  <h:column id="selectedCodeMeaningColumn">
+                    <h:outputText value="#{item}"/> 
+                  </h:column>    
+                </h:dataTable>                            
+              </div>
+            </td>                      
+            <td valign="top"></td>
+
+          </tr>   
+        </table>  
+      </td>
+    </tr>    
+    <tr class="topBorder">
+      <td width="20%" class="formLabel">
+        <h:outputText value="Code Value" />
+        <br/>
+        <h:outputText value="(CodeSchemaDiscriminator-Value)" />                
+      </td>
+      <td width="80%" class="formField">
+        <table width="90%" border="0" align="left" cellpadding="0"
+               cellspacing="0">
+          <tr>                                                                             
+            <td width="30%">
+              <div align="center">
+                <span class="formMessage">
+                  <h:outputText value="#{msg.search_available}" />
+                </span>
+              </div>
+            </td>
+            <td width="40%" align="center" valign="middle">
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+            </td>
+            <td width="30%">
+              <div align="center">
+                <span class="formMessage">
+                  <h:outputText value="#{msg.search_selected} *" />
+                </span>
+              </div>
+            </td>
+            <td width="4%" valign="bottom">
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+            </td>
+          </tr>
+          <tr>                
+            <td width="80%" class="formField">                       
+              <div id="codeMeaningsDiv"
+                   class="searchFormSelector">
+                                                                                                            
+                <h:dataTable id="aimCodeValuePairsCheckboxesTable"
+                             width="100%" 
+                             border="0" 
+                             cellpadding="0" 
+                             cellspacing="0" 
+                             value="#{aimSearchWorkflowBean.imagingObservationCharacteristicCodeValuePairItems}"
+                             var="codeValuePair">
+                  <h:column id="codeValuePairColumn">
+                    <span style="white-space:nowrap;">
+                      <ice:selectBooleanCheckbox value="#{codeValuePair.value}" 
+                                                 partialSubmit="true"
+                                                 title="#{codeValuePair.description}"/> 
+                      <h:outputText value="#{codeValuePair.label}"
+                                    title="#{codeValuePair.description}"/>
+                    </span>                                      
+                  </h:column>    
+                </h:dataTable> 
+              </div>                        
+            </td>
+            <td align="center" valign="middle">
+              <h:commandButton id="selectAllCodeValuePairs" 
+                                image="images/SELECTall-noarrow.gif" 
+                                action="#{aimSearchWorkflowBean.selectAllCodeValuePairs}" />                            
+              <br/>
+              <h:commandButton id="unselectAllCodeValuePairs"
+                               image="images/REMOVE-all-noarrow.gif"
+                               action="#{aimSearchWorkflowBean.unselectAllCodeValuePairs}" /> 
+            </td>
+            <td valign="top">
+              <div class="searchFormSelector">
+                <h:dataTable id="selectedCodeValuePairsTable"
+                             width="100%" 
+                             border="0" 
+                             cellpadding="0" 
+                             cellspacing="0" 
+                             value="#{aimSearchWorkflowBean.selectedCodeValuePairNames}"
+                             var="item">
+                  <h:column id="selectedCodeValuePairColumn">
+                    <h:outputText value="#{item}"/> 
+                  </h:column>    
+                </h:dataTable>                            
+              </div>
+            </td>                      
+            <td valign="top"></td>
+
+          </tr>   
+        </table> 
+      </td>
+    </tr>
+  </table>
+             
+  <table border="0" width="100%" cellpadding="3" cellspacing="0"
+         class="topBorderOnly" summary="" style="margin-bottom: 20px">
+    <tr class="topBorder">
+      <td colspan="2" class="formTitleIIII">
+        <h:outputText value="AIM Imaging Observation Characteristics Quantification" />
+      </td>
+    </tr>
+
+    <tr class="topBorder">
+      <td width="20%" class="formLabel">
+        <h:outputText value="Quantifications" />                
+      </td>
+      <td width="80%" class="formField"> 
+        <ice:commandButton id="addQuantificationCriteriaButton"
+                           image="images/plus_16.png" 
+                           title="Add Quantification Criteria"
+                           action="#{aimSearchWorkflowBean.addCharacteristicQuantification}"/>
+        <ice:selectOneMenu id="quantificationNamesDropdown" 
+                           value="#{aimSearchWorkflowBean.selectedQuantificationName}"
+                           partialSubmit="true">
+          <f:selectItems value="#{aimSearchWorkflowBean.characteristicQuantificationItems}"/>     
+        </ice:selectOneMenu>
+        
+        <h:dataTable id="quantificationCriteriaTable"
+                     width="100%"
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     value="#{aimSearchWorkflowBean.quantifications}"
+                     var="quantification">
+          <h:column id="scaleQuantificationColumn">                              
+
+            <div style="border-style: double; padding:5px">
+              <h:commandLink id="removeQuantificationLink" 
+                             actionListener="#{aimSearchWorkflowBean.removeQuantificationItem}">
+                <f:attribute name="quantificationName" value="#{quantification.name}" />
+                <h:graphicImage value="images/cancel.png" style="border:0px" />
+              </h:commandLink>               
+              #{quantification.name}
+              <f:subview rendered="#{quantification.scale}">
+                =              
+                <ice:selectOneMenu value="#{quantification.value}"
+                                   partialSubmit="true">
+                  <f:selectItems value="#{quantification.possibleValues}"/>     
+                </ice:selectOneMenu>
+              </f:subview>  
+              
+              <f:subview rendered="#{quantification.number}">
+              </f:subview>
+              
+              <f:subview rendered="#{quantification.quantile}">
+              </f:subview>               
+            </div>  
+          </h:column>    
+        </h:dataTable>         
+      </td>
+    </tr>    
+  </table>
+               
+</f:subview> 
+
+</ui:composition>                    

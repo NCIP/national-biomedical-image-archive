@@ -1,0 +1,796 @@
+/* ********************************* BEGIN ELEMENT-BASED RULES ***************************************/
+/* this is a hack for IE6 which doesnt inherit font-size values properly through tables.
+   i think other table rules will be more specific and therefore supersede this where necessary */
+table {
+  font-size: 1em;
+}
+
+body {
+  padding-right: 0px; 
+  padding-left: 0px; 
+  padding-bottom: 0px; 
+  margin: 0px; 
+  padding-top: 0px
+}
+
+a:link {
+  color: #0000CC; 
+  white-space: nowrap; 
+  text-decoration: underline;
+  border:0px;
+}
+
+a:visited {
+  color: #551a8b; 
+  white-space: nowrap; 
+  text-decoration: underline
+}
+
+a:active {
+  color: #0033CC; 
+  white-space: nowrap; 
+  text-decoration: underline; 
+  border:0px;
+}
+
+a:hover {
+  color: #a90101
+}
+
+h2 {
+  font-weight: bold; 
+  font-size: 1.6em; 
+  color: #5c5c5c; 
+  text-align: center
+}
+
+h3 {
+  font-weight: bold; 
+  font-size: 1.3em
+}
+
+p {
+  padding-left: 1em
+}
+/* ********************************* END ELEMENT-BASED RULES ***************************************/
+
+
+/* ********************************* BEGIN MAIN LAYOUT RULES ***************************************/
+.hdrBG {
+  background-color: #a90101
+}
+
+.subhdrBG {
+  background-color: #475b82
+}
+
+.ftrTable {
+  padding-top: 0.4em
+}
+
+td.mainMenu {
+  border-top: #cccccc 1px solid; 
+  border-bottom: #cccccc 1px solid; 
+  font-family: arial,helvetica,verdana,sans-serif; 
+  background-color: #5c5c5c;
+}
+
+td.mainMenuItem {
+  padding-right: 1em; 
+  padding-left: 1em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  background-color: #5c5c5c;
+}
+
+td.mainMenuItemOver {
+  padding-right: 1em; 
+  padding-left: 1em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  background-color: #475b82
+}
+
+td.mainMenuText {
+  padding-right: 1em; 
+  padding-left: 1em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  color: white;
+}
+
+td.footerMenu {
+  border-top: #cccccc 1px solid; 
+  border-bottom: #cccccc 1px solid; 
+  font-family: arial,helvetica,verdana,sans-serif; 
+  background-color: #5c5c5c
+}
+
+td.footerMenuItem {
+  padding-right: 1em; 
+  padding-left: 1em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  background-color: #5c5c5c
+}
+
+td.footerMenuItemOver {
+  padding-right: 1em; 
+  padding-left: 1em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  background-color: #475b82
+}
+
+td.subMenu {
+  font-family: arial,helvetica,verdana,sans-serif; 
+  background-color: #6e81a6
+}
+
+td.subMenuPrimaryTitle {
+  border-right: #cccccc 1px solid; 
+  border-top: #cccccc 1px solid; 
+  padding-left: 0.8em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  color: #ffffff; 
+  border-bottom: #cccccc 1px solid; 
+  background-color: #5c5c5c
+}
+
+td.subMenuPrimaryItems {
+  border-right: #cccccc 1px solid; 
+  padding-left: 0.3em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  padding-bottom: 0.8em; 
+  padding-top: 0.8em; 
+  background-color: #ffffff
+}
+
+td.subMenuSecondaryTitle {
+  border-right: #cccccc 1px solid; 
+  padding-left: 0.8em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  color: #ffffff; 
+  border-bottom: #cccccc 1px solid; 
+  background-color: #6e81a6
+}
+
+td.subMenuSecondaryTitleOver {
+  border-right: #cccccc 1px solid; 
+  padding-left: 0.8em; 
+  font-weight: bold; 
+  font-size: 0.6em; 
+  color: #ffffff; 
+  border-bottom: #cccccc 1px solid; 
+  background-color: #475b82
+}
+
+td.subMenuFill {
+  border-right: #cccccc 1px solid
+}
+
+#APPftr {
+  text-align: center;
+  border-top: #cccccc 1px solid; 
+  border-bottom: #cccccc 1px solid;
+  color: #ffffff; 
+  background-color: #5c5c5c;
+  margin-left: auto; 
+  margin-right: auto;
+  font-family: arial,helvetica,verdana,sans-serif;
+}
+
+a.subMenuPrimary:link {
+  color: #5c5c5c; 
+  white-space: nowrap; 
+  text-decoration: underline
+}
+
+a.subMenuPrimary:visited {
+  color: #5c5c5c; 
+  white-space: nowrap; 
+  text-decoration: underline
+}
+
+a.subMenuPrimary:active {
+  color: #5c5c5c; 
+  white-space: nowrap; 
+  text-decoration: underline
+}
+
+a.subMenuPrimary:hover {
+  color: #a90101
+}
+
+a.mainMenuLink:link {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+a.mainMenuLink:visited {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+a.mainMenuLink:active {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+a.mainMenuLink:hover {
+  color: #ffffff
+}
+
+a.footerMenuLink:link {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+a.footerMenuLink:visited {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+a.footerMenuLink:active {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+a.footerMenuLink:hover {
+  color: #ffffff
+}
+/* ********************************* END MAIN LAYOUT RULES ***************************************/
+
+.errorLabel {
+  color: red; 
+  font-family: arial,helvetica,verdana,sans-serif; 
+  text-align: left
+}
+.infoLabel {
+  color: blue; 
+  font-family: arial,helvetica,verdana,sans-serif; 
+  text-align: left
+}
+.formLabel{
+  font-family:arial,helvetica,verdana,sans-serif;
+  background-color:#F4F4F5;
+  color:#000000;
+  border-right:1px solid #5C5C5C;
+  border-bottom:1px solid #5C5C5C;
+  text-align:left;
+  border-left: 1px solid #5C5C5C;
+}
+
+.formTitle{
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-weight:bold;
+  padding-left:0.8em;
+  background-color:#999999;
+  color:#FFFFFF;
+  border-right-color: #666666;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-left-color: #666666;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-bottom-color: #666666;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-top-color: #666666;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+td.formField{ /* for the cell that contains the form elements */
+  font-family:arial,helvetica,verdana,sans-serif;
+  color:#000000; /* constant: black */
+  border-right:1px solid #5C5C5C; /* constant: dark gray */
+  border-bottom:1px solid #5C5C5C; /* constant: dark gray */
+  background-color:#F4F4F5; /* constant: light gray */
+}
+
+input.formField {
+  border-right: #5c5c5c 1px solid;
+  border-top: #5c5c5c 1px solid; 
+  font-size: 1em; 
+  border-left: #5c5c5c 1px solid; 
+  border-bottom: #5c5c5c 1px solid; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+
+td.formFieldWhite {
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-size:0.7em;
+  color:#000000; /* constant: black */
+  border-right:1px solid #5C5C5C; /* constant: dark gray */
+  border-bottom:1px solid #5C5C5C; /* constant: dark gray */
+  background-color:#FFFFFF; /* constant: light gray */
+}
+
+td.formFieldLogin {
+  font-size: 0.7em; 
+  color: #000000; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+
+
+
+
+input.actionButton {
+  border-right: #5c5c5c 2px solid; 
+  border-top: #cccccc 1px solid; 
+  border-left: #cccccc 1px solid; 
+  border-bottom: #5c5c5c 2px solid
+}
+.formMessage {
+  color: #000000; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+
+
+.dataTablePrimaryLabel {
+  text-align: left;
+  border-right: #5c5c5c 1px solid; 
+  border-top: #5c5c5c 1px solid; 
+  font-weight: bold; 
+  /*font-size: 0.8em;*/
+  border-left: #5c5c5c 1px solid; 
+  color: #ffffff; 
+  font-family: arial,helvetica,verdana,sans-serif; 
+  background-color: #5c5c5c
+}
+
+.dataTableHeader {
+  border-right: #5c5c5c 1px solid; 
+  font-weight: bold; 
+  color: #000000; 
+  border-bottom: #5c5c5c 1px solid; 
+  font-family: arial,helvetica,verdana,sans-serif; 
+  background-color: #cccccc
+}
+.dataTable {
+  border-top: #5c5c5c 1px solid; 
+  border-left: #5c5c5c 1px solid; 
+  color: #000000; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+
+
+.seriesDataCell {
+  padding-left: 3px;
+  border-right: #5c5c5c 1px solid; 
+  border-bottom: #5c5c5c 1px solid;     
+}
+.dataRowLight {
+  color: #000000; 
+  background-color: #ffffff
+}
+.dataRowDark {
+  color: #000000; 
+  background-color: #f4f4f5
+}
+.dicomDataRowLight {
+  border-right: #5c5c5c 1px solid;
+  border-bottom: #5c5c5c 1px solid; 
+  color: #000000; 
+  background-color: #ffffff; 
+  padding-left: 1.2em;
+}
+.dicomDataRowDark {
+  border-right: #5c5c5c 1px solid; 
+  border-bottom: #5c5c5c 1px solid; 
+  color: #000000; 
+  background-color: #f4f4f5; 
+  padding-left: 1.2em;
+}
+.dataCellText {
+  border-top: #5c5c5c 1px solid; 
+  border-left: #5c5c5c 1px solid; 
+  border-right: #5c5c5c 1px solid;
+  border-bottom: #5c5c5c 1px solid;
+  text-align: left
+}
+
+table.contentPage {
+  padding-right: 5px; 
+  padding-left: 5px; 
+  font-size: 0.7em; 
+  color: #000000; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+table.contentPageII { 
+  color: #000000; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+/* ********************************* BEGIN WELCOME/HOME RULES ***************************************/
+.sidebarBackground {
+  border-right: #cccccc 1px solid;
+  border-left: #cccccc 1px solid;
+  background-color: #f4f4f5;
+}
+
+.sidebarSection {
+  font-size: 0.7em; 
+  font-family: verdana, arial, helvetica, sans-serif; 
+  background-color: #f4f4f5
+}
+
+.sidebarTitle {
+  padding-left: 0.7em; 
+  font-weight: bold; 
+  font-size: 1em; 
+  color: #ffffff; 
+  background-color: #5c5c5c
+}
+
+.sidebarContent {
+  border-right: #cccccc 1px solid;
+  padding-right: 0.8em;
+  padding-left: 0.8em;
+  font-size: 1em;
+  padding-bottom: 0.8em;
+  border-left: #cccccc 1px solid;
+  padding-top: 0.8em;
+  border-bottom-color: #999999;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.homePageContent {
+  padding-right: 0.4em;
+  padding-left: 0.4em;
+  font-size: .7em;
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+    line-height: 1.2em;  
+  font-family: verdana, arial, helvetica, sans-serif;
+}
+
+.sidebarLogin {
+  padding-left: 0.8em; 
+}
+
+.bannerHome {
+  border-right: #cccccc 1px solid; 
+  background-color: #475b82
+}
+
+.welcomeTitle {
+  border-top: #cccccc 1px solid; 
+  padding-left: 1em; 
+  font-weight: bold; 
+  font-size: 0.7em; 
+  font-family: verdana, arial, helvetica, sans-serif; 
+  background-color: #cccccc
+}
+
+.welcomeContent {
+  padding-right: 1em; 
+  padding-left: 1em; 
+  font-size: .7em; 
+  padding-bottom: 1em; 
+  line-height: 1.5em; 
+  padding-top: 1em; 
+  font-family: arial,helvetica,verdana,sans-serif
+}
+/* ********************************* END WELCOME/HOME RULES ***************************************/
+
+.formTitleII {  
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-weight:bold;
+  padding-left:0.8em;
+  background-color:#999999;
+  color:#FFFFFF;
+  border-right-color: #666666;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: #666666;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-top-color: #666666;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+.formTitleIII {
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-weight:bold;
+  padding-left:0.8em;
+  background-color:#999999;
+  color:#FFFFFF;
+  border-right-color: #666666;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-bottom-color: #666666;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.historyItemTitle {
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-weight:bold;
+}
+
+.formTitleIIII {  
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-weight:bold;
+  padding-left:0.8em;
+  background-color:#6E81A6;
+  color:#FFFFFF;
+  border-right: #5c5c5c 1px solid; 
+  border-bottom: #5c5c5c 1px solid;     
+}
+.contentPageII {
+  color: #000000; 
+  border: solid 1px black;
+  font-family: arial,helvetica,verdana,sans-serif
+}
+
+
+.bottomBorderOnly {
+  border-bottom-width: 1px;
+  border-bottom-style: dashed;
+  border-bottom-color: #6E81A6;
+}
+.leftAndBottomBorderOnly {
+  border-bottom-width: 1px;
+  border-bottom-style: dashed;
+  border-bottom-color: #6E81A6;
+  border-left-width: 1px;
+  border-left-style: dashed;
+  border-left-color: #6E81A6;
+}
+.topBorderOnly {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #666666;
+}
+.dashedBorderOnly {
+  border-bottom-width: 1px;
+  border-bottom-style: dashed;
+  border-bottom-color: #6E81A6;
+  border-left-width: 1px;
+  border-left-style: dashed;
+  border-left-color: #6E81A6;
+  border-top-width: 1px;
+  border-top-style: dashed;
+  border-top-color: #6E81A6;
+  border-right-width: 1px;
+  border-right-style: dashed;
+  border-right-color: #6E81A6;
+}
+.leftBorderOnly {
+  border-left-width: 1px;
+  border-left-style: dashed;
+  border-left-color: #6E81A6;
+}
+
+.emptyDataCell {
+  background-color: #5c5c5c
+}
+
+
+.highlightedData {
+  background-color: #FFFF99;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+#trailimageid {
+  position: absolute;
+  visibility: hidden;
+  left: 0px;
+  top: 0px;
+  width: 350px;
+  height: 1px;
+  z-index: 1000;
+}
+.queryHeader {
+  color: #000000; font-family: arial,helvetica,verdana,sans-serif; 
+  font-weight: bold
+}
+
+#notification {
+  bottom: 0;
+  padding: 0;
+  height: 20px;
+  margin: 0;
+  width: 100%;
+  background-color: #FFFF99;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3em;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  padding-top: 5px;
+}
+
+.notification {
+  bottom: 0;
+  padding: 0;
+  height: 20px;
+  margin: 0;
+  width: 100%;
+  background-color: #FFFF99;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3em;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  padding-top: 5px;
+}
+
+/* ********************************* BEGIN SUBMISSION REPORTS RULES ***************************************/
+.submissionReportResultsContainer {
+  width: 800px;
+  text-align: center;
+  margin-left: 15px;
+  border-top: 1px dashed gray;
+  padding-top: 15px;
+}
+
+.submissionReportResultsBanner {
+  background: #F0F7F9 none repeat scroll 0 0;
+  border-top: 1px solid #6B90DA;
+  border-right: 1px solid #666666;
+  border-left: 1px solid #666666;
+  border-bottom: 1px solid #666666;
+  font-family: arial,helvetica,verdana,sans-serif;
+  font-weight: bold;
+  padding: 5px; 
+}
+
+.correctionReportWarning {
+  font-size: 8pt; 
+  color: red;
+ }
+ 
+ .submissionReportResultsBanner img {
+   vertical-align: middle;
+   border: 0px;
+ }
+ 
+.submissionReportTitleContainer {
+  width: 800px;
+  text-align: center;
+}
+
+.submissionReportTitle {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color:#5C5C5C;
+  font-size:1.6em;
+  font-weight:bold;
+}
+ 
+.submissionReportControlsTable {
+  width: 800px;
+  margin-left: 15px;
+  border:0px;
+}
+ 
+.submissionReportFormTitle {  
+  font-family:arial,helvetica,verdana,sans-serif;
+  font-weight:bold;
+  font-size:0.8em;
+  padding-left:0.8em;
+  background-color:#6E81A6;
+  color:#FFFFFF;
+  border: #5c5c5c 1px solid;    
+}
+/* ********************************* END SUBMISSION REPORTS RULES ***************************************/
+
+/* begin - stolen from caNanoLab - dropped relative font stuff */
+.submissionView {
+	border-width: 1px;
+	border-color: #AAAAAB;
+	border-style: solid;
+	border-collapse: collapse;
+	color: #333333;
+}
+
+.submissionView th {
+	font-family: arial, helvetica, verdana, sans-serif;
+	padding: 3px 3px 3px 3px;
+	color: #5C5C5C;
+	/*background-color: #5C5C5C;*/
+	background: white url(../images/shadeactive.gif) top left repeat-x;
+	text-align: left;
+}
+
+.submissionView td {
+	font-family: arial, helvetica, verdana, sans-serif;
+	padding: 3px 3px 3px 3px;
+	vertical-align: top;
+	text-align: left;
+	color: #333333;
+}
+
+table.promptbox {
+  background-color:#F4F4F5;
+  border:1px solid #CCCCFF;
+  color:black;
+  font-family:arial;
+  padding-bottom:3px;
+  padding-left:2px;
+  padding-right:2px;
+}
+/* end - stolen from caNanoLab */
+
+.searchFormSelector {
+    overflow: auto;
+    width: 180px;
+    height: 114px;
+    border: 1px solid black
+}
+
+.qcToolControlsTable {
+  width: 800px;
+  margin-left: 15px;
+  border:0px;
+}
+
+.searchResultTopLevelTable {
+    border-collapse:collapse;
+    border: none;
+}
+
+.searchResultTopLevelRow {
+    border: none;
+} 
+/* QC Shared List popup*/
+
+.corePopup {
+    position: absolute;
+    z-index: 1001;
+    width: 600px;
+    height: 300px;
+    top: 60%;
+    left: 40%;
+}
+
+.popupBody {
+    margin-top: 5px;
+    width: 100%;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.popupHeaderWrapper {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.popupHeaderText {
+    float: left;
+}
+
+.popupHeaderImage {
+    float: right;
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+/* END QC Shared List popup*/
+
+/* for some reason, putting this style inline for the collection description popup makes
+   the window not closable */
+.icePnlPop {
+   border: 5px solid black;
+}
+
+/* pull the following rule out adter IE 8 is the current tech stack */
+.iceMnuBarItem {
+    float: none;
+}
+/* end */
+

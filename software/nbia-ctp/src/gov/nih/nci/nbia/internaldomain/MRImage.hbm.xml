@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="MRImage" table="MR_IMAGE" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="integer" column="MR_IMAGE_PK_ID">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the MRImage class -->
+    <property name="imageTypeValue3" type="string" column="IMAGE_TYPE_VALUE_3"/>
+    <property name="scanningSequence" type="string" column="SCANNING_SEQUENCE"/>
+    <property name="sequenceVariant" type="string" column="SEQUENCE_VARIANT"/>
+    <property name="repetitionTime" type="double" column="REPETITION_TIME"/>
+    <property name="echoTime" type="double" column="ECHO_TIME"/>
+    <property name="inversionTime" type="double" column="INVERSION_TIME"/>
+    <property name="sequenceName" type="string" column="SEQUENCE_NAME"/>
+    <property name="imagedNucleus" type="string" column="IMAGED_NUCLEUS"/>
+    <property name="magneticFieldStrength" type="double" column="MAGNETIC_FIELD_STRENGTH"/>
+    <property name="sar" type="double" column="SAR"/>
+    <property name="dbDt" type="double" column="DB_DT"/>
+    <property name="triggerTime" type="double" column="TRIGGER_TIME"/>
+    <property name="angioFlag" type="string" column="ANGIO_FLAG"/>
+ 
+     <!-- Associations mapping for the MRImage class -->
+    <many-to-one name="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" column="IMAGE_PK_ID" unique="true" lazy="proxy" />
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy"/>
+
+  </class>
+</hibernate-mapping>

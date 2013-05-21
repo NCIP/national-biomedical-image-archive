@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="ClinicalTrial" table="CLINICAL_TRIAL" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="TRIAL_PK_ID">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the ClinicalTrial class -->
+		<property name="coordinatingCenter" type="string" column="TRIAL_COORDINATING_CENTER"/>
+		<property name="protocolId" type="string" column="TRIAL_PROTOCOL_ID"/>
+		<property name="protocolName" type="string" column="TRIAL_PROTOCOL_NAME"/>
+		<property name="sponsorName" type="string" column="TRIAL_SPONSOR_NAME"/>
+		<!-- Associations mapping for the ClinicalTrial class -->
+		<set name="siteCollection" lazy="true">
+			<cache usage="read-write" />
+			<key column="TRIAL_PK_ID" />
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.TrialSite"/>
+		</set>
+	</class>
+</hibernate-mapping>

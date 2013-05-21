@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="SavedQuery" table="saved_query" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" column="SAVED_QUERY_PK_ID" unsaved-value="0">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the SavedQuery class -->
+    <property name="active" type="boolean" column="active"/>
+    <property name="newResults" type="boolean" column="new_data_flag"/>
+    <property name="queryName" type="string" column="query_name"/>
+    <property name="userId" column="USER_ID" insert="false" update="false" />
+
+    <!-- Associations mapping for the SavedQuery class -->
+    <many-to-one name="user" class="gov.nih.nci.nbia.security.NCIAUser"
+      not-null="true">
+      <column name="USER_ID" />
+    </many-to-one>
+
+    <!--<many-to-one name="lastExecuteDate" class="gov.nih.nci.nbia.domain.SavedQueryLastExec" column="saved_query_pk_id" unique="true" lazy="proxy" />-->
+    <set name="savedQueryAttributes" inverse="true"
+      cascade="all-delete-orphan"  outer-join="true" fetch="join">
+      <key column="SAVED_QUERY_PK_ID" />
+      <one-to-many
+        class="gov.nih.nci.nbia.internaldomain.SavedQueryAttribute" />
+    </set>
+            <one-to-one name="lastExecuteDate" class="gov.nih.nci.nbia.internaldomain.SavedQueryLastExec"/>
+  </class>
+</hibernate-mapping>

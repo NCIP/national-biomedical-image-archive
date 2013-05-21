@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.tasks.Mailer_-DescriptorImpl>
+  <defaultSuffix>@mail.nih.gov</defaultSuffix>
+  <hudsonUrl>http://cbv-ciweb-base.nci.nih.gov:48080/hudson/</hudsonUrl>
+  <adminAddress>buildmaster@cbv-ciweb-base.nci.nih.gov</adminAddress>
+  <smtpHost>mailfwd.nih.gov</smtpHost>
+  <useSsl>false</useSsl>
+</hudson.tasks.Mailer_-DescriptorImpl>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="DownloadDataHistory" table="download_data_history" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+		<id name="id" column="DOWNLOAD_DATA_HISTORY_PK_ID" unsaved-value="0">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the DownloadHistory class -->
+		<property name="size" type="long" column="size_"/>
+		<property name="downloadTimestamp" type="java.util.Date" column="download_timestamp"/>
+		<property name="loginName" type="string" column="login_name"/>
+		<property name="seriesInstanceUid" type="string" column="series_instance_uid"/>
+		<property name="type" type="string" column="download_type"/>
+	</class>
+</hibernate-mapping>

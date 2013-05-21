@@ -1,0 +1,33 @@
+<security-config>
+    <upt-context-name>
+        csmupt
+    </upt-context-name>
+    <application-list>
+        <!-- For every application using the security api an entry should be made here -->
+        <application>
+            <context-name>
+                @application.context.name@
+            </context-name>
+            <authentication>
+                <authentication-provider-class/>
+				<lockout-time>
+					60000
+				</lockout-time>
+				<allowed-login-time>
+					60000
+				</allowed-login-time>
+				<allowed-attempts>
+					3
+				</allowed-attempts>
+				
+            </authentication>
+            <authorization>
+                <authorization-provider-class/>
+                <hibernate-config-file>
+                    <!-- Fully qualified file path -->
+		    @jboss.home@/server/@jboss.server.name@/cgmm_config/cgmmweb.hibernate.cfg.xml
+                </hibernate-config-file>
+            </authorization>
+        </application>
+    </application-list>
+</security-config>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Server port="23080" />
+
+  <Pipeline name="DICOM Pipeline">
+
+    <ImportService
+          name="HTTP Import"
+          class="org.rsna.ctp.stdstages.HttpImportService"
+          root="roots/http-import"
+          port="23104"
+          requireAuthentication="no"
+          acceptDicomObjects="yes"
+          acceptXmlObjects="yes"
+          acceptZipObjects="yes"
+          acceptFileObjects="no"
+          quarantine="quarantines/http-import" />
+
+    <StorageService
+       name="Storage"
+       id="storage"
+       class="org.rsna.ctp.stdstages.BasicFileStorageService"
+       index="/data/dataset_d01"
+       root="/data/dataset_d01/root"
+       nLevels="4"
+       maxSize="300"
+       returnStoredFile="yes"
+       quarantine="quarantines/storage">
+      <jpeg frame="all" wmax="512" wmin="512" q="-1" />
+    </StorageService>
+
+    <ExportService
+          name="Database Export"
+          class="org.rsna.ctp.stdstages.DatabaseExportService"
+          adapterClass="gov.nih.nci.nbia.dbadapter.NCIADatabase"
+          fileStorageServiceID="storage"
+          root="roots/database-export"
+          quarantine="quarantines/database-export"
+          requireAuthentication="no"
+          port="23304"/>
+
+    <Anonymizer
+           name="Anonymizer"
+           id="dicomAnonymizer"
+           class="org.rsna.ctp.stdstages.DicomAnonymizer"
+           root="roots/anonymizer"
+           script="roots/anonymizer/scripts/da.script"
+           quarantine="quarantines/anonymizer" />
+
+  </Pipeline>
+
+</Configuration>

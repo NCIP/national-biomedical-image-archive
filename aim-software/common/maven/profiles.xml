@@ -1,0 +1,36 @@
+<settings>
+	<profiles>
+		<profile>
+			<id>bda</id>
+			<properties>
+				<!-- used in maven build process -->
+				<jboss.home>@jboss.home@</jboss.home>
+				<schema.file>@db.bda-blueprints-webapp.file.name@</schema.file>
+				<hbm2ddl.drop.table>@db.bda-blueprints-webapp.generate.drop@</hbm2ddl.drop.table>
+				<hbm2ddl.create.table>@db.bda-blueprints-webapp.generate.create@</hbm2ddl.create.table>
+
+				<!-- Maven uses these properties to maniuplate files, we are inserting tokens so that they can be de-tokenized by the install:jboss:bda-blueprints-webapp-ear:re-create target -->
+				<!-- bda-blueprints-webapp-ds.xml -->
+				<database.url.prefix>jdbc:bda-blueprints-webapp://%%database.server%%:%%database.bda-blueprints-webapp%%/</database.url.prefix>
+				<database.name>%%database.name%%</database.name>
+				<jdbc.username>%%database.user%%</jdbc.username>
+				<jdbc.password>%%database.password%%</jdbc.password>
+				<!-- security-config.xml -->
+				<!-- don't use these now since values in file are blank, have to add prop for userid
+				<ldap.host.url>%%ldap.url%%</ldap.host.url>
+				<ldap.searchable.base>%%ldap.basedn%%</ldap.searchable.base>
+				<ldap.user.id.label>%%ldap.user.field%%</ldap.user.id.label>
+				-->
+				<jdbc.driverClassName>%%database.driver%%</jdbc.driverClassName>
+				<!-- bda-blueprints-webapp-log4j.xml -->
+				<log.level.nci-commons>%%app.log.level%%</log.level.nci-commons>
+				<log.level.bda-blueprints-webapp>%%app.log.level%%</log.level.bda-blueprints-webapp>
+				<!-- jndi.properties -->
+				<jboss.naming.port>%%jboss.server.jndi.port%%</jboss.naming.port>
+			</properties>
+		</profile>
+	</profiles>
+	<activeProfiles>
+		<activeProfile>bda</activeProfile>
+	</activeProfiles>
+</settings>

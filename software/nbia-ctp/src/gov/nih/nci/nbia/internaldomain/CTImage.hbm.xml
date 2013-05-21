@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="CTImage" table="CT_IMAGE" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="integer" column="CT_IMAGE_PK_ID">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the CTImage class -->
+    <property name="anatomicRegionSeq" type="string" column="ANATOMIC_REGION_SEQ"/>
+    <property name="convolutionKernel" type="string" column="CONVOLUTION_KERNEL"/>
+    <property name="CTPitchFactor" type="double" column="CT_PITCH_FACTOR"/>
+    <property name="dataCollectionDiameter" type="double" column="DATA_COLLECTION_DIAMETER"/>
+    <property name="exposure" type="integer" column="EXPOSURE"/>
+    <property name="exposureInMicroAs" type="integer" column="EXPOSURE_IN_MICROAS"/>
+    <property name="exposureTime" type="integer" column="EXPOSURE_TIME"/>
+    <property name="gantryDetectorTilt" type="double" column="GANTRY_DETECTOR_TILT"/>
+    <property name="KVP" type="double" column="KVP"/>
+    <property name="reconstructionDiameter" type="double" column="RECONSTRUCTION_DIAMETER"/>
+    <property name="revolutionTime" type="double" column="REVOLUTION_TIME"/>
+    <property name="scanOptions" type="string" column="SCAN_OPTIONS"/>
+    <property name="singleCollimationWidth" type="double" column="SINGLE_COLLIMATION_WIDTH"/>
+    <property name="tableFeedPerRotation" type="double" column="TABLE_FEED_PER_ROTATION"/>
+    <property name="tableSpeed" type="double" column="TABLE_SPEED"/>
+    <property name="totalCollimationWidth" type="double" column="TOTAL_COLLIMATION_WIDTH"/>
+    <property name="XRayTubeCurrent" type="integer" column="X_RAY_TUBE_CURRENT"/>
+
+    <!-- Associations mapping for the CTImage class -->
+    <many-to-one name="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" column="IMAGE_PK_ID" unique="true" lazy="proxy" />
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy"/>
+
+  </class>
+</hibernate-mapping>

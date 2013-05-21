@@ -1,0 +1,35 @@
+<ns1:Operation name="query" 
+               xsi:type="ns1:Operation"
+               xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns1:CommunicationMechanism anonymousPermitted="false" xsi:type="ns1:CommunicationMechanism">
+    <ns1:GSITransport protectionLevel="either" xsi:type="ns1:GSITransport"/>
+  </ns1:CommunicationMechanism>
+</ns1:Operation>
+
+<ns1:Operation name="submit" 
+               xsi:type="ns1:Operation"
+               xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns1:CommunicationMechanism anonymousPermitted="false" xsi:type="ns1:CommunicationMechanism">
+    <ns1:GSITransport protectionLevel="either" xsi:type="ns1:GSITransport"/>
+  </ns1:CommunicationMechanism>
+</ns1:Operation>
+
+<ns1:Operation name="queryByTransfer" 
+               xsi:type="ns1:Operation"
+               xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns1:CommunicationMechanism anonymousPermitted="false" xsi:type="ns1:CommunicationMechanism">
+    <ns1:GSITransport protectionLevel="either" xsi:type="ns1:GSITransport"/>
+  </ns1:CommunicationMechanism>
+</ns1:Operation>
+
+<ns1:Operation name="submitByTransfer" 
+               xsi:type="ns1:Operation"
+               xmlns:ns1="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns1:CommunicationMechanism anonymousPermitted="false" xsi:type="ns1:CommunicationMechanism">
+    <ns1:GSITransport protectionLevel="either" xsi:type="ns1:GSITransport"/>
+  </ns1:CommunicationMechanism>
+</ns1:Operation>

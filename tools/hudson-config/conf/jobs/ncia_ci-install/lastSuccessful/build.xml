@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <builtOn></builtOn>
+  <hudsonVersion>1.186</hudsonVersion>
+  <scm class="hudson.scm.SubversionChangeLogParser"/>
+  <culprits>
+    <string>saksass</string>
+  </culprits>
+  <number>6</number>
+  <result>SUCCESS</result>
+  <duration>564036</duration>
+  <keepLog>false</keepLog>
+  <actions class="vector">
+    <hudson.scm.SubversionTagAction>
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <no-comparator/>
+        <entry>
+          <hudson.scm.SubversionSCM_-SvnInfo>
+            <url>http://gforge.nci.nih.gov/svnroot/ncia/trunk/software</url>
+            <revision>4633</revision>
+          </hudson.scm.SubversionSCM_-SvnInfo>
+          <list/>
+        </entry>
+      </tags>
+      <build class="build" reference="../../.."/>
+    </hudson.scm.SubversionTagAction>
+  </actions>
+</build>

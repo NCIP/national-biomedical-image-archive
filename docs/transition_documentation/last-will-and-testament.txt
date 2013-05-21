@@ -1,0 +1,135 @@
+FINAL WILL AND TESTAMENT
+
+or alternatively:
+
+WHERE ARE JIMMY HOFFA AND THE REST OF THE BODIES BURIED?
+
+Given that the goals of this project stay somewhat similar to what they are now...
+
+Here's a laundry list of tasks/features that might be good to pursue:
+
+1. A human-readable quarantine log for the database adapter.
+
+As it stands, the people doing submissions have an almost impossible time debugging the submission process.
+There is a scope document with requirements that will be a good start at:
+
+https://ncisvn.nci.nih.gov/svn/nbia/trunk/docs/requirements/5.0 Release/4.6_CTP_QuarantineLogScope.doc
+
+2. CTP automated functional testing
+
+There is no automated functional testing for CTP (database adapter).  Any change to the db adapter is an act of faith.  The unit
+testing for the database adapter is barely useful.
+
+There is a scope document with requirements that will be a good start at:
+
+https://ncisvn.nci.nih.gov/svn/nbia/trunk/docs/requirements/5.0 Release/4.6_CTP_TestAutomationScope.doc
+
+3. There is code redundancy between the grid service and the app.
+
+The zipper code at least.  The DAO in the grid service was cleaned up for the unrelease NBIA 5.1, but
+it still uses Hibernate objects instead of DTO.  Probably best to switch those over to DTO, and then
+merge with nbia-dao.
+
+4. The dbUnit datasets are messy.
+
+This slows down the CI server.  Would probably be worth handcrafting dbUnit datasets per test instead of reusing those
+datasets willy-nilly.
+
+Another thing to suggest is running dbUnit tests on multiple machines at a time to cut CI build time down to something more manageable.
+I've heard that Hudson supports doing this fairly easily.
+
+Perhaps (unit) tests that run at commit-time (commit tests) should mock the db instead of relying on it for a test to pass?  Commit-time
+tests should be running faster...  Perhaps call these dbUnit tests "component tests" (from Continuous Delivery book) and defer their
+running?  This would remove the need for nbia_commit_mysql and nbia_commit_oracle.... and then there should probably be an 
+nbia_acceptance_local_mysql and nbia_acceptance_local_oracle instead.
+
+Another idea is to use hsqldb or an in-memory database instead of MySQL, but then that may require scripting the creation
+of the schema which includes invoking liquibase deltas.
+
+5. The browser Back button is completely useless/broken.
+
+Since almost everything in the app is a forward+postback, if you press the Back button on your browser, you end up somewhere
+that you don't want to be.  I'm not sure what the ideal solution for this is.  One thing to try is to integrate Seam which in turn
+will cause redirects across pages instead of forwards (or just write all transition rules to use redirect).
+
+6. The CSM model is #%$^%&$%ing awful.
+
+This is another one of those things that is very old in the system, was developed when CSM was very young.....and we've never been 
+succesfull at getting it prioritized high enough to fix in a given release.  Consult the wiki for the strange details on how this 
+stuff works.  On top of it, there is a fair amount of redundant code that does very similar security stuff across the webapp and grid.
+
+7. Statistics about usage
+
+I presume the systems team could put something together to pull together general analytics for NBIA usage, but as far
+as getting very detailed application-specific usage metrics...... we don't really have that except for some download records.
+Periodically there will come a frantic request for usage metrics.... but every time this has been brought up as a development
+item, it seems to get kicked off the plate.
+
+8. While we finally got all the data access stuff coralled into the nbia-dao project, there is still some cleanup to
+do with making names (class and package) consistent.
+
+9. The HTTP download with progresss is the biggest kludge-hack-obscenity for all time. 
+
+There are two things complicating this feature that forced the hacks.  The way the IceFaces progress monitor works vs. the
+original hand-crafted JavaScript progress monitor and the way IE7 security works (FDCC default settings).  To preserve
+the original behavior.... terrible things have been done.  I would advise changing the workflow a bit to make this code 
+go away (esp the code in the xhtml).  We couldn't get the customer to agree to a change in the behavior after we discovered 
+the IceFaces/IE problems.
+
+
+10. Only just got Oracle back in 5.0.... I suggest looking into materialized views (or Oracle performance goodies in general)
+to improve the performance of the grid data service presuming supporting CQL is still a priority in the future.
+
+11. At your first possible opportunity, get rid of the IzPack technology and do something else.  Anything else!!!!
+
+Not to pile on IzPack in particular, but the way it is integrated with the build scripts, etc. is just too complicated.
+
+12. Selenium Testing
+
+The Selenium tests are pretty sparse.  Additionally they depend upon the DEV tier data being the way it is.  Some effort
+should be made to correlate the tests and the datasets so they are more stable.  Might be worth investigating
+JBehave Web too....
+
+In fact, while there is a functional testing object that acts as a decent sanity check for the grid service.... you shouldn't
+put too much faith in it, as again, it doesn't have a controlled data set to make assertions against.
+
+13. Build Process Cleaning
+
+The build scripts could probably use some general cleaning.  Smells have built up over time and with basically only one
+person looking at them (me) I stopped smelling some of these things.
+
+14. Performance/Load Testing
+
+It makes sense to have a formal testing suite for NBIA performance.  We've talked about this for a long time and
+never done it for reasons similar to why the security model still sucks. 
+
+Ideally this testing would be automated so that it could run periodically through the CI server.
+
+Again, consult the Continuous Delivery book for some good ideas on integrating this into a "deployment pipeline".
+
+15.  A "shutdown mode" that gives ability to stop downloads, but wait to shutdown until ongoing downloads
+are complete. 
+
+16. There is no rhyme, reason, or policy regarding appropriate logging.  Probably should be some thought put into this.
+
+17. MyEclipse is a bear on these crappy machines and we don't typically need all the extra crap MyEclipse includes.  
+I've been using Helios with IvyDe and having pretty good results for a few weeks.  I'd recommend dropping MyEclipse.
+
+18. This may happen easier as a result of #17, but need to make sure all we can run all tests individually in Eclipse
+so developers can get instant feedback.  As it is, watch out for the number of jars in some projects' build path
+causing Eclipse to fail when running a test; have to prune out the unnecessary stuff which is a PITA.
+
+19. Given the current status of caBIG and caGrid....might make sense to just blow up the grid service and start from scratch
+with a simpler web service technology.  By blowing up that external domain model, it might be easier to flatten the underlying
+data model which could help improve submission (parallelism) and search performance.  I wouldn't try to salvage too much 
+implementation from the grid service except maybe the interfaces for the analytic operations.
+-----------------
+
+Final words: you will undoubtedly curse me as you try to figure this code base out, I (re)wrote a nice chunk of it over time, but 
+have some mercy.  When I came upon this codebase the presentation, business logic and data access were totally intermingled.  The 
+remote search wasn't even a deployed feature, yet it seemed to affect every piece of code.  QA would test it even though we didn't 
+use it!  Making sense of this codebase while adding new features, dealing with developers who were scared to change anything, and 
+not breaking  old stuff was challenging. I'd like to think that I at least turned a flaming pile of crap into just a regular pile 
+of crap while keeping various stakeholders happy!
+
+p.s. some of these recommendations are in Jira now.

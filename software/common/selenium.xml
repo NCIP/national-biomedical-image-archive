@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="selenium-testing" default="build:all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
+	<property environment="env"/>
+	<property name="selenium.jar" value="${project.lib.dir}/test-selenium/selenium-server-1.0-beta-2.jar"/>
+	<property name="selenium.browser" value="*firefox"/>
+	<!--  What you would need for a ci server, recommend setting in local.properties  <property name="selenium.browser" value="*firefox /usr/lib64/firefox-3.0.1/firefox-bin"/>      -->
+	<property name="selenium.proxy.port" value="4444"/>
+	<property name="selenium.report.dir" value="${reports.dir}/selenium"/>
+	<property name="selenium.report.file" value="selenium-rpt.html"/>
+	<property name="selenium.test.dir" value="${basedir}/test/selenium"/>
+	<property name="selenium.classes.dir" value="${basedir}/classes/selenium"/>
+	<property name="selenium.test.suite" location="${selenium.test.dir}/html/TestSuite.html"/>
+	<!-- only host name of startURL is used -->
+	<property name="selenium.url" value="http://${jboss.server.hostname}:${jboss.server.port}"/>
+
+
+	<!-- ivy-settings is init:ivy in other script -->
+	<target name="ivy-test-selenium" depends="ivy-settings" description="Updates the local ivy repository">
+		<ivy:resolve refresh="true" conf="test-selenium"/>
+		<ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="test-selenium"/>
+		<path id="project.test.selenium.classpath">
+			<fileset dir="${project.lib.dir}/test-selenium">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+	</target>
+
+
+	<target name="compile-selenium-test" depends="test:selenium:init, ivy-test-selenium">
+		<javac srcdir="${selenium.test.dir}" destdir="${selenium.classes.dir}" debug="true">
+			<classpath refid="project.test.selenium.classpath"/>
+		</javac>
+	</target>
+
+
+	<target name="test:seleniumrc:stop">
+		<get taskname="selenium-shutdown" src="http://localhost:${selenium.proxy.port}/selenium-server/driver/?cmd=shutDown" dest="selenium_server_shutdown_result.txt" ignoreerrors="true"/>
+		<!-- alternatively start the proxy server on different ports -->
+		<sleep seconds="10"/>
+	</target>
+
+
+	<target name="test:selenium:init">
+		<fail unless="jboss.server.hostname"/>
+		<fail unless="jboss.server.port"/>
+		<mkdir dir="${selenium.report.dir}"/>
+		<mkdir dir="${selenium.classes.dir}"/>
+	</target>
+
+
+	<target name="test:selenium:guest" depends="test:selenium:run:junit:guest,                   test:seleniumrc:stop">
+		<fail if="selenium.failure" message="One or more selenium tests failed on the guest path"/>
+	</target>
+
+
+	<target name="test:selenium:noguest" depends="test:selenium:run:junit:noguest,                   test:seleniumrc:stop">
+		<fail if="selenium.failure" message="One or more selenium tests failed on the noguest path"/>
+	</target>
+
+
+	<target name="test:selenium:run:junit:guest" depends="compile-selenium-test">
+		<!-- when tests fail the server might not get shut down, thus causing further errors when cmoing back around -->
+		<antcall target="test:seleniumrc:stop"/>
+		<java jar="${selenium.jar}" fork="true" spawn="true"/>
+		<sleep seconds="15"/>
+		<junit printsummary="on" haltonfailure="off" failureproperty="selenium.failure" maxmemory="256m">
+			<jvmarg value="-Dselenium.url=${selenium.url}"/>
+			<jvmarg value="-Dselenium.browser=${selenium.browser}"/>
+      <jvmarg value="-Dusername=${username}"/>
+      <jvmarg value="-Dpassword=${password}"/>
+
+			<classpath location="${selenium.classes.dir}"/>
+			<classpath refid="project.test.selenium.classpath"/>
+
+			<formatter type="xml"/>
+
+			<batchtest todir="${selenium.report.dir}" fork="true">
+				<fileset dir="${selenium.test.dir}">
+					<include name="**/*GuestSelenTestCase.java"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+
+	<target name="test:selenium:run:junit:noguest" depends="compile-selenium-test">
+		<!-- when tests fail the server might not get shut down, thus causing further errors when cmoing back around -->
+		<antcall target="test:seleniumrc:stop"/>
+		<java jar="${selenium.jar}" fork="true" spawn="true">
+      <sysproperty key="DISPLAY" value="${selenium.display}"/>
+    </java>
+		<sleep seconds="15"/>
+		<junit printsummary="on" haltonfailure="off" failureproperty="selenium.failure" maxmemory="256m">
+			<jvmarg value="-Dselenium.url=${selenium.url}"/>
+			<jvmarg value="-Dselenium.browser=${selenium.browser}"/>
+      <jvmarg value="-Dusername=${username}"/>
+      <jvmarg value="-Dpassword=${password}"/>
+
+      <classpath location="${selenium.classes.dir}"/>
+			<classpath refid="project.test.selenium.classpath"/>
+
+      <formatter type="xml"/>
+
+			<batchtest todir="${selenium.report.dir}" fork="true">
+				<fileset dir="${selenium.test.dir}">
+					<include name="**/*SelenTestCase.java"/>
+					<exclude name="**/*GuestSelenTestCase.java"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
+
+	<target name="test:selenium:run:html">
+		<osfamily property="os.family"/>
+		<if>
+			<equals arg1="${os.family}" arg2="unix"/>
+			<then>
+				<echo message="To be able to selenium tests on Unix platforms you need to meet the following conditions."/>
+				<echo message="You need to be logged in on the console running X (developer linux or mac workstation)."/>
+				<echo message=" If you are running it from a server that does not have a console (like a CI server) you need to be running at runlevel 3, running and xframe buffer ('Xvfb :1 -screen 0 1024x768x24', should be setup on a CI server) and have your DISPLAY environment variable sto to match your frame buffer ('DISPLAY=:1.0', should be set in .bash_profile on CI server)."/>
+				<fail unless="env.DISPLAY" message="DISPLAY environment variable not set, please set it as outlined above and run again."/>
+			</then>
+		</if>
+		<taskdef resource="selenium-ant.properties" classpathref="project.test.selenium.classpath"/>
+		<!--              <selenese suite="${selenium.test.suite}"              browser="${selenium.browser}"              results="${selenium.report.dir}/${selenium.report.file}"              multiWindow="false"              timeoutInSeconds="60"              port="${selenium.proxy.port}"              haltonfailure="off"              startURL="${selenium.url}"/>      -->
+	</target>
+
+
+</project>

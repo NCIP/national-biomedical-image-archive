@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<h:form id="dataForm">
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+  <tr>
+    <td>
+     <h:panelGroup>
+       <h:commandButton image="images/search_grey.gif" 
+                        action="#{searchWorkflowBean.backToSearch}" 
+                        disabled="#{ispyBean.isQueryFromUrl}"/>
+       <h:graphicImage url="images/breadcrumb_arrows.gif" />
+       <h:commandButton image="images/subject_red.gif"  
+                        action="submitSearch" />
+     </h:panelGroup>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <br/>
+      <br/>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <h2>
+        <h:outputText value="#{msg.search_criteriaLower} " />
+        <ncia:help label="images/help_icon.png" helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-WorkingwithSavedSearchQueries" />
+        <br/>
+      </h2>
+
+      <div align="center">
+        <h:outputText value="#{msg.search_seriesLevel}" />
+        <br/>
+      </div>
+      
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="topBorderOnly" summary="">
+        <tr class="topBorder">
+          <td colspan="2" class="formTitleIIII">
+            <h:outputText value="#{msg.search_selectedCriteria}" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h:dataTable id="queryValues"
+                         value="#{searchResultBean.query.criteriaList}" 
+                         var="criteria" 
+                         width="100%" 
+                         rowClasses="formLabel" 
+                         cellpadding="3" 
+                         cellspacing="0" 
+                         rendered="#{!searchWorkflowBean.dynamicSearch}"
+                         border="1"> 
+              <h:column id="searchResultCriteriaDisplayNameColumn">
+                <h:outputText value="#{criteria.displayName}" />
+              </h:column>
+              <h:column id="searchResultCriteriaDisplayValueColumn">
+                <h:outputText value="#{criteria.displayValue}" 
+                              style="white-space: pre-wrap" />
+              </h:column>
+            </h:dataTable> 
+            <ui:include src="dynamicSearchCriteria.xhtml"/>
+            <f:subview id="criteriaView" 
+                       rendered="#{(searchWorkflowBean.dynamicSearch and empty dynamicSearchBean.criteria) or (not searchWorkflowBean.dynamicSearch and searchResultBean.numCriteria eq 0)}">
+              <table width="100%" cellpadding="3" cellspacing="0" border="1">
+                <tr class="formLabel">
+                  <td>
+                    <h:outputText value="#{msg.search_noCriteria}" />
+                  </td>
+                </tr>
+              </table>
+            </f:subview>
+          </td>
+        </tr>
+      </table>
+      <f:subview id="saveQueryView"
+                 rendered="#{!anonymousLoginBean.guestLoggedIn or searchWorkflowBean.dynamicSearch}">
+      <table width="100%" border="0" cellspacing="0" cellpadding="5">
+        <tr>
+          <td>
+            <div align="right">
+              <h:panelGrid columns="2" 
+                           rendered="#{searchWorkflowBean.query.savedQueryId == 0}">
+                <h:inputText id="queryName" 
+                             value="#{searchResultBean.queryName}"
+                             maxlength="200" 
+                             disabled="#{ispyBean.isQueryFromUrl}"/>
+                <h:commandButton id="saveQueryButton"
+                                 image="images/SAVEQUERY.gif" 
+                                 action="#{searchResultBean.saveQuery}" 
+                                 disabled="#{ispyBean.isQueryFromUrl}"/>
+              </h:panelGrid>
+            </div>
+            <div align="center">
+              <h:panelGrid columns="1"
+                           rendered="#{searchWorkflowBean.editingSavedQuery}">
+                <h4>
+                  <h:outputText value="#{msg.search_saveQuery}" />
+                </h4>
+                <h:panelGrid columns="2">
+                  <h:selectOneRadio value="#{searchResultBean.updateQuery}"
+                                    layout="pageDirection"
+                                    enabledClass="formMessage">
+                    <f:selectItem itemValue="true"
+                                  itemLabel="#{msg.search_updateQuery}#{searchResultBean.query.queryName}#{msg.search_newCriteria}" />
+                    <f:selectItem itemValue="false"
+                                  itemLabel="#{msg.search_saveQueryAs}" />
+                  </h:selectOneRadio>
+                  <h:panelGrid>
+                    <br/>
+                    <h:inputText id="newQueryName" 
+                                 value="#{searchResultBean.queryName}" 
+                                 maxlength="200" 
+                                 onfocus="javascript:selectRadio();"/>
+                  </h:panelGrid>
+
+                  <h:commandButton id="editingSaveQueryButton"
+                                   image="images/SAVEQUERY.gif" 
+                                   action="#{searchResultBean.saveQuery}" />
+                </h:panelGrid>
+              </h:panelGrid>
+              <h:inputHidden id="newDataQuery" value="true" />
+              <h:message for="newDataQuery" errorClass="errorLabel" infoClass="infoLabel" />
+              <h:message for="queryName" errorClass="errorLabel" infoClass="infoLabel" />
+              <h:message for="newQueryName" errorClass="errorLabel" infoClass="infoLabel" />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </f:subview>
+      <h2>
+        <h:outputText value="#{msg.search_results}" />
+        <ncia:help label="images/help_icon.png" helpId="3+-+Viewing+NBIA+Search+Results#id-3-ViewingNBIASearchResults-SearchResultsbySubject" />
+      </h2>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+        <tr>
+          <td height="20">
+            <div align="left">
+              <span class="formMessage">
+                <h:outputText value="#{msg.search_checked}" />
+                <img src="images/checkedbox.gif" 
+                     width="17"
+                     height="17" 
+                     alt=""/>
+                <f:verbatim>&amp;nbsp;</f:verbatim>
+                <h:outputText value="#{msg.search_addedBasket}" />
+              </span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- paging ends -->
+
+        <!-- paging begins -->
+
+        <tr>
+          <td>                   
+            <h:message for="tableOfPatientResultTables"/>
+            
+            <div align="right">
+	            <ice:panelGroup style="margin-bottom:-1em;" rendered="#{searchResultBean.resultsPerPage > 10}">
+	              <table width="100%" border="0" cellspacing="0" cellpadding="5">
+	                <tr>
+	                  <td>
+	                    <h:commandButton 
+	                                     action="dataBasket" 
+	                                     image="images/VIEWBASKET.gif" />                
+	
+	                  </td>
+	                </tr>
+	              </table>
+	            </ice:panelGroup>
+            </div>
+            
+            <!-- for the saved query when no active nodes in query -->
+            <ice:panelGroup rendered="#{empty searchResultBean.nodeTablesWrappers}" 
+                            style="border: 1px solid black">
+              <ice:outputText value="No NBIA nodes are avaialable/selected to search."/>
+            </ice:panelGroup>
+            
+            <!-- 
+              if this isn't ice table, v h table, scrollers will go haywire
+              -->
+            <ice:dataTable id="tableOfPatientResultTables"
+                           value="#{searchResultBean.nodeTablesWrappers}"
+                           styleClass="searchResultTopLevelTable"
+                           rowClasses="searchResultTopLevelRow"  
+                           width="100%"
+                           var="perNodeResult">
+              <ice:column style="border:none; background-color:white">
+                <ui:include src="perNodeResult.xhtml">
+                  <ui:param name="perNodeResult" 
+                            value="#{perNodeResult}"/>  
+                </ui:include>
+              </ice:column>
+            </ice:dataTable>
+            
+            <div align="right">
+              <table width="100%" border="0" cellspacing="0" cellpadding="5">
+                <tr>
+                  <td>
+                    <h:commandButton id="viewBasketButton"
+                                     action="dataBasket" 
+                                     image="images/VIEWBASKET.gif" />                
+
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <!-- secondary label begins -->
+        <!-- secondary label ends -->
+      </table>
+    </td>
+  </tr>
+</table>
+
+</h:form>        
+
+
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+  <tr>
+    <td>
+      <h:form id="breadcrumbBottom">
+        <h:panelGroup>
+          <h:commandButton id="bCrumbSearch" 
+                           image="images/search_grey.gif" 
+                           action="#{searchWorkflowBean.backToSearch}" />
+          <h:graphicImage id="bCrumbArrow1" 
+                          url="images/breadcrumb_arrows.gif" />
+          <h:commandButton id="bCrumbSubject" 
+                           image="images/subject_red.gif" 
+                           action="submitSearch" />
+        </h:panelGroup>
+      </h:form>
+    </td>
+  </tr>
+</table>
+
+
+</ui:composition>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+
+	<class name="gov.nih.nci.nbia.internaldomain.QueryHistoryAttribute"
+		table="QUERY_HISTORY_ATTRIBUTE">
+
+		<id name="id" column="QUERY_HISTORY_ATTRIBUTE_PK_ID" unsaved-value="0">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+
+		<property name="attributeName" column="ATTRIBUTE_NAME" />
+		<property name="subAttributeName" column="SUBATTRIBUTE_NAME" />
+		<property name="attributeValue" column="ATTRIBUTE_VALUE" />
+  	    <property name="instanceNumber" column="INSTANCE_NUMBER" type="java.lang.Integer" />
+
+		<!-- Associations -->
+		<many-to-one name="parentQuery"
+			class="gov.nih.nci.nbia.internaldomain.QueryHistory"
+			not-null="true">
+			<column name="QUERY_HISTORY_PK_ID"/>
+		</many-to-one>
+
+
+	</class>
+</hibernate-mapping>

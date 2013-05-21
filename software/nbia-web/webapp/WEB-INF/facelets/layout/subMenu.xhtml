@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+<h:form id="sideMenuForm" style="height:100%;display:inline">
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" width="130" height="100%">
+
+  <tr>
+    <td height="22" colspan="2" class="subMenuPrimaryTitle">
+      <h:outputText value="#{msg.menu_tools}" />
+    </td>
+  </tr>
+  
+  <tr>
+    <td colspan="2" class="subMenuPrimaryItems">
+      <div>
+        <img src="images/subMenuArrow.gif" width="5" height="5" alt="" />
+        <a href="#" 
+           class="subMenuPrimary"
+           onclick="window.open('/ncia/imageViewers.jsf', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=550,height=500,scrollbars=yes,resizable=yes')">
+          <h:outputText value="#{msg.menu_dicomViewers}" />
+        </a>
+      </div>
+    </td>
+  </tr>
+  
+  <f:subview id="loginView" rendered="#{securityBean.loggedIn}">
+     <tr>
+      <td height="22" valign="middle" class="subMenuPrimaryTitle">
+        <h:outputText value="#{msg.menu_dataBasket}" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="subMenuPrimaryItems">
+        <div>
+          <img src="images/subMenuArrow.gif" width="5" height="5" alt="" />
+          <h:commandLink action="#{basketBean.viewBasket}"
+                         value="#{msg.menu_viewContents}" styleClass="subMenuPrimary" />
+          <br/>  
+          (
+          <f:verbatim>&amp;nbsp;</f:verbatim>
+          <h:outputText value="#{basketBean.basketSeriesCount}" />
+          <f:verbatim>&amp;nbsp;</f:verbatim>
+          <h:outputText value="#{msg.menu_seriesBasket}" />
+          )
+        </div>
+      </td>
+    </tr>    
+  </f:subview>
+  
+  <f:subview id="queryView" rendered="#{securityBean.hasLoggedInAsRegisteredUser}">
+    <tr>
+      <td height="22" valign="middle" class="subMenuPrimaryTitle">
+        <h:outputText value="#{msg.menu_myQueries}" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="subMenuPrimaryItems">
+        <img src="images/subMenuArrow.gif" width="5" height="5" alt="" />
+        <h:commandLink id="viewSavedQueriesLink"
+                       action="#{savedQueryBean.viewSavedQueries}"
+                       value="#{msg.menu_viewQueries}" 
+                       styleClass="subMenuPrimary" />
+        <br/>
+        (
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <h:outputText value="#{savedQueryBean.savedQueryCount}" />
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <h:outputText value="#{msg.menu_savedQueries}" /> 
+        )
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="subMenuPrimaryItems">
+        <img src="images/subMenuArrow.gif" width="5" height="5" alt="" />
+    
+        <h:commandLink action="#{savedQueryBean.viewQueryHistory}"
+                       value="#{msg.menu_queryHistory}" styleClass="subMenuPrimary" />  
+      </td>
+    </tr>
+    </f:subview>
+    <f:subview id="refImageView" rendered="#{ispyBean.isQueryFromUrl}">
+      <tr>
+        <td colspan="2" class="subMenuPrimaryItems">
+          <img src="images/subMenuArrow.gif" width="5" height="5" alt="" />
+          <h:commandLink action="#{ispyBean.viewRefImage}"
+                         value="#{msg.menu_queryRefImages}"
+                         styleClass="subMenuPrimary" />
+        </td>
+      </tr>
+    </f:subview>
+  
+
+    <f:subview id="toolsView" rendered="#{securityBean.loggedIn}">
+      <tr>
+        <td height="22" valign="middle" class="subMenuPrimaryTitle">
+          <h:outputText value="#{msg.menu_tools}" />
+        </td>
+      </tr>
+      <f:subview id="changePasswordView"
+                 rendered="#{securityBean.changePassword}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />     
+              <h:outputLink value="#{msg.account_support_NCIPwdStation}"
+                            target="blank" 
+                            styleClass="subMenuPrimary">
+                <h:outputText value="#{msg.change_password}" />
+              </h:outputLink>
+              <br/>
+            </div>
+          </td>
+        </tr>
+      </f:subview>       
+      <f:subview id="customizedListView"
+                 rendered="#{securityBean.hasLoggedInAsRegisteredUser}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />
+              <h:commandLink id="createCustomSeriesListMenuItem"
+                             action="#{customSeriesListBean.createListFromLink}"
+                             value="Create Shared List" 
+                             styleClass="subMenuPrimary" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />
+              <h:commandLink id="editCustomSeriesListMenuItem"
+                             action="#{editCustomSeriesListBean.viewCreatedLists}"
+                             value="Edit Shared List" 
+                             styleClass="subMenuPrimary" />
+            </div>
+          </td>
+        </tr>    
+        </f:subview>
+        <f:subview id="searchListView" rendered="#{securityBean.loggedIn}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />
+              <h:commandLink id="searchCustomSeriesListMenuItem"
+                             action="searchCustomSeriesList"
+                             value="Search Shared List" 
+                             styleClass="subMenuPrimary" />
+            </div>
+          </td>
+        </tr>        
+      </f:subview>
+    </f:subview>
+
+    <f:subview id="adminToolsView" rendered="#{securityBean.loggedIn and (securityBean.hasQaRole or securityBean.hasSuperCuratorRole or seriesDeletionBean.showDeletionLink or securityBean.hasCollectionDescRole)}">
+      <tr>
+        <td height="22" valign="middle" class="subMenuPrimaryTitle">
+          <h:outputText value="ADMIN TOOLS" />
+        </td>
+      </tr>    
+      <f:subview id="qcToolView" rendered="#{securityBean.hasQaRole}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+              <h:commandLink action="#{qcToolBean.performQc}" 
+                             value="#{msg.menu_qcTool}" 
+                             styleClass="subMenuPrimary"/>
+            </div>
+          </td>
+        </tr>
+      </f:subview>
+      <f:subview id="qcToolDeleteView" rendered="#{securityBean.hasSuperCuratorRole}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+              <h:commandLink action="#{qcToolBean.performDelete}" 
+                             value="#{msg.menu_qcDelete}" 
+                             styleClass="subMenuPrimary"/>      
+            </div>
+          </td>
+        </tr>
+      </f:subview>
+      <f:subview id="feedbackView"
+                 rendered="#{securityBean.hasFeedbackRole}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />
+              <h:commandLink id="submissionReportMenuItem"
+                             action="submissionReports"
+                             value="View Submission Reports" 
+                             styleClass="subMenuPrimary" />
+            </div>
+          </td>
+        </tr>        
+      </f:subview>
+      <f:subview id="deletionImageView" 
+                 rendered="#{seriesDeletionBean.showDeletionLink}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />
+              <h:commandLink id="submissionReportMenuItem"
+                             action="#{seriesDeletionBean.loadDeletion}"
+                             value="Perform Online Deletion" 
+                             styleClass="subMenuPrimary" />
+            </div>
+          </td>
+        </tr>                                  
+      </f:subview>
+      <f:subview id="collectionDescriptionView" 
+                 rendered="#{securityBean.hasCollectionDescRole}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" 
+                   width="5"
+                   height="5" 
+                   alt="" />
+              <h:commandLink id="collectionDescriptionMenuItem"
+                             action="editCollectionDescriptions"
+                             value="Edit Collection Desc" 
+                             styleClass="subMenuPrimary" />
+            </div>
+          </td>
+        </tr>
+      </f:subview>      
+    </f:subview>
+       
+		<tr>
+			<td height="21" colspan="2" class="subMenuPrimaryTitle">
+				<h:outputText value="#{msg.menu_quickLinks}" />
+
+				<!-- anchor to skip sub menu -->
+				<a href="#content">
+					<img src="images/shim.gif" 
+							 alt="Skip Menu"
+							 width="1" height="1" border="0" />
+				</a>
+			</td>
+		</tr>
+
+    <ui:include src="quickLinks.xhtml"/>
+    
+  </table>
+</h:form>
+</ui:composition>

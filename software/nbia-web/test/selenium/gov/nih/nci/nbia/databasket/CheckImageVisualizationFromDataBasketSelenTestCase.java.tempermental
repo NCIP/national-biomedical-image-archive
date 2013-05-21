@@ -1,0 +1,54 @@
+package gov.nih.nci.nbia.databasket;
+
+import gov.nih.nci.nbia.AbstractSelenTestCaseImpl;
+
+public class CheckImageVisualizationFromDataBasketSelenTestCase
+	extends AbstractSelenTestCaseImpl
+{
+	public void testCheckLinkFromDataBasket() throws Exception
+	{
+		selenium.open("/ncia/login.jsf");
+		selenium.type("MAINbody:sideBarView:loginForm:uName2", "nciadevtest");
+		selenium.type("MAINbody:sideBarView:loginForm:pass2", "saicT3@m13");
+		selenium.click("MAINbody:sideBarView:loginForm:loginButton2");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:navigationForm:searchLink')",
+                                  "30000");
+		selenium.click("MAINbody:navigationForm:searchLink");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:searchForm:submitSearchButton')",
+                                  "30000");
+		selenium.click("MAINbody:searchForm:submitSearchButton");
+
+		pause(30000);
+
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable')",
+                                  "60000");
+		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:0:addPatientToBasketCheckbox");
+		selenium.click("MAINbody:dataForm:tableOfPatientResultTables:0:notWaitingView:addPatientToBasketButton");
+		//since on same page... not sure there's really a good condition
+		//to wait for?
+		pause(30000);
+
+		selenium.click("link=MANAGE DATA BASKET");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:basketForm:dataBasketDataTable')",
+                                  "30000");
+		selenium.click("MAINbody:basketForm:dataBasketDataTable:1:selectBox");
+		selenium.click("MAINbody:basketForm:visualizeImages");
+		selenium.waitForCondition("selenium.browserbot.getCurrentWindow().document.getElementById('MAINbody:chkIRWForm')",
+                                  "30000");
+
+		//verifySeriesId();
+		verifyBackButton();
+	}
+//
+//	private void verifySeriesId()
+//	{
+//		String s = selenium.getAttribute("id=MAINbody:chkIRWForm:sendRequestToIRWButton@onclick");
+//		assertTrue(s.indexOf("1.3.6.1.4.1.9328.50.1.144") > 0);
+//	}
+
+	private void verifyBackButton()
+	{
+		String s = selenium.getAttribute("id=MAINbody:chkIRWForm:returnToDataBasketPageButton@value");
+		assertEquals(s,"Return to Data Basket Page");
+	}
+}

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="nbia-ctp"
+         default="all"
+         basedir="."
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <property name="ctp.dir.name" value="tempCTPX56"/>
+
+  <property name="src.dir" value="src"/>
+  <property name="conf.dir" value="conf"/>
+  <property name="output.dir" value="target"/>
+  <property name="build.dir" value="classes/"/>
+  <property name="lib.dir" value="lib/"/>
+  <property name="xml.dir" value="gov/nih/nci/nbia/internaldomain/"/>
+  <property name="ctp.library.dir" value="${ctp.dir.name}/CTP/libraries" />
+
+  <!-- define this for unittesting.xml import -->
+  <property name="classes.to.test.dir" value="tmp_for_unit_tests/"/>
+
+  <property name="common.dir" value="${basedir}/../" />
+  <!--property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" /-->
+  <property name="src.java.dir" value="${basedir}/src" />
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-ctp" />
+
+  <property name="nbia-domain.dir" value="${common.dir}/target/dist/exploded/nbia-domain" />
+  <property name="nbia-domain.jar" value="${nbia-domain.dir}/nbia-domain.jar" />
+  <property name="nbia-util.dir" value="${common.dir}/target/dist/exploded/nbia-util" />
+  <property name="nbia-util.jar" value="${nbia-util.dir}/nbia-util.jar" />
+  <property name="main.class"   value="gov.nih.nci.nbia.util.MRUtil"/>
+  <available file="${nbia-domain.jar}" property="nbia-domain.jar.present"/>
+ <available file="${nbia-util.jar}" property="nbia-util.jar.present"/>
+  <!--fail unless="nbia-domain.jar.present"
+        message="nbia-domain.jar must be built first and and in the target/dist dir"/-->
+
+  <import file="../common/unittesting.xml"/>
+
+  <target name="-pre-clean">
+  </target>
+
+  <target name="-init" depends="init-test" description="Initializes the system before a build">
+  </target>
+
+  <!--target name="ivy-settings">
+    <ivy:settings file="${global.ivy.settings.file}" />
+  </target>
+
+
+  <target name="ivy-compile" depends="ivy-settings">
+    <ivy:resolve refresh="true" conf="compile" />
+    <ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="compile" />
+  </target-->
+  
+
+  <target name="ivy-runtime" depends="ivy-settings">
+      <ivy:resolve refresh="true" conf="runtime" />
+      <ivy:retrieve pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" conf="runtime" />
+      <move todir="${project.lib.dir}/runtime">
+        <fileset dir="${project.lib.dir}/runtime">
+          <include name="*-working@*.jar"/>
+        </fileset>
+      <mapper type="regexp"
+        from="^(.*)\-working\@(.*)\.jar$"
+        to="\1.jar"/>
+    </move>
+  </target>
+
+  <target  name="copy-runtime" depends="ivy-runtime">
+    <copy overwrite="true" todir="${ctp.library.dir}">
+      <fileset dir="${project.lib.dir}/runtime/" includes="*.jar" />
+    </copy>
+
+    <!-- wipe out this jar which conflicts with CTP classloader -->
+    <delete>
+      <fileset dir="${ctp.library.dir}">
+        <include name="xml-apis-1.0.b2.jar"/>
+      </fileset>
+    </delete>
+
+    <!-- put this one if same classloader as CTP to avoid conflicts -->
+    <copy overwrite="true" todir="${ctp.dir.name}/CTP/">
+      <fileset dir="${project.lib.dir}/runtime/" includes="xml*.jar" />
+    </copy>
+
+  </target>
+  <!-- This will delete all of the files created by the build process -->
+  <target name="clean">
+    <echo message="************************************************"/>
+    <echo message="*        cleanning           *"/>
+    <echo message="************************************************"/>
+    <delete dir="${build.dir}" quiet="true" />
+    <delete dir="${output.dir}" quiet="true" />
+  </target>
+
+  <target name="init" depends="clean">
+    <tstamp>
+      <format property="today" pattern="dd-MMMM-yyyy" />
+      <format property="now" pattern="HH:mm:ss" />
+    </tstamp>
+    <echo message="Time now ${now}" />
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${output.dir}" />
+    <mkdir dir="${classes.to.test.dir}" />
+    <copy overwrite="true" file="${conf.dir}/dicom.properties" tofile="${build.dir}/dicom.properties" />
+    <copy overwrite="true" file="${lib.dir}/cedaraAIMMapping.jar" tofile="${project.lib.dir}/compile/cedaraAIMMapping.jar" />
+  </target>
+  
+  <target name="buildDomainJar" unless="nbia-domain.jar.present" description="build nbia-domain jars if not present">
+                <subant target="all" buildpath="../nbia-domain/" inheritAll="false"
+         inheritRefs="false"></subant>
+    </target>
+    
+    <target name="buildUtilJar" unless="nbia-util.jar.present" description="build nbia-domain jars if not present">
+                <subant target="run" buildpath="../nbia-util/" inheritAll="false"
+         inheritRefs="false" ></subant>
+    </target> 
+
+  <target name="compileStandAlone" depends="buildDomainJar, buildUtilJar, clean,init, ivy-compile">
+
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true">
+      <classpath>
+      <fileset dir="${project.lib.dir}/compile">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </javac>
+
+    <echo message="********************************************************"/>
+    <echo message="*                unzip ctp-installer.jar               *"/>
+    <echo message="********************************************************"/>
+    <mkdir dir="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X56.jar" dest="${ctp.dir.name}"/>
+  </target>
+  
+   <target name="compile" depends="clean,init, ivy-compile">
+
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="true">
+      <classpath>
+      <fileset dir="${project.lib.dir}/compile">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </javac>
+
+    <echo message="********************************************************"/>
+    <echo message="*                unzip ctp-installer.jar               *"/>
+    <echo message="********************************************************"/>
+    <mkdir dir="${ctp.dir.name}"/>
+    <unjar src="${project.lib.dir}/compile/ctp-installer-X56.jar" dest="${ctp.dir.name}"/>
+  </target>
+
+  <target name="config-db">
+    <copy overwrite="true" file="${conf.dir}/hibernate.properties.template" tofile="${build.dir}/hibernate.properties" />
+    <copy overwrite="true" file="${conf.dir}/applicationContext.xml" tofile="${build.dir}/applicationContext.xml" />
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_URL@" replace="${database.url}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_USER@" replace="${database.user}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_PASS@" replace="${database.password}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_DRIVER@" replace="${database.driver}" flags="g"/>
+    <replaceregexp file="${build.dir}/hibernate.properties" match="@DB_DIALECT@" replace="${database.dialect}" flags="g"/>
+  </target>
+  <target name="config-db-dicomFSC">
+    <copy overwrite="true" file="${conf.dir}/dbUpdator.properties.template" tofile="${build.dir}/dbUpdator.properties" />
+  	<copy overwrite="true" file="${conf.dir}/dbUpdatorLog4j.properties" tofile="${build.dir}/dbUpdatorLog4j.properties" />
+    <replaceregexp file="${build.dir}/dbUpdator.properties" match="@DB_URL@" replace="${database.url}" flags="g"/>
+    <replaceregexp file="${build.dir}/dbUpdator.properties" match="@DB_USER@" replace="${database.user}" flags="g"/>
+    <replaceregexp file="${build.dir}/dbUpdator.properties" match="@DB_PASS@" replace="${database.password}" flags="g"/>
+    <replaceregexp file="${build.dir}/dbUpdator.properties" match="@DB_DRIVER@" replace="${database.driver}" flags="g"/>
+  </target>
+	<target name="config-log4j">
+    <copy overwrite="true"
+          file="${conf.dir}/log4j.properties.template"
+          tofile="${ctp.dir.name}/CTP/log4j.properties" />
+  </target>
+
+  <target name="config-version">
+    <copy overwrite="true"
+          file="${conf.dir}/example-index.html.template"
+          tofile="${ctp.dir.name}/CTP/ROOT/example-index.html" />
+    <replaceregexp file="${ctp.dir.name}/CTP/ROOT/example-index.html"
+                   match="\{NCIA_RELEASE_VERSION\}"
+                   replace="${nbia.version}"
+                   flags="g" />
+    <replaceregexp file="${ctp.dir.name}/CTP/ROOT/example-index.html"
+                   match="\{NCIA_PROD_BUILD_TAG\}"
+                   replace="${nbia_prod_build_tag.final}"
+                   flags="g" />
+
+  </target>
+
+  <target name="build-dbadapter-jar" depends="config-db ">
+
+    <echo message="************************************************"/>
+    <echo message="*      building jar file         *"/>
+    <echo message="************************************************"/>
+    <copy overwrite="true" todir="${build.dir}/${xml.dir}">
+      <fileset dir="${src.dir}/${xml.dir}" includes="*.xml"/>
+    </copy>
+
+    <echo message="${output.dir}"/>
+    <jar destfile="${output.dir}/nbia.jar">
+      <manifest>
+        <attribute name="Implementation-Version" value="${today} @ ${now}"/>
+      </manifest>
+      <fileset dir="${build.dir}/"
+               includes="gov/nih/nci/nbia/**,
+                         dicom.properties,
+                         hibernate.properties,
+                         applicationContext.xml"/>
+    </jar>
+
+    <!-- if the nbia.jar had any extra runtime depedencies over and above what
+         is already in ctp... copy here too so its wrapped up in the ctp installer -->
+    <copy overwrite="true" todir="${ctp.library.dir}">
+      <fileset dir="${output.dir}/" includes="nbia.jar" />
+      <fileset dir="${lib.dir}/" includes="cedaraAIMMapping.jar" />
+      <fileset file="${nbia-domain.jar}"/>
+    </copy>
+  </target>
+	
+  <target name="build-dbFileUpdapter-jar" depends="config-db-dicomFSC">
+    <echo message="************************************************"/>
+    <echo message="*      building jar file         *"/>
+    <echo message="************************************************"/>
+    <copy overwrite="true" todir="${build.dir}/${xml.dir}">
+      <fileset dir="${src.dir}/${xml.dir}" includes="*.xml"/>
+    </copy>
+    <echo message="${output.dir}"/>
+    <echo message="${main.class}"/>
+  	<path id="jar.classpath">
+  	  <fileset dir="${project.lib.dir}/runtime">
+  	    <include name="**/*.jar" />
+  	  </fileset>
+  	</path>
+     <mkdir dir="${output.dir}/lib"/>
+    <jar jarfile="${output.dir}/lib/external-libs.jar">
+    <zipgroupfileset dir="${project.lib.dir}/runtime/">
+      <include name="**/spring*.jar"/>
+    </zipgroupfileset>
+    </jar>
+    <sleep seconds="2"/>
+    <jar jarfile="${output.dir}/lib/dependency-libs.jar">
+      <zipfileset src="${output.dir}/lib/external-libs.jar">
+        <exclude name="**/spring.handlers"/>
+      </zipfileset>
+    </jar>
+    <jar destfile="${output.dir}/nbiaDatabaseUpdator.jar">
+      <manifest>
+        <attribute name="Implementation-Version" value="${today} @ ${now}"/>
+      	<attribute name="Main-Class" value="${main.class}"/>
+      </manifest>
+      <fileset dir="${build.dir}/"
+               includes="gov/nih/nci/nbia/**,
+                         dbUpdator.properties,
+                         dicom.properties,
+      	                 hibernate.properties,
+      	                 applicationContext.xml,
+                         dbUpdatorLog4j.properties"/>
+      <!--fileset dir="${project.lib.dir}/compile" includes="commons-codec-1.3.jar, log4j-1.2.15.jar"/>
+      <fileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar"/-->	
+      <zipgroupfileset dir="${project.lib.dir}/compile" includes="log4j-1.2.15.jar,dcm4che-1.4.20.jar,nbia-domain-working@nbia-domain-resolver.jar,,log4j-1.2.15.jar,ctp-X56.jar" />
+      <zipgroupfileset dir="${project.lib.dir}/runtime" includes="mysql-connector-java-5.1.5.jar, ojdbc14-10.2.0.3.0.jar,commons*.jar, jta-1.0.1B.jar,dom4j-1.6.1.jar,c3p0-0.9.1.2.jar,hibernate-3.1.3.jar,a*.jar,cglib-2.1_3.jar" />
+      <zipgroupfileset dir="${output.dir}/lib" includes="dependency-libs.jar" />
+      <zipgroupfileset dir="${lib.dir}/" includes="cedaraAIMMapping.jar" />
+      <!--fileset dir="${project.lib.dir}/runtime" /--> 
+      <metainf  dir="${conf.dir}"  includes="**/spring.handlers" />     
+    </jar>
+    <delete dir="${output.dir}/lib" quiet="true"/>
+    <copy overwrite="true" file="${conf.dir}/dbupdator.sh" tofile="${output.dir}/dbupdator.sh"/>
+  </target>
+	
+  <target name="build-ctp-jar">
+    <jar jarfile="${output.dir}/CTP-installer.jar" basedir="${ctp.dir.name}"/>
+  </target>
+
+  <target name="pre-test" if="unit.testing">
+    <!-- sorry this is a little hack.... the properties files in assembly/classes screw up running unit
+         tests.  copy without the files in root class dir -->
+
+    <!-- copy OUT to fresh directory -->
+    <copy todir="${classes.to.test.dir}">
+      <fileset dir="${build.dir}">
+        <include name="**" />
+      </fileset>
+    </copy>
+    <!-- delete stuff at the top level, like properties files etc. -->
+    <delete>
+      <fileset dir="${classes.to.test.dir}" includes="*.*"/>
+    </delete>
+    <!-- copy all the root test stuff to where the OUT are...to replace the real properties files -->
+    <copy todir="${classes.to.test.dir}">
+      <fileset dir="${src.test.dir}" includes="*.*"/>
+    </copy>
+  </target>
+
+  <target name="all" depends="compile,
+                              copy-runtime,
+                              build-dbadapter-jar,
+                              build-dbFileUpdapter-jar,
+                              config-log4j,
+                              config-version,
+                              build-ctp-jar,
+                              pre-test,
+                              test,
+                              inspect"/>
+    <target name="allStandAlone" depends="compileStandAlone,
+                              copy-runtime,
+                              build-dbadapter-jar,
+    	                      build-dbFileUpdapter-jar,
+                              config-log4j,
+                              config-version,
+                              build-ctp-jar,
+                              pre-test,
+                              test,
+                              inspect"/>                           
+</project>

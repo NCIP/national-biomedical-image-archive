@@ -1,0 +1,823 @@
+<project name="nbia-macrodefs">
+
+ <macrodef name="branding">
+    <attribute name="webapp.dir.path"/>
+
+    <sequential>
+      <!--   add cancer center logo header if necessary -->
+      <if>
+        <or>
+          <not>
+            <isset property="cancer.center.logo"/>
+          </not>
+          <equals arg1="${cancer.center.logo}" arg2=""/>
+        </or>
+        <then>
+          <echo>No Cancer Center logo specified.  Substituting CCLOGO with empty string.</echo>
+        </then>
+        <else>
+          <basename property="cc.logo.filename" file="${cancer.center.logo}"/>
+          <copy file="${cancer.center.logo}" tofile="@{webapp.dir.path}/images/${cc.logo.filename}" />
+          <!-- in case no background image provided -->
+          <if>
+            <or>
+              <not>
+                <isset property="cancer.center.background" />
+              </not>
+              <equals arg1="${cancer.center.background}" arg2=""/>
+            </or>
+            <then>
+              <property name="cancer.center.background" value="whitebg.jpg" />
+              <basename property="cc.bgimage.filename" file="${cancer.center.background}"/>
+            </then>
+            <else>
+              <basename property="cc.bgimage.filename" file="${cancer.center.background}"/>
+              <copy file="${cancer.center.background}"
+                    tofile="@{webapp.dir.path}/images/${cc.bgimage.filename}" />
+            </else>
+          </if>
+
+          <basename property="cc.bgimage.filename" file="${cancer.center.background}"/>
+          <loadfile property="cc.logo.header"
+                    srcFile="@{webapp.dir.path}/WEB-INF/facelets/layout/ccHeader.xhtml">
+            <filterchain>
+              <expandproperties/>
+             </filterchain>
+          </loadfile>
+
+
+          <echo file="@{webapp.dir.path}/WEB-INF/facelets/layout/nciHeader.xhtml" append="false">${cc.logo.header}</echo>
+        </else>
+      </if>
+      <!-- end of external cancer center logo header  -->
+
+      <if>
+
+        <and>
+          <not>
+            <equals arg1="${branding.left.submenu.quicklinks.path}" arg2=""/>
+          </not>
+          <isset property="branding.left.submenu.quicklinks.path"/>
+        </and>
+
+        <then>
+          <copy file="${branding.left.submenu.quicklinks.path}"
+                tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/quickLinks.xhtml"
+                overwrite="true"/>
+        </then>
+      </if>
+
+      <if>
+
+        <and>
+          <not>
+            <equals arg1="${branding.welcome.image.path}" arg2=""/>
+          </not>
+          <isset property="branding.welcome.image.path"/>
+        </and>
+
+        <then>
+          <copy file="${branding.welcome.image.path}"
+                tofile="@{webapp.dir.path}/images/bannerHome.gif"
+                overwrite="true"/>
+        </then>
+      </if>
+
+      <if>
+
+        <and>
+          <not>
+            <equals arg1="${branding.welcome.text.path}" arg2=""/>
+          </not>
+          <isset property="branding.welcome.text.path"/>
+        </and>
+        <then>
+          <copy file="${branding.welcome.text.path}"
+                tofile="@{webapp.dir.path}/WEB-INF/facelets/welcomeText.xhtml"
+                overwrite="true"/>
+        </then>
+      </if>
+
+      <if>
+
+        <and>
+          <not>
+            <equals arg1="${branding.welcome.title.path}" arg2=""/>
+          </not>
+          <isset property="branding.welcome.title.path"/>
+        </and>
+        <then>
+          <copy file="${branding.welcome.title.path}"
+                tofile="@{webapp.dir.path}/WEB-INF/facelets/welcomeTitle.xhtml"
+                overwrite="true"/>
+        </then>
+      </if>
+
+      <if>
+        <and>
+          <not>
+            <equals arg1="${branding.applogo.visible}" arg2=""/>
+          </not>
+          <isset property="branding.applogo.visible"/>
+        </and>
+        <then>
+          <if>
+            <equals arg1="${branding.applogo.visible}" arg2="no"/>
+            <then>
+              <copy file="@{webapp.dir.path}/WEB-INF/facelets/layout/empty.xhtml"
+                    tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/appHeader.xhtml"
+                    overwrite="true"/>
+            </then>
+            <else>
+              <copy file="${branding.applogo.path}"
+                    tofile="@{webapp.dir.path}/images/Logo-NCIA.jpg"
+                    overwrite="true"/>
+            </else>
+          </if>
+        </then>
+      </if>
+
+      <if>
+        <and>
+          <not>
+            <equals arg1="${branding.footer.path}" arg2=""/>
+          </not>
+          <isset property="branding.footer.path"/>
+        </and>
+        <then>
+          <copy file="${branding.footer.path}"
+                tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/appFooter.xhtml"
+                overwrite="true"/>
+        </then>
+      </if>
+
+      <!-- xhtml dtd is a pain in the @$%$@#
+      <xmltask source="@{webapp.dir.path}/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml"
+               dest="@{webapp.dir.path}/WEB-INF/facelets/layout/mainLayoutTemplate.xhtml">
+        <xmlcatalog refid="bda.xml.catalog"/>
+        <replace path="//:title/*[local-name()='insert']/text()"
+                 withtext="${branding.window.title}" />
+
+      </xmltask>
+      -->
+
+    </sequential>
+
+  </macrodef>
+
+  <macrodef name="patch-properties">
+    <attribute name="file"/>
+    <attribute name="property.name"/>
+    <attribute name="property.value"/>
+
+    <sequential>
+      <replaceregexp file="@{file}"
+                     byline="true"
+                     match="^\s*@{property.name}\s*=(.*)$"
+                     replace="@{property.name}=@{property.value}"/>
+    </sequential>
+  </macrodef>
+
+
+  <macrodef name="patch-hibernate-cfg-jndi">
+    <attribute name="file"/>
+    <attribute name="datasource.name"/>
+
+
+    <sequential>
+      <xmltask source="@{file}"
+               dest="@{file}"
+               preservetype="true">
+        <!--
+        <xmlcatalog refid="bda.xml.catalog"/>
+          -->
+
+        <replace path="//property[@name='connection.datasource']/text()"
+                 withtext="@{datasource.name}" />
+      </xmltask>
+    </sequential>
+  </macrodef>
+
+
+  <macrodef name="patch-hibernate-cfg-direct">
+    <attribute name="file"/>
+    <attribute name="database.url" default="${database.url}"/>
+    <attribute name="database.user" default="${database.user}"/>
+    <attribute name="database.password" default="${database.password}"/>
+    <attribute name="database.driver" default="${database.driver}"/>
+    <attribute name="database.dialect" default="${database.dialect}"/>
+
+    <sequential>
+      <xmltask source="@{file}"
+               dest="@{file}"
+               preservetype="true">
+        <!--
+        <xmlcatalog refid="bda.xml.catalog"/>
+          -->
+
+        <replace path="//property[@name='hibernate.connection.url']/text()"
+                 withtext="@{database.url}" />
+        <replace path="//property[@name='hibernate.connection.username']/text()"
+                 withtext="@{database.user}" />
+        <replace path="//property[@name='hibernate.connection.password']/text()"
+                 withtext="@{database.password}" />
+        <replace path="//property[@name='hibernate.connection.driver_class']/text()"
+                 withtext="@{database.driver}" />
+        <replace path="//property[@name='dialect']/text()"
+                 withtext="@{database.dialect}" />
+
+      </xmltask>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="patch-hibernate-properties">
+    <attribute name="file"/>
+    <attribute name="database.url" default="${database.url}"/>
+    <attribute name="database.user" default="${database.user}"/>
+    <attribute name="database.password" default="${database.password}"/>
+    <attribute name="database.driver" default="${database.driver}"/>
+    <attribute name="database.dialect" default="${database.dialect}"/>
+
+    <sequential>
+      <replaceregexp file="@{file}"
+                     byline="true"
+                     match="^\s*hibernate.connection.url\s+(.*)$"
+                     replace="hibernate.connection.url @{database.url}"/>
+      <replaceregexp file="@{file}"
+                     byline="true"
+                     match="^\s*hibernate.connection.username\s+(.*)$"
+                     replace="hibernate.connection.username @{database.user}"/>
+      <replaceregexp file="@{file}"
+                     byline="true"
+                     match="^\s*hibernate.connection.password\s+(.*)$"
+                     replace="hibernate.connection.password @{database.password}"/>
+      <replaceregexp file="@{file}"
+                     byline="true"
+                     match="^\s*hibernate.connection.driver_class\s+(.*)$"
+                     replace="hibernate.connection.driver_class @{database.driver}"/>
+      <replaceregexp file="@{file}"
+                     byline="true"
+                     match="^\s*hibernate.dialect\s+(.*)$"
+                     replace="hibernate.dialect @{database.dialect}"/>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="comma-separated-file-list">
+    <attribute name="directory.to.list"/>
+    <attribute name="property.name.to.set"/>
+
+    <sequential>
+      <!-- having trouble referencing atttributes from inside groovy code -->
+      <var name="var.directory.to.list" value="@{directory.to.list}"/>
+      <var name="var.property.name.to.set" value="@{property.name.to.set}"/>
+
+      <groovy>
+        <![CDATA[
+        import java.io.File;
+
+        def dirToList = properties['var.directory.to.list'];
+        def nbiaDownloadMgrDir = new File(dirToList);
+
+        def jarFiles = nbiaDownloadMgrDir.listFiles();
+        def commaSeparatedFileList = new StringBuffer();
+        for(def i=0;i<jarFiles.length;i++) {
+            commaSeparatedFileList.append(jarFiles[i].getName());
+            if(i!=jarFiles.length-1) {
+                commaSeparatedFileList.append(",");
+            }
+        }
+        properties[properties['var.property.name.to.set']] = commaSeparatedFileList.toString();
+        ]]>
+      </groovy>
+    </sequential>
+
+  </macrodef>
+
+  <macrodef name="set-classpath-of-jar-manifest">
+    <attribute name="jar.file"/>
+    <attribute name="temp.dir"/>
+    <attribute name="classpath.value" default=""/>
+    <sequential>
+
+      <mkdir dir="@{temp.dir}"/>
+      <unjar src="@{jar.file}"
+             dest="@{temp.dir}"/>
+
+      <trycatch>
+        <try>
+          <manifest file="@{temp.dir}/meta-inf/Manifest.mf"
+                    mode="update">
+            <attribute name="Class-Path" value="@{classpath.value}"/>
+          </manifest>
+        </try>
+        <catch/>
+      </trycatch>
+
+      <trycatch>
+        <try>
+          <manifest file="@{temp.dir}/META-INF/MANIFEST.MF"
+                    mode="update">
+            <attribute name="Class-Path" value="@{classpath.value}"/>
+          </manifest>
+        </try>
+        <catch/>
+      </trycatch>
+
+      <delete file="@{jar.file}"/>
+      <jar destfile="@{jar.file}"
+           manifest="@{temp.dir}/META-INF/MANIFEST.MF">
+        <fileset dir="@{temp.dir}" includes="**/**" />
+      </jar>
+      <delete dir="@{temp.dir}"/>
+    </sequential>
+
+  </macrodef>
+
+  <!-- this will indent and put each attribute on its own line.
+       tried to do an XSLT... but the attribute stuff wasn't happening.
+       this groovy was actually fairly simple to put together... not sure how stable
+       it will be across versions of groovy... -->
+  <macrodef name="prettify-xml">
+    <attribute name="in.xml.file"/>
+    <attribute name="out.xml.file"/>
+    <sequential>
+      <!-- having trouble referencing atttributes from inside groovy code -->
+      <var name="unpretty.in.xml.file" value="@{in.xml.file}"/>
+      <var name="pretty.out.xml.file" value="@{out.xml.file}"/>
+
+      <groovy>
+        <![CDATA[
+        import org.xml.sax.SAXParseException;
+        import groovy.xml.QName;
+
+        class AttributePerLineXmlNodePrinter extends XmlNodePrinter {
+            public AttributePerLineXmlNodePrinter(PrintWriter pw) {
+                super(pw);
+            }
+
+            //override to tack on a beginning newline per element
+            protected void print(Node node, XmlNodePrinter$NamespaceContext ctx) {
+                out.println();
+                super.print(node, ctx);
+            }
+
+            //lifted from XmlNodePrinter to override attribute printing
+            protected void printNameAttributes(Map attributes, XmlNodePrinter$NamespaceContext ctx) {
+                if (attributes == null || attributes.isEmpty()) {
+                    return;
+                }
+
+                for (Object p : attributes.entrySet()) {
+                    Map.Entry entry = (Map.Entry) p;
+
+                    //begin - this is really the difference between this impl and super impl - 2 char indent hardcoded
+                    def numSpaces = (out.getIndentLevel()+1)*2;
+                    out.print("\n");
+                    for(def spaceIter=0;spaceIter<numSpaces;spaceIter++) {
+                        out.print(" ");
+                    }
+                    //end - difference
+
+                    out.print(" ");
+                    out.print(getName(entry.getKey()));
+                    out.print("=");
+                    Object value = entry.getValue();
+                    out.print(quote);
+                    if (value instanceof String) {
+                         printEscaped((String) value);
+                    }
+                    else {
+                         printEscaped(InvokerHelper.toString(value));
+                    }
+                    out.print(quote);
+                    printNamespace(entry.getKey(), ctx);
+                }
+            }
+
+            //private in super class - lifted outright
+            private String getName(Object object) {
+                if (object instanceof String) {
+                    return (String) object;
+                } else if (object instanceof QName) {
+                    QName qname = (QName) object;
+                    if (!namespaceAware) {
+                        return qname.getLocalPart();
+                    }
+                    return qname.getQualifiedName();
+                } else if (object instanceof Node) {
+                    Object name = ((Node) object).name();
+                    return getName(name);
+                }
+                return object.toString();
+            }
+
+
+            //private in super class - lifted with a tweak.  somehow setting char c = s.charAt screws things up in nonsensical way
+            private void printEscaped(String s) {
+                for (def i = 0; i < s.length(); i++) {
+                    switch (s[i]) {
+                        case '<':
+                          out.print("&lt;");
+                          break;
+                        case '>':
+                          out.print("&gt;");
+                          break;
+                        case '&':
+                          out.print("&amp;");
+                          break;
+                        case '\'':
+                          if (quote.equals("'"))
+                              out.print("&apos;");
+                          else
+                              out.print(s[i]);
+                          break;
+
+                        default:
+                          out.print(s[i]);
+                    }
+                }
+            }
+        }
+
+        def inXml = properties['unpretty.in.xml.file'];
+        def outXml = properties['pretty.out.xml.file'];
+
+        def outWriter = new PrintWriter(new FileWriter(new File(outXml)));
+        try {
+            def node = new XmlParser().parse(new File(inXml));
+            new AttributePerLineXmlNodePrinter(outWriter).print(node);
+
+        }
+        catch(SAXParseException spe) {
+            println spe.getMessage()
+        }
+        finally {
+            outWriter.close();
+        }
+        ]]>
+      </groovy>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="read-anonymous-access-allowed">
+    <attribute name="security.descriptor.file"
+               default="${ncia-core-grid.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/NCIACoreService-security-metadata.xml" />
+    <attribute name="anonymous.enabled.property.name" default="ncia-core-grid.anonymous.permitted"/>
+
+    <sequential>
+
+      <var name="anonymousPermitted.read" unset="true"/>
+
+      <xmltask source="@{security.descriptor.file}">
+        <!-- no xmlcatalog necessary -->
+        <copy path="//@anonymousPermitted[1]"
+              attrValue="true"
+              property="anonymousPermitted.read"/>
+      </xmltask>
+
+      <if>
+        <isset property="anonymousPermitted.read"/>
+        <then>
+          <property name="@{anonymous.enabled.property.name}" value="true"/>
+        </then>
+        <else>
+          <property name="@{anonymous.enabled.property.name}" value="false"/>
+        </else>
+      </if>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="read-grid-security-properties">
+    <attribute name="server.xml.file" default="${ncia-core-grid.jboss.home}/server/${ncia-core-grid.jboss.server.name}/deploy/jbossweb-tomcat55.sar/server.xml" />
+    <attribute name="grid.secure.key.property.name" default="ncia-core-grid.jboss.grid.secure.key.location"/>
+    <attribute name="grid.secure.cert.property.name" default="ncia-core-grid.jboss.grid.secure.cert.location"/>
+    <attribute name="grid.secure.port.property.name" default="ncia-core-grid.jboss.grid.secure.port"/>
+    <attribute name="external.grid.secure.port.property.name" default="ncia-core-grid.jboss.external.grid.secure.port"/>
+    <attribute name="external.grid.secure.host.property.name" default="ncia-core-grid.jboss.external.grid.secure.host"/>
+
+
+    <sequential>
+      <var name="key.read" unset="true"/>
+      <var name="cert.read" unset="true"/>
+      <var name="port.read" unset="true"/>
+      <var name="proxyPort.read" unset="true"/>
+      <var name="proxyName.read" unset="true"/>
+
+      <xmltask source="@{server.xml.file}">
+        <!-- no xmlcatalog necessary -->
+        <copy path="//Connector[@className='org.globus.tomcat.coyote.net.HTTPSConnector']/@key"
+              attrValue="true"
+              property="key.read"/>
+        <copy path="//Connector[@className='org.globus.tomcat.coyote.net.HTTPSConnector']/@cert"
+              attrValue="true"
+              property="cert.read"/>
+        <copy path="//Connector[@className='org.globus.tomcat.coyote.net.HTTPSConnector']/@port"
+              attrValue="true"
+              property="port.read"/>
+        <copy path="//Connector[@className='org.globus.tomcat.coyote.net.HTTPSConnector']/@proxyPort"
+              attrValue="true"
+              property="proxyPort.read"/>
+        <copy path="//Connector[@className='org.globus.tomcat.coyote.net.HTTPSConnector']/@proxyName"
+              attrValue="true"
+              property="proxyName.read"/>
+      </xmltask>
+
+      <if>
+        <isset property="key.read"/>
+        <then>
+          <property name="@{grid.secure.key.property.name}" value="${key.read}"/>
+        </then>
+      </if>
+
+      <if>
+        <isset property="cert.read"/>
+        <then>
+          <property name="@{grid.secure.cert.property.name}" value="${cert.read}"/>
+        </then>
+      </if>
+
+      <if>
+        <isset property="port.read"/>
+        <then>
+          <property name="@{grid.secure.port.property.name}" value="${port.read}"/>
+        </then>
+      </if>
+
+      <if>
+        <isset property="proxyPort.read"/>
+        <then>
+          <property name="@{external.grid.secure.port.property.name}" value="${proxyPort.read}"/>
+        </then>
+      </if>
+
+      <if>
+        <isset property="proxyName.read"/>
+        <then>
+          <property name="@{external.grid.secure.host.property.name}" value="${proxyName.read}"/>
+        </then>
+      </if>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="read-grid-security-enabled">
+    <attribute name="server.xml.file" default="${ncia-core-grid.jboss.home}/server/${ncia-core-grid.jboss.server.name}/deploy/jbossweb-tomcat55.sar/server.xml" />
+    <attribute name="enabled.property.name" default="ncia-core-grid.jboss.grid.secure.enable"/>
+
+    <sequential>
+      <var name="secure.valve.read" unset="true"/>
+
+      <xmltask source="@{server.xml.file}">
+        <!-- no xmlcatalog necessary -->
+        <copy path="//Valve[@className='org.globus.tomcat.coyote.valves.HTTPSValve55']/@className"
+              attrValue="true"
+              property="secure.valve.read"/>
+      </xmltask>
+
+      <if>
+        <isset property="secure.valve.read"/>
+        <then>
+          <property name="@{enabled.property.name}" value="true"/>
+        </then>
+        <else>
+          <property name="@{enabled.property.name}" value="false"/>
+        </else>
+      </if>
+
+    </sequential>
+  </macrodef>
+
+  <macrodef name="read-ncia-core-grid-target-grid">
+    <attribute name="registration.file" default="${ncia-core-grid.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/NCIACoreService_registration.xml" />
+
+    <sequential>
+      <var name="index.service.read" unset="true"/>
+
+      <xmltask source="@{registration.file}" failWithoutMatch="false">
+        <!-- no xmlcatalog necessary -->
+        <copy path="//wsa:Address/text()"
+              property="index.service.read"/>
+      </xmltask>
+
+      <groovy>
+         def indexServiceUrl = properties["index.service.read"];
+         if(indexServiceUrl ==~ /.*\:\/\/cagrid-index-stage.*/) {
+             properties["grid.target"] = "nci_stage-1.3";
+         }
+         else { //default to prod
+             properties["grid.target"] = "nci_prod-1.3";
+         }
+      </groovy>
+
+    </sequential>
+  </macrodef>
+
+  <macrodef name="read-ncia-core-grid-jndi-config">
+    <attribute name="jndi.config.file" default="${ncia-core-grid.wsrf.path}/WEB-INF/etc/cagrid_NCIACoreService/jndi-config.xml" />
+    <attribute name="tempZipLocation.property" default="ncia-core-grid.tempZipLocation" />
+    <attribute name="thumbnailUrl.property" default="ncia-core-grid.jboss.thumbnailUrl" />
+
+    <sequential>
+
+      <var name="ncia-core-grid.tempZipLocation.read" unset="true"/>
+      <var name="ncia-core-grid.jboss.thumbnailUrl.read" unset="true"/>
+
+      <xmltask source="@{jndi.config.file}" failWithoutMatch="false">
+        <!-- no xmlcatalog necessary -->
+        <copy path="//:parameter[:name='tempZipLocation']/:value/text()"
+              property="ncia-core-grid.tempZipLocation.read"/>
+        <copy path="//:parameter[:name='thumbnailUrl']/:value/text()"
+              property="ncia-core-grid.jboss.thumbnailUrl.read"/>
+      </xmltask>
+
+      <if>
+        <isset property="ncia-core-grid.tempZipLocation.read"/>
+        <then>
+          <property name="@{tempZipLocation.property}" value="${ncia-core-grid.tempZipLocation.read}"/>
+        </then>
+      </if>
+
+      <if>
+        <isset property="ncia-core-grid.jboss.thumbnailUrl.read"/>
+        <then>
+          <property name="@{thumbnailUrl.property}" value="${ncia-core-grid.jboss.thumbnailUrl.read}"/>
+        </then>
+      </if>
+    </sequential>
+  </macrodef>
+
+
+  <macrodef name="read-property-from-properties-service">
+    <attribute name="properties-service-xml.file"/>
+    <attribute name="property.name"/>
+
+    <sequential>
+
+      <var name="@{property.name}.read" unset="true"/>
+
+      <xmltask source="@{properties-service-xml.file}">
+        <!-- no xmlcatalog necessary -->
+        <!-- trim + starts-with would be better than contains, but requires xpath 2 -->
+        <copy path="//attribute[@name='Properties']/text()[contains(.,'@{property.name}=')]"
+              property="@{property.name}.read"/>
+
+      </xmltask>
+
+      <if>
+        <and>
+          <not>
+            <isset property="@{property.name}"/>
+          </not>
+          <isset property="@{property.name}.read"/>
+        </and>
+        <then>
+          <groovy>
+            def tempProperty = properties["@{property.name}.read"];
+            if(tempProperty==null) {
+                println "Warning: could not read property @{property.name}";
+            }
+            else {
+                def equalIndex = tempProperty.indexOf('=');
+                if(equalIndex==-1) {
+                    println "Warning: malformed property @{property.name} has no equal";
+                }
+                else {
+                    properties["@{property.name}"] = tempProperty.substring(equalIndex+1).trim();
+                }
+            }
+          </groovy>
+        </then>
+      </if>
+
+    </sequential>
+  </macrodef>
+
+  <macrodef name="run-sql-script-ncia" description="By default this will use the database.url, to use drop database &amp; user use the database.system.url property">
+    <attribute name="sql"/>
+    <attribute name="output.file"/>
+    <attribute name="sql.delimiter" default=";" />
+    <attribute name="sql.delimitertype" default="normal" />
+    <attribute name="database.url" default="${database.url}" />
+    <attribute name="database.user" default="${database.user}" />
+    <attribute name="database.password" default="${database.password}" />
+    <attribute name="onerror" default="abort" />
+    <sequential>
+      <sql driver="${database.driver}" print="yes" output="@{output.file}" url="@{database.url}" userid="@{database.user}" password="@{database.password}"  onerror="@{onerror}" autocommit="true" delimiter="@{sql.delimiter}" delimitertype="@{sql.delimitertype}" keepformat="true">
+        <classpath>
+          <pathelement location="${database.driver.file}" />
+        </classpath>
+        <![CDATA[
+        @{sql}
+        ]]>
+      </sql>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="read-second-line">
+    <attribute name="in.property.name"/>
+    <attribute name="out.property.name"/>
+    <sequential>
+      <groovy>
+        <![CDATA[
+        def content = properties['@{in.property.name}'];
+        def firstNewLineIndex = content.indexOf('\n');
+
+        if(firstNewLineIndex!=-1) {
+            def secondNewLineIndex = content.indexOf('\n',firstNewLineIndex+1);
+
+            if(secondNewLineIndex!=-1) {
+                properties['@{out.property.name}'] = content.substring(firstNewLineIndex+1, secondNewLineIndex).trim();
+            }
+            else {
+                ant.fail(message:"Second newline missing in results: "+content);
+            }
+        }
+        else {
+            ant.fail(message:"First newline missing in results: "+content);
+        }
+        ]]>
+      </groovy>
+    </sequential>
+  </macrodef>
+
+
+  <!-- need this to remove signature from bouncycastle/cryptix so it can be included in webstart
+       otherwise ws will freak out if jars signed by different certs -->
+  <macrodef name="unsignjar">
+
+    <attribute name="jar"/>
+
+    <sequential>
+      <!-- Remove any existing signatures from a JAR file. -->
+      <tempfile prefix="usignjar-" destdir="${java.io.tmpdir}" property="temp.file"/>
+      <echo message="Removing signatures from JAR: @{jar}"/>
+      <mkdir dir="${temp.file}"/>
+
+      <unjar src="@{jar}" dest="${temp.file}">
+        <patternset>
+          <include name="**"/>
+          <exclude name="META-INF/*.SF"/>
+          <exclude name="META-INF/*.DSA"/>
+          <exclude name="META-INF/*.RSA"/>
+        </patternset>
+      </unjar>
+
+      <delete file="@{jar}" failonerror="true"/>
+
+      <!-- Touch it in case the file didn't have a manifest.
+           Otherwise the JAR task below will fail if the manifest
+           file doesn't exist. -->
+      <mkdir dir="${temp.file}/META-INF"/>
+      <touch file="${temp.file}/META-INF/MANIFEST.MF"/>
+
+      <jar destfile="@{jar}"
+           basedir="${temp.file}"
+           includes="**"
+           manifest="${temp.file}/META-INF/MANIFEST.MF"/>
+
+      <delete dir="${temp.file}" failonerror="true"/>
+    </sequential>
+  </macrodef>
+
+  <!-- try this to deal with upgrade reader results not being used in substitution -->
+  <!-- parameterize common.dir.dest and common.dir.src if you care... -->
+  <macrodef name="special-copy-for-upgrade">
+    <sequential>
+      <echo>Calling special-copy-for-upgrade</echo>
+      <groovy>
+        <![CDATA[
+        def exclude(propertyName) {
+            def prefixesToExclude = ['ant.', 'env.', 'sun.', 'java.']
+            return prefixesToExclude.find { propertyName.startsWith(it) } != null
+        }
+
+        def constructFilterSetFromInMemoryProperties() {
+            def filterSet = new org.apache.tools.ant.types.FilterSet()
+            filterSet.setBeginToken("@");
+            filterSet.setEndToken("@");
+
+            for(def propertyName in properties.keySet()) {
+                if(exclude(propertyName)) {
+                   continue;
+                }
+                //println "propertyName:"+propertyName+"="+properties[propertyName]
+                filterSet.addFilter(propertyName, properties[propertyName])
+            }
+            return filterSet;
+        }
+
+        project.addReference("upgrade_filtering",
+                             constructFilterSetFromInMemoryProperties())
+        ]]>
+      </groovy>
+
+      <copy todir="${common.dir.dest}" filtering="true" overwrite="true">
+        <fileset dir="${common.dir.src}">
+          <include name="**/*"/>
+        </fileset>
+        <filterset refid="upgrade_filtering"/>
+      </copy>
+    </sequential>
+  </macrodef>
+
+
+</project>

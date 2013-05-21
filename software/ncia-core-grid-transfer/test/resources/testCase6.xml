@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:CQLQuery xmlns:ns1="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery">
+ <ns1:Target name="gov.nih.nci.ncia.domain.Patient" xsi:type="ns1:Object" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ns1:Group logicRelation="AND" xsi:type="ns1:Group">
+   <ns1:Association name="gov.nih.nci.ncia.domain.Study" roleName="studyCollection" xsi:type="ns1:Association">
+    <ns1:Association name="gov.nih.nci.ncia.domain.Series" roleName="seriesCollection" xsi:type="ns1:Association">
+     	<ns1:Attribute name="modality" predicate="EQUAL_TO" value="CT" xsi:type="ns1:Attribute"/>
+    </ns1:Association>
+   </ns1:Association>
+   <ns1:Association name="gov.nih.nci.ncia.domain.Study" roleName="studyCollection" xsi:type="ns1:Association">
+    <ns1:Association name="gov.nih.nci.ncia.domain.Series" roleName="seriesCollection" xsi:type="ns1:Association">
+     	<ns1:Attribute name="modality" predicate="EQUAL_TO" value="PT" xsi:type="ns1:Attribute"/>
+    </ns1:Association>
+   </ns1:Association>
+   <ns1:Association name="gov.nih.nci.ncia.domain.TrialDataProvenance" roleName="dataProvenance" xsi:type="ns1:Association">
+    <ns1:Attribute name="project" predicate="EQUAL_TO" value="Phantom" xsi:type="ns1:Attribute"/>
+   </ns1:Association>
+  </ns1:Group>
+ </ns1:Target>
+</ns1:CQLQuery>

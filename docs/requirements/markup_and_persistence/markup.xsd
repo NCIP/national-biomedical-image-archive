@@ -1,0 +1,3419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:openeyes.data.dicom.Dicom/Dicom.xml" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rf="urn:openeyes.imaging.volume.Renderer3D/infoset.xml" xmlns="urn:openeyes.data.dicom.Dicom/Dicom.xml">
+  <xs:annotation>
+    <xs:documentation>Copyright &#xa9; 2002 - 2007 Cedara Software Corporation. All rights reserved.</xs:documentation>
+    <xs:documentation>Generated Sep 26, 2007 12:00:58</xs:documentation>
+  </xs:annotation>
+  <xs:element name="PresentationState">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="specificCharacterSet" minOccurs="0" />
+        <xs:element ref="instanceCreationDate" minOccurs="0" />
+        <xs:element ref="instanceCreationTime" minOccurs="0" />
+        <xs:element ref="instanceCreatorUid" minOccurs="0" />
+        <xs:element ref="sopClassUid" minOccurs="0" />
+        <xs:element ref="sopInstanceUid" minOccurs="0" />
+        <xs:element ref="relatedGeneralSOPClassUid" minOccurs="0" />
+        <xs:element ref="originalSpecializedSOPClassUid" minOccurs="0" />
+        <xs:element ref="studyDate" minOccurs="0" />
+        <xs:element ref="seriesDate" minOccurs="0" />
+        <xs:element ref="studyTime" minOccurs="0" />
+        <xs:element ref="seriesTime" minOccurs="0" />
+        <xs:element ref="accessionNumber" minOccurs="0" />
+        <xs:element ref="modality" minOccurs="0" />
+        <xs:element ref="manufacturer" minOccurs="0" />
+        <xs:element ref="institutionName" minOccurs="0" />
+        <xs:element ref="institutionAddress" minOccurs="0" />
+        <xs:element ref="referringPhysicianName" minOccurs="0" />
+        <xs:element ref="stationName" minOccurs="0" />
+        <xs:element ref="studyDescription" minOccurs="0" />
+        <xs:element ref="procedureCodeSequence" minOccurs="0" />
+        <xs:element ref="seriesDescription" minOccurs="0" />
+        <xs:element ref="institutionalDepartmentName" minOccurs="0" />
+        <xs:element ref="physiciansOfRecord" minOccurs="0" />
+        <xs:element ref="performingPhysicianName" minOccurs="0" />
+        <xs:element ref="nameOfPhysiciansReadingStudy" minOccurs="0" />
+        <xs:element ref="operatorsName" minOccurs="0" />
+        <xs:element ref="admittingDiagnosesDescription" minOccurs="0" />
+        <xs:element ref="manufacturersModelName" minOccurs="0" />
+        <xs:element ref="referencedSeriesSequence" minOccurs="0" />
+        <xs:element ref="relatedSeriesSequence" minOccurs="0" />
+        <xs:element ref="patientName" minOccurs="0" />
+        <xs:element ref="patientId" minOccurs="0" />
+        <xs:element ref="issuerOfPatientId" minOccurs="0" />
+        <xs:element ref="patientBirthDate" minOccurs="0" />
+        <xs:element ref="patientBirthTime" minOccurs="0" />
+        <xs:element ref="patientSex" minOccurs="0" />
+        <xs:element ref="otherPatientIds" minOccurs="0" />
+        <xs:element ref="otherPatientNames" minOccurs="0" />
+        <xs:element ref="patientAge" minOccurs="0" />
+        <xs:element ref="patientSize" minOccurs="0" />
+        <xs:element ref="patientWeight" minOccurs="0" />
+        <xs:element ref="ethnicGroup" minOccurs="0" />
+        <xs:element ref="occupation" minOccurs="0" />
+        <xs:element ref="additionalPatientHistory" minOccurs="0" />
+        <xs:element ref="patientComments" minOccurs="0" />
+        <xs:element ref="bodyPartExamined" minOccurs="0" />
+        <xs:element ref="deviceSerialNumber" minOccurs="0" />
+        <xs:element ref="softwareVersions" minOccurs="0" />
+        <xs:element ref="protocolName" minOccurs="0" />
+        <xs:element ref="spatialResolution" minOccurs="0" />
+        <xs:element ref="dateOfLastCalibration" minOccurs="0" />
+        <xs:element ref="timeOfLastCalibration" minOccurs="0" />
+        <xs:element ref="shutterShape" minOccurs="0" />
+        <xs:element ref="shutterLeftVerticalEdge" minOccurs="0" />
+        <xs:element ref="shutterRightVerticalEdge" minOccurs="0" />
+        <xs:element ref="shutterUpperHorizontalEdge" minOccurs="0" />
+        <xs:element ref="shutterLowerHorizontalEdge" minOccurs="0" />
+        <xs:element ref="centerOfCircularShutter" minOccurs="0" />
+        <xs:element ref="radiusOfCircularShutter" minOccurs="0" />
+        <xs:element ref="verticesOfThePolygonalShutter" minOccurs="0" />
+        <xs:element ref="shutterPresentationValue" minOccurs="0" />
+        <xs:element ref="patientPosition" minOccurs="0" />
+        <xs:element ref="studyInstanceUid" minOccurs="0" />
+        <xs:element ref="seriesInstanceUid" minOccurs="0" />
+        <xs:element ref="studyId" minOccurs="0" />
+        <xs:element ref="seriesNumber" minOccurs="0" />
+        <xs:element ref="instanceNumber" minOccurs="0" />
+        <xs:element ref="laterality" minOccurs="0" />
+        <xs:element ref="smallestPixelValueInSeries" minOccurs="0" />
+        <xs:element ref="largestPixelValueInSeries" minOccurs="0" />
+        <xs:element ref="pixelPaddingValue" minOccurs="0" />
+        <xs:element ref="rescaleIntercept" minOccurs="0" />
+        <xs:element ref="rescaleSlope" minOccurs="0" />
+        <xs:element ref="rescaleType" minOccurs="0" />
+        <xs:element ref="recommendedViewingMode" minOccurs="0" />
+        <xs:element ref="modalityLutSequence" minOccurs="0" />
+        <xs:element ref="softcopyVoiLutSequence" minOccurs="0" />
+        <xs:element ref="performedStationAeTitle" minOccurs="0" />
+        <xs:element ref="performedStationName" minOccurs="0" />
+        <xs:element ref="performedLocation" minOccurs="0" />
+        <xs:element ref="performedProcedureStepStartDate" minOccurs="0" />
+        <xs:element ref="performedProcedureStepStartTime" minOccurs="0" />
+        <xs:element ref="performedProcedureStepEndDate" minOccurs="0" />
+        <xs:element ref="performedProcedureStepEndTime" minOccurs="0" />
+        <xs:element ref="performedProcedureStepStatus" minOccurs="0" />
+        <xs:element ref="performedProcedureStepId" minOccurs="0" />
+        <xs:element ref="performedProcedureStepDescription" minOccurs="0" />
+        <xs:element ref="performedProcedureTypeDescription" minOccurs="0" />
+        <xs:element ref="performedActionItemSequence" minOccurs="0" />
+        <xs:element ref="requestAttributesSequence" minOccurs="0" />
+        <xs:element ref="commentsOnThePerformedProcedureSteps" minOccurs="0" />
+        <xs:element ref="graphicAnnotationSequence" minOccurs="0" />
+        <xs:element ref="imageHorizontalFlip" minOccurs="0" />
+        <xs:element ref="imageRotation" minOccurs="0" />
+        <xs:element ref="displayedAreaSelectionSequence" minOccurs="0" />
+        <xs:element ref="graphicLayerSequence" minOccurs="0" />
+        <xs:element ref="presentationLabel" minOccurs="0" />
+        <xs:element ref="presentationDescription" minOccurs="0" />
+        <xs:element ref="presentationCreationDate" minOccurs="0" />
+        <xs:element ref="presentationCreationTime" minOccurs="0" />
+        <xs:element ref="presentationCreatorName" minOccurs="0" />
+        <xs:element ref="presentationStateXRayContrastTransferTaste" minOccurs="0" />
+        <xs:element ref="glTrafoType" minOccurs="0" />
+        <xs:element ref="generatedVOIGlTrafo" minOccurs="0" />
+        <xs:element ref="generatedDA" minOccurs="0" />
+        <xs:element ref="processingOrderSpecialization" minOccurs="0" />
+        <xs:element ref="imageRotationOffset" minOccurs="0" />
+        <xs:element ref="presentationBackgroundColor" minOccurs="0" />
+        <xs:element ref="referencedPseudoSeriesSequence" minOccurs="0" />
+        <xs:element ref="presentationLutSequence" minOccurs="0" />
+        <xs:element ref="presentationLutShape" minOccurs="0" />
+        <xs:element ref="measurementSequence" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="specificCharacterSet">
+    <xs:annotation>
+      <xs:appinfo>0008,0005 CS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instanceCreationDate">
+    <xs:annotation>
+      <xs:appinfo>0008,0012 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instanceCreationTime">
+    <xs:annotation>
+      <xs:appinfo>0008,0013 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instanceCreatorUid">
+    <xs:annotation>
+      <xs:appinfo>0008,0014 UI 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sopClassUid">
+    <xs:annotation>
+      <xs:appinfo>0008,0016 UI 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="1.2.840.10008.5.1.4.1.1.11.1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sopInstanceUid">
+    <xs:annotation>
+      <xs:appinfo>0008,0018 UI 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="relatedGeneralSOPClassUid">
+    <xs:annotation>
+      <xs:appinfo>0008,001a UI 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="originalSpecializedSOPClassUid">
+    <xs:annotation>
+      <xs:appinfo>0008,001b UI 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="studyDate">
+    <xs:annotation>
+      <xs:appinfo>0008,0020 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesDate">
+    <xs:annotation>
+      <xs:appinfo>0008,0021 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="studyTime">
+    <xs:annotation>
+      <xs:appinfo>0008,0030 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesTime">
+    <xs:annotation>
+      <xs:appinfo>0008,0031 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="accessionNumber">
+    <xs:annotation>
+      <xs:appinfo>0008,0050 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="modality">
+    <xs:annotation>
+      <xs:appinfo>0008,0060 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="PR" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="manufacturer">
+    <xs:annotation>
+      <xs:appinfo>0008,0070 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="institutionName">
+    <xs:annotation>
+      <xs:appinfo>0008,0080 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="institutionAddress">
+    <xs:annotation>
+      <xs:appinfo>0008,0081 ST 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referringPhysicianName">
+    <xs:annotation>
+      <xs:appinfo>0008,0090 PN 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="stationName">
+    <xs:annotation>
+      <xs:appinfo>0008,1010 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="studyDescription">
+    <xs:annotation>
+      <xs:appinfo>0008,1030 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="procedureCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0008,1032 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesDescription">
+    <xs:annotation>
+      <xs:appinfo>0008,103e LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="institutionalDepartmentName">
+    <xs:annotation>
+      <xs:appinfo>0008,1040 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="physiciansOfRecord">
+    <xs:annotation>
+      <xs:appinfo>0008,1048 PN 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performingPhysicianName">
+    <xs:annotation>
+      <xs:appinfo>0008,1050 PN 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="nameOfPhysiciansReadingStudy">
+    <xs:annotation>
+      <xs:appinfo>0008,1060 PN 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="operatorsName">
+    <xs:annotation>
+      <xs:appinfo>0008,1070 PN 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="admittingDiagnosesDescription">
+    <xs:annotation>
+      <xs:appinfo>0008,1080 LO 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="manufacturersModelName">
+    <xs:annotation>
+      <xs:appinfo>0008,1090 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedSeriesSequence">
+    <xs:annotation>
+      <xs:appinfo>0008,1115 SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ImagesPerSeriesReference" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="relatedSeriesSequence">
+    <xs:annotation>
+      <xs:appinfo>0008,1250 SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="RelatedSeries" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientName">
+    <xs:annotation>
+      <xs:appinfo>0010,0010 PN 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientId">
+    <xs:annotation>
+      <xs:appinfo>0010,0020 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="issuerOfPatientId">
+    <xs:annotation>
+      <xs:appinfo>0010,0021 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientBirthDate">
+    <xs:annotation>
+      <xs:appinfo>0010,0030 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientBirthTime">
+    <xs:annotation>
+      <xs:appinfo>0010,0032 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientSex">
+    <xs:annotation>
+      <xs:appinfo>0010,0040 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="otherPatientIds">
+    <xs:annotation>
+      <xs:appinfo>0010,1000 LO 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="otherPatientNames">
+    <xs:annotation>
+      <xs:appinfo>0010,1001 PN 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientAge">
+    <xs:annotation>
+      <xs:appinfo>0010,1010 AS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientSize">
+    <xs:annotation>
+      <xs:appinfo>0010,1020 DS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientWeight">
+    <xs:annotation>
+      <xs:appinfo>0010,1030 DS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ethnicGroup">
+    <xs:annotation>
+      <xs:appinfo>0010,2160 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="occupation">
+    <xs:annotation>
+      <xs:appinfo>0010,2180 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="additionalPatientHistory">
+    <xs:annotation>
+      <xs:appinfo>0010,21b0 LT 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientComments">
+    <xs:annotation>
+      <xs:appinfo>0010,4000 LT 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bodyPartExamined">
+    <xs:annotation>
+      <xs:appinfo>0018,0015 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="deviceSerialNumber">
+    <xs:annotation>
+      <xs:appinfo>0018,1000 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="softwareVersions">
+    <xs:annotation>
+      <xs:appinfo>0018,1020 LO 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="protocolName">
+    <xs:annotation>
+      <xs:appinfo>0018,1030 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="spatialResolution">
+    <xs:annotation>
+      <xs:appinfo>0018,1050 DS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dateOfLastCalibration">
+    <xs:annotation>
+      <xs:appinfo>0018,1200 DA 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="timeOfLastCalibration">
+    <xs:annotation>
+      <xs:appinfo>0018,1201 TM 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="shutterShape">
+    <xs:annotation>
+      <xs:appinfo>0018,1600 CS 1-3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="RECTANGULAR" />
+          <xs:enumeration value="CIRCULAR" />
+          <xs:enumeration value="POLYGONAL" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="shutterLeftVerticalEdge">
+    <xs:annotation>
+      <xs:appinfo>0018,1602 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="shutterRightVerticalEdge">
+    <xs:annotation>
+      <xs:appinfo>0018,1604 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="shutterUpperHorizontalEdge">
+    <xs:annotation>
+      <xs:appinfo>0018,1606 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="shutterLowerHorizontalEdge">
+    <xs:annotation>
+      <xs:appinfo>0018,1608 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="centerOfCircularShutter">
+    <xs:annotation>
+      <xs:appinfo>0018,1610 IS 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="radiusOfCircularShutter">
+    <xs:annotation>
+      <xs:appinfo>0018,1612 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="verticesOfThePolygonalShutter">
+    <xs:annotation>
+      <xs:appinfo>0018,1620 IS 2-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="shutterPresentationValue">
+    <xs:annotation>
+      <xs:appinfo>0018,1622 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="patientPosition">
+    <xs:annotation>
+      <xs:appinfo>0018,5100 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="studyInstanceUid">
+    <xs:annotation>
+      <xs:appinfo>0020,000d UI 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesInstanceUid">
+    <xs:annotation>
+      <xs:appinfo>0020,000e UI 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="studyId">
+    <xs:annotation>
+      <xs:appinfo>0020,0010 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesNumber">
+    <xs:annotation>
+      <xs:appinfo>0020,0011 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instanceNumber">
+    <xs:annotation>
+      <xs:appinfo>0020,0013 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="laterality">
+    <xs:annotation>
+      <xs:appinfo>0020,0060 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="smallestPixelValueInSeries">
+    <xs:annotation>
+      <xs:appinfo>0028,0108 US;SS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="largestPixelValueInSeries">
+    <xs:annotation>
+      <xs:appinfo>0028,0109 US;SS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="pixelPaddingValue">
+    <xs:annotation>
+      <xs:appinfo>0028,0120 US;SS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rescaleIntercept">
+    <xs:annotation>
+      <xs:appinfo>0028,1052 DS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rescaleSlope">
+    <xs:annotation>
+      <xs:appinfo>0028,1053 DS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rescaleType">
+    <xs:annotation>
+      <xs:appinfo>0028,1054 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="recommendedViewingMode">
+    <xs:annotation>
+      <xs:appinfo>0028,1090 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="SUB" />
+          <xs:enumeration value="NAT" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="modalityLutSequence">
+    <xs:annotation>
+      <xs:appinfo>0028,3000 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ModalityLUTReference" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="softcopyVoiLutSequence">
+    <xs:annotation>
+      <xs:appinfo>0028,3110 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="VOIGLTrafo" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedStationAeTitle">
+    <xs:annotation>
+      <xs:appinfo>0040,0241 AE 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedStationName">
+    <xs:annotation>
+      <xs:appinfo>0040,0242 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedLocation">
+    <xs:annotation>
+      <xs:appinfo>0040,0243 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepStartDate">
+    <xs:annotation>
+      <xs:appinfo>0040,0244 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepStartTime">
+    <xs:annotation>
+      <xs:appinfo>0040,0245 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepEndDate">
+    <xs:annotation>
+      <xs:appinfo>0040,0250 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepEndTime">
+    <xs:annotation>
+      <xs:appinfo>0040,0251 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepStatus">
+    <xs:annotation>
+      <xs:appinfo>0040,0252 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepId">
+    <xs:annotation>
+      <xs:appinfo>0040,0253 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureStepDescription">
+    <xs:annotation>
+      <xs:appinfo>0040,0254 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedProcedureTypeDescription">
+    <xs:annotation>
+      <xs:appinfo>0040,0255 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="performedActionItemSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,0260 SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActionItemCode" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="requestAttributesSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,0275 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="RequestAttributesReference" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="commentsOnThePerformedProcedureSteps">
+    <xs:annotation>
+      <xs:appinfo>0040,0280 ST 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationSequence">
+    <xs:annotation>
+      <xs:appinfo>0070,0001 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GraphicAnnotation" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="imageHorizontalFlip">
+    <xs:annotation>
+      <xs:appinfo>0070,0041 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="imageRotation">
+    <xs:annotation>
+      <xs:appinfo>0070,0042 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="displayedAreaSelectionSequence">
+    <xs:annotation>
+      <xs:appinfo>0070,005a SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DisplayedAreaSelection" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLayerSequence">
+    <xs:annotation>
+      <xs:appinfo>0070,0060 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GraphicLayer" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationLabel">
+    <xs:annotation>
+      <xs:appinfo>0070,0080 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationDescription">
+    <xs:annotation>
+      <xs:appinfo>0070,0081 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationCreationDate">
+    <xs:annotation>
+      <xs:appinfo>0070,0082 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationCreationTime">
+    <xs:annotation>
+      <xs:appinfo>0070,0083 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationCreatorName">
+    <xs:annotation>
+      <xs:appinfo>0070,0084 PN 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationStateXRayContrastTransferTaste">
+    <xs:annotation>
+      <xs:appinfo>2001,1076 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="glTrafoType">
+    <xs:annotation>
+      <xs:appinfo>2001,1077 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="LINEARMODALITY" />
+          <xs:enumeration value="NL_MODALITY" />
+          <xs:enumeration value="LINEARVOI" />
+          <xs:enumeration value="NONLINEARVOI" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="generatedVOIGlTrafo">
+    <xs:annotation>
+      <xs:appinfo>2001,1078 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="generatedDA">
+    <xs:annotation>
+      <xs:appinfo>2001,1081 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="processingOrderSpecialization">
+    <xs:annotation>
+      <xs:appinfo>2001,1094 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="imageRotationOffset">
+    <xs:annotation>
+      <xs:appinfo>2007,5094 FD 3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationBackgroundColor">
+    <xs:annotation>
+      <xs:appinfo>2007,5095 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedPseudoSeriesSequence">
+    <xs:annotation>
+      <xs:appinfo>2007,510a SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PseudoImagesPerSeriesReference" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationLutSequence">
+    <xs:annotation>
+      <xs:appinfo>2050,0010 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LUT" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationLutShape">
+    <xs:annotation>
+      <xs:appinfo>2050,0020 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="IDENTITY" />
+          <xs:enumeration value="INVERSE" />
+          <xs:enumeration value="LIN OD" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="measurementSequence">
+    <xs:annotation>
+      <xs:appinfo>6509,1801 SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Measurement" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Code">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="codeValue" minOccurs="0" />
+        <xs:element ref="codingSchemeDesignator" minOccurs="0" />
+        <xs:element ref="codingSchemeVersion" minOccurs="0" />
+        <xs:element ref="codeMeaning" minOccurs="0" />
+        <xs:element ref="mappingResource" minOccurs="0" />
+        <xs:element ref="contextGroupVersion" minOccurs="0" />
+        <xs:element ref="contextGroupLocalVersion" minOccurs="0" />
+        <xs:element ref="codeSetExtensionFlag" minOccurs="0" />
+        <xs:element ref="privateCodingSchemeCreatorUid" minOccurs="0" />
+        <xs:element ref="codeSetExtensionCreatorUid" minOccurs="0" />
+        <xs:element ref="contextIdentifier" minOccurs="0" />
+        <xs:element ref="conceptCodeSequence" minOccurs="0" />
+        <xs:element ref="codeViewModifier" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImagesPerSeriesReference">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="referencedImageSequence" minOccurs="0" />
+        <xs:element ref="seriesInstanceUid" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RelatedSeries">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="studyInstanceUid" minOccurs="0" />
+        <xs:element ref="seriesInstanceUid" minOccurs="0" />
+        <xs:element ref="purposeOfReferenceCodeSequence" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModalityLUTReference">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="lutDescriptor" minOccurs="0" />
+        <xs:element ref="lutExplanation" minOccurs="0" />
+        <xs:element ref="modalityLutType" minOccurs="0" />
+        <xs:element ref="lutData" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VOIGLTrafo">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="referencedImageSequence" minOccurs="0" />
+        <xs:element ref="windowCenter" minOccurs="0" />
+        <xs:element ref="windowWidth" minOccurs="0" />
+        <xs:element ref="windowCenterAndWidthExplanation" minOccurs="0" />
+        <xs:element ref="voiLutSequence" minOccurs="0" />
+        <xs:element ref="windowSmoothingTaste" minOccurs="0" />
+        <xs:element ref="windowCenterSub" minOccurs="0" />
+        <xs:element ref="windowWidthSub" minOccurs="0" />
+        <xs:element ref="glTrafoType" minOccurs="0" />
+        <xs:element ref="windowRoundingFactor" minOccurs="0" />
+        <xs:element ref="referencedPseudoImageSequence" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActionItemCode">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="codeValue" minOccurs="0" />
+        <xs:element ref="codingSchemeDesignator" minOccurs="0" />
+        <xs:element ref="codingSchemeVersion" minOccurs="0" />
+        <xs:element ref="codeMeaning" minOccurs="0" />
+        <xs:element ref="mappingResource" minOccurs="0" />
+        <xs:element ref="contextGroupVersion" minOccurs="0" />
+        <xs:element ref="contextGroupLocalVersion" minOccurs="0" />
+        <xs:element ref="codeSetExtensionFlag" minOccurs="0" />
+        <xs:element ref="privateCodingSchemeCreatorUid" minOccurs="0" />
+        <xs:element ref="codeSetExtensionCreatorUid" minOccurs="0" />
+        <xs:element ref="contextIdentifier" minOccurs="0" />
+        <xs:element ref="protocolContextSequence" minOccurs="0" />
+        <xs:element ref="conceptCodeSequence" minOccurs="0" />
+        <xs:element ref="codeViewModifier" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RequestAttributesReference">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="scheduledProcedureStepDescription" minOccurs="0" />
+        <xs:element ref="scheduledActionItemCodeSequence" minOccurs="0" />
+        <xs:element ref="scheduledProcedureStepId" minOccurs="0" />
+        <xs:element ref="requestedProcedureId" minOccurs="0" />
+        <xs:element ref="reasonForRequestedProcedure" minOccurs="0" />
+        <xs:element ref="reasonForRequestedProcedureCodeSequence" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GraphicAnnotation">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="referencedImageSequence" minOccurs="0" />
+        <xs:element ref="graphicLayer" minOccurs="0" />
+        <xs:element ref="textObjectSequence" minOccurs="0" />
+        <xs:element ref="graphicObjectSequence" minOccurs="0" />
+        <xs:element ref="graphicAnnotationParentId" minOccurs="0" />
+        <xs:element ref="graphicAnnotationId" minOccurs="0" />
+        <xs:element ref="overlayPlaneId" minOccurs="0" />
+        <xs:element ref="graphicAnnotationModel" minOccurs="0" />
+        <xs:element ref="graphicAnnotationLabel" minOccurs="0" />
+        <xs:element ref="graphicAnnotationVisibility" minOccurs="0" />
+        <xs:element ref="graphicTransformation" minOccurs="0" />
+        <xs:element ref="graphicTransformationOrder" minOccurs="0" />
+        <xs:element ref="referencedPseudoImageSequence" minOccurs="0" />
+        <xs:element ref="graphicAnnotationType" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DisplayedAreaSelection">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="referencedImageSequence" minOccurs="0" />
+        <xs:element ref="displayedAreaTopLeftHandCorner" minOccurs="0" />
+        <xs:element ref="displayedAreaBottomRightHandCorner" minOccurs="0" />
+        <xs:element ref="presentationSizeMode" minOccurs="0" />
+        <xs:element ref="presentationPixelSpacing" minOccurs="0" />
+        <xs:element ref="presentationPixelAspectRatio" minOccurs="0" />
+        <xs:element ref="presentationPixelMagnificationRatio" minOccurs="0" />
+        <xs:element ref="displayedAreaZoomInterpolationMeth" minOccurs="0" />
+        <xs:element ref="displayedAreaTopLeftHandCornerOffset" minOccurs="0" />
+        <xs:element ref="displayedAreaBottomRightHandCornerOffset" minOccurs="0" />
+        <xs:element ref="referencedPseudoImageSequence" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GraphicLayer">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="graphicLayer" minOccurs="0" />
+        <xs:element ref="graphicLayerOrder" minOccurs="0" />
+        <xs:element ref="graphicLayerRecommendedDisplayGrayscaleValue" minOccurs="0" />
+        <xs:element ref="graphicLayerRecommendedDisplayRgbValue" minOccurs="0" />
+        <xs:element ref="graphicLayerDescription" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PseudoImagesPerSeriesReference">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="seriesInstanceUid" minOccurs="0" />
+        <xs:element ref="referencedPseudoImageSequence" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LUT">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="lutDescriptor" minOccurs="0" />
+        <xs:element ref="lutExplanation" minOccurs="0" />
+        <xs:element ref="lutData" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Measurement">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="measurementType" minOccurs="0" />
+        <xs:element ref="measurementValue" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codeValue">
+    <xs:annotation>
+      <xs:appinfo>0008,0100 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codingSchemeDesignator">
+    <xs:annotation>
+      <xs:appinfo>0008,0102 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codingSchemeVersion">
+    <xs:annotation>
+      <xs:appinfo>0008,0103 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codeMeaning">
+    <xs:annotation>
+      <xs:appinfo>0008,0104 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mappingResource">
+    <xs:annotation>
+      <xs:appinfo>0008,0105 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contextGroupVersion">
+    <xs:annotation>
+      <xs:appinfo>0008,0106 DT 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contextGroupLocalVersion">
+    <xs:annotation>
+      <xs:appinfo>0008,0107 DT 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codeSetExtensionFlag">
+    <xs:annotation>
+      <xs:appinfo>0008,010b CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="privateCodingSchemeCreatorUid">
+    <xs:annotation>
+      <xs:appinfo>0008,010c UI 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codeSetExtensionCreatorUid">
+    <xs:annotation>
+      <xs:appinfo>0008,010d UI 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contextIdentifier">
+    <xs:annotation>
+      <xs:appinfo>0008,010f CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="conceptCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,a168 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="codeViewModifier">
+    <xs:annotation>
+      <xs:appinfo>0040,a195 SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedImageSequence">
+    <xs:annotation>
+      <xs:appinfo>0008,1140 SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ImageReference" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="purposeOfReferenceCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,a170 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lutDescriptor">
+    <xs:annotation>
+      <xs:appinfo>0028,3002 US;SS 3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lutExplanation">
+    <xs:annotation>
+      <xs:appinfo>0028,3003 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="modalityLutType">
+    <xs:annotation>
+      <xs:appinfo>0028,3004 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lutData">
+    <xs:annotation>
+      <xs:appinfo>0028,3006 US;SS;OW 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowCenter">
+    <xs:annotation>
+      <xs:appinfo>0028,1050 DS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowWidth">
+    <xs:annotation>
+      <xs:appinfo>0028,1051 DS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowCenterAndWidthExplanation">
+    <xs:annotation>
+      <xs:appinfo>0028,1055 LO 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="voiLutSequence">
+    <xs:annotation>
+      <xs:appinfo>0028,3010 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="LUT" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowSmoothingTaste">
+    <xs:annotation>
+      <xs:appinfo>2001,104e CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowCenterSub">
+    <xs:annotation>
+      <xs:appinfo>2001,1074 DS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowWidthSub">
+    <xs:annotation>
+      <xs:appinfo>2001,1075 DS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="windowRoundingFactor">
+    <xs:annotation>
+      <xs:appinfo>2001,107a FL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedPseudoImageSequence">
+    <xs:annotation>
+      <xs:appinfo>2007,510b SQ 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PseudoImageReference" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="protocolContextSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,0440 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ProtocolContext" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scheduledProcedureStepDescription">
+    <xs:annotation>
+      <xs:appinfo>0040,0007 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scheduledActionItemCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,0008 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ActionItemCode" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="scheduledProcedureStepId">
+    <xs:annotation>
+      <xs:appinfo>0040,0009 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="requestedProcedureId">
+    <xs:annotation>
+      <xs:appinfo>0040,1001 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reasonForRequestedProcedure">
+    <xs:annotation>
+      <xs:appinfo>0040,1002 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="reasonForRequestedProcedureCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,100a SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLayer">
+    <xs:annotation>
+      <xs:appinfo>0070,0002 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textObjectSequence">
+    <xs:annotation>
+      <xs:appinfo>0070,0008 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Text" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicObjectSequence">
+    <xs:annotation>
+      <xs:appinfo>0070,0009 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Graphic" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationParentId">
+    <xs:annotation>
+      <xs:appinfo>2001,1005 SS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="short-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationId">
+    <xs:annotation>
+      <xs:appinfo>2001,1048 SS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="short-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="overlayPlaneId">
+    <xs:annotation>
+      <xs:appinfo>2001,1051 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationModel">
+    <xs:annotation>
+      <xs:appinfo>2001,105a ST 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationLabel">
+    <xs:annotation>
+      <xs:appinfo>2001,109c LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationVisibility">
+    <xs:annotation>
+      <xs:appinfo>2007,5001 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicTransformation">
+    <xs:annotation>
+      <xs:appinfo>2007,50ac FL 0-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicTransformationOrder">
+    <xs:annotation>
+      <xs:appinfo>2007,50ad ST 0-1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationType">
+    <xs:annotation>
+      <xs:appinfo>6509,1700 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="displayedAreaTopLeftHandCorner">
+    <xs:annotation>
+      <xs:appinfo>0070,0052 SL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="displayedAreaBottomRightHandCorner">
+    <xs:annotation>
+      <xs:appinfo>0070,0053 SL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationSizeMode">
+    <xs:annotation>
+      <xs:appinfo>0070,0100 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="SCALE TO FIT" />
+          <xs:enumeration value="TRUE SIZE" />
+          <xs:enumeration value="MAGNIFY" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationPixelSpacing">
+    <xs:annotation>
+      <xs:appinfo>0070,0101 DS 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationPixelAspectRatio">
+    <xs:annotation>
+      <xs:appinfo>0070,0102 IS 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="presentationPixelMagnificationRatio">
+    <xs:annotation>
+      <xs:appinfo>0070,0103 FL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="displayedAreaZoomInterpolationMeth">
+    <xs:annotation>
+      <xs:appinfo>2001,103f CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="REPLICATE" />
+          <xs:enumeration value="INTERPOLATE" />
+          <xs:enumeration value="BI_CUBIC" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="displayedAreaTopLeftHandCornerOffset">
+    <xs:annotation>
+      <xs:appinfo>2007,5092 FL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="displayedAreaBottomRightHandCornerOffset">
+    <xs:annotation>
+      <xs:appinfo>2007,5093 FL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLayerOrder">
+    <xs:annotation>
+      <xs:appinfo>0070,0062 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLayerRecommendedDisplayGrayscaleValue">
+    <xs:annotation>
+      <xs:appinfo>0070,0066 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLayerRecommendedDisplayRgbValue">
+    <xs:annotation>
+      <xs:appinfo>0070,0067 US 3</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="3" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLayerDescription">
+    <xs:annotation>
+      <xs:appinfo>0070,0068 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="measurementType">
+    <xs:annotation>
+      <xs:appinfo>6509,1802 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="measurementValue">
+    <xs:annotation>
+      <xs:appinfo>6509,1803 FL 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImageReference">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="referencedSopClassUid" minOccurs="0" />
+        <xs:element ref="referencedSopInstanceUid" minOccurs="0" />
+        <xs:element ref="referencedFrameNumber" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PseudoImageReference">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="instanceNumber" minOccurs="0" />
+        <xs:element ref="rows" minOccurs="0" />
+        <xs:element ref="columns" minOccurs="0" />
+        <xs:element ref="rf:render3D" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ProtocolContext">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="contentItemModifierSequence" minOccurs="0" />
+        <xs:element ref="measurementUnitsCodeSequence" minOccurs="0" />
+        <xs:element ref="valueType" minOccurs="0" />
+        <xs:element ref="conceptNameCodeSequence" minOccurs="0" />
+        <xs:element ref="dateTime" minOccurs="0" />
+        <xs:element ref="date" minOccurs="0" />
+        <xs:element ref="time" minOccurs="0" />
+        <xs:element ref="personName" minOccurs="0" />
+        <xs:element ref="uid" minOccurs="0" />
+        <xs:element ref="textValue" minOccurs="0" />
+        <xs:element ref="conceptCodeSequence" minOccurs="0" />
+        <xs:element ref="numericValue" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Text">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="boundingBoxAnnotationUnits" minOccurs="0" />
+        <xs:element ref="anchorPointAnnotationUnits" minOccurs="0" />
+        <xs:element ref="unformattedTextValue" minOccurs="0" />
+        <xs:element ref="boundingBoxTopLeftHandCorner" minOccurs="0" />
+        <xs:element ref="boundingBoxBottomRightHandCorner" minOccurs="0" />
+        <xs:element ref="boundingBoxTextHorizontalJustification" minOccurs="0" />
+        <xs:element ref="anchorPoint" minOccurs="0" />
+        <xs:element ref="anchorPointVisibility" minOccurs="0" />
+        <xs:element ref="measurementTextUnits" minOccurs="0" />
+        <xs:element ref="measurementTextType" minOccurs="0" />
+        <xs:element ref="textType" minOccurs="0" />
+        <xs:element ref="textFont" minOccurs="0" />
+        <xs:element ref="textAnchorPointAlignment" minOccurs="0" />
+        <xs:element ref="textStyle" minOccurs="0" />
+        <xs:element ref="graphicNumber" minOccurs="0" />
+        <xs:element ref="textColorForeground" minOccurs="0" />
+        <xs:element ref="textColorBackground" minOccurs="0" />
+        <xs:element ref="textColorShadow" minOccurs="0" />
+        <xs:element ref="textCursorIncrement" minOccurs="0" />
+        <xs:element ref="textVisibility" minOccurs="0" />
+        <xs:element ref="textAttachmentClip" minOccurs="0" />
+        <xs:element ref="textAttachmentOrder" minOccurs="0" />
+        <xs:element ref="textBackingMode" minOccurs="0" />
+        <xs:element ref="textAttachmentSpacing" minOccurs="0" />
+        <xs:element ref="textAnchorPointSpacing" minOccurs="0" />
+        <xs:element ref="textBoundingBoxVisibility" minOccurs="0" />
+        <xs:element ref="textFontAutoScale" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Graphic">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="graphicAnnotationUnits" minOccurs="0" />
+        <xs:element ref="graphicDimensions" minOccurs="0" />
+        <xs:element ref="numberOfGraphicPoints" minOccurs="0" />
+        <xs:element ref="graphicData" minOccurs="0" />
+        <xs:element ref="graphicType" minOccurs="0" />
+        <xs:element ref="graphicFilled" minOccurs="0" />
+        <xs:element ref="contourFillColor" minOccurs="0" />
+        <xs:element ref="graphicLineStyle" minOccurs="0" />
+        <xs:element ref="graphicLineWidth" minOccurs="0" />
+        <xs:element ref="interpolationMethod" minOccurs="0" />
+        <xs:element ref="polyLineBeginPointStyle" minOccurs="0" />
+        <xs:element ref="polyLineEndPointStyle" minOccurs="0" />
+        <xs:element ref="graphicMarkerType" minOccurs="0" />
+        <xs:element ref="contourFillTransparency" minOccurs="0" />
+        <xs:element ref="graphicLineColor" minOccurs="0" />
+        <xs:element ref="contourFillTransparencyColor" minOccurs="0" />
+        <xs:element ref="contourFillStyle" minOccurs="0" />
+        <xs:element ref="graphicConstraint" minOccurs="0" />
+        <xs:element ref="graphicNumber" minOccurs="0" />
+        <xs:element ref="graphicVisibility" minOccurs="0" />
+        <xs:element ref="graphicMarkerHotspot" minOccurs="0" />
+        <xs:element ref="graphicInterpolationOrder" minOccurs="0" />
+        <xs:element ref="graphicInterpolationDimensions" minOccurs="0" />
+        <xs:element ref="graphicMarkerVisibility" minOccurs="0" />
+        <xs:element ref="graphicAngleArcRadius" minOccurs="0" />
+        <xs:element ref="graphicAngleArcOutside" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedSopClassUid">
+    <xs:annotation>
+      <xs:appinfo>0008,1150 UI 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedSopInstanceUid">
+    <xs:annotation>
+      <xs:appinfo>0008,1155 UI 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="referencedFrameNumber">
+    <xs:annotation>
+      <xs:appinfo>0008,1160 IS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rows">
+    <xs:annotation>
+      <xs:appinfo>0028,0010 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="columns">
+    <xs:annotation>
+      <xs:appinfo>0028,0011 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contentItemModifierSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,0441 SQ 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ContentItemMacro" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="measurementUnitsCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,08ea SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="valueType">
+    <xs:annotation>
+      <xs:appinfo>0040,a040 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="conceptNameCodeSequence">
+    <xs:annotation>
+      <xs:appinfo>0040,a043 SQ 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Code" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dateTime">
+    <xs:annotation>
+      <xs:appinfo>0040,a120 DT 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="date">
+    <xs:annotation>
+      <xs:appinfo>0040,a121 DA 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="time">
+    <xs:annotation>
+      <xs:appinfo>0040,a122 TM 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="personName">
+    <xs:annotation>
+      <xs:appinfo>0040,a123 PN 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="uid">
+    <xs:annotation>
+      <xs:appinfo>0040,a124 UI 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textValue">
+    <xs:annotation>
+      <xs:appinfo>0040,a160 UT 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="numericValue">
+    <xs:annotation>
+      <xs:appinfo>0040,a30a DS 1-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="boundingBoxAnnotationUnits">
+    <xs:annotation>
+      <xs:appinfo>0070,0003 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="DISPLAY" />
+          <xs:enumeration value="PIXEL" />
+          <xs:enumeration value="WINDOW" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="anchorPointAnnotationUnits">
+    <xs:annotation>
+      <xs:appinfo>0070,0004 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="DISPLAY" />
+          <xs:enumeration value="PIXEL" />
+          <xs:enumeration value="WINDOW" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="unformattedTextValue">
+    <xs:annotation>
+      <xs:appinfo>0070,0006 ST 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="boundingBoxTopLeftHandCorner">
+    <xs:annotation>
+      <xs:appinfo>0070,0010 FL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="boundingBoxBottomRightHandCorner">
+    <xs:annotation>
+      <xs:appinfo>0070,0011 FL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="boundingBoxTextHorizontalJustification">
+    <xs:annotation>
+      <xs:appinfo>0070,0012 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="LEFT" />
+          <xs:enumeration value="RIGHT" />
+          <xs:enumeration value="CENTER" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="anchorPoint">
+    <xs:annotation>
+      <xs:appinfo>0070,0014 FL 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="anchorPointVisibility">
+    <xs:annotation>
+      <xs:appinfo>0070,0015 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="measurementTextUnits">
+    <xs:annotation>
+      <xs:appinfo>2001,105d ST 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="measurementTextType">
+    <xs:annotation>
+      <xs:appinfo>2001,105e ST 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textType">
+    <xs:annotation>
+      <xs:appinfo>2001,1064 SH 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="TEXT" />
+          <xs:enumeration value="MEASUREMENT" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textFont">
+    <xs:annotation>
+      <xs:appinfo>2001,106d LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textAnchorPointAlignment">
+    <xs:annotation>
+      <xs:appinfo>2001,1080 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="BASELEFT" />
+          <xs:enumeration value="BASECENTER" />
+          <xs:enumeration value="BASERIGHT" />
+          <xs:enumeration value="BOTTOMLEFT" />
+          <xs:enumeration value="BOTTOMCENTER" />
+          <xs:enumeration value="BOTTOMRIGHT" />
+          <xs:enumeration value="CENTERLEFT" />
+          <xs:enumeration value="CENTER" />
+          <xs:enumeration value="CENTERRIGHT" />
+          <xs:enumeration value="TOPLEFT" />
+          <xs:enumeration value="TOPCENTER" />
+          <xs:enumeration value="TOPRIGHT" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textStyle">
+    <xs:annotation>
+      <xs:appinfo>2001,1093 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="BOLD" />
+          <xs:enumeration value="ITALIC" />
+          <xs:enumeration value="UNDERLINE" />
+          <xs:enumeration value="BOLDITALIC" />
+          <xs:enumeration value="BOLDUNDERLINE" />
+          <xs:enumeration value="BOLDITALICUNDERLINE" />
+          <xs:enumeration value="ITALICUNDERLINE" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicNumber">
+    <xs:annotation>
+      <xs:appinfo>2001,109b UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textColorForeground">
+    <xs:annotation>
+      <xs:appinfo>2001,10a3 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textColorBackground">
+    <xs:annotation>
+      <xs:appinfo>2001,10a4 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textColorShadow">
+    <xs:annotation>
+      <xs:appinfo>2001,10a5 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textCursorIncrement">
+    <xs:annotation>
+      <xs:appinfo>2001,10a6 CS 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="NONE" />
+          <xs:enumeration value="LEFT" />
+          <xs:enumeration value="RIGHT" />
+          <xs:enumeration value="UP" />
+          <xs:enumeration value="DOWN" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textVisibility">
+    <xs:annotation>
+      <xs:appinfo>2007,5030 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textAttachmentClip">
+    <xs:annotation>
+      <xs:appinfo>2007,5031 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textAttachmentOrder">
+    <xs:annotation>
+      <xs:appinfo>2007,5032 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textBackingMode">
+    <xs:annotation>
+      <xs:appinfo>2007,5033 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textAttachmentSpacing">
+    <xs:annotation>
+      <xs:appinfo>2007,5034 IS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="int-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textAnchorPointSpacing">
+    <xs:annotation>
+      <xs:appinfo>2007,5036 FL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textBoundingBoxVisibility">
+    <xs:annotation>
+      <xs:appinfo>2007,5037 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="textFontAutoScale">
+    <xs:annotation>
+      <xs:appinfo>2007,5039 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+          <xs:enumeration value="B" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAnnotationUnits">
+    <xs:annotation>
+      <xs:appinfo>0070,0005 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="DISPLAY" />
+          <xs:enumeration value="PIXEL" />
+          <xs:enumeration value="WINDOW" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicDimensions">
+    <xs:annotation>
+      <xs:appinfo>0070,0020 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="numberOfGraphicPoints">
+    <xs:annotation>
+      <xs:appinfo>0070,0021 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicData">
+    <xs:annotation>
+      <xs:appinfo>0070,0022 FL 2-n</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array" />
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicType">
+    <xs:annotation>
+      <xs:appinfo>0070,0023 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="ANGLE" />
+          <xs:enumeration value="ARC" />
+          <xs:enumeration value="CIRCLE" />
+          <xs:enumeration value="CONTOUR" />
+          <xs:enumeration value="ELLIPSE" />
+          <xs:enumeration value="INTERPOLATED" />
+          <xs:enumeration value="POINT" />
+          <xs:enumeration value="POLYGON" />
+          <xs:enumeration value="POLYLINE" />
+          <xs:enumeration value="POLYSEGMENT" />
+          <xs:enumeration value="SUPPLANGLE" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicFilled">
+    <xs:annotation>
+      <xs:appinfo>0070,0024 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contourFillColor">
+    <xs:annotation>
+      <xs:appinfo>2001,103d UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLineStyle">
+    <xs:annotation>
+      <xs:appinfo>2001,1046 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="SOLID" />
+          <xs:enumeration value="DOTTED" />
+          <xs:enumeration value="DASHED" />
+          <xs:enumeration value="DASHEDDOTTED" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLineWidth">
+    <xs:annotation>
+      <xs:appinfo>2001,1047 FL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="interpolationMethod">
+    <xs:annotation>
+      <xs:appinfo>2001,104b CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="LINEAR" />
+          <xs:enumeration value="SMOOTH" />
+          <xs:enumeration value="QUADRIC" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="polyLineBeginPointStyle">
+    <xs:annotation>
+      <xs:appinfo>2001,104c CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="NONE" />
+          <xs:enumeration value="FLAT" />
+          <xs:enumeration value="SQUARE" />
+          <xs:enumeration value="ROUND" />
+          <xs:enumeration value="TRIANGLE" />
+          <xs:enumeration value="NOANCHOR" />
+          <xs:enumeration value="SQUAREANCHOR" />
+          <xs:enumeration value="ROUNDANCHOR" />
+          <xs:enumeration value="DIAMONDANCHOR" />
+          <xs:enumeration value="ARROWANCHOR" />
+          <xs:enumeration value="ADJUSTABLEARROW" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="polyLineEndPointStyle">
+    <xs:annotation>
+      <xs:appinfo>2001,104d CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="NONE" />
+          <xs:enumeration value="FLAT" />
+          <xs:enumeration value="SQUARE" />
+          <xs:enumeration value="ROUND" />
+          <xs:enumeration value="TRIANGLE" />
+          <xs:enumeration value="NOANCHOR" />
+          <xs:enumeration value="SQUAREANCHOR" />
+          <xs:enumeration value="ROUNDANCHOR" />
+          <xs:enumeration value="DIAMONDANCHOR" />
+          <xs:enumeration value="ARROWANCHOR" />
+          <xs:enumeration value="ADJUSTABLEARROW" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicMarkerType">
+    <xs:annotation>
+      <xs:appinfo>2001,1050 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:normalizedString">
+          <xs:attributeGroup ref="model-attr-group" />
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contourFillTransparency">
+    <xs:annotation>
+      <xs:appinfo>2001,1054 FL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="float-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicLineColor">
+    <xs:annotation>
+      <xs:appinfo>2001,1055 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contourFillTransparencyColor">
+    <xs:annotation>
+      <xs:appinfo>2001,1056 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="contourFillStyle">
+    <xs:annotation>
+      <xs:appinfo>2001,1057 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="STIPPLE" />
+          <xs:enumeration value="ALPHABLENDING" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicConstraint">
+    <xs:annotation>
+      <xs:appinfo>2001,1071 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="RECTANGLE" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicVisibility">
+    <xs:annotation>
+      <xs:appinfo>2007,5010 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicMarkerHotspot">
+    <xs:annotation>
+      <xs:appinfo>2007,5011 US 2</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="2" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicInterpolationOrder">
+    <xs:annotation>
+      <xs:appinfo>2007,5012 US 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="ushort-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicInterpolationDimensions">
+    <xs:annotation>
+      <xs:appinfo>2007,5013 UL 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="uint-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicMarkerVisibility">
+    <xs:annotation>
+      <xs:appinfo>2007,5014 CS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAngleArcRadius">
+    <xs:annotation>
+      <xs:appinfo>2007,5015 DS 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="double-array">
+          <xs:maxLength value="1" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="graphicAngleArcOutside">
+    <xs:annotation>
+      <xs:appinfo>2007,5016 LO 1</xs:appinfo>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:restriction base="model-enumeration">
+          <xs:enumeration value="Y" />
+          <xs:enumeration value="N" />
+        </xs:restriction>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ContentItemMacro">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="measurementUnitsCodeSequence" minOccurs="0" />
+        <xs:element ref="valueType" minOccurs="0" />
+        <xs:element ref="conceptNameCodeSequence" minOccurs="0" />
+        <xs:element ref="dateTime" minOccurs="0" />
+        <xs:element ref="date" minOccurs="0" />
+        <xs:element ref="time" minOccurs="0" />
+        <xs:element ref="personName" minOccurs="0" />
+        <xs:element ref="uid" minOccurs="0" />
+        <xs:element ref="textValue" minOccurs="0" />
+        <xs:element ref="conceptCodeSequence" minOccurs="0" />
+        <xs:element ref="numericValue" minOccurs="0" />
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="model-enumeration">
+    <xs:simpleContent>
+      <xs:extension base="xs:normalizedString">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="double-list">
+    <xs:list itemType="xs:double" />
+  </xs:simpleType>
+  <xs:complexType name="double-array">
+    <xs:simpleContent>
+      <xs:extension base="double-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ushort-list">
+    <xs:list itemType="xs:unsignedShort" />
+  </xs:simpleType>
+  <xs:complexType name="ushort-array">
+    <xs:simpleContent>
+      <xs:extension base="ushort-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="uint-list">
+    <xs:list itemType="xs:unsignedInt" />
+  </xs:simpleType>
+  <xs:complexType name="uint-array">
+    <xs:simpleContent>
+      <xs:extension base="uint-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="short-list">
+    <xs:list itemType="xs:short" />
+  </xs:simpleType>
+  <xs:complexType name="short-array">
+    <xs:simpleContent>
+      <xs:extension base="short-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="float-list">
+    <xs:list itemType="xs:float" />
+  </xs:simpleType>
+  <xs:complexType name="float-array">
+    <xs:simpleContent>
+      <xs:extension base="float-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="int-list">
+    <xs:list itemType="xs:int" />
+  </xs:simpleType>
+  <xs:complexType name="int-array">
+    <xs:simpleContent>
+      <xs:extension base="int-list">
+        <xs:attributeGroup ref="model-attr-group" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:attributeGroup name="model-attr-group">
+    <xs:attribute name="null" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="1" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:anyAttribute namespace="##targetNamespace" processContents="lax" />
+  </xs:attributeGroup>
+</xs:schema>

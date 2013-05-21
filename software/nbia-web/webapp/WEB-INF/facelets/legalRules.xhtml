@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+                
+<table summary="" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+    <td width="901" height="20" class="welcomeTitle">
+      <strong>
+        <h:outputText value="#{msg.legal_rules}" />
+      </strong>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table width="95%" border="0" cellpadding="0" cellspacing="0" class="welcomeContent">
+        <tr>
+          <td>
+            <p align="justify">
+              <h:outputText value="#{msg.legal_content}" />
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="901" height="20" class="welcomeTitle">
+      <strong>
+        <h:outputText value="#{msg.legal_privacy}" />
+      </strong>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table width="95%" border="0" cellpadding="0" cellspacing="0" class="welcomeContent">
+        <tr>
+          <td>
+            <p align="justify">
+              <h:outputText value="#{msg.legal_privacyContent}" />
+              <br/>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="901" height="20" class="welcomeTitle">
+      <h:outputText value="#{msg.legal_userAcceptance}" />
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table width="95%" border="0" cellpadding="0" cellspacing="0" class="welcomeContent">
+        <tr>
+          <td>
+            <p align="justify">
+              <strong> 
+                <h:outputText value="#{msg.legal_agree}" /> 
+                <a href="/ncia/registerMain.jsf" 
+                   style="color: blue;">
+                  <h:outputText value="#{msg.legal_click}" /> 
+                </a>. 
+              </strong>
+              <br/>
+            </p>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</ui:composition>

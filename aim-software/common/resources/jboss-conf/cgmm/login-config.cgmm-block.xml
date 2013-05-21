@@ -1,0 +1,12 @@
+	<application-policy name ="@project.name@">
+		<authentication> 
+			<login-module code=" gov.nih.nci.security.cgmm.loginmodules.NullPasswordStackingLoginModule" flag="optional">
+				<module-option name="password-stacking">useFirstPass</module-option>
+			</login-module>
+			<login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+				<module-option name="password-stacking">useFirstPass</module-option>
+				<module-option name=" dsJndiName">java:@database.jndi.datasource.name@</module-option>
+				<module-option name="rolesQuery">SELECT cg.group_name, 'Roles' FROM csm_group cg, csm_user_group cug, csm_user cu WHERE cg.group_id = cug.group_id AND cug.user_id = cu.user_id AND cu.login_name = ?</module-option>
+			</login-module>
+		</authentication>
+	</application-policy>

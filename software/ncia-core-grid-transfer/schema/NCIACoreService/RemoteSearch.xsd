@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" 
+           xmlns:tns="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch"
+           targetNamespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" 
+           elementFormDefault="qualified">
+           
+<xs:element name="AvailableSearchTerms" type="AvailableSearchTerms" /> 
+
+
+<xs:complexType name="Model">
+  <xs:sequence>
+  	<xs:element name="versions" nillable="true" maxOccurs="unbounded" minOccurs="0" type="Model"/>
+  </xs:sequence>
+
+  <xs:attribute name="name" type="xs:string" />
+ 
+</xs:complexType>
+
+<xs:complexType name="Manufacturer">
+  <xs:sequence>
+  	<xs:element name="models" nillable="true" maxOccurs="unbounded" minOccurs="0" type="Model"/>
+  </xs:sequence>
+
+  <xs:attribute name="name" type="xs:string" />
+ 
+</xs:complexType>
+
+<xs:complexType name="AvailableSearchTerms">
+  <xs:sequence>
+  	<xs:element name="collections" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
+  	<xs:element name="modalities" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
+  	<xs:element name="anatomicSites" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
+  	<xs:element name="convolutionKernels" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:string"/>
+  	<xs:element name="equipment" nillable="true" maxOccurs="unbounded" minOccurs="0" type="Manufacturer"/>
+  </xs:sequence> 
+  
+</xs:complexType> 
+
+
+<!-- ********************** patient search ******************** -->
+
+<xs:element name="SearchCriteriaDTO" type="SearchCriteriaDTO" /> 
+
+<xs:element name="PatientSearchResult" type="PatientSearchResult" /> 
+
+<xs:complexType name="SearchCriteriaDTO">
+  <xs:sequence />
+
+  <xs:attribute name="subType" type="xs:string" />
+  <xs:attribute name="type" type="xs:string" />
+  <xs:attribute name="value" type="xs:string" />
+</xs:complexType>
+
+<xs:complexType name="StudyIdentifiers">
+  <xs:sequence>
+  	<xs:element name="seriesIdentifiers" nillable="true" maxOccurs="unbounded" minOccurs="0" type="xs:integer"/>
+  </xs:sequence>
+
+  <xs:attribute name="studyIdentifier" type="xs:integer" />
+ 
+</xs:complexType>
+
+
+<xs:complexType name="PatientSearchResult" abstract="true">
+  <xs:sequence>
+  	<xs:element name="studyIdentifiers" nillable="true" maxOccurs="unbounded" minOccurs="0" type="StudyIdentifiers"/>  	
+  </xs:sequence>  
+  
+  <xs:attribute name="id" type="xs:integer" />
+  <xs:attribute name="project" type="xs:string" />
+  <xs:attribute name="subjectId" type="xs:string" />
+  <xs:attribute name="totalNumberOfSeries" type="xs:integer" />
+  <xs:attribute name="totalNumberOfStudies" type="xs:integer" />
+
+</xs:complexType>
+
+<xs:complexType name="PatientSearchResultImpl">
+  <xs:complexContent>
+    <xs:extension base="PatientSearchResult"/>
+  </xs:complexContent>	
+</xs:complexType>
+
+
+<!-- ********************** drill down ******************** -->
+
+<xs:element name="SeriesSearchResult" type="SeriesSearchResult" /> 
+
+<!-- wanted this to be abstract, but axis isn't serializing it in array properly -->
+<xs:complexType name="SeriesSearchResult">
+  <xs:sequence/>
+  
+  <xs:attribute name="id" type="xs:integer" />
+  <xs:attribute name="seriesInstanceUid" type="xs:string" />
+  <xs:attribute name="studyId" type="xs:integer" />
+  <xs:attribute name="studyInstanceUid" type="xs:string" />
+  <xs:attribute name="numberImages" type="xs:integer" />
+      
+  <xs:attribute name="seriesNumber" type="xs:string" />
+  <xs:attribute name="manufacturer" type="xs:string" />
+  <xs:attribute name="modality" type="xs:string" />
+  <xs:attribute name="annotated" type="xs:boolean" />
+  
+  <xs:attribute name="project" type="xs:string" />
+  <xs:attribute name="patientId" type="xs:string" />
+  <xs:attribute name="annotationsSize" type="xs:long" />
+  <xs:attribute name="description" type="xs:string" />
+  <xs:attribute name="totalSizeForAllImagesInSeries" type="xs:long" />        
+  
+</xs:complexType>
+<!-- 
+<xs:complexType name="SeriesSearchResultImpl">
+  <xs:complexContent>
+    <xs:extension base="SeriesSearchResult"/>
+  </xs:complexContent>  
+</xs:complexType>
+-->
+<xs:element name="StudySearchResult" type="StudySearchResult" /> 
+
+
+<xs:complexType name="StudySearchResult" abstract="true">
+
+  <xs:sequence>
+  	<xs:element name="seriesList" nillable="true" maxOccurs="unbounded" minOccurs="0" type="SeriesSearchResult"/>  	
+  </xs:sequence> 
+  
+	<xs:attribute name="id" type="xs:integer" />
+	<xs:attribute name="studyInstanceUid" type="xs:string" />
+	<xs:attribute name="date" type="xs:dateTime" />
+	<xs:attribute name="description" type="xs:string" />
+	<xs:attribute name="offSetDesc" type="xs:string" /> 
+  
+</xs:complexType>
+
+<xs:complexType name="StudySearchResultImpl">
+  <xs:complexContent>
+    <xs:extension base="StudySearchResult"/>
+  </xs:complexContent>	
+</xs:complexType>
+
+
+<xs:element name="ImageSearchResult" type="ImageSearchResult" /> 
+
+
+<xs:complexType name="ImageSearchResult" abstract="true">
+  <xs:sequence/>
+ 
+  <xs:attribute name="id" type="xs:integer" />
+  <xs:attribute name="sopInstanceUid" type="xs:integer" />
+  <xs:attribute name="seriesInstanceUid" type="xs:string" />
+  <xs:attribute name="seriesId" type="xs:integer" />
+	
+  <xs:attribute name="size" type="xs:integer" />
+  <xs:attribute name="instanceNumber" type="xs:integer" />
+  <xs:attribute name="thumbnailURL" type="xs:string" />
+</xs:complexType>
+
+
+<xs:complexType name="ImageSearchResultImpl">
+  <xs:complexContent>
+    <xs:extension base="ImageSearchResult"/>
+  </xs:complexContent>	
+</xs:complexType>
+
+
+</xs:schema>

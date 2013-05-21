@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="GeneralImage" table="GENERAL_IMAGE" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="integer" column="IMAGE_PK_ID">
+       <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the GeneralImage class -->
+    <property name="acquisitionDate" type="java.util.Date" column="ACQUISITION_DATE"/>
+    <property name="acquisitionDatetime" type="string" column="ACQUISITION_DATETIME"/>
+    <property name="acquisitionMatrix" type="double" column="ACQUISITION_MATRIX"/>
+    <property name="acquisitionNumber" type="integer" column="ACQUISITION_NUMBER"/>
+    <property name="acquisitionTime" type="string" column="ACQUISITION_TIME"/>
+    <property name="annotation" type="string" column="ANNOTATION"/>
+    <property name="columns" type="integer" column="I_COLUMNS"/>
+    <property name="contentDate" type="java.util.Date" column="CONTENT_DATE"/>
+    <property name="contentTime" type="string" column="CONTENT_TIME"/>
+    <property name="contrastBolusAgent" type="string" column="CONTRAST_BOLUS_AGENT"/>
+    <property name="contrastBolusRoute" type="string" column="CONTRAST_BOLUS_ROUTE"/>
+    <property name="curationTimestamp" type="java.util.Date" column="CURATION_TIMESTAMP"/>
+    <property name="dicomSize" type="long" column="DICOM_SIZE"/>
+    <property name="dxDataCollectionDiameter" type="double" column="DX_DATA_COLLECTION_DIAMETER"/>
+    <property name="filename" type="string" column="DICOM_FILE_URI"/>
+    <property name="focalSpotSize" type="double" column="FOCAL_SPOT_SIZE"/>
+    <property name="imageComments" type="string" column="IMAGE_COMMENTS"/>
+    <property name="imageLaterality" type="string" column="IMAGE_LATERALITY"/>
+    <property name="imageOrientationPatient" type="string" column="IMAGE_ORIENTATION_PATIENT"/>
+    <property name="imagePositionPatient" type="string" column="IMAGE_POSITION_PATIENT"/>
+    <property name="imageReceivingTimestamp" type="java.util.Date" column="IMAGE_RECEIVING_TIMESTAMP"/>
+    <property name="imageType" type="string" column="IMAGE_TYPE"/>
+    <property name="instanceNumber" type="integer" column="INSTANCE_NUMBER"/>
+    <property name="lossyImageCompression" type="string" column="LOSSY_IMAGE_COMPRESSION"/>
+    <property name="patientId" type="string" column="PATIENT_ID"/>
+    <property name="patientPkId" type="integer" column="PATIENT_PK_ID" insert="false" update="false"/>
+    <property name="patientPosition" type="string" column="PATIENT_POSITION"/>
+    <property name="pixelSpacing" type="double" column="PIXEL_SPACING"/>
+    <property name="project" type="string" column="PROJECT"/>
+    <property name="rows" type="integer" column="I_ROWS"/>
+    <property name="seriesInstanceUID" type="string" column="SERIES_INSTANCE_UID"/>
+    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID" update="false" insert="false"/>
+    <property name="sliceLocation" type="double" column="SLICE_LOCATION"/>
+    <property name="sliceThickness" type="double" column="SLICE_THICKNESS"/>
+    <property name="SOPClassUID" type="string" column="SOP_CLASS_UID"/>
+    <property name="SOPInstanceUID" type="string" column="SOP_INSTANCE_UID"/>
+    <property name="sourceSubjectDistance" type="double" column="SOURCE_SUBJECT_DISTANCE"/>
+    <property name="sourceToDetectorDistance" type="double" column="SOURCE_TO_DETECTOR_DISTANCE"/>
+    <property name="storageMediaFileSetUID" type="string" column="STORAGE_MEDIA_FILE_SET_UID"/>
+    <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
+    <property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
+    <property name="md5Digest" type="string" column="MD5_DIGEST"/>
+    <property name="usFrameNum" type="string" column="US_FRAME_NUMBER"/>
+	  <property name="usColorDataPresent" type="string" column="US_COLOR_DATA_PRESENT"/>
+  	<property name="usMultiModality" type="string" column="US_MULTI_MODALITY"/>
+
+
+
+    <!-- Associations mapping for the GeneralImage class -->
+    <many-to-one name="patient" class="gov.nih.nci.nbia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" />
+    <one-to-one name="ctimage" class="gov.nih.nci.nbia.internaldomain.CTImage" property-ref="generalImage" />
+    <one-to-one name="mrImage" class="gov.nih.nci.nbia.internaldomain.MRImage" property-ref="generalImage" />
+    <many-to-one name="dataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
+    <many-to-one name="study" class="gov.nih.nci.nbia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />
+  </class>
+</hibernate-mapping>

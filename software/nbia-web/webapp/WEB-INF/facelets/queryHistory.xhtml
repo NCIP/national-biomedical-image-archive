@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                
+<f:subview id="queryHistoryMode" 
+           rendered="#{savedQueryBean.historyMode}">
+  <h:dataTable id="queryHistoryDataTable"
+               width="100%"
+               border="1" 
+               cellpadding="3" 
+               cellspacing="0" 
+               styleClass="dataTable" 
+               value="#{savedQueryBean.queryHistory}" 
+               rowClasses="dataRowLight, dataRowDark" 
+               headerClass="dataTableHeader" 
+               var="item"
+               binding="#{savedQueryBean.queryHistoryData}">
+  
+    <h:column id="queryHistoryNameColumn">
+      <f:facet name="header">
+        <h:outputText value="#{msg.queries_queryName}" />
+      </f:facet>
+      <ice:panelCollapsible expanded="#{item.showCriteria}">
+        <f:facet name="header">      
+          <h:commandLink value="#{item.queryName}" 
+                         action="#{savedQueryBean.showHistoryCriteria}" />
+        </f:facet>
+        <ice:panelGroup>            
+          <h:dataTable id="criteriaTable" 
+                       value="#{item.criteriaList}"
+                       rendered="#{!(item.numCriteria == 0)}" 
+                       var="criteria" 
+                       width="100%" 
+                       rowClasses="formLabel" 
+                       cellpadding="3" 
+                       cellspacing="0" 
+                       border="1">
+            <f:facet name="header">  
+              <ice:panelGroup styleClass="topBorder formTitleIIII">
+                <h:outputText value="#{msg.search_selectedCriteria}" />
+              </ice:panelGroup> 
+            </f:facet>                
+            <h:column>
+              <h:outputText value="#{criteria.displayName}" />
+            </h:column>
+            <h:column>
+              <h:outputText value="#{criteria.displayValue}" />
+            </h:column>
+          </h:dataTable>
+          <f:subview id="criteriaView" 
+                     rendered="#{item.numCriteria == 0}">
+            <table width="100%" cellpadding="3" cellspacing="0" border="1">
+              <tr class="formLabel">
+                <td>
+                  <h:outputText value="#{msg.search_noCriteria}" />
+                </td>
+              </tr>
+            </table>
+          </f:subview>
+        </ice:panelGroup>
+      </ice:panelCollapsible>                         
+    </h:column>
+    <h:column id="queryHistoryLastExecutedColumn">
+      <f:facet name="header">
+        <h:outputText value="#{msg.queries_lastExecute}" />
+      </f:facet>
+      <h:outputText value="#{item.formattedDate}" />
+    </h:column>
+    <h:column id="queryHistoryResubmitColumn">
+      <f:facet name="header">
+        <h:outputText value="#{msg.queries_resubmit}" />
+      </f:facet>
+      <h:commandButton image="images/resubmitquery.gif"
+                       action="#{savedQueryBean.resubmitQuery}" />
+                   
+    </h:column>
+  </h:dataTable>        
+ 
+  <f:subview id="emptyQueryView" 
+             rendered="#{savedQueryBean.queryHistoryCount == 0}">
+    <table width="100%" border="1" cellpadding="3" cellspacing="0" class="dataTable">
+      <tr>
+        <td class="dataRowDark">
+          <h:outputText value="#{msg.queries_noHistory}" />
+        </td>
+      </tr>
+    </table>
+  </f:subview>
+</f:subview>
+</ui:composition>                    

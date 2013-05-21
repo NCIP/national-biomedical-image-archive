@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><log><logentry revision="4633"><author>saksass</author><date>2008-05-01T18:09:04.885916Z</date><paths><path action="M">/trunk/software/install.xml</path></paths><msg>add if ci.server to start* targets so they run on ci server</msg></logentry></log>

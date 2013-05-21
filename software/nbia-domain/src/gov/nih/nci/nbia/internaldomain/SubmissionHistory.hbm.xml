@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="SubmissionHistory"
+         table="submission_history"
+         lazy="true"
+         polymorphism="explicit">
+
+    <id name="id" column="SUBMISSION_HISTORY_PK_ID" unsaved-value="0">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+
+    <property name="patientId" type="string" column="patient_id"/>
+    <property name="seriesInstanceUID" type="string" column="SERIES_INSTANCE_UID"/>
+    <property name="SOPInstanceUID" type="string" column="SOP_INSTANCE_UID"/>
+    <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
+    <property name="submissionDate" type="java.util.Date" column="SUBMISSION_TIMESTAMP" />
+    <property name="operationType" type="integer" column="operation_type"/>
+    <property name="project" type="string" column="project"/>
+    <property name="site" type="string" column="site"/>
+  </class>
+
+  <!--
+    this would use intersect if available on MySQL
+
+    find all patient ids before startDate and during time frame
+    then any id that is in both sets is considered an update
+    -->
+  <sql-query name="updatedPatientCountQuery_mysql">
+    <return-scalar column="updatedPatientCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(*) as updatedPatientCount
+    FROM
+    (SELECT patient_id
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.patient_id) during_timeframe
+    INNER JOIN
+    (select patient_id
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) < :startDate AND
+           s.operation_type=0
+     group by s.patient_id) before_timeframe
+    USING (patient_id)
+    ]]>
+  </sql-query>
+
+  <!--  during_timeframe - before_timeframe -->
+  <sql-query name="updatedPatientCountQuery_oracle">
+    <return-scalar column="updatedPatientCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(*) as updatedPatientCount
+    FROM
+    ((SELECT patient_id
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.patient_id)
+    INTERSECT
+    (select patient_id
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') < :startDate AND
+           s.operation_type=0
+     group by s.patient_id))
+    ]]>
+  </sql-query>
+
+  <!--
+    would use MINUS if available in MySQL
+
+    find all patient ids before startDate and during time frame
+    then remove any id that is in the latter set from the former
+    any you have new patients.
+    -->
+  <sql-query name="newPatientCountQuery_mysql">
+    <return-scalar column="newPatientCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(DISTINCT patient_id) as newPatientCount
+    FROM
+    (SELECT patient_id
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.patient_id) during_timeframe
+    LEFT JOIN
+    (select patient_id
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) < :startDate AND
+           s.operation_type=0
+     GROUP BY s.patient_id) before_timeframe
+    USING (patient_id)
+    WHERE before_timeframe.patient_id IS NULL
+    ]]>
+  </sql-query>
+
+    <!--  during_timeframe - before_timeframe -->
+  <sql-query name="newPatientCountQuery_oracle">
+    <return-scalar column="newPatientCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(DISTINCT patient_id) as newPatientCount
+    FROM
+    ((SELECT patient_id
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.patient_id)
+    MINUS
+    (select patient_id
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') < :startDate AND
+           s.operation_type=0
+     GROUP BY s.patient_id))
+    ]]>
+  </sql-query>
+
+  <!--
+    this would use intersect if available on MySQL
+    -->
+  <sql-query name="updatedStudyCountQuery_mysql">
+    <return-scalar column="updatedStudyCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(*) as updatedStudyCount
+    FROM
+    (SELECT study_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid) during_timeframe
+    INNER JOIN
+    (select study_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) < :startDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid) before_timeframe
+    USING (study_instance_uid)
+    ]]>
+  </sql-query>
+
+    <!--  during_timeframe intersecting before_timeframe -->
+  <sql-query name="updatedStudyCountQuery_oracle">
+    <return-scalar column="updatedStudyCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(*) as updatedStudyCount
+    FROM
+    ((SELECT study_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid)
+    INTERSECT
+    (select study_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') < :startDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid))
+    ]]>
+  </sql-query>
+
+  <!--
+    would use MINUS if available in MySQL
+    -->
+  <sql-query name="newStudyCountQuery_mysql">
+    <return-scalar column="newStudyCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(DISTINCT study_instance_uid) as newStudyCount
+    FROM
+    (SELECT study_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid) during_timeframe
+    LEFT JOIN
+    (select study_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) < :startDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid) before_timeframe
+    USING (study_instance_uid)
+    WHERE before_timeframe.study_instance_uid IS NULL
+    ]]>
+  </sql-query>
+
+    <!--  during_timeframe - before_timeframe -->
+  <sql-query name="newStudyCountQuery_oracle">
+    <return-scalar column="newStudyCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(DISTINCT study_instance_uid) as newStudyCount
+    FROM
+    ((SELECT study_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid)
+    MINUS
+    (select study_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') < :startDate AND
+           s.operation_type=0
+     GROUP BY s.study_instance_uid))
+    ]]>
+  </sql-query>
+
+  <!--
+    this would use intersect if available on MySQL
+    -->
+  <sql-query name="updatedSeriesCountQuery_mysql">
+    <return-scalar column="updatedSeriesCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(*) as updatedSeriesCount
+    FROM
+    (SELECT series_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid) during_timeframe
+    INNER JOIN
+    (select series_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) < :startDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid) before_timeframe
+    USING (series_instance_uid)
+    ]]>
+  </sql-query>
+
+    <!--  during_timeframe interesects- before_timeframe -->
+  <sql-query name="updatedSeriesCountQuery_oracle">
+    <return-scalar column="updatedSeriesCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(*) as updatedSeriesCount
+    FROM
+    ((SELECT series_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid)
+    INTERSECT
+    (select series_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp,'DDD') < :startDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid))
+    ]]>
+  </sql-query>
+
+  <!--
+    would use MINUS if available in MySQL
+    -->
+  <sql-query name="newSeriesCountQuery_mysql">
+    <return-scalar column="newSeriesCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(DISTINCT series_instance_uid) as newSeriesCount
+    FROM
+    (SELECT series_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid) during_timeframe
+    LEFT JOIN
+    (select series_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           date(s.submission_timestamp) < :startDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid) before_timeframe
+    USING (series_instance_uid)
+    WHERE before_timeframe.series_instance_uid IS NULL
+    ]]>
+  </sql-query>
+
+  <!--  during_timeframe - before_timeframe -->
+  <sql-query name="newSeriesCountQuery_oracle">
+    <return-scalar column="newSeriesCount" type="integer"/>
+    <![CDATA[
+    SELECT COUNT(DISTINCT series_instance_uid) as newSeriesCount
+    FROM
+    ((SELECT series_instance_uid
+     FROM submission_history s
+     WHERE s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid)
+    MINUS
+    (select series_instance_uid
+     from submission_history s
+     where s.project=:projectName AND s.site=:siteName AND
+           trunc(s.submission_timestamp, 'DDD') < :startDate AND
+           s.operation_type=0
+     GROUP BY s.series_instance_uid))
+    ]]>
+  </sql-query>
+
+  <!-- not sure how to properly deal with to_date function while
+       keeping query in Criteria API.  cop out and do native query outright -->
+  <sql-query name="findSubmissionDatesInTimeFrame_oracle">
+    <return-scalar column="theDate" type="date"/>
+    <return-scalar column="groupCnt" type="integer"/>
+    <![CDATA[
+    SELECT trunc(s.submission_timestamp, 'DDD') as theDate,
+           count(*) as groupCnt
+    FROM submission_history s
+    WHERE s.project=:projectName AND
+          s.site=:siteName AND
+          trunc(s.submission_timestamp, 'DDD') between :startDate AND :endDate AND
+          s.operation_type in (:operationTypes)
+    GROUP BY trunc(s.submission_timestamp, 'DDD')
+    ORDER BY trunc(s.submission_timestamp, 'DDD') ASC
+    ]]>
+  </sql-query>
+
+</hibernate-mapping>

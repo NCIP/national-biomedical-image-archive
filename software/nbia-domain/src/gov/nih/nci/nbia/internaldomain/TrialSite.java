@@ -1,0 +1,144 @@
+package gov.nih.nci.nbia.internaldomain;
+
+import java.util.Collection;
+import java.io.Serializable;
+	/**
+	* The site responsible for submitting clinical trial data. 	**/
+public class TrialSite  implements Serializable
+{
+	/**
+	* An attribute to allow serialization of the domain objects
+	*/
+	private static final long serialVersionUID = 1234567890L;
+
+	
+		/**
+	* One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.	**/
+	private Integer id;
+	/**
+	* Retreives the value of id attribute
+	* @return id
+	**/
+
+	public Integer getId(){
+		return id;
+	}
+
+	/**
+	* Sets the value of id attribue
+	**/
+
+	public void setId(Integer id){
+		this.id = id;
+	}
+	
+		/**
+	* One or more characters used as the identifier of the site responsible for submitting clinical trial data.	**/
+	private String trialSiteId;
+	/**
+	* Retreives the value of trialSiteId attribute
+	* @return trialSiteId
+	**/
+
+	public String getTrialSiteId(){
+		return trialSiteId;
+	}
+
+	/**
+	* Sets the value of trialSiteId attribue
+	**/
+
+	public void setTrialSiteId(String trialSiteId){
+		this.trialSiteId = trialSiteId;
+	}
+	
+		/**
+	* Text name to capture the name of the site responsible for submitting clinical trial data.	**/
+	private String trialSiteName;
+	/**
+	* Retreives the value of trialSiteName attribute
+	* @return trialSiteName
+	**/
+
+	public String getTrialSiteName(){
+		return trialSiteName;
+	}
+
+	/**
+	* Sets the value of trialSiteName attribue
+	**/
+
+	public void setTrialSiteName(String trialSiteName){
+		this.trialSiteName = trialSiteName;
+	}
+	
+	/**
+	* An associated gov.nih.nci.ncia.domain.ClinicalTrial object
+	**/
+			
+	private ClinicalTrial trial;
+	/**
+	* Retreives the value of trial attribue
+	* @return trial
+	**/
+	
+	public ClinicalTrial getTrial(){
+		return trial;
+	}
+	/**
+	* Sets the value of trial attribue
+	**/
+
+	public void setTrial(ClinicalTrial trial){
+		this.trial = trial;
+	}
+			
+	/**
+	* An associated gov.nih.nci.ncia.domain.Patient object's collection 
+	**/
+			
+	private Collection<Patient> patientCollection;
+	/**
+	* Retreives the value of patientCollection attribue
+	* @return patientCollection
+	**/
+
+	public Collection<Patient> getPatientCollection(){
+		return patientCollection;
+	}
+
+	/**
+	* Sets the value of patientCollection attribue
+	**/
+
+	public void setPatientCollection(Collection<Patient> patientCollection){
+		this.patientCollection = patientCollection;
+	}
+		
+	/**
+	* Compares <code>obj</code> to it self and returns true if they both are same
+	*
+	* @param obj
+	**/
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof TrialSite) 
+		{
+			TrialSite c =(TrialSite)obj; 			 
+			if(getId() != null && getId().equals(c.getId()))
+				return true;
+		}
+		return false;
+	}
+		
+	/**
+	* Returns hash code for the primary key of the object
+	**/
+	public int hashCode()
+	{
+		if(getId() != null)
+			return getId().hashCode();
+		return 0;
+	}
+	
+}

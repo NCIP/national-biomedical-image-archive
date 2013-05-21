@@ -1,0 +1,1277 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- bda-build-template version 1.6.6        -->
+<project name="aim-installer" 
+         default="upgrade" 
+         basedir="."
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    This build file is part of the bda-build-templates project. This is the master install file for the project.  It should be placed in project/software.  This script is copied into the distribution and  executed from the extracted distribution.  It is run by typing "ant" from the master project build.xml or from command line. This script has two flows install and upgrade.
+  </description>
+
+  <!-- Properties file related properties and tasks -->
+  <echo message="Passed in properties file of ${properties.file}."/>
+  <property environment="env" />
+  <property file="local.properties"/>
+  <property file="project.properties"/>
+  <!-- load the properties file -->
+  <property name="properties.file" value="${basedir}/install.properties"/>
+  <echo message="Using properties file of ${properties.file}."/>
+  <available file="${properties.file}" property="properties.file.exists" />
+  <fail unless="properties.file.exists" message="The properties.file ${properties.file} does not exist, please make sure that you pass in an accurate file name with the 'ant -Dproperties.file=somepath/somefile', otherwise the build will fail."/>
+  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=(.*[\w\d\/\{\}\\]+)[ \t]+\r*$" replace="\1=\2"/>
+  <replaceregexp file="${properties.file}" byline="true" match="^([\w\d.]+)=[ \t]+(.*[\w\d\/\{\}\\]+)\r*$" replace="\1=\2"/>
+  <property file="${properties.file}" />
+
+  <!-- Generic properties -->
+  <property name="project.name" value="aim"/>
+  <property name="env.name" value="local"/>
+  <property name="log.dir" location="${basedir}/logs" />
+  <property name="working.dir" location="${basedir}/working" />
+  <property name="temp.dir" location="${working.dir}/temp" />
+
+
+  <!-- Install Time properties -->
+  <!-- Source and target directories -->
+  <property name="bda-utils.dir" location="${basedir}/bda-utils" />
+  <property name="tools.dir" location="${basedir}/${tools.dist.relative.dir}" />
+  <property name="common.dir.src" location="${basedir}/${common.dist.relative.dir}" />
+  <property name="common.dir.dest" location="${working.dir}/${common.dist.relative.dir}" />
+  <property name="db.dir.src" location="${basedir}/${db.dist.relative.dir}" />
+  <property name="db.dir.dest" location="${working.dir}/${db.dist.relative.dir}" />
+  <property name="db-install.dir.dest" location="${working.dir}/${db-install.dist.relative.dir}" />
+  <property name="db-upgrade.dir.dest" location="${working.dir}/${db-upgrade.dist.relative.dir}" />
+  <property name="jboss-conf.dir.src" location="${basedir}/${jboss-conf.dist.relative.dir}" />
+  <property name="jboss-conf.dir.dest" location="${working.dir}/${jboss-conf.dist.relative.dir}" />
+  <property name="sync-gts.dir" location="${basedir}/${sync-gts.dist.relative.dir}"/>
+  <property name="sync-gts.build.dir" location="${sync-gts.dir}/syncgts"/>
+  <property name="cagrid-target.dir" location="${basedir}/cagrid-target"/>
+
+  <!-- Added to make sure that it works with both absolute and relative paths, this property is handed to sub-project scripts in absolute format. -->
+  <property name="jar-signing.keystore.abs-location" location="${jar-signing.keystore.location}"/>
+
+  <!-- Grid related properties -->
+  <property name="grid.resource.dir" location="${basedir}/${tools.dist.relative.dir}" />
+  <property name="grid.application.dir" location="${basedir}/${grid.dist.relative.dir}" />
+  <property name="grid.artifact.file" value="AIMDataService.zip" />
+  <property name="grid.dir.dest.jboss" value="wsrf.war" />
+  <property name="grid.application.name" value="AIMDataService" />
+  <property name="resource.file.jboss-globus-lib" value="${cagrid-libs.binaries.file}" />
+  <property name="resource.file.jboss-globus-war" value="${cagrid-base-war.binaries.file}" />
+
+  <!-- Paths -->
+  <path id="bda-utils.classpath">
+    <fileset dir="${bda-utils.dir}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+  <!-- Task definitions -->
+  <taskdef uri="antlib:org.apache.ant.antunit" resource="org/apache/ant/antunit/antlib.xml" classpathref="bda-utils.classpath"/>
+  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="bda-utils.classpath"/>
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="bda-utils.classpath"/>
+  <taskdef resource="liquibasetasks.properties" classpathref="bda-utils.classpath"/>
+  <taskdef name="groovy" classname="org.codehaus.groovy.ant.Groovy" classpathref="bda-utils.classpath"/>
+
+  <!-- Includes-->
+  <import file="${bda-utils.dir}/bda-build-utils-${bda.version}.xml" />
+
+  <!-- Clean/make working dir -->
+  <delete dir="${working.dir}" failonerror="false"/>
+  <mkdir dir="${working.dir}" />
+
+  <!-- Start logging moved out of target so all targets are logged -->
+  <!--<property name="install-logs.dir" location="${application.base.path}/change-logs"/> -->
+  <property name="install-logs.dir" location="${log.dir}"/>
+  <mkdir dir="${install-logs.dir}"/>
+  <tstamp>
+    <format property="install.time" pattern="yyyy-MM-dd-HH-mm-ss" />
+  </tstamp>
+  <record name="${install-logs.dir}/install-${install.time}.log" action="start"/>
+
+
+
+  <target name="common:init:pre">
+    <!-- Set application.base.path based on platform -->
+    <condition property="application.base.path" value="${application.base.path.linux}">
+      <or>
+        <os family="unix" />
+        <os family="mac" />
+      </or>
+    </condition>
+
+    <condition property="application.base.path" value="${application.base.path.windows}">
+      <os family="windows" />
+    </condition>
+    <echo message="application.base.path=${application.base.path}"/>
+    <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+    <property name="grid.wsrf.path" location="${jboss.home}/server/${jboss.server.name}/deploy/wsrf.war"/>
+     
+    <jboss-version
+      />
+    <tomcat-version
+      />
+  </target>
+
+  <target name="install:jboss:init" depends="common:init:pre">
+    <!-- determine if port configurations or port lists are being called -->
+    <if>
+      <isset property="jboss.ncicb-standard.port-config"/>
+      <then>
+        <!-- Read some port properties from standard bindings file -->
+        <echo message="Using JBoss NCICB Standard port configurations"/>
+        <if>
+          <equals arg1="${jboss.major.version}" arg2="4"/>
+          <then>
+            <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+            <jboss-read-ports
+              jboss.server.bindingfile.location="${jboss.server.binding.template.location}"
+              />
+            <jboss-bindings-validate
+              jboss.server.bindingfile.location="${jboss.server.binding.template.location}"
+          />
+          </then>
+          <elseif>
+            <equals arg1="${jboss.major.version}" arg2="5"/>
+            <then>
+              <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+              <property name="jboss.server.bindingfile.location" value="${jboss.home}/server/${jboss.server.name}/conf/bindingservice.beans/META-INF/bindings-jboss-beans.xml"/>
+              <property name="temp.ejb.file" value="${temp.dir}/ejb3-connectors-jboss-beans.xml"/>
+              <copy tofile="${temp.ejb.file}" file="${bda-utils.dir}/resource/jboss-5.1.0.GA/ejb3-connectors-jboss-beans.xml"/>
+              <!--
+              <jboss51-bindings-nci
+                jboss.server.bindingfile.location="${jboss-bindings.file}"
+                />
+              -->
+              <jboss51-read-ports-nci
+                jboss.server.bindingfile.location="${jboss-bindings.file}"
+                jboss.server.ejbfile.location="${temp.ejb.file}"
+                />
+            </then>
+          </elseif>
+        </if>
+        <echo message="http -${jboss.server.port} "/>
+        <echo message="http -${jboss.server.jndi.port} "/>
+        <properties-exist
+          properties.list="jboss.server.jndi.port,jboss.server.port,jboss.server.ports.name"
+          />
+      </then>
+      <else>
+        <!-- else ensure that all ports are set, since these will be removed from install-properties.template we will verify here.  They have to be removed so the validator works with or without the properties or we have to change the format of the file. -->
+        <echo message="Using custom JBoss port configurations"/>
+        <if>
+          <equals arg1="${jboss.major.version}" arg2="4"/>
+          <then>
+            <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+          </then>
+          <else>
+            <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings-jboss-beans.xml"/>
+
+          </else>
+        </if>
+        <properties-exist
+          properties.list="jboss.server.jndi.port,jboss.server.port,jboss.cobraorb.port,jboss.hajndi.port,jboss.hajrmi.port,jboss.jmx-rmi.port,jboss.messaging.port,jboss.pooledha.port,jboss.server.bind.port,jboss.server.rmi.port,jboss.service.rmiobject.port,jboss.snmp.port,jboss.snmp-trapd.port,jboss.web.service.port,jboss.unifiedinvoker.port,jboss.hajndi.auto.port,jboss.ssl.port,jboss.jms2.netty.port,jboss.jms2.netty-ssl.port,jboss.transaction.recovery.port,jboss.transaction.status.port,jboss.transaction.processid.port"
+          />
+      </else>
+    </if>
+  </target>
+
+  <target name="common:jboss:init" depends="common:init:pre" unless="exclude.jboss">
+    <property name="jboss.ssl.enable" value="false"/>
+    <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+    <property name="grid.wsrf.path" location="${jboss.home}/server/${jboss.server.name}/deploy/wsrf.war"/>
+    
+    <jboss-version
+      />
+      
+    <property name="jboss.application.url" value="https://${jboss.server.hostname}:${jboss.grid.secure.port}/wsrf"/>
+    <!--
+    <if>
+      <equals arg1="${jboss.http-connector.remove}" arg2="true"/>
+      <then>
+        <property name="jboss.application.url" value="https://${jboss.server.hostname}:${jboss.grid.secure.port}/${aim-webapp.name}"/>
+      </then>
+      <else>
+        <property name="jboss.application.url" value="http://${jboss.server.hostname}:${jboss.server.port}/${aim-webapp.name}"/>
+      </else>
+    </if>
+    -->
+    <available file="${jboss.home}/server/${jboss.server.name}/conf/jboss-service.xml" property="jboss.exists"/>
+    <basename file="${jboss.ssl.keystore.location}" property="jboss.ssl.keystore.file"/>
+    <dirname file="${jboss.ssl.keystore.location}" property="jboss.ssl.keystore.dir"/>
+    <basename file="${jboss.grid.secure.cert.location}" property="jboss.grid.secure.cert.file"/>
+    <dirname file="${jboss.grid.secure.cert.location}" property="jboss.grid.secure.dir"/>
+    <basename file="${jboss.grid.secure.key.location}" property="jboss.grid.secure.key.file"/>
+    <property name="jboss.socket.ports" value="${jboss.server.port},${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}"/>
+    <if>
+      <isset property="exclude.jboss.grid"/>
+      <then>
+        <property name="jboss.grid.enable" value="false"/>
+      </then>
+      <else>
+        <property name="jboss.grid.enable" value="true"/>
+      </else>
+    </if>
+  </target>
+
+  <target name="common:init" depends="common:init:pre">
+    <!-- aim-webapp can use either Oracle or MySQL or PostgreSQL as its database platform, this is controled by the database.type property.  Based on the value of this property sent several variables for use during install -->
+    <!--
+    <echoproperties  prefix="database"> <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+    <switch value="${database.type}">
+      <case value="oracle">
+        <property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/ojdbc14-10.2.0.3.0.jar"/>
+        <property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
+        <property name="database.schema" value="${database.user}"/>
+      </case>
+      <case value="mysql">
+        <property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.0.8.jar"/>
+        <property name="database.driver" value="com.mysql.jdbc.Driver"/>
+        <property name="database.schema" value="${database.name}"/>
+      </case>
+      <case value="postgresql">
+        <property name="database.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        <property name="database.driver.file" value="${bda-utils.dir}/postgresql-8.3-603.jdbc3.jar"/>
+        <property name="database.driver" value="org.postgresql.Driver"/>
+        <property name="database.schema" value="public"/>
+      </case>
+      <default>
+        <fail message="Invalid database type ${database.type}"/>
+      </default>
+    </switch>
+
+    <path id="jdbc.driver.classpath">
+      <pathelement location="${database.driver.file}"/>
+    </path>
+    -->
+    
+    <property name="properties.template.file" value="${basedir}/properties.template" />
+    <property file="${basedir}/cagrid-target/${grid.target}/service_urls.properties"/>
+    <property name="grid.index.url" value="${cagrid.master.index.service.url}"/>
+    <filterset id="embedded.filterset">
+      <filter token="application.base.path" value="${application.base.path}"/>
+      <filter token="application.url" value="${application.url}"/>
+      <filter token="database.url" value="${database.url}"/>
+      <filter token="database.user" value="${database.user}"/>
+      <filter token="database.password" value="${database.password}"/>
+      <filter token="database.system.url" value="${database.system.url}"/>
+      <!-- added internal properties that may be used in a filtered copy -->
+      <filter token="database.driver" value="${database.driver}"/>
+      <!-- added for liquibase -->
+      <filter token="db-upgrade.run.dir" value="${db-upgrade.dir.dest}/${database.type}"/>
+      <filter token="jboss.home" value="${jboss.home}"/>
+      <filter token="database.dialect" value="${database.dialect}"/>
+      <filter token="hibernate.cfg.file.path" value="${hibernate.cfg.file.path}"/>
+      <filter token="env.LOGNAME" value="${env.LOGNAME}"/>
+      <filter token="env.JAVA_HOME" value="${env.JAVA_HOME}"/>
+      <filter token="project.name" value="${project.name}"/>
+      <filter token="grid.dorian.name" value="${grid.target}-Dorian"/>
+      <filter token="grid.dorian.url" value="${cagrid.master.dorian.service.url}"/>
+      <filter token="" value=""/>
+    </filterset>
+
+    <!--OS Temp dir -->
+    <condition property="os.temp.dir" value="/tmp/${project.name}">
+      <or>
+        <os family="unix" />
+        <os family="mac" />
+      </or>
+    </condition>
+
+    <condition property="os.temp.dir" value="c:/temp/${project.name}">
+      <os family="windows" />
+    </condition>
+    <echo message="os.temp.dir - ${os.temp.dir}"/>
+    <!-- Copy files to ensure values containing variables are expanded, such properties are stored in embedded.filterset and then copy with filter files -->
+    <copy todir="${common.dir.dest}" filtering="true">
+      <fileset dir="${common.dir.src}">
+        <include name="**/*"/>
+      </fileset>
+      <filterset refid="embedded.filterset"/>
+      <filterset>
+        <filtersfile file="${properties.file}"/>
+        <filtersfile file="project.properties"/>
+      </filterset>
+    </copy>
+  </target>
+
+  <target name="diag">
+    <echoproperties > <propertyset negate="yes" > <propertyref regex="passw" /> </propertyset> </echoproperties>
+  </target>
+
+  <target name="install:common:clean" description="Removes all files from the local filesystem" depends="
+    common:init,
+     install:jboss:clean
+    ">
+  </target>
+
+  <target name="install:jboss:clean" unless="exclude.jboss" depends="common:jboss:init,common:init">
+    <sleep seconds="5" />
+    <property name="backup.count" value="5"/>
+
+    <if>
+      <not>
+        <equals arg1="${exclude.jboss.backup}" arg2="true"/>
+      </not>
+      <then>
+        <!-- Jboss backup, do not compress until install is finished -->
+        <property name="backup.jboss.base.dir" location="${application.base.path}/backup/jboss"/>
+
+        <!-- So these directories won't be included in the backup, they are not needed to use jboss -->
+        <delete dir="${jboss.home}/server/${jboss.server.name}/work"/>
+        <delete dir="${jboss.home}/server/${jboss.server.name}/tmp"/>
+
+        <backup-dir
+          src.dir="${jboss.home}"
+          backup.base.dir="${backup.jboss.base.dir}"
+          backup.count="${backup.count}"
+          />
+      </then>
+    </if>
+    <delete dir="${jboss.home}"/>
+  </target>
+
+  <target name="install:database:prep" description="Copies db files with filtering" unless="exclude.database" depends="common:init">
+    
+    <property name="db.prop.list" value="database.system.url,database.system.user,database.system.password,database.name"/>
+    <echo  message="Checking if database properties exist: ${db.prop.list}"/>
+    <properties-exist properties.list="${db.prop.list}"/>
+    
+    <echoproperties  prefix="database"> 
+      <propertyset negate="yes" > 
+        <propertyref regex="passw" /> 
+      </propertyset> 
+    </echoproperties>
+    
+    <copy todir="${db.dir.dest}" filtering="true">
+      <fileset dir="${db.dir.src}">
+        <include name="**/*"/>
+      </fileset>
+      <filterset refid="embedded.filterset"/>
+      <filterset>
+        <filtersfile file="${properties.file}"/>
+        <filtersfile file="project.properties"/>
+      </filterset>
+    </copy>
+    <!--
+    <mkdir dir="${os.temp.dir}/${project.name}"/>
+    <copy todir="${os.temp.dir}/${project.name}" filtering="true" flatten="true" overwrite="true">
+      <fileset dir="${db.dir.dest}">
+        <include name="**/db-upgrade.xml"/>
+      </fileset>
+    </copy>
+    -->
+  </target>
+
+  <target name="install:database" description="Runs datbase creation scripts then calls uprade database." unless="exclude.database"
+          depends="common:init,
+                   install:database:prep,
+                   install:database:validation:pre-install">
+                   
+    <!-- 
+    <database-clean/>
+
+    <switch value="${database.type}">
+      <case value="oracle">
+        <database-install
+          db.install.create.file.list="${db.install.create.oracle.file.list}"
+          sql.delimiter="/"
+          sql.delimitertype="row"
+          />
+      </case>
+      <case value="postgresql">
+        <database-install
+          db.install.create.file.list="${db.install.create.postgresql.file.list}"
+          sql.delimiter="/"
+          sql.delimitertype="row"
+          />
+      </case>
+      <case value="mysql">
+        <database-install
+          db.install.create.file.list="${db.install.create.mysql.file.list}"
+          />
+      </case>
+    </switch>
+    <database-upgrade
+      database.changelog.file="${os.temp.dir}/${project.name}/db-upgrade.xml"
+      />
+    <database-tag/>
+    -->
+  </target>
+
+  <target name="install:jboss:binaries" description="Install JBoss binaries" unless="exclude.jboss" depends="common:jboss:init, common:init">
+    <jboss-install-binaries
+      />
+    <jboss-nci-customizations
+      />
+  </target>
+
+
+  <target name="install:jboss:configure:log4j" description="Configure custom entries in system wide log4j" unless="exclude.jboss"  depends="common:jboss:init, common:init">
+    <!--
+    <echo message="Configuring Log4J"/>
+
+    <property name="log4j.file.name" value="log4j.xml"/>
+    <copy file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}" tofile="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}.pre"/>
+
+    <replaceregexp file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      byline="true"
+      match="^(&lt;!DOCTYPE.*)"
+      replace="&lt;!\-\-\1\-\-&gt;"
+      />
+
+    <xmltask source="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      dest="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}">
+      <xmlcatalog refid="installer.catalog"/>
+      <remove path="/log4j:configuration/appender[@name='TestAppender']"/>
+      <insert path="/log4j:configuration/category"i position="before">
+        <![CDATA[
+        <appender name="TestAppender" class="org.jboss.logging.appender.RollingFileAppender">
+          <errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
+          <param name="File" value="${jboss.server.log.dir}/testAppender.log"/>
+          <param name="Append" value="false"/>
+          <param name="MaxFileSize" value="${log4j.maxFileSize}"/>
+          <param name="MaxBackupIndex" value="${log4j.maxDays}"/>
+
+          <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+          </layout>
+        </appender>
+        ]]>
+      </insert>
+      <remove path="/log4j:configuration/category[@name='org.nih.nci']"/>
+      <insert path="/log4j:configuration/root" position="before">
+        <![CDATA[
+        <category name="org.nih.nci">
+          <priority value="${log4j.level}"/>
+        </category>
+        ]]>
+      </insert>
+    </xmltask>
+    <validate-log4j
+      log4j.file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      />
+
+    <replaceregexp file="${jboss.home}/server/${jboss.server.name}/conf/${log4j.file.name}"
+      byline="true"
+      match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;"
+      replace="\1"
+      />
+    -->
+  </target>
+
+  <target name="install:jboss:configure" description="Configure JBoss (bindings, login-config.xml, ect)" unless="exclude.jboss"
+    depends="
+    common:jboss:init,
+    common:init,
+    install:jboss:configure:log4j
+      ">
+    <!-- Calls the following macros
+      jboss-bindings - configures ports for jboss
+      jboss-login-config - sets up authentication
+      secure-jboss-console - adds password to jboss console apps
+      jboss-update-shutdown - updates shutdown.jar with correct jndi port so no args need to used 4 shutdown
+      appserver-ssl-configure -  enables ssl
+      appserver-configure-external-hostname - configures jboss for use through a reverse proxy
+      grid-secure-configure-connector - configures secure grid
+    -->
+    <!-- Use below if you are defining all the ports in your install.xml not the NCICB port configuraitons-->
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="4"/>
+      <then>
+        <jboss-configure
+          jboss.grid.configure="${jboss.grid.enable}"
+          />
+        <if>
+          <equals arg1="${jboss.cgmm.enable}" arg2="true"/>
+          <then>
+            <jboss-configure-cgmm
+              />
+          </then>
+        </if>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="5"/>
+      <then>
+        <!-- clean up ssl config from systems provided jboss -->
+        <xmltask preservetype="true" source="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml"
+          dest="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml">
+          <xmlcatalog refid="bda.xml.catalog"/>           
+          <remove path="/Server/Service[@name='jboss.web']/Connector[@keystoreFile='${jboss.server.home.dir}/conf/keystore/server.keystore']" />
+        </xmltask>
+        <jboss-configure
+          jboss.grid.configure="false"
+          jboss.server.bindingfile.location="${jboss.home}/server/${jboss.server.name}/conf/bindingservice.beans/META-INF/bindings-jboss-beans.xml"
+          jboss.server.binding.template.location="${jboss.server.binding.template.location}"
+          jboss.server-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml"
+          proxy.update.connector.port.ssl="${jboss.ssl.port}"
+          />
+        <!--
+        <jboss51-encrypt-messaging-passwd
+          />
+        -->
+      </then>
+    </if>
+  </target>
+
+
+  <target name="install:jboss:stop" description="Stops jboss" unless="exclude.jboss" depends="common:jboss:init,common:init">
+    <if>
+      <isset property="jboss.exists"/>
+      <then>
+        <jboss-stop-jboss jboss.server.jndi.port="${jboss.server.jndi.port}"/>
+      </then>
+    </if>
+  </target>
+
+  <target name="install:jboss:start" description="Starts jboss" unless="exclude.jboss" depends="common:jboss:init,common:init">
+    <if>
+      <not>
+        <isset property="exclude.start.servers"/>
+      </not>
+      <then>
+        <jboss-start-jboss />
+        <!--<sleep seconds="15"/>-->
+      </then>
+    </if>
+  </target>
+
+  <target name="install:common:validation:pre-install" description="Runs pre-install validation checks bda-utils" depends="common:init">
+    <validate-pre-install-common
+      ant.check.version="${ant.minimum.version}"
+      java.check.version.major="${java.major.version}"
+      java.check.version.minor="${java.minor.version}"
+      />
+  </target>
+
+  <target name="install:jboss:validation:pre-install" description="Runs pre-install validation checks bda-utils" unless="exclude.jboss"
+    depends="
+    common:jboss:init,common:init,
+    install:common:validation:pre-install
+    ">
+    <validate-pre-install-jboss
+      />
+  </target>
+
+  <target name="install:database:validation:pre-install" description="Runs pre-install validation checks bda-utils"
+    depends="
+    common:init,
+    install:common:validation:pre-install
+    ">
+    <!--
+    <validate-pre-install-database
+      database.version="${mysql.minimum.version}"
+      />
+      -->
+  </target>
+
+  <target name="install:jboss:validation:pre-install:ports" description="Checks to see if configured ports are listenting and fails buld, meant to be run after jboss:stop" unless="exclude.jboss"
+    depends="
+    common:init,
+    install:jboss:stop
+    ">
+    <validate-pre-jboss-ports
+      />
+  </target>
+
+  <target name="install:common:validation:post-install" description="Run post-install checks from bda-utils"
+    depends="
+    common:init
+    ">
+    <validate-post-common />
+  </target>
+
+  <target name="install:jboss:validation:post-install" description="Run post-install checks from bda-utils" unless="exclude.jboss"
+    depends="
+    common:jboss:init,
+    common:init,
+    install:jboss:start
+    ">
+    <if>
+      <not>
+        <isset property="exclude.start.servers"/>
+      </not>
+      <then>
+        <validate-post-jboss />
+      </then>
+    </if>
+  </target>
+
+  <target name="install:jboss" description="Wrapper scripts that calls all required targets to install the jboss container" unless="exclude.jboss"
+    depends="
+    common:jboss:init,
+    common:init,
+    install:jboss:init,
+    install:jboss:validation:pre-install,
+    install:common:validation:pre-install,
+    install:jboss:stop,
+    install:jboss:validation:pre-install:ports,
+    install:jboss:clean,
+    install:jboss:binaries,
+    install:jboss:configure,
+    install:jboss:grid,
+    install:jboss:grid:configure,
+    install:jboss:grid:transfer-service,
+    install:post:jboss,
+    install:jboss:start,
+    install:jboss:validation:post-install
+    " >
+  </target>
+
+  <target name="install" description="Installs and configures JBOSS, creates database, and deploys application"
+    depends="
+    common:jboss:init,
+     common:init,
+     install:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     install:jboss:validation:pre-install:ports,
+     install:common:clean,
+     install:database,
+     install:jboss,
+     install:common:post,
+     install:jboss:start,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade:jboss" description="Wrapper target to call all targets required to upgrade jboss container." unless="exclude.jboss" depends="upgrade:jboss:init,common:init,upgrade-ncm:jboss">
+  </target>
+
+  <target name="upgrade" description="Upgrades JBoss and Database" depends="upgrade:common:init,common:init,upgrade-ncm">
+  </target>
+
+  <target name="upgrade-with-dbinstall" description="Upgrades JBoss and Database" depends="upgrade:common:init,common:init,upgrade-ncm:with-dbinstall">
+  </target>
+
+  <target name="upgrade-dac:jboss" description="Wrapper target to call all targets required to upgrade jboss container." unless="exclude.jboss"
+    depends="
+    upgrade:jboss:init,
+    common:init,
+    common:jboss:init,
+    install:jboss:validation:pre-install,
+    install:common:validation:pre-install,
+    install:jboss:stop,
+    install:jboss:validation:pre-install:ports,
+    install:jboss:clean,
+    install:jboss:binaries,
+    install:jboss:configure,
+    install:jboss:grid,
+    install:jboss:grid:configure,
+    install:jboss:grid:transfer-service,
+    upgrade:post:jboss,
+    install:post:jboss,
+    install:jboss:start,
+    install:jboss:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-dac" description="Upgrades JBoss and Database"
+    depends="
+    upgrade:common:init,
+     common:init,
+     common:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     upgrade:database,
+     upgrade:jboss,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-dac:with-dbinstall" description="Upgrades JBoss and Database"
+    depends="
+    upgrade:common:init,
+     common:init,
+     common:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     install:database,
+     upgrade:jboss,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-cm:jboss" description="Wrapper target to call all targets required to upgrade jboss container." unless="exclude.jboss"
+    depends="
+    upgrade:jboss:init,
+    common:init,
+    common:jboss:init,
+    install:jboss:validation:pre-install,
+    install:common:validation:pre-install,
+    install:jboss:stop,
+    install:jboss:validation:pre-install:ports,
+    install:jboss:configure,
+    install:jboss:grid,
+    install:jboss:grid:configure,
+    install:jboss:grid:transfer-service,
+    upgrade:post:jboss,
+    install:post:jboss,
+    install:jboss:start,
+    install:jboss:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-cm" description="Upgrades JBoss and Database"
+    depends="
+    upgrade:common:init,
+     common:init,
+     common:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     upgrade:database,
+     upgrade:jboss,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-cm:with-dbinstall" description="Upgrades JBoss and Database"
+    depends="
+    upgrade:common:init,
+     common:init,
+     common:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     install:database,
+     upgrade:jboss,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-ncm:jboss" description="Wrapper target to call all targets required to upgrade jboss container." unless="exclude.jboss"
+    depends="
+    upgrade:jboss:init,
+    common:init,
+    common:jboss:init,
+    install:jboss:validation:pre-install,
+    install:common:validation:pre-install,
+    install:jboss:stop,
+    install:jboss:validation:pre-install:ports,
+    install:jboss:grid,
+    install:jboss:grid:configure,
+    install:jboss:grid:transfer-service,
+    install:post:jboss,
+    install:jboss:start,
+    install:jboss:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-ncm" description="Upgrades JBoss and Database"
+    depends="
+    upgrade:common:init,
+     common:init,
+     common:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     upgrade:database,
+     upgrade:jboss,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade-ncm:with-dbinstall" description="Upgrades JBoss and Database"
+    depends="
+    upgrade:common:init,
+     common:init,
+     common:jboss:init,
+     install:common:validation:pre-install,
+     install:jboss:validation:pre-install,
+     install:database:validation:pre-install,
+     install:jboss:stop,
+     install:database,
+     upgrade:jboss,
+     install:common:validation:post-install
+    ">
+  </target>
+
+  <target name="upgrade:database" description="Upgrades database using BDA Datbase Upgrade process." unless="exclude.database"
+    depends="
+    upgrade:database:init,
+    common:init,
+    install:database:prep,
+    install:database:validation:pre-install
+    ">
+    <!--
+    <database-upgrade
+      database.changelog.file="${os.temp.dir}/${project.name}/db-upgrade.xml"
+      />
+    <database-tag/>
+    -->
+  </target>
+
+  <target name="upgrade:database:tag" description="Tags current state of database with a tag to allow for rollback of database to previous versions." unless="exclude.database"
+    depends="
+    upgrade:database:init,
+    common:init,
+    install:database:prep
+    ">
+    <!--
+    <database-tag/>
+     -->
+  </target>
+
+  <target name="upgrade:database:rollback" description="Rolls back database to previous tagged version using rollback scripts." unless="exclude.database"
+    depends="
+    upgrade:database:init,
+    common:init,
+    install:database:prep
+    ">
+      <!--
+    <database-rollback/>
+    -->
+  </target>
+
+  <target name="install:aim-grid" description="Wrapper target for Grid application targets" unless="exclude.jboss.grid"
+          depends="common:init,
+                   install:jboss:grid,
+                   install:jboss:grid:configure,
+                   install:jboss:grid:transfer-service">
+  </target>
+
+  <target name="install:jboss:grid" description="Deploy  to jboss" unless="exclude.jboss.grid" depends="common:init">
+    <mkdir dir="${jboss.home}/server/${jboss.server.name}/deploy/${grid.dir.dest.jboss}"/>
+    
+    <unzip dest="${jboss.home}/server/${jboss.server.name}/lib" 
+           src="${grid.resource.dir}/${resource.file.jboss-globus-lib}" />
+           
+    <unzip dest="${jboss.home}/server/${jboss.server.name}/deploy/${grid.dir.dest.jboss}" 
+           src="${grid.resource.dir}/${resource.file.jboss-globus-war}" />
+           
+    <unzip dest="${jboss.home}/server/${jboss.server.name}/deploy/${grid.dir.dest.jboss}" 
+           src="${grid.application.dir}/${grid.artifact.file}" />
+  </target>
+
+  <!-- the dependency on install:database:prep for the db2config.xml may not be the ideal thing....
+       may re-think that -->
+  <target name="install:jboss:grid:configure" 
+          description="Configure tomcat-application" 
+          unless="exclude.jboss.grid" 
+          depends="common:init,
+                   install:database:prep">
+          
+    <jboss-configure-grid  grid.application.relative.dir="${grid.dir.dest.jboss}"/>
+      
+    <copy file="${db.dir.dest}/db2config.xml" 
+          tofile="${jboss.home}/server/${jboss.server.name}/conf/db2config.xml"/>
+          
+    <xmltask source="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/jndi-config.xml"
+             dest="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/jndi-config.xml">     
+      <!-- no xmlcatalog necessary -->                    
+                
+      <replace path="//:parameter[:name='cqlQueryProcessorConfig_xmldbConfigFile']/:value/text()" 
+               withtext="${jboss.home}/server/${jboss.server.name}/conf/db2config.xml" />             
+                       
+      <replace path="//:parameter[:name='cqlQueryProcessorConfig_xmldbURI']/:value/text()" 
+               withtext="${database.url}" />  
+                                           
+    </xmltask>   
+
+    <!-- patch the security descriptors for the service if security is enabled -->
+    <if>
+      <equals arg1="${jboss.grid.secure.enable}" arg2="true"/>
+      <then>
+        <xmltask source="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/AIMDataService-security-desc.xml"   
+                 dest="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/AIMDataService-security-desc.xml">
+          <xmlcatalog refid="bda.xml.catalog"/>        
+          <insert path="//:securityConfig" 
+                  position="under"
+                  file="${grid.application.dir}/AIMDataService-security-desc-secure-methods.xml"/>
+        </xmltask>          
+            
+        <xmltask source="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/AIMDataService-security-metadata.xml"   
+                 dest="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/AIMDataService-security-metadata.xml">
+          <xmlcatalog refid="bda.xml.catalog"/>        
+          <insert path="//ns1:operations" 
+                  position="under"
+                  file="${grid.application.dir}/AIMDataService-security-metadata-secure-methods.xml"/>
+        </xmltask>       
+        
+        <xmltask source="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/AIMDataService-security-metadata.xml"   
+                 dest="${grid.wsrf.path}/WEB-INF/etc/cagrid_AIMDataService/AIMDataService-security-metadata.xml">
+          <xmlcatalog refid="bda.xml.catalog"/>        
+          <replace path="//@anonymousPermitted" 
+                   withText="${grid.anonymous.permitted}"/>
+        </xmltask>           
+
+            
+      </then> 
+    </if>     
+      
+  </target>
+
+  <target name="install:common:post" depends="
+    common:init,
+     install:post:jboss
+    ">
+  </target>
+
+  <target name="install:post:jboss" unless="exclude.jboss" depends="common:init">
+    <if>
+      <not>
+        <equals arg1="${exclude.jboss.backup}" arg2="true"/>
+      </not>
+      <then>
+        <if>
+          <available file="${backup.jboss.base.dir}/backup/${jboss.binaries.relative.dir}/bin/run.sh"/>
+          <then>
+            <echo message="Producing changelog"/>
+            <report-dir-diff
+              dir1="${backup.jboss.base.dir}/backup/${jboss.binaries.relative.dir}"
+              dir2="${jboss.home}"
+              reportFile="${install-logs.dir}/chagneLog-jboss-${install.time}.diff"
+              />
+          </then>
+          <else>
+            <echo message="It appears your jboss backup is incomplete, skipping change log."/>
+          </else>
+        </if>
+        <!-- Copy app server logs -->
+        <mkdir dir="${jboss.home}/server/${jboss.server.name}/log"/>
+        <mkdir dir="${backup.jboss.base.dir}/backup/${jboss.binaries.relative.dir}/server/${jboss.server.name}/log"/>
+        <!-- so the logs wont be included in the zip -->
+        <move todir="${jboss.home}/server/${jboss.server.name}/log">
+          <fileset dir="${backup.jboss.base.dir}/backup/${jboss.binaries.relative.dir}/server/${jboss.server.name}/log">
+            <include name="*"/>
+          </fileset>
+        </move>
+
+        <!-- Compress backup and cleanup -->
+        <mkdir dir="${backup.jboss.base.dir}/backup1"/>
+        <zip destfile="${backup.jboss.base.dir}/backup1/${jboss.binaries.relative.dir}.zip" basedir="${backup.jboss.base.dir}/backup" />
+        <delete dir="${backup.jboss.base.dir}/backup"/>
+      </then>
+    </if>
+  </target>
+
+  <target name="upgrade:common:init" depends="
+    upgrade:jboss:init
+    " >
+  </target>
+
+  <target name="upgrade:jboss:init"
+    depends="
+    upgrade:jboss:init:prep,
+    upgrade:jboss:readers:bda,
+    upgrade:jboss:readers:custom
+    ">
+    <properties-print
+      properties.list="${read.properties.list}"
+      />
+    <properties-exist
+      properties.list="${read.properties.list}"
+      />
+    <properties-write
+      properties.list="${read.properties.list}"
+      />
+  </target>
+
+  <target name="upgrade:database:init"
+    depends="
+    upgrade:jboss:init:prep,
+    upgrade:database:readers:bda,
+    upgrade:database:readers:custom
+    ">
+    <!-- You need to either depend on jboss or tomcat so that you can read the db properties from it's configs.  BDA only has macros to read database properties from jboss. -->
+  </target>
+
+  <target name="upgrade:common:init:prep">
+    <if>
+      <not>
+        <isset property="application.base.path"/>
+      </not>
+      <then>
+        <!-- Set application.base.path based on platform -->
+        <condition property="application.base.path" value="${application.base.path.linux}">
+          <or>
+            <os family="unix" />
+            <os family="mac" />
+          </or>
+        </condition>
+
+        <condition property="application.base.path" value="${application.base.path.windows}">
+          <os family="windows" />
+        </condition>
+        <echo message="application.base.path=${application.base.path}"/>
+      </then>
+    </if>
+    <properties-print
+      properties.list="application.base.path,jboss.home,tomcat.home,jboss.server.name"
+      />
+    <var name="read.properties.list" value=""/>
+  </target>
+
+  <target name="upgrade:jboss:init:prep" depends="upgrade:common:init:prep">
+    <property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+    <jboss-version
+      />
+    <if>
+      <equals arg1="${jboss.ncicb-standard.port-config}" arg2="true"/>
+      <then>
+        <property name="jboss.server.binding.template.location" value="${basedir}/${jboss-bindings.file}"/>
+      </then>
+      <else>
+        <property name="jboss.server.binding.template.location" value="${bda-utils.dir}/resource/${jboss.binaries.relative.dir}/bindings.xml"/>
+      </else>
+    </if>
+
+    <!-- Upgrades always use port configs -->
+    <property name="jboss.ncicb-standard.port-config" value="true"/>
+    <available file="${jboss.home}" property="jboss.exists"/>
+    <property name="read.jboss.home" value="${jboss.home}"/>
+    <echo message="jboss.exists - ${jboss.exists}"/>
+  </target>
+
+  <target name="upgrade:jboss:readers:custom">
+    <!-- call your custom readers here, two properties included in these scripts that don't have readers are "fs-data.base.dir, mail.smtp.server" -->
+  </target>
+
+  <target name="upgrade:database:readers:custom">
+    <!-- call your custom readers here, two properties included in these scripts that don't have readers are "fs-data.base.dir, mail.smtp.server" -->
+  </target>
+
+  <target name="upgrade:database:readers:bda" depends="upgrade:jboss:init:prep" if="jboss.exists">
+
+    <!-- Make sure the ${properties.file} has at least the following props -->
+    <properties-exist
+      properties.list="application.base.path,jboss.home,jboss.server.name"
+      />
+    <jboss-read-dbconfig
+      jboss.home="${read.jboss.home}"
+      jboss.ds-xml.file="aim-ds.xml"
+      />
+  </target>
+
+  <target name="upgrade:jboss:readers:bda" if="jboss.exists">
+
+    <!-- Make sure the ${properties.file} has at least the following props -->
+    <properties-exist
+      properties.list="application.base.path,jboss.home,jboss.server.name"
+      />
+    <!-- Set these -->
+    <osfamily property="os.family"/>
+    <if>
+      <or>
+        <equals arg1="${os.family}" arg2="unix"/>
+        <equals arg1="${os.family}" arg2="mac"/>
+      </or>
+      <then>
+        <property name="jboss.server.hostname" value="${env.HOSTNAME}"/>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${os.family}" arg2="windows"/>
+      <then>
+        <property name="jboss.server.hostname" value="${env.COMPUTERNAME}"/>
+      </then>
+    </if>
+    <!-- Begin JBoss Readers -->
+    <!-- Reader reqiures that you have only one data source defined in each *-ds.xml file -->
+    <!--
+    <jboss-read-dbconfig
+      jboss.home="${read.jboss.home}"
+      jboss.ds-xml.file="aim-ds.xml"
+      />
+    <jboss-read-ldapconfig
+      jboss.home="${read.jboss.home}"
+      />
+    -->
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="4"/>
+      <then>
+        <jboss-read-bindings-file-location
+          jboss.home="${read.jboss.home}"
+          />
+        <jboss-read-ports
+          />
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="5"/>
+      <then>
+        <jboss51-read-default-portconfig
+          />
+        <jboss51-read-ports-nci
+          />
+      </then>
+    </if>
+    <!-- Setting this variable will cause install to copy it into place if using CM/DAC, not modified in NCM -->
+    <var name="jboss.ssl.keystore.dir" value="${working.dir}/keys/jboss"/>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="4"/>
+      <then>
+        <jboss-read-ssl
+          jboss.home="${read.jboss.home}"
+          copied.keystore.dir="${jboss.ssl.keystore.dir}"
+          />
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="5"/>
+      <then>
+        <jboss-read-ssl
+          jboss.home="${read.jboss.home}"
+          jboss.server-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml"
+          copied.keystore.dir="${jboss.ssl.keystore.dir}"
+          />
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="4"/>
+      <then>
+        <jboss-read-external-hostname
+          jboss.home="${read.jboss.home}"
+          search.ssl.port="${jboss.ssl.port}"
+          />
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="5"/>
+      <then>
+        <jboss-read-external-hostname
+          jboss.home="${read.jboss.home}"
+          jboss.server-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml"
+          search.ssl.port="${jboss.ssl.port}"
+          />
+      </then>
+    </if>
+    <!-- for tier installs, should be done first, since it is set first it will be the one used if it exists -->
+    <jboss-read-java_opts
+      jboss.bin.dir="${read.jboss.home}/server/${jboss.server.name}/bin"
+      />
+    <jboss-read-java_opts
+      jboss.home="${read.jboss.home}"
+      />
+    <!-- will have to add code to install:post:jboss to copy this back if exists -->
+    <property name="copied.jboss.log4j.dir" value="${working.dir}/copied-log4j"/>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="4"/>
+      <then>
+        <jboss-copy-log4j
+          jboss.home="${read.jboss.home}"
+          jboss.log4j.location="${jboss.home}/server/${jboss.server.name}/conf/log4j.xml"
+          copied.jboss.log4j.dir="${copied.jboss.log4j.dir}"
+          />
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="5"/>
+      <then>
+        <jboss-copy-log4j
+          jboss.home="${read.jboss.home}"
+          jboss.log4j.location="${jboss.home}/server/${jboss.server.name}/conf/jboss-log4j.xml"
+          copied.jboss.log4j.dir="${copied.jboss.log4j.dir}"
+          />
+      </then>
+    </if>
+    <if>
+      <not>
+        <isset property="exclude.jboss.grid"/>
+      </not>
+      <then>
+        <grid-read-index-url
+          grid.wsrf.dir="${read.jboss.home}/server/${jboss.server.name}/deploy/wsrf.war"
+          />
+        <var name="jboss.grid.secure.dir" value="${working.dir}/keys/jboss"/>
+        <if>
+          <equals arg1="${jboss.major.version}" arg2="4"/>
+          <then>
+            <jboss-read-grid-secure
+              jboss.home="${read.jboss.home}"
+              copied.keystore.dir="${jboss.grid.secure.dir}"
+              />
+          </then>
+        </if>
+        <if>
+          <equals arg1="${jboss.major.version}" arg2="5"/>
+          <then>
+            <jboss-read-grid-secure
+              jboss.home="${read.jboss.home}"
+              jboss.server-xml.file="${jboss.home}/server/${jboss.server.name}/deploy/jbossweb.sar/server.xml"
+              copied.keystore.dir="${jboss.grid.secure.dir}"
+              />
+          </then>
+        </if>
+        <!-- will have to add code to install:post:jboss to copy this back if exists -->
+        <!-- no longer needed
+        <property name="copied.jboss.service-metadata.dir" value="${working.dir}/jboss-grid"/>
+        <grid-copy-service-metadata
+          copied.service-metadata.dir="${copied.service-metadata.dir}"
+          />
+        -->
+        <grid-read-poc
+          grid.wsrf.dir="${read.jboss.home}/server/${jboss.server.name}/deploy/wsrf.war"
+          grid.service.name="AIMDataService"
+          />
+      </then>
+    </if>
+    <read-property-from-properties-service
+      jboss.home="${read.jboss.home}"
+      property.name="property1"
+      />
+    <read-property-from-properties-service
+      jboss.home="${read.jboss.home}"
+      property.name="property2"
+      />
+  </target>
+
+  <target name="upgrade:post:jboss">
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="4"/>
+      <then>
+        <copy file="${copied.jboss.log4j.dir}/log4j.xml" todir="${jboss.home}/server/${jboss.server.name}/conf"/>
+      </then>
+    </if>
+    <if>
+      <equals arg1="${jboss.major.version}" arg2="5"/>
+      <then>
+        <copy file="${copied.jboss.log4j.dir}/jboss-log4j.xml" todir="${jboss.home}/server/${jboss.server.name}/conf"/>
+      </then>
+    </if>
+  </target>
+
+  <target name="test:fail">
+    <fail message="This target is supposed to cause a build failure.  This target can be used to verfiy that &lt;exec/&gt; calls are catching failures."/>
+  </target>
+  
+  
+  <target name="install:jboss:grid:transfer-service"
+          depends="common:jboss:init">
+
+    <property name="caGridTransfer.war.path" 
+              location ="${jboss.home}/server/${jboss.server.name}/deploy/caGridTransfer.war"/>
+    <delete dir="${caGridTransfer.war.path}"/>   
+    
+        
+    <unzip dest="${jboss.home}/server/${jboss.server.name}/deploy" 
+           src="${grid.dist.relative.dir}/caGridTransfer.zip"/> 
+
+    <replaceregexp file="${caGridTransfer.war.path}/WEB-INF/classes/server.properties" 
+                   byline="true"
+                   match="^\s*transfer.service.persistence.relative.location\s*=(.*)$"
+                   replace="transfer.service.persistence.relative.location=wsrf.war/WEB-INF/etc/cagrid_TransferService/persisted/TransferServiceContextResourceProperties"/>              
+    <delete>
+      <fileset dir="${caGridTransfer.war.path}/WEB-INF/lib">
+        <include name="log4j*.jar"/>         
+        <include name="commons-logging*.jar"/>  
+      </fileset>              
+    </delete>
+    
+    <unzip dest="${grid.wsrf.path}" 
+           src="${grid.dist.relative.dir}/caGridTransfer-wsrf.zip"/>            
+              
+  </target>   
+  
+</project>

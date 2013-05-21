@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<user>
+  <fullName>gursesl</fullName>
+  <description>The guy who breaks the build.</description>
+  <properties>
+    <hudson.tasks.Mailer_-UserProperty/>
+  </properties>
+</user>

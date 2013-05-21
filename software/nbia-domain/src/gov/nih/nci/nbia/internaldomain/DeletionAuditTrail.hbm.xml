@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="DeletionAuditTrail" table="DELETION_AUDIT_TRAIL" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="integer" column="DELETION_PK_ID">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the Study class -->
+    <property name="dataId" type="string" column="DATA_ID"/>
+    <property name="dataType" type="string" column="DATA_TYPE"/>
+    <property name="totalImages" type="integer" column="TOTAL_IMAGE"/>
+    <property name="userName" type="string" column="USER_NAME"/>
+    <property name="timeStamp" type="java.util.Date" column="TIME_STAMP"/>
+  </class>
+</hibernate-mapping>

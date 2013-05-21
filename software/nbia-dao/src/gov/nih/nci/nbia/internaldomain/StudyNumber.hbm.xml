@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="StudyNumber" table="STUDY_SERIES_NUMBER" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="PATIENT_PK_ID">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the StudyNumber class -->
+		<property name="patientId" type="string" column="PATIENT_ID"/>
+		<property name="project" type="string" column="PROJECT"/>
+		<property name="seriesNumber" type="integer" column="SERIES_NUMBER"/>
+		<property name="studyNumber" type="integer" column="STUDY_NUMBER"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/compile/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/activation-1.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/antlr-2.7.6.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/asm-hack-3.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/asm-tree-hack-3.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/ccl-29.50.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/checkstyle-4.4.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/checkstyle-optional-4.4.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/cobertura-1.9.3-asmhack.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/commons-beanutils-core-1.7.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/commons-cli-1.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/commons-collections-2.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/commons-lang-1.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/commons-logging-1.0.3.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/javancss-29.50.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/jhbasic-29.50.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/junit-4.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/log4j-1.2.15.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/mail-1.4.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/oro-2.0.8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

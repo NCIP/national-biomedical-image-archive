@@ -1,0 +1,1307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="17">
+	<component name="defaultmap1" blackbox="0" uid="1" editable="1">
+		<properties SelectedLanguage="java"/>
+		<structure>
+			<children>
+				<component name="constant" library="core" uid="5" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="3"/>
+					</targets>
+					<view ltx="269" lty="-16" rbx="312" rby="2"/>
+					<data>
+						<constant value="." datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="constant" library="core" uid="6" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="4"/>
+					</targets>
+					<view ltx="422" lty="23" rbx="477" rby="41"/>
+					<data>
+						<constant value="3.0" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="constant" library="core" uid="7" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="5"/>
+					</targets>
+					<view ltx="412" lty="59" rbx="487" rby="77"/>
+					<data>
+						<constant value="Cedara" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="constant" library="core" uid="9" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="6"/>
+					</targets>
+					<view ltx="252" lty="258" rbx="322" rby="276"/>
+					<data>
+						<constant value="Ref3D" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="concat" library="core" uid="4" kind="5" growable="1" growablebasename="value">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="7"/>
+						<datapoint pos="1" key="8"/>
+						<datapoint pos="2" key="9"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="10"/>
+					</targets>
+					<view ltx="337" lty="-60" rbx="421" rby="16"/>
+				</component>
+				<component name="contains" library="core" uid="10" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="11"/>
+						<datapoint pos="1" key="12"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="2"/>
+					</targets>
+					<view ltx="334" lty="203" rbx="422" rby="259"/>
+				</component>
+				<component name="filter" library="core" uid="14" kind="3">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="13"/>
+						<datapoint pos="1" key="14"/>
+					</sources>
+					<targets>
+						<datapoint/>
+						<datapoint pos="1" key="15"/>
+					</targets>
+					<view ltx="444" lty="-76" rbx="547" rby="-20"/>
+				</component>
+				<component name="document" library="xml" uid="2" kind="14">
+					<properties/>
+					<view ltx="-8" lty="-25" rbx="267" rby="564"/>
+					<data>
+						<root scrollposition="9">
+							<header>
+								<namespaces>
+									<namespace/>
+									<namespace uid="http://www.altova.com/mapforce"/>
+								</namespaces>
+							</header>
+							<entry name="FileInstance" ns="1" expanded="1">
+								<entry name="document" ns="1" expanded="1" casttotargettypemode="cast-in-subtree">
+									<entry name="Annotations" expanded="1">
+										<entry name="ImageAnnotation" expanded="1">
+											<entry name="cagridId" type="attribute" outkey="16"/>
+											<entry name="comment" type="attribute" outkey="17"/>
+											<entry name="dateTime" type="attribute" outkey="18"/>
+											<entry name="name" type="attribute" outkey="19"/>
+											<entry name="uniqueIdentifier" type="attribute" outkey="20"/>
+											<entry name="codeValue" type="attribute" outkey="21"/>
+											<entry name="codeMeaning" type="attribute" outkey="22"/>
+											<entry name="codingSchemeDesignator" type="attribute" outkey="23"/>
+											<entry name="codingSchemeVersion" type="attribute" outkey="24"/>
+											<entry name="user" expanded="1">
+												<entry name="User" expanded="1">
+													<entry name="cagridId" type="attribute" outkey="25"/>
+													<entry name="loginName" type="attribute" outkey="26"/>
+													<entry name="roleInTrial" type="attribute" outkey="27"/>
+													<entry name="numberWithinRoleOfClinicalTrial" type="attribute" outkey="28"/>
+												</entry>
+											</entry>
+											<entry name="imagingObservationCollection">
+												<entry name="ImagingObservation" expanded="1"/>
+											</entry>
+											<entry name="imageReferenceCollection" expanded="1">
+												<entry name="ImageReference" expanded="1" displayselectionmode="all"/>
+												<entry name="ImageReference" outkey="29" expanded="1">
+													<condition>
+														<expression>
+															<function name="equal" library="core">
+																<expression>
+																	<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																</expression>
+																<expression>
+																	<constant value="{}DICOMImageReference" datatype="QName"/>
+																</expression>
+															</function>
+														</expression>
+													</condition>
+													<entry name="cagridId" type="attribute" outkey="30"/>
+													<entry name="imageStudy" outkey="31" expanded="1">
+														<entry name="ImageStudy" outkey="32" expanded="1">
+															<entry name="cagridId" type="attribute" outkey="33"/>
+															<entry name="instanceUID" type="attribute" outkey="34"/>
+															<entry name="startDate" type="attribute" outkey="35"/>
+															<entry name="startTime" type="attribute" outkey="36"/>
+															<entry name="imageSeries" outkey="37" expanded="1">
+																<entry name="ImageSeries" outkey="38" expanded="1">
+																	<entry name="cagridId" type="attribute" outkey="39"/>
+																	<entry name="instanceUID" type="attribute" outkey="40"/>
+																	<entry name="imageCollection" outkey="41" expanded="1">
+																		<entry name="Image" outkey="42" expanded="1">
+																			<entry name="sopInstanceUID" type="attribute" outkey="43"/>
+																		</entry>
+																	</entry>
+																</entry>
+															</entry>
+														</entry>
+													</entry>
+												</entry>
+											</entry>
+											<entry name="geometricShapeCollection" expanded="1">
+												<entry name="GeometricShape" displayselectionmode="all"/>
+												<entry name="GeometricShape" outkey="44" expanded="1">
+													<condition>
+														<expression>
+															<function name="equal" library="core">
+																<expression>
+																	<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																</expression>
+																<expression>
+																	<constant value="{}Circle" datatype="QName"/>
+																</expression>
+															</function>
+														</expression>
+													</condition>
+													<entry name="cagridId" type="attribute" outkey="45"/>
+													<entry name="lineColor" type="attribute" outkey="46"/>
+													<entry name="lineOpacity" type="attribute" outkey="47"/>
+													<entry name="lineStyle" type="attribute" outkey="48"/>
+													<entry name="lineThickness" type="attribute" outkey="49"/>
+													<entry name="includeFlag" type="attribute" outkey="50"/>
+													<entry name="shapeIdentifier" type="attribute" outkey="51"/>
+													<entry name="spatialCoordinateCollection" outkey="52" expanded="1">
+														<entry name="SpatialCoordinate" displayselectionmode="all"/>
+														<entry name="SpatialCoordinate" outkey="53">
+															<condition>
+																<expression>
+																	<function name="equal" library="core">
+																		<expression>
+																			<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																		</expression>
+																		<expression>
+																			<constant value="{}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																		</expression>
+																	</function>
+																</expression>
+															</condition>
+														</entry>
+													</entry>
+												</entry>
+												<entry name="GeometricShape" outkey="54" expanded="1">
+													<condition>
+														<expression>
+															<function name="equal" library="core">
+																<expression>
+																	<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																</expression>
+																<expression>
+																	<constant value="{}Ellipse" datatype="QName"/>
+																</expression>
+															</function>
+														</expression>
+													</condition>
+													<entry name="cagridId" type="attribute" outkey="55"/>
+													<entry name="lineColor" type="attribute" outkey="56"/>
+													<entry name="lineOpacity" type="attribute" outkey="57"/>
+													<entry name="lineStyle" type="attribute" outkey="58"/>
+													<entry name="lineThickness" type="attribute" outkey="59"/>
+													<entry name="includeFlag" type="attribute" outkey="60"/>
+													<entry name="shapeIdentifier" type="attribute" outkey="61"/>
+													<entry name="spatialCoordinateCollection" outkey="62" expanded="1">
+														<entry name="SpatialCoordinate" displayselectionmode="all"/>
+														<entry name="SpatialCoordinate" outkey="63" expanded="1">
+															<condition>
+																<expression>
+																	<function name="equal" library="core">
+																		<expression>
+																			<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																		</expression>
+																		<expression>
+																			<constant value="{}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																		</expression>
+																	</function>
+																</expression>
+															</condition>
+														</entry>
+													</entry>
+												</entry>
+												<entry name="GeometricShape" outkey="64" expanded="1">
+													<condition>
+														<expression>
+															<function name="equal" library="core">
+																<expression>
+																	<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																</expression>
+																<expression>
+																	<constant value="{}MultiPoint" datatype="QName"/>
+																</expression>
+															</function>
+														</expression>
+													</condition>
+													<entry name="cagridId" type="attribute" outkey="65"/>
+													<entry name="lineColor" type="attribute" outkey="66"/>
+													<entry name="lineOpacity" type="attribute" outkey="67"/>
+													<entry name="lineStyle" type="attribute" outkey="68"/>
+													<entry name="lineThickness" type="attribute" outkey="69"/>
+													<entry name="includeFlag" type="attribute" outkey="70"/>
+													<entry name="shapeIdentifier" type="attribute" outkey="71"/>
+													<entry name="spatialCoordinateCollection" outkey="72" expanded="1">
+														<entry name="SpatialCoordinate" displayselectionmode="all"/>
+														<entry name="SpatialCoordinate" outkey="73">
+															<condition>
+																<expression>
+																	<function name="equal" library="core">
+																		<expression>
+																			<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																		</expression>
+																		<expression>
+																			<constant value="{}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																		</expression>
+																	</function>
+																</expression>
+															</condition>
+														</entry>
+													</entry>
+												</entry>
+												<entry name="GeometricShape" outkey="74" expanded="1">
+													<condition>
+														<expression>
+															<function name="equal" library="core">
+																<expression>
+																	<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																</expression>
+																<expression>
+																	<constant value="{}Point" datatype="QName"/>
+																</expression>
+															</function>
+														</expression>
+													</condition>
+													<entry name="cagridId" type="attribute" outkey="75"/>
+													<entry name="lineColor" type="attribute" outkey="76"/>
+													<entry name="lineOpacity" type="attribute" outkey="77"/>
+													<entry name="lineStyle" type="attribute" outkey="78"/>
+													<entry name="lineThickness" type="attribute" outkey="79"/>
+													<entry name="includeFlag" type="attribute" outkey="80"/>
+													<entry name="shapeIdentifier" type="attribute" outkey="81"/>
+													<entry name="spatialCoordinateCollection" outkey="82" expanded="1">
+														<entry name="SpatialCoordinate" displayselectionmode="all"/>
+														<entry name="SpatialCoordinate" outkey="83">
+															<condition>
+																<expression>
+																	<function name="equal" library="core">
+																		<expression>
+																			<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																		</expression>
+																		<expression>
+																			<constant value="{}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																		</expression>
+																	</function>
+																</expression>
+															</condition>
+														</entry>
+													</entry>
+												</entry>
+												<entry name="GeometricShape" outkey="84" expanded="1">
+													<condition>
+														<expression>
+															<function name="equal" library="core">
+																<expression>
+																	<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																</expression>
+																<expression>
+																	<constant value="{}Polyline" datatype="QName"/>
+																</expression>
+															</function>
+														</expression>
+													</condition>
+													<entry name="cagridId" type="attribute" outkey="85"/>
+													<entry name="lineColor" type="attribute" outkey="86"/>
+													<entry name="lineOpacity" type="attribute" outkey="87"/>
+													<entry name="lineStyle" type="attribute" outkey="88"/>
+													<entry name="lineThickness" type="attribute" outkey="89"/>
+													<entry name="includeFlag" type="attribute" outkey="90"/>
+													<entry name="shapeIdentifier" type="attribute" outkey="91"/>
+													<entry name="spatialCoordinateCollection" outkey="92" expanded="1">
+														<entry name="SpatialCoordinate" displayselectionmode="all"/>
+														<entry name="SpatialCoordinate" outkey="93">
+															<condition>
+																<expression>
+																	<function name="equal" library="core">
+																		<expression>
+																			<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																		</expression>
+																		<expression>
+																			<constant value="{}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																		</expression>
+																	</function>
+																</expression>
+															</condition>
+														</entry>
+													</entry>
+												</entry>
+											</entry>
+											<entry name="person" outkey="94">
+												<entry name="Person" outkey="95"/>
+											</entry>
+											<entry name="textAnnotationCollection" outkey="96" expanded="1">
+												<entry name="TextAnnotation" outkey="97" expanded="1">
+													<entry name="cagridId" type="attribute" outkey="98"/>
+													<entry name="font" type="attribute" outkey="99"/>
+													<entry name="fontColor" type="attribute" outkey="100"/>
+													<entry name="fontEffect" type="attribute" outkey="101"/>
+													<entry name="fontSize" type="attribute" outkey="102"/>
+													<entry name="fontStyle" type="attribute" outkey="103"/>
+													<entry name="text" type="attribute" outkey="104"/>
+													<entry name="textJustify" type="attribute" outkey="105"/>
+													<entry name="fontOpacity" type="attribute" outkey="106"/>
+													<entry name="multiPoint" outkey="107">
+														<entry name="MultiPoint" outkey="108">
+															<entry name="cagridId" type="attribute" outkey="109"/>
+															<entry name="lineColor" type="attribute" outkey="110"/>
+															<entry name="lineOpacity" type="attribute" outkey="111"/>
+															<entry name="lineStyle" type="attribute" outkey="112"/>
+															<entry name="lineThickness" type="attribute" outkey="113"/>
+															<entry name="includeFlag" type="attribute" outkey="114"/>
+															<entry name="shapeIdentifier" type="attribute" outkey="115"/>
+															<entry name="spatialCoordinateCollection" outkey="116"/>
+														</entry>
+													</entry>
+												</entry>
+											</entry>
+										</entry>
+									</entry>
+								</entry>
+							</entry>
+						</root>
+						<document schema="..\map\generatedAIMSchema11.xsd" inputinstance="..\map\cedaraAIM.xml" outputinstance="..\map\cedaraAIM.xml" instanceroot="{}Annotations"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="document" library="xml" uid="3" kind="14">
+					<properties XSLTDefaultOutput="1"/>
+					<view ltx="580" lty="-9" rbx="845" rby="574"/>
+					<data>
+						<root scrollposition="1">
+							<header>
+								<namespaces>
+									<namespace/>
+									<namespace uid="gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM"/>
+									<namespace uid="http://www.altova.com/mapforce"/>
+								</namespaces>
+							</header>
+							<entry name="FileInstance" ns="2" inpkey="117" expanded="1">
+								<entry name="document" ns="2" expanded="1" casttotargettypemode="cast-in-subtree">
+									<entry name="ImageAnnotation" ns="1" expanded="1">
+										<entry name="cagridId" type="attribute" inpkey="118"/>
+										<entry name="aimVersion" type="attribute" inpkey="119"/>
+										<entry name="comment" type="attribute" inpkey="120"/>
+										<entry name="dateTime" type="attribute" inpkey="121"/>
+										<entry name="name" type="attribute" inpkey="122"/>
+										<entry name="uniqueIdentifier" type="attribute" inpkey="123"/>
+										<entry name="codeValue" type="attribute" inpkey="124"/>
+										<entry name="codeMeaning" type="attribute" inpkey="125"/>
+										<entry name="codingSchemeDesignator" type="attribute" inpkey="126"/>
+										<entry name="codingSchemeVersion" type="attribute" inpkey="127"/>
+										<entry name="user" ns="1" expanded="1">
+											<entry name="User" ns="1" expanded="1">
+												<entry name="cagridId" type="attribute" inpkey="128"/>
+												<entry name="name" type="attribute" inpkey="129"/>
+												<entry name="loginName" type="attribute" inpkey="130"/>
+												<entry name="roleInTrial" type="attribute" inpkey="131"/>
+												<entry name="numberWithinRoleOfClinicalTrial" type="attribute" inpkey="132"/>
+											</entry>
+										</entry>
+										<entry name="imagingObservationCollection" ns="1">
+											<entry name="ImagingObservation" ns="1" expanded="1"/>
+										</entry>
+										<entry name="imageReferenceCollection" ns="1" expanded="1">
+											<entry name="ImageReference" ns="1" displayselectionmode="all"/>
+											<entry name="ImageReference" ns="1" inpkey="133" expanded="1">
+												<condition>
+													<expression>
+														<function name="equal" library="core">
+															<expression>
+																<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+															</expression>
+															<expression>
+																<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}DICOMImageReference" datatype="QName"/>
+															</expression>
+														</function>
+													</expression>
+												</condition>
+												<entry name="cagridId" type="attribute" inpkey="134"/>
+												<entry name="imageStudy" ns="1" inpkey="135" expanded="1">
+													<entry name="ImageStudy" ns="1" inpkey="136" expanded="1">
+														<entry name="cagridId" type="attribute" inpkey="137"/>
+														<entry name="instanceUID" type="attribute" inpkey="138"/>
+														<entry name="startDate" type="attribute" inpkey="139"/>
+														<entry name="startTime" type="attribute" inpkey="140"/>
+														<entry name="imageSeries" ns="1" inpkey="141" expanded="1">
+															<entry name="ImageSeries" ns="1" inpkey="142" expanded="1">
+																<entry name="cagridId" type="attribute" inpkey="143"/>
+																<entry name="instanceUID" type="attribute" inpkey="144"/>
+																<entry name="imageCollection" ns="1" inpkey="145" expanded="1">
+																	<entry name="Image" ns="1" inpkey="146" expanded="1"/>
+																</entry>
+															</entry>
+														</entry>
+													</entry>
+												</entry>
+											</entry>
+										</entry>
+										<entry name="geometricShapeCollection" ns="1" expanded="1">
+											<entry name="GeometricShape" ns="1" displayselectionmode="all"/>
+											<entry name="GeometricShape" ns="1" inpkey="147" expanded="1">
+												<condition>
+													<expression>
+														<function name="equal" library="core">
+															<expression>
+																<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+															</expression>
+															<expression>
+																<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}Circle" datatype="QName"/>
+															</expression>
+														</function>
+													</expression>
+												</condition>
+												<entry name="cagridId" type="attribute" inpkey="148"/>
+												<entry name="lineColor" type="attribute" inpkey="149"/>
+												<entry name="lineOpacity" type="attribute" inpkey="150"/>
+												<entry name="lineStyle" type="attribute" inpkey="151"/>
+												<entry name="lineThickness" type="attribute" inpkey="152"/>
+												<entry name="includeFlag" type="attribute" inpkey="153"/>
+												<entry name="shapeIdentifier" type="attribute" inpkey="154"/>
+												<entry name="spatialCoordinateCollection" ns="1" inpkey="155" expanded="1">
+													<entry name="SpatialCoordinate" ns="1" displayselectionmode="all"/>
+													<entry name="SpatialCoordinate" ns="1" inpkey="156">
+														<condition>
+															<expression>
+																<function name="equal" library="core">
+																	<expression>
+																		<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																	</expression>
+																	<expression>
+																		<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																	</expression>
+																</function>
+															</expression>
+														</condition>
+													</entry>
+												</entry>
+											</entry>
+											<entry name="GeometricShape" ns="1" inpkey="157" expanded="1">
+												<condition>
+													<expression>
+														<function name="equal" library="core">
+															<expression>
+																<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+															</expression>
+															<expression>
+																<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}Ellipse" datatype="QName"/>
+															</expression>
+														</function>
+													</expression>
+												</condition>
+												<entry name="cagridId" type="attribute" inpkey="158"/>
+												<entry name="lineColor" type="attribute" inpkey="159"/>
+												<entry name="lineOpacity" type="attribute" inpkey="160"/>
+												<entry name="lineStyle" type="attribute" inpkey="161"/>
+												<entry name="lineThickness" type="attribute" inpkey="162"/>
+												<entry name="includeFlag" type="attribute" inpkey="163"/>
+												<entry name="shapeIdentifier" type="attribute" inpkey="164"/>
+												<entry name="spatialCoordinateCollection" ns="1" inpkey="165" expanded="1">
+													<entry name="SpatialCoordinate" ns="1" displayselectionmode="all"/>
+													<entry name="SpatialCoordinate" ns="1" inpkey="166" expanded="1">
+														<condition>
+															<expression>
+																<function name="equal" library="core">
+																	<expression>
+																		<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																	</expression>
+																	<expression>
+																		<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																	</expression>
+																</function>
+															</expression>
+														</condition>
+													</entry>
+												</entry>
+											</entry>
+											<entry name="GeometricShape" ns="1" inpkey="167" expanded="1">
+												<condition>
+													<expression>
+														<function name="equal" library="core">
+															<expression>
+																<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+															</expression>
+															<expression>
+																<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}MultiPoint" datatype="QName"/>
+															</expression>
+														</function>
+													</expression>
+												</condition>
+												<entry name="cagridId" type="attribute" inpkey="168"/>
+												<entry name="lineColor" type="attribute" inpkey="169"/>
+												<entry name="lineOpacity" type="attribute" inpkey="170"/>
+												<entry name="lineStyle" type="attribute" inpkey="171"/>
+												<entry name="lineThickness" type="attribute" inpkey="172"/>
+												<entry name="includeFlag" type="attribute" inpkey="173"/>
+												<entry name="shapeIdentifier" type="attribute" inpkey="174"/>
+												<entry name="spatialCoordinateCollection" ns="1" inpkey="175" expanded="1">
+													<entry name="SpatialCoordinate" ns="1" displayselectionmode="all"/>
+													<entry name="SpatialCoordinate" ns="1" inpkey="176">
+														<condition>
+															<expression>
+																<function name="equal" library="core">
+																	<expression>
+																		<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																	</expression>
+																	<expression>
+																		<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																	</expression>
+																</function>
+															</expression>
+														</condition>
+													</entry>
+												</entry>
+											</entry>
+											<entry name="GeometricShape" ns="1" inpkey="177" expanded="1">
+												<condition>
+													<expression>
+														<function name="equal" library="core">
+															<expression>
+																<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+															</expression>
+															<expression>
+																<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}Point" datatype="QName"/>
+															</expression>
+														</function>
+													</expression>
+												</condition>
+												<entry name="cagridId" type="attribute" inpkey="178"/>
+												<entry name="lineColor" type="attribute" inpkey="179"/>
+												<entry name="lineOpacity" type="attribute" inpkey="180"/>
+												<entry name="lineStyle" type="attribute" inpkey="181"/>
+												<entry name="lineThickness" type="attribute" inpkey="182"/>
+												<entry name="includeFlag" type="attribute" inpkey="183"/>
+												<entry name="shapeIdentifier" type="attribute" inpkey="184"/>
+												<entry name="spatialCoordinateCollection" ns="1" inpkey="185" expanded="1">
+													<entry name="SpatialCoordinate" ns="1" displayselectionmode="all"/>
+													<entry name="SpatialCoordinate" ns="1" inpkey="186">
+														<condition>
+															<expression>
+																<function name="equal" library="core">
+																	<expression>
+																		<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																	</expression>
+																	<expression>
+																		<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																	</expression>
+																</function>
+															</expression>
+														</condition>
+													</entry>
+												</entry>
+											</entry>
+											<entry name="GeometricShape" ns="1" inpkey="187" expanded="1">
+												<condition>
+													<expression>
+														<function name="equal" library="core">
+															<expression>
+																<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+															</expression>
+															<expression>
+																<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}Polyline" datatype="QName"/>
+															</expression>
+														</function>
+													</expression>
+												</condition>
+												<entry name="cagridId" type="attribute" inpkey="188"/>
+												<entry name="lineColor" type="attribute" inpkey="189"/>
+												<entry name="lineOpacity" type="attribute" inpkey="190"/>
+												<entry name="lineStyle" type="attribute" inpkey="191"/>
+												<entry name="lineThickness" type="attribute" inpkey="192"/>
+												<entry name="includeFlag" type="attribute" inpkey="193"/>
+												<entry name="shapeIdentifier" type="attribute" inpkey="194"/>
+												<entry name="spatialCoordinateCollection" ns="1" inpkey="195" expanded="1">
+													<entry name="SpatialCoordinate" ns="1" displayselectionmode="all"/>
+													<entry name="SpatialCoordinate" ns="1" inpkey="196">
+														<condition>
+															<expression>
+																<function name="equal" library="core">
+																	<expression>
+																		<attribute ns="http://www.w3.org/2001/XMLSchema-instance" name="type"/>
+																	</expression>
+																	<expression>
+																		<constant value="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}TwoDimensionSpatialCoordinate" datatype="QName"/>
+																	</expression>
+																</function>
+															</expression>
+														</condition>
+													</entry>
+												</entry>
+											</entry>
+										</entry>
+										<entry name="person" ns="1" inpkey="197">
+											<entry name="Person" ns="1" inpkey="198"/>
+										</entry>
+										<entry name="textAnnotationCollection" ns="1" inpkey="199" expanded="1">
+											<entry name="TextAnnotation" ns="1" inpkey="200" expanded="1">
+												<entry name="cagridId" type="attribute" inpkey="201"/>
+												<entry name="font" type="attribute" inpkey="202"/>
+												<entry name="fontColor" type="attribute" inpkey="203"/>
+												<entry name="fontEffect" type="attribute" inpkey="204"/>
+												<entry name="fontSize" type="attribute" inpkey="205"/>
+												<entry name="fontStyle" type="attribute" inpkey="206"/>
+												<entry name="text" type="attribute" inpkey="207"/>
+												<entry name="textJustify" type="attribute" inpkey="208"/>
+												<entry name="fontOpacity" type="attribute" inpkey="209"/>
+												<entry name="multiPoint" ns="1" inpkey="210">
+													<entry name="MultiPoint" ns="1" inpkey="211">
+														<entry name="cagridId" type="attribute" inpkey="212"/>
+														<entry name="lineColor" type="attribute" inpkey="213"/>
+														<entry name="lineOpacity" type="attribute" inpkey="214"/>
+														<entry name="lineStyle" type="attribute" inpkey="215"/>
+														<entry name="lineThickness" type="attribute" inpkey="216"/>
+														<entry name="includeFlag" type="attribute" inpkey="217"/>
+														<entry name="shapeIdentifier" type="attribute" inpkey="218"/>
+														<entry name="spatialCoordinateCollection" ns="1" inpkey="219"/>
+													</entry>
+												</entry>
+											</entry>
+										</entry>
+									</entry>
+								</entry>
+							</entry>
+						</root>
+						<document schema="..\map\AIM_v3_rv9_XML.xsd" outputinstance="..\map\AIM_v3_rv9_XML.xml" instanceroot="{gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM}ImageAnnotation"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="constant" library="core" uid="16" kind="2">
+					<properties/>
+					<targets>
+						<datapoint pos="0" key="220"/>
+					</targets>
+					<view ltx="287" lty="421" rbx="338" rby="439"/>
+					<data>
+						<constant value="@" datatype="string"/>
+						<wsdl/>
+					</data>
+				</component>
+				<component name="substring-after" library="core" uid="15" kind="5">
+					<properties/>
+					<sources>
+						<datapoint pos="0" key="221"/>
+						<datapoint pos="1" key="222"/>
+					</sources>
+					<targets>
+						<datapoint pos="0" key="223"/>
+					</targets>
+					<view ltx="328" lty="302" rbx="427" rby="358"/>
+				</component>
+			</children>
+			<graph directed="1">
+				<edges>
+					<edge edgekey="224">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+					<edge edgekey="225">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+					<edge edgekey="226">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+					<edge edgekey="227">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+					<edge edgekey="228">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+					<edge edgekey="229">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+					<edge edgekey="230">
+						<data>
+							<dataconnection type="2"/>
+						</data>
+					</edge>
+				</edges>
+				<vertices>
+					<vertex vertexkey="2">
+						<edges>
+							<edge vertexkey="14" edgekey="231"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="3">
+						<edges>
+							<edge vertexkey="8" edgekey="232"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="4">
+						<edges>
+							<edge vertexkey="119" edgekey="233"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="5">
+						<edges>
+							<edge vertexkey="120" edgekey="234"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="6">
+						<edges>
+							<edge vertexkey="12" edgekey="235"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="10">
+						<edges>
+							<edge vertexkey="123" edgekey="236"/>
+							<edge vertexkey="13" edgekey="237"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="15">
+						<edges>
+							<edge vertexkey="117" edgekey="238"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="16">
+						<edges>
+							<edge vertexkey="118" edgekey="239"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="17">
+						<edges>
+							<edge vertexkey="221" edgekey="240"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="18">
+						<edges>
+							<edge vertexkey="121" edgekey="241"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="19">
+						<edges>
+							<edge vertexkey="122" edgekey="242"/>
+							<edge vertexkey="11" edgekey="243"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="20">
+						<edges>
+							<edge vertexkey="9" edgekey="244"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="21">
+						<edges>
+							<edge vertexkey="124" edgekey="245"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="22">
+						<edges>
+							<edge vertexkey="125" edgekey="246"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="23">
+						<edges>
+							<edge vertexkey="126" edgekey="247"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="24">
+						<edges>
+							<edge vertexkey="127" edgekey="248"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="25">
+						<edges>
+							<edge vertexkey="128" edgekey="249"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="26">
+						<edges>
+							<edge vertexkey="130" edgekey="250"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="27">
+						<edges>
+							<edge vertexkey="131" edgekey="251"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="28">
+						<edges>
+							<edge vertexkey="132" edgekey="252"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="29">
+						<edges>
+							<edge vertexkey="133" edgekey="253"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="30">
+						<edges>
+							<edge vertexkey="134" edgekey="254"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="31">
+						<edges>
+							<edge vertexkey="135" edgekey="255"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="32">
+						<edges>
+							<edge vertexkey="136" edgekey="256"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="33">
+						<edges>
+							<edge vertexkey="137" edgekey="257"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="34">
+						<edges>
+							<edge vertexkey="138" edgekey="258"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="35">
+						<edges>
+							<edge vertexkey="139" edgekey="259"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="36">
+						<edges>
+							<edge vertexkey="140" edgekey="260"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="37">
+						<edges>
+							<edge vertexkey="141" edgekey="261"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="38">
+						<edges>
+							<edge vertexkey="142" edgekey="262"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="39">
+						<edges>
+							<edge vertexkey="143" edgekey="263"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="40">
+						<edges>
+							<edge vertexkey="144" edgekey="264"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="41">
+						<edges>
+							<edge vertexkey="145" edgekey="265"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="42">
+						<edges>
+							<edge vertexkey="146" edgekey="224"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="43">
+						<edges>
+							<edge vertexkey="7" edgekey="266"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="44">
+						<edges>
+							<edge vertexkey="147" edgekey="267"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="45">
+						<edges>
+							<edge vertexkey="148" edgekey="268"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="46">
+						<edges>
+							<edge vertexkey="149" edgekey="269"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="47">
+						<edges>
+							<edge vertexkey="150" edgekey="270"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="48">
+						<edges>
+							<edge vertexkey="151" edgekey="271"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="49">
+						<edges>
+							<edge vertexkey="152" edgekey="272"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="50">
+						<edges>
+							<edge vertexkey="153" edgekey="273"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="51">
+						<edges>
+							<edge vertexkey="154" edgekey="274"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="52">
+						<edges>
+							<edge vertexkey="155" edgekey="275"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="53">
+						<edges>
+							<edge vertexkey="156" edgekey="226"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="54">
+						<edges>
+							<edge vertexkey="157" edgekey="276"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="55">
+						<edges>
+							<edge vertexkey="158" edgekey="277"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="56">
+						<edges>
+							<edge vertexkey="159" edgekey="278"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="57">
+						<edges>
+							<edge vertexkey="160" edgekey="279"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="58">
+						<edges>
+							<edge vertexkey="161" edgekey="280"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="59">
+						<edges>
+							<edge vertexkey="162" edgekey="281"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="60">
+						<edges>
+							<edge vertexkey="163" edgekey="282"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="61">
+						<edges>
+							<edge vertexkey="164" edgekey="283"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="62">
+						<edges>
+							<edge vertexkey="165" edgekey="284"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="63">
+						<edges>
+							<edge vertexkey="166" edgekey="228"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="64">
+						<edges>
+							<edge vertexkey="167" edgekey="285"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="65">
+						<edges>
+							<edge vertexkey="168" edgekey="286"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="66">
+						<edges>
+							<edge vertexkey="169" edgekey="287"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="67">
+						<edges>
+							<edge vertexkey="170" edgekey="288"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="68">
+						<edges>
+							<edge vertexkey="171" edgekey="289"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="69">
+						<edges>
+							<edge vertexkey="172" edgekey="290"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="70">
+						<edges>
+							<edge vertexkey="173" edgekey="291"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="71">
+						<edges>
+							<edge vertexkey="174" edgekey="292"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="72">
+						<edges>
+							<edge vertexkey="175" edgekey="293"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="73">
+						<edges>
+							<edge vertexkey="176" edgekey="227"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="74">
+						<edges>
+							<edge vertexkey="177" edgekey="294"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="75">
+						<edges>
+							<edge vertexkey="178" edgekey="295"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="76">
+						<edges>
+							<edge vertexkey="179" edgekey="296"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="77">
+						<edges>
+							<edge vertexkey="180" edgekey="297"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="78">
+						<edges>
+							<edge vertexkey="181" edgekey="298"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="79">
+						<edges>
+							<edge vertexkey="182" edgekey="299"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="80">
+						<edges>
+							<edge vertexkey="183" edgekey="300"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="81">
+						<edges>
+							<edge vertexkey="184" edgekey="301"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="82">
+						<edges>
+							<edge vertexkey="185" edgekey="302"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="83">
+						<edges>
+							<edge vertexkey="186" edgekey="229"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="84">
+						<edges>
+							<edge vertexkey="187" edgekey="303"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="85">
+						<edges>
+							<edge vertexkey="188" edgekey="304"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="86">
+						<edges>
+							<edge vertexkey="189" edgekey="305"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="87">
+						<edges>
+							<edge vertexkey="190" edgekey="306"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="88">
+						<edges>
+							<edge vertexkey="191" edgekey="307"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="89">
+						<edges>
+							<edge vertexkey="192" edgekey="308"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="90">
+						<edges>
+							<edge vertexkey="193" edgekey="309"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="91">
+						<edges>
+							<edge vertexkey="194" edgekey="310"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="92">
+						<edges>
+							<edge vertexkey="195" edgekey="311"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="93">
+						<edges>
+							<edge vertexkey="196" edgekey="230"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="94">
+						<edges>
+							<edge vertexkey="197" edgekey="312"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="95">
+						<edges>
+							<edge vertexkey="198" edgekey="225"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="96">
+						<edges>
+							<edge vertexkey="199" edgekey="313"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="97">
+						<edges>
+							<edge vertexkey="200" edgekey="314"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="98">
+						<edges>
+							<edge vertexkey="201" edgekey="315"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="99">
+						<edges>
+							<edge vertexkey="202" edgekey="316"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="100">
+						<edges>
+							<edge vertexkey="203" edgekey="317"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="101">
+						<edges>
+							<edge vertexkey="204" edgekey="318"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="102">
+						<edges>
+							<edge vertexkey="205" edgekey="319"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="103">
+						<edges>
+							<edge vertexkey="206" edgekey="320"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="104">
+						<edges>
+							<edge vertexkey="207" edgekey="321"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="105">
+						<edges>
+							<edge vertexkey="208" edgekey="322"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="106">
+						<edges>
+							<edge vertexkey="209" edgekey="323"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="107">
+						<edges>
+							<edge vertexkey="210" edgekey="324"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="108">
+						<edges>
+							<edge vertexkey="211" edgekey="325"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="109">
+						<edges>
+							<edge vertexkey="212" edgekey="326"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="110">
+						<edges>
+							<edge vertexkey="213" edgekey="327"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="111">
+						<edges>
+							<edge vertexkey="214" edgekey="328"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="112">
+						<edges>
+							<edge vertexkey="215" edgekey="329"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="113">
+						<edges>
+							<edge vertexkey="216" edgekey="330"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="114">
+						<edges>
+							<edge vertexkey="217" edgekey="331"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="115">
+						<edges>
+							<edge vertexkey="218" edgekey="332"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="116">
+						<edges>
+							<edge vertexkey="219" edgekey="333"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="220">
+						<edges>
+							<edge vertexkey="222" edgekey="334"/>
+						</edges>
+					</vertex>
+					<vertex vertexkey="223">
+						<edges>
+							<edge vertexkey="129" edgekey="335"/>
+						</edges>
+					</vertex>
+				</vertices>
+			</graph>
+		</structure>
+	</component>
+</mapping>

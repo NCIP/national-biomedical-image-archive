@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="AimImagingObservationCharacteristic"
+         table="aim_img_obs_characteristic"
+         lazy="true"
+         polymorphism="explicit">
+
+    <id name="id" type="integer" column="aim_img_obs_characteristic_pk_">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+        <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+
+
+    <property name="codeMeaningName" type="string" column="code_meaning_name"/>
+    <property name="codeValue" type="string" column="code_value"/>
+    <property name="codeSchemaDesignator" type="string" column="code_schema_designator"/>
+    <property name="seriesPKId" type="integer" column="GENERAL_SERIES_PK_ID"/>
+
+    <many-to-one name="generalSeries"
+                 class="gov.nih.nci.nbia.internaldomain.GeneralSeries"
+                 column="GENERAL_SERIES_PK_ID"
+                 insert="false"
+                 update="false"/>
+
+    <set name="aimQuantificationCollection" lazy="true" cascade="save-update">
+      <key column="aim_quantification_pk_id" />
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.AimQuantification"/>
+    </set>
+
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib
+          PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+          "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+
+<facelet-taglib>
+    <namespace>http://imaging.nci.nih.gov/ncia</namespace>
+
+    <tag>
+      <tag-name>pager</tag-name>
+      <component>
+        <component-type>pager</component-type>
+        <renderer-type>gov.nih.nci.nbia.components.Pager</renderer-type>
+      </component>
+    </tag>
+
+
+    <tag>
+      <tag-name>imageDataTable</tag-name>
+      <component>
+        <component-type>imageDataTable</component-type>
+        <renderer-type>gov.nih.nci.nbia.components.ImageDataTable</renderer-type>
+      </component>
+    </tag>
+
+    <tag>
+      <tag-name>thumbnailImage</tag-name>
+      <component>
+        <component-type>thumbnailImage</component-type>
+        <renderer-type>gov.nih.nci.nbia.components.ThumbnailImage</renderer-type>
+      </component>
+    </tag>
+
+    <tag>
+      <tag-name>popupCaption</tag-name>
+      <component>
+        <component-type>OutputCaption</component-type>
+      </component>
+    </tag>
+
+    <tag>
+      <tag-name>progressBar</tag-name>
+      <component>
+        <component-type>ProgressBar</component-type>
+        <renderer-type>ProgressBar</renderer-type>
+      </component>
+    </tag>
+
+    <tag>
+      <tag-name>help</tag-name>
+      <component>
+        <component-type>help</component-type>
+      </component>
+    </tag>
+
+</facelet-taglib>

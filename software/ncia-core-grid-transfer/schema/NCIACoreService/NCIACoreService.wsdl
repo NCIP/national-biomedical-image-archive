@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ncia.cagrid.nci.nih.gov/NCIACoreService" xmlns:wsrp="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing" xmlns:wsrbfw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" xmlns:wsrpw="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:wns3="http://org.cagrid.dataservice/DataService" xmlns:wns1="http://gov.nih.nci.cagrid.data/DataService" xmlns:wns0="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" xmlns:wns2="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" xmlns:ns0="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" xmlns:ns10="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" xmlns:ns4="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" xmlns:ns9="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" xmlns:ns2="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" xmlns:ns11="http://gov.nih.nci.cagrid.data/DataServiceExceptions" xmlns:ns16="http://org.cagrid.dataservice.cql/QueryLanguageSupport" xmlns:ns6="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" xmlns:ns12="http://transfer.cagrid.org/TransferService/Context/types" xmlns:ns3="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" xmlns:ns14="http://CQL.caBIG/2/org.cagrid.cql2" xmlns:ns8="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" xmlns:ns1="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" xmlns:ns13="http://transfer.cagrid.org/Transfer" xmlns:ns5="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" xmlns:ns15="http://CQL.caBIG/2/org.cagrid.cql2.results" xmlns:ns7="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" name="NCIACoreService" targetNamespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService">
+  <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties-1.2-draft-01.wsdl" location="../wsrf/properties/WS-ResourceProperties.wsdl" />
+  <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.wsdl" location="../wsrf/faults/WS-BaseFaults.wsdl" />
+  <import namespace="http://org.cagrid.dataservice/DataService" location="./Cql2DataService.wsdl" />
+  <import namespace="http://gov.nih.nci.cagrid.data/DataService" location="./DataService.wsdl" />
+  <import namespace="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity" location="./ServiceSecurity.wsdl" />
+  <!--============================================================
+
+                      T Y P E S
+                      
+  ============================================================-->
+  <types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsrbf="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.xsd" targetNamespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService" elementFormDefault="qualified" attributeFormDefault="unqualified">
+      <import namespace="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-BaseFaults-1.2-draft-01.xsd" schemaLocation="../wsrf/faults/WS-BaseFaults.xsd" />
+      <import namespace="gme://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch" schemaLocation="./UsRemoteSearch.xsd" />
+      <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.dataservice" schemaLocation="./xsd/cagrid/types/data/data.xsd" />
+      <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security" schemaLocation="./xsd/cagrid/types/security/security.xsd" />
+      <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/CQLResultTypes" schemaLocation="./NCIACoreService_CQLResultTypes.xsd" />
+      <import namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags" schemaLocation="./DicomTags.xsd" />
+      <import namespace="http://gov.nih.nci.cagrid.data/DataServiceExceptions" schemaLocation="./DataServiceExceptions.xsd" />
+      <import namespace="http://org.cagrid.dataservice.cql/QueryLanguageSupport" schemaLocation="./QueryLanguageSupportMetadata.xsd" />
+      <import namespace="gme://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata" schemaLocation="./xsd/cagrid/types/caGridMetadata.xsd" />
+      <import namespace="http://transfer.cagrid.org/TransferService/Context/types" schemaLocation="./TransferServiceContextTypes.xsd" />
+      <import namespace="http://ncia.cagrid.nci.nih.gov/NCIACoreService/types" schemaLocation="./NCIACoreServiceTypes.xsd" />
+      <import namespace="http://CQL.caBIG/2/org.cagrid.cql2" schemaLocation="./CQLQueryComponents.xsd" />
+      <import namespace="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLResultSet" schemaLocation="./1_gov.nih.nci.cagrid.CQLResultSet.xsd" />
+      <import namespace="gme://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch" schemaLocation="./RemoteSearch.xsd" />
+      <import namespace="http://transfer.cagrid.org/Transfer" schemaLocation="./caGrid_Transfer.xsd" />
+      <import namespace="gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain" schemaLocation="gov.nih.nci.ncia.domain.xsd" />
+      <import namespace="http://CQL.caBIG/2/org.cagrid.cql2.results" schemaLocation="./CQLQueryResults.xsd" />
+      <import namespace="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" schemaLocation="./1_gov.nih.nci.cagrid.CQLQuery.xsd" />
+      <element name="RetrieveDicomDataRequest">
+        <complexType>
+          <sequence>
+            <element name="cQLQuery">
+              <complexType>
+                <sequence>
+                  <element ref="ns7:CQLQuery" minOccurs="1" maxOccurs="1" />
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByPatientIdRequest">
+        <complexType>
+          <sequence>
+            <element name="patientId" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByPatientIdResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataBySeriesUIDRequest">
+        <complexType>
+          <sequence>
+            <element name="seriesInstanceUID" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataBySeriesUIDResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByStudyUIDRequest">
+        <complexType>
+          <sequence>
+            <element name="studyInstanceUID" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByStudyUIDResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByPatientIdsRequest">
+        <complexType>
+          <sequence>
+            <element name="patientIds" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByPatientIdsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataBySeriesUIDsRequest">
+        <complexType>
+          <sequence>
+            <element name="seriesInstanceUids" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataBySeriesUIDsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByStudyUIDsRequest">
+        <complexType>
+          <sequence>
+            <element name="studyInstanceUids" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByStudyUIDsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetNumberOfStudyTimePointForPatientRequest">
+        <complexType>
+          <sequence>
+            <element name="patientId" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetNumberOfStudyTimePointForPatientResponse">
+        <complexType>
+          <sequence>
+            <element name="response" type="xs:int" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByNthStudyTimePointForPatientRequest">
+        <complexType>
+          <sequence>
+            <element name="patientId" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <element name="studyTimepoint" type="xs:int" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveDicomDataByNthStudyTimePointForPatientResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns12:TransferServiceContextReference" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetRepresentativeImageBySeriesRequest">
+        <complexType>
+          <sequence>
+            <element name="seriesInstanceUID" type="xs:string" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetRepresentativeImageBySeriesResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns5:Image" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetAvailableSearchTermsRequest">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="GetAvailableSearchTermsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns1:AvailableSearchTerms" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="SearchForPatientsRequest">
+        <complexType>
+          <sequence>
+            <element name="searchCriteriaDTO">
+              <complexType>
+                <sequence>
+                  <element ref="ns1:SearchCriteriaDTO" minOccurs="1" maxOccurs="unbounded" />
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="SearchForPatientsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns1:PatientSearchResult" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveStudyAndSeriesForPatientRequest">
+        <complexType>
+          <sequence>
+            <element name="patientSearchResult">
+              <complexType>
+                <sequence>
+                  <element ref="ns1:PatientSearchResult" minOccurs="1" maxOccurs="1" />
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveStudyAndSeriesForPatientResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns1:StudySearchResult" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveImagesForSeriesRequest">
+        <complexType>
+          <sequence>
+            <element name="seriesSearchResult">
+              <complexType>
+                <sequence>
+                  <element ref="ns1:SeriesSearchResult" minOccurs="1" maxOccurs="1" />
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveImagesForSeriesResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns1:ImageSearchResult" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ViewDicomHeaderRequest">
+        <complexType>
+          <sequence>
+            <element name="imageSearchResult">
+              <complexType>
+                <sequence>
+                  <element ref="ns1:ImageSearchResult" minOccurs="1" maxOccurs="1" />
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ViewDicomHeaderResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns2:DicomTagDTO" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetUsAvailableSearchTermsRequest">
+        <complexType>
+          <sequence />
+        </complexType>
+      </element>
+      <element name="GetUsAvailableSearchTermsResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns0:UsAvailableSearchTerms" minOccurs="1" maxOccurs="1" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveImagesForSeriesExRequest">
+        <complexType>
+          <sequence>
+            <element name="seriesSearchResult">
+              <complexType>
+                <sequence>
+                  <element ref="ns1:SeriesSearchResult" minOccurs="1" maxOccurs="1" />
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="RetrieveImagesForSeriesExResponse">
+        <complexType>
+          <sequence>
+            <element ref="ns0:ImageSearchResultEx" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="NCIACoreServiceResourceProperties">
+        <complexType>
+          <sequence>
+            <element ref="ns10:DomainModel" />
+            <element ref="ns6:ServiceMetadata" />
+            <element ref="ns16:QueryLanguageSupport" />
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </types>
+  <!--  place service messages here -->
+  <message name="RetrieveDicomDataRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataRequest" />
+  </message>
+  <message name="RetrieveDicomDataResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataResponse" />
+  </message>
+  <message name="RetrieveDicomDataByPatientIdRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataByPatientIdRequest" />
+  </message>
+  <message name="RetrieveDicomDataByPatientIdResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataByPatientIdResponse" />
+  </message>
+  <message name="RetrieveDicomDataBySeriesUIDRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataBySeriesUIDRequest" />
+  </message>
+  <message name="RetrieveDicomDataBySeriesUIDResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataBySeriesUIDResponse" />
+  </message>
+  <message name="RetrieveDicomDataByStudyUIDRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataByStudyUIDRequest" />
+  </message>
+  <message name="RetrieveDicomDataByStudyUIDResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataByStudyUIDResponse" />
+  </message>
+  <message name="RetrieveDicomDataByPatientIdsRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataByPatientIdsRequest" />
+  </message>
+  <message name="RetrieveDicomDataByPatientIdsResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataByPatientIdsResponse" />
+  </message>
+  <message name="RetrieveDicomDataBySeriesUIDsRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataBySeriesUIDsRequest" />
+  </message>
+  <message name="RetrieveDicomDataBySeriesUIDsResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataBySeriesUIDsResponse" />
+  </message>
+  <message name="RetrieveDicomDataByStudyUIDsRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataByStudyUIDsRequest" />
+  </message>
+  <message name="RetrieveDicomDataByStudyUIDsResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataByStudyUIDsResponse" />
+  </message>
+  <message name="GetNumberOfStudyTimePointForPatientRequest">
+    <part name="parameters" element="tns:GetNumberOfStudyTimePointForPatientRequest" />
+  </message>
+  <message name="GetNumberOfStudyTimePointForPatientResponse">
+    <part name="parameters" element="tns:GetNumberOfStudyTimePointForPatientResponse" />
+  </message>
+  <message name="RetrieveDicomDataByNthStudyTimePointForPatientRequest">
+    <part name="parameters" element="tns:RetrieveDicomDataByNthStudyTimePointForPatientRequest" />
+  </message>
+  <message name="RetrieveDicomDataByNthStudyTimePointForPatientResponse">
+    <part name="parameters" element="tns:RetrieveDicomDataByNthStudyTimePointForPatientResponse" />
+  </message>
+  <message name="GetRepresentativeImageBySeriesRequest">
+    <part name="parameters" element="tns:GetRepresentativeImageBySeriesRequest" />
+  </message>
+  <message name="GetRepresentativeImageBySeriesResponse">
+    <part name="parameters" element="tns:GetRepresentativeImageBySeriesResponse" />
+  </message>
+  <message name="GetAvailableSearchTermsRequest">
+    <part name="parameters" element="tns:GetAvailableSearchTermsRequest" />
+  </message>
+  <message name="GetAvailableSearchTermsResponse">
+    <part name="parameters" element="tns:GetAvailableSearchTermsResponse" />
+  </message>
+  <message name="SearchForPatientsRequest">
+    <part name="parameters" element="tns:SearchForPatientsRequest" />
+  </message>
+  <message name="SearchForPatientsResponse">
+    <part name="parameters" element="tns:SearchForPatientsResponse" />
+  </message>
+  <message name="RetrieveStudyAndSeriesForPatientRequest">
+    <part name="parameters" element="tns:RetrieveStudyAndSeriesForPatientRequest" />
+  </message>
+  <message name="RetrieveStudyAndSeriesForPatientResponse">
+    <part name="parameters" element="tns:RetrieveStudyAndSeriesForPatientResponse" />
+  </message>
+  <message name="RetrieveImagesForSeriesRequest">
+    <part name="parameters" element="tns:RetrieveImagesForSeriesRequest" />
+  </message>
+  <message name="RetrieveImagesForSeriesResponse">
+    <part name="parameters" element="tns:RetrieveImagesForSeriesResponse" />
+  </message>
+  <message name="ViewDicomHeaderRequest">
+    <part name="parameters" element="tns:ViewDicomHeaderRequest" />
+  </message>
+  <message name="ViewDicomHeaderResponse">
+    <part name="parameters" element="tns:ViewDicomHeaderResponse" />
+  </message>
+  <message name="GetUsAvailableSearchTermsRequest">
+    <part name="parameters" element="tns:GetUsAvailableSearchTermsRequest" />
+  </message>
+  <message name="GetUsAvailableSearchTermsResponse">
+    <part name="parameters" element="tns:GetUsAvailableSearchTermsResponse" />
+  </message>
+  <message name="RetrieveImagesForSeriesExRequest">
+    <part name="parameters" element="tns:RetrieveImagesForSeriesExRequest" />
+  </message>
+  <message name="RetrieveImagesForSeriesExResponse">
+    <part name="parameters" element="tns:RetrieveImagesForSeriesExResponse" />
+  </message>
+  <!--============================================================
+
+                       P O R T T Y P E
+                      
+  ============================================================-->
+  <portType name="NCIACoreServicePortType" wsrp:ResourceProperties="tns:NCIACoreServiceResourceProperties">
+    <operation name="retrieveDicomData">
+      <input message="tns:RetrieveDicomDataRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataRequest" />
+      <output message="tns:RetrieveDicomDataResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataResponse" />
+    </operation>
+    <operation name="retrieveDicomDataByPatientId">
+      <input message="tns:RetrieveDicomDataByPatientIdRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByPatientIdRequest" />
+      <output message="tns:RetrieveDicomDataByPatientIdResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByPatientIdResponse" />
+    </operation>
+    <operation name="retrieveDicomDataBySeriesUID">
+      <input message="tns:RetrieveDicomDataBySeriesUIDRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataBySeriesUIDRequest" />
+      <output message="tns:RetrieveDicomDataBySeriesUIDResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataBySeriesUIDResponse" />
+    </operation>
+    <operation name="retrieveDicomDataByStudyUID">
+      <input message="tns:RetrieveDicomDataByStudyUIDRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByStudyUIDRequest" />
+      <output message="tns:RetrieveDicomDataByStudyUIDResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByStudyUIDResponse" />
+    </operation>
+    <operation name="retrieveDicomDataByPatientIds">
+      <input message="tns:RetrieveDicomDataByPatientIdsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByPatientIdsRequest" />
+      <output message="tns:RetrieveDicomDataByPatientIdsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByPatientIdsResponse" />
+    </operation>
+    <operation name="retrieveDicomDataBySeriesUIDs">
+      <input message="tns:RetrieveDicomDataBySeriesUIDsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataBySeriesUIDsRequest" />
+      <output message="tns:RetrieveDicomDataBySeriesUIDsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataBySeriesUIDsResponse" />
+    </operation>
+    <operation name="retrieveDicomDataByStudyUIDs">
+      <input message="tns:RetrieveDicomDataByStudyUIDsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByStudyUIDsRequest" />
+      <output message="tns:RetrieveDicomDataByStudyUIDsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByStudyUIDsResponse" />
+    </operation>
+    <operation name="getNumberOfStudyTimePointForPatient">
+      <input message="tns:GetNumberOfStudyTimePointForPatientRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetNumberOfStudyTimePointForPatientRequest" />
+      <output message="tns:GetNumberOfStudyTimePointForPatientResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetNumberOfStudyTimePointForPatientResponse" />
+    </operation>
+    <operation name="retrieveDicomDataByNthStudyTimePointForPatient">
+      <input message="tns:RetrieveDicomDataByNthStudyTimePointForPatientRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByNthStudyTimePointForPatientRequest" />
+      <output message="tns:RetrieveDicomDataByNthStudyTimePointForPatientResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveDicomDataByNthStudyTimePointForPatientResponse" />
+    </operation>
+    <operation name="getRepresentativeImageBySeries">
+      <input message="tns:GetRepresentativeImageBySeriesRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetRepresentativeImageBySeriesRequest" />
+      <output message="tns:GetRepresentativeImageBySeriesResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetRepresentativeImageBySeriesResponse" />
+    </operation>
+    <operation name="getAvailableSearchTerms">
+      <input message="tns:GetAvailableSearchTermsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetAvailableSearchTermsRequest" />
+      <output message="tns:GetAvailableSearchTermsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetAvailableSearchTermsResponse" />
+    </operation>
+    <operation name="searchForPatients">
+      <input message="tns:SearchForPatientsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/SearchForPatientsRequest" />
+      <output message="tns:SearchForPatientsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/SearchForPatientsResponse" />
+    </operation>
+    <operation name="retrieveStudyAndSeriesForPatient">
+      <input message="tns:RetrieveStudyAndSeriesForPatientRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveStudyAndSeriesForPatientRequest" />
+      <output message="tns:RetrieveStudyAndSeriesForPatientResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveStudyAndSeriesForPatientResponse" />
+    </operation>
+    <operation name="retrieveImagesForSeries">
+      <input message="tns:RetrieveImagesForSeriesRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveImagesForSeriesRequest" />
+      <output message="tns:RetrieveImagesForSeriesResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveImagesForSeriesResponse" />
+    </operation>
+    <operation name="viewDicomHeader">
+      <input message="tns:ViewDicomHeaderRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/ViewDicomHeaderRequest" />
+      <output message="tns:ViewDicomHeaderResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/ViewDicomHeaderResponse" />
+    </operation>
+    <operation name="getUsAvailableSearchTerms">
+      <input message="tns:GetUsAvailableSearchTermsRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetUsAvailableSearchTermsRequest" />
+      <output message="tns:GetUsAvailableSearchTermsResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/GetUsAvailableSearchTermsResponse" />
+    </operation>
+    <operation name="retrieveImagesForSeriesEx">
+      <input message="tns:RetrieveImagesForSeriesExRequest" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveImagesForSeriesExRequest" />
+      <output message="tns:RetrieveImagesForSeriesExResponse" wsa:Action="http://ncia.cagrid.nci.nih.gov/NCIACoreService/RetrieveImagesForSeriesExResponse" />
+    </operation>
+    <operation name="getServiceSecurityMetadata">
+      <input message="wns0:GetServiceSecurityMetadataRequest" wsa:Action="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity/GetServiceSecurityMetadataRequest" />
+      <output message="wns0:GetServiceSecurityMetadataResponse" wsa:Action="http://security.introduce.cagrid.nci.nih.gov/ServiceSecurity/GetServiceSecurityMetadataResponse" />
+    </operation>
+    <operation name="query">
+      <input message="wns1:QueryRequest" wsa:Action="http://data.cagrid.nci.nih.gov/DataService/QueryRequest" />
+      <output message="wns1:QueryResponse" wsa:Action="http://data.cagrid.nci.nih.gov/DataService/QueryResponse" />
+      <fault name="QueryProcessingException" message="wns1:QueryProcessingExceptionFaultMessage" wsa:Action="http://gov.nih.nci.cagrid.data/DataService/QueryProcessingExceptionFaultMessage" />
+      <fault name="MalformedQueryException" message="wns1:MalformedQueryExceptionFaultMessage" wsa:Action="http://gov.nih.nci.cagrid.data/DataService/MalformedQueryExceptionFaultMessage" />
+    </operation>
+    <wsdl:operation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="GetMultipleResourceProperties">
+      <wsdl:input name="GetMultipleResourcePropertiesRequest" message="wsrpw:GetMultipleResourcePropertiesRequest" wsa:Action="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/GetMultipleResourceProperties" />
+      <wsdl:output name="GetMultipleResourcePropertiesResponse" message="wsrpw:GetMultipleResourcePropertiesResponse" wsa:Action="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/GetMultipleResourcePropertiesResponse" />
+      <wsdl:fault name="ResourceUnknownFault" message="wsrpw:ResourceUnknownFault" />
+      <wsdl:fault name="InvalidResourcePropertyQNameFault" message="wsrpw:InvalidResourcePropertyQNameFault" />
+    </wsdl:operation>
+    <wsdl:operation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="GetResourceProperty">
+      <wsdl:input name="GetResourcePropertyRequest" message="wsrpw:GetResourcePropertyRequest" wsa:Action="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/GetResourceProperty" />
+      <wsdl:output name="GetResourcePropertyResponse" message="wsrpw:GetResourcePropertyResponse" wsa:Action="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/GetResourcePropertyResponse" />
+      <wsdl:fault name="ResourceUnknownFault" message="wsrpw:ResourceUnknownFault" />
+      <wsdl:fault name="InvalidResourcePropertyQNameFault" message="wsrpw:InvalidResourcePropertyQNameFault" />
+    </wsdl:operation>
+    <wsdl:operation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="QueryResourceProperties">
+      <wsdl:input name="QueryResourcePropertiesRequest" message="wsrpw:QueryResourcePropertiesRequest" wsa:Action="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/QueryResourceProperties" />
+      <wsdl:output name="QueryResourcePropertiesResponse" message="wsrpw:QueryResourcePropertiesResponse" wsa:Action="http://docs.oasis-open.org/wsrf/2004/06/wsrf-WS-ResourceProperties/QueryResourcePropertiesResponse" />
+      <wsdl:fault name="ResourceUnknownFault" message="wsrpw:ResourceUnknownFault" />
+      <wsdl:fault name="InvalidResourcePropertyQNameFault" message="wsrpw:InvalidResourcePropertyQNameFault" />
+      <wsdl:fault name="UnknownQueryExpressionDialectFault" message="wsrpw:UnknownQueryExpressionDialectFault" />
+      <wsdl:fault name="InvalidQueryExpressionFault" message="wsrpw:InvalidQueryExpressionFault" />
+      <wsdl:fault name="QueryEvaluationErrorFault" message="wsrpw:QueryEvaluationErrorFault" />
+    </wsdl:operation>
+    <operation name="executeQuery">
+      <input message="wns3:ExecuteQueryRequest" wsa:Action="http://org.cagrid.dataservice/DataService/ExecuteQueryRequest" />
+      <output message="wns3:ExecuteQueryResponse" wsa:Action="http://org.cagrid.dataservice/DataService/ExecuteQueryResponse" />
+      <fault name="MalformedQueryException" message="wns3:MalformedQueryExceptionFaultMessage" wsa:Action="http://org.cagrid.dataservice/DataService/MalformedQueryExceptionFaultMessage" />
+      <fault name="QueryProcessingException" message="wns3:QueryProcessingExceptionFaultMessage" wsa:Action="http://org.cagrid.dataservice/DataService/QueryProcessingExceptionFaultMessage" />
+    </operation>
+  </portType>
+</definitions>
+

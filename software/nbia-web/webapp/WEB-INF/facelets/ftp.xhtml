@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+<tr>
+  <td width="100%" valign="top" class="homePageContent">
+    <fieldset style="border: 1px solid #000066;width:700px">
+      <legend style="text-align:center;background-color:#ffffff">
+        <h:outputText value="#{msg.ftp_tools}" />
+      </legend>
+     
+      <span> 
+        <br/>
+        <h:outputText value="#{msg.ftp_content}" />
+        <br/>
+      </span>  
+      <p style="text-align:left">
+        <h:outputText value="#{msg.ftp_windows}" />
+        <ul>
+          <li>
+            <a href="http://prdownloads.sourceforge.net/filezilla/FileZilla_2_2_16_setup.exe?download" 
+               target="_blank">Filezilla</a>
+          </li>
+        </ul>
+      </p>
+      <p style="text-align:left">
+        <h:outputText value="#{msg.ftp_mac}" />
+        <ul>
+          <li>
+            <a href="http://www.versiontracker.com/dyn/moreinfo/macosx/3107" 
+               target="_blank">
+              <h:outputText value="#{msg.ftp_netfinder}" />
+            </a>
+          </li>
+          <li>
+            <a href="http://fetchsoftworks.com/" 
+               target="_blank">
+              <h:outputText value="#{msg.ftp_fetch}" />
+            </a>
+          </li>
+        </ul>
+      </p>
+      <p style="text-align:left">
+        <h:outputText value="#{msg.ftp_note}" />
+      </p>
+    </fieldset>
+  </td>
+</tr>
+
+</ui:composition>

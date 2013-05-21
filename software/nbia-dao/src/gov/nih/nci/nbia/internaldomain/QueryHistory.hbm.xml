@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+
+  <class name="gov.nih.nci.nbia.internaldomain.QueryHistory"
+    table="QUERY_HISTORY">
+
+    <id name="id" column="QUERY_HISTORY_PK_ID" unsaved-value="0">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+
+    <property name="elapsedTime" column="QUERY_ELAPSED_TIME"/>
+    <property name="executeTime" type="timestamp"
+      column="QUERY_EXECUTE_TIMESTAMP" not-null="true" length="10" />
+    <property name="userId" column="USER_ID" insert="false" update="false" />
+
+    <!-- Associations -->
+
+
+
+    <many-to-one name="user" class="gov.nih.nci.nbia.security.NCIAUser"
+      not-null="true">
+      <column name="USER_ID" />
+    </many-to-one>
+
+    <many-to-one name="savedQuery" class="gov.nih.nci.nbia.internaldomain.SavedQuery"
+      not-null="false" cascade="save-update,persist" >
+      <column name="SAVED_QUERY_PK_ID" />
+    </many-to-one>
+
+    <set name="queryHistoryAttributes" inverse="true"
+      cascade="all-delete-orphan" outer-join="true" fetch="join">
+      <key column="QUERY_HISTORY_PK_ID" />
+      <one-to-many
+        class="gov.nih.nci.nbia.internaldomain.QueryHistoryAttribute" />
+    </set>
+
+  </class>
+
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-xsl/ivy.xsl"?>
+
+<ivy-module version="1.0">
+	<info organisation="ncicb" module="nbia-domain" />
+
+	<configurations>
+		<conf name="default" />
+		<conf name="test" extends="runtime" />
+		<conf name="test-pmd" extends="runtime" />
+		<conf name="master" extends="default" />
+		<conf name="compile" extends="default" />
+		<conf name="runtime" extends="compile" />
+	</configurations>
+
+	<publications>
+		<artifact name="nbia-domain" type="jar" conf="default" />
+	</publications>
+
+	<dependencies/>
+
+
+</ivy-module>

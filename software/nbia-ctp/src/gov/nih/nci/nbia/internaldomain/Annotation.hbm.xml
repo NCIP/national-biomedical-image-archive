@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="Annotation" table="ANNOTATION" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="integer" column="ANNOTATIONS_PK_ID">
+        <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the Annotation class -->
+    <property name="annotationType" type="string" column="ANNOTATION_TYPE"/>
+    <property name="filePath" type="string" column="FILE_PATH"/>
+    <property name="fileSize" type="integer" column="FILE_SIZE"/>
+    <property name="generalSeriesPkId" type="integer" column="GENERAL_SERIES_PK_ID" insert="false" update="false"/>
+    <property name="seriesInstanceUID" type="string" column="SERIES_INSTANCE_UID"/>
+    <property name="submissionDate" type="java.util.Date" column="SUBMISSION_DATE"/>
+    <!-- Associations mapping for the Annotation class -->
+    <many-to-one name="generalSeries" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" column="GENERAL_SERIES_PK_ID" lazy="proxy" />
+  </class>
+</hibernate-mapping>

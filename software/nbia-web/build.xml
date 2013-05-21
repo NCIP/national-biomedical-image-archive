@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="../common/ant2html.xsl"?>
+
+<project name="nbia-web" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <!-- Properties -->
+  <property name="common.dir" value="${basedir}/../" />
+  
+
+  <!-- directory where the compiled and configured nbia-services-commons target directory can be found -->
+  <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
+  <property name="download.mgr.target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
+  <property name="download.webapp.target.dir" value="${common.dir}/target/dist/exploded/nbia-download"/>
+
+  <!-- The following should not need modifying -->
+  <property name="src.java.dir" value="src" />
+  <property name="resources.dir" value="resources" />
+  <property name="classes.dir" value="${basedir}/classes" />
+
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-ear" />
+  <property name="war.name" value="nbia.war" />
+  <property name="ear.name" value="nbia.ear" />
+  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
+
+  <property name="webapp.dir" value="${classes.dir}/webapp" />
+  <property name="web.classes.dir" value="${classes.dir}/webapp/WEB-INF/classes" />
+  <property name="web.lib.dir" value="${classes.dir}/webapp/WEB-INF/lib" />
+  <property name="web.nbia.webapp.dir" value="webapp" />
+  
+  <property name="ear.lib" value="${common.dir}/target/lib/imagedeletionmdb/runtime" />
+  
+  
+  <!-- define this for unittesting.xml import -->
+  <property name="classes.to.test.dir" value="${web.classes.dir}"/>
+
+  <property name="web.j2ee.resources.dir" value="${resources.dir}/ear" />
+
+  <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-web"/>
+  <property name="remote.search.lib.dir" value="${common.dir}/target/lib/nbia-remote-search"/>
+ <property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
+  
+  <!-- Paths -->
+  <path id="common.classpath">
+    <fileset dir="${common.dir}/target/lib">
+      <include name="ivy-*.jar" />
+    </fileset>
+  </path>
+
+  <path id="project.compile.classpath">
+    <fileset dir="${project.lib.dir}/compile">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <path id="project.compile.web.classpath">
+    <fileset dir="${basedir}/webapp/WEB-INF/lib">
+      <include name="*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Task definitions -->
+  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
+  <path id="common.lib.classpath">
+		<fileset dir="${common.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path> 
+ <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath refid="common.lib.classpath" />
+ </taskdef>
+
+
+  <import file="../common/unittesting.xml"/>
+  <!-- Targets -->
+  <target name="ivy-settings">
+    <ivy:settings file="${global.ivy.settings.file}"/>
+  </target>
+
+  <target name="ivy-compile" depends="ivy-settings">
+    <ivy:resolve file="ivy.xml"
+                 conf="compile" />
+    <ivy:retrieve conf="compile"
+                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+  </target>
+
+  <target name="ivy-runtime" depends="ivy-settings">
+    <ivy:resolve file="ivy.xml"
+                 conf="runtime" />
+    <ivy:retrieve conf="runtime"
+                  pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+
+    <move todir="${project.lib.dir}/runtime">
+      <fileset dir="${project.lib.dir}/runtime">
+        <include name="*-working@*.jar"/>
+      </fileset>
+      <mapper type="regexp"
+        from="^(.*)\-working\@(.*)\.jar$"
+        to="\1.jar"/>
+
+    </move>
+
+
+  </target>
+
+
+  <!-- This will delete all of the files created by the build process -->
+  <target name="-pre-clean">
+    <delete dir="${classes.dir}" quiet="true" />
+    <delete file="${target.dir}/${war.name}" quiet="false" />
+    <delete dir="${project.lib.dir}" quiet="false" />
+  </target>
+
+  <!-- This sets up all of the neccessary directories -->
+  <target name="-init" depends="-pre-clean, init-test">
+    <mkdir dir="${classes.dir}" />
+    <mkdir dir="${web.classes.dir}" />
+    <mkdir dir="${web.lib.dir}" />
+    <mkdir dir="${target.dir}" />
+    <mkdir dir="${project.lib.dir}"/>
+    <mkdir dir="${reports.dir}/ivy"/>
+    <mkdir dir="${webapp.dir}/download-mgr-dependencies"/>
+  </target>
+
+  <target name="copy-and-prepare-nbia_war" depends="-init, ivy-runtime">
+    <echo message="**********************************************" />
+    <echo message="***  Copying NBIA webapp to the classes dir **" />
+    <echo message="**********************************************" />
+    <copy todir="${webapp.dir}/">
+      <fileset dir="${web.nbia.webapp.dir}">
+        <include name="**/*.*" />
+      </fileset>
+    </copy>
+    <copy todir="${webapp.dir}/WEB-INF/lib">
+      <fileset dir="${project.lib.dir}/runtime">
+        <include name="*.*" />
+        <!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
+        <exclude name="log*.jar" />
+        <!-- avoid org.jboss.tm.TxManager class cast exception -->
+        <exclude name="jta*.jar" />
+
+        <exclude name="commons-logging*.jar" />
+      </fileset>
+
+    </copy>
+    <copy todir="${webapp.dir}/WEB-INF/classes">
+      <fileset dir="${resources.dir}">
+        <include name="jnlpTemplate.jnlp"/>
+      </fileset>
+      <fileset dir="${src.java.dir}">
+        <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+    <copy todir="${webapp.dir}">
+      <fileset dir="${download.mgr.target.dir}">
+        <include name="NBIADownloadManager.jar"/>
+      </fileset>
+    </copy>
+    <copy todir="${webapp.dir}/download-mgr-dependencies">
+      <fileset dir="${download.mgr.target.dir}">
+        <exclude name="NBIADownloadManager.jar"/>
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${webapp.dir}/download-mgr-dependencies">
+      <fileset dir="${download.mgr.target.dir}/../nbia-remote-search">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+    <copy todir="${webapp.dir}/download-mgr-dependencies">
+      <fileset dir="${remote.search.lib.dir}/runtime">
+        <include name="*.jar"/>
+        <exclude name="jce*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile" depends="ivy-compile">
+    <javac srcdir="${src.java.dir}" destdir="${web.classes.dir}" debug="true">
+      <classpath refid="project.compile.classpath" />
+      <classpath refid="project.compile.web.classpath" />
+    </javac>
+  </target>
+
+  <target name="patch-footer-with-version" depends="copy-and-prepare-nbia_war">
+
+    <!-- start: Insert release/build info into footer -->
+    <echo>*************** Tagging the footer.jsp with the value: ${nbia_prod_build_tag.final} </echo>
+
+    <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/footer.xhtml"
+                   match="\{NCIA_RELEASE_VERSION\}"
+                   replace="${nbia.version}" flags="g" />
+    <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/footer.xhtml"
+                   match="\{NCIA_PROD_BUILD_TAG\}"
+                   replace="${nbia_prod_build_tag.final}"
+                   flags="g" />
+    <!-- end: Insert release/build info into footer -->
+
+
+  </target>
+
+  <target name="patch-jnlp" depends="copy-and-prepare-nbia_war">
+    <for param="jar">
+      <path>
+        <fileset dir="${webapp.dir}/download-mgr-dependencies" includes="*"/>
+      </path>
+      <sequential>
+        <var name="just.jar.filename" unset="true"/>
+        <basename property="just.jar.filename" file="@{jar}"/>
+        <xmltask source="${webapp.dir}/WEB-INF/classes/jnlpTemplate.jnlp"
+                 dest="${webapp.dir}/WEB-INF/classes/jnlpTemplate.jnlp">
+          <!-- no xmlcatalog necessary -->
+
+          <insert path="//resources/jar[@href='NBIADownloadManager.jar']"
+                  xml="&lt;jar href=&quot;download-mgr-dependencies/${just.jar.filename}&quot;/&gt;"
+                  position="after"/>
+        </xmltask>
+      </sequential>
+    </for>
+  </target>
+
+  <target name="war" depends="compile, copy-and-prepare-nbia_war, patch-jnlp, patch-footer-with-version">
+
+    <war destfile="${target.dir}/${war.name}"
+         webxml="${webapp.dir}/WEB-INF/web.xml"
+         basedir="${webapp.dir}"
+         compress="false"
+         excludes="*.war" />
+  </target>
+
+  <target name="ear" depends="war">
+    <ear compress="false" destfile="${target.dir}/${ear.name}" appxml="${web.j2ee.resources.dir}/application.xml">
+      <zipfileset dir="${ear.lib}" prefix="lib" excludes="xalan-2.6.0.jar,xercesImpl-2.6.2.jar"/> 
+      <fileset dir="${target.dir}" includes="${war.name}" />
+      <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
+      <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />
+      <fileset dir="${download.webapp.target.dir}" includes="*.war" />
+    </ear>
+    <ivy:report todir="${reports.dir}/ivy/" graph="false"/>
+    <!--antcall target="jboss-config.files"/-->
+  </target>
+
+ <target name="jboss-config.files">
+    <delete dir="${jboss.setting}" quiet="false" />
+    <!-- doing to create artificate needed for jboss deployment-->
+    <filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}"/>
+    <filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}"/>
+    <filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}"/>
+    <filter token="gov.nih.nci.ncia.frontier.http.address" value="${gov.nih.nci.ncia.frontier.http.address}"/>
+    <filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
+    <filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
+    <filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
+    <filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
+    <filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
+    <filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
+    <filter token="gov.nih.nci.ncia.jboss.public.url" value="${gov.nih.nci.ncia.jboss.public.url}"/>
+    <filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}"/>
+    <filter token="mail.smtp.server" value="${mail.smtp.server}"/>
+    <filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}"/>
+    <filter token="enabled_guest_account" value="${enabled_guest_account}"/>
+    <filter token="guest_username" value="${guest_username}"/>
+    <filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}"/>
+    <filter token="enable_classic_download" value="${enable_classic_download}"/>
+    <filter token="registration.email.subject" value="${registration.email.subject}"/>
+    <filter token="grid.index.url" value="${grid.index.url}"/>
+    <filter token="local.grid.uri" value="${local.grid.uri}"/>
+    <filter token="discover.remote.nodes" value="${discover.remote.nodes}"/>
+    <filter token="database.type" value="${database.type}"/>
+    <filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
+    <filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
+        
+    <copy file="${jboss-conf}/properties-service.xml" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
+        
+    <switch value="${database.type}">
+    	<case value="oracle">
+        	<property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
+                <property name="database.driver.file" value="${bda-utils.dir}/ojdbc14-10.2.0.3.0.jar"/>
+                <property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="database.schema" value="${database.name}"/>
+        </case>
+        <case value="mysql">
+                <property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+                <property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.1.13.jar"/>
+                <property name="database.driver" value="com.mysql.jdbc.Driver"/>
+                <property name="database.schema" value="${database.name}"/>
+        </case>
+        <case value="postgresql">
+                <property name="database.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+                <property name="database.driver.file" value="${bda-utils.dir}/postgresql-jdbc3-8.3-604.jar"/>
+                <property name="database.driver" value="org.postgresql.Driver"/>
+                <property name="database.schema" value="public"/>
+        </case>
+        <default>
+        </default>
+    </switch>
+    <filter token="database.url" value="${database.url}"/>
+    <filter token="database.driver" value="${database.driver}"/>
+    <filter token="database.user" value="${database.user}"/>
+    <filter token="database.password" value="${database.password}"/>
+        
+    <copy file="${jboss-conf}/${database.resource.file.ds-xml}" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
+    <copy file="${database.driver.file}" todir="${jboss.setting}/deploy" overwrite="true"> </copy>   
+    
+    <copy file="${jboss-conf}/DataSourceItem.xml" todir="${jboss.setting}/data" overwrite="true" > </copy>
+        
+    <copy file="${jboss-conf}/relationship.xml" todir="${jboss.setting}/data" overwrite="true" > </copy>
+        
+    <copy file="${jboss-conf}/jbossmq-destinations-service.block.xml" todir="${jboss.setting}/deploy/messaging" overwrite="true" > </copy>
+  </target>
+  
+  <target name="post-clean" depends="post-clean-test">
+    <delete dir="${classes.dir}" quiet="false" />
+  </target>
+
+  <!-- throw the ivy-test-selenium in here to make Eclipse happy -->
+  <target name="run" depends="-pre-clean, -init, ear, test, inspect, post-clean, ivy-test-selenium" description="Default target" />
+
+</project>

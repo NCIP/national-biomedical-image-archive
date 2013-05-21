@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by David W. Ervin (The Ohio State University / Department of Biomedical Informatics) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cql="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" targetNamespace="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="Object">
+		<xsd:annotation>
+			<xsd:documentation>Object used as search criteria or target definition</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice>
+			<xsd:element name="Attribute" type="cql:Attribute" minOccurs="0"/>
+			<xsd:element name="Association" type="cql:Association" minOccurs="0"/>
+			<xsd:element name="Group" type="cql:Group" minOccurs="0"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="Association">
+		<xsd:annotation>
+			<xsd:documentation>Association to another Object</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="cql:Object">
+				<xsd:attribute name="roleName" type="xsd:string" use="optional"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="Attribute">
+		<xsd:annotation>
+			<xsd:documentation>Object Property element used as search criteria</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+		<xsd:attribute name="predicate" type="cql:Predicate" use="optional" default="EQUAL_TO"/>
+		<xsd:attribute name="value" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="Group">
+		<xsd:annotation>
+			<xsd:documentation>Binary joint</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice minOccurs="2" maxOccurs="unbounded">
+			<xsd:element name="Association" type="cql:Association" maxOccurs="unbounded"/>
+			<xsd:element name="Attribute" type="cql:Attribute" maxOccurs="unbounded"/>
+			<xsd:element name="Group" type="cql:Group" maxOccurs="unbounded"/>
+		</xsd:choice>
+		<xsd:attribute name="logicRelation" type="cql:LogicalOperator" use="required"/>
+	</xsd:complexType>
+	<xsd:simpleType name="Predicate">
+		<xsd:annotation>
+			<xsd:documentation>Extensible predicate type for object properties</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="EQUAL_TO" id="equal_to"/>
+			<xsd:enumeration value="NOT_EQUAL_TO" id="not_equal_to"/>
+			<xsd:enumeration value="LIKE" id="like"/>
+			<xsd:enumeration value="IS_NULL" id="is_null"/>
+			<xsd:enumeration value="IS_NOT_NULL" id="is_not_null"/>
+			<xsd:enumeration value="LESS_THAN" id="less_than"/>
+			<xsd:enumeration value="LESS_THAN_EQUAL_TO" id="less_than_equal_to"/>
+			<xsd:enumeration value="GREATER_THAN" id="greater_than"/>
+			<xsd:enumeration value="GREATER_THAN_EQUAL_TO" id="greater_than_equal_to"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="LogicalOperator">
+		<xsd:annotation>
+			<xsd:documentation>Logical operators</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AND"/>
+			<xsd:enumeration value="OR"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:element name="CQLQuery">
+		<xsd:annotation>
+			<xsd:documentation>Top level of CQL queries</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Target" type="cql:Object">
+					<xsd:annotation>
+						<xsd:documentation>Defines the target data type of a CQL query</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="QueryModifier" type="cql:QueryModifier" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>Optionally modifies the returned results of the query</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="QueryModifier">
+		<xsd:annotation>
+			<xsd:documentation>Modifies the returned data from the query</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice minOccurs="0">
+			<xsd:element name="AttributeNames" type="xsd:string" maxOccurs="unbounded"/>
+			<xsd:element name="DistinctAttribute" type="xsd:string"/>
+		</xsd:choice>
+		<xsd:attribute name="countOnly" type="xsd:boolean" use="required"/>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,133 @@
+<ivysettings>
+  <property name="nbia.basedir"
+            value="${ivy.settings.dir}/.."/>
+ <property name="ivy.checksums"
+            value=""/>
+  <property name="ivy.system.repo"
+            value="${nbia.basedir}/../../system-ivy-repo"/>
+
+  <settings defaultResolver="ncicb-chain"/>
+
+  <caches defaultCacheDir="${user.home}/.ivy2-nbia5"
+          useOrigin="true"/>
+
+  <resolvers>
+
+    <chain name="ncicb-chain">
+      <!-- Local system level repo, to share chagnes ammong multiple projects-->
+      <!--
+      <filesystem name="local-system-repo" local="true">
+        <artifact pattern="${ivy.system.repo}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        <ivy pattern="${ivy.system.repo}/[organisation]/[module]/[revision]/ivy.xml" />
+      </filesystem>
+       -->
+
+      <!-- Then, use the external repository -->
+
+      <ibiblio name="cbiit-maven-mirror"
+               m2compatible="true"
+               root="https://ncimvn.nci.nih.gov/nexus/content/groups/public"
+               changingPattern=".*SNAPSHOT"/>
+
+      <ibiblio name="nbia-maven-repo"
+               m2compatible="true"
+               root="https://ncimvn.nci.nih.gov/nexus/content/repositories/nbia-procured"
+               changingPattern=".*SNAPSHOT"/>
+
+
+      <ibiblio name="jboss-maven"
+               m2compatible="true"
+               root="https://ncimvn.nci.nih.gov/nexus/content/repositories/jboss"
+               changingPattern=".*SNAPSHOT"/>
+
+      <!--
+			<url name="ncicb-ivy-repo" m2compatible="false">
+				<ivy pattern="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo/[organisation]/[module]/[revision]/ivy.xml"/>
+				<artifact pattern="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]"/>
+			</url>
+      -->
+      <!-- begin ncia specific stuff -->
+      <filesystem name="nbia-domain-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-domain/[module].[ext]" />
+        <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="nbia-services-grid-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/[module].[ext]" />
+        <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="nbia-util-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/[module].[ext]" />
+        <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="nbia-services-commons-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-services-commons/[module].[ext]" />
+        <ivy pattern="${nbia.basedir}/nbia-services-commons/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="ncia-core-grid-transfer-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/ncia-core-grid-transfer/build/lib/[artifact].[ext]" />
+        <ivy pattern="${nbia.basedir}/ncia-core-grid-transfer/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="nbia-remote-search-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-remote-search/[module].[ext]" />
+        <ivy pattern="${nbia.basedir}/nbia-remote-search/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="nbia-download-manager-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-download-manager/NBIADownloadManager.jar" />
+
+        <ivy pattern="${nbia.basedir}/nbia-download-manager/ivy.xml" />
+      </filesystem>
+
+      <filesystem name="nbia-dao-resolver" local="true">
+        <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-dao/nbia-dao.jar" />
+
+        <ivy pattern="${nbia.basedir}/nbia-dao/ivy.xml" />
+      </filesystem>
+      <!-- end ncia specific stuff -->
+
+    </chain>
+   </resolvers>
+
+   <!-- begin ncia specific stuff -->
+   <modules>
+     <module organisation="ncicb"
+             name="nbia-services-grid"
+             resolver="nbia-services-grid-resolver"/>
+
+     <module organisation="ncicb"
+             name="nbia-util"
+             resolver="nbia-util-resolver"/>
+
+     <module organisation="ncicb"
+             name="nbia-services-commons"
+             resolver="nbia-services-commons-resolver"/>
+
+     <module organisation="ncicb"
+             name="nbia-domain"
+             resolver="nbia-domain-resolver"/>
+
+     <module organisation="ncicb"
+             name="ncia-core-grid-transfer"
+             resolver="ncia-core-grid-transfer-resolver"/>
+
+
+     <module organisation="ncicb"
+             name="nbia-remote-search"
+             resolver="nbia-remote-search-resolver"/>
+
+     <module organisation="ncicb"
+             name="nbia-download-manager"
+             resolver="nbia-download-manager-resolver"/>
+
+     <module organisation="ncicb"
+             name="nbia-dao"
+             resolver="nbia-dao-resolver"/>
+   </modules>
+   <!-- end ncia specific stuff -->
+
+</ivysettings>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CQLQuery xmlns="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery" xsi:type="ns1:Object" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Target name="gov.nih.nci.ncia.domain.Patient">
+		<Association roleName="dataProvenance" name="gov.nih.nci.ncia.domain.TrialDataProvenance">
+			<Attribute name="id" value="352747520" predicate="EQUAL_TO"/>
+		</Association>
+	</Target>
+</CQLQuery>
+<!-- REALLY SMALL RESULT SET id = 7 -->
+<!-- MEDIUM RESULT SET id = 352747520 -->

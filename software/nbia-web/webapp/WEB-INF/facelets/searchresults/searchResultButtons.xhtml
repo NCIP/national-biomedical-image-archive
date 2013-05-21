@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                               
+  <ice:panelGroup>
+    <table width="100%" border="0" cellspacing="0" cellpadding="5">
+      <tr>
+        <td class="formMessage" style="text-align:left">
+          <h:commandButton image="images/checkall.gif" 
+                           action="#{perNodeResult.checkAllPatients}" />
+          <h:commandButton image="images/uncheckall.gif"
+                           action="#{perNodeResult.uncheckAllPatients}" />
+        </td>
+        <td>
+          <div align="right">
+            <h:commandButton id="addPatientToBasketButton"
+                             image="images/add2basket.gif" 
+                             action="#{perNodeResult.addPatientToBasket}" />
+          </div>
+        </td>
+      </tr>                
+    </table>
+  </ice:panelGroup>
+</ui:composition>

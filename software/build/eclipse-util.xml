@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="../common/ant2html.xsl"?>
+
+<project name="eclipse-patch" default="eclipse-patch" basedir=".">
+
+  <property name="classpath.template" value=".classpath.template"/>
+  <property name="classpath.file" value=".classpath.template"/>
+  <property name="classpath.working" value=".classpath.working"/>
+
+  <target name="eclipse-clean">
+    <delete dir="${ncia-core-grid.base.dir}/bin"/>
+    <delete dir="${nbia-services-commons.base.dir}/bin"/>
+    <delete dir="${nbia-services-grid.base.dir}/bin"/>
+    <delete dir="${nbia-domain.base.dir}/bin"/>
+    <delete dir="${nbia-web.base.dir}/bin"/>
+    <delete dir="${nbia-download-manager.base.dir}/bin"/>
+    <delete dir="${nbia-download.base.dir}/bin"/>
+    <delete dir="${nbia-remote-search.base.dir}/bin"/>
+    <delete dir="../nbia-util/bin"/>
+    <delete dir="../nbia-ctp/bin"/>
+
+  </target>
+
+  <target name="eclipse-patch">
+    <patch-eclipse-classpath project.name="ncia-core-grid-transfer"/>
+    <patch-eclipse-classpath project.name="nbia-services-commons"/>
+    <patch-eclipse-classpath project.name="nbia-services-grid" confs="compile"/>
+
+    <patch-eclipse-classpath project.name="nbia-web" confs="compile,test,test-selenium"/>
+    <patch-eclipse-classpath project.name="nbia-download-manager"/>
+    <patch-eclipse-classpath project.name="nbia-download"/>
+    <patch-eclipse-classpath project.name="nbia-remote-search"/>
+    <patch-eclipse-classpath project.name="nbia-util" confs="compile"/>
+    <patch-eclipse-classpath project.name="ncia-ctp"/>
+  </target>
+
+
+  <macrodef name="patch-eclipse-classpath">
+    <attribute name="project.name"/>
+    <attribute name="basedir" default=".."/>
+    <attribute name="confs" default="compile,test"/>
+    <sequential>
+      <delete file="@{basedir}/@{project.name}/${classpath.working}"/>
+      <copy file="@{basedir}/@{project.name}/${classpath.template}"
+            tofile="@{basedir}/@{project.name}/${classpath.working}"/>
+
+
+      <for list="@{confs}" param="conf.iter">
+        <sequential>
+          <generate-eclipse-classpath prefix="NCIA_BASE/target/lib/@{project.name}/@{conf.iter}/"
+                                      directory="@{basedir}/target/lib/@{project.name}/@{conf.iter}/"
+                                      eclipse.classpath.location="@{basedir}/@{project.name}/${classpath.working}"/>
+        </sequential>
+      </for>
+
+      <!--
+      <delete file="@{basedir}/@{project.name}/${classpath.file}"/>
+
+      <copy file="@{basedir}/@{project.name}/${classpath.working}"
+            tofile="@{basedir}/@{project.name}/${classpath.file}"/>
+
+      <delete file="@{basedir}/@{project.name}/${classpath.working}"/>
+      -->
+    </sequential>
+  </macrodef>
+
+  <!-- needs to exclude ncia-* which is taken care of by project dependencies within Eclipse -->
+  <macrodef name="generate-eclipse-classpath">
+    <attribute name="prefix" />
+    <attribute name="directory"/>
+    <attribute name="eclipse.classpath.location"/>
+    <sequential>
+      <var name="dir.exists" unset="true"/>
+      <available file="@{directory}" property="dir.exists" />
+
+      <if>
+        <isset property="dir.exists"/>
+        <then>
+          <for param="file.iter">
+            <path>
+              <fileset dir="@{directory}" includes="*"/>
+            </path>
+            <sequential>
+              <var name="just.filename" unset="true"/>
+              <basename property="just.filename" file="@{file.iter}"/>
+              <xmltask source="@{eclipse.classpath.location}"
+                       dest="@{eclipse.classpath.location}">
+                <!-- no xmlcatalog necessary -->
+
+                <insert path="//classpath/classpathentry[last()]"
+                        xml="&lt;classpathentry kind=&quot;var&quot; path=&quot;@{prefix}${just.filename}&quot;/&gt;"
+                        position="after"/>
+              </xmltask>
+            </sequential>
+          </for>
+        </then>
+      </if>
+
+    </sequential>
+  </macrodef>
+
+</project>

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: jbq
+Build-Jdk: 1.6.0_03
+Extension-Name: svncompat13
+Implementation-Title: svncompat13
+Implementation-Version: 1.0
+Plugin-Class: hudson.plugins.svncompat13.PluginImpl
+Long-Name: Hudson SVN 1.3 Compatibility plugin
+Plugin-Version: 1.0
+

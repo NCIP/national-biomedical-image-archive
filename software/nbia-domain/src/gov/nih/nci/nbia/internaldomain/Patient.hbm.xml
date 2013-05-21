@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="Patient" table="PATIENT" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="PATIENT_PK_ID">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the Patient class -->
+		<property name="ethnicGroup" type="string" column="ETHNIC_GROUP"/>
+		<property name="patientBirthDate" type="java.util.Date" column="PATIENT_BIRTH_DATE"/>
+		<property name="patientId" type="string" column="PATIENT_ID"/>
+		<property name="patientName" type="string" column="PATIENT_NAME"/>
+		<property name="patientSex" type="string" column="PATIENT_SEX"/>
+		<property name="trialSubjectId" type="string" column="TRIAL_SUBJECT_ID"/>
+		<property name="trialSubjectReadingId" type="string" column="TRIAL_SUBJECT_READING_ID"/>
+
+		<!-- Associations mapping for the Patient class -->
+		<set name="generalImageCollection" lazy="true">
+			<cache usage="read-write" />
+			<key column="PATIENT_PK_ID" />
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralImage"/>
+		</set>
+		<many-to-one name="trialSite" class="gov.nih.nci.nbia.internaldomain.TrialSite" column="TRIAL_SITE_PK_ID" lazy="proxy" />
+		<set name="studyCollection" lazy="true">
+			<cache usage="read-write" />
+			<key column="PATIENT_PK_ID" />
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.Study"/>
+		</set>
+		<many-to-one name="dataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" column="TRIAL_DP_PK_ID" lazy="proxy" />
+	</class>
+</hibernate-mapping>

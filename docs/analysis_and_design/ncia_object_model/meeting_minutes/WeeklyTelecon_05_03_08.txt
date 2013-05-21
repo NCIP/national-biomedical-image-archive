@@ -1,0 +1,29 @@
+-need to hear from Stuart's must-changes.
+-need to hear back from the workspace on the suggested changes.
+
+Janice's interpretation.
+
+1. For data element not in DICOM header....
+-those we really need to make sure we're in sync with the standard
+
+2. DICOM informational only...
+-not in the model
+-caBIG would have priority in the syntax
+
+vs.
+
+Brian's interpretation "HOWEVER, terms can be used, and even definitions/header info form DICOM, IF THEY are unambiguous"
+-Regardless if it's a element in the DICOM header.
+-What is the criteria for an unambiguous data element or attribute?  (Dianne's question)
+-Ability to hold DICOM as an alternate definition will be there.
+
+What will be the Review Team's must-changes
+-Some class name changes?
+-Are the underlying concepts changes?
+
+Effort Required
+0. Model in EA. 
+1. Some Property name changes.
+2. Minimal class name and attribute name changes
+3. SIW mappings will change. (Making sure sure concepts map to everything)
+4. Dianne mentioned we will have to retire concepts not being used.

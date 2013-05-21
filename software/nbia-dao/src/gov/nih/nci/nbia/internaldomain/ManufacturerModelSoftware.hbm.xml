@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="ManufacturerModelSoftware" table="MANUFACTURER_MODEL_SOFTWARE" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="java.lang.String" column="ID">
+      <generator class="assigned" />
+    </id>
+    <property name="manufacturer" type="java.lang.String" column="MANUFACTURER" />
+    <property name="model" type="java.lang.String" column="MODEL" />
+    <property name="softwareVersion" type="java.lang.String" column="SOFTWARE" />
+  </class>
+</hibernate-mapping>
+

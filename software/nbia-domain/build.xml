@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="../common/ant2html.xsl"?>
+
+<project name="nbia-domain"
+         default="all">
+
+  <property name="common.dir" value="${basedir}/../" />
+  <property name="assembly.classes.dir" value="${basedir}/classes" />
+  <property name="src.java.dir" value="${basedir}/src" />
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-domain" />
+  <property name="output.jar" value="${target.dir}/nbia-domain.jar"/>
+
+  <target name="init">
+    <mkdir dir="${assembly.classes.dir}"/>
+    <mkdir dir="${target.dir}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${assembly.classes.dir}"/>
+    <delete file="${output.jar}"/>
+  </target>
+
+  <target name="compile" depends="clean, init">
+
+    <javac destdir="${assembly.classes.dir}" debug="true">
+      <src path="${src.java.dir}" />
+    </javac>
+
+    <copy todir="${assembly.classes.dir}">
+      <fileset dir="${src.java.dir}">
+        <include name="**/*.hbm.xml" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="dist"
+          depends="compile">
+    <jar destfile="${output.jar}">
+      <fileset dir="${assembly.classes.dir}" includes="gov/nih/nci/nbia/**" />
+    </jar>
+  </target>
+
+  <target name="post-clean">
+    <delete dir="${assembly.classes.dir}" quiet="false" />
+  </target>
+
+  <target name="all"
+          depends="dist, post-clean"/>
+
+
+</project>
+

@@ -1,0 +1,71 @@
+<xsd:schema targetNamespace="http://imaging.nci.nih.gov/curation_data_xml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:curation="http://imaging.nci.nih.gov/curation_data_xml" elementFormDefault="qualified">
+	<!--  Common Data Element Type -->
+	<xsd:complexType name="cde_type">
+		<xsd:attribute name="name" type="xsd:string"/>
+		<xsd:attribute name="public_id" type="xsd:string"/>
+		<xsd:attribute name="public_id_version" type="xsd:string"/>
+	</xsd:complexType>
+	<!--  Annotation File Name : This can be fleshed out later if the Requirements Change -->
+	<xsd:complexType name="cde_value_type">
+		<xsd:attribute name="value" type="xsd:string"/>
+	</xsd:complexType>
+	<xsd:complexType name="annotation_file">
+		<xsd:attribute name="name" type="xsd:string"/>
+	</xsd:complexType>
+	<!-- Curation Data Type-->
+	<xsd:complexType name="curation_data_type">
+		<xsd:sequence>
+			<xsd:element name="cde" type="curation:cde_type" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="cde_value" type="curation:cde_value_type" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="annotationFile" type="curation:annotation_file" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="timestamp" type="xsd:string"/>
+		<xsd:attribute name="curator_id" type="xsd:int"/>
+		<xsd:attribute name="annotation_file_present" type="xsd:boolean"/>
+	</xsd:complexType>
+	<!-- Image Data Type-->
+	<xsd:complexType name="image_type">
+		<xsd:sequence>
+			<xsd:element name="curationData" type="curation:curation_data_type" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+		<xsd:attribute name="series_id" type="xsd:string"/>
+	</xsd:complexType>
+	<!-- Series Data Type-->
+	<xsd:complexType name="series_type">
+		<xsd:sequence>
+			<xsd:element name="curationData" type="curation:curation_data_type" minOccurs="0"/>
+			<xsd:element name="image" type="curation:image_type" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+		<xsd:attribute name="study_id" type="xsd:string"/>
+	</xsd:complexType>
+	<!-- Study Data Type -->
+	<xsd:complexType name="study_type">
+		<xsd:sequence>
+			<xsd:element name="curationData" type="curation:curation_data_type" minOccurs="0"/>
+			<xsd:element name="series" type="curation:series_type" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+		<xsd:attribute name="patient_id" type="xsd:string"/>
+	</xsd:complexType>
+	<!--  Patient Data Type-->
+	<xsd:complexType name="patient_type">
+		<xsd:sequence>
+			<xsd:element name="curationData" type="curation:curation_data_type" minOccurs="0"/>
+			<xsd:element name="study" type="curation:study_type" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+		<xsd:attribute name="project_name" type="xsd:string"/>
+	</xsd:complexType>
+	<!-- curation_download_type is the Root Type  -->
+	<xsd:complexType name="curation_download_type">
+		<xsd:sequence>
+			<xsd:element name="patient" type="curation:patient_type" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:string"/>
+		<xsd:attribute name="date" type="xsd:date"/>
+	</xsd:complexType>
+	<!-- The Root element of the Schema -->
+	<xsd:element name="curationDownload" type="curation:curation_download_type"/>
+</xsd:schema>

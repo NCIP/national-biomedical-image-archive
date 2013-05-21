@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.0">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">50</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+        <longProp name="ThreadGroup.start_time">1206636879000</longProp>
+        <longProp name="ThreadGroup.end_time">1206636879000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Recording Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="/ncia/faces/baseDef.tiles" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">MAINbody:loginForm:uName</stringProp>
+                  <stringProp name="Argument.value">huyi</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">MAINbody:loginForm:pass</stringProp>
+                  <stringProp name="Argument.value">Saic=789</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">MAINbody:loginForm:_id131</stringProp>
+                  <stringProp name="Argument.value">Login</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">com.sun.faces.VIEW</stringProp>
+                  <stringProp name="Argument.value">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</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">MAINbody:loginForm</stringProp>
+                  <stringProp name="Argument.value">MAINbody:loginForm</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">nciavjbossqa5001.nci.nih.gov</stringProp>
+            <stringProp name="HTTPSampler.port">59080</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/ncia/faces/baseDef.tiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <boolProp name="HTTPSampler.image_parser">true</boolProp>
+            <stringProp name="HTTPSampler.monitor">false</stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSampler>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Browser-derived headers" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip,deflate</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://nciavjbossqa5001.nci.nih.gov:59080/ncia/faces/baseDef.tiles</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Host</stringProp>
+                  <stringProp name="Header.value">nciavjbossqa5001.nci.nih.gov:59080</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Charset</stringProp>
+                  <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Keep-Alive</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="/ncia/faces/baseDef.tiles" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">com.sun.faces.VIEW</stringProp>
+                  <stringProp name="Argument.value">H4sIAAAAAAAAAOVdaYwcxRXuXXsPGx/rE4PXeH3E2AbP3idX7LXNTrSXd3xAiLT0zNTuNDvT3e5jZzYWKIAIihBSJA6BgBCJIIQAIUiEkBBSIiSCEI4EEUJEAkGIcikhCfzI8Sepel1dfUz1TPfO7uxY2R+tfj3dVe9776tXr6qra1/8q9Cga0JbSsnFdFOOzYgppMdMQ8rGTmsIJQzNTBmmhrbO7Dze+sjtbfXC6lGhOZWRsmkNyYawbfQOcV5sJw+0H9U0cWFU0o3rRoU1qayo6+NiDhnCZuuerCjPtuMCJXkW39BIajJ0Q9jiKmFE1DNjoop/rpfS54W7hPqCirXbQu6wlGJ1FO7+YNfjvxSfWiXUxYXVuvRdVFAFQWjMr8bHtTp5WFAN4WryaIHCwiBVRcZqx87EsWpYkWFFNkRJRhq+dc34cDyDxDTS6NPk2Ex+ODo56f4Bjg24mmZfZYf4lWWMXDY2gg8TpqGaxmlUMPDNq6eldKerpo30WrevklXuStjV1Z6q3c/3MXUOl1FnWMnlRDk9Kslz9NkBX3kNRMcO3sWuArNOVpmV5LMSyvtUbOSqCE/3ui5eaV/s5905yLnY1cl5vMtvt7qi6tmtfUz5dRqaiefEWUT0dyCdN5G2wIHUEAipa7BU9SWUsgvo7i6EJRB1GDzl+GFzKoMbGJrEzS6vaGmO9sEW6XYssva8eFpRstEeH2SPb9RVDTcVPYOQEamMHgfJuhmE0kkxNed1ioHV0uGSIewrY6iTipYjJelSGo0h2SQyx+g9vbyLPCL28IjY62+/cLGbqdyUOHMsh2v3GWENlxrBzaW3j2Ov3oHQpu3rZBpt0VBOMVACiVoqkzCT88xF3id6OGr09YWv0SFEIw4PimmAPElcksPxluMScHweZbEz0SiJKL7fWuhvk4pu+H+3NewvqWEZ+9f5gvk1ZSh2syaqGSkF0YPWP9BRcFuhf5BjmoEujuIDPbw7eeQc4HFhoD9Un1Hsr7tpAYOdHsUHOziVDHZz1BnsdYdSh1q8W/2dSyN0Lh2MGRtkcV6aFQ1JkQk3nIIzFiVmUToul+yBvSX79bWu+o1qXfU3eeuqv83D1U5/o7eucmvr5NbW2e+ES4JtXDEC4K0NhtfFVcPuBbF8sAx/47KTizSYJFPjFhg+nYACEyilIUhvVNwRsWcPlHl2DOm61Y6sWgfZk9eGS2KOmYahyPbz3VzjdHN91M31UXc/46WV4DjhinmnKdg7Pf6kybrqb/vWVa5aRV2TddXf0vkJBdzbazWtG9izXDr3uvrdLGXhWW+vAF2Zqqim+i2d3dw8djQ+nlTSC74bG3GyPGMUpdA4t55RcHjQcOfdFpSTk3qn8F2qauKk/zYYGMTIsCE2kbwDpYzrfvirW55u0Q9l6wUBsv16k1TwZ5IPs7NmPGDY5AwY6JCioek3v3hr++3vrxLqTwprs4qYPimmDEWL47wioyE9o2TTBfWmbwrkb12+GR9biHkNYb9b2zxKiqoaGz4zNXVi/PT02fiJc9NTExOnSeV/L6iqyioHtY/hlAWJ8sU27XsfPvmfL+uFum8LDfNi1sSDlTow0T8ElSRdI6fHRqePHU3Eh3EcbE+KOjqOZmJYf9wuNKHFgTOqpMQsuutfm25/suPff8GjsbjQnMEQU0oajQpNKcWUDW2BlFyPx2lECRO3Kyo3zYuaJMoGiAX1v/jPEOrPJPCBjOUEZsNGdlbvsis5+7LIRNgT7rETuWkNOXxFDl9jV9oFCJELZeMuctNlFRda56Oe7cyJscmJceLO+PEEa1iboGFdYY2LOsjVFuu8i5xvts57yPkpmiGCkKBCHxHOUGGACOdo3gZl3UoFKOw2KvQUCq6kkfzyHS7mZg5mx2OrQhjXVYCvodHx+UsfnP3Dn3ZduNluaNh0Fm/Zk3WYlwFRPWGIBhrBDQppCXEeabe++9MbHnry4lg94aAzMUBJuVbH96ThGe9UAW3zxCZ7vNMTKBs7S5Q5JslprG08p2Zxs8npszFiuGkYKOBwRg05RMIcONCxpmG1KVt36AZV1W3t0hRbtLnxWV0rMR85ucplTSK3kcM+Q9jGoKQljJyERaT5EHUDDR2NyaMHImHYXr7BkELX+LNKIhJNBSDvBJB2q62Ze8AFjSPQ5jBEU0n024NbYVZKQebXXjiSz+ePzOAfj5haFskksKVV/x/H/CHavxcOHQZYLbmXXN1hnfeT853W+SA530UnI4BFu6nQXeD6FfeMGpIx9VE6yLs6SpmaZCwcw11DzO5zDeEqng2H2OwKM3tRPFhddYJucQgqGuIxUZ9DBh6UlwZAWAthcUclrG3lQFyOlkdGxmR2EAc0PRQ0CPI7A+kOkzZWXYawtyiejSEjo6RdAc3xLk4PiDKWlT3ark3CNcIj3Ix27LvgyDHnkTtV29RgXd4fjp66mSS4JjUpJ2oLajk3LC+/Wl1ArNME0iSkD5P0Bqdk5b3RCd3srkqYVq0YrwM0uxGFwQaBd3cl2EKGyHUQIltoxIMEZz8VoCUfoAJw/yCdCQXLH6YCqHotFaCATn7cJCcjSxIx2eQt66OKIiYvv11ed29m7s4tnDLB40G+ZvqDr6Fj2l+7EXOrJ2JGggb97AEvNKQ6pc+6Y2ALKZ6kk2lah0eLDbr9ywKNhnv3XfBei/kLCBEXSem5FY6FV/lgOGLJaOg1NaQxBy+JaOjyUChsXZCVHa7dFuJgA71HJN1QtIVw2CDLvzZKEznlqmNRTcRdwJI1kWgjDNpdQOjroEJ/9G5jtw5z0VNIN7NWLiHpgO6kpuTOaHjMeE0ZF7jfDkLfxe1N6qpOqcu9lJqiauIG0xkBETAM+vGOkAxbRwjCanNr1OK3NeZXG+aX3wPuAqrNriYPuyBn6aMvMMEAN5HDcXKIk8N4dMZt9yQqekbJn7bmIviZCnujSUqb4HKroeqhuGgehR+nmO7AIuhf+iqJwYuJEN3QHm+kQk90f+30+Mv7Aj2oLTnAi1+4MxZFjBHl/egzQ50zFXN9MOwgF+8hLhZTMFk8rZuqqmjG9PhwfDIP83ASHvYK/ZHBw6wU5Ns3+sNJ0J/VvLH/klkRD49Lm6sKUxoWqGmVUWCRVoBu+/qqNwfoMIepsIgO0xu+MqJ+SpxSssgQDpUxg7NmhIXQGuglNzq9JOhnCO2hcYAbIaAN+8lsT+Ic5KyZG1Zk3RBlwzOdYwiNVsErmU11Q383Qt9IdEQnx5V+cgybmmggiyCxMob1rQo6b/exNcCSTYwlKQIIgl9PNDhAFugCR/hkOe9PpNYj2UDaSSmL7BfvTiNMOIVPipqOCUTzqav3XeD/FvOUtqJJew90yWNUCJgjL0WzVj/NTtLFYBbR+Bm74xn30jFSwXiNsAy6l3k8qp1ZwD1uctpABaN8huFGMwSL5MC6gSSrv4WMAqGWhJnMSbqO6XxpTHNscQ1ppNQcmS7Hued61xuvHujeEl7wtTSJ4UQSOSWJ4yjvBwATXmdqF4AzSWnqSLvZxKT0IYAgd652EbS4XTCi5Hz690J0urV29d/s1j+V5CCA1PK2ShCEDOsbrLl/Iup0PSNEHygnT69Ak1ygAtD7aXJ41V7pBny5SA6fk8MX9qKjXnhrzNYQkd9+50bAlF3DARD5xfV692uMXtA5SQXQOU0F0FaiS1jB0HNUgGdyVIBnNAq6E5Bss5EMuZe3gu28rhqy4+11RVGYQ7Fq0W49o10GGLeTCwf4BzlxshL+VWFqDGfmOUWetmaf7KmxEqAgN057QQXmbhtllE9IOTXrWuvqNGCrznOKNjeTVfI0c/uGPRPmvh7zlRPqPS1bPg3vk5cjg+uDubAMFbqiZ3B7LKijijJnqgCUrgyWDKSfKEg6TnwO8X3BWZ0OTZIbGlZo2pVyy60qHliGxgOrIKAbykTg25RvbfVi+eYuJ9w4YVVTWZZVz+g5UcZt2X5VHtyg++BN81xIA4dZXkEuhRu/hzBY1YI5yqolzQTBPFdJMF9UhIFwe552oIuYighaD9DKR2p9gUKK0mokkDgzU5ZuhrC3lOrgK0hOzoekNP3qxlPpOrfVMC+2kyDhtSN+ZMmiQrSZbEqGRUwYbN8TwAYnJ3N/VkQKMbk0WDIQi3gREcToK/wY2OdPpJx8aBxVGHWRzHGaamkIG5ji8F0WeW6hCnHG9V7kR0vnBYdJ7k+RSBlPhw4okQctLe5BSz+EzHvp516QPtxHBRin3E8OPyCHB8jhQfobPPU4/f4Khi1PUAGiyVP2h07WIGY/F+aQ97MsMK3Xk2HGNLxxXJQYG+zne0D3w2F0By4C8ntDxtHIuT6JjY3lQ6jXODy+XB6hEQiRLDAACf49jgUM65MVe6Wq/UVja7sEI6d2fJSlmQVJnj0ySxbvx2alGdp4i0GStEnR0kgb6lALNZQ6eseC4Y0Fcx731RRdVmh5FgT4VEZRdDbsCW/GHhalLoFpA5cHo2DsZUH4/5EquP8oXtUuFVD6xKj7Yx2MvG3fBcYnRbszion7WBdXmzTa6qKRmJ6PziHopB8MyaF1mENH7VpCTAvsDZoWYIWEyP7LE2wxy7EGoFt+mGYnEHQfpQKEjseo0Lc881GdoRzkns4hdT3uph2nVS11qvMQpDr9kXUdgm/6wcARolOkOScSnQ6sSN6zSHNADv2QxxyrfkZm8u2sZ1aT0tNSSpFLpjvksddqKM3xTksu0jYwpHi0pqhS/Zxnpy/nmVoKy0KK8Fgl/dfygg6ebA3dhQ3CoPOJ2sW4hTnWQhiXZxRDuCYsvs4OiKRPVQIwZOhn36Bbo3ToFZ+xJegWn7UlSIyesyVwwfP2S1jQ9wVbglJesiUo5WVbglJesaWBJZyM2+Exr2vHE1LOq27LOUZaGfZbTd768vOcPZ21O0h9ixEQMJ+pXcpv9wMbRTosdCuDC8LVs7WL60o/ruOSOCsruiGlymKDTPu5SwjbUV1Hup5D5JuvMtggmX6+drEV8fFoCo8Y9XK4rA/wX6hdXDv8uOJySkOiXjaCdEIEeekSQjaK5pGGe8+yyCCGvFy7yIq4eEIWk9nyuCB+vFIJrsivBLZ58gHrQ+vXbAn69ddtCfr1N2wJfPCmLYHmP7clyBXesre9gjLftiUo8x1bgjLftSXIFd6zpaXMFTYzw7Odt0gJF722DvPWYW1V2bTqb/BSlfGJLKKEd3V3trnf5DFQ1rf8ENNeq932sdGDJ368BBQIYq9XAmU3x3XLMqHtoR4BJsNWxTs40Ex7s6I3+Mi+9h6+ckQ2RWDL3t3BMNfRLNI2//bHP/nn3fcP1JOdjOnuYPaeX3DfuJlLIu37Lz6y67KHP3vA3pLJWq7mJb5TFUHbsB7ftoHdtoIc2sQ45HxaFcgiCCxvVsKiPSvCIgfa5Rxo5FeIuw4MHOnc793o1onRSWW7ujQjFs+NDRyWlJySC3Qt5KVvuS2wxW0BexdIn5382Mk7RqRpijYqJpF3UVZJHLsi4YhKhg2M4wA62ArWV6tvB/KAbmUZMN3WkLU3vw1c2LOteGEP7oN8M25FRuVQhqw3FVNk8oPqRPZ31MmHJcYKBhNnlG5/wirS0UOgxaFjeqeSkFKt96uyYkxraFbSDaSVAAQJ3bu1C8gJ+CHAQD76XiVgon3SYOesEI3et3dHhVb5a3L40L4ECe9HtgT90se2BGnzp/b3DPDwZ7a0iFVs5ZceuTdnJWV87jYPK7Wp6q52Fn+Zalo0yOqKVq7S4OweGGC8X5vM9SfwMspbC0ZIAl8KVBfjTu2BsvYQ8r8CZdCOw76bpcBB8PywdsE58/miqias3QxKI4Lo+VHtInJ6OLo5A/ybklQZVBBGP64E1dJsSPFJ9A0pruZtSOF480ROlLLkg5fSBoB4/qnXAMF7T3hnCqq/4cS+EJhL4rV2Ev6kdml8hZ/Gp0zcO0hki4SSuCCaflYJrqjLtq1uexHrtq8oTrRPYr+ZeCAntDCIdO90UsQXbhDLgKEPlojQTdjJPb+vuEK2wbe1gTu56Y/8Qv8HOqIzG01qAAA=</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">MAINbody:mainMenuForm</stringProp>
+                  <stringProp name="Argument.value">MAINbody:mainMenuForm</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.name">MAINbody:mainMenuForm:_idcl</stringProp>
+                  <stringProp name="Argument.value">MAINbody:mainMenuForm:logout:_id69</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">nciavjbossqa5001.nci.nih.gov</stringProp>
+            <stringProp name="HTTPSampler.port">59080</stringProp>
+            <stringProp name="HTTPSampler.protocol">http</stringProp>
+            <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
+            <stringProp name="HTTPSampler.path">/ncia/faces/baseDef.tiles</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <boolProp name="HTTPSampler.image_parser">true</boolProp>
+            <stringProp name="HTTPSampler.monitor">false</stringProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          </HTTPSampler>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Browser-derived headers" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Encoding</stringProp>
+                  <stringProp name="Header.value">gzip,deflate</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Referer</stringProp>
+                  <stringProp name="Header.value">http://nciavjbossqa5001.nci.nih.gov:59080/ncia/faces/baseDef.tiles</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Language</stringProp>
+                  <stringProp name="Header.value">en-us,en;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Host</stringProp>
+                  <stringProp name="Header.value">nciavjbossqa5001.nci.nih.gov:59080</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept-Charset</stringProp>
+                  <stringProp name="Header.value">ISO-8859-1,utf-8;q=0.7,*;q=0.7</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">User-Agent</stringProp>
+                  <stringProp name="Header.value">Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Content-Type</stringProp>
+                  <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Accept</stringProp>
+                  <stringProp name="Header.value">text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5</stringProp>
+                </elementProp>
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">Keep-Alive</stringProp>
+                  <stringProp name="Header.value">300</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+            <name>saveConfig</name>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp name="CookieManager.cookies"/>
+          <boolProp name="CookieManager.clearEachIteration">true</boolProp>
+        </CookieManager>
+        <hashTree/>
+        <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+          <stringProp name="ConstantTimer.delay">1000</stringProp>
+        </ConstantTimer>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

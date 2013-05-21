@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"                
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+                
+                
+
+
+<h:form id="searchForm">
+  <table class="contentPage" cellspacing="0" cellpadding="0" width="600"
+         summary="" border="0">
+    <tbody>
+	  <tr>
+        <td>
+		  <h2>
+            <h:outputText rendered="#{!searchWorkflowBean.advanced}"
+			              value="#{msg.common_simpleSearch}" /> 
+            <h:outputText rendered="#{searchWorkflowBean.advanced}"
+                          value="#{msg.common_advSearch}" /> 
+          </h2>
+          <div align="center" style="font-size: 1.4em">
+            <h:inputHidden id="editQueryMessage" /> 
+            <h:message for="editQueryMessage"
+                       errorClass="errorLabel" 
+                       infoClass="infoLabel" /> 
+          </div>
+          <br/>
+          <div align="center">
+            <h:outputText value="#{msg.search_seriesLevel}" />
+          </div>
+          <br/>
+          <div align="center">
+            <h:outputText value="#{msg.search_criteriaAnded}" />
+          </div>
+          <br/>
+          <div align="center">
+            <h:outputText value="#{msg.search_default}" />
+          </div>
+        </td>
+        <td valign="top">
+          <f:subview id="simpleSearchHelp"
+                     rendered="#{!searchWorkflowBean.advanced}">                     
+            <ncia:help label="images/help_icon.png"
+                       helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-PerformingaSimpleSearch" />         
+          </f:subview> 
+          <f:subview id="advancedSearchHelp"
+                     rendered="#{searchWorkflowBean.advanced}">
+            <ncia:help label="images/help_icon.png"
+                       helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-PerforminganAdvancedSearch" />
+          </f:subview>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" valign="top">
+          <div align="center"></div>
+          <table width="100%" border="0" cellspacing="0" cellpadding="2">
+            <tr>
+              <td>
+                <div align="right"> 
+                  <h:commandButton id="switchToAdvancedSearchButton"
+                                   action="#{searchWorkflowBean.switchSearch}"
+                                   image="images/advanced.gif"
+                                   rendered="#{!searchWorkflowBean.advanced}" 
+                                   immediate="true" />
+                  <h:commandButton action="#{searchWorkflowBean.switchSearch}"
+                                   image="images/simple.gif"
+                                   rendered="#{searchWorkflowBean.advanced}" 
+                                   immediate="true" /> 
+                 <h:commandButton action="#{searchWorkflowBean.newDynamicSearch}"
+                                  image="images/dyanic.gif"
+                                  immediate="true" /> 
+                </div>
+              </td>
+            </tr>
+          </table>         
+                              
+          <ui:include src="remoteNodes.xhtml"/>         
+          
+          <table cellspacing="0" cellpadding="0" width="100%" border="0">
+            <tbody>
+              <tr>
+                <td>
+                  <table border="0" width="100%" cellpadding="3" cellspacing="0"
+                         class="topBorderOnly" summary="">
+                    <tr class="topBorder">
+                      <td colspan="2" class="formTitleIIII">
+                        <h:outputText value="#{msg.search_criteria}" />
+                      </td>
+                    </tr>
+                    
+                   <f:subview id="collectionSearchCriteriaRow"
+                               rendered="#{searchLookupBean.showCollectionSearch}">    
+                      <ui:include src="collectionSearchCriteria.xhtml"/>                     
+                    </f:subview>
+                    <tr class="topBorder">
+                      <td width="20%" class="formLabel">
+                        <h:outputText value="#{msg.criteria_ImageModalityCriteria}" />
+                      </td>
+                      <td width="80%" class="formField">
+                        <table width="90%" border="0" align="left" cellpadding="0"
+                               cellspacing="0">
+                          <tr>
+                            <td width="30%">
+                              <div align="center">
+                                <span class="formMessage">
+                                  <h:outputText value="#{msg.search_available}" />
+                                </span>
+                              </div>
+                            </td>
+                            <td width="40%" align="center" valign="middle">
+                              <f:verbatim>&amp;nbsp;</f:verbatim>
+                            </td>
+                            <td width="30%">
+                              <div align="center">
+                                <span class="formMessage">
+                                  <h:outputText value="#{msg.search_selected}*" />
+                                </span>
+                              </div>
+                            </td>
+                            <td width="4%" valign="bottom">
+                              <f:verbatim>&amp;nbsp;</f:verbatim>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <div id="modalitiesDiv"
+                                   class="searchFormSelector">
+                                                                                                                            
+                                <h:dataTable id="modalityCheckboxesTable"
+                                             width="100%" 
+                                             border="0" 
+                                             cellpadding="0" 
+                                             cellspacing="0" 
+                                             value="#{searchWorkflowBean.modalityItems}"
+                                             var="modalityItem">
+                                  <h:column id="modalityItemsColumn">
+                                    <span style="white-space:nowrap;">
+                                    <ice:setEventPhase events="ValueChangeEvent"
+                                             phase="INVOKE_APPLICATION">
+                                      <ice:selectBooleanCheckbox value="#{modalityItem.value}" 
+                                      valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+                                                                 partialSubmit="true" /> 
+                                        </ice:setEventPhase>                         
+                                      <span title="#{modalityItem.description}">                         
+                                      	<h:outputText value="#{modalityItem.label}"/>
+                                      </span>
+                                    </span>                                        
+                                  </h:column>    
+                                </h:dataTable> 
+
+                              </div>
+                            </td>
+                            <td align="center" valign="middle">
+                              <h:commandButton id="selectAllModalities" 
+                                                image="images/SELECTall-noarrow.gif" 
+                                                action="#{searchWorkflowBean.selectAllModalities}" />                            
+                              <br/>
+                              <h:commandButton id="unselectAllModalities"
+                                               image="images/REMOVE-all-noarrow.gif"
+                                               action="#{searchWorkflowBean.unselectAllModalities}" /> 
+                            </td>
+                            <td valign="top">
+                              <div class="searchFormSelector">
+                                <h:dataTable id="selectedModalitiesTable"
+                                             width="100%" 
+                                             border="0" 
+                                             cellpadding="0" 
+                                             cellspacing="0" 
+                                             value="#{searchWorkflowBean.selectedModalityNames}"
+                                             var="item">
+                                  <h:column id="selectedModalityColumn">
+                                    <h:outputText value="#{item}"/> 
+                                  </h:column>    
+                                </h:dataTable>                            
+                              </div>
+                            </td>
+                                                                                  
+                            <td valign="top"></td>
+                          </tr>
+                          <tr>
+                            <td align="right"> 
+                              <h:outputText styleClass="formLabel" 
+                                            value="#{msg.search_modalityAndTypeSerach}"
+                                            style="border:0px" />
+                            </td>
+                            <td colspan="3" align="left">
+                              <h:selectOneRadio style="border:0px" 
+                                                id="andSearchModalityCheck"
+                                                value="#{searchWorkflowBean.modalityAndedSearch}"
+                                                immediate="true">
+                                <f:selectItem itemValue="all" 
+                                              itemLabel="#{msg.search_modalityAndedSearchLabelAll}" />
+                                <f:selectItem itemValue="any" 
+                                              itemLabel="#{msg.search_modalityAndedSearchLabelAny}"/>
+                              </h:selectOneRadio>
+                            </td>
+                          </tr>                                                                        
+                        </table>
+                        <div align="left"></div>
+                      </td>
+                    </tr>
+                    <f:subview id="usSearch" rendered="#{searchWorkflowBean.usSearch}">  
+                     <tr><td colspan="2" class="formTitleIIII"></td></tr>
+                  	  <tr>
+                      <td class="formLabel">
+                        <h:outputText value="#{msg.criteria_NumFrameOptionCriteria}"/>                        
+                      </td>
+                      <td class="formField">
+                      <h:selectManyCheckbox id="numOfFrame"
+                                                style="font-size: 1em"
+                                                value="#{searchWorkflowBean.numFrameOptions}" 
+                                                layout="lineDirection">
+                            <f:selectItems value="#{searchLookupBean.numFrameOptionItems}" />
+                          </h:selectManyCheckbox>
+                      </td>
+                      </tr>    
+                      <tr>
+                      <td class="formLabel">
+                        <h:outputText value="Ultrasound Color Data Present (US)"/>                        
+                      </td>
+                      <td class="formField">
+                        <h:selectManyCheckbox id="colorMode"
+                                                style="font-size: 1em"
+                                                value="#{searchWorkflowBean.colorModeOptions}" 
+                                                layout="lineDirection">
+                            <f:selectItems value="#{searchLookupBean.colorModeOptionItems}" />
+                          </h:selectManyCheckbox>
+                      </td>
+                    </tr>  
+                    <tr>
+                      <td class="formLabel">
+                        <h:outputText value="Ultrasound Image Mode (US)" />
+                      </td>
+                      <td width="63%" class="formField">
+                        <table width="90%" border="0" align="left" cellpadding="0"
+                               cellspacing="0">
+                          <tr>
+                            <td width="30%">
+                              <div align="center">
+                                <span class="formMessage">
+                                  <h:outputText value="#{msg.search_available}" />
+                                </span>
+                              </div>
+                            </td>
+                            <td width="40%" align="center" valign="middle">
+                              <f:verbatim>&amp;nbsp;</f:verbatim>
+                            </td>
+                            <td width="30%">
+                              <div align="center">
+                                <span class="formMessage">
+                                  <h:outputText value="#{msg.search_selected}" />
+                                </span>
+                              </div>
+                            </td>
+                            <td width="4%" valign="bottom">
+                              <f:verbatim>&amp;nbsp;</f:verbatim>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top">
+                              <div id="imageTypeDiv"
+                                   class="searchFormSelector">
+                                                                                                                            
+                                <h:dataTable id="imageTypeCheckboxesTable"
+                                             width="100%" 
+                                             border="0" 
+                                             cellpadding="0" 
+                                             cellspacing="0" 
+                                             value="#{searchWorkflowBean.usMultiModalityItems}"
+                                             var="imageTypeItem">
+                                  <h:column id="imageTypeItemsColumn">
+                                    <span style="white-space:nowrap;">
+                                      <ice:selectBooleanCheckbox value="#{imageTypeItem.value}" 
+                                                                 partialSubmit="true" /> 
+                                      <h:outputText value="#{imageTypeItem.label}"/>
+                                    </span>                                        
+                                  </h:column>    
+                                </h:dataTable> 
+
+                              </div>
+                            </td>
+                            <td align="center" valign="middle">
+                              <h:commandButton id="selectAllImageTypes" 
+                                                image="images/SELECTall-noarrow.gif" 
+                                                action="#{searchWorkflowBean.selectAllUsMultiModalityItems}" />                            
+                              <br/>
+                              <h:commandButton id="unselectAllImageTypes"
+                                               image="images/REMOVE-all-noarrow.gif"
+                                               action="#{searchWorkflowBean.unselectAllUsMultiModalityItems}" /> 
+                            </td>
+                            <td valign="top">
+                              <div class="searchFormSelector">
+                                <h:dataTable id="selectedImageTypesTable"
+                                             width="100%" 
+                                             border="0" 
+                                             cellpadding="0" 
+                                             cellspacing="0" 
+                                             value="#{searchWorkflowBean.selectedUsMultiModalityNames}"
+                                             var="item">
+                                  <h:column id="selectedImageTypesColumn">
+                                    <h:outputText value="#{item}"/> 
+                                  </h:column>    
+                                </h:dataTable>                            
+                              </div>
+                            </td>                          
+                            <td valign="top"></td>                         
+                          </tr>
+                        </table>
+                        <div align="left"></div>
+                      </td>
+                    </tr>
+                    <tr><td colspan="2" class="formTitleIIII"></td></tr>
+                     </f:subview> 
+                    
+                    <tr>
+                      <td class="formLabel">
+                        <h:outputText  value="#{msg.criteria_ContrastAgentCriteria}" />
+                      </td>
+                      <td class="formField">
+                        <!--a little confused by the behavior of font-size.
+                        contentPage sets .07em and this inherits that value but
+                        IE shows as larger font down here.  may have to do with quirks mode
+                        because of no explicit html DOCTYPE? -->
+                        <h:selectManyCheckbox id="contrastSelector" 
+                                              value="#{searchWorkflowBean.contrastAgents}"
+                                              style="font-size: 1em" 
+                                              layout="lineDirection">
+                          <f:selectItems value="#{searchLookupBean.contrastAgentItems}" />
+                        </h:selectManyCheckbox>
+                      </td>
+                    </tr>
+                    <tr>
+                   	  <ice:panelGroup style="width:100%" rendered="#{searchWorkflowBean.showAnatomicCriteria}">
+                      <td class="formLabel">
+                        	<h:outputText value="#{msg.criteria_AnatomicalSiteCriteria}" />
+                      </td>
+                      <td width="63%" class="formField">
+	                        <table width="90%" border="0" align="left" cellpadding="0"
+	                               cellspacing="0">
+	                          <tr>
+	                            <td width="30%">
+	                              <div align="center">
+	                                <span class="formMessage">
+	                                  <h:outputText value="#{msg.search_available}" />
+	                                </span>
+	                              </div>
+	                            </td>
+	                            <td width="40%" align="center" valign="middle">
+	                              <f:verbatim>&amp;nbsp;</f:verbatim>
+	                            </td>
+	                            <td width="30%">
+	                              <div align="center">
+	                                <span class="formMessage">
+	                                  <h:outputText value="#{msg.search_selected}" />
+	                                </span>
+	                              </div>
+	                            </td>
+	                            <td width="4%" valign="bottom">
+	                              <f:verbatim>&amp;nbsp;</f:verbatim>
+	                            </td>
+	                          </tr>
+	                          <tr>
+	                            <td valign="top">
+	                              <div id="anatomicalSitesDiv"
+	                                   class="searchFormSelector">
+	                                                                                                                            
+	                                <h:dataTable id="anatomicalSitesCheckboxesTable"
+	                                             width="100%" 
+	                                             border="0" 
+	                                             cellpadding="0" 
+	                                             cellspacing="0" 
+	                                             value="#{searchWorkflowBean.anatomicalSiteItems}"
+	                                             var="anatomicalSiteItem">
+	                                  <h:column id="anatomicalSiteItemsColumn">
+	                                    <span style="white-space:nowrap;">
+	                                      <ice:selectBooleanCheckbox value="#{anatomicalSiteItem.value}" 
+	                                                                 partialSubmit="true" /> 
+	                                      <h:outputText value="#{anatomicalSiteItem.label}"/>
+	                                    </span>                                        
+	                                  </h:column>    
+	                                </h:dataTable> 
+	
+	                              </div>
+	                            </td>
+	                            <td align="center" valign="middle">
+	                              <h:commandButton id="selectAllAnatomicalSites" 
+	                                                image="images/SELECTall-noarrow.gif" 
+	                                                action="#{searchWorkflowBean.selectAllAnatomicalSites}" />                            
+	                              <br/>
+	                              <h:commandButton id="unselectAllAnatomicalSites"
+	                                               image="images/REMOVE-all-noarrow.gif"
+	                                               action="#{searchWorkflowBean.unselectAllAnatomicalSites}" /> 
+	                            </td>
+	                            <td valign="top">
+	                              <div class="searchFormSelector">
+	                                <h:dataTable id="selectedAnatomicalSitesTable"
+	                                             width="100%" 
+	                                             border="0" 
+	                                             cellpadding="0" 
+	                                             cellspacing="0" 
+	                                             value="#{searchWorkflowBean.selectedAnatomicalSiteNames}"
+	                                             var="item">
+	                                  <h:column id="selectedAnatomicalSitesColumn">
+	                                    <h:outputText value="#{item}"/> 
+	                                  </h:column>    
+	                                </h:dataTable>                            
+	                              </div>
+	                            </td>                          
+	                            <td valign="top"></td>                         
+	                          </tr>
+	                        </table>
+	                        <div align="left"></div>
+                      </td>
+                      </ice:panelGroup>
+                    </tr>
+                    <tr>
+                      <td class="formLabel">
+                        <h:outputText value="#{msg.criteria_ImageSliceThickness}" />
+                      </td>
+                      <td class="formField">
+                        <table>
+                          <tr>
+                            <td>
+                              <h:selectBooleanCheckbox id="imageSliceRadio"
+                                                       styleClass="formLabel"
+                                                       style="border:0px" 
+                                                       value="#{searchWorkflowBean.showThickness}"
+                                                       immediate="true"/> 
+                              <h:outputText styleClass="formLabel" 
+                                            value="#{msg.search_imageFilter}"
+                                            style="border:0px" /> 
+                              <br/>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <table width="40" border="0" align="left" cellpadding="0"
+                                     cellspacing="0">
+                                <tr>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="cmpLeft"
+                                                     value="#{searchWorkflowBean.thicknessLeftCompare}">
+                                      <f:selectItems id="foo" value="#{searchLookupBean.imageLeftCompareItems}" />
+                                    </h:selectOneMenu>
+                                  </td>
+                                  <td width="79%">
+                                    <h:selectOneMenu id="valLeft"
+                                                     value="#{searchWorkflowBean.imageThicknessLeft}">
+                                      <f:selectItems id="cow" value="#{searchLookupBean.imageLeftThicknessItems}" />
+                                    </h:selectOneMenu>
+                                  </td>
+                                </tr>
+                              </table>
+                              <div align="left" style="display:inline">
+                                <table width="40" border="0" align="left" cellpadding="0"
+                                       cellspacing="0">
+                                  <tr>
+                                    <td width="21%" class="formMessage">
+                                       <div align="left">
+                                         <f:verbatim>&amp;nbsp;</f:verbatim>
+                                         <f:verbatim>&amp;nbsp;</f:verbatim>
+                                         <h:outputText value="#{msg.search_and}" />
+                                         <f:verbatim>&amp;nbsp;</f:verbatim>
+                                         <f:verbatim>&amp;nbsp;</f:verbatim>
+                                       </div>
+                                    </td>
+                                    <td width="79%"> 
+                                      <h:selectOneMenu id="cmpRight"
+                                                       value="#{searchWorkflowBean.thicknessRightCompare}">
+                                        <f:selectItems id="xxx" value="#{searchLookupBean.imageRightCompareItems}" />
+                                      </h:selectOneMenu>
+                                    </td>
+                                    <td width="79%">
+                                      <h:selectOneMenu id="imgThick"
+                                                       value="#{searchWorkflowBean.imageThicknessRight}">
+                                        <f:selectItems id="yyyy" value="#{searchLookupBean.imageRightThicknessItems}" />
+                                      </h:selectOneMenu>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </td>           
+                          </tr>
+                          <tr>
+                            <td>
+                              <h:inputHidden id="imgValid"
+                                             value="needed" 
+                                             validator="#{searchWorkflowBean.rangeValidator.validateRange}">
+                                <f:attribute name="cmpLeftId"
+                                             value="cmpLeft" />
+                                <f:attribute name="cmpLeftValue"
+                                             value="valLeft" />
+                                <f:attribute name="cmpRightId"
+                                             value="cmpRight" />
+                                <f:attribute name="cmpRightValue"                                                                                          
+                                             value="imgThick" />                              
+                              </h:inputHidden>
+                              <h:message for="imgValid" 
+                                         styleClass="errorLabel" />
+                            </td>
+                          </tr>
+                        </table>
+                      </td>  
+                    </tr>
+                    <f:subview id="advancedSubview"
+                               rendered="#{searchWorkflowBean.advanced}">
+                      <tr>
+                        <td class="formLabel">
+                          <h:outputText value="#{msg.criteria_MinNumberOfStudiesCriteria}" />
+                        </td>
+                        <td class="formField">
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <h:outputText value="#{msg.search_baseline}" />
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <h:selectOneMenu value="#{searchWorkflowBean.numberStudies}">
+                            <f:selectItems id="zzzz" value="#{searchLookupBean.minimumStudiesItems}" />
+                          </h:selectOneMenu>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="formLabel">
+                          <h:outputText value="#{msg.criteria_NumOfMonthsCriteria}" />
+                        </td>
+                        <td class="formField">
+                         
+                          <table class="formFieldWhite">
+                            <tr>
+                              <td>
+                                <h:selectOneMenu value="#{searchWorkflowBean.monthCompare}">
+                                  <f:selectItems id="Asdasf" 
+                                                 value="#{searchLookupBean.monthCompareItems}" />
+                                </h:selectOneMenu> 
+                                <h:inputText id="numMonVal"
+                                             value="#{searchWorkflowBean.numberMonths}"
+                                             maxlength="5" >
+                                  <f:validateLongRange minimum="0" maximum="1000" />
+                                </h:inputText>                                            
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <h:message for="numMonVal"
+                                           styleClass="errorLabel" /> 
+                              </td>
+                            </tr>
+                          </table>
+                      
+                        </td>
+                      </tr>
+                    </f:subview>
+                    <tr>
+                      <td width="24%" class="formLabel">
+                        <h:outputText value="#{msg.search_visible_date}"/>
+                      </td>
+                      <td width="38%" class="formField" >
+                        <table>
+                          <tr>
+                            <td>
+                              <h:outputText id="dateFrom" value="#{msg.date_from}"></h:outputText>
+                            </td>
+                            <td>
+                              <ice:selectInputDate id="fromDate"
+                                                   value="#{searchWorkflowBean.dateFrom}" 
+                                                   popupDateFormat="MM/dd/yyyy"
+                                                   renderAsPopup="true"
+                                                   partialSubmit="false"
+                                                   style="display:inline">
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   timeZone="#{submissionReportsBean.defaultTimeZone}"/>
+                              </ice:selectInputDate> 
+                            </td>
+                            <td> 
+                              <h:outputText id="dateTo" value="#{msg.date_to}"/>
+                            </td>
+                            <td>                                                                      
+                              <ice:selectInputDate id="toDate"
+                                                   value="#{searchWorkflowBean.dateTo}" 
+                                                   popupDateFormat="MM/dd/yyyy"
+                                                   renderAsPopup="true"
+                                                   partialSubmit="false"
+                                                   style="display:inline">
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   timeZone="#{submissionReportsBean.defaultTimeZone}"/>
+                              </ice:selectInputDate>                                         
+                            </td>
+                            
+                          </tr>
+                          <tr>
+                            <td colspan="3">
+                              <h:inputHidden id="dateValid"/>
+                              <h:message for="dateValid" errorClass="errorLabel" infoClass="infoLabel" />
+                              <h:message for="fromDate" errorClass="errorLabel" infoClass="infoLabel" />
+                              <h:message for="toDate" errorClass="errorLabel" infoClass="infoLabel" />
+                            </td>
+                          </tr>
+                        </table>                            
+                      </td>                  
+                    </tr>      
+                    <tr>
+                      <td class="formLabel">
+                        <h:outputText value="#{msg.criteria_AnnotationOptionCriteria}" />
+                      </td>
+                      <td class="formField">
+                        <span class="formFieldWhite">
+                          <h:selectManyCheckbox id="annotationSelector"
+                                                style="font-size: 1em"
+                                                value="#{searchWorkflowBean.annotationOptions}" 
+                                                layout="lineDirection">
+                            <f:selectItems value="#{searchLookupBean.annotationOptionItems}" />
+                          </h:selectManyCheckbox>
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="formLabel">
+                        <h:outputText value="#{msg.patient_id}"/>                        
+                      </td>
+                      <td class="formField">
+                        <h:inputTextarea id="patientInput" 
+                                         value="#{searchWorkflowBean.patientInput}" 
+                                         cols="60" 
+                                         title="Enter comma separated Subject ID(s) here." />
+                      </td>
+                    </tr>                  
+                  </table>
+                </td>
+              </tr> 
+
+            </tbody>
+          </table>
+          <p/>
+          <br/>          
+          <ui:include src="aimCriteria.xhtml"/>          
+          <p></p>
+          <br/>
+          <f:subview id="advSubView2"
+                     rendered="#{searchWorkflowBean.advanced}">
+            <ui:include src="advancedSearchBody.xhtml"/>                      
+            
+          </f:subview>
+          <table cellspacing="0" cellpadding="3" width="100%" border="1">
+            <tr>
+              <td width="20%" class="formLabel">
+                <h:outputText value="#{msg.search_resultsPerPage}" />
+              </td>
+              <td width="80%" class="formLabel">
+                <span class="formFieldWhite">                        
+                  <h:selectOneMenu id="resultsPerPage" 
+                                   value="#{searchWorkflowBean.resultPerPageOption}"
+                                   immediate="true">
+                    <f:selectItem itemValue="10" itemLabel="10" />
+                    <f:selectItem itemValue="25" itemLabel="25"/>
+                    <f:selectItem itemValue="50" itemLabel="50" />
+                    <f:selectItem itemValue="100" itemLabel="100" />
+                  </h:selectOneMenu>
+                </span>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0"
+                 summary="">
+            <tr>
+              <td align="right"><!-- action buttons begins -->
+                <table cellpadding="2" cellspacing="0" border="0">
+                  <tr>
+                    <td>
+                      <h:commandButton id="submitSearchButton"
+                                       action="#{searchWorkflowBean.submitSearch}"
+                                       image="images/submit.gif"
+                                       onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>
+                    </td>
+                    <td>
+                      <h:commandButton action="#{searchWorkflowBean.reset}" 
+                                       image="images/reset.gif"
+                                       immediate="true" /> 
+                    </td>
+                  </tr>
+                </table>
+
+              <!-- action buttons end -->
+              </td>
+            </tr>
+          </table>
+          <div id="notification" style="display: none;">
+            <!--  the title is so this will go away if there is validation error -->
+            <img src="images/ajax_indicator.gif" 
+                 width="16" 
+                 height="16" 
+                 title="#{searchWorkflowBean.notificationHack}"
+                 alt=""/>
+            <f:verbatim>&amp;nbsp;</f:verbatim>
+            Searching...
+          </div>          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+   
+</h:form>
+
+<ice:form id="collectionDescriptionPopupForm">
+  <ice:panelPopup id="collectionDescriptionPopup"
+		  style="z-index:999; background-color:#FFFFFF;"
+		  resizable="false"
+		  draggable="false"
+		  modal="true"
+                  visible="#{displayCollectionDescBean.collectionDescriptionPopupRendered}">
+                  
+    <f:facet name="header">
+      <ice:panelGroup styleClass="popupHeaderWrapper">
+        <table width="100%">
+          <tr>
+            <td width="100%">
+              <ice:outputText value="Description for #{displayCollectionDescBean.selectedCollectionLabel}"/>
+            </td>
+            <td>
+              <ice:commandButton id="collectionDescriptionPopupCloseButton" image="images/cancel.png" 
+	                         action="#{displayCollectionDescBean.toggleCollectionDescriptionPopup}"
+	                         title="Close Popup"/>
+            </td>               
+          </tr>
+        </table>                  
+      </ice:panelGroup>
+    </f:facet>
+    
+    <f:facet name="body">
+      <ice:panelGroup style="overflow: auto; width:400px; height: 200px">
+        <ice:outputText value="#{displayCollectionDescBean.collectionDescription}" escape="false"/>
+      </ice:panelGroup>
+    </f:facet>
+  </ice:panelPopup> 
+</ice:form>  
+
+</ui:composition>

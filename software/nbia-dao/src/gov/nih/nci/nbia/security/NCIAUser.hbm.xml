@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+
+	<class name="gov.nih.nci.nbia.security.NCIAUser"
+		table="CSM_USER" mutable="false" lazy="false">
+
+		<id name="userId" column="USER_ID" />
+
+		<property name="loginName" column="LOGIN_NAME" />
+		<property name="email" column="EMAIL_ID" />
+	</class>
+</hibernate-mapping>

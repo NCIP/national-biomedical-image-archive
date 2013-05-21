@@ -1,0 +1,12 @@
+#Introduce Properties
+#Mon Aug 09 18:18:25 EDT 2010
+introduce.skeleton.services.list=AIMDataService
+introduce.skeleton.extensions=cagrid_metadata,data,caGrid_Transfer
+introduce.skeleton.timestamp=1281392286577
+introduce.skeleton.service.name=AIMDataService
+introduce.skeleton.resource.options=main,singleton,identifiable,resourcePropertyManagement
+introduce.skeleton.destination.dir=C\:\\foo2\\aim-data-service
+introduce.skeleton.namespace.domain=http\://aim.cagrid.nci.nih.org/AIMDataService
+xmldataservice.binding.Tool=Apache_Axis_1.x
+introduce.ns.excludes=\ -x gme\://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.service -x http\://transfer.cagrid.org/Transfer -x http\://transfer.cagrid.org/TransferService/Context/types -x gme\://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata -x http\://gov.nih.nci.cagrid.data/DataServiceExceptions -x gme\://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security -x gme\://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.common
+introduce.soap.binding.excludes=\ 

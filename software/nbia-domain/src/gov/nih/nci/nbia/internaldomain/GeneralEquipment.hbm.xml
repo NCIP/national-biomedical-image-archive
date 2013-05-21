@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="GeneralEquipment" table="GENERAL_EQUIPMENT" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+		<id name="id" type="integer" column="GENERAL_EQUIPMENT_PK_ID">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the GeneralEquipment class -->
+		<property name="deviceSerialNumber" type="string" column="DEVICE_SERIAL_NUMBER"/>
+		<property name="institutionAddress" type="string" column="INSTITUTION_ADDRESS"/>
+		<property name="institutionName" type="string" column="INSTITUTION_NAME"/>
+		<property name="manufacturer" type="string" column="MANUFACTURER"/>
+		<property name="manufacturerModelName" type="string" column="MANUFACTURER_MODEL_NAME"/>
+		<property name="softwareVersions" type="string" column="SOFTWARE_VERSIONS"/>
+		<property name="stationName" type="string" column="STATION_NAME"/>
+		<!-- Associations mapping for the GeneralEquipment class -->
+		<set name="generalSeriesCollection" lazy="true">
+			<cache usage="read-write" />
+			<key column="GENERAL_EQUIPMENT_PK_ID" />
+			<one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralSeries"/>
+		</set>
+	</class>
+</hibernate-mapping>

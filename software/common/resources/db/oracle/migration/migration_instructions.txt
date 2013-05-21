@@ -1,0 +1,78 @@
+Dev Team Steps/Migration Script Creation
+========================================
+0. update csm_user
+   set phone_number='+32-16-349024'
+   where user_id = 3413
+   
+   update csm_user
+   set organization = 'Surgical Planning Lab, Brigham and Womens Hospital'
+   where user_id = 2774
+
+1. Export MySQL as Backup for all tables except:
+      Tables with legacy data or nothing in them: group9, curation*, databasechange*, qa_status*, csm_filter_clause
+      Tables that need special treatment: collection_descriptions, image_markup, 
+      Tables that need special treatment, but still will be exported: download_data_history, qc_status_history, custom_series_list, custom_series_list_attribute
+   
+2. Export "special treatment...but still will be exported tables" into separate files
+   
+3. For all files, filter out backquote
+cat *sql file* | tr -d \` > *sql file 2*
+
+4. For all files, replace \' with '' (This is in custom_series_list, csm_protection_group, csm_user, saved_query on DEV tier)
+sed 's/\\\\\'/\\\'\\\'/g' < *sql file* > *sql file 2*
+
+On Linux:
+
+sed "s/'/''/g" < *sql file* > *sql file 2*
+
+5. For all files, replace '0000-00-00' with '1950-01-01' (This is in csm_pg_pe on DEV tier).
+sed 's/\'0000-00-00\'/\'1950-01-01\'/g' < *sql file* > *sql file 2*
+
+On Linux:
+
+sed "s/'0000-00-00'/'1950-01-01'/g" < *sql file* > *sql file 2*
+
+6. In download_data_history, size -> size_ (WATCH THE CASE)
+sed 's/size/size_/g' < download_data_history.sql > temp.sql
+rm download_data_history.sql
+mv temp.sql download_data_history.sql
+
+7. In qc_status_history.comment -> comment_ (WATCH THE CASE)
+sed 's/comment/comment_/g' < qc_status_history.sql > temp.sql
+rm qc_status_history.sql
+mv temp.sql qc_status_history.sql
+
+8. In custom_series_list_attribute CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID->CUSTOM_SERIES_LIST_ATTRIBUTE_P (WATCH THE CASE)
+sed 's/CUSTOM_SERIES_LIST_ATTRIBUTE_PK_ID/custom_series_list_attribute_p/g' < custom_series_list_attribute.sql > temp.sql
+rm custom_series_list_attribute.sql
+mv temp.sql custom_series_list_attribute.sql
+
+9. In custom_series_list, comment->comment_ (WATCH THE CASE)
+sed 's/COMMENT/comment_/g' < custom_series_list.sql > temp.sql
+rm custom_series_list.sql
+mv temp.sql custom_series_list.sql
+
+10. Run migration.groovy against all the table files.  Set -Xmx4096M or something fairly large
+groovy migration.groovy $file > output_file
+
+Execution Steps
+===============
+
+1. Run DDL script
+
+2. SET DEFINE OFF since there are & characters
+
+3. Use sqlplus with processed table files (outputs of step 10)
+
+4.  A groovy script is required to transfer collection_descriptions and image_markup
+4a. Install Groovy 1.7.x
+4b. Copy MySQL JDBC driver and Oracle driver jars into ~/.groovy
+4c. Edit connection parameters at top of script
+4d. From command line: groovy migrate_image_markup_and_collection_desc.groovy
+
+5. Run the validation.groovy script to compare counts and look for missing rows.
+
+6. Run fk.sql to create constraints and views
+
+In NIAMS - watch out for general_image.image_comments
+NIAMS gen_image and ct_image are too big.  split and submit pieces

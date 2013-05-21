@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE module 
+          PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+          "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+
+<module name="Checker">
+
+    <module name="TreeWalker">
+
+        <!-- check for deeper coding conventions             -->
+        <module name="StringLiteralEquality"/>
+        <module name="CovariantEquals"/>
+        <module name="EqualsHashCode"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="PackageDeclaration"/>
+
+ 
+        <!-- Checks for imports                              --> 
+        <module name="AvoidStarImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+
+        <!-- complexity thresholds on code -->
+        <module name="BooleanExpressionComplexity">
+          <property name="max" value="5"/>
+        </module> 
+        <module name="ClassDataAbstractionCoupling"/>
+        <module name="ClassFanOutComplexity"/>   
+        <module name="NPathComplexity"/> 
+        <module name="CyclomaticComplexity"/>       
+        
+        <!-- make sure message beans meet extra-lingual constraints -->
+	<!--
+        <module name="j2ee.MessageBean"/>
+	-->
+    </module>
+
+</module>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl"
+                 href="../common/ant2html.xsl"?>
+
+<project name="nbia-dao" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+  <property name="nbia-dao" value="nbia-dao"/>
+
+  <property name="common.dir" value="${basedir}/../" />
+  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
+
+  <property name="project.lib.dir" value="${common.dir}/target/lib/${nbia-dao}" />
+
+  <property name="assembly.dir" value="${basedir}/assembly" />
+  <property name="assembly.classes.dir" value="${assembly.dir}/classes" />
+
+  <property name="src.java.dir" value="${basedir}/src" />
+  <!-- define this for unittesting.xml import -->
+  <property name="classes.to.test.dir" value="${assembly.dir}/tmp_for_unit_tests"/>
+
+  <property name="resources.dir" value="${basedir}/resources" />
+  <property name="resources.conf.dir" value="${resources.dir}/conf" />
+
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/${nbia-dao}" />
+
+  <!-- Paths -->
+  <path id="common.classpath">
+    <fileset dir="${common.dir}/target/lib">
+      <include name="ivy-*.jar" />
+    </fileset>
+  </path>
+
+  <!-- Task definitions -->
+  <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
+
+  <import file="../common/unittesting.xml"/>
+
+
+  <!-- Targets -->
+  <target name="-pre-clean" description="Performs all necessary clean-up before a build">
+    <delete dir="${assembly.dir}" quiet="false" />
+    <delete dir="${target.dir}" quiet="false" />
+    <delete dir="${project.lib.dir}" quiet="false" />
+  </target>
+
+  <target name="-init" depends="-pre-clean, init-test" description="Sets up all of the neccessary directories">
+    <echo message="Creating required assembly directories" />
+
+    <mkdir dir="${assembly.dir}" />
+    <mkdir dir="${assembly.classes.dir}" />
+
+    <mkdir dir="${target.dir}" />
+    <mkdir dir="${project.lib.dir}" />
+  </target>
+
+  <target name="ivy-settings">
+    <ivy:settings file="${global.ivy.settings.file}" />
+  </target>
+
+  <target name="ivy-compile" depends="ivy-settings">
+    <ivy:resolve file="ivy.xml" conf="compile" />
+    <ivy:retrieve conf="compile" pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+  </target>
+
+  <target name="compile" depends="-init, ivy-compile" description="Compiles all java classes">
+    <echo message="**********************************" />
+    <echo message="***   Compiling Java Classes   ***" />
+    <echo message="**********************************" />
+
+    <javac destdir="${assembly.classes.dir}" debug="true">
+      <src path="${src.java.dir}" />
+      <classpath>
+        <fileset dir="${project.lib.dir}/compile">
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </javac>
+
+    <!-- Grab the bundle and move it into the commons assembly classes folder -->
+    <copy todir="${assembly.classes.dir}">
+      <fileset dir="${src.java.dir}">
+        <include name="*.properties" />
+        <include name="*.xml" />
+        <include name="**/*.properties" />
+      </fileset>
+    </copy>
+
+    <copy todir="${assembly.classes.dir}">
+      <filterset>
+        <filter token="DB_DIALECT" value="${database.dialect}"/>
+        <filter token="DB_DRIVER" value="${database.driver}"/>
+      </filterset>
+
+      <fileset dir="resources/conf">
+        <include name="*.*" />
+      </fileset>
+
+    </copy>
+  </target>
+
+
+  <!-- Packages up the hibernate objects -->
+  <target name="package-hibernate" depends="compile">
+    <copy file="${src.java.dir}/gov/nih/nci/nbia/security/NCIAUser.hbm.xml"
+          tofile="${assembly.classes.dir}/gov/nih/nci/nbia/security/NCIAUser.hbm.xml" />
+    <copy todir="${assembly.classes.dir}/gov/nih/nci/nbia/internaldomain">
+      <fileset dir="${src.java.dir}/gov/nih/nci/nbia/internaldomain"
+               includes="*.hbm.xml" />
+    </copy>
+  </target>
+
+  <target name="dist"
+          depends="compile,
+                   package-hibernate">
+    <jar destfile="${target.dir}/${nbia-dao}.jar">
+      <fileset dir="${assembly.classes.dir}"/>
+    </jar>
+
+    <!-- sorry this is a little hack.... the properties files in assembly/classes screw up running unit
+         tests.  copy without the files in root class dir -->
+    <copy todir="${assembly.dir}/tmp_for_unit_tests">
+      <fileset dir="${assembly.classes.dir}">
+        <include name="**" />
+      </fileset>
+    </copy>
+    <delete>
+      <fileset dir="${assembly.dir}/tmp_for_unit_tests" includes="*.*"/>
+    </delete>
+    <copy todir="${assembly.dir}/tmp_for_unit_tests">
+      <fileset dir="${src.test.dir}" includes="ncia.properties"/>
+    </copy>
+  </target>
+
+
+  <target name="run" depends="-pre-clean, dist, test, inspect, -post-clean" description="Default project target" />
+
+  <target name="-post-clean" depends="post-clean-test" description="Performs necessary clean-up after a build">
+    <delete dir="${assembly.dir}" quiet="false" />
+  </target>
+
+</project>
+

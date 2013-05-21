@@ -1,0 +1,4 @@
+If you're changing anything in this directory, you are likely making a mistake.
+
+These files are the baseline MySQL schema.... and all changes to the schema should happen
+in the Liquibase delta file in db-incr.

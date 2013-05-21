@@ -1,0 +1,21 @@
+<application-policy name="@application.context.name@">
+	<authentication>
+		<!--
+		<login-module code="gov.nih.nci.security.authentication.loginmodules.RDBMSLoginModule" flag="required"> 
+			<module-option name="driver">@database.driver@</module-option>
+			<module-option name="url">@database.url@</module-option>
+			<module-option name="user">@database.user@</module-option>
+			<module-option name="passwd">@database.password@</module-option>
+			<module-option name="query">SELECT * FROM CSM_USER WHERE LOGIN_NAME=? and PASSWORD=?  </module-option>
+			<module-option name="encryption-enabled">YES </module-option>
+		</login-module>
+		-->
+		<login-module code = "gov.nih.nci.security.authentication.loginmodules.LDAPLoginModule" flag = "sufficient" >
+			<module-option name="ldapHost">@ldap.url@</module-option>
+			<module-option name="ldapSearchableBase">@ldap.basedn@</module-option>
+			<module-option name="ldapUserIdLabel">cn</module-option>
+		</login-module>
+	</authentication>
+</application-policy>
+
+

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<h:form id="queryForm">
+
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+  <tr>
+    <td>
+      <h:panelGrid columns="2">
+        <h:commandButton image="images/savedquery_01.gif" 
+                         rendered="#{savedQueryBean.historyMode}" 
+                         action="#{savedQueryBean.switchView}" />
+        <h:commandButton image="images/queryhistory_01.gif" 
+                         rendered="#{savedQueryBean.historyMode}" />
+        <h:commandButton image="images/savedquery_02.gif" 
+                         rendered="#{!savedQueryBean.historyMode}" />
+        <h:commandButton image="images/queryhistory_02.gif" 
+                         rendered="#{!savedQueryBean.historyMode}" 
+                         action="#{savedQueryBean.switchView}" />
+      </h:panelGrid>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <h2>
+        <h:outputText value="#{msg.queries_saved}"
+                      rendered="#{!savedQueryBean.historyMode}" />                
+        <h:outputText value="#{msg.queries_history} " 
+                      rendered="#{savedQueryBean.historyMode}" />                              
+      </h2>
+      <br/>
+      <br/>
+      <h:outputText value="#{msg.queries_savedContent}" 
+                    rendered="#{!savedQueryBean.historyMode}" />
+      <h:outputText value="#{msg.queries_historyContent}" 
+                    rendered="#{savedQueryBean.historyMode}" />
+      <br/>
+      <br/>
+      <br/>
+      <div align="center" style="font-size: 1.4em">
+        <h:inputHidden id="queryMessage" />
+        <h:message for="queryMessage" 
+                   errorClass="errorLabel" 
+                   infoClass="infoLabel" />
+      </div>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td>
+            <div align="left">
+              <h:commandButton image="images/removeSelectedItems.gif" 
+                               action="#{savedQueryBean.deleteQueries}" 
+                               rendered="#{!savedQueryBean.historyMode}" />
+              <table width="100%" border="0" cellspacing="0">
+                <tr>
+                  <td colspan="7">
+                    <f:subview id="savedQueryMode"
+                               rendered="#{!savedQueryBean.historyMode}">
+                      <h:dataTable id="savedQueryModeDataTable"
+                                   width="100%" 
+                                   border="1" 
+                                   cellpadding="3" 
+                                   cellspacing="0" 
+                                   styleClass="dataTable" 
+                                   value="#{savedQueryBean.savedQueries}" 
+                                   rowClasses="dataRowLight, dataRowDark" 
+                                   headerClass="dataTableHeader" 
+                                   var="item"
+                                   binding="#{savedQueryBean.queryData}">
+                        <h:column id="savedQueryShowCriteriaColumn">
+                          <f:facet name="header">
+                            <h:panelGrid columns="2">
+                              <h:outputText value="#{msg.queries_queryName}"
+                                            styleClass="queryHeader" />
+                              <h:commandButton image="images/sort.gif" 
+                                               action="#{savedQueryBean.savedQueries.sortByQueryName}" />
+                            </h:panelGrid>
+                          </f:facet>                                         
+                          <ice:panelCollapsible expanded="#{item.showCriteria}">
+                            <f:facet name="header">      
+                              <h:commandLink value="#{item.queryName}" 
+                                             action="#{savedQueryBean.showCriteria}" />
+                            </f:facet>
+                            <ice:panelGroup>  
+                              <h:dataTable id="criteriaTable"
+                                           value="#{item.criteriaList}" 
+                                           rendered="#{!(item.numCriteria == 0)}" 
+                                           var="criteria" 
+                                           width="100%"
+                                           rowClasses="formLabel" 
+                                           cellpadding="3" 
+                                           cellspacing="0" 
+                                           border="1">
+                                <f:facet name="header">  
+                                  <ice:panelGroup styleClass="topBorder formTitleIIII">
+                                    <h:outputText value="#{msg.search_selectedCriteria}" />
+                                  </ice:panelGroup> 
+                                </f:facet>                                                
+                                <h:column>
+                                  <h:outputText value="#{criteria.displayName}" />
+                                </h:column>
+                                <h:column>
+                                  <h:outputText value="#{criteria.displayValue}" />
+                                </h:column>
+                              </h:dataTable>
+                              
+                              <f:subview id="criteriaView" 
+                                         rendered="#{item.numCriteria == 0}">
+                                <table width="100%" cellpadding="3" cellspacing="0" border="1">
+                                  <tr class="formLabel">
+                                    <td>
+                                      <h:outputText value="#{msg.search_noCriteria}" />
+                                    </td>
+                                  </tr>
+                                </table>
+                              </f:subview>
+                            </ice:panelGroup>
+                          </ice:panelCollapsible>                                        
+                        </h:column>
+                        <h:column id="savedQueryLastExecutedColumn">
+                          <f:facet name="header">
+                            <h:panelGrid columns="2">
+                              <h:outputText value="#{msg.queries_lastExecute}" 
+                                            styleClass="queryHeader" />
+                              <h:commandButton image="images/sort.gif"
+                                               action="#{savedQueryBean.savedQueries.sortByLastExecute}" />
+                            </h:panelGrid>
+                          </f:facet>
+                          <h:outputText value="#{item.formattedDate}" />
+                        </h:column>
+                        <h:column id="savedQueryNewDataColumn">
+                          <f:facet name="header">
+                            <h:outputText value="#{msg.queries_newData}" />
+                          </f:facet>
+                          <div align="center">
+                            <f:verbatim>&amp;nbsp;</f:verbatim>
+                            <h:commandButton image="images/newdataicon.gif"
+                                             rendered="#{item.newResults}" 
+                                             action="#{savedQueryBean.searchNewData}" />
+                          </div>
+                        </h:column>
+                        <h:column id="savedQueryResubmitColumn">
+                          <f:facet name="header">
+                            <h:outputText value="#{msg.queries_resubmit}" />
+                          </f:facet>
+                          <h:commandButton image="images/resubmitquery.gif" 
+                                           action="#{savedQueryBean.resubmitQuery}" />
+                        </h:column>
+                        <h:column id="savedQueryEditColumn">
+                          <f:facet name="header">
+                            <h:outputText value="#{msg.queries_edit}" />
+                          </f:facet>
+                          <h:commandButton id="editQueryButton"
+                                           image="images/editquery.gif" 
+                                           action="#{savedQueryBean.editQuery}" />
+                        </h:column>
+                        <h:column id="savedQueryCheckAllColumn">
+                          <f:facet name="header">
+                            <span class="formFieldWhite"> 
+                              <input name="checkAllBox" 
+                                     type="checkbox" 
+                                     onclick="checkUncheckAll(this);"/> 
+                            </span>
+                          </f:facet>
+                          <div align="center">
+                            <h:selectBooleanCheckbox value="#{item.delete}" />
+                          </div>                                               
+                        </h:column>
+                      </h:dataTable>
+                                                                                          
+                      <f:subview id="emptyQueryView" 
+                                 rendered="#{savedQueryBean.savedQueryCount == 0}">
+                        <table width="100%" border="1" cellpadding="3" cellspacing="0" class="dataTable">
+                          <tr>
+                            <td class="dataRowDark">
+                              <h:outputText value="#{msg.queries_noSaved}" />
+                            </td>
+                          </tr>
+                        </table>
+                      </f:subview>
+                    </f:subview>
+                    
+                    <ui:include src="queryHistory.xhtml"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h:outputText styleClass="dataTable"
+                                  style="border:0" 
+                                  value="#{msg.queries_historyAsterisk}" 
+                                  rendered="#{savedQueryBean.historyMode}" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <br/>
+    </td>
+    <td valign="top">
+      <f:subview id="savedQuery" rendered="#{!savedQueryBean.historyMode}">
+        <ncia:help label="images/help_icon.png" helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-ManagingSavedQueries" />
+      </f:subview>
+      <f:subview id="queryHistory" rendered="#{savedQueryBean.historyMode}"> 
+        <ncia:help label="images/help_icon.png" helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-ViewingaQueryHistory" />
+      </f:subview>
+    </td>
+  </tr>
+</table>
+
+</h:form>
+
+</ui:composition>

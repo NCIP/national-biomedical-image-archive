@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<f:subview id="notWaitingView">
+ 
+<!--  ensure this is in naming container so resultTable isnt dupe -->  
+<ice:panelGroup id="patientResultsPanelGroup"
+                rendered="#{not empty perNodeResult.patients and not perNodeResult.errorState}">
+
+  <ui:include src="searchResultButtons.xhtml">
+  </ui:include>
+  
+  <ice:panelGroup rendered="#{searchResultBean.resultsPerPage > 10}">
+	  <ui:include src="searchResultPaginator.xhtml">
+	  </ui:include>
+  </ice:panelGroup>
+  
+  <ice:dataTable id="patientResultsTable" 
+                 value="#{perNodeResult.patients}" 
+                 var="result" 
+                 rows="#{searchResultBean.resultsPerPage}" 
+                 width="100%">
+               
+    <h:column id="viewPatientLinkColumn">
+      <f:facet name="header">
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:commandLink id="viewPatientLink"
+                       value="#{msg.search_showStudies}"
+                       action="#{perNodeResult.navPatient}"
+                       actionListener="#{perNodeResult.viewPatient}" />
+      </div>
+    </h:column>
+    <h:column id="collectionIdColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_trialId}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.patient.project}" />
+      </div>
+    </h:column>
+    <h:column id="subjectIdColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_subjectId}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.patient.subjectId}" />
+      </div>
+    </h:column>
+    <h:column id="studiesCountColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_studies}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.studyCounts}"  />
+      </div>
+    </h:column>
+    <h:column id="seriesCountColumn">
+      <f:facet name="header">
+        <h:panelGroup>
+          <h:outputText value="#{msg.common_series}" />
+        </h:panelGroup>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <h:outputText value="#{result.seriesCounts}" />
+      </div>
+    </h:column>
+    <h:column id="addToBasketColumn">
+      <f:facet name="header">
+        <img src="images/cart_black.gif" 
+             alt="Add to Data Basket" 
+             width="26" 
+             height="20"/>
+        <br/>
+        <span class="formFieldWhite"> 
+          <input name="checkAllBox" 
+                 type="checkbox" 
+                 onclick="checkAllInContainingTable(this);"/> 
+        </span>
+      </f:facet>
+      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+        <div align="center" class="formFieldWhite">
+          <h:selectBooleanCheckbox id="addPatientToBasketCheckbox"
+                                   value="#{result.checked}" />
+        </div>
+      </div>
+    </h:column>                   
+  </ice:dataTable>
+  
+  <ui:include src="searchResultPaginator.xhtml">
+  </ui:include>
+  
+  <ice:panelGroup rendered="#{searchResultBean.resultsPerPage > 10}">
+	  <ui:include src="searchResultButtons.xhtml">
+	  </ui:include>
+  </ice:panelGroup>
+</ice:panelGroup>
+
+
+
+<f:subview id="noResultView" 
+           rendered="#{empty perNodeResult.patients and not perNodeResult.errorState}">
+  <table width="100%" cellpadding="3" cellspacing="0" border="1" class="formLabel">
+    <tr>
+      <td>
+        <h:outputText value="#{msg.search_noResults}" />
+      </td>
+    </tr>
+  </table>
+</f:subview>                  
+
+<f:subview id="errorView" 
+           rendered="#{perNodeResult.errorState}">
+  <h:outputText value="There was an error retrieving the results from this node.  The node may be down.  Please try again later."/>
+</f:subview>
+ 
+</f:subview>
+</ui:composition>

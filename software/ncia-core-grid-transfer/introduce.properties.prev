@@ -1,0 +1,11 @@
+#Introduce Properties
+#Mon Jul 16 12:46:12 EDT 2012
+introduce.skeleton.services.list=NCIACoreService
+introduce.skeleton.extensions=cagrid_metadata,data,caGrid_Transfer
+introduce.skeleton.timestamp=1342457086212
+introduce.skeleton.service.name=NCIACoreService
+introduce.skeleton.resource.options=main,singleton,identifiable,resourcePropertyManagement
+introduce.skeleton.destination.dir=C\:\\workspace\\ncia-core-grid-transfer
+introduce.skeleton.namespace.domain=http\://ncia.cagrid.nci.nih.gov/NCIACoreService
+introduce.soap.binding.excludes=\ http\://CQL.caBIG/2/org.cagrid.cql2 gme\://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch gme\://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch gme\://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain http\://CQL.caBIG/2/org.cagrid.cql2.results gme\://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags
+introduce.ns.excludes=\ -x http\://transfer.cagrid.org/TransferService/Context/types -x http\://CQL.caBIG/2/org.cagrid.cql2 -x gme\://NBIA.caBIG/5.1/gov.nih.nci.nbia.remotesearch -x gme\://NBIA.caBIG/4.4/gov.nih.nci.nbia.remotesearch -x http\://transfer.cagrid.org/Transfer -x gme\://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain -x http\://CQL.caBIG/2/org.cagrid.cql2.results -x gme\://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata.security -x http\://gov.nih.nci.cagrid.data/DataServiceExceptions -x gme\://NBIA.caBIG/4.4/gov.nih.nci.nbia.dicomtags -x http\://org.cagrid.dataservice.cql/QueryLanguageSupport -x gme\://caGrid.caBIG/1.0/gov.nih.nci.cagrid.metadata

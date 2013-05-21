@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+	<class name="LoginHistory" table="login_history" lazy="true" polymorphism="explicit">
+		<cache usage="read-write" />
+
+		<id name="id" column="LOGIN_HISTORY_PK_ID" unsaved-value="0">
+			<generator class="org.hibernate.id.TableHiLoGenerator">
+  	  			<param name="table">hibernate_unique_key</param>
+				<param name="column">next_hi</param>
+			</generator>
+		</id>
+		<!-- Attributes mapping for the LoginHistory class -->
+		<property name="IPAddress" type="string" column="ip_address"/>
+		<property name="loginTimestamp" type="java.util.Date" column="login_timestamp"/>
+	</class>
+</hibernate-mapping>

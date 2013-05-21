@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
+  <class name="Study" table="STUDY" lazy="true" polymorphism="explicit">
+    <cache usage="read-write" />
+    <id name="id" type="integer" column="STUDY_PK_ID">
+      <generator class="org.hibernate.id.TableHiLoGenerator">
+            <param name="table">hibernate_unique_key</param>
+        <param name="column">next_hi</param>
+      </generator>
+    </id>
+    <!-- Attributes mapping for the Study class -->
+    <property name="additionalPatientHistory" type="string" column="ADDITIONAL_PATIENT_HISTORY"/>
+    <property name="admittingDiagnosesCodeSeq" type="string" column="ADMITTING_DIAGNOSES_CODE_SEQ"/>
+    <property name="admittingDiagnosesDesc" type="string" column="ADMITTING_DIAGNOSES_DESC"/>
+    <property name="ageGroup" type="string" column="AGE_GROUP"/>
+    <property name="occupation" type="string" column="OCCUPATION"/>
+    <property name="patientAge" type="string" column="PATIENT_AGE"/>
+    <property name="patientSize" type="double" column="PATIENT_SIZE"/>
+    <property name="patientWeight" type="double" column="PATIENT_WEIGHT"/>
+    <property name="studyDate" type="java.util.Date" column="STUDY_DATE"/>
+    <property name="studyDesc" type="string" column="STUDY_DESC"/>
+    <property name="studyId" type="string" column="STUDY_ID"/>
+    <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
+    <property name="studyTime" type="string" column="STUDY_TIME"/>
+    <property name="timePointDesc" type="string" column="TRIAL_TIME_POINT_DESC"/>
+    <property name="timePointId" type="string" column="TRIAL_TIME_POINT_ID"/>
+
+    <!-- Associations mapping for the Study class -->
+    <set name="generalSeriesCollection" lazy="true">
+      <cache usage="read-write" />
+      <key column="STUDY_PK_ID" />
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralSeries"/>
+    </set>
+    <many-to-one name="patient" class="gov.nih.nci.nbia.internaldomain.Patient" column="PATIENT_PK_ID" lazy="proxy" />
+    <set name="generalImageCollection" lazy="true">
+      <cache usage="read-write" />
+      <key column="STUDY_PK_ID" />
+      <one-to-many class="gov.nih.nci.nbia.internaldomain.GeneralImage"/>
+    </set>
+  </class>
+</hibernate-mapping>

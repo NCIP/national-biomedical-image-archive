@@ -1,0 +1,11 @@
+tocTab[tocTab.length] = new Array("1.1.1.1.1:1", "", "Annotation", "EARoot/EA1/EA1/EA1/EA1/EA1/EA9.htm", "5.png", "397", "0", "", "Class0","{FAC0D88E-B712-4831-A939-F4AFD2DD789E}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:2", "", "ClinicalTrialProtocol", "EARoot/EA1/EA1/EA1/EA1/EA1/EA10.htm", "5.png", "392", "0", "", "Class0","{7B894220-A474-49c2-8CA6-D678161BC790}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:3", "", "ClinicalTrialSite", "EARoot/EA1/EA1/EA1/EA1/EA1/EA11.htm", "5.png", "386", "0", "", "Class0","{0B03EDC6-D43D-45fb-AC90-7591CB77DF10}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:4", "", "ClinicalTrialSponsor", "EARoot/EA1/EA1/EA1/EA1/EA1/EA12.htm", "5.png", "390", "0", "", "Class0","{620AA1A8-529F-45a1-8032-BBF0AD4C4A28}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:5", "", "ClinicalTrialSubject", "EARoot/EA1/EA1/EA1/EA1/EA1/EA13.htm", "5.png", "396", "0", "", "Class0","{E8CF05CF-1E13-447f-839C-B528F2D172FE}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:6", "", "DataCollectionProvenance", "EARoot/EA1/EA1/EA1/EA1/EA1/EA14.htm", "5.png", "395", "0", "", "Class0","{BE81145E-AE42-46cc-9181-6176EBA7BB3E}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:7", "", "Equipment", "EARoot/EA1/EA1/EA1/EA1/EA1/EA15.htm", "5.png", "389", "0", "", "Class0","{590B8CE4-0963-491f-B3E4-6E7E9A202A7E}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:8", "", "Image", "EARoot/EA1/EA1/EA1/EA1/EA1/EA16.htm", "5.png", "387", "0", "", "Class0","{184444B4-B9FD-4b90-BB23-36514F84786D}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:9", "", "ImageSeries", "EARoot/EA1/EA1/EA1/EA1/EA1/EA17.htm", "5.png", "394", "0", "", "Class0","{B00E2D7D-7876-4a9a-8D22-57547436E1B4}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:10", "", "ImageStudy", "EARoot/EA1/EA1/EA1/EA1/EA1/EA18.htm", "5.png", "391", "0", "", "Class0","{7855F361-5FBC-40f7-AABB-8DAA00D999E7}");
+tocTab[tocTab.length] = new Array("1.1.1.1.1:11", "", "Person", "EARoot/EA1/EA1/EA1/EA1/EA1/EA19.htm", "5.png", "388", "0", "", "Class0","{29712CDA-464E-414d-9282-319B1949912C}");

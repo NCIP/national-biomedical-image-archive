@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+
+<h:form id="registerForm">
+
+<table class="contentPage" 
+       cellspacing="0" 
+       cellpadding="0" 
+       width="600" 
+       summary="" 
+       border="0">
+  <tbody>
+    <tr>
+      <td colspan="2">
+        <h2>
+          <br/>
+          <h:outputText value="#{msg.register_user}"/>
+        </h2>
+        <div align="center">
+          <span>
+            <span>*</span>
+          </span> 
+          <h:outputText value="#{msg.register_mandatory}"/>
+          <br/>
+          <br/>
+        </div>
+        <div align="center"></div>
+      </td>
+      <td valign="top">
+        <ncia:help alt="help" label="images/help_icon.png" helpId="1-+Getting+Started+in+NBIA#id-1-GettingStartedinNBIA-RegisteringaNewUser" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" valign="top">
+        <div align="center"></div>
+        <table width="100%" 
+               border="0" 
+               cellpadding="3" 
+               cellspacing="0" 
+               class="topBorderOnly" 
+               summary="">
+          <tr class="topBorder">
+            <td class="formTitleIIII">
+              <h:outputText value="#{msg.register_userUpper}"/>
+            </td>
+          </tr>
+            <tr class="topBorder">
+              <td class="formTitleIII">
+                <h:outputText value="#{msg.register_name}"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="formLabel">
+                <table width="99%" 
+                       border="0" 
+                       align="center" 
+                       cellpadding="0" 
+                       cellspacing="3">
+                  <tr class="formMessage">
+                    <td width="20%">
+                      <LABEL FOR="MAINbody:d:j_id286">Title:</LABEL>
+                    </td>
+                    <td width="30%">
+                      <span>
+                        <span>*</span>
+                      </span> 
+                      <LABEL FOR="MAINbody:registerForm:firstName">First Name:</LABEL>
+                    </td>               
+                    <td width="37%">
+                      <span>
+                        <span>*</span>
+                      </span>
+                       <LABEL FOR="MAINbody:registerForm:lastName">Last Name:</LABEL>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <span class="formFieldWhite">
+                        <h:selectOneMenu value="#{registerBean.title}">
+                          <f:selectItems value="#{registerBean.titleItems}"/>
+                        </h:selectOneMenu>  
+                      </span>
+                    </td>
+                    <td>
+                      <span>
+                        <h:inputText id="firstName" 
+                                     value="#{registerBean.firstName}"   
+                                     maxlength="100" />
+                        <f:verbatim>&amp;nbsp;</f:verbatim>
+                      </span>
+                    </td>                                                                   
+                    <td>
+                      <span>
+                        <h:inputText id="lastName"
+                                     value="#{registerBean.lastName}"  
+                                     maxlength="100"/>
+                        <f:verbatim>&amp;nbsp;</f:verbatim>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <h:message for="firstName" 
+                                 styleClass="errorLabel"/>
+                    </td>    
+                    <td>
+                      <h:message for="lastName"
+                                 styleClass="errorLabel"/>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td class="formTitleIII">
+                <h:outputText value="#{msg.register_contactInfo}"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="formLabel">
+                <table width="99%" 
+                       border="0" 
+                       align="center" 
+                       cellpadding="0" 
+                       cellspacing="3">
+                  <tr class="formMessage">
+                    <td> 
+                      <span>
+                        <span>*</span>
+                      </span>
+                      <LABEL FOR="MAINbody:registerForm:email">Email:</LABEL>
+                    </td>
+                    <td>
+                      <span>
+                        <span>*</span>
+                      </span>
+                       <LABEL FOR="MAINbody:registerForm:phone">Phone:</LABEL>
+                    </td>                    
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                     <span>
+                        <h:inputText id="email" 
+                                     value="#{registerBean.email}"  
+                                     maxlength="100"  />
+                        <f:verbatim>&amp;nbsp;</f:verbatim>                                                                      
+                      </span>
+                    </td>
+                    <td valign="top">
+                      <span>
+                        <h:inputText id="phone" 
+                                     value="#{registerBean.phone}"   
+                                     maxlength="15" />
+                      </span>         
+                    </td>                                
+                  </tr>
+                  <tr>
+                    <td>
+                      <h:message for="email" 
+                                 styleClass="errorLabel"/>
+                    </td>
+                    <td>
+                      <h:message for="phone" 
+                                 styleClass="errorLabel"/>
+                    </td>              
+                  </tr>
+                  <tr class="formMessage">
+                    <td>
+                      
+                      <LABEL FOR="MAINbody:registerForm:fax">Fax:</LABEL>
+                    </td>     
+                    <td>
+                   	  <span>
+                        <span>*</span>
+                      </span>
+                      <LABEL FOR="MAINbody:registerForm:org">Organization Name:</LABEL>
+                    </td>                
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                      <span>                                    
+                        <h:inputText id="fax" 
+                                     value="#{registerBean.fax}"  
+                                     maxlength="20"/>
+                      </span>
+                    </td>     
+                    <td valign="top">
+                      <span>
+                        <h:inputText id="org" 
+                                     value="#{registerBean.organization}" 
+                                     maxlength="100" />
+                      </span>
+                    </td>                           
+                  </tr>  
+                  <tr>
+                  	<td>
+                      <h:message for="fax" styleClass="errorLabel"/>
+                    </td>  
+                    <td>
+                      <h:message for="org" 
+                                 styleClass="errorLabel"/>
+                    </td>                       
+                  </tr>                   
+                </table>
+              </td>
+            </tr>  
+            <tr>
+              <td class="formTitleIII">
+                <h:outputText value="BRIEF DESCRIPTION OF YOUR REQUEST:"/>
+              </td>
+            </tr> 
+            <tr>
+              <td class="formLabel" style="padding: 8px">
+                <h:inputTextarea id="registrationReasonTextArea" 
+                                 value="#{registerBean.reasonForRegistration}" 
+                                 cols="60" 
+                                 rows="6"
+                                 title="Optionally enter a reason for requesting registration to the system." />
+                <div>                 
+                  <h:outputText value="Please limit your description to 4000 characters."/>
+                </div>                 
+              </td>
+            </tr> 
+            <tr>
+              <td style="text-align: left">
+                <h:selectBooleanCheckbox value="#{registerBean.registerToUsersList}"/>
+                <h:outputText value="Also register me for the NBIA user group email list."/>                  
+              </td>
+            </tr>                                                
+            <tr>
+              <td align="right">
+                <!-- action buttons begins -->
+
+                <table border="0" cellpadding="2" cellspacing="0">
+                  <tr>
+                    <td>
+                      <h:commandButton alt="register"
+                                       image="images/register.gif" 
+                                       action="#{registerBean.register}"/>
+                    </td>
+                    <td>
+                      <a href="login.jsf">
+                        <img src="images/cancel.gif" 
+                             width="91" 
+                             height="30" 
+                             border="0"
+                             alt="cancel"/>
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+                <!-- action buttons end -->
+              </td>
+            </tr>
+          </table>
+          <br/>
+          <br/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</h:form>
+
+</ui:composition>

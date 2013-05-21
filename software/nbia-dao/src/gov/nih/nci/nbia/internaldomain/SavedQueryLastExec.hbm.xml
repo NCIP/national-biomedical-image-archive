@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+
+	<class name="gov.nih.nci.nbia.internaldomain.SavedQueryLastExec"
+		table="SAVED_QUERY_LAST_EXEC" mutable="false">
+
+		<id name="savedQueryId" column="SAVED_QUERY_PK_ID"/>
+		<property name="lastExecuteDate" column="LAST_EXECUTE_DATE"/>
+
+	</class>
+
+</hibernate-mapping>

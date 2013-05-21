@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                               
+  <ice:panelGroup style="text-align: center" >
+    <!--  since multiple tables on this page, have to carefully discriminate for value -->
+    <ice:dataPaginator 
+                       for="patientResultsTable"
+                       fastStep="2"
+                       paginator="true"
+                       paginatorMaxPages="5"
+                       renderFacetsIfSinglePage="false"
+                       style="margin-left:auto;margin-right:auto">
+      <f:facet name="first">
+        <ice:graphicImage 
+                          url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="last">
+        <ice:graphicImage 
+                          url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="previous">
+        <ice:graphicImage 
+                          url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="next">
+        <ice:graphicImage 
+                          url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="fastforward">
+        <ice:graphicImage 
+                          url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+                          style="border:none;"/>
+      </f:facet>
+      <f:facet name="fastrewind">
+        <ice:graphicImage 
+                          url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+                          style="border:none;"/>
+      </f:facet>
+    </ice:dataPaginator>
+    <ice:dataPaginator 
+                       for="patientResultsTable"
+                       rowsCountVar="rowsCount"
+                       pageCountVar="pageCount"
+                       pageIndexVar="pageIndex">
+      <ice:outputFormat styleClass="standard"
+                        value="{0} patients found, displaying Page {1} / {2}.">
+        <f:param value="#{rowsCount}"/>
+        <f:param value="#{pageIndex}"/>
+        <f:param value="#{pageCount}"/>
+      </ice:outputFormat>
+    </ice:dataPaginator>
+  </ice:panelGroup>  
+</ui:composition>

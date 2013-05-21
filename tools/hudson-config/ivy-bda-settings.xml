@@ -1,9 +1,0 @@
-<ivysettings>
-	<settings defaultResolver="ncicb-ivy-repo" />
-	<resolvers>
-		<url name="ncicb-ivy-repo">
-			<artifact pattern="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-			<ivy pattern="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo/[organisation]/[module]/[revision]/ivy.xml" />
-		</url>  
-	</resolvers>
-</ivysettings>

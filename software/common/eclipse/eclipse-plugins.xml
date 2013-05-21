@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bookmarks>
-	<site name="Maven Integration for Eclipse" url="http://m2eclipse.codehaus.org/update/" web="false" selected="true" local="false"/>
-	<site name="Subclipse" url="http://subclipse.tigris.org/update_1.2.x" web="false" selected="true" local="false"/>
-	<site name="Eclipse Checkstyle" url="http://eclipse-cs.sourceforge.net/update" web="false" selected="true" local="false"/>
-	<site name="PMD Eclipse" url="http://pmd.sourceforge.net/eclipse" web="false" selected="true" local="false"/>
-	<site name="Quantum DB" url="http://quantum.sourceforge.net/update-site" web="false" selected="true" local="false"/>
-</bookmarks>

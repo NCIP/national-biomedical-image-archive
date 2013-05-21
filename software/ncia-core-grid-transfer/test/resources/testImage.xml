@@ -1,8 +1,0 @@
-<ns1:CQLQuery xmlns:ns1="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery"><ns1:Target name="gov.nih.nci.ncia.domain.Image">
-<ns1:Association name="gov.nih.nci.ncia.domain.Series" roleName="series">
-<ns1:Association name="gov.nih.nci.ncia.domain.Study" roleName="study">
-<ns1:Group logicRelation="AND">
-<ns1:Association name="gov.nih.nci.ncia.domain.Patient" roleName="patient">
-<ns1:Attribute name="patientId" predicate="EQUAL_TO" value="1.3.6.1.4.1.9328.50.1.0019"/></ns1:Association>
-<ns1:Attribute name="studyInstanceUID" predicate="EQUAL_TO" value="1.3.6.1.4.1.9328.50.1.8858"/></ns1:Group>
-</ns1:Association></ns1:Association></ns1:Target></ns1:CQLQuery>

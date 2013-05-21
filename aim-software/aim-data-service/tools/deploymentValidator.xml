@@ -1,3 +1,0 @@
-<ns1:DeploymentValidatorDescriptor xsi:type="ns1:DeploymentValidatorDescriptor" xmlns:ns1="gme://gov.nih.nci.cagrid.introduce/1/DeploymentValidator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
- <ValidatorDescriptor validationClass="org.cagrid.introduce.extensions.metadata.deployment.validator.MetadataDeploymentValidator" xsi:type="ns1:ValidatorDescriptor"/>
-</ns1:DeploymentValidatorDescriptor>

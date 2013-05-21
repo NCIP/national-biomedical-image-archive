@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<users><user username="admin" password="password"><role>qadmin</role><role>admin</role><role>delete</role><role>guest</role><role>proxy</role><role>read</role></user></users>

@@ -1,6 +1,0 @@
-set.[0013,0010]BlockOwner=@remove()
-set.[0013,1010]ProjectName=@remove()
-set.[0013,1011]TrialName=@remove()
-set.[0013,1012]SiteName=@remove()
-set.[0013,1013]SiteID=@remove()
-set.[0013,1014]Visibility=@remove()

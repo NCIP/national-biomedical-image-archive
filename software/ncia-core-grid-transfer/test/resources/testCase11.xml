@@ -1,3 +1,0 @@
-<ns1:CQLQuery xmlns:ns1="http://CQL.caBIG/1/gov.nih.nci.cagrid.CQLQuery">
- <ns1:Target name="gov.nih.nci.ncia.domain.Annotation"/> 
-</ns1:CQLQuery>

@@ -20,7 +20,6 @@ $HeadURL$
     This file is used to build, bundle and deploy the NBIA application.  The build targets of this file calls the appropriate targets in all the sub-projects.  The dist targets create a distribution that can be used by the local (a directory) and remote (a zip archive) deployment targets.  The deploy targets handle local and remote installation of the application.   The distribution is installed via ant.  Both install and upgrade distributions/installs are supported.
   </description>
 
-
   <!-- Property file related properties and tasks -->
   <property environment="env" />
   <!-- tier independent properties -->

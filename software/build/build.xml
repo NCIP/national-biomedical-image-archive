@@ -21,7 +21,6 @@ $HeadURL$
   </description>
 
 
-
   <!-- Property file related properties and tasks -->
   <property environment="env" />
   <!-- tier independent properties -->

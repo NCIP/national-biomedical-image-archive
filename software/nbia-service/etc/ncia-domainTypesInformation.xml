@@ -1,3 +1,11 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <ns1:DomainTypesInformation xmlns:ns1="http://SDKQuery4.caBIG/1/gov.nih.nci.cagrid.sdkquery4.beans.domaininfo">
  <ns1:DomainType javaClassName="gov.nih.nci.ncia.domain.ClinicalTrialSite">
   <ns1:TypeAttribute attributeName="id" javaTypeName="java.lang.Integer"/>

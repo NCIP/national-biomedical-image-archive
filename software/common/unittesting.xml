@@ -1,3 +1,11 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 	<!--   This is meant to be imported into other projects and not run on its own.    The hosting project must define a variety of properties for these targets to  run correctly:  common.dir  project.lib.dir  classes.to.test.dir  src.java.dir    The hosting project must define some targets that are invoked here:  ivy-settings  -pre-clean  -init    The basedir is the basedir of the  hosting project, not where this "importee" is.    -->
 <project name="unittesting" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
 	<!-- set by build file/properties that calls into here -->

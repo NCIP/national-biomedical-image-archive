@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <dataset>
   <csm_application APPLICATION_ID="1" APPLICATION_NAME="NCIA" APPLICATION_DESCRIPTION="NCIA" DECLARATIVE_FLAG="0" ACTIVE_FLAG="0" UPDATE_DATE="2005-09-30" />
   <csm_application APPLICATION_ID="2" APPLICATION_NAME="csmupt" APPLICATION_DESCRIPTION="NCIA UPT" DECLARATIVE_FLAG="0" ACTIVE_FLAG="0" UPDATE_DATE="2006-04-11" />

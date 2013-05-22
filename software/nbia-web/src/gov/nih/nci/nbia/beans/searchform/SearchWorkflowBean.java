@@ -1,3 +1,11 @@
+/*L
+ *  Copyright SAIC, Ellumen and RSNA (CTP)
+ *
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+ */
+
 /**
  * $Id$ $Log:
  * SearchWorkflowBean.java,v $ Revision 1.90 2006/09/27 20:46:27 panq Reformated

@@ -1,3 +1,11 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <ns1:ClassMappings xmlns:ns1="http://gov.nih.nci.cagrid.data">
  <ns2:mapping className="gov.nih.nci.ncia.domain.ClinicalTrialSite" qname="{gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain}ClinicalTrialSite" xsi:type="ns2:classToQname" xmlns:ns2="http://gov.nih.nci.cagrid.data/ClassMappings" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
  <ns3:mapping className="gov.nih.nci.ncia.domain.Image" qname="{gme://caCORE.caCORE/4.0/gov.nih.nci.ncia.domain}Image" xsi:type="ns3:classToQname" xmlns:ns3="http://gov.nih.nci.cagrid.data/ClassMappings" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>

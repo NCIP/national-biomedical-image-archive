@@ -1,3 +1,11 @@
+/*L
+ *  Copyright SAIC, Ellumen and RSNA (CTP)
+ *
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+ */
+
 function BookData_Search(x,y)
 {
 if(x.t("searching"))y.f("25,2,22,1,19,22,44,22,31,1,41,1,28,1,26,1,23,1,20,1,29,1,27,1,24,1,21,1,0,2,30,1");

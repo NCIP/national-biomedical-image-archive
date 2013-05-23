@@ -1,3 +1,11 @@
+/*L
+ *  Copyright SAIC, Ellumen and RSNA (CTP)
+ *
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+ */
+
 //\/////
 //\  overLIB 4.00 - You may not remove or change this notice.
 //\  Copyright Erik Bosrup 1998-2004. All rights reserved.

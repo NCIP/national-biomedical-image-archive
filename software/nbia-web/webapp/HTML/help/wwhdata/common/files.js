@@ -1,3 +1,11 @@
+/*L
+ *  Copyright SAIC, Ellumen and RSNA (CTP)
+ *
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+ */
+
 function  WWHBookData_Files(P)
 {
 P.fA("Welcome to the National Biomedical Imaging Archive (NBIA)","Welcome%20to%20NCIA.1.1.html");

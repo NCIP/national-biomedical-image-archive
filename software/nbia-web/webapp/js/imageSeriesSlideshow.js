@@ -1,3 +1,11 @@
+/*L
+ *  Copyright SAIC, Ellumen and RSNA (CTP)
+ *
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+ */
+
 //because of bug in Array.prototype.min() where it thinks
 //0 is not < 1, use 1 as teh starting point
 var MIN_SLIDER_VALUE = 1;

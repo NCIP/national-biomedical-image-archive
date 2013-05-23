@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
       
 create temporary table study_temp as select study_pk_id from study where patient_pk_id=1337589771;
 

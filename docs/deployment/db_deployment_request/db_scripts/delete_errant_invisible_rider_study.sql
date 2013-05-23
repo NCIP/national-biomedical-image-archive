@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
 create table series_temp as select general_series_pk_id from general_series where study_pk_id = 407502851;
 
 create table image_temp as select image_pk_id from general_image where general_series_pk_id in (select * from series_temp);

@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
 create table study_temp as select study_pk_id from study where study_instance_uid = '9.9.9.9.9.9.99999.9.1.1.978.80402.1914.25390219.1.1';
 
 create table series_temp as select general_series_pk_id from general_series where study_pk_id in (select * from study_temp);

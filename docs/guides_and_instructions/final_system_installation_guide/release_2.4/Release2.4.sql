@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
 CREATE OR REPLACE VIEW SUBMITTED_IMAGES 
 AS(
 	SELECT tdp.project, tdp.dp_site_name, 

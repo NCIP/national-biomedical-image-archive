@@ -1,3 +1,11 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <ivysettings>
 	<property name="nci.ivy.repo" value="http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/ivy-repo" />
 	<settings defaultResolver="nci-chain" />

@@ -1,2 +1,10 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 tocTab[tocTab.length] = new Array("2.1", "1", "lang", "EARoot/EA2/EA20.htm", "4.png", "", "", "{BC6F5664-0D70-41a4-BAE7-E19BC82FAF8B}", "Package");
 tocTab[tocTab.length] = new Array("2.2", "1", "util", "EARoot/EA2/EA21.htm", "4.png", "", "", "{9DBC28F6-180D-4738-AA12-D41BA0A7123B}", "Package");

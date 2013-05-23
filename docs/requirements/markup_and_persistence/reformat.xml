@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <infoset name="urn:openeyes.imaging.volume.Renderer3D/infoset.xml">
 
     <attribute name="ptype" ptag="2007,5149" vr="CS" occurs="1" creator="Cedara_Openeyes_1_5"/>

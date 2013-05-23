@@ -1,3 +1,10 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
 
 -- clean up data submitted by ctp and has no connection with general series or images
 delete from annotation where general_series_pk_id is null and annotation_type='xml';

@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
       
 create temporary table image_temp as select image_pk_id from general_image where instance_number >=250 and series_instance_uid='1.3.6.1.4.1.9328.50.1.245630263591502535745452645381329674063';
 

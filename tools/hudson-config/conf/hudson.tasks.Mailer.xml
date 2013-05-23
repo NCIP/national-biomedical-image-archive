@@ -1,4 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <hudson.tasks.Mailer_-DescriptorImpl>
   <defaultSuffix>@mail.nih.gov</defaultSuffix>
   <hudsonUrl>http://cbv-ciweb-base.nci.nih.gov:48080/hudson/</hudsonUrl>

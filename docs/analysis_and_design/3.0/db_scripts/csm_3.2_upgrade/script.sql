@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
 ALTER TABLE CSM_APPLICATION MODIFY  DECLARATIVE_FLAG NUMBER(1) DEFAULT 0 NOT NULL ;
 ALTER TABLE CSM_PROTECTION_ELEMENT DROP COLUMN PROTECTION_ELEMENT_TYPE_ID;
 ALTER TABLE CSM_PROTECTION_ELEMENT ADD PROTECTION_ELEMENT_TYPE VARCHAR(100);

@@ -1,3 +1,11 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <ns1:SyncDescription xmlns:ns1="http://cagrid.nci.nih.gov/12/SyncGTS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ns1:SyncDescriptor>
 		<ns1:gtsServiceURI>https://slavegts.training.cagrid.org:8443/wsrf/services/cagrid/GTS</ns1:gtsServiceURI>

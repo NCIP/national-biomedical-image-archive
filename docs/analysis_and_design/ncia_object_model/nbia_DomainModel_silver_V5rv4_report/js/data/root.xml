@@ -1,1 +1,9 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 tocTab[tocTab.length] = new Array("0", "1", "Logical Model", "", "4.png", "", "", "{531B6432-BD86-4a83-91AD-1A28309C7828}", "Package");

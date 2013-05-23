@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
 -- creat two new record for "Pilot RIDER//MSKCC" and "Pilot RIDER//MDACC"
 INSERT INTO trial_data_provenance 
 (TRIAL_DP_PK_ID, DP_SITE_NAME, DP_SITE_ID, PROJECT) 

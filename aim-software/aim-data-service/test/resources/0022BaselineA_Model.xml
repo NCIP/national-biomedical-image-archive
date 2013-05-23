@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <ImageAnnotation xmlns="gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM" aimVersion="AIM.1.0" comment="" dateTime="2008-04-11T15:32:15" id="0" codeMeaning="Target Lesion Complete Response" codeValue="112041" codingSchemeDesignator="DCM"  name="0022" uniqueIdentifier="1.2.288.3.2205383238.1512.1207945935.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM AIM_TCGA09302009_Model.xsd">
   <calculationCollection>
     <Calculation description="Linear Measurement" id="0" mathML="" codeMeaning="Length" codeValue="G-A22A" codingSchemeDesignator="SRT" codingSchemeVersion="" uid="0">

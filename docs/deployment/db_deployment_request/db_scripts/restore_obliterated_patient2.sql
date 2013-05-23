@@ -1,3 +1,10 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
 
 insert into `patient` (`patient_pk_id`, `patient_id`, `patient_name`, `patient_birth_date`, `patient_sex`, `ethnic_group`, `trial_dp_pk_id`, `trial_subject_id`, `trial_subject_reading_id`, `trial_site_pk_id`, `visibility`, `version`) values('13','1.3.6.1.4.1.9328.50.1.0013','1.3.6.1.4.1.9328.50.1.0013',NULL,'M',NULL,'21',NULL,NULL,'1','1','0');
 

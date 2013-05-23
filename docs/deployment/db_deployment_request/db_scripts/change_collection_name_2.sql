@@ -1,3 +1,10 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
 
 update trial_data_provenance set project='RIDER Lung CT' where trial_dp_pk_id=1335656449;
 update general_image set project='RIDER Lung CT' where trial_dp_pk_id=1335656449;

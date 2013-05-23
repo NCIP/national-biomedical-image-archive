@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
 <!-- Markup.xml Version 1.0 -->
 <dicom:PresentationState xmlns:dicom="urn:openeyes.data.dicom.Dicom/Dicom.xml">
   <dicom:sopClassUid>1.2.840.10008.5.1.4.1.1.11.1</dicom:sopClassUid>

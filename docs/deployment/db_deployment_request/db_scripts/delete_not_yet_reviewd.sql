@@ -1,3 +1,11 @@
+/*L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L*/
+
 -- create a temp table contains only series instance uid that it has visibility=0 (Not yet reviewed) images (the series's visibility might be NULL, and 1)
 create temporary table image_temp 
 as select image_pk_id 

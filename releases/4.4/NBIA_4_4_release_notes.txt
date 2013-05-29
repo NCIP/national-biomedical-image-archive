@@ -1,0 +1,141 @@
+Release Notes
+=============
+ 
+  #Product:#	NBIA
+  #Version:#	4.4
+  #Date:#	March, 2010
+
+Contents
+--------
+
+   1. Introduction
+   2. Release History
+   4. Defects and Features Addressed in This Release
+   5. Known Issues/Defects
+   6. Bug Reports, Feature Requests, and Support
+   7. Documentation and Files
+   8. NCI CBIIT Web Pages
+
+Introduction
+---------------------------
+
+The National Biomedical Imaging Archive (NBIA) provides access 
+to in vivo images. The goal of the NBIA is to provide 
+the cancer research community,industry, and academia with 
+access to an imaging data archive that will assist in the 
+development and validation of analytical software tools 
+supporting: lesion detection and classification, accelerated 
+diagnostic imaging decision throughput, and quantitative 
+imaging assessment of drug response. The repository aims to 
+provide access to imaging resources that will improve the use 
+of imaging in today’s cancer research and practice by: 
+increasing the efficiency and reproducibility of imaging 
+supporting cancer detection, improving the accuracy of imaging 
+supporting cancer diagnosis, leveraging imaging to provide an 
+objective assessment of therapeutic response, and ultimately 
+enabling the development of imaging resources that will lead 
+to confident clinical decisions in patient care.
+
+* https://imaging.nci.nih.gov/
+
+Release History
+------------------------
+    * NBIA v4.4		-- March    2010
+    * NBIA v4.3		-- October  2009    
+    * NBIA v4.2.2	-- September2009
+    * NBIA v4.2.1       -- June     2009
+    * NBIA v4.2		-- May      2009
+    * NCIA v4.1		-- December 2008
+    * NCIA v4.0		-- October  2008
+    * NCIA v3.7		-- August   2008
+    * NCIA v3.5		-- April    2008
+    * NCIA v3.0		-- February 2008
+    * NCIA v2.4		-- November 2007
+
+
+Highlights of Features Addressed in This Release
+-------------------------------------------------------------
+* Shared List 
+    - create:  Registered users are able to create a named list to share with 
+	       community.  The list can be created based on the content of the
+               data basket or by uploading a CSV file with image series instance UID.
+    - Update:  The list creator is able to update the content of the list by 
+               uploading a CSV file with image series instance UID
+    - Search:  Users (public or registered) are able to search the shared list 
+	       and add the list content to the data basket to download.
+* Collection description - is integrated with NBIA application.   
+     Administrator is able to modify the description of the collection with a rich 
+     text editor implemented in NBIA.
+* Two tier deletion process
+      - The curator set one or more image series status as "To be deleted" via 
+        redesigned QC tool
+      - The super curator review the series marked as "To be deleted", and
+        approve the deletion or not.
+      - The actual deletion will happen at a system configured time.
+* Online deletion - allow administrator to delete 
+* Re-designed QC tool allows the curator to search particular status with collection
+  site, review the images series' thumbnails and DICOM header information, and change
+  the status ("Not yet reviewed", "Visible", "Not visible", "To be deleted")
+* Redesigned remote search detects othere registered NBIA grid nodes automatically,
+  and provides the searchable terms of each node.  The remote search functions is 
+  limited to the simple/advanced search only in this release.
+
+
+Features and defects addressed in This Release
+----------------------------------------------
+20656   Redesign and implement the remote search
+21309   Create only valid equipment object during submission time
+22408   Redesign QC Tool
+22468   Create function/pages to allow administrator to delete the 
+        images/series/study/patient
+23353   Provide collection description on the search page
+23507   Create the "Shared list" to allow for users to share these saved 
+        collections of images with each other (if user permissions are 
+        sufficient) or with the entire community
+
+
+Known Issues/Defects
+------------------------
+
+1.  IE8 will not be supported for this release.  
+2.  21263 Issue with deleting files from data basket during the download.  Download
+    will not be successful.
+3.  21294 Visualize Image button should not displayed for subjects from remote node.
+4.  21732 DICOM tag[0008,0008] is not stored in NBIA correctly.  Only the first 
+    section is stored.
+
+ 
+See the GForge tracker for the latest use cases (implemented 
+and deferred), existing open defects, community requests, 
+resolutions and feature requests. The following issues are 
+highlighted. 
+
+
+https://gforge.nci.nih.gov/tracker/?group_id=312
+
+
+Bug Reports, Feature Requests, And Support
+------------------------------------------
+
+Send email to ncicb@pop.nci.nih.gov to request technical support or 
+report a bug or request a new feature.
+
+Existing requests and resolution may be viewed at the NCIA GForge URL:
+
+    * https://gforge.nci.nih.gov/tracker/?group_id=312
+
+
+Documentation And Files
+-----------------------
+
+Links to all documentation and files can be found at: 
+
+http://imaging.nci.nih.gov/
+
+
+NCICB Web Pages
+---------------
+
+    * The NCI Center for Bioinformatics, http://ncicb.nci.nih.gov/
+    * NCICB Application Support, http://ncicb.nci.nih.gov/NCICB/support
+    * NCICB Download Center, http://ncicb.nci.nih.gov/download/

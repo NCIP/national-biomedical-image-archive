@@ -1,5 +1,6 @@
-Welcome to the National Biomedical Image Archive (NBIA) Project!
-=================================
+Welcome to the National Biomedical Image Archive Project!
+================================================================
+
 The National Biomedical Imaging Archive (NBIA) is a free and open source service and software application that enables users to securely store, search, and download diagnostic medical images, providing a searchable national repository integrating in vivo cancer images with clinical and genomic data. Using role-based security, NBIA provides web-based access to de-identified DICOM images, image markup, annotations, and rich meta data. The NBIA download package is a ZIP package that includes the NBIA application, supporting libraries, the RSNA MIRC application (with NBIA modifications), documentation, and a sample NBIA database. A web-based visualization and annotation tool, I-Response, is available to users of the NCI NBIA instance.
 
 Along with the Clinical Trial Processor software from the Radiological Society of North America, NBIA supports customized de-identification of images. NBIA is able to integrate with other imaging applications to cull various data types, such as image annotations, clinical data, genomic data, and other research files, such as RT objects.NBIA can also federate with other instances of NBIA to support the response of multiple NBIA servers to a single query.

@@ -13,6 +13,8 @@ The ultimate goals of the project include:
  * Availability of the archive for mining and integration by the broader research and clinical community; and
  * Robust support for data-driven decision making in oncology and medical practice in general by clinicians throughout the world.
 
+It is written in JAVA using Hibernate, Spring and icefaces.
+
 National Biomedical Image Archive  is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
 

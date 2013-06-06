@@ -25,3 +25,4 @@ You will find more details about National Biomedical Image Archive  in the follo
   * [Developer Guide] (https://wiki.nci.nih.gov/display/NBIA/NBIA+Developer+Guide)
   * [Installation Guide] (https://wiki.nci.nih.gov/display/NBIA/NBIA+5.1+Installation+Guide)
     
+Please join us in further developing and improving National Biomedical Imaging Archive (NBIA).

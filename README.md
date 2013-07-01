@@ -19,10 +19,11 @@ National Biomedical Image Archive  is distributed under the BSD 3-Clause License
 Please see the NOTICE and LICENSE files for details.
 
 You will find more details about National Biomedical Image Archive  in the following links:
-  * [Community Wiki] (https://wiki.nci.nih.gov/display/NBIA/National+Biomedical+Imaging+Archive+-+NBIA)
+  * [Community Wiki] (https://wiki.nci.nih.gov/x/E4b3Ag)
   * [Issue Tracker] (https://tracker.nci.nih.gov/browse/NBIA)
   * [Code Repository] (https://github.com/NCIP/national-biomedical-image-archive)
-  * [Developer Guide] (https://wiki.nci.nih.gov/display/NBIA/NBIA+Developer+Guide)
-  * [Installation Guide] (https://wiki.nci.nih.gov/display/NBIA/NBIA+5.1+Installation+Guide)
+  * [Developer Guide] (https://wiki.nci.nih.gov/x/zgHx)
+  * [Installation Guide] (https://wiki.nci.nih.gov/x/QIvxBw)
+  * [Hosted Instance of NBIA] (http://imaging.nci.nih.gov)
     
 Please join us in further developing and improving National Biomedical Imaging Archive (NBIA).

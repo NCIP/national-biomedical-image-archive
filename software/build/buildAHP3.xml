@@ -379,7 +379,7 @@ L-->
 		<if>
 			<and>
 			<isset property="nbia_prod_build_tag" />
-			<not> <equals arg1="${nbia_prod_build_tag}" arg2=""/></not> 
+			<not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
 			</and>
 			<then>
 				<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>

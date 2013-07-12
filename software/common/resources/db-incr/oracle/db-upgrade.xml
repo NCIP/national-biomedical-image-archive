@@ -419,7 +419,7 @@ L-->
   </changeSet>
   
   <changeSet id="5.1.NIAMS.submission.report.performance.improvement" author="panq">
-           <comment>Creat function based index for submission timestamp</comment>
+         <comment>Creat function based index for submission timestamp</comment>
     	 <sql>
     	 	create index timestamp_func_idx on submission_history to_date(trunc(submission_timestamp, 'DDD'));
     	 </sql>

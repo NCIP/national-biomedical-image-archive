@@ -114,12 +114,12 @@ L-->
                 
    <dependency org="rsna"
                 name="ctp"
-                rev="X57"
+                rev="X58"
                 conf="compile,test->master;"/>
 
     <dependency org="rsna"
                 name="ctp-installer"
-                rev="X57"
+                rev="X58"
                 conf="compile->master;runtime->master"/>
              
 
@@ -201,7 +201,7 @@ L-->
                 
 	<dependency org="rsna"
                 name="util"
-                rev="X57"
+                rev="X58"
                 conf="compile,test->master;"/>
                 
  <!-- garbage from log4j as second order dependency -->

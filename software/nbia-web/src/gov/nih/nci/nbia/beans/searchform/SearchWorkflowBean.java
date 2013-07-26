@@ -285,10 +285,16 @@ public class SearchWorkflowBean {
     }
 
     public String selectAllModalities() {
-    	for(SelectItem selectItem : modalityItems) {
-    		selectItem.setValue(true);
+     	for(SelectItem selectItem : modalityItems) {
+    		if(selectItem.getLabel().equalsIgnoreCase("US")){
+    			usSearch=true;
+    		}
+    	
+    	
+    	selectItem.setValue(true);
+    		
     	}
-    	usSearch = true;
+    	
     	return null;
     }
 

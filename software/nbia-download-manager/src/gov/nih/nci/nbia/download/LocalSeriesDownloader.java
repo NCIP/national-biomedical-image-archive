@@ -104,7 +104,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		String localLocation = outputDirectory.getAbsolutePath()
 				+ File.separator + this.collection + File.separator
 				+ this.patientId + File.separator + this.studyInstanceUid
-				+ File.separator + this.seriesIdentifier;
+				+ File.separator + this.seriesInstanceUid;
 		File f = new File(localLocation);
 		try {
 			int count = 0;

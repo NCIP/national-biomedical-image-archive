@@ -243,6 +243,13 @@ L-->
       <redirect /> 
     </navigation-case>
   </navigation-rule>
+    <navigation-rule>
+    <navigation-case>
+    <from-outcome>manageCustomList</from-outcome>
+      <to-view-id>/manageCustomList.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule>
   <navigation-rule>
     <navigation-case>
       <from-outcome>editCollectionDescriptions</from-outcome>

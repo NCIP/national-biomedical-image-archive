@@ -428,4 +428,22 @@ public class EditCustomSeriesListBean {
 			seriesInstanceUidsList.add(dto);
 		}
 	}
+	private int toDelete;
+	/**
+		 * 
+		 * @return
+	*/
+	public String performDelete() {
+		CustomSeriesListDTO editDTO = new CustomSeriesListDTO();
+		System.out.println("id getting deleted:- " + toDelete);
+		editDTO.setId(toDelete);
+		processor.delete(editDTO);
+		return viewCreatedLists();
+	}
+	public int getToDelete() {
+		return toDelete;
+	}
+	public void setToDelete(int toDelete) {
+		this.toDelete = toDelete;
+	}
 }

@@ -209,6 +209,18 @@ L-->
           </td>
         </tr>
       </f:subview>
+      <f:subview id="sharedListDeleteView" rendered="#{securityBean.hasSuperCuratorRole}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+              <h:commandLink action="manageCustomList"
+                             value="Manage Shared List" 
+                             styleClass="subMenuPrimary"/>      
+            </div>
+          </td>
+        </tr>
+      </f:subview>
       <f:subview id="feedbackView"
                  rendered="#{securityBean.hasFeedbackRole}">
         <tr>

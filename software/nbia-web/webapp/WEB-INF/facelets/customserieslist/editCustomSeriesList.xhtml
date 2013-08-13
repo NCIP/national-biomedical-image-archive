@@ -282,6 +282,15 @@ L-->
                             <ice:outputText value="#{item.hyperlink}" />
                           </ice:outputLink>
                         </ice:column>
+                        <ice:column>
+                            <f:facet name="header">Delete</f:facet>
+		                    <h:commandButton image="images/cancel.png"
+		                                     alt="Delete" title="Delete"
+		                                     action="#{editCustomSeriesListBean.performDelete}" >
+                         <f:setPropertyActionListener target="#{editCustomSeriesListBean.toDelete}"
+                                                      value="#{item.id}"/>
+                    </h:commandButton>
+                </ice:column>
                       </ice:dataTable>
                       <center>
                         <ice:panelGrid columns="1" 

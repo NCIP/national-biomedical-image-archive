@@ -12,12 +12,17 @@ import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor;
+import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
 import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
 import gov.nih.nci.nbia.dto.SeriesDTO;
+import gov.nih.nci.nbia.mail.MailManager;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.util.SelectItemComparator;
 import gov.nih.nci.nbia.util.SeriesDTOConverter;
+import gov.nih.nci.nbia.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.component.UIData;
@@ -63,6 +68,12 @@ public class SearchCustomSeriesListBean {
         sb = BeanManager.getSecurityBean();
         AuthorizationManager am = sb.getAuthorizationManager();
         processor = new CustomSeriesListProcessor(sb.getUsername(), am);
+        List<String> uNames = processor.getSharedListUserNames(); 
+        userNameItems.clear();
+        for (String uName : uNames) {
+        	userNameItems.add(new SelectItem(uName));
+        }
+        Collections.sort(userNameItems, new SelectItemComparator());
     }
 
     public String getName() {
@@ -255,5 +266,109 @@ public class SearchCustomSeriesListBean {
 		this.selectedListName = selectedListName;
 	}
 	
+	private boolean showSelectedList = false;
 	
+	/* hold list of attribute for a given custom list */
+	private List<CustomSeriesListAttributeDTO> seriesInstanceUidsList = new ArrayList<CustomSeriesListAttributeDTO>();
+	private List<SelectItem> userNameItems = new ArrayList<SelectItem>();
+	private String selectedUserName;
+	private int seriesCount=0;
+	private int toDelete;
+	    
+	public String searchByUserName() {
+		reset();
+	   System.out.println("selectedUserName"+selectedUserName);
+	   if(!StringUtil.isEmptyTrim(selectedUserName)) {
+	   		results = processor.getCustomListByUser(selectedUserName);
+	   	} else {
+	   		  message="The list could not be found.";
+	   	}
+	    	return null;
+	}
+	public void listNamedDetailsClicked(ActionEvent actionEvent) throws Exception {
+		reset();
+		int index = table.getRowIndex();
+		System.out.println("index: " + index);
+		CustomSeriesListDTO selectedSharedList = results.get(index);
+		System.out.println("name: " + selectedSharedList.getName() + " comment: " + selectedSharedList.getComment());
+		Integer customSeriesListPkId = selectedSharedList.getId();
+		seriesInstanceUidsList.clear();
+		showSelectedList = true;
+		seriesInstanceUidsList = processor.getCustomseriesListAttributesById(customSeriesListPkId);
+		selectedListName = selectedSharedList.getName();
+	}
+	public String resetManageList() {
+		selectedUserName= "";
+	    results.clear();
+	    showSelectedList=false;
+	    return reset();
+	}
+		     
+	/**
+	 * 
+	 * @return
+	*/
+	public String performDelete() {
+		int index = table.getRowIndex();
+		System.out.println("index: " + index);
+		CustomSeriesListDTO selectedSharedList = results.get(index);
+		System.out.println("name: " + selectedSharedList.getName() + " comment: " + selectedSharedList.getComment());
+		if (seriesInstanceUidsList == null || seriesInstanceUidsList.isEmpty()) {
+			seriesInstanceUidsList = processor.getCustomseriesListAttributesById(selectedSharedList.getId());
+		}
+		CustomSeriesListDTO editDTO = new CustomSeriesListDTO();
+		System.out.println("id: " + toDelete);
+		editDTO.setId(toDelete);
+		processor.delete(editDTO);
+		String email = processor.findEmailByUserName(selectedUserName);
+		StringBuffer impactList = new StringBuffer();
+		for (CustomSeriesListAttributeDTO series : seriesInstanceUidsList) {
+			impactList.append(series.getSeriesInstanceUid()).append(", ");
+		}
+		System.out.println("impact List: " + impactList.toString());
+		MailManager.sendDeletionOfShareListEmail(email, selectedSharedList.getName(), impactList.toString());
+	    return searchByUserName();
+	}
+	
+	public List<SelectItem> getUserNameItems() {
+		return userNameItems;
+	}
+	
+	public void setUserNameItems(List<SelectItem> userNameItems) {
+		this.userNameItems = userNameItems;
+	}
+	
+	public String getSelectedUserName() {
+		return selectedUserName;
+	}
+	
+	public void setSelectedUserName(String selectedUserName) {
+		this.selectedUserName = selectedUserName;
+	}
+	
+	public boolean isShowSelectedList() {
+		return showSelectedList;
+	}
+	
+	public void setShowSelectedList(boolean showSelectedList) {
+		this.showSelectedList = showSelectedList;
+	}
+	public int getSeriesCount() {
+		if(getSeriesInstanceUidsList() != null){
+			seriesCount = getSeriesInstanceUidsList().size();
+		}
+		return seriesCount;
+	}
+	public int getToDelete() {
+		return toDelete;
+	}
+	public void setToDelete(int toDelete) {
+		this.toDelete = toDelete;
+	}
+	public List<CustomSeriesListAttributeDTO> getSeriesInstanceUidsList() {
+		return seriesInstanceUidsList;
+	}
+	public void setSeriesInstanceUidsList(List<CustomSeriesListAttributeDTO> seriesInstanceUidsList) {
+		this.seriesInstanceUidsList = seriesInstanceUidsList;
+	}
 }

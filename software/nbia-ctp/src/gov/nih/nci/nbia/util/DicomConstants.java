@@ -137,4 +137,7 @@ public class DicomConstants {
     public static final String DB_DT = "124";
     public static final String TRIGGER_TIME = "125";
     public static final String ANGIO_FLAG = "126";
+    public static final String INSTITUTION_ADDRESS = "127";
+    public static final String DEVICE_SERIAL_NUMBER = "128";
+    public static final String STATION_NAME = "129";
 }

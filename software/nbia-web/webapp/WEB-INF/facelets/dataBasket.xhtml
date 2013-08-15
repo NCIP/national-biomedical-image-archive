@@ -209,6 +209,16 @@ L-->
                                         attachment="true"/>              
                   </ice:panelGroup> 
                 </td>
+                <td>              
+                  <ice:panelGroup styleClass="iceMnuBarItem" rendered="#{basketBean.localSeriesList}"> 
+                    <ice:outputResource id="exportImageMetadata"
+                                        label="Export Image Metadata"
+                                        resource="#{basketBean.exportImageMetadata}"                                                                              
+                                        fileName="#{basketBean.exportIMFileName}" 
+                                        mimeType="text/csv" 
+                                        attachment="true"/>              
+                  </ice:panelGroup> 
+                </td>
                 <td style="display:inline;margin-left: s0px;">              
                   <ice:panelGroup styleClass="iceMnuBarItem" 
                                   rendered="#{basketBean.ncicb}">               

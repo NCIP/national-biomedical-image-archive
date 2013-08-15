@@ -36,7 +36,8 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
     private String project;
     private String description;
     private String dataProvenanceSiteName;
-
+    private String manufacturerModelName;
+    private String softwareVersion;
 
     public Integer getNumberImages() {
         return numberImages;
@@ -211,5 +212,22 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
 	public void setDataProvenanceSiteName(String dataProvenanceSiteName) {
 		this.dataProvenanceSiteName = dataProvenanceSiteName;
 	}
+
+	public String getManufacturerModelName() {
+		return manufacturerModelName;
+	}
+
+	public void setManufacturerModelName(String manufacturerModelName) {
+		this.manufacturerModelName = manufacturerModelName;
+	}
+
+	public String getSoftwareVersion() {
+		return softwareVersion;
+	}
+
+	public void setSoftwareVersion(String softwareVersion) {
+		this.softwareVersion = softwareVersion;
+	}
+	
 }
 

@@ -107,10 +107,10 @@ function selectRadio() {
 
 
 function doDicomPopup() {
-	var popup = window.open('/ncia/showDicom.jsf', 
-	                        "dicom_window", 
-	                        "height=800,width=600,scrollbars=yes,resizable=yes");
-    popup.focus();
+	var popup = window.open('/ncia/showDicom.jsf',
+			    "dicom_window",
+			    "height=800,width=700,scrollbars=yes,resizable=yes");
+	popup.focus();
 }
 
 function doViewSeriesPopup(seriesId,location,url) {

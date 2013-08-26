@@ -399,6 +399,24 @@ input.actionButton {
   background-color: #f4f4f5; 
   padding-left: 1.2em;
 }
+
+.dicomDataColumnOne   { 
+  text-align:center;
+  white-space:nowrap; 
+  padding:3px;
+} 
+
+.dicomDataColumnTwo   { 
+  text-align:center;
+  white-space:nowrap; 
+  padding:3px;
+} 
+
+.dicomDataColumnThree { 
+  text-align:center;
+  padding:3px;
+} 
+
 .dataCellText {
   border-top: #5c5c5c 1px solid; 
   border-left: #5c5c5c 1px solid; 

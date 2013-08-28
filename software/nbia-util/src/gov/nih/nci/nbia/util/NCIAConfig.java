@@ -550,6 +550,17 @@ public class NCIAConfig {
     }
 
     /**
+     * Externalized Property!
+     *  Property: gov.nih.nci.ncia.encrypt.key
+     *  This property is configured via the JBoss Property Service MDB (property-service.xml)
+     *  to contain value for the download servlet server url.
+     */
+    public static String getEncryptionKey(){
+        String propertyValue = System.getProperty("gov.nih.nci.ncia.encrypt.key");
+        checkProperty("gov.nih.nci.ncia.encrypt.key", propertyValue);
+        return propertyValue;
+    }
+    /**
      * Utility method for retrieving a property
      * Sets the value to -1 if not found or not an integer
      * and logs an exception

@@ -1045,7 +1045,7 @@ $HeadURL$
 
     <obfuscate-properties-file
       properties.file="${dist.exploded.dir}/install.properties"
-      required.property.list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri"
+      required.property.list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri,gov.nih.nci.ncia.encrypt.key"
       optional.property.list="ldap.url,ldap.basedn"
       />
     <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true"

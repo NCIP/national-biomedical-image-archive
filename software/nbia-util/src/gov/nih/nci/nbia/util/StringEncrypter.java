@@ -14,115 +14,85 @@ package gov.nih.nci.nbia.util;
  */
 
 
-import java.security.spec.KeySpec;
+import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.DESedeKeySpec;
-
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import javax.crypto.spec.SecretKeySpec;
 
 public class StringEncrypter {
-    private static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
-    private static final String DES_ENCRYPTION_SCHEME = "DES";
-    private KeySpec keySpec;
-    private SecretKeyFactory keyFactory;
-    private Cipher cipher;
-    private static final String UNICODE_FORMAT = "UTF8";
 
-    private static String getKey(){
-        return "123CSM34567890ENCRYPTIONC3PR4KEY5678901234567890";
+	private final static String HEX = "0123456789ABCDEF";
+	private static final String ALGO = "AES";
+   
+    public String encryptString(String cleartext) throws Exception {
+    	if (StringUtil.isEmptyTrim(cleartext)){
+            throw new IllegalArgumentException("cleartext string was null or empty");
+        }
+        return toHex(encryptString(cleartext.getBytes()));
     }
 
-    public StringEncrypter() throws EncryptionException {
-        this(DESEDE_ENCRYPTION_SCHEME, getKey());
-    }
-
-    public StringEncrypter(String encryptionScheme) throws EncryptionException {
-        this(encryptionScheme, getKey());
-    }
-
-    public StringEncrypter(String encryptionScheme, String encryptionKey) throws EncryptionException {
-
-        if (encryptionKey == null){
-            throw new IllegalArgumentException("encryption key was null");
-        }
-        if (encryptionKey.trim().length() < 24){
-            throw new IllegalArgumentException("encryption key was less than 24 characters");
-        }
-
-        try {
-            byte[] keyAsBytes = encryptionKey.getBytes(UNICODE_FORMAT);
-
-            if (encryptionScheme.equals(DESEDE_ENCRYPTION_SCHEME)) {
-                keySpec = new DESedeKeySpec(keyAsBytes);
-            } else{
-                if (encryptionScheme.equals(DES_ENCRYPTION_SCHEME)) {
-                    keySpec = new DESKeySpec(keyAsBytes);
-                } else {
-                    throw new IllegalArgumentException("Encryption scheme not supported: " + encryptionScheme);
-                }
-            }
-
-            keyFactory = SecretKeyFactory.getInstance(encryptionScheme);
-            cipher = Cipher.getInstance(encryptionScheme);
-
-        } catch (Exception e) {
-            throw new EncryptionException(e);
-        }
-    }
-
-    public  String encrypt(String unencryptedString) throws EncryptionException {
-        if (StringUtil.isEmptyTrim(unencryptedString)){
-            throw new IllegalArgumentException("unencrypted string was null or empty");
-        }
-        try {
-            SecretKey key = keyFactory.generateSecret(keySpec);
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] cleartext = unencryptedString.getBytes(UNICODE_FORMAT);
-            byte[] ciphertext = cipher.doFinal(cleartext);
-
-            BASE64Encoder base64encoder = new BASE64Encoder();
-            return base64encoder.encode(ciphertext);
-        } catch (Exception e) {
-            throw new EncryptionException(e);
-        }
-    }
-
-    public  String decrypt(String encryptedString) throws EncryptionException {
-        if (StringUtil.isEmptyTrim(encryptedString)){
+    public  String decryptString(String encrypted) throws Exception {
+    	if (StringUtil.isEmptyTrim(encrypted)){
             throw new IllegalArgumentException("encrypted string was null or empty");
         }
-
-        try {
-            SecretKey key = keyFactory.generateSecret(keySpec);
-            cipher.init(Cipher.DECRYPT_MODE, key);
-            BASE64Decoder base64decoder = new BASE64Decoder();
-            byte[] cleartext = base64decoder.decodeBuffer(encryptedString);
-            byte[] ciphertext = cipher.doFinal(cleartext);
-
-            return bytes2String(ciphertext);
-        } catch (Exception e) {
-            throw new EncryptionException(e);
-        }
+        byte[] enc = toByte(encrypted);
+        return new String(decryptString(enc));
     }
 
-    private String bytes2String(byte[] bytes) {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            stringBuffer.append((char) bytes[i]);
-        }
-        return stringBuffer.toString();
+    private  byte[] getRawKey() throws Exception {
+    	String encryptionKey = NCIAConfig.getEncryptionKey(); 
+    	byte[] seed = encryptionKey.getBytes();
+        KeyGenerator kgen = KeyGenerator.getInstance(ALGO);
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        sr.setSeed(seed);
+        kgen.init(128, sr); // 192 and 256 bits may not be available
+        SecretKey skey = kgen.generateKey();
+        byte[] raw = skey.getEncoded();
+        return raw;
     }
 
-    public static class EncryptionException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		public EncryptionException(Throwable t) {
-            super(t);
-        }
+    private  byte[] encryptString(byte[] clear) throws Exception {
+        SecretKeySpec skeySpec = new SecretKeySpec(getRawKey(), ALGO);
+        Cipher cipher = Cipher.getInstance(ALGO);
+        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+        byte[] encrypted = cipher.doFinal(clear);
+        return encrypted;
     }
+
+    private  byte[] decryptString(byte[] encrypted) throws Exception {
+        SecretKeySpec skeySpec = new SecretKeySpec(getRawKey(), ALGO);
+        Cipher cipher = Cipher.getInstance(ALGO);
+        cipher.init(Cipher.DECRYPT_MODE, skeySpec);
+        byte[] decrypted = cipher.doFinal(encrypted);
+        return decrypted;
+    }
+
+    public  String toHex(String txt) {
+        return toHex(txt.getBytes());
+    }
+    public String toHex(byte[] buf) {
+        if (buf == null) {
+            return "";
+        }
+        StringBuffer result = new StringBuffer(2*buf.length);
+        for (int i = 0; i < buf.length; i++) {
+            appendHex(result, buf[i]);
+        }
+        return result.toString();
+    }
+        
+    private static void appendHex(StringBuffer sb, byte b) {
+        sb.append(HEX.charAt((b>>4)&0x0f)).append(HEX.charAt(b&0x0f));
+    }
+    
+    public static byte[] toByte(String hexString) {
+        int len = hexString.length()/2;
+        byte[] result = new byte[len];
+        for (int i = 0; i < len; i++)
+            result[i] = Integer.valueOf(hexString.substring(2*i, 2*i+2), 16).byteValue();
+        return result;
+    }
+  
 }

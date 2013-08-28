@@ -160,7 +160,6 @@ public class DynamicJNLPGenerator {
             return "";
         }
         StringEncrypter encrypter = new StringEncrypter();
-        String encryptedPassword = encrypter.encrypt(password);
-        return encryptedPassword;
+        return encrypter.encryptString(password);
     }
 }

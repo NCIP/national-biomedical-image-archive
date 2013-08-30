@@ -10373,29 +10373,6 @@ gov.nih.nci.security.cgmm.login.config.file=@{cgmm.conf.dest.dir}/cgmm.login.con
 			</switch>
 		</sequential>
 	</macrodef>
-	<macrodef name="migrate-ivy-report">
-		<attribute name="groovy.file" default="${bda-utils.dir}/resource/groovy/migrateIvy.groovy"/>
-		<attribute name="maven.filelist.src" default="https://ncisvn.nci.nih.gov/svn/maven-mirror/trunk/file-list.txt"/>
-		<attribute name="maven.filelist.dest" default="${target.dir}/maven-filelist.txt"/>
-		<attribute name="cagrid12.filelist.dest" default="${target.dir}/cagrid12-filelist.txt"/>
-		<attribute name="cagrid12.filelist.src" default="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.2/file-list.txt"/>
-		<attribute name="cagrid13.filelist.dest" default="${target.dir}/cagrid13-filelist.txt"/>
-		<attribute name="cagrid13.filelist.src" default="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.3/file-list.txt"/>
-		<attribute name="cbiit-ivy.filelist.dest" default="${target.dir}/cbiit-ivy-filelist.txt"/>
-		<attribute name="cbiit-ivy.filelist.src" default="https://ncisvn.nci.nih.gov/svn/cbiit-ivy-repo/trunk/file-list.txt"/>
-		<attribute name="ivy.analyze.file" default="${basedir}/ivy.xml"/>
-		<attribute name="migrate.out.file" default="${target.dir}/migration-ivy.out"/>
-		<sequential>
-			<get src="@{maven.filelist.src}" dest="@{maven.filelist.dest}" usetimestamp="true"/>
-			<get src="@{cbiit-ivy.filelist.src}" dest="@{cbiit-ivy.filelist.dest}" usetimestamp="true"/>
-			<get src="@{cagrid12.filelist.src}" dest="@{cagrid12.filelist.dest}" usetimestamp="true"/>
-			<get src="@{cagrid13.filelist.src}" dest="@{cagrid13.filelist.dest}" usetimestamp="true"/>
-			<echo message="Executing @{groovy.file}"/>
-			<groovy src="@{groovy.file}">
-				<arg line="@{maven.filelist.dest} @{cagrid12.filelist.dest} @{cagrid13.filelist.dest} @{cbiit-ivy.filelist.dest} @{ivy.analyze.file} @{migrate.out.file}"/>
-			</groovy>	
-		</sequential>
-	</macrodef>
 	<macrodef name="tomcat-nci-customizations">
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="tomcat.home" default="${tomcat.home}"/>

@@ -373,40 +373,23 @@ L-->
       <property name="database.driver" value="${database.driver}"/-->
 		</ant>
 	</target>
-	
+	<!-- rewrite the code since github does not support $headURL$ so whenever to display tag in home page build with '-Dnbia_prod_build_tag=value' to diplay on home page -->
 	<target name="compute-tag-properties">
-		<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-		<echo message="nbia_prod_build_tag =${nbia_prod_build_tag}"/>
-		<if>
-			<and>
-			<isset property="nbia_prod_build_tag" />
-			<not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
-			</and>
-			<then>
-				<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
-				<echo message=" AHP3 set!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-			</then>
-			<else>
-				<echo message="AHP3 not set!!!  nbia_prod_build_tag =${nbia_prod_build_tag}"/>
-				
-		<condition property="tagged.file">
-			<contains substring="nbia/tags" string="${nbia_prod_build_tag}" />
-		</condition>
-		<if>
-			<isset property="tagged.file" />
-			<then>
-				<propertyregex property="nbia_prod_build_tag.final" input="${nbia_prod_build_tag}" regexp="\$HeadURL\: .*/nbia/tags/([^/]*)/.*" select="\1" />
-			</then>
-			<else>
-				<property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}" />
-			</else>
-		</if>
-		
-		<echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-			</else>
-		</if>
-		
-		
+	<if>
+	   <and>
+	   <isset property="nbia_prod_build_tag" />
+              <not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
+            </and>	      
+            <then>
+               <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
+               <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+            </then>
+            <else>
+                <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
+               <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+            </else>
+        </if>    
+            <echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
 	</target>
 	
 	<target name="dist:tools:retrieve:jai">

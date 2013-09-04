@@ -284,23 +284,22 @@ $HeadURL$
   </target>
 
   <target name="compute-tag-properties">
-    <condition property="tagged.file">
-      <contains substring="nbia/tags"
-                string="${nbia_prod_build_tag}"/>
-    </condition>
-
     <if>
-      <isset property="tagged.file"/>
+      <and>
+        <isset property="nbia_prod_build_tag" />
+        <not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
+      </and>              
       <then>
-        <propertyregex property="nbia_prod_build_tag.final"
-                       input="${nbia_prod_build_tag}"
-                       regexp="\$HeadURL\: .*/nbia/tags/([^/]*)/.*"
-                       select="\1"/>
+          <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
+          <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
       </then>
       <else>
-        <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
-      </else>
-    </if>
+         <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
+         <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+     </else>
+     </if>    
+     <echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+
   </target>
 
   <target name="clean">

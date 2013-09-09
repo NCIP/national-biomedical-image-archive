@@ -2224,7 +2224,7 @@ $HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/utils/bda
 	<macrodef name="validate-pre-build">
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="require.build.wscore" default="${require.build.wscore}"/>
-		<attribute name="wscore.download.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+		<attribute name="wscore.download.url" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/ws-core-enum/ws-core-enum/4.0.3/ws-core-enum-4.0.3.zip"/>
 		<attribute name="wscore.relative.dir" default="ws-core-4.0.3"/>
 		<attribute name="cacore-sdk.required" default="${cacore-sdk.required}"/>
 		<attribute name="cacore-sdk.src.url" default="${cacore-sdk.src.url}"/>
@@ -2251,7 +2251,7 @@ $HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/utils/bda
 	</macrodef>
 
 	<macrodef name="check-wscore-exists">
-		<attribute name="wscore.download.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+		<attribute name="wscore.download.url" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/ws-core-enum/ws-core-enum/4.0.3/ws-core-4.0.3.zip"/>
 		<attribute name="wscore.relative.dir" default="ws-core-4.0.3"/>
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="download.dir" default="${download.dir}"/>
@@ -3777,13 +3777,13 @@ $HeadURL: https://gforge.nci.nih.gov/svnroot/automation/trunk/software/utils/bda
 		<attribute name="dist.dir" default="${dist.dir}"/>
 		<attribute name="izpack.binary.name" default="izpack-4.3" />
 		<attribute name="izpack.binary.file" default="izpack-4.3.zip" />
-		<attribute name="izpack.binary.uri" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2008/os-independent" />
+		<attribute name="izpack.binary.uri" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/izpack/izpack/4.3/" />
 		<attribute name="izpack-custom.svn.url" default="https://ncisvn.nci.nih.gov/svn/automation/trunk/software/bda-installer/src-custom-4.3"/>
 		<attribute name="izpack-custom.svn.dir" default="${target.dir}/izpack-custom"/>
 		<attribute name="product.name" default="caArray-installer" />
 		<attribute name="product.version" default="2.1.0" />
 		<attribute name="ant.binary.file" default="apache-ant-1.7.0-bin.zip"/>
-		<attribute name="ant.binary.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2007/os-independent/apache-ant-1.7.0-bin.zip"/>
+		<attribute name="ant.binary.url" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/thirdparty/org/apache/ant/apache-ant/1.8.0/apache-ant-1.8.0-bin.zip"/>
 		<attribute name="ant.binary.dir" default="${target.dir}/apache-ant-1.7.0"/>
 		<sequential>
 			<tstamp>

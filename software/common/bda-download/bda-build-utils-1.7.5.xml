@@ -2284,7 +2284,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 	<macrodef name="validate-pre-build">
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="require.build.wscore" default="${require.build.wscore}"/>
-		<attribute name="wscore.download.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+		<attribute name="wscore.download.url" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/ws-core-enum/ws-core-enum/4.0.3/ws-core-enum-4.0.3.zip"/>
 		<attribute name="wscore.relative.dir" default="ws-core-4.0.3"/>
 		<attribute name="cacore-sdk.required" default="${cacore-sdk.required}"/>
 		<attribute name="cacore-sdk.src.url" default="${cacore-sdk.src.url}"/>
@@ -2311,7 +2311,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 	</macrodef>
 
 	<macrodef name="check-wscore-exists">
-		<attribute name="wscore.download.url" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+		<attribute name="wscore.download.url" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/ws-core-enum/ws-core-enum/4.0.3/ws-core-enum-4.0.3.zip"/>
 		<attribute name="wscore.relative.dir" default="ws-core-4.0.3"/>
 		<attribute name="application.base.path" default="${application.base.path}"/>
 		<attribute name="download.dir" default="${download.dir}"/>
@@ -2334,8 +2334,8 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 						<then>
 							<get src="@{wscore.download.url}"
 								dest="${wscore.dest.file}"/>
-							<get src="@{wscore.download.url}.MD5"
-								dest="${wscore.dest.file}.MD5"/>
+							<get src="@{wscore.download.url}.md5"
+								dest="${wscore.dest.file}.md5"/>
 							<checksum file="${wscore.dest.file}" verifyProperty="wscore.cksum.ok"/>
 							<if>
 								<equals arg1="${wscore.cksum.ok}" arg2="true"/>
@@ -3331,7 +3331,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 									<if>
 										<isset property="wscore.src.url.unexpanded"/>
 										<then>
-											<property name="tmp.wscore.src.url" value="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2006/os-independent/ws-core-enum-4.0.3.zip"/>
+											<property name="tmp.wscore.src.url" value="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/ws-core-enum/ws-core-enum/4.0.3/ws-core-enum-4.0.3.zip"/>
 										</then>
 										<else>
 											<property name="tmp.wscore.src.url" value="@{wscore.src.url}"/>
@@ -3957,7 +3957,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 		<attribute name="dist.dir" default="${dist.dir}"/>
 		<attribute name="izpack.binary.name" default="izpack-4.3" />
 		<attribute name="izpack.binary.file" default="izpack-4.3.zip" />
-		<attribute name="izpack.binary.uri" default="https://ncisvn.nci.nih.gov/svn/commonlibrary/trunk/techstack-2008/os-independent" />
+		<attribute name="izpack.binary.uri" default="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/izpack/izpack/4.3/" />
 		<attribute name="izpack-custom.svn.url" default="https://ncisvn.nci.nih.gov/svn/automation/trunk/software/bda-installer/src-custom-4.3"/>
 		<attribute name="izpack-custom.svn.dir" default="${target.dir}/izpack-custom"/>
 		<attribute name="product.name" default="caArray-installer" />

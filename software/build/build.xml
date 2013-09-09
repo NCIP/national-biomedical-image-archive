@@ -920,8 +920,8 @@ $HeadURL$
   <target name="dist:tools:retrieve:ws-core" unless="ws-core.tools.exists">
     <get src="${ws-core.src.url}"
       dest="${ws-core.dest.file}"/>
-    <get src="${ws-core.src.url}.MD5"
-      dest="${ws-core.dest.file}.MD5"/>
+    <get src="${ws-core.src.url}.md5"
+      dest="${ws-core.dest.file}.md5"/>
     <checksum file="${ws-core.dest.file}" verifyProperty="ws-core.cksum.ok"/>
     <if>
       <equals arg1="${ws-core.cksum.ok}" arg2="true"/>
@@ -947,8 +947,8 @@ $HeadURL$
   <target name="dist:tools:retrieve:jboss" unless="jboss.tools.exists">
     <get src="${jboss.src.url}"
          dest="${jboss.dest.file}"/>
-    <get src="${jboss.src.url}.MD5"
-         dest="${jboss.dest.file}.MD5"/>
+    <get src="${jboss.src.url}.md5"
+         dest="${jboss.dest.file}.md5"/>
     <checksum file="${jboss.dest.file}" verifyProperty="jboss.cksum.ok"/>
     <if>
       <equals arg1="${jboss.cksum.ok}" arg2="true"/>
@@ -965,8 +965,8 @@ $HeadURL$
   <target name="dist:tools:retrieve:grid:jboss" unless="ncia-core-grid.jboss.tools.exists">
       <get src="${ncia-core-grid.jboss.src.url}"
            dest="${ncia-core-grid.jboss.dest.file}"/>
-      <get src="${ncia-core-grid.jboss.src.url}.MD5"
-           dest="${ncia-core-grid.jboss.dest.file}.MD5"/>
+      <get src="${ncia-core-grid.jboss.src.url}.md5"
+           dest="${ncia-core-grid.jboss.dest.file}.md5"/>
       <checksum file="${ncia-core-grid.jboss.dest.file}" verifyProperty="jboss.cksum.ok"/>
       <if>
         <equals arg1="${jboss.cksum.ok}" arg2="true"/>

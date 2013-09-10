@@ -99,15 +99,29 @@ L-->
                 conf="compile,runtime->client"/>
 
     <dependency org="caGrid"
-                name="discovery"
+                name="caGrid-metadatautils"
+                rev="1.4"
+                conf="compile,runtime->default"/>
+    
+    <dependency org="caGrid"
+                name="caGrid-discovery"
                 rev="1.4"
                 conf="compile,runtime->default"/>
 
     <dependency org="caGrid"
-                name="transfer"
+                name="caGrid-Transfer-client"
                 rev="1.4"
-                conf="compile,runtime->client"/>
-
+                conf="compile,runtime->default"/>
+                
+   <dependency org="caGrid"
+                name="caGrid-Transfer-stubs"
+                rev="1.4"
+                conf="compile,runtime->default"/>
+                
+   <dependency org="caGrid"
+                name="caGrid-core"
+                rev="1.4"
+                conf="compile,runtime->default"/>	
 
     <dependency org="commons-io"
                 name="commons-io"
@@ -119,18 +133,18 @@ L-->
     <dependency org="opensymphony"
                 name="quartz"
                 rev="1.6.1"
-                conf="compile,runtime->master"/>
+                conf="compile,runtime->default"/>
 
     <!-- security stuff which is necessary if a remote discovered node has security enabled even if remote search doesnt use it -->
     <dependency org="caGrid"
-                name="cds"
+                name="caGrid-cds-stubs"
                 rev="1.4"
-                conf="runtime->stubs"/>
+                conf="compile,runtime->default"/>
 
     <dependency org="caGrid"
-                name="dorian"
+                name="caGrid-dorian-client"
                 rev="1.4"
-                conf="runtime->client">
+                conf="compile,runtime->default">
       <!-- these dont follow the ivy pattern for the repo and they aren't necessary for us anyways -->
       <exclude module="dorian-deprecated"/>
       <exclude module="protecttoolkit-j"/>

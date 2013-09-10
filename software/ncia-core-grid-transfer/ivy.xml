@@ -98,7 +98,7 @@ L-->
     <dependency org="commons-httpclient"
                 name="commons-httpclient"
                 rev="3.0.1"
-                conf="*->master"/>
+                conf="*->default"/>
     <dependency org="globus"
                 name="ws-addressing"
                 rev="1.0"
@@ -155,7 +155,7 @@ L-->
     <dependency org="commons-collections"
                 name="commons-collections"
                 rev="3.2"
-                conf="*->master"/>
+                conf="*->default"/>
     <dependency org="commons-digester"
                 name="commons-digester"
                 rev="1.5"
@@ -186,28 +186,55 @@ L-->
 
 <!-- ********************************************************************************** -->
 
-
-
     <dependency org="caGrid"
-                name="data"
+                name="caGrid-data-common"
+                rev="1.4"
+                conf="*->default"/>
+    <dependency org="caGrid"
+                name="caGrid-metadata-common"
+                rev="1.4"
+                conf="*->default"/>     
+    <dependency org="caGrid"
+                name="caGrid-sdkQuery4-processor"
+                rev="1.4"
+                conf="*->default"/>
+    <dependency org="caGrid"
+                name="caGrid-ServiceSecurityProvider-client"
+                rev="1.4"
+                conf="*->default"/>
+    <dependency org="caGrid"
+                name="caGrid-Transfer-common"
+                rev="1.4"
+                conf="*->default"/> 
+                
+    <!--dependency org="commons-httpclient"
+                name="commons-httpclient"
+                rev="3.0.1"
+                conf="*->default"/-->
+    <!--dependency org="commons-collections"
+		name="commons-collections"
+		rev="3.2"
+                conf="*->default"/-->            
+    <!--dependency org="caGrid"
+                name="caGrid-data"
                 rev="1.4"
                 conf="*->common"/>
     <dependency org="caGrid"
-                name="metadata"
+                name="caGrid-metadata"
                 rev="1.4"
                 conf="*->common.jars"/>
     <dependency org="caGrid"
-                name="sdkQuery4"
+                name="caGrid-sdkQuery4"
                 rev="1.4"
                 conf="*->processor"/>
     <dependency org="caGrid"
-                name="service-security-provider"
+                name="caGrid-service-security-provider"
                 rev="1.4"
                 conf="*->client"/>
     <dependency org="caGrid"
-                name="transfer"
+                name="caGrid-transfer"
                 rev="1.4"
-                conf="*->common"/>
+                conf="*->common"/-->
 
     <!-- something somewhere is including jdom with a conf, and this is pulling in source jars which
          dont exist in the wonderful maven repo.  make it go away -->

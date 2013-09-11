@@ -28,17 +28,11 @@ L-->
       </filesystem>
        -->
       <!-- Then, use the external repository -->
-      <!--url name="cagrid-1.3"
-           m2compatible="false">
-        <ivy pattern="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.3/[organisation]/[module]/ivy-[revision].xml" />
-        <artifact pattern="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.3/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-      </url-->
-      
       <url name="cagrid-1.4"
            m2compatible="false">
-        <ivy pattern="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.4/[organisation]/[module]/ivy-[revision].xml" />
-        <artifact pattern="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.4/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-        <artifact pattern="https://ncisvn.nci.nih.gov/svn/cagrid-repo-copy/trunk/repository-1.4/[organisation]/[module]/[revision]/[artifact].[ext]" />
+        <ivy pattern="https://ncimvn.nci.nih.gov/nexus/content/groups/public/[organisation]/[module]/ivy-[revision].xml" />
+        <artifact pattern="https://ncimvn.nci.nih.gov/nexus/content/groups/public/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        <artifact pattern="https://ncimvn.nci.nih.gov/nexus/content/groups/public/[organisation]/[module]/[revision]/[artifact].[ext]" />
       </url>
 
       <ibiblio name="nbia-maven-repo"

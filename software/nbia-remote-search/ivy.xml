@@ -97,11 +97,16 @@ L-->
                 name="ncia-core-grid-transfer"
                 rev="latest.integration"
                 conf="compile,runtime->client"/>
-
+      
     <dependency org="caGrid"
                 name="caGrid-metadatautils"
                 rev="1.4"
                 conf="compile,runtime->default"/>
+    
+    <dependency org="caGrid"
+                name="caGrid-metadata-security"
+                rev="1.4"
+                conf="compile,runtime->default"/>            
     
     <dependency org="caGrid"
                 name="caGrid-discovery"
@@ -121,7 +126,33 @@ L-->
    <dependency org="caGrid"
                 name="caGrid-core"
                 rev="1.4"
-                conf="compile,runtime->default"/>	
+                conf="compile,runtime->default"/>
+                
+   <dependency org="caGrid"
+                name="caGrid-data-stubs"
+                rev="1.4"
+                conf="compile,runtime->default"/>             
+             
+    <dependency org="caGrid"
+                name="caGrid-ServiceSecurityProvider-stubs"
+                rev="1.4"
+                conf="compile,runtime->default"/>
+                
+    <dependency org="caGrid"
+                name="caGrid-ServiceSecurityProvider-common"
+                rev="1.4"
+                conf="compile,runtime->default"/>
+    
+    <dependency org="caGrid"
+                name="caGrid-CQL-utils"
+                rev="1.4"
+                conf="compile,runtime->default"/> 
+                    
+    <dependency org="caGrid"
+                name="caGrid-CQL-cql.2.0"
+                rev="1.4"
+                conf="compile,runtime->default"/>  
+
 
     <dependency org="commons-io"
                 name="commons-io"

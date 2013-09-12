@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class StudyDAOImpl extends AbstractDAO
      * the SeriesListResultSet, which contains all of the information necessary
      * for the second level query.
      */
+	private static int PARAMETER_LIMIT = 700;
 	@Transactional(propagation=Propagation.REQUIRED)		
     public List<StudyDTO> findStudiesBySeriesId(Collection<Integer> seriesPkIds) throws DataAccessException {
     	if(seriesPkIds.size()==0) {
@@ -45,21 +47,24 @@ public class StudyDAOImpl extends AbstractDAO
         String fromStmt = SQL_QUERY_FROM;
         String whereStmt = SQL_QUERY_WHERE;
 
+       
+        
         // Add the series PK IDs to the where clause
         whereStmt += "and series.id IN (";
-
+        
         whereStmt += constructSeriesIdList(seriesPkIds);
 
         whereStmt += ")";
-
+        
         long start = System.currentTimeMillis();
         logger.info("Issuing query: " + selectStmt + fromStmt + whereStmt);
 
-        List<Object[]> seriesResults = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt);
+        
         long end = System.currentTimeMillis();
         logger.info("total query time: " + (end - start) + " ms");
     
-        
+        logger.info("Issuing query: " + selectStmt + fromStmt + whereStmt);
+        List<Object[]> seriesResults = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt);
         // List of StudyDTOs to eventually be returned
         Map<Integer, StudyDTO> studyList = new HashMap<Integer, StudyDTO>();
         Iterator<Object[]> iter = seriesResults.iterator();
@@ -152,6 +157,30 @@ public class StudyDAOImpl extends AbstractDAO
         }
     	return theWhereStmt;
     }
+    
+    
+    private <T> Collection<Collection<T>> split(Collection<T> bigCollection, int maxBatchSize) {
+        Collection<Collection<T>> result = new ArrayList<Collection<T>>();
+
+        ArrayList<T> currentBatch = null;
+        for (T t : bigCollection) {
+          if (currentBatch == null) {
+            currentBatch = new ArrayList<T>();
+          } else if (currentBatch.size() >= maxBatchSize) {
+            result.add(currentBatch);
+            currentBatch = new ArrayList<T>();
+          }
+
+          currentBatch.add(t);
+        }
+
+        if (currentBatch != null) {
+          result.add(currentBatch);
+        }
+
+        return result;
+      }
+    
     @Transactional(propagation=Propagation.REQUIRED)		
     public List<StudyDTO> findStudiesBySeriesIdDBSorted(Collection<Integer> seriesPkIds) throws DataAccessException {
     	if(seriesPkIds.size()==0) {
@@ -161,19 +190,41 @@ public class StudyDAOImpl extends AbstractDAO
         String fromStmt = SQL_QUERY_FROM;
         String whereStmt = SQL_QUERY_WHERE;
         String oderBy = " Order by study.patient.dataProvenance.project,series.patientId,study.studyDate, study.studyDesc, series.modality, series.seriesDesc,ge.manufacturer, ge.manufacturerModelName, ge.softwareVersions, series.seriesInstanceUID";
-        // Add the series PK IDs to the where clause
-        whereStmt += "and series.id IN (";
-        whereStmt += constructSeriesIdList(seriesPkIds);
-        whereStmt += ")";
+        
+        StringBuffer hql = null;
+        List<Integer> partitions= null;;
+        int listSize =seriesPkIds.size();
+        List<StudyDTO> returnList = new ArrayList<StudyDTO>();
         long start = System.currentTimeMillis();
-        logger.info("Issuing query: " + selectStmt + fromStmt + whereStmt);
-        List<Object[]> seriesResults = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt + oderBy);
+        
+        if(listSize > PARAMETER_LIMIT) {
+        	Collection<Collection<Integer>> seriesPkIdsBatches = split(seriesPkIds, PARAMETER_LIMIT);
+        	for (Collection<Integer> seriesPkIdBatch : seriesPkIdsBatches) {
+        		whereStmt = new String() + SQL_QUERY_WHERE;
+        		whereStmt += "and series.id IN (";
+        		whereStmt += constructSeriesIdList(seriesPkIdBatch);
+        		whereStmt += ")";
+        		returnList.addAll(getResults(selectStmt + fromStmt + whereStmt + oderBy));
+        	}
+        } else {
+        	whereStmt += "and series.id IN (";
+            whereStmt += constructSeriesIdList(seriesPkIds);
+            whereStmt += ")";
+            hql = new StringBuffer().append(selectStmt + fromStmt + whereStmt + oderBy);
+            returnList.addAll(getResults(hql.toString()));
+        }
+        long end = System.currentTimeMillis();
+        logger.info("total time to excute all queries: " + (end - start) + " ms");
+        return returnList;
+    }
+    private List<StudyDTO> getResults(String hql) {
+    	List<StudyDTO> resultList = new ArrayList<StudyDTO>();
+    	long start = System.currentTimeMillis();
+        List<Object[]> seriesResults = getHibernateTemplate().find(hql);
         long end = System.currentTimeMillis();
         logger.info("total query time: " + (end - start) + " ms");
-        
         Iterator<Object[]> iter = seriesResults.iterator();
-        List<StudyDTO> returnList = new ArrayList<StudyDTO>();
-        // Loop through the results.  There is one result for each series
+               // Loop through the results.  There is one result for each series
         while (iter.hasNext()) {
         	Object[] row = iter.next();
             // Create the seriesDTO
@@ -209,8 +260,8 @@ public class StudyDAOImpl extends AbstractDAO
             studyDTO.setId(seriesDTO.getStudyPkId());
             // Add the series to the study
             studyDTO.getSeriesList().add(seriesDTO);
-            returnList.add(studyDTO);
+            resultList.add(studyDTO);
         }
-    	return returnList;
+        return resultList;
     }
 }

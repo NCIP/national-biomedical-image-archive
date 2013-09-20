@@ -155,7 +155,17 @@ public class CustomSeriesListBean {
         System.out.println("submit button is clicked.. ");
         CustomSeriesListDTO dto = new CustomSeriesListDTO();
         dto.setComment(comment);
-        dto.setHyperlink(hyperlink);
+        
+        if(!((hyperlink.startsWith("https://")) || (hyperlink.startsWith("http://")) || (hyperlink.startsWith("//"))))
+		        {
+		        	hyperlink = "//".concat(hyperlink);
+		        	dto.setHyperlink(hyperlink);
+		        }
+		   else
+				{
+					dto.setHyperlink(hyperlink);
+				}
+        
         dto.setName(name);
         dto.setSeriesInstanceUIDs(seriesUidsList);
 

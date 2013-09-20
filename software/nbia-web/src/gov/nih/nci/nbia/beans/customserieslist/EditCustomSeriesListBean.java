@@ -198,7 +198,18 @@ public class EditCustomSeriesListBean {
 		editDTO.setId(selectedList.getId());
 		editDTO.setName(selectedList.getName());
 		editDTO.setComment(selectedList.getComment());
-		editDTO.setHyperlink(selectedList.getHyperlink());
+		
+		if(!(((selectedList.getHyperlink()).startsWith("https://")) || ((selectedList.getHyperlink()).startsWith("http://")) || ((selectedList.getHyperlink()).startsWith("//"))))
+				{
+					selectedList.setHyperlink("//".concat(selectedList.getHyperlink()));
+					editDTO.setHyperlink("//".concat((selectedList.getHyperlink())));
+				}
+			else
+				{
+					editDTO.setHyperlink(selectedList.getHyperlink());
+				}
+
+		
 		Boolean updatedSeries = seriesInstanceUids.size() > 0 ? true: false ;
 		editDTO.setSeriesInstanceUIDs(seriesInstanceUids);
 		long update = processor.update(selectedList, updatedSeries);

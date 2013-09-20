@@ -519,6 +519,7 @@ $HeadURL$
       <property name="jar-signing.execution.time" value="${jar-signing.execution.time}"/>
       <!-- Need absolution location, relative path would fail in sub-project since file would not exist -->
       <property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}"/>
+      <property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
     </ant>
 
   </target>
@@ -606,6 +607,8 @@ $HeadURL$
       <property name="project.name" value="${project.name}"/>
       <property name="nbia.version" value="${nbia.version}"/>
       <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
+      <property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+      <property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" />
     </ant>
 
   </target>

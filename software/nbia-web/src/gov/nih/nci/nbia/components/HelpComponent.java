@@ -8,6 +8,8 @@
 
 package gov.nih.nci.nbia.components;
 
+import gov.nih.nci.nbia.util.NCIAConfig;
+
 import java.io.IOException;
 
 import javax.faces.component.UIComponentBase;
@@ -76,5 +78,5 @@ public class HelpComponent extends UIComponentBase {
     }
 
 
-    private String link = "https://wiki.nci.nih.gov/display/NBIA/";
+    private String link = NCIAConfig.getWikiURL();  //"https://wiki.nci.nih.gov/x/QwFXCQ#NBIA53HelpTopics";
 }

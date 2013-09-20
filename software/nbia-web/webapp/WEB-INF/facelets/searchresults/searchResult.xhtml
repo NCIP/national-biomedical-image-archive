@@ -42,7 +42,7 @@ L-->
     <td colspan="2">
       <h2>
         <h:outputText value="#{msg.search_criteriaLower} " />
-        <ncia:help label="images/help_icon.png" helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-WorkingwithSavedSearchQueries" />
+        <ncia:help label="images/help_icon.png" helpId="-worksavedsearchqueries" />
         <br/>
       </h2>
 
@@ -113,6 +113,7 @@ L-->
                            rendered="#{searchWorkflowBean.editingSavedQuery}">
                 <h4>
                   <h:outputText value="#{msg.search_saveQuery}" />
+                  <ncia:help label="images/help_icon.png" helpId="-editsavedqueries" />
                 </h4>
                 <h:panelGrid columns="2">
                   <h:selectOneRadio value="#{searchResultBean.updateQuery}"
@@ -147,7 +148,7 @@ L-->
       </f:subview>
       <h2>
         <h:outputText value="#{msg.search_results}" />
-        <ncia:help label="images/help_icon.png" helpId="3+-+Viewing+NBIA+Search+Results#id-3-ViewingNBIASearchResults-SearchResultsbySubject" />
+        <ncia:help label="images/help_icon.png" helpId="-searchresultsbysubject" />
       </h2>
       <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
         <tr>

@@ -58,7 +58,7 @@ public class Application {
 		return new Integer(NBIA_PROPERTIES.getProperty( "number_max_threads"));
 	}
 	public static String getOnlineHelpUrl(){
-		return codebase +NBIA_PROPERTIES.getProperty("online_help_url");
+		return NBIA_PROPERTIES.getProperty("online_help_url");
 	}
 
 	public static void setFileLocation(String f){

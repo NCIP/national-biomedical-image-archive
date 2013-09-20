@@ -213,6 +213,7 @@ L-->
 				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
 				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
 				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
+				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
 			</filterset>
 		</copy>
 		
@@ -601,6 +602,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="jar-signing.execution.time" value="${jar-signing.execution.time}" />
 			<!-- Need absolution location, relative path would fail in sub-project since file would not exist -->
 			<property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}" />
+			<property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
 		</ant>
 	</target>
 	<!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
@@ -822,6 +824,8 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="project.name" value="${project.name}" />
 			<property name="nbia.version" value="${nbia.version}" />
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
+			<property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+			<property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" />
 		</ant>
 	</target>
 	
@@ -899,7 +903,11 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
           <copy file="${common.resources.dir}/branding/${branding.left.submenu.quicklinks.path}"
                 tofile="${webapp.dir.path}/WEB-INF/facelets/layout/quickLinks.xhtml"
                 overwrite="true"/>
+                <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/quickLinks.xhtml"
+		  match="\{NBIA_WIKI_UG_URL}"
+  	        replace="${nbia.wiki.user.guide.url}" flags="g" />     
         </then>
+        
       </if>
 
       <if>

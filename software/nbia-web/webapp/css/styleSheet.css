@@ -76,6 +76,63 @@ p {
   padding-top: 0.4em
 }
 
+table.portal-footer {
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+tr.portal-footer{
+  text-align: center; 
+  background-color:#FFF; 
+  color: #333333; 
+  font-size: 79%;
+}
+
+a.portal-footer {
+  text-decoration: none; 
+  color: #333333; 
+  border: none;
+}
+
+a.portal-footer:visited {
+  color: #333333;
+}
+
+a.portal-footer:hover {
+  text-decoration: underline;
+}
+
+table.wrapper { 
+  width: 955px; 
+  margin-left: auto; 
+  margin-right: auto;
+  } 
+
+#portal-footer {
+  text-align: center; 
+  background-color:#FFF; 
+  color: #333333; 
+  font-size: 79%;
+}
+
+#portal-footer a {
+  text-decoration: none; 
+  color: #333333; 
+  border: none;
+}
+
+#portal-footer a:visited {
+  color: #333333;
+}
+
+#portal-footer a:hover {
+  text-decoration: underline;
+}
+
+.footerLinks {
+  padding: .5em 0em 0em 0em;
+}
+
 td.mainMenu {
   border-top: #cccccc 1px solid; 
   border-bottom: #cccccc 1px solid; 
@@ -178,17 +235,6 @@ td.subMenuSecondaryTitleOver {
 
 td.subMenuFill {
   border-right: #cccccc 1px solid
-}
-
-#APPftr {
-  text-align: center;
-  border-top: #cccccc 1px solid; 
-  border-bottom: #cccccc 1px solid;
-  color: #ffffff; 
-  background-color: #5c5c5c;
-  margin-left: auto; 
-  margin-right: auto;
-  font-family: arial,helvetica,verdana,sans-serif;
 }
 
 a.subMenuPrimary:link {
@@ -399,24 +445,6 @@ input.actionButton {
   background-color: #f4f4f5; 
   padding-left: 1.2em;
 }
-
-.dicomDataColumnOne   { 
-  text-align:center;
-  white-space:nowrap; 
-  padding:3px;
-} 
-
-.dicomDataColumnTwo   { 
-  text-align:center;
-  white-space:nowrap; 
-  padding:3px;
-} 
-
-.dicomDataColumnThree { 
-  text-align:center;
-  padding:3px;
-} 
-
 .dataCellText {
   border-top: #5c5c5c 1px solid; 
   border-left: #5c5c5c 1px solid; 

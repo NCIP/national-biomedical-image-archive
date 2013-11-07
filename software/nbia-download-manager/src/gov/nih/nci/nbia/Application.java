@@ -73,18 +73,18 @@ public class Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String userId = System.getProperty("userId");
-		String password = System.getProperty("password");
-		String codebase = System.getProperty("codebase");
+		String userId = System.getProperty("jnlp.userId");
+		String password = System.getProperty("jnlp.password");
+		String codebase = System.getProperty("jnlp.codebase");
 		Application.codebase = codebase;
-		String serverUrl = System.getProperty("downloadServerUrl");
-		boolean includeAnnotation = Boolean.valueOf((System.getProperty("includeAnnotation")));
-		Integer noOfRetry = NumberUtils.toInt(System.getProperty("noofretry"));
+		String serverUrl = System.getProperty("jnlp.downloadServerUrl");
+		boolean includeAnnotation = Boolean.valueOf((System.getProperty("jnlp.includeAnnotation")));
+		Integer noOfRetry = NumberUtils.toInt(System.getProperty("jnlp.noofretry"));
 //		serverUrl="http://localhost:45210/nbia-download/servlet/DownloadServlet";
 //		codebase="http://localhost:45210/ncia/";
 //		args = new String[] {"C:\\Users\\niktevv\\AppData\\Local\\Temp\\1\\jnlp-data1341931874374.txt"};
 //		userId= "niktev";
-//		password="M4JcFJZEGzg=";		
+//		password="M4JcFJZEGzg=";
 		//DEV
 //		serverUrl="http://ncias-d816-v.nci.nih.gov:29080/nbia-download/servlet/DownloadServlet";
 //		codebase ="https://imaging-dev.nci.nih.gov/ncia";
@@ -138,33 +138,33 @@ public class Application {
     		DownloadManagerFrame manager = new DownloadManagerFrame("nbia_guest", "",includeAnnotation, seriesData, serverUrl);
     		manager.setVisible(true);
 		}*/
-		
-	
+
+
 
 	}
 
     private  static List<String> connectAndReadFromURL(URL url, String fileName) {
         List<String>  data = null;
         HttpClient httpClient = null;
-        TrustStrategy easyStrategy = new TrustStrategy() { 
-            @Override 
-            public boolean isTrusted(X509Certificate[] certificate, String authType) 
-                    throws CertificateException { 
-                return true; 
-            } 
+        TrustStrategy easyStrategy = new TrustStrategy() {
+            @Override
+            public boolean isTrusted(X509Certificate[] certificate, String authType)
+                    throws CertificateException {
+                return true;
+            }
         };
         try {
-            //SSLContext sslContext = SSLContext.getInstance("SSL"); 
-            // set up a TrustManager that trusts everything 
-            //sslContext.init(null, new TrustManager[] { new EasyX509TrustManager(null)}, null); 
+            //SSLContext sslContext = SSLContext.getInstance("SSL");
+            // set up a TrustManager that trusts everything
+            //sslContext.init(null, new TrustManager[] { new EasyX509TrustManager(null)}, null);
 
             SSLSocketFactory sslsf = new SSLSocketFactory(easyStrategy,SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             Scheme httpsScheme = new Scheme("https", 443, sslsf);
             SchemeRegistry schemeRegistry = new SchemeRegistry();
             schemeRegistry.register(httpsScheme);
             schemeRegistry.register(new Scheme("http", 80,PlainSocketFactory.getSocketFactory()));
-            ClientConnectionManager ccm = new ThreadSafeClientConnManager(schemeRegistry); 
-            
+            ClientConnectionManager ccm = new ThreadSafeClientConnManager(schemeRegistry);
+
 	        HttpParams httpParams = new BasicHttpParams();
 	        HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
 	        HttpConnectionParams.setSoTimeout(httpParams,  new Integer(12000));

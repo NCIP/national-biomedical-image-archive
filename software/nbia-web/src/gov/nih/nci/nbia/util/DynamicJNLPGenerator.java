@@ -80,14 +80,14 @@ public class DynamicJNLPGenerator {
            argsBuilder.append("<argument>").append(dataFile.getAbsolutePath()).append("</argument>");
             //get user id and included annotation
             StringBuffer propXMLBuilder = new StringBuffer();
-            propXMLBuilder.append(this.getPropertyXML( "includeAnnotation", includeAnnotation.toString()));
-            propXMLBuilder.append(this.getPropertyXML( "userId", userId));
+            propXMLBuilder.append(this.getPropertyXML( "jnlp.includeAnnotation", includeAnnotation.toString()));
+            propXMLBuilder.append(this.getPropertyXML( "jnlp.userId", userId));
             //this should be over secure connection
             String encryptedPassword = this.encrypt(userId, password);
-            propXMLBuilder.append(this.getPropertyXML( "password", encryptedPassword));
-            propXMLBuilder.append(this.getPropertyXML("codebase", this.codebase));
-            propXMLBuilder.append(this.getPropertyXML("downloadServerUrl", downloadServerUrl));
-            propXMLBuilder.append(this.getPropertyXML("noofretry", noOfRetry));
+            propXMLBuilder.append(this.getPropertyXML( "jnlp.password", encryptedPassword));
+            propXMLBuilder.append(this.getPropertyXML("jnlp.codebase", this.codebase));
+            propXMLBuilder.append(this.getPropertyXML("jnlp.downloadServerUrl", downloadServerUrl));
+            propXMLBuilder.append(this.getPropertyXML("jnlp.noofretry", noOfRetry));
             this.replaceProperties(propXMLBuilder, jnlpBuilder);
             this.replaceArguments(argsBuilder.toString(), jnlpBuilder);
 

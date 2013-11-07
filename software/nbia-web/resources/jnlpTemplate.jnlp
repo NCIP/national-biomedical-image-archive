@@ -29,8 +29,8 @@
     etc. etc.
     -->
     
-    <property name="localSeriesDownloader.className" value="gov.nih.nci.nbia.download.LocalSeriesDownloader"/> 
-    <property name="remoteSeriesDownloader.className" value="gov.nih.nci.nbia.download.RemoteSeriesDownloader"/> 
+    <property name="jnlp.localSeriesDownloader.className" value="gov.nih.nci.nbia.download.LocalSeriesDownloader"/> 
+    <property name="jnlp.remoteSeriesDownloader.className" value="gov.nih.nci.nbia.download.RemoteSeriesDownloader"/> 
 
     $$properties
   </resources>

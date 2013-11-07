@@ -8567,6 +8567,19 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 			<for list="@{jar-signing.jar.list}" param="jar.file.name">
 				<sequential>
 					<echo message="Lookging for @{jar.file.name}"/>
+					<echo message="modifying manifest in ${jars.dir.working}/@{jar.file.name} first because of Java 7 changes"/>
+										
+					<jar file="${jars.dir.working}/@{jar.file.name}" update="true">
+					    <manifest>
+						<attribute name="Application-Name" value="NBIA Download Manager"/>
+						<attribute name="Codebase" value="${jar.manifest.secure.attribute.Codebase}"/>
+						<attribute name="Permissions" value="${jar.manifest.secure.attribute.Permissions}"/>
+						<attribute name="Application-Library-Allowable-Codebase" value="${jar.manifest.secure.attribute.Application-Library-Allowable-Codebase}"/>
+						<attribute name="Caller-Allowable-Codebase" value="${jar.manifest.secure.attribute.Caller-Allowable-Codebase}"/>
+						<attribute name="Trusted-Only" value="${jar.manifest.secure.attribute.Trusted-Only}"/>
+						<attribute name="Trusted-Library" value="${jar.manifest.secure.attribute.Trusted-Library}"/>
+					    </manifest>
+        				</jar>					
 					<signjar
 						destDir="${jars.dir.working}"
 						alias="@{jar-signing.keystore.alias}"

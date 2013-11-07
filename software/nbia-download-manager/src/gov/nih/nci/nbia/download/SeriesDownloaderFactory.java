@@ -14,10 +14,10 @@ public abstract class SeriesDownloaderFactory {
 	public static AbstractSeriesDownloader createSeriesDownloader(boolean local) {
 		String seriesDownloaderClassName = null;
 		if(local) {
-			seriesDownloaderClassName = System.getProperty("localSeriesDownloader.className");
+			seriesDownloaderClassName = System.getProperty("jnlp.localSeriesDownloader.className");
 		}
 		else {
-			seriesDownloaderClassName = System.getProperty("remoteSeriesDownloader.className");
+			seriesDownloaderClassName = System.getProperty("jnlp.remoteSeriesDownloader.className");
 		}
 
 		if(seriesDownloaderClassName==null) {
@@ -33,6 +33,6 @@ public abstract class SeriesDownloaderFactory {
 			catch(Exception ex) {
 				throw new RuntimeException(ex);
 			}
-		}			
+		}
 	}
 }

@@ -12,7 +12,7 @@ L-->
 
   <!-- Generic properties -->
   <property name="application_installer" value="nbia_installer" />
-  <property name="application_installer_zip" value="nbia_install_5.2.0.zip" />
+  <property name="application_installer_zip" value="nbia_install_5.2.1.zip" />
 
   <!-- TARGETS -->
   <target name="install" >

@@ -8568,7 +8568,8 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 				<sequential>
 					<echo message="Lookging for @{jar.file.name}"/>
 					<echo message="modifying manifest in ${jars.dir.working}/@{jar.file.name} first because of Java 7 changes"/>
-										
+					<!-- unsign jar and update the manifest file-->
+					<unsignjar jar="${jars.dir.working}/@{jar.file.name}"/>						
 					<jar file="${jars.dir.working}/@{jar.file.name}" update="true">
 					    <manifest>
 						<attribute name="Application-Name" value="NBIA Download Manager"/>

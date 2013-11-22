@@ -38,6 +38,7 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
     private String dataProvenanceSiteName;
     private String manufacturerModelName;
     private String softwareVersion;
+    private String maxFrameCount;
 
     public Integer getNumberImages() {
         return numberImages;
@@ -227,6 +228,14 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
 
 	public void setSoftwareVersion(String softwareVersion) {
 		this.softwareVersion = softwareVersion;
+	}
+
+	public String getMaxFrameCount() {
+		return maxFrameCount;
+	}
+
+	public void setMaxFrameCount(String maxFrameCount) {
+		this.maxFrameCount = maxFrameCount;
 	}
 	
 }

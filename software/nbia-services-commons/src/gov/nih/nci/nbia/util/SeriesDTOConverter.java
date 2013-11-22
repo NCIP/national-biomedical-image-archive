@@ -39,7 +39,7 @@ public class SeriesDTOConverter {
     		result.setTotalSizeForAllImagesInSeries(dto.getTotalSizeForAllImagesInSeries());
 
     		result.associateLocation(LocalNode.getLocalNode());
-
+    		result.setMaxFrameCount(dto.getMaxFrameCount());
     		results.add(result);
     	}
     	return results;

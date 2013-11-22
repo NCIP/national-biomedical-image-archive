@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+<h:form id="textSearchForm">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+  <tbody>
+    <tr>
+    
+      <td align="right" width="50%">
+	<h:inputText id="inputValue" tabindex="40"  size="55"/>
+      </td>
+      <td align="left">
+	<h:commandButton id="submitTextSearchButton" action="#{searchWorkflowBean.submitSearch}" image="images/submit.gif" onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>
+    </td>
+    </tr>
+     <tr>
+            <td>
+              <div id="notification" style="display: none;">
+                <img src="images/ajax_indicator.gif" 
+                     width="16"
+                     height="16" 
+                     alt=""/>
+                <f:verbatim>&amp;nbsp;</f:verbatim>
+                Searching...
+              </div>
+            </td>
+      </tr>
+  </tbody>               
+  
+</table>
+</h:form>
+</ui:composition>

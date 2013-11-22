@@ -94,6 +94,7 @@ public class StudyDAOImpl extends AbstractDAO
             seriesDTO.setTotalSizeForAllImagesInSeries((Long)row[12]);
             seriesDTO.setPatientId((String)row[13]);
             seriesDTO.setProject((String)row[14]);
+            seriesDTO.setMaxFrameCount((String)row[16]);
             // Try to get the study if it already exists
             StudyDTO studyDTO = studyList.get(seriesDTO.getStudyPkId());
 
@@ -133,7 +134,7 @@ public class StudyDAOImpl extends AbstractDAO
     }
     
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////
-    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize ";
+    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount ";
     private static final String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join series.generalEquipment ge ";
     private static final String SQL_QUERY_WHERE = "WHERE series.visibility = '1' ";
     

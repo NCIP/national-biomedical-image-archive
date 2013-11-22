@@ -21,7 +21,7 @@ L-->
 
 <h:form id="imageForm">
 
-<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="600">
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="80%" align="center">
   <tr>
     <td>
       <h:panelGroup>
@@ -29,27 +29,16 @@ L-->
                          action="#{searchWorkflowBean.backToSearch}" 
                          disabled="#{ispyBean.isQueryFromUrl}"/>
         <h:graphicImage url="images/breadcrumb_arrows.gif" />
-        <h:commandButton image="images/subject_grey.gif" action="submitSearch" />
-        <h:graphicImage url="images/breadcrumb_arrows.gif" />
         <h:commandButton image="images/study_grey.gif" action="displayStudy" />
         <h:graphicImage url="images/breadcrumb_arrows.gif" />
         <h:commandButton image="images/series_red.gif" action="viewImages" />
       </h:panelGroup>
     </td>
-    <td valign="top">
-      <ncia:help label="images/help_icon.png" helpId="-searchresultsimagesforseries" />      
-    </td>       
-  </tr>
-  <tr>
-    <td>
-      <br/>
-      <br/>
-    </td>
   </tr>
   <tr>
     <td colspan="2" align="center">
       <h2>
-        <h:outputText value="#{msg.search_imagesSeries} #{seriesSearchResultBean.series.seriesInstanceUid}" />
+        <h:outputText value="#{msg.search_imagesSeries} #{seriesSearchResultBean.series.seriesInstanceUid}" /><ncia:help label="images/help_icon.png" helpId="-searchresultsimagesforseries" />      
       </h2>
       <table width="100%" border="0" cellpadding="2" cellspacing="0">
         <tbody>
@@ -97,6 +86,11 @@ L-->
                       </div>
                     </th>
                   </f:subview>
+                  <th class="formTitleII" scope="col">
+		     <div align="left">
+		         <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;"/>   
+		     </div>
+                  </th>
                 </tr>
                 <tr>
                   <td class="formLabel">
@@ -122,152 +116,33 @@ L-->
                                        onmouseover="return overlib('View DICOM header for the first image in the series');" 
                                        onmouseout="return nd();"/>
                     </td>
+                    <td class="formField">
+                      <div align="left">
+		    	<ice:commandButton  id="addSeriesToBasketButton" image="images/add-icon.png" 
+		    		  	rendered="#{empty basketBean.inBasketMap[seriesSearchResultBean.basketKey]}"
+		    		  	actionListener="#{seriesSearchResultBean.addCurrentSeriesToBasket}" title="Add To Basket"/>
+		    	<h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />   
+		    		  	
+		    	<ice:commandButton  id="removeSeriesBasketButton" image="images/remove_icon.png" 
+		    		  	rendered="#{basketBean.inBasketMap[seriesSearchResultBean.basketKey]}"
+		    		  	actionListener="#{seriesSearchResultBean.removeCurrentSeriesToBasket}" title="Remove From Basket"/>
+		    		  	                                        
+		  </div>
+                    </td>
                   </f:subview>
                 </tr>
               </table>
-  
-              <br/>
             </td>
           </tr>
           <tr>
-            <td style="text-align: center">
-              <ui:include src="../slideshowLink.xhtml">
-                <ui:param name="rendered" 
-                          value="#{seriesSearchResultBean.imagesInSeriesCount gt 1}"/>
-                <ui:param name="slideshowTemplate"
-                          value="slideShowViewSeries.xhtml"/>                           
-              </ui:include>   
-            </td>
-          </tr>                   
-          <tr valign="bottom">
-            <td width="80%">
-              <div align="right" class="formMessage">
-                <div align="left">
-                  <table width="70%" border="0" cellspacing="0" cellpadding="5">
-                    <tr>
-                      <td>
-                      </td>
-                      <td>
-                        <div align="right">
-                          <h:commandButton id="addSeriesToBasketButton" image="images/add2basket.gif" 
-                                           action="#{seriesSearchResultBean.addCurrentSeriesToBasket}" />
-                          <h:commandButton action="dataBasket" 
-                                           image="images/VIEWBASKET.gif" />   
-                          <br/>
-                           <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />                                           
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <table width="70%" align="left" cellpadding="0" cellspacing="0" border="1">
+            <td colspan="2">
+              <table width="100%" align="left" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td colspan="6" class="dataTablePrimaryLabel" height="20">
-                    <h:outputText value="#{msg.search_imagesSeries} #{seriesSearchResultBean.series.seriesNumber}  #{seriesSearchResultBean.series.description}" />
+                  <td colspan="6" class="formLabel">
+                   <ui:include src="viewSeriesThumbnails.xhtml"/>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    <ice:dataTable id="imageTable" 
-                                   value="#{seriesSearchResultBean.rowDataModel}" 
-                                   var="image" 
-                                   cellpadding="0" 
-                                   cellspacing="0" 
-                                   width="100%" 
-                                   styleClass="dataTable"
-                                   border="1" 
-                                   rows="4"> 
-                      <ice:columns id="imageTableOneColumn" 
-                                   value="#{seriesSearchResultBean.columnDataModel}">
-			<ice:panelGroup>
-                          <div style="text-align:center"
-                               class="#{empty basketBean.inBasketMap[seriesSearchResultBean.cellValue.basketKey] ? '' : 'highlightedData'}">
-                            <ice:outputText value="#{seriesSearchResultBean.imageLabel}" 
-                                            rendered="#{seriesSearchResultBean.cellVisibility}"/>
-                            <br/>                              
-                            <ice:graphicImage id="image"
-                                              url="#{seriesSearchResultBean.cellValue.image.thumbnailURL}"
-                                              style="border:none;"
-                                              width="100"
-                                              height="100"/> 
-                             <br/><br/>                 
-                                              <ui:include src="../usSlideshowLink.xhtml">
-                <ui:param name="rendered" 
-                          value="#{seriesSearchResultBean.frameNum gt 1}"/>
-                <ui:param name="slideshowTemplate"
-                          value="multiFrameSlideShow.jsf"/>
-                <ui:param name="imageLabel"
-                          value="#{seriesSearchResultBean.imageLabel}"/>                                     
-              </ui:include> 
-   
-                          </div>
-                        </ice:panelGroup>    
-                      </ice:columns>
-                    </ice:dataTable>
-                    <ice:panelGroup style="text-align:center" >
-                      <!--  max = count / results per page -->
-                      <center>
-                        <ice:dataPaginator id="dataScroll_1"
-                                           for="imageTable"
-                                           fastStep="2"
-                                           paginator="true"
-                                           paginatorMaxPages="4"
-                                           rendered="#{seriesSearchResultBean.showPaginator}"
-                                           pageCountVar="pageCount"
-                                           pageIndexVar="pageIndex">
-                          <f:facet name="first">
-                            <ice:graphicImage id="firstpage_1"
-                                              url="/xmlhttp/css/rime/css-images/arrow-first.gif"
-                                              style="border:none;"/>
-                          </f:facet>
-                          <f:facet name="last">
-                            <ice:graphicImage id="lastpage_1"
-                                              url="/xmlhttp/css/rime/css-images/arrow-last.gif"
-                                              style="border:none;"/>
-                          </f:facet>
-                          <f:facet name="previous">
-                            <ice:graphicImage id="previouspage_1"
-                                              url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
-                                              style="border:none;"/>
-                          </f:facet>
-                          <f:facet name="next">
-                            <ice:graphicImage id="nextpage_1"
-                                              url="/xmlhttp/css/rime/css-images/arrow-next.gif"
-                                              style="border:none;"/>
-                          </f:facet>
-                          <f:facet name="fastforward">
-                            <ice:graphicImage id="fastforward_1"
-                                              url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
-                                              style="border:none;"/>
-                          </f:facet>
-                          <f:facet name="fastrewind">
-                            <ice:graphicImage id="fastrewind_1"
-                                              url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
-                                              style="border:none;"/>
-                          </f:facet>
-                        </ice:dataPaginator>
-                        <ice:dataPaginator id="dataScroll_2"
-                                           for="imageTable"
-                                           rendered="#{seriesSearchResultBean.showPaginator}"
-                                           pageCountVar="pageCount"
-                                           pageIndexVar="pageIndex">
-                          <ice:outputFormat styleClass="standard"
-                                            value="{0} images found, displaying Page {1} / {2}.">
-                            <f:param value="#{seriesSearchResultBean.totalImageCount}"/>
-                            <f:param value="#{pageIndex}"/>
-                            <f:param value="#{pageCount}"/>
-                          </ice:outputFormat>
-                        </ice:dataPaginator>
-                      </center>
-                    </ice:panelGroup>
-                  </td>
-                </tr>
-              </table>
+                </table>
             </td>
           </tr>
         </tbody>
@@ -284,7 +159,7 @@ L-->
        border="0"
        class="contentPage"
        style="margin-top: 20px" 
-       width="600">
+       width="80%" align="center">
         
   <tr>
     <td>
@@ -294,11 +169,6 @@ L-->
                            image="images/search_grey.gif" 
                            action="#{searchWorkflowBean.backToSearch}" />
           <h:graphicImage id="bCrumbArrow1" 
-                          url="images/breadcrumb_arrows.gif" />
-          <h:commandButton id="bCrumbSubject" 
-                           image="images/subject_grey.gif" 
-                           action="submitSearch" />
-          <h:graphicImage id="bCrumbArrow2" 
                           url="images/breadcrumb_arrows.gif" />
           <h:commandButton id="bCrumbStudy" 
                            image="images/study_grey.gif" 

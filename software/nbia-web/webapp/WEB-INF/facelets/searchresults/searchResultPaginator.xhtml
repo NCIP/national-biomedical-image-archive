@@ -18,6 +18,18 @@ L-->
                                
   <ice:panelGroup style="text-align: center" >
     <!--  since multiple tables on this page, have to carefully discriminate for value -->
+     <ice:dataPaginator 
+                           for="patientResultsTable"
+                           rowsCountVar="rowsCount"
+                           pageCountVar="pageCount"
+                           pageIndexVar="pageIndex">
+          <ice:outputFormat styleClass="standard"
+                            value="{0} patients found, displaying Page {1} / {2}.">
+            <f:param value="#{rowsCount}"/>
+            <f:param value="#{pageIndex}"/>
+            <f:param value="#{pageCount}"/>
+          </ice:outputFormat>
+    </ice:dataPaginator>
     <ice:dataPaginator 
                        for="patientResultsTable"
                        fastStep="2"
@@ -45,7 +57,7 @@ L-->
                           url="/xmlhttp/css/rime/css-images/arrow-next.gif"
                           style="border:none;"/>
       </f:facet>
-      <f:facet name="fastforward">
+      <!--f:facet name="fastforward">
         <ice:graphicImage 
                           url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
                           style="border:none;"/>
@@ -54,19 +66,8 @@ L-->
         <ice:graphicImage 
                           url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
                           style="border:none;"/>
-      </f:facet>
+      </f:facet-->
     </ice:dataPaginator>
-    <ice:dataPaginator 
-                       for="patientResultsTable"
-                       rowsCountVar="rowsCount"
-                       pageCountVar="pageCount"
-                       pageIndexVar="pageIndex">
-      <ice:outputFormat styleClass="standard"
-                        value="{0} patients found, displaying Page {1} / {2}.">
-        <f:param value="#{rowsCount}"/>
-        <f:param value="#{pageIndex}"/>
-        <f:param value="#{pageCount}"/>
-      </ice:outputFormat>
-    </ice:dataPaginator>
+   
   </ice:panelGroup>  
 </ui:composition>

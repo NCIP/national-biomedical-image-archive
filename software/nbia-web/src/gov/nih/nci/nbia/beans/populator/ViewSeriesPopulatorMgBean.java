@@ -11,6 +11,8 @@ package gov.nih.nci.nbia.beans.populator;
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
+import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
@@ -103,5 +105,16 @@ public class ViewSeriesPopulatorMgBean {
 	private String location;
 	private String url;
 
+	/**
+	 * This method is only on the local drill down.  It's used by the
+	 * view thumbnails.
+	 */
+	public void populateImages() throws Exception {
+		LocalDrillDown localDrillDown = new LocalDrillDown();
+		SeriesSearchResult theSeries = localDrillDown.retrieveSeries(Integer.parseInt(seriesId));
+		SeriesSearchResultBean bean = BeanManager.getSeriesSearchResultBean();
+		bean.populate(null);
+		bean.viewSeries(theSeries);
+	}
 }
 

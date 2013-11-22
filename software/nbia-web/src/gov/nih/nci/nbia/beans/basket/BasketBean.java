@@ -152,13 +152,23 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
      *
      */
     public void removeSelectedSeries() {
-        basket.removeSelectedSeries();
-
+        //basket.removeSelectedSeries();
+        basket.removeSelectedSeries(toDelete);
         ftpDownload = (getDownloadType().equals(FTP_DOWNLOAD) ? true:false);
         logger.debug("ftpDownload="+ftpDownload);
     }
 
-
+    private String toDelete;
+    public String getToDelete() {
+		return toDelete;
+	}
+    
+    public void removeAllSeries() {
+    	basket.removeAllSeries();
+    }
+	public void setToDelete(String toDelete) {
+		this.toDelete = toDelete;
+	}
     /**
      * Returns the total number of series in the basket.
      */

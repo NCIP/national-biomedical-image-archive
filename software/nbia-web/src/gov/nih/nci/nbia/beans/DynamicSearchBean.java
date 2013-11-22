@@ -10,6 +10,7 @@ package gov.nih.nci.nbia.beans;
 
 import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
+import gov.nih.nci.nbia.dto.CollectionDescDTO;
 import gov.nih.nci.nbia.dynamicsearch.DataFieldParser;
 import gov.nih.nci.nbia.dynamicsearch.DataFieldTypeMap;
 import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
@@ -41,8 +42,11 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
+import org.apache.tools.ant.taskdefs.Sleep;
 
 public class DynamicSearchBean {
 
@@ -60,7 +64,7 @@ public class DynamicSearchBean {
 	protected int[] stringOperandValues={6,7,8,9};
 	protected int[] otherOperandValues={0,1,2,3,4,5};
 	protected String[] stringOperands={"starts with","ends with","contains","equals"};
-	protected int[] resultPerPage = {10,25,50,100};
+	protected int[] resultPerPage = {20,40,60,100};
 	protected List<SourceItem> preLoadFieldItems;
 	protected String selectedDataGroup;
 	protected List<SelectItem> dataGroupItems;
@@ -71,11 +75,13 @@ public class DynamicSearchBean {
 	protected String inputValue;
 	protected String newValue;
 	protected List<DynamicSearchCriteria> criteria = new ArrayList<DynamicSearchCriteria>();
+	protected List<DynamicSearchCriteriaBean> criteriaBean = new ArrayList<DynamicSearchCriteriaBean>();
+	
 	protected boolean showCriteria = false;
 	protected boolean hasDuplicate = false;
 	protected UIData table;
 	protected String relation = "AND";
-	protected String selectedResultPerPage="10";
+	protected String selectedResultPerPage="20";
 	protected boolean hasPermissibleData = false;
 	protected boolean isMr=false;
 	protected boolean isCT=false;
@@ -426,6 +432,13 @@ public class DynamicSearchBean {
 		if (!isDuplicate(dsc)) {
 			criteria.add(dsc);
 			hasDuplicate = false;
+			// for new UI
+			DynamicSearchCriteriaBean criteriaBeanTemp = new DynamicSearchCriteriaBean();
+			criteriaBeanTemp.setCriteria(dsc);
+			if(hasPermissibleData) {
+				criteriaBeanTemp.setPermissibleData(permissibleData);
+			}
+			criteriaBean.add(criteriaBeanTemp);
 			defaultView();
 		}else{
 			hasDuplicate = true;
@@ -511,6 +524,7 @@ public class DynamicSearchBean {
 	        	isCT = false;
 	        }
 	        criteria.remove(tmpBean);
+	        
 	      }
 	    }
 	    if (criteria.size() == 0)
@@ -519,8 +533,9 @@ public class DynamicSearchBean {
 	    }
 	    hasDuplicate = false;
 	    defaultView();
+	    
 	}
-
+	
 
 	public String getRelation() {
 		return relation;
@@ -764,5 +779,210 @@ public class DynamicSearchBean {
 	protected boolean invalidDate = false;
 	protected boolean invalidInteger = false;
 	protected boolean invalidDouble = false;
+
+	public void permissibleDataChangeListener(ValueChangeEvent event) {
+		if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    		event.queue();
+            return;
+        }
+		String someNewValue = (String)event.getNewValue();
+		if(someNewValue.equals(defaultSelectValue)){
+			//no change req.
+		} else {
+			this.permissibleDataValue = someNewValue;
+			try {
+				addCriteria();
+				submitSearch();
+				defaultView();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public void criteriaPermissibleDataChangeListener(ValueChangeEvent event) {
+		if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    		event.queue();
+            return;
+        }
+		String someNewValue = (String)event.getNewValue();
+		if(someNewValue.equals(defaultSelectValue)){
+			//no change req.
+		} else {
+			//edit crieria
+			try {
+				editCriteria(event);
+				criteria.clear();
+				for (DynamicSearchCriteriaBean tmp:criteriaBean) {
+					criteria.add(tmp.getCriteria());
+				}
+				hasDuplicate = false;
+				submitSearch();
+				defaultView();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	private void editCriteria(ValueChangeEvent event) {
+		UIComponent tmpComponent = event.getComponent();
+
+	    while (null != tmpComponent && !(tmpComponent instanceof UIData)) {
+	      tmpComponent = tmpComponent.getParent();
+	    }
+
+	    if (tmpComponent != null && (tmpComponent instanceof UIData)) {
+	      Object tmpRowData = ((UIData) tmpComponent).getRowData();
+	        if (tmpRowData instanceof DynamicSearchCriteriaBean) {
+	        	DynamicSearchCriteriaBean tmpCBean = (DynamicSearchCriteriaBean) tmpRowData;
+	        	if(event.getOldValue().equals(tmpCBean.getCriteria().getValue())) {
+	        		criteriaBean.remove(tmpCBean);
+	        		tmpCBean.getCriteria().setValue(event.getNewValue().toString());
+	        		if (tmpCBean.getCriteria().getField().equalsIgnoreCase("modality") && tmpCBean.getCriteria().getValue().equals("MR") ) {
+	  	 	        	//set is MR false;
+	  	 	        	isMr = false;
+	  	 	        }
+	  	 	        if (tmpCBean.getCriteria().getField().equalsIgnoreCase("modality") && tmpCBean.getCriteria().getValue().equals("CT") ) {
+	  	 	        	//set is CT false;
+	  	 	        	isCT = false;
+	  	 	        }
+	        		criteriaBean.add(tmpCBean);
+	        	}
+	        }
+	      }
+		
+	}
+
+	public void relationChangeListener(ValueChangeEvent event) {
+		String releationNewValue = (String)event.getNewValue();
+		System.out.println("some new value" + releationNewValue);
+		this.relation = releationNewValue;
+		try {
+			submitSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void resultPerPageOptionChangeListener(ValueChangeEvent event) {
+		if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+	   		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+	   		event.queue();
+	        return;
+	    }
+		String resultPerPageOptionNewValue = (String)event.getNewValue();
+		System.out.println("resultPerPageOption new value" + resultPerPageOptionNewValue);
+		this.selectedResultPerPage = resultPerPageOptionNewValue;
+		try {
+			submitSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public List<DynamicSearchCriteriaBean> getCriteriaBean() {
+		return criteriaBean;
+	}
+
+	public void setCriteriaBean(List<DynamicSearchCriteriaBean> criteriaBean) {
+		this.criteriaBean = criteriaBean;
+	}
+	
+	public void removeCriteriaItem (ActionEvent event)	{
+	    UIComponent tmpComponent = event.getComponent();
+
+	    while (null != tmpComponent && !(tmpComponent instanceof UIData)) {
+	      tmpComponent = tmpComponent.getParent();
+	    }
+	    if (tmpComponent != null && (tmpComponent instanceof UIData)) {
+	      Object tmpRowData = ((UIData) tmpComponent).getRowData();
+	      if (tmpRowData instanceof DynamicSearchCriteriaBean) {
+	        	DynamicSearchCriteriaBean tmpCBean = (DynamicSearchCriteriaBean) tmpRowData;
+	 	        if (tmpCBean.getCriteria().getField().equalsIgnoreCase("modality") && tmpCBean.getCriteria().getValue().equals("MR") ) {
+	 	        	//set is MR false;
+	 	        	isMr = false;
+	 	        }
+	 	        if (tmpCBean.getCriteria().getField().equalsIgnoreCase("modality") && tmpCBean.getCriteria().getValue().equals("CT") ) {
+	 	        	//set is CT false;
+	 	        	isCT = false;
+	 	        }
+		        criteriaBean.remove(tmpCBean);
+		     
+	      }
+	    }
+	    if (criteriaBean.size() == 0) {
+	    	showCriteria = false;
+	    }
+	    hasDuplicate = false;
+	    try{
+	    	criteria.clear();
+			for (DynamicSearchCriteriaBean tmp:criteriaBean) {
+				criteria.add(tmp.getCriteria());
+			}	
+			submitSearch();
+			defaultView();
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	}
+	public void addTextCriteria() {
+		try {
+		addCriteria();
+		submitSearch();
+		defaultView();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	private boolean editTextPopupRendered = false;
+	
+	public void editTextCriteria(ActionEvent event){
+		DynamicSearchCriteriaBean selectItem = (DynamicSearchCriteriaBean) event.getComponent().getAttributes().get("textCiteria");
+    	System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+ selectItem.getCriteria().getValue());
+    	inputValue= selectItem.getCriteria().getValue();
+    	selectedDataGroup=selectItem.getCriteria().getDataGroup();
+    	selectedField = selectItem.getCriteria().getField();
+    	newValue = selectItem.getCriteria().getLabel();
+    	selectedOperand = selectItem.getCriteria().getOperator().getValue();
+    	criteriaBean.remove(selectItem);
+		editTextPopupRendered= true;
+		
+    }
+	
+	public void submitEditCriteria(ActionEvent event){
+		for(int i=0; i< stringOperands.length; i++){
+    		if(selectedOperand.equalsIgnoreCase(stringOperands[i])) {
+    			selectedOperand = String.valueOf(stringOperandValues[i]);
+    		}
+		}
+		try {
+			newValue= selectedDataGroup;
+			addCriteria();
+			criteria.clear();
+			for (DynamicSearchCriteriaBean tmp:criteriaBean) {
+				criteria.add(tmp.getCriteria());
+			}
+			hasDuplicate = false;
+			submitSearch();
+			defaultView();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		toggleEditTextPopupRendered();
+		defaultView();
+	}
+
+	public String toggleEditTextPopupRendered() {
+		editTextPopupRendered = false;
+		return null;
+	}
+
+	public boolean getEditTextPopupRendered() {
+		return this.editTextPopupRendered;
+	}
 }
 

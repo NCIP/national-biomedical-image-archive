@@ -113,8 +113,21 @@ function doDicomPopup() {
 	popup.focus();
 }
 
+function doDicomTagPopup(seriesId) {
+	var popup = window.open('/ncia/showDicom.jsf?seriesId='+seriesId, 
+			    "dicom_window",
+			    "height=800,width=700,scrollbars=yes,resizable=yes");
+	popup.focus();
+}
 function doViewSeriesPopup(seriesId,location,url) {
 	var popup = window.open('/ncia/viewSeriesPopup.jsf?seriesId='+seriesId+'&location='+location +'&url='+url, 
+                            "view_series", 
+                            "height=800,width=600,scrollbars=yes,resizable=yes");
+    popup.focus();
+}
+
+function doViewThumbnailPopup(seriesId) {
+	var popup = window.open('/ncia/viewThumbnailsPopup.jsf?seriesId='+seriesId, 
                             "view_series", 
                             "height=800,width=600,scrollbars=yes,resizable=yes");
     popup.focus();

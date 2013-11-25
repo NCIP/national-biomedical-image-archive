@@ -14,12 +14,11 @@ L-->
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
         xmlns:ncia="http://imaging.nci.nih.gov/ncia">
 <ice:panelGroup style="text-align:center">
-<table width="100%">
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
 <tr>
-<td>
- <h:outputText value="#{msg.common_series} "/>
- <h:outputText value="#{msg.search_description}" />
- <h:outputText value="#{seriesSearchResultBean.series.description}" />
+<td class="formTitle">
+ <h:outputText value=" Series Description : #{seriesSearchResultBean.series.description}" 
+ style="font-family: arial,helvetica,verdana,sans-serif;font-weight: bold;padding-left: 0.25em;background-color: #6E81A6;color: #FFFFFF;border-right: #5c5c5c 1px solid;border-bottom: #5c5c5c 1px solid;" />
 </td>
 </tr>
 <tr>
@@ -36,6 +35,7 @@ L-->
 					<ice:outputText value="#{seriesSearchResultBean.imageLabel}"
 						rendered="#{seriesSearchResultBean.cellVisibility}" />
 					<br />
+					 <ice:panelGroup rendered="#{not empty seriesSearchResultBean.cellValue.image.thumbnailURL}">
 					<ice:graphicImage id="image"
 						url="#{seriesSearchResultBean.cellValue.image.thumbnailURL}"
 						style="border:none;" width="100" height="100" />
@@ -48,7 +48,7 @@ L-->
 						<ui:param name="imageLabel"
 							value="#{seriesSearchResultBean.imageLabel}" />
 					</ui:include>
-
+					</ice:panelGroup> 
 				</div>
 			</ice:panelGroup>
 		</ice:columns>

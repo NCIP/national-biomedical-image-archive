@@ -109,6 +109,27 @@ L-->
 				<h:form id="searchForm">
 					<table  class="contentPage" cellspacing="0" cellpadding="0" width="100%" summary="" border="0" valign="top">
 						<tr>
+			              <td width="20%" align="center">
+			               <div id="resultsPerPageDiv" style="height: 40px;">
+			                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
+			                
+			                 <span class="formFieldWhite">                        
+			                  <ice:selectOneMenu id="resultsPerPage" 
+			                                   value="#{searchWorkflowBean.resultPerPageOption}"
+			                                   style="margin-left: 15px"
+			                                   immediate="true"
+			                                   partialSubmit="true"
+			                                   valueChangeListener="#{searchWorkflowBean.resultPerPageOptionChangeListener}">
+			                    <f:selectItem itemValue="20" itemLabel="20" />
+			                    <f:selectItem itemValue="40" itemLabel="40"/>
+			                    <f:selectItem itemValue="60" itemLabel="60" />
+			                    <f:selectItem itemValue="100" itemLabel="100" />
+			                  </ice:selectOneMenu>
+			                </span>
+			                </div>
+			              </td>
+			            </tr>							
+						<tr>
 							<td><f:subview id="collectionSearchCriteriaRow"
 									rendered="#{searchLookupBean.showCollectionSearch}">
 									<ui:include src="collectionSearchCriteria.xhtml" />
@@ -256,27 +277,6 @@ L-->
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		</td>
 		</tr>
-		<tr>
-              <td width="20%" align="center">
-               <div id="resultsPerPageDiv" style="height: 40px;">
-                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
-                
-                 <span class="formFieldWhite">                        
-                  <ice:selectOneMenu id="resultsPerPage" 
-                                   value="#{searchWorkflowBean.resultPerPageOption}"
-                                   style="margin-left: 15px"
-                                   immediate="true"
-                                   partialSubmit="true"
-                                   valueChangeListener="#{searchWorkflowBean.resultPerPageOptionChangeListener}">
-                    <f:selectItem itemValue="20" itemLabel="20" />
-                    <f:selectItem itemValue="40" itemLabel="40"/>
-                    <f:selectItem itemValue="60" itemLabel="60" />
-                    <f:selectItem itemValue="100" itemLabel="100" />
-                  </ice:selectOneMenu>
-                </span>
-                </div>
-              </td>
-            </tr>					
             </table>
 					</h:form>
 					</td>

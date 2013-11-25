@@ -8,10 +8,8 @@
 
 package gov.nih.nci.nbia.beans.searchresults;
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
-import gov.nih.nci.nbia.customserieslist.FileGenerator;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.PatientSearchResults;
@@ -29,12 +27,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
-
-import com.icesoft.faces.context.ByteArrayResource;
-import com.icesoft.faces.context.Resource;
 
 /**
  * This is managed bean allocated per NBIA node results to show.  For example

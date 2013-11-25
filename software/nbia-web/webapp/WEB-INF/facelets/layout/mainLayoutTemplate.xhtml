@@ -65,8 +65,8 @@ L-->
   <f:loadBundle basename="ncia_messages" var="msg"/>
   
   <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1001;"></div>
-  <span id="dbType" style="display:none;">DB.TYPE</span>
-  <table summary="" cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
+  <span id="dbType" style="display:none;">mysql</span>
+  <table summary="" cellpadding="0" cellspacing="0" border="0" width="100%" height="100%" align="center">
    <tr>
       <td>  
         <f:subview id="NCIheader">
@@ -81,66 +81,62 @@ L-->
       <td height="100%" valign="top" >
         <table summary="" cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
           <tr>
-            <td colspan="2">
-              <f:subview id="APPheader">      
-                <ui:insert name="appHdr">
-                  <ui:include src="appHeader.xhtml"/>
-                </ui:insert>
-              </f:subview>
-            </td>            
-          </tr>
+          <td>
+          <table summary="" cellpadding="0" cellspacing="0" border="1" width="80%" height="100%" align="center">
           <tr>
-            <td width="130" height="100%" valign="top" class="subMenu" rowspan="2">
+            <!--td width="10%" height="100%" valign="top" rowspan="2" align="left">
               <f:subview id="SUBmenu">
                 <ui:insert name="subMenu">
                   <ui:include src="subMenu.xhtml"/>
                 </ui:insert>
               </f:subview>                                    
-            </td>
-            <td valign="top" width="100%">
-              <table summary="" cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
-                <tr>
-                
-                  <td height="10" width="100%" class="mainMenu" valign="top">              
-                    <ui:insert name="mainMenu">
-                      <h:form id="mainMenuForm" style="display:inline">
-                        <ui:include src="mainMenu.xhtml"/>
-                      </h:form>  
-                    </ui:insert>
-                  </td>   
-                </tr>  
-                <tr>
-                  <td width="100%" valign="top">
+            </td-->
+            <td valign="top" width="100%" bgcolor="#F8F8F8">
+            	<table summary="" cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
+                 <tr>
+	                <td align="left">
+	                  <f:subview id="APPheader">      
+	                    <ui:insert name="appHdr">
+	                      <ui:include src="appHeader.xhtml"/>
+	                    </ui:insert>
+	                  </f:subview>
+	                </td>
+          	</tr>
+          	<tr>
+          	<td valign="top">
                     <!-- target of anchor to skip menus -->
                     <a name="content" />
                     <f:subview id="MAINbody">
                       <ui:insert name="body">Default Body</ui:insert>
                     </f:subview>                   
                   </td>
-                </tr> 
-              </table>                                       
-            </td>
+               </tr>
+               </table>
+               </td>
+               
+             </tr>
+           </table>
+        </td>
           </tr>
         </table>
       </td>
     </tr>
+    <tr> <td>
+    <div id="APPftr"> 
+        <ui:insert name="appFooter">
+          <ui:include src="appFooter.xhtml"/>
+        </ui:insert>      
+      </div>
+    </td></tr>
+    <tr> <td>
+      <div id="NCIfooter">
+        <ui:insert name="footer">
+          <ui:include src="footer.xhtml"/>
+        </ui:insert>
+      </div>
+	</td></tr>
   </table>
-  <div id="APPftr"> 
-    <ui:insert name="appFooter">
-      <ui:include src="appFooter.xhtml"/>
-    </ui:insert>      
-  </div>
-
-  <div id="NCIfooter">
-    <ui:insert name="footer">
-      <ui:include src="footer.xhtml"/>
-    </ui:insert>
-  </div>
-
+  
 </body>
 
 </html>
-
-
-
-

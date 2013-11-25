@@ -14,10 +14,13 @@ L-->
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-                
+	   <tr>
+	     <td width="100%" colspan="2" valign="top">
 	<p>
 		<h:outputText value="#{msg.home_contentWelcome}"/>
 	</p>
+	
+	
 	<ul>
 		<li>
 			<h:outputText value="#{msg.home_contentLesion}"/>
@@ -43,4 +46,23 @@ L-->
 			</li>
 		</ul>                   
 	</p>
+	</td>
+	</tr>
+	<tr class="welcomeTitle">
+	  <td  width="10%">
+	  <br/>
+	   <h:outputText value="Updates"/>
+	  </td>
+	  <td width="90%" align="left">
+	  <br/>
+	  <h:panelGroup rendered="#{not empty searchLookupBean.newImagesDate}"> 
+	   <h:outputText value="#{msg.home_newImages} "/>
+	   <h:outputText value="#{searchLookupBean.newImagesDate}" />
+	  </h:panelGroup>  
+	  <h:panelGroup rendered="#{empty searchLookupBean.newImagesDate}"> 
+	   None
+	  </h:panelGroup>
+	</td>
+	</tr> 	
+                  
 </ui:composition>	

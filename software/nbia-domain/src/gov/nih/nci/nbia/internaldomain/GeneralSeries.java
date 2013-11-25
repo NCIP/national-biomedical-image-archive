@@ -744,4 +744,14 @@ public class GeneralSeries  implements Serializable
 	public void setMaxSubmissionTimestamp(Date maxSubmissionTimestamp) {
 		this.maxSubmissionTimestamp = maxSubmissionTimestamp;
 	}
+	
+	String maxFrameCount;
+	public String getMaxFrameCount() {
+		return maxFrameCount;
+	}
+
+	public void setMaxFrameCount(String maxFrameCount) {
+		this.maxFrameCount = maxFrameCount;
+	}
+	
 }

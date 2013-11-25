@@ -26,6 +26,7 @@ import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
+import gov.nih.nci.nbia.customserieslist.FileGenerator;
 import gov.nih.nci.nbia.dto.ModalityDescDTO;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
@@ -59,14 +60,19 @@ import java.util.HashMap;
 import java.util.Set;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
+
+import com.icesoft.faces.context.ByteArrayResource;
+import com.icesoft.faces.context.Resource;
 
 /**
  * This is the Session scope bean that provides the search functionality on the
@@ -620,7 +626,7 @@ public class SearchWorkflowBean {
             e.printStackTrace();
         }
 
-        return "submitSearch";
+        return "search";
     }
 
 
@@ -985,6 +991,8 @@ public class SearchWorkflowBean {
 	public String newDynamicSearch()
 	{
 		dynamicSearch = true;
+		SearchResultBean srb = BeanManager.getSearchResultBean();
+		srb.setPatientResults(null);
 		return DYNAMIC_SEARCH;
 	}
 
@@ -1189,7 +1197,7 @@ public class SearchWorkflowBean {
         patientInput = "";
 
         setDefaultKilovoltValues();
-        if(resultPerPageOption == null){
+        if(resultPerPageOption == null || StringUtil.isEmpty(resultPerPageOption)){
         	resultPerPageOption = "10";
         }
         //and if its not null??? then what??? leave it????
@@ -1520,7 +1528,13 @@ public class SearchWorkflowBean {
     }
 
     public void modalityChangeListener(ValueChangeEvent event) {
+    	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    		event.queue();
+            return;
+        }
 		for (SelectItem selectItem : modalityItems) {
+			System.out.println("modality changed:" + selectItem.getLabel() + " "+ selectItem.getValue());
 			if (selectItem.getLabel().equals("US")) {
 				if (selectItem.getValue().equals(Boolean.TRUE)) {
 					System.out.println("modality changed:"
@@ -1532,6 +1546,12 @@ public class SearchWorkflowBean {
 			        unselectAllUsMultiModalityItems();
 				}
 			}
+		}
+		try {
+			submitSearch();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -1558,5 +1578,23 @@ public class SearchWorkflowBean {
     		return false;
     	}
     }
+    
+   public void resultPerPageOptionChangeListener(ValueChangeEvent event) {
+	   if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+   		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+   		event.queue();
+           return;
+       }
+	    String resultPerPageOptionNewValue = (String)event.getNewValue();
+		System.out.println("resultPerPageOption new value" + resultPerPageOptionNewValue);
+		this.resultPerPageOption = resultPerPageOptionNewValue;
+		try {
+			submitSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+   }
+  
+  
 }

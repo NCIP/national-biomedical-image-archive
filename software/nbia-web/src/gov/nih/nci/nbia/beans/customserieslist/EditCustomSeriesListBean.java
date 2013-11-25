@@ -198,7 +198,18 @@ public class EditCustomSeriesListBean {
 		editDTO.setId(selectedList.getId());
 		editDTO.setName(selectedList.getName());
 		editDTO.setComment(selectedList.getComment());
-		editDTO.setHyperlink(selectedList.getHyperlink());
+		
+		if(!(((selectedList.getHyperlink()).startsWith("https://")) || ((selectedList.getHyperlink()).startsWith("http://")) || ((selectedList.getHyperlink()).startsWith("//"))))
+				{
+					selectedList.setHyperlink("//".concat(selectedList.getHyperlink()));
+					editDTO.setHyperlink("//".concat((selectedList.getHyperlink())));
+				}
+			else
+				{
+					editDTO.setHyperlink(selectedList.getHyperlink());
+				}
+
+		
 		Boolean updatedSeries = seriesInstanceUids.size() > 0 ? true: false ;
 		editDTO.setSeriesInstanceUIDs(seriesInstanceUids);
 		long update = processor.update(selectedList, updatedSeries);
@@ -427,5 +438,23 @@ public class EditCustomSeriesListBean {
 			dto.setSeriesInstanceUid(seriesInstanceUids.get(i));
 			seriesInstanceUidsList.add(dto);
 		}
+	}
+	private int toDelete;
+	/**
+		 * 
+		 * @return
+	*/
+	public String performDelete() {
+		CustomSeriesListDTO editDTO = new CustomSeriesListDTO();
+		System.out.println("id getting deleted:- " + toDelete);
+		editDTO.setId(toDelete);
+		processor.delete(editDTO);
+		return viewCreatedLists();
+	}
+	public int getToDelete() {
+		return toDelete;
+	}
+	public void setToDelete(int toDelete) {
+		this.toDelete = toDelete;
 	}
 }

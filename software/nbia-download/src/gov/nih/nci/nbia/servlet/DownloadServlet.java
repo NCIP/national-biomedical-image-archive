@@ -11,7 +11,7 @@ package gov.nih.nci.nbia.servlet;
 import gov.nih.nci.nbia.DownloadProcessor;
 import gov.nih.nci.nbia.dto.AnnotationDTO;
 import gov.nih.nci.nbia.dto.ImageDTO2;
-import gov.nih.nci.security.util.StringEncrypter;
+import gov.nih.nci.nbia.util.StringEncrypter;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -190,7 +190,7 @@ public class DownloadServlet extends HttpServlet {
         if(password.equals("")){
             return "";
         }else{
-            return decrypter.decrypt(password);
+            return decrypter.decryptString(password);
         }
     }
     private static long computeContentLength(List<ImageDTO2> imageResults,

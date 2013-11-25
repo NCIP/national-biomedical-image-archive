@@ -205,9 +205,16 @@ L-->
                    match="\{NCIA_PROD_BUILD_TAG\}"
                    replace="${nbia_prod_build_tag.final}"
                    flags="g" />
-    <!-- end: Insert release/build info into footer -->
-
-
+    <!-- end: Insert release/build info into footer and to quick links-->
+  	 <!-- start: Insert wiki link into login Failure -->
+  	<replaceregexp file="${webapp.dir}/HTML/LoginFailure.html"
+  	                   match="\{NBIA_WIKI_CSH_URL}"
+  	                   replace="${nbia.wiki.context.sensitive.help.url}" flags="g" />
+  	                   
+  	<replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/quickLinks.xhtml"
+  	                   match="\{NBIA_WIKI_UG_URL}"
+  	                   replace="${nbia.wiki.user.guide.url}" flags="g" />                   
+  	<!-- end: Insert wiki link into login Failure and to quick links-->
   </target>
 
   <target name="patch-jnlp" depends="copy-and-prepare-nbia_war">

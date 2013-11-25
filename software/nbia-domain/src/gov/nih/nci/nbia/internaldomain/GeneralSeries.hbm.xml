@@ -91,6 +91,12 @@ L-->
             WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )
           </formula>
         </property>
-
+	    <property name="maxFrameCount">
+          <formula>
+          ( SELECT coalesce(max(gi.US_FRAME_NUMBER), '0')
+            FROM general_image gi
+            WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )
+          </formula>
+        </property>
   </class>
 </hibernate-mapping>

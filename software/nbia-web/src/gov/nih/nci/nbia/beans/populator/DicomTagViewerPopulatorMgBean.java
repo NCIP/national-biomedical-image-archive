@@ -14,6 +14,8 @@ import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
 import gov.nih.nci.nbia.dicomtags.DicomTagViewer;
 import gov.nih.nci.nbia.dicomtags.DicomTagViewerFactory;
 import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.List;
 
@@ -36,12 +38,16 @@ public class DicomTagViewerPopulatorMgBean {
 
 	public void populate() {
 		SeriesSearchResultBean searchResultBean = BeanManager.getSeriesSearchResultBean();
-		
-		List<ImageResultWrapper> imageSearchResultList = searchResultBean.getImages();
-		
 		DicomTagViewer dicomTagViewer = DicomTagViewerFactory.getDicomTagViewer();
-		
-        try {
+		try {
+        	if (seriesId !=null && !seriesId.isEmpty()) {
+        		SeriesSearchResult theSeries = new SeriesSearchResult();
+        		theSeries.setId(Integer.valueOf(seriesId));
+        		NBIANode location = new NBIANode(true, "", "");
+				theSeries.associateLocation(location);
+        		searchResultBean.viewSeries(theSeries);
+        	}
+        	List<ImageResultWrapper> imageSearchResultList = searchResultBean.getImages();
         	ImageSearchResult firstImageInSeries = imageSearchResultList.get(0).getImage();
         	searchResultBean.setTagInfo(dicomTagViewer.viewDicomHeader(firstImageInSeries));
         } 
@@ -50,4 +56,14 @@ public class DicomTagViewerPopulatorMgBean {
             e.printStackTrace();
         }
 	}
+	private String seriesId;
+	
+	public String getSeriesId() {
+		return seriesId;
+	}
+	public void setSeriesId(String seriesId) {
+		this.seriesId = seriesId;
+	}
+	
+	
 }

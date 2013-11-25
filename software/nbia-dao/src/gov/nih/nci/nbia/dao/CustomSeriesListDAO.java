@@ -87,4 +87,19 @@ public interface CustomSeriesListDAO  {
 
 	public List<CustomSeriesListAttributeDTO> findCustomSeriesListAttribute(
 			Integer customSeriesListPkId) throws DataAccessException;
+	
+
+ 	/**
+	 * delete from database with data in the dto
+	 * 
+	 */
+	public long delete(CustomSeriesListDTO editList) throws DataAccessException;
+	
+	/**
+	 * 
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public List<String> getSharedListUserNames() throws DataAccessException;
+	
 }

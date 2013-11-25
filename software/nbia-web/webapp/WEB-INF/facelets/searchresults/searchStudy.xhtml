@@ -14,285 +14,253 @@ L-->
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
                 
 <h:form id="dataForm">
-
-<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="650">
-  <tr>
-    <td>
-      <h:panelGroup>
-        <h:commandButton image="images/search_grey.gif" 
-                   action="#{searchWorkflowBean.backToSearch}" 
-                   disabled="#{ispyBean.isQueryFromUrl}"/>
-        <h:graphicImage url="images/breadcrumb_arrows.gif" />
-        <h:commandButton image="images/subject_grey.gif" action="submitSearch" />
-        <h:graphicImage url="images/breadcrumb_arrows.gif" />
-        <h:commandButton image="images/study_red.gif" action="displayStudy" />
-      </h:panelGroup>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <br/>
-      <br/>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <h2>
-        <h:outputText value="#{msg.search_subjectResults} #{searchResultBean.patient.subjectId}) " />
-        <ncia:help label="images/help_icon.png" helpId="3+-+Viewing+NBIA+Search+Results#id-3-ViewingNBIASearchResults-SearchResultsStudiesforSubject" />
-      </h2>
-      <table width="100%" border="0" cellpadding="0" cellspacing="0">
-        <tbody>
-          <tr valign="bottom">
-            <td colspan="9">
-              <div align="right" class="formMessage">
-                <div align="right">
-                  <table width="100%" border="0" cellspacing="0" cellpadding="5">
-                    <tr>
-                      <td class="formMessage" style="text-align:left">
-                        <h:commandButton image="images/checkall.gif" 
-                                         action="#{studiesSearchResultBean.checkAllSeries}"/>
-                        <h:commandButton image="images/uncheckall.gif" 
-                                         action="#{studiesSearchResultBean.uncheckAllSeries}" />
-                      </td>
-                      <td>
-                        <f:verbatim>&amp;nbsp;</f:verbatim>
-                      </td>
-                    </tr>                            
-                  </table>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <f:subview id="cedaraView"
-                     rendered="#{searchResultBean.local}">
-            <tr class="formMessage">
-              <td align="right" colspan="2" >
-                <font color="#000000">
-                  <b>To VISUALIZE IMAGES, a 3rd party software is required.<br/>
-                  Click<f:verbatim>&amp;nbsp;</f:verbatim><a href="http://ncicb.nci.nih.gov/download/#NTools" target="blank" >
-                  <font color="#0033CC">here</font></a> to download Cedara I-Response software.</b>
-                </font>
-              </td>
-            </tr>
-          </f:subview>  
+      <table width="80%" border="0" cellpadding="0" cellspacing="0" align="center" class="contentPage">
+       <tbody>
+           <tr>
+	      <td>
+	        <h:panelGroup>
+	          <h:commandButton image="images/search_grey.gif" 
+	                     action="#{searchWorkflowBean.backToSearch}" 
+	                     disabled="#{ispyBean.isQueryFromUrl}"/>
+	          <h:graphicImage url="images/breadcrumb_arrows.gif" />
+	          <h:commandButton image="images/study_red.gif" action="displayStudy" />
+	        </h:panelGroup>
+	      </td>
+	      <td width="80%">
+	       <h2>
+	              <h:outputText value="#{msg.search_subjectResults} #{searchResultBean.patient.subjectId}) " />
+	              <ncia:help label="images/help_icon.png" helpId="-searchresultsstudiesforsubject" />
+	        </h2>
+	      </td>
+  	</tr>
+           <tr>
+	                    <td>
+	  		     <div>
+	  		      <ice:panelGroup styleClass="iceMnuBarItem" style="float:left;height:30px">   
+	  		     	     <ice:commandLink id="addSeriesToBasketButton"  styleClass="iceMnuBarItemLabel" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
+	  		     	         <ice:outputText value="Add all found to  " style="display:inline"/>
+	  		     	  	 <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;"/>                                                                               
+	  		     	     </ice:commandLink>
+	           		</ice:panelGroup>    
+	  	                <br/>
+	  	                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
+	  	                <h:message for="visualizeImages" errorClass="errorLabel" infoClass="infoLabel" />                                
+	  	              </div>                  
+	                    </td>
+	  	          <f:subview id="cedaraView" rendered="#{searchResultBean.local}">
+		  	  <td class="formMessage" align="right">
+		  	    <font color="#000000">
+			  	<b>To VISUALIZE IMAGES, a 3rd party software is required.<br/>
+			  	Click<f:verbatim>&amp;nbsp;</f:verbatim><a href="http://ncicb.nci.nih.gov/download/#NTools" target="blank" >
+			  	<font color="#0033CC">here</font></a> to download Cedara I-Response software.</b>
+			     </font>
+		  	</td>
+		  	<td>
+		  	<h:commandButton id="visualizeImages" 
+						  			image="images/visualizeImages.gif"  
+						  			onclick="if(!countUserSelection(this.form)){return false};"
+						  			rendered="#{searchResultBean.local}" 
+			  			action="#{cedaraBean.visualizeSelectedSeries}"/>  
+		  	</td>
+		  	 </f:subview>  
+		  </tr>
           <tr>
-            <td style="text-align: left">
-              <h:commandButton action="dataBasket" image="images/VIEWBASKET.gif" />
-            </td>
-            <td align="right">
-              <div align="right">
-                <h:commandButton id="addSeriesToBasketButton" 
-                                 image="images/add2basket.gif" 
-                                 action="#{studiesSearchResultBean.addSeriesToBasket}" />                  
-                <h:commandButton id="visualizeImages" 
-                                 image="images/visualizeImages.gif"  
-                                 onclick="if(!countUserSelection(this.form)){return false};"
-                                 rendered="#{searchResultBean.local}" 
-                                 action="#{cedaraBean.visualizeSelectedSeries}"/>  
-                <br/>
-                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
-                <h:message for="visualizeImages" errorClass="errorLabel" infoClass="infoLabel" />                                
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <br/>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <h:message for="studyTable"/>
-              <h:dataTable id="studyTable" 
-                           value="#{studiesSearchResultBean.studyResults}" 
-                           var="study" 
-                           cellpadding="0" 
-                           cellspacing="0"
-                           width="100%" 
-                           binding="#{studiesSearchResultBean.studyData}">
-                <h:column id="studyTableOneColumn">
-                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
-                    <tbody>                          
-                      <tr>
-                        <th colspan="5" valign="middle" class="formTitle" scope="col">
-                          <div align="left">
-                            <h:outputText value="#{msg.common_studyId}" />
-                          </div>
-                        </th>
-                        <th colspan="3" class="formTitleII" scope="col">
-                          <div align="left">
-                            <h:outputText value="#{msg.search_date}" />
-                          </div>
-                        </th>
+            <td colspan="3">
+	        <h:message for="studyTable"/>
+	         <h:dataTable id="studyTable" 
+	                               value="#{studiesSearchResultBean.studyResults}" 
+	                               var="study" 
+	                               cellpadding="15" 
+	                               cellspacing="2"
+	                               width="100%" 
+	                               binding="#{studiesSearchResultBean.studyData}">
+	               <h:column id="studyTableOneColumn">
+	                      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+	                          <tr>
+	                            <td valign="middle" class="formTitle" scope="col">
+	                              <div align="left">
+	                                <h:outputText value="#{msg.common_studyId}" />
+	                              </div>
+	                            </td>
+				    <td valign="middle" class="formTitle" scope="col">
+	                              <div align="left">
+	                                <h:outputText value="#{msg.search_description}" />
+	                              </div>
+	                            </td>	                            
+	                            <td class="formTitleII" scope="col">
+	                              <div align="left">
+	                                <h:outputText value="#{msg.search_date}" />
+	                              </div>
+	                            </td>
+	                          </tr>
+	                          <tr>
+	                            <td class="formLabel" width="30%">
+	                              <h:outputText id="studyUid" value="#{study.study.studyInstanceUid}"/>
+	                            </td>
+	                            <td  class="formLabel">
+				    	<h:outputText value="#{study.study.description}" />
+	                            </td>
+	                            <td class="formLabel">
+	                              <h:outputText value="#{msg.search_study_baseline}" 
+	                                            title="#{study.dateString}" />
+	                              <h:outputText value=" + #{study.study.offSetDesc}" 
+	                                            rendered="#{(study.study.offSetDesc) != null}" 
+	                                            title="#{study.dateString}" />
+	                            </td>
+	                            
+	                          </tr>
+	                          <tr>
+				    <td colspan="3" >
+				         <h:dataTable id="seriesTable" 
+				                                         value="#{study.seriesResults}" 
+				                                         var="series" 
+				                                         cellpadding="0" 
+				                                         cellspacing="0" 
+				                                         headerClass="formTitleIIII" 
+				                                         rowClasses="dataRowLight, dataRowDark" 
+				                                         width="100%"                                        
+				                                         styleClass="contentPageII"
+				                                         binding="#{studiesSearchResultBean.seriesData}"
+				                                         columnClasses="seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell">
+								<!--h:column id="viewSeriesColumn">
+								  <f:facet name="header">
+								<f:verbatim>&amp;nbsp;</f:verbatim>
+								</f:facet>
+								<div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
+									   style="width:100%">
+								<h:commandLink value="#{msg.search_showImages}" 
+									action="#{studiesSearchResultBean.viewSeries}" />
+								</div>
+								</h:column-->						                              
+				                              <h:column id="seriesUidColumn">
+				                                <f:facet name="header">
+				                                  <h:outputText value="#{msg.common_series}" />
+				                                </f:facet>
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
+				                                     style="width:100%">
+				                                  <h:outputText value="...."/><h:outputText  id="seriesUid" value="#{fn:substring(series.series.seriesInstanceUid,fn:length(series.series.seriesInstanceUid)-10,fn:length(series.series.seriesInstanceUid))}" />
+				                                </div>
+				                              </h:column>
+				                              <h:column id="seriesDescriptionColumn">
+				                                <f:facet name="header">
+				                                  <h:outputText value="#{msg.search_description}" />
+				                                </f:facet>
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
+				                                     style="width:100%">
+				                                  <f:verbatim>&amp;nbsp;</f:verbatim>
+				                                  <h:outputText value="#{series.series.description}" />
+				                                </div>
+				                              </h:column>
+				                              <h:column id="modalityColumn">
+				                                <f:facet name="header">
+				                                  <h:outputText value="#{msg.search_modality}" />
+				                                </f:facet>
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
+				                                     style="width:100%">
+				                                  <h:outputText value="#{series.series.modality}" />
+				                                </div>
+				                              </h:column>
+				                              <h:column id="manufacturerColumn">
+				                                <f:facet name="header">
+				                                  <h:outputText value="#{msg.criteria_ManufacturerCriteria}" />
+				                                </f:facet>
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
+				                                     style="width:100%">
+				                                  <f:verbatim>&amp;nbsp;</f:verbatim>
+				                                  <h:outputText value="#{series.series.manufacturer}" /> 
+				                                </div>
+				                              </h:column>
+							      <h:column id="numberImagesColumn">
+				                                <f:facet name="header">
+				                                  <h:outputText value="#{msg.common_images}" />
+				                                </f:facet>
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"  
+				                                     style="width:100%">
+				                                  <h:outputText value="#{series.series.numberImages}" />
+				                                </div>
+				                              </h:column>				                              
+				                              <h:column id="viewImagesColumn">
+							         <f:facet name="header">
+							           <h:outputText value="Thumbnails" />
+							         </f:facet>
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" align="center">
+							          <h:commandLink target="newWin"
+							                        onclick="doViewThumbnailPopup('#{series.series.id}'); return false;">
+							           <h:graphicImage value="images/old_new_magnifying_glass.png"
+							             style="border: none;" width="20%"/>
+							          </h:commandLink> 
+				                                </div>
+				                              </h:column>
+				                              <h:column>
+				                                 <f:facet name="header">
+							      	   <h:outputText value="Cine mode" />
+								 </f:facet>
+								 <h:panelGroup style="text-align: center;margin-top:5px;margin-bottom:5px" 
+								       rendered ="#{series.series.numberImages gt 1 and series.series.maxFrameCount le 1}">
+								 <div align="center" class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}">
+								  <h:outputLink id="viewMovieLink"                       
+								                 target="slideshow" 
+								                 onclick="window.open('/ncia/viewSlideShow.jsf?seriesId=#{series.series.id}', 'slideshow', 'resizable=no,scrollbars=no,width=602,height=602');return false;">
+								     <img style="vertical-align: middle; margin-left: 5px"
+								          src="images/movie_reel_32x32.jpg"
+								          alt=""/>
+  								  </h:outputLink>
+								 </div>
+							        </h:panelGroup>
+							        <h:panelGroup style="text-align: center;margin-top:5px;margin-bottom:5px" 
+								       rendered ="#{series.series.maxFrameCount gt 1}">
+								       <h:outputText value="NA" />
+								</h:panelGroup>       
+							    </h:column>
+				                             <h:column>
+								<f:facet name="header">
+									<h:outputText value="DICOM" />
+								 </f:facet>
+								 <div align="center" class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" >
+								 <h:commandButton image="images/dicom.gif" 
+								           onclick="doDicomTagPopup('#{series.series.id}'); return false;" 
+								           onmouseover="return overlib('View DICOM header for the first image in the series');" onmouseout="return nd();"/>
+								 </div>
+				                              </h:column>
+				                              <h:column id="checkAllSeriesColumn">
+				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
+				                                     style="width:100%">
+				                                  <div align="center" class="formFieldWhite">
+								      <h:commandButton action="#{studiesSearchResultBean.addSeriesToBasket}"
+								             			 rendered ="#{empty basketBean.inBasketMap[series.basketKey]}"   
+								                                      image="images/add-icon.png" 
+								                                      title="Add To Basket">                         
+								   	<f:setPropertyActionListener target="#{studiesSearchResultBean.toAdd}" value="#{series.series.id}"/>
+								   </h:commandButton>  
+								   <h:commandButton action="#{studiesSearchResultBean.removeSeriesFromBasket}"
+								             			      rendered ="#{basketBean.inBasketMap[series.basketKey]}"
+								                                      image="images/remove_icon.png" 
+								                                      title="Remove From Basket">                                                             
+								   <f:setPropertyActionListener target="#{studiesSearchResultBean.toAdd}" value="#{series.series.id}"/>
+          							</h:commandButton>       				                                   
+				                                                                   
+				                                   
+				                                  </div>
+				                                </div>
+				                              </h:column>				                              
+				                            </h:dataTable>
+				                          </td>
                       </tr>
-                      <tr>
-                        <td colspan="5" class="formLabel">
-                          <h:outputText value="#{study.study.studyInstanceUid}" />
-                        </td>
-                        <td colspan="3" class="formLabel">
-                          <h:outputText value="#{msg.search_study_baseline}" 
-                                        title="#{study.dateString}" />
-                          <h:outputText value=" + #{study.study.offSetDesc}" 
-                                        rendered="#{(study.study.offSetDesc) != null}" 
-                                        title="#{study.dateString}" />
-                        </td>
-                      </tr>                                                                               
-                      <tr>
-                        <th colspan="5" valign="middle" class="formTitle" scope="col">
-                          <div align="left">
-                            <h:outputText value="#{msg.search_description}" />
-                          </div>
-                        </th>
-                        <th colspan="3" class="formTitleII" scope="col">
-                          <div align="left">
-                            <h:outputText value="#{msg.search_dataLocation}" />
-                          </div>
-                        </th>                        
-                      </tr>
-                      <tr>
-                        <td colspan="5" class="formLabel">
-                          <h:outputText value="#{study.study.description}" />
-                        </td>
-                        <td colspan="3" class="formLabel">
-                          <h:outputText value="#{study.location}" />
-                        </td>                        
-                      </tr>
-                      <tr>
-                        <!--  hmmm 2+5 = 7, this could probably be simpler now using doctype? -->
-                        <td colspan="8">
-                          <h:dataTable id="seriesTable" 
-                                       value="#{study.seriesResults}" 
-                                       var="series" 
-                                       cellpadding="0" 
-                                       cellspacing="0" 
-                                       headerClass="formTitleIIII" 
-                                       rowClasses="dataRowLight, dataRowDark" 
-                                       width="100%"                                        
-                                       styleClass="contentPageII"
-                                       binding="#{studiesSearchResultBean.seriesData}"
-                                       columnClasses="seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell, seriesDataCell">
-                            <h:column id="viewSeriesColumn">
-                              <f:facet name="header">
-                                <f:verbatim>&amp;nbsp;</f:verbatim>
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
-                                   style="width:100%">
-                                <h:commandLink value="#{msg.search_showImages}" 
-                                               action="#{studiesSearchResultBean.viewSeries}" />
-                              </div>
-                            </h:column>
-                            <h:column id="seriesUidColumn">
-                              <f:facet name="header">
-                                <h:outputText value="#{msg.common_series}" />
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
-                                   style="width:100%">
-                                <h:outputText id="seriesUid" value="#{series.series.seriesInstanceUid}"/>
-                              </div>
-                            </h:column>
-                            <h:column id="numberImagesColumn">
-                              <f:facet name="header">
-                                <h:outputText value="#{msg.common_images}" />
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"  
-                                   style="width:100%">
-                                <h:outputText value="#{series.series.numberImages}" />
-                              </div>
-                            </h:column>
-                            <h:column id="seriesDescriptionColumn">
-                              <f:facet name="header">
-                                <h:outputText value="#{msg.search_description}" />
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
-                                   style="width:100%">
-                                <f:verbatim>&amp;nbsp;</f:verbatim>
-                                <h:outputText value="#{series.series.description}" />
-                              </div>
-                            </h:column>
-                            <h:column id="modalityColumn">
-                              <f:facet name="header">
-                                <h:outputText value="#{msg.search_modality}" />
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
-                                   style="width:100%">
-                                <h:outputText value="#{series.series.modality}" />
-                              </div>
-                            </h:column>
-                            <h:column id="manufacturerColumn">
-                              <f:facet name="header">
-                                <h:outputText value="#{msg.criteria_ManufacturerCriteria}" />
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" 
-                                   style="width:100%">
-                                <f:verbatim>&amp;nbsp;</f:verbatim>
-                                <h:outputText value="#{series.series.manufacturer}" /> 
-                              </div>
-                            </h:column>
-                            <h:column id="checkAllSeriesColumn">
-                              <f:facet name="header">
-                                <div align="center" class="formFieldWhite">
-                                  <input name="checkAllBox" 
-                                         type="checkbox" 
-                                         onclick="checkAllSeries(this);"/>
-                                </div>
-                              </f:facet>
-                              <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
-                                   style="width:100%">
-                                <div align="center" class="formFieldWhite">
-                                  <h:selectBooleanCheckbox id="seriesSelectionCheckbox"
-                                                           value="#{series.checked}" />
-                                </div>
-                              </div>
-                            </h:column>
-                          </h:dataTable>
-                          <table width="100%" border="0" cellspacing="0" cellpadding="5">                                
-                            <tr>
-                              <td>
-                                <br/>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </h:column>
-              </h:dataTable>
+	                      </table>
+	                    </h:column>
+	                  </h:dataTable>
             </td>
           </tr>
-          <tr>
-            <td style="text-align: left">
-              <h:commandButton action="dataBasket" image="images/VIEWBASKET.gif" />
-            </td>
-            <td align="right">
-                <h:commandButton image="images/add2basket.gif" 
-                                 action="#{studiesSearchResultBean.addSeriesToBasket}" />
-                <h:commandButton image="images/visualizeImages.gif" 
-                                 onclick="if(!countUserSelection(this.form)){return false;};"
-                                 rendered="#{searchResultBean.local}" 
-                                 action="#{cedaraBean.visualizeSelectedSeries}"/>                            
-            </td>
-          </tr>                   
-          <tr>
-            <td>
-              <br/>
-              <br/>
-            </td>
-          </tr>
-          
         </tbody>
       </table> 
-    </td>
-  </tr>
-</table>                     
-
 </h:form>                  
 
-<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="650">
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="80%" align="center">
   <tr>
     <td>
       <h:form id="breadcrumbBottom">
@@ -302,11 +270,6 @@ L-->
                            action="#{searchWorkflowBean.backToSearch}" />
           <h:graphicImage id="bCrumbArrow1" 
                           url="images/breadcrumb_arrows.gif" />
-          <h:commandButton id="bCrumbSubject" 
-                           image="images/subject_grey.gif" 
-                           action="submitSearch" />
-          <h:graphicImage id="bCrumbArrow2" 
-                          url="images/breadcrumb_arrows.gif" />
           <h:commandButton id="bCrumbStudy"
                            image="images/study_red.gif" 
                            action="displayStudy" />
@@ -315,8 +278,5 @@ L-->
     </td>
   </tr>
 </table>
-
-<br/>
-<br/>                      
-                      
+               
 </ui:composition>

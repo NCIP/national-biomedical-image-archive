@@ -31,7 +31,7 @@ public class PatientResultWrapper {
      * the total number.
      */ 
     public String getStudyCounts() {
-        return patient.computeFilteredNumberOfStudies() + " / " + patient.getTotalNumberOfStudies();
+        return patient.computeFilteredNumberOfStudies().toString() ;
     }
 
     /**
@@ -39,7 +39,7 @@ public class PatientResultWrapper {
      * the total number.
      */ 
     public String getSeriesCounts() {
-        return patient.computeFilteredNumberOfSeries() + " / " + patient.getTotalNumberOfSeries();
+        return patient.computeFilteredNumberOfSeries().toString();
     }
     
 	public boolean isChecked() {

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+        xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+<ice:panelGroup style="text-align:center">
+<table width="100%" border="0" cellpadding="0" cellspacing="2">
+<tr>
+<td class="formTitle">
+ <h:outputText value=" Series Description : #{seriesSearchResultBean.series.description}" 
+ style="font-family: arial,helvetica,verdana,sans-serif;font-weight: bold;padding-left: 0.25em;background-color: #6E81A6;color: #FFFFFF;border-right: #5c5c5c 1px solid;border-bottom: #5c5c5c 1px solid;" />
+</td>
+</tr>
+<tr>
+<td>
+	<ice:dataTable id="imageTable"
+		value="#{seriesSearchResultBean.rowDataModel}" var="image"
+		cellpadding="0" cellspacing="0" width="100%" styleClass="dataTable"
+		style="margin-top: 0px" border="1" rows="4">
+		<ice:columns id="imageTableOneColumn"
+			value="#{seriesSearchResultBean.columnDataModel}">
+			<ice:panelGroup>
+				<div style="text-align: center"
+					class="#{empty basketBean.inBasketMap[seriesSearchResultBean.cellValue.basketKey] ? '' : 'highlightedData'}">
+					<ice:outputText value="#{seriesSearchResultBean.imageLabel}"
+						rendered="#{seriesSearchResultBean.cellVisibility}" />
+					<br />
+					 <ice:panelGroup rendered="#{not empty seriesSearchResultBean.cellValue.image.thumbnailURL}">
+					<ice:graphicImage id="image"
+						url="#{seriesSearchResultBean.cellValue.image.thumbnailURL}"
+						style="border:none;" width="100" height="100" />
+					<br />
+					<br />
+					<ui:include src="../usSlideshowLink.xhtml">
+						<ui:param name="rendered"
+							value="#{seriesSearchResultBean.frameNum gt 1}" />
+						<ui:param name="slideshowTemplate" value="multiFrameSlideShow.jsf" />
+						<ui:param name="imageLabel"
+							value="#{seriesSearchResultBean.imageLabel}" />
+					</ui:include>
+					</ice:panelGroup> 
+				</div>
+			</ice:panelGroup>
+		</ice:columns>
+		</ice:dataTable>
+		<!--  max = count / results per page -->
+		<center>
+			<ice:dataPaginator id="dataScroll_1" for="imageTable" fastStep="2"
+				paginator="true" paginatorMaxPages="4"
+				rendered="#{seriesSearchResultBean.showPaginator}"
+				pageCountVar="pageCount" pageIndexVar="pageIndex">
+				<f:facet name="first">
+					<ice:graphicImage id="firstpage_1"
+						url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+						style="border:none;" />
+				</f:facet>
+				<f:facet name="last">
+					<ice:graphicImage id="lastpage_1"
+						url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+						style="border:none;" />
+				</f:facet>
+				<f:facet name="previous">
+					<ice:graphicImage id="previouspage_1"
+						url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+						style="border:none;" />
+				</f:facet>
+				<f:facet name="next">
+					<ice:graphicImage id="nextpage_1"
+						url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+						style="border:none;" />
+				</f:facet>
+			</ice:dataPaginator>
+			<ice:dataPaginator id="dataScroll_2" for="imageTable"
+				rendered="#{seriesSearchResultBean.showPaginator}"
+				pageCountVar="pageCount" pageIndexVar="pageIndex">
+				<ice:outputFormat styleClass="standard"
+					value="{0} images found, displaying Page {1} / {2}.">
+					<f:param value="#{seriesSearchResultBean.totalImageCount}" />
+					<f:param value="#{pageIndex}" />
+					<f:param value="#{pageCount}" />
+				</ice:outputFormat>
+			</ice:dataPaginator>
+		</center>
+</td>
+</tr>
+</table>
+	</ice:panelGroup>
+</ui:composition>

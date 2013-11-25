@@ -22,7 +22,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/commons-beanutils-core-1.7.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/commons-cli-1.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/commons-collections-2.1.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/commons-lang-1.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/commons-lang-2.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/dbunit-2.4.8.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/dcm4che-1.4.20.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/dom4j-1.6.1.jar"/>
@@ -39,17 +39,17 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/slf4j-api-1.4.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/slf4j-nop-1.4.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-installer-X42.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-X42.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/util-X42.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-installer-X58.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-X58.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/util-X58.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="lib" path="lib/cedaraAIMMapping.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-ctp/compile/spring-core-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-ctp/compile/spring-tx-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-ctp/compile/spring-beans-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-ctp/compile/spring-orm-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-ctp/compile/spring-context-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-dao/test/spring-test-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/workspaceGbJb5_1/software/target/lib/nbia-dao/test/junit-4.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/spring-core-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/spring-tx-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/spring-beans-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/spring-orm-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/spring-context-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/spring-test-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/junit-4.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

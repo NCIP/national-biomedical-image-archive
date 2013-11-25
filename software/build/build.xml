@@ -284,22 +284,22 @@ $HeadURL$
   </target>
 
   <target name="compute-tag-properties">
-    <if>
-      <and>
-        <isset property="nbia_prod_build_tag" />
-        <not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
-      </and>              
-      <then>
-          <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
-          <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-      </then>
-      <else>
-         <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
-         <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-     </else>
-     </if>    
-     <echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-
+  <!-- rewrite the code since github does not support $headURL$ so whenever to display tag in home page build with -Dnbia_prod_build_tag=value to diplay on home page -->
+      <if>
+  	<and>
+  	<isset property="nbia_prod_build_tag" />
+            <not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
+         </and>	      
+         <then>
+             <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
+             <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+        </then>
+    	<else>
+    	    <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
+    	   <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+    	</else>
+      </if>    
+      <echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
   </target>
 
   <target name="clean">
@@ -519,6 +519,7 @@ $HeadURL$
       <property name="jar-signing.execution.time" value="${jar-signing.execution.time}"/>
       <!-- Need absolution location, relative path would fail in sub-project since file would not exist -->
       <property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}"/>
+      <property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
     </ant>
 
   </target>
@@ -606,6 +607,8 @@ $HeadURL$
       <property name="project.name" value="${project.name}"/>
       <property name="nbia.version" value="${nbia.version}"/>
       <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
+      <property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+      <property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" />
     </ant>
 
   </target>
@@ -1044,7 +1047,7 @@ $HeadURL$
 
     <obfuscate-properties-file
       properties.file="${dist.exploded.dir}/install.properties"
-      required.property.list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri"
+      required.property.list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri,gov.nih.nci.ncia.encrypt.key"
       optional.property.list="ldap.url,ldap.basedn"
       />
     <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true"

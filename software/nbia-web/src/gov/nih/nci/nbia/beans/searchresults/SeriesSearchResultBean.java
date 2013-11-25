@@ -27,6 +27,8 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
@@ -94,7 +96,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	 * Adds the series for all the images shown on viewSeries.xhtml
 	 * to the data basket.
 	 */
-	public String addCurrentSeriesToBasket() throws Exception {
+	public String addCurrentSeriesToBasket(ActionEvent event) throws Exception {
 		if(!testBasketLimitsForGuest()) {
 			return null;
 		}
@@ -281,4 +283,17 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		}
 		return wrappers;
 	}
+	
+	public String removeCurrentSeriesToBasket(ActionEvent event) throws Exception {
+		
+		BasketBean dataBasket = BeanManager.getBasketBean();
+		String toDelete = series.getId() + "||" + series.associatedLocation().getURL();
+		
+		dataBasket.getBasket().removeSelectedSeries(toDelete);
+
+		return null;
+	}
+	 public String getBasketKey() {
+	    	return series.getId()+"||"+series.associatedLocation().getURL();
+	    }
 }

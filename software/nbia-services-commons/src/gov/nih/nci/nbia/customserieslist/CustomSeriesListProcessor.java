@@ -194,4 +194,27 @@ public class CustomSeriesListProcessor {
 	public long update(CustomSeriesListDTO editedList, Boolean updatedSeries ){
 		return customSeriesDAO.update(editedList, this.username, updatedSeries);
 	}
+	/**
+		 * 
+		 * @param customList
+		 * @return
+	*/
+	public long delete (CustomSeriesListDTO customList) {
+		return customSeriesDAO.delete(customList);
+	}
+	/**
+	 * 
+	 * @return
+	*/
+	public List<String> getSharedListUserNames() {
+		return customSeriesDAO.getSharedListUserNames(); 
+	}
+	/**
+	 * 
+	 * @param uName userName
+	 * @return email add
+	 */
+	public String findEmailByUserName(String uName) {
+		return customSeriesDAO.findEmailByUserName( uName); 
+	}
 }

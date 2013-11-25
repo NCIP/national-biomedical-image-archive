@@ -33,7 +33,7 @@ public class RemoteSeriesDownloader extends AbstractSeriesDownloader {
     	RemoteSeriesFileRetriever remoteSeriesFileRetriever = new RemoteSeriesFileRetriever();
     	remoteSeriesFileRetriever.setProgressDelegate(progressUpdater);
     	remoteSeriesFileRetriever.setOutputDirectory(outputDirectory);
-    	remoteSeriesFileRetriever.setSeriesIdentifier(seriesIdentifier);
+    	remoteSeriesFileRetriever.setSeriesIdentifier(seriesInstanceUid);
     	
     	SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
     	seriesSearchResult.associateLocation(node);

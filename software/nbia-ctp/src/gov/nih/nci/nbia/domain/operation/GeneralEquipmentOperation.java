@@ -36,8 +36,13 @@ public class GeneralEquipmentOperation extends DomainOperation implements Genera
 	{
 		boolean hasIt = false;
 		
-		if ((String)nums.get(DicomConstants.MANUFACTURER) != null)
-		{
+		if ((String)nums.get(DicomConstants.MANUFACTURER) != null 
+				|| (String)nums.get(DicomConstants.MANUFACTURER_MODEL_NAME) !=null
+				|| (String)nums.get(DicomConstants.INSTITUTION_NAME) !=null
+				|| (String)nums.get(DicomConstants.INSTITUTION_ADDRESS) !=null
+				|| (String)nums.get(DicomConstants.SOFTWARE_VERSIONS) !=null
+				|| (String)nums.get(DicomConstants.DEVICE_SERIAL_NUMBER) !=null
+				|| (String)nums.get(DicomConstants.STATION_NAME) !=null) {
 			hasIt = true;
 		}
 		
@@ -51,18 +56,18 @@ public class GeneralEquipmentOperation extends DomainOperation implements Genera
         GeneralEquipment equip = (GeneralEquipment)SpringApplicationContext.getBean("generalEquipment");
         boolean hasManufacturer = checkManufacturer(numbers);
         try {
-        	if (hasManufacturer)
-        	{
+        	if (hasManufacturer) {
         		hql = createHQL(numbers, hql, equip);
         	}
-        	else
-        	{
+        	else {
         		 hql += " equip.manufacturer is null ";
         		 hql += " and equip.institutionName is null ";
         		 hql += " and equip.manufacturerModelName is null ";
         		 hql += " and equip.softwareVersions is null ";
+        		 hql += " and equip.institutionAddress is null";
+        		 hql += " and equip.deviceSerialNumber is null";
+        		 hql += " and equip.stationName is null";
         	}
-        	
 	        List rs = getHibernateTemplate().find(hql);
 	        if(rs != null && rs.size() > 0) {
 	        	if (rs.size() == 1) {
@@ -81,8 +86,7 @@ public class GeneralEquipmentOperation extends DomainOperation implements Genera
         return equip;		
 	}
 	
-	private String createHQL(Map numbers, String hql, GeneralEquipment equip)
-	{
+	private String createHQL(Map numbers, String hql, GeneralEquipment equip) {
 		String temp = "";
     	if ((temp = (String) numbers.get(DicomConstants.MANUFACTURER)) != null) {
             equip.setManufacturer(temp.trim());
@@ -112,7 +116,24 @@ public class GeneralEquipmentOperation extends DomainOperation implements Genera
         } else {
             hql += " and equip.softwareVersions is null ";
         }
-        
+        if ((temp = (String) numbers.get(DicomConstants.INSTITUTION_ADDRESS)) != null) {
+        	equip.setInstitutionAddress(temp.trim());
+        	hql += (" and equip.institutionAddress = '" + temp.trim() + "' ");
+        } else {
+        	hql += " and equip.institutionAddress is null ";
+        }
+        if ((temp = (String) numbers.get(DicomConstants.DEVICE_SERIAL_NUMBER)) != null) {
+        	equip.setDeviceSerialNumber(temp.trim());
+        	hql += (" and equip.deviceSerialNumber = '" + temp.trim() + "' ");
+        } else {
+        	hql += " and equip.deviceSerialNumber is null ";
+        }
+        if ((temp = (String) numbers.get(DicomConstants.STATION_NAME)) != null) {
+        	equip.setStationName(temp.trim());
+        	hql += (" and equip.stationName = '" + temp.trim() + "' ");
+        } else {
+        hql += " and equip.stationName is null ";
+        }
         return hql;
 	}
 }

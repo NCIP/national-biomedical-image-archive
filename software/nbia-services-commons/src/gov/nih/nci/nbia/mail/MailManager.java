@@ -87,6 +87,8 @@ public class MailManager {
     private static String ldapBody5;
     private static String ldapBody6;
     private static String ldapBody7;
+    private static final String sharedListDeletionSubject;
+    private static final String sharedListDeletionUnFormattedBody;
 
     static {
         // Read data from the properties file
@@ -135,7 +137,8 @@ public class MailManager {
         ldapBody5 = mailProps.getProperty("ldap.Body5");
         ldapBody6 = mailProps.getProperty("ldap.Body6");
         ldapBody7 = mailProps.getProperty("ldap.Body7");
-
+        sharedListDeletionSubject = mailProps.getProperty("deletion.sharedList.Subject");
+        sharedListDeletionUnFormattedBody = mailProps.getProperty("deletion.sharedList.Body");
     }
 
     /**
@@ -351,4 +354,24 @@ public class MailManager {
         return (nameWithoutPath.startsWith(File.separator))
         ? nameWithoutPath.substring(1) : nameWithoutPath;
     }
+    /**
+         * Sends an email notifying list creator that the shared list has been deleted by curator
+         *
+         * @param email - email address
+         * @throws Exception
+         */
+        public static void sendDeletionOfShareListEmail(String email, String sharedListName, String impactList) {
+            try {
+                String[] params = {sharedListName,impactList, NCIAConfig.getAdminEmailAddress()};
+    
+                MessageFormat formatter = new MessageFormat(sharedListDeletionUnFormattedBody);
+                String sharedListFormattedBody = formatter.format(params);
+                System.out.println("sendQCShareListEmail: " + email + " " +sharedListFormattedBody + "  "+sharedListDeletionSubject);
+    
+                new SendMail().sendMail(email, sharedListFormattedBody, sharedListDeletionSubject);
+            } catch (Exception e) {
+                logger.error("Send sharedlist deletion mail error", e);
+            }
+        }
+    
 }

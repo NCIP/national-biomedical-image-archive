@@ -313,7 +313,12 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		List<CustomSeriesListDTO> returnList = null;
 
 		DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesList.class);
-		criteria.add(Restrictions.ilike("name","%" + name +"%"));
+		if(name.contains("*")) {
+			name = name.replace("*", "");
+			criteria.add(Restrictions.like("name", name +"%"));
+		} else {
+			criteria.add(Restrictions.ilike("name","%" + name +"%"));
+		}
 		customSeriesList = getHibernateTemplate().findByCriteria(criteria);
 		if (customSeriesList != null && customSeriesList.size() == 0) {
 			return returnList;
@@ -477,5 +482,27 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 		return results;
 	}
-
+		 /** 
+		 * @param toRemove
+		 * @return
+		 * @throws DataAccessException
+		 */
+		@Transactional(propagation=Propagation.REQUIRED)
+		public long delete(CustomSeriesListDTO toRemove) throws DataAccessException {
+				CustomSeriesList existingList = (CustomSeriesList)getHibernateTemplate().load(CustomSeriesList.class, toRemove.getId());
+				getHibernateTemplate().delete(existingList);
+				getHibernateTemplate().flush();
+			return 1L;
+		}
+		public List<String> getSharedListUserNames() {
+			DetachedCriteria criteria = DetachedCriteria.forClass(CustomSeriesList.class);
+			ProjectionList projectionList = Projections.projectionList();
+			projectionList.add(Projections.property("userName"));
+			criteria.setProjection(Projections.distinct(projectionList));
+			List<String> results = new ArrayList<String>();
+			results = getHibernateTemplate().findByCriteria(criteria);
+			return results;
+		}
+			 
+	
 }

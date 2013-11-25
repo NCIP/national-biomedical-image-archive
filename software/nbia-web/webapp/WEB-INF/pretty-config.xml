@@ -30,14 +30,13 @@ L-->
         we are doing what amounts to a page load action -->  
   <url-mapping id="dicomTagViewer">
     <pattern> /showDicom.jsf</pattern>
-
+	<query-param name="seriesId">#{dicomTagViewerPopulatorMgBean.seriesId}</query-param>
     <view-id> /showDicom.jsf </view-id>
     <action>#{dicomTagViewerPopulatorMgBean.populate}</action>
   </url-mapping> 
    
   <url-mapping id="viewSeries">
     <pattern> /viewSeriesPopup.jsf</pattern>
-    
     <query-param name="seriesId">#{viewSeriesPopulatorMgBean.seriesId}</query-param>
 	<query-param name="location">#{viewSeriesPopulatorMgBean.location}</query-param>
 	<query-param name="url">#{viewSeriesPopulatorMgBean.url}</query-param>
@@ -45,6 +44,12 @@ L-->
     <action>#{viewSeriesPopulatorMgBean.populate}</action>
   </url-mapping> 
   
+  <url-mapping id="viewThumbnails">
+    <pattern> /viewThumbnailsPopup.jsf</pattern>
+    <query-param name="seriesId">#{viewSeriesPopulatorMgBean.seriesId}</query-param>
+    <view-id> /viewSeriesThumbnails.jsf </view-id>
+    <action>#{viewSeriesPopulatorMgBean.populateImages}</action>
+  </url-mapping> 
   <url-mapping id="qcToolSlideShowView">
     <pattern> /qcViewSeries.jsf</pattern>
     
@@ -62,6 +67,11 @@ L-->
     <view-id> /slideShowViewSeries.jsf </view-id>
     <action>#{viewMultiFrameSSBean.populate}</action>
   </url-mapping> 
-  
+  <url-mapping id="slideShowView">
+    <pattern> /viewSlideShow.jsf</pattern>
+        <query-param name="seriesId">#{viewSeriesPopulatorMgBean.seriesId}</query-param>
+	    <view-id> /slideShowViewSeries.jsf </view-id>
+    <action>#{viewSeriesPopulatorMgBean.populateImages}</action>
+  </url-mapping> 
        
 </pretty-config>

@@ -27,10 +27,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/spring-orm-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/spring-tx-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/spring-web-3.1.1.RELEASE.jar"/>
-	
-	
-	
-	
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/xstream-1.3.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/activation-1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/antlr-2.7.6.jar"/>
@@ -48,7 +44,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/commons-cli-1.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/commons-collections-2.1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/commons-io-1.3.2.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/commons-lang-1.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/commons-lang-2.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/csm-4.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/dbunit-2.4.8.jar"/>

@@ -20,11 +20,14 @@ import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
@@ -129,23 +132,31 @@ public class NodeTableWrapper {
 	 * Adds all of the selected patients to the data basket.
 	 */
 	public String addPatientToBasket() throws Exception {
-		List<PatientSearchResult> selectedPatients = findSelectedPatients();
-
+		PatientSearchResult selectedPatient = getSelectedPatients(toAdd);
+		addToBasket(Arrays.asList(selectedPatient));
+		return null;
+	}
+	private String addToBasket(List<PatientSearchResult> selectedPatients) throws Exception {
 		List<SeriesSearchResult> selectedSeries = new ArrayList<SeriesSearchResult>();
-		
 		try {
 			DrillDown drillDown = DrillDownFactory.getDrillDown();
-	
-			for(PatientSearchResult patientSearchResult : selectedPatients) {
-				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult);
-	
+			SimpleDateFormat sdf =  new SimpleDateFormat("MM-dd-yyyy");
+			for(PatientSearchResult selectedPatient : selectedPatients) {
+				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient);
 				for(StudySearchResult studySearchResult : studyResults) {
-					selectedSeries.addAll(Arrays.asList(studySearchResult.getSeriesList()));
+					for(SeriesSearchResult series: studySearchResult.getSeriesList()) {
+						Date date = studySearchResult.getDate();
+					    if (date == null) {
+					    	series.setStudyDate("");
+					    } else {
+					    	series.setStudyDate(sdf.format(date));
+					    }
+						series.setStudyDescription(studySearchResult.getDescription());
+						selectedSeries.add(series);
+					}
 				}
 			}
-			
 			uncheckAllPatients();
-	
 			BeanManager.getBasketBean().getBasket().addSeries(selectedSeries);
 		}
 		catch(Exception ex) {
@@ -156,7 +167,38 @@ public class NodeTableWrapper {
 
 		return null;
 	}
+	private int toAdd;
+
+	public int getToAdd() {
+		return toAdd;
+	}
 	
+	public void setToAdd(int toAdd) {
+		this.toAdd = toAdd;
+	}
+
+	public String removePatientFromBasket() {
+		PatientSearchResult selectedPatient = getSelectedPatients(toAdd);
+		List<SeriesSearchResult> selectedSeries = new ArrayList<SeriesSearchResult>();
+		
+		try {
+			DrillDown drillDown = DrillDownFactory.getDrillDown();
+				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient);
+				for(StudySearchResult studySearchResult : studyResults) {
+					selectedSeries.addAll(Arrays.asList(studySearchResult.getSeriesList()));
+				}
+				for(SeriesSearchResult s : selectedSeries) {	
+					String toDelete = s.getId() + "||" + s.associatedLocation().getURL();
+					BeanManager.getBasketBean().getBasket().removeSelectedSeries(toDelete);
+				}
+		} catch(Exception ex) {
+			MessageUtil.addErrorMessage("MAINbody:dataForm:tableOfPatientResultTables",
+                    "drillDownRequestFailure",
+                    null );
+		}		
+		return null;
+	}
+
 	/**
 	 * Checks all of the patients in the list.
 	 */
@@ -269,4 +311,23 @@ public class NodeTableWrapper {
 		}	
 		return selectedPatientsList;
 	}
+	
+	private PatientSearchResult getSelectedPatients(int patId) {
+		for(PatientResultWrapper patientWrapper : getPatients()) {
+			if(patientWrapper.getPatient().getId() == patId) {
+				return patientWrapper.getPatient();				
+			}
+		}	
+		return null;
+	}
+	public String addAllPatientToBasket() throws Exception {
+		List<PatientSearchResult> allPatients= new ArrayList<PatientSearchResult>();
+		for(PatientResultWrapper patientWrapper : getPatients()) {
+				allPatients.add(patientWrapper.getPatient());				
+			}
+		addToBasket(allPatients);
+		return null;
+	}
+	 
+
 }

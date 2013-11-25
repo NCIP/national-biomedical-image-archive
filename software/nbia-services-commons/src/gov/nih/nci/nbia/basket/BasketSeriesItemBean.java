@@ -363,4 +363,32 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
 
     // The total number of images in the series (not neccesarily the total number selected)
     private Integer totalImagesInSeries;
+    
+    private String seriesDescription;
+    private String studyDescription;
+    private String studyDate;
+    
+	public String getStudyDescription() {
+		return studyDescription;
+	}
+
+	public void setStudyDescription(String studyDescription) {
+		this.studyDescription = studyDescription;
+	}
+
+	public String getStudyDate() {
+		return studyDate;
+	}
+
+	public void setStudyDate(String studyDate) {
+		this.studyDate = studyDate;
+	}
+
+	public String getSeriesDescription() {
+		return seriesDescription;
+	}
+
+	public void setSeriesDescription(String seriesDescription) {
+		this.seriesDescription = seriesDescription;
+	}
 }

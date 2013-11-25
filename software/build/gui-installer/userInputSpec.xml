@@ -1680,7 +1680,16 @@ L-->
             set="false"
             revalidate="no"/>
     </field>
-
+    <field type="text" variable="nbia.wiki.user.guide.url">
+      <spec txt="User guide's Tiny wiki Link: "  size="75" set=""/>
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify user's guide Tiny wiki Link" />
+    </field>
+    
+    <field type="text" variable="nbia.wiki.context.sensitive.help.url">
+          <spec txt="Context Sensitive Help's Tiny wiki Link: "  size="75" set=""/>
+          <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify Context Sensitive Help's Tiny wiki Link" />
+    </field>
+    
   </panel>
 
   <panel order="30">
@@ -1845,6 +1854,11 @@ L-->
       </validator>
 
     </field>
+    
+    <field type="text" variable="gov.nih.nci.ncia.encrypt.key">
+      <spec txt="Encryption Key: "  size="75" set=""/>
+      <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify key" />
+    </field>
 
   </panel>
 
@@ -1891,6 +1905,11 @@ L-->
     <field type="text" variable="jar-signing.keystore.alias">
       <spec txt="Keystore alias: "  size="75" set=""/>
       <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify keystore alias" />
+    </field>
+    
+    <field type="text" variable="gov.nih.nci.ncia.encrypt.key">
+          <spec txt="Encryption Key: "  size="75" set=""/>
+          <validator class="com.izforge.izpack.util.NotEmptyValidator" txt="Must specify key" />
     </field>
   </panel>
 

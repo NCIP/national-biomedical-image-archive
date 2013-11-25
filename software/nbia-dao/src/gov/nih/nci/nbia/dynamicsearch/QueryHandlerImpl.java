@@ -362,8 +362,10 @@ public class QueryHandlerImpl extends AbstractDAO
 			    if (fieldName.endsWith(".visibility")) {
 			    	
 			    	criteriaToBuild.add(Restrictions.in(fieldName, dCriteria.getValue().split(",")));
-			    } else {
-		    	criteriaToBuild.add(criteriaFactory.constructCriteria(fieldName,
+			     } else if(fieldName.endsWith("patientId") && dCriteria.getValue().contains(",")) {
+			    	 criteriaToBuild.add(Restrictions.in(fieldName, dCriteria.getValue().split(",")));
+			     } else {
+		    	   criteriaToBuild.add(criteriaFactory.constructCriteria(fieldName,
 		    			                                              dCriteria.getValue(),
 		    			                                              DataFieldTypeMap.getDataFieldType(dCriteria.getField())));
 			    }

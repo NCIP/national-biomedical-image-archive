@@ -17,8 +17,8 @@ L-->
                 xmlns:ncia="http://imaging.nci.nih.gov/ncia">
 
 
-<table summary="" cellpadding="0" cellspacing="0" border="0"
-       width="730" style="height:100%">
+<table summary="" cellpadding="0" cellspacing="0" border="0" align="center"
+        style="height:100%">
   <!-- banner begins -->
   <tr>
     <td class="bannerHome">
@@ -31,7 +31,7 @@ L-->
     <td valign="top">
       <f:verbatim>&amp;nbsp;</f:verbatim>
       <ncia:help label="images/help_icon.png" 
-                 helpId="1-+Getting+Started+in+NBIA#id-1-GettingStartedinNBIA-UsingtheNBIAHomePage" />
+                 helpId="-usinghomepage" />
     </td>
   </tr>
   <!-- banner begins -->
@@ -77,10 +77,10 @@ L-->
                                          value="#{msg.common_simpleSearch}" />
                           <h:outputText value=", "/>
                           <h:commandLink action="#{searchWorkflowBean.newAdvSearch}"
-                                         value="#{msg.common_advSearch}" />
+                                         value="Text Search" />
                           <h:outputText value=" or "/>
 						              <h:commandLink action="#{searchWorkflowBean.newDynamicSearch}"
-                                         value="Dynamic Search" />
+                                         value="Advance Search" />
                         </td>
                       </tr>
    

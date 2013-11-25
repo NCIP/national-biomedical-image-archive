@@ -15,22 +15,34 @@ L-->
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
-                               
   <ice:panelGroup>
-    <table width="100%" border="0" cellspacing="0" cellpadding="5">
+    <table border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td class="formMessage" style="text-align:left">
-          <h:commandButton image="images/checkall.gif" 
-                           action="#{perNodeResult.checkAllPatients}" />
-          <h:commandButton image="images/uncheckall.gif"
-                           action="#{perNodeResult.uncheckAllPatients}" />
+        <td class="formMessage" style="text-align:left" >
+        <ice:outputText value="Add all found to  " style="display:inline" rendered="#{not empty searchResultBean.nodeTablesWrappers}" />
+        <h:commandButton action="#{perNodeResult.addAllPatientToBasket}" image="images/cart-empty.png" rendered="#{not empty searchResultBean.nodeTablesWrappers}"/>
         </td>
         <td>
-          <div align="right">
-            <h:commandButton id="addPatientToBasketButton"
-                             image="images/add2basket.gif" 
-                             action="#{perNodeResult.addPatientToBasket}" />
-          </div>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        <f:verbatim>&amp;nbsp;</f:verbatim>
+        </td>
+        <td  class="formMessage" style="text-align:center" >
+          <!--  ice:panelGroup styleClass="iceMnuBarItem" style="float:left;height:30px"> 
+	      <ice:outputResource id="exportImageMetadata"
+	           label="Export Image Metadata"
+	           resource="#{perNodeResult.exportImageMetadata}"                                                                              
+	           fileName="#{perNodeResult.exportIMFileName}" 
+	           mimeType="text/csv" 
+	           attachment="true"/>              
+          </ice:panelGroup--> 
         </td>
       </tr>                
     </table>

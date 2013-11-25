@@ -29,7 +29,7 @@ L--%>
           <td width="283" height="37" align="left">
             <a href="http://www.cancer.gov">
               <img alt="National Cancer Institute" 
-                   src="images/logotype.gif"
+                   src="images/white-ncilogo.gif"
                    width="283" 
                    height="37" 
                    border="0"/>
@@ -40,11 +40,8 @@ L--%>
           </td>
           <td width="295" height="37" align="right">
             <a href="http://www.cancer.gov">
-              <img alt="U.S. National Institutes of Health | www.cancer.gov"
-                   src="images/tagline.gif" 
-                   width="295" 
-                   height="37" 
-                   border="0"/>
+              <img alt="U.S. National Institutes of Health" src="images/white-nihtext.gif" border="0"/>
+	      <img alt="www.cancer.gov" src="images/white-nciurl.gif" border="0"/>    
             </a>
           </td>
         </tr>

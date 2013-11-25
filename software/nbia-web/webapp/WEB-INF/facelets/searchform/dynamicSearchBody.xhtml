@@ -13,303 +13,297 @@ L-->
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"                
+                xmlns:h="http://java.sun.com/jsf/html"  
+                xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
                 xmlns:ncia="http://imaging.nci.nih.gov/ncia">
-
 <div id="searchFormPanel">
-  <ice:form id="iceForm">
-    <br/>
-    <br/>
-    <table width="80%" border="0" class="contentPage">
-      <tr>
-        <td>
-          <table width="100%">
-            <tr>
-              <td>
-                <div align="center">
-                  <h2 style="display:inline">
-                    <h:outputText value="Dynamic Search" />
-                  </h2>
-                </div>
-              </td>
-              <td rowspan="3">
-                <ncia:help label="images/help_icon.png"
-                           helpId="2+-+Searching+NBIA+for+Images#id-2-SearchingNBIAforImages-PerformingaDynamicSearch" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div align="center">
-                  <h:outputText value="#{msg.search_seriesLevel}" />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div align="center">
-                  <h:outputText value="#{msg.search_default}" />
-                </div>
-              </td>
-           </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td align="right">
-          <h:commandButton action="#{searchWorkflowBean.newSimpleSearch}"
-                           image="images/simple.gif"
-                           immediate="true" /> 
-         <h:commandButton id="switchToAdvancedSearchButton"
-                            action="#{searchWorkflowBean.newAdvSearch}"
-                            image="images/advanced.gif"
-                            immediate="true" /> 
-        </td>
-      </tr> 
-      <tr>
-        <td class="formTitleIIII">
-          <h:outputText value="#{msg.search_selectedCriteria}" />
-        </td>
-      </tr>          
-      <tr>
-        <td>
-          <ice:outputLabel id="noCriteria"
-                           value="No criteria selected"
-                           rendered="#{!dynamicSearchBean.showCriteria}" />
-          <ice:dataTable value="#{dynamicSearchBean.criteria}"
-                         var="item"
-                         rendered="#{dynamicSearchBean.showCriteria}"
-                         rowClasses="oddRow, evenRow"
-                         width="100%"
-                         border="1"
-                         cellpadding="0"
-                         cellspacing="0">
-            <h:column>
-              <f:facet name="header">
-                <ice:outputText value="Element"/>
-              </f:facet>
-              <ice:outputText value="#{item.label}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">
-                <ice:outputText value="Operator"/>
-              </f:facet>
-              <center> 
-                <ice:outputText value="#{item.operator.value}"/>
-              </center>
-            </h:column>
-            <h:column>
-              <f:facet name="header">
-                <ice:outputText value="Value"/>
-              </f:facet>
-              <ice:outputText value="#{item.value}"/>
-            </h:column>
-            <h:column>
-              <f:facet name="header">
-                <ice:outputText value="Action"/>
-              </f:facet>
-              <center>
-                <ice:commandButton actionListener="#{dynamicSearchBean.removeItem}" 
-                                   image="images/cancel.png"
-                                   title="Remove Criteria"/>
-              </center>
-            </h:column>
-          </ice:dataTable>
-        </td>
-      </tr>
-      <tr>
-        <td align="right" >
-          <ice:commandButton id="submission"
-                             image="images/submit.gif" 
-                             action="#{dynamicSearchBean.submitSearch}"
-                             onclick="if (!checkCriteriaAndShowProgress(#{dynamicSearchBean.criteriaLength})){return false;}"/>
-          <f:verbatim>&amp;nbsp;</f:verbatim>
-          <ice:commandButton image="images/reset.gif"
-                             action="#{dynamicSearchBean.resetAction}" 
-                             onclick="document.getElementById('MAINbody:fieldForm:inputValue').value='';"/>
-        </td>
-      </tr>
-    </table>
-  </ice:form>
-  <table width="80%" 
-         border="0" 
-         class="contentPage submissionView"
-         style="margin-top: 20px; margin-left: 5px; margin-right: 5px">
-    <tr>
-      <th>
-        Criteria
-      </th>
-    </tr>   
-    <tr>
-      <td>
-        <ice:form id="groupForm">
-          <table class="promptbox" style="display: block;" id="newSampleQuery">    
-            <tr>
-              <td colspan="4">
-                <b>
-                  <ice:outputLabel for="group" value="Group"/>
-                </b>
-                <ice:selectOneMenu id="group" 
-                                   tabindex="10"
-                                   partialSubmit="true"
-                                   value="#{dynamicSearchBean.selectedDataGroup}"
-                                   valueChangeListener="#{dynamicSearchBean.dataGroupChanged}">
-                  <f:selectItems value="#{dynamicSearchBean.dataGroupItems}"/>                  
-                </ice:selectOneMenu>   
-              </td>
-            </tr>
-          </table>
-        </ice:form>
-        <ice:form id="fieldForm">
-          <table class="promptbox" style="display: block;" id="fieldsTable">   
-            <tr>
-              <td>
-                <ice:selectOneMenu id="fields" 
-                                   tabindex="20"
-                                   partialSubmit="true"
-                                   value="#{dynamicSearchBean.selectedField}"
-                                   valueChangeListener="#{dynamicSearchBean.fieldItemChanged}">
-                  <f:selectItems value="#{dynamicSearchBean.fieldItems}"/>
-                </ice:selectOneMenu>
-              </td>
-              <td>
-                <ice:selectOneMenu id="operand"
-                                   tabindex="30"
-                                   partialSubmit="false"
-                                   value="#{dynamicSearchBean.selectedOperand}">
-                  <f:selectItems value="#{dynamicSearchBean.operandItems}"/>
-               </ice:selectOneMenu>
-              </td>
-              <td>
-                <!--  originally rendered=#{!dynamicSearchBean.hasPermissibleData} but icefaces doesnt refresh properly -->
-                <h:inputText id="inputValue"
-                               tabindex="40"
-                               style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}"
-                               value="#{dynamicSearchBean.inputValue}"
-                               size="55"/>
-                <ice:selectOneMenu id="permissibleDataValue" 
-                                   tabindex="25"
-                                   partialSubmit="true"
-                                   rendered="#{dynamicSearchBean.hasPermissibleData}"
-                                   value="#{dynamicSearchBean.permissibleDataValue}">
-                  <f:selectItems value="#{dynamicSearchBean.permissibleData}"/>
-                </ice:selectOneMenu>                               
-                               
-              </td>
-              <td>
-                <ice:commandButton action="#{dynamicSearchBean.addCriteria}"
-                                   image="images/plus_16.png" 
-                                   title="Add Criteria"/>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidInteger}"                          
-                                 styleClass="errorLabel" 
-                                 infoClass="infoLabel" value="Please enter valid integer value"/>                     
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidDouble}"                          
-                                 styleClass="errorLabel" 
-                                 infoClass="infoLabel" value="Please enter valid number value"/>                     
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidDate}"                          
-                                 styleClass="errorLabel" 
-                                 infoClass="infoLabel" value="Please enter valid Date (MM/DD/YYYY)"/>                     
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <ice:outputLabel id="errorMessages" rendered="#{dynamicSearchBean.errorMessage}"                          
-                                 styleClass="errorLabel" 
-                                 infoClass="infoLabel" value="Please enter valid operator or input value"/>                     
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                <ice:outputLabel id="errorMessage" 
-                                 styleClass="errorLabel"
-                                 rendered="#{dynamicSearchBean.hasDuplicate}"
-                                 value="This search criteria has already been entered"/>                     
-              </td>
-            </tr>          
-          </table>
-        </ice:form>
+  <table width="100%" border="1"   cellspacing="0" cellpadding="0" summary="" valign="top"> 
+   <tr>
+     <td align="left" colspan ="2" valign="top">
+     <h:form id="searchMenuForm">
+	<table cellspacing="0" cellpadding="0" width="100%" summary=""	border="0" valign="top">
+	<tr>
+	
+	  <td valign="top" align="center">
+         		<h:commandButton action="#" image="images/advance-search.png" immediate="true" /> 
+         		<ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" />
+		<div align="left" style="font-size: 1.4em">
+			<h:inputHidden id="editQueryMessage" />
+			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
+		</div>
+	</td>
+	<td>
+	      	  <ui:include src="../searchresults/searchResultButtons.xhtml">
+	  	 </ui:include>
+  	</td>
+  	
+	</tr>
+	</table>
+	</h:form> 
       </td>
-    </tr>          
-  </table>
-  <ice:form id="contentForm" partialSubmit="true">
-    <table border="0" width="80%" class="contentPage">
-      <tr>
-        <td>
-          <ice:selectOneRadio partialSubmit="true" 
-                              value="#{dynamicSearchBean.relation}">
-            <f:selectItem itemLabel="AND" itemValue="AND"/>
-            <f:selectItem itemLabel="OR" itemValue="OR" />
-          </ice:selectOneRadio>
-        </td>
+     </tr>
+     <tr>
+      <td valign="top"  width="20%">
+     	<ice:form id="iceForm" >
+        <table cellspacing="0" cellpadding="0" border="0" class="contentPage">
+         <tr>
+	   <td > 
+	   <table cellspacing="0" cellpadding="0" border="0">
+	   <tr>
+	   <td>
+	    <h:outputText styleClass="formLabel"  value="#{msg.search_andTypeSerach}" style="border:0px" />
+	    </td>
+	    <td>
+	    <ice:selectOneRadio style="border:0px"  id="andSearchModalityCheck" value="#{dynamicSearchBean.relation}" immediate="true" 
+	    			valueChangeListener="#{dynamicSearchBean.relationChangeListener}" partialSubmit="true" >
+	                                <f:selectItem itemValue="AND" 
+	                                              itemLabel="#{msg.search_modalityAndedSearchLabelAll}" />
+	                                <f:selectItem itemValue="OR" 
+	                                              itemLabel="#{msg.search_andedSearchLabelAny}"/>
+	      </ice:selectOneRadio>
+	    </td>
+	    </tr>
+	   </table>
+	   </td>
+        </tr>  
+           <tr>
+	        <td>
+	          <ice:outputLabel for="perPage"
+	                           value="Results Per Page"/> 
+	
+	          <ice:selectOneMenu id="perPage" 
+	                             tabindex="40"
+	                             partialSubmit="true"
+	                             style="margin-left: 10px"
+	                             value="#{dynamicSearchBean.selectedResultPerPage}"
+	                             valueChangeListener="#{dynamicSearchBean.resultPerPageOptionChangeListener}">
+	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
+	          </ice:selectOneMenu>            
+	        </td>
       </tr>
-    </table>
-  
-    <table border="0" 
-           width="80%" 
-           style="margin-top: 20px; margin-left: 5px; margin-right: 5px"
-           class="contentPage promptbox">
-      <tr>
-        <td>
-          <ice:outputLabel for="perPage"
-                           value="Results Per Page"/> 
-
-          <ice:selectOneMenu id="perPage" 
-                             tabindex="40"
-                             partialSubmit="true"
-                             style="margin-left: 10px"
-                             value="#{dynamicSearchBean.selectedResultPerPage}">
-            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
-          </ice:selectOneMenu>            
-        </td>
+       <tr>
+       <td>
+       <b><f:verbatim>&amp;nbsp;</f:verbatim></b>
+      </td>
       </tr>
-    </table>  
-  
-    <p/>
-    <!-- The following line is for IE HACK -->
-    <div style="display:none;"> #{dynamicSearchBean.criteriaLength} </div>
-    <table border="0" width="80%" class="contentPage">
-      <tr>
-        <td align="right" >
-          <ice:commandButton id="submission"
-                             image="images/submit.gif" 
-                             action="#{dynamicSearchBean.submitSearch}"
-                              onclick="if (!checkCriteriaAndShowProgress(#{dynamicSearchBean.criteriaLength})) {return false;}"/>
-          <f:verbatim>&amp;nbsp;</f:verbatim>
-          <!-- I could not find out why the form value did not send to server when clicking -->
-          <!-- on reset button. That is why I added javascript to clear the text field -->
-          <!--  NOTE FROM FUTURE: this button is in differet form from textfield.  it appears
-               that if in same form, it works ok -->
-          <ice:commandButton image="images/reset.gif"
-                             action="#{dynamicSearchBean.resetAction}"
-                             onclick=" if (document.getElementById('MAINbody:fieldForm:inputValue') != null) document.getElementById('MAINbody:fieldForm:inputValue').value='';"/>
+       <tr>
+            <td>
+            <b>
+              Criteria</b>
+            </td>
+    </tr>   
+        <tr>
+          <td>
+          
+            <ice:selectOneMenu id="group" 
+                               tabindex="10"
+                               partialSubmit="true"
+                               value="#{dynamicSearchBean.selectedDataGroup}"
+                               valueChangeListener="#{dynamicSearchBean.dataGroupChanged}">
+            <f:selectItems value="#{dynamicSearchBean.dataGroupItems}"/>                  
+            </ice:selectOneMenu>  
+            
+           </td>
+           </tr>
+           <tr>
+            <td>
+  	    <table  cellspacing="0" cellpadding="0" >
+  	    <tr>
+  	    <td>
+                  <ice:selectOneMenu id="fields" 
+                                     tabindex="20"
+                                     partialSubmit="true"
+                                     value="#{dynamicSearchBean.selectedField}"
+                                     valueChangeListener="#{dynamicSearchBean.fieldItemChanged}">
+                    <f:selectItems value="#{dynamicSearchBean.fieldItems}"/>
+                  </ice:selectOneMenu>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                  <ice:selectOneMenu id="operand"
+                                     tabindex="30"
+                                     partialSubmit="true"
+                                     value="#{dynamicSearchBean.selectedOperand}">
+                    <f:selectItems value="#{dynamicSearchBean.operandItems}"/>
+                 </ice:selectOneMenu>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                  <!--  originally rendered=#{!dynamicSearchBean.hasPermissibleData} but icefaces doesnt refresh properly -->
+                  <span>
+                  <h:inputText id="inputValue"
+                                 tabindex="40"
+                                 style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}"
+                                 value="#{dynamicSearchBean.inputValue}"
+                                 size="31"/>
+ 	           <ice:commandButton id="addC" action="#{dynamicSearchBean.addTextCriteria}" 
+ 	           		image="images/plus_16.png" 
+ 	           		style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}" 
+ 	           		title="Add Criteria"/>                                
+                  </span>
+                  <ice:selectOneMenu id="permissibleDataValue" 
+                                     tabindex="25"
+                                     partialSubmit="true"
+                                     rendered="#{dynamicSearchBean.hasPermissibleData}"
+                                     value="#{dynamicSearchBean.permissibleDataValue}"
+                                     valueChangeListener="#{dynamicSearchBean.permissibleDataChangeListener}">
+                    <f:selectItems value="#{dynamicSearchBean.permissibleData}"/>
+                  </ice:selectOneMenu>                               
+                                 
+                </td>
+            
+              </tr>
+		</table>              
+                </td>
+                <td>
+                  <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidInteger}"                          
+                                   styleClass="errorLabel" 
+                                   infoClass="infoLabel" value="Please enter valid integer value"/>                     
+                <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidDouble}"                          
+                                   styleClass="errorLabel" 
+                                   infoClass="infoLabel" value="Please enter valid number value"/>                     
+                <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidDate}"                          
+                                   styleClass="errorLabel" 
+                                   infoClass="infoLabel" value="Please enter valid Date (MM/DD/YYYY)"/>                     
+                  <ice:outputLabel id="errorMessages" rendered="#{dynamicSearchBean.errorMessage}"                          
+                                   styleClass="errorLabel" 
+                                   infoClass="infoLabel" value="Please enter valid operator or input value"/>                     
+                  <ice:outputLabel id="errorMessage" 
+                                   styleClass="errorLabel"
+                                   rendered="#{dynamicSearchBean.hasDuplicate}"
+                                   value="This search criteria has already been entered"/>                     
+		</td>
+          
+          </tr> 
+	  <tr>
+	    <td class="formTitleIIII">
+	       <h:outputText value="#{msg.search_selectedCriteria}" rendered="#{dynamicSearchBean.showCriteria}" />
+	    </td>
+	  </tr>           
+          <!--tr>
+	    <td >
+	  	<ice:outputLabel id="noCriteria" value="No criteria selected" rendered="#{!dynamicSearchBean.showCriteria}" />
+	    </td>
+          </tr-->
+          <tr>
+          <td>
+          <ice:panelSeries value="#{dynamicSearchBean.criteriaBean}" var="item" style="display: inline-table;">
+	    <h:panelGrid  cellspacing="0" cellpadding="3"
+	                  columnClasses="col25,col75"
+	  	          styleClass="searchFormSelector"
+	  		  style="width: 249px; display: inline-table;">
+	  		       	  
+	  		  <f:facet name="header">
+	  		    <h:panelGroup>
+	  		       	  <ice:commandButton actionListener="#{dynamicSearchBean.removeCriteriaItem}" image="images/cancel.png" title="Remove Criteria" style="float: right;" />
+	  			          Criteria Record
+	  		    </h:panelGroup>       
+	  	          </f:facet>
+	  	       	 <ice:outputText value="#{item.criteria.label}" style="padding-left: 30px;"/>
+	  	       	 <ice:outputText value="#{item.criteria.operator.value}" style="padding-left: 30px;"/>
+	  		<h:panelGroup style="padding-left: 30px;">
+	  		<ice:selectOneMenu id="itemPermissibleDataValue" 
+				  	   tabindex="25"
+				  	   partialSubmit="true"
+				  	   value="#{item.criteria.value}"
+				  	   rendered="#{not empty item.permissibleData}"
+				  	   valueChangeListener="#{dynamicSearchBean.criteriaPermissibleDataChangeListener}">
+				<f:selectItems value="#{item.permissibleData}"/>
+	  	         </ice:selectOneMenu>
+	  		<ice:outputText id="cInputValue"
+	                                   tabindex="40"
+	                                   rendered="#{empty item.permissibleData}"
+	                                   value="#{item.criteria.value}"
+	                                   size="31" />	                         
+	  	       		<h:commandLink id="editCriteriaLink" actionListener="#{dynamicSearchBean.editTextCriteria}"  rendered="#{empty item.permissibleData}">
+	  				  <f:attribute name="textCiteria" value="#{item}" />
+	  				  <h:graphicImage value="/images/edit-icon.png" style="border:0px" />
+	                  	</h:commandLink>
+	  	       	</h:panelGroup>		
+	  	                </h:panelGrid>
+	               </ice:panelSeries>  
+          </td>
+          </tr>
+            </table>
+            </ice:form>
+            </td>
+      <td valign="top">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" >
+               <tr>
+               <td>
+               <ice:form id="criteriaForm">
+	           <table width="100%"  cellspacing="0" cellpadding="0" border="0">
+	             
+	             
+	           </table>
+	         </ice:form>
+	       </td>
+	       </tr>
+	         <tr>
+	           <td height="70%">
+	          <f:subview id="criteriaView"  rendered="#{not empty searchResultBean.nodeTablesWrappers}">
+	            <ui:include src="../searchresults/searchResult.xhtml"/>
+	          </f:subview>
+	          </td>
+               </tr>
+         </table>
         </td>
-      </tr>
-      <tr>
-        <td>
-          <div id="notification" style="display: none;">
-            <img src="images/ajax_indicator.gif" 
-                 width="16"
-                 height="16" 
-                 alt=""/>
-            <f:verbatim>&amp;nbsp;</f:verbatim>
-            Searching...
-          </div>
-        </td>
-      </tr>
-    </table>
-  </ice:form>
+       </tr>
+     </table>
+      <div style="display:none;"> #{dynamicSearchBean.criteriaLength} </div>
+      <table border="0" width="80%" class="contentPage">
+        <tr>
+          <td>
+            <div id="notification" style="display: none;">
+              <img src="images/ajax_indicator.gif" 
+                   alt=""/>
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+              Searching...
+            </div>
+          </td>
+        </tr>
+      </table>
 </div>
-
+  <ice:form id="editTextPopupForm">
+  		<ice:panelPopup id="editTextPopup"
+  			style="z-index:999; background-color:#FFFFFF;" resizable="false"
+  			draggable="false" modal="true"
+  			visible="#{dynamicSearchBean.editTextPopupRendered}">
+  
+  			<f:facet name="header">
+  				<ice:panelGroup styleClass="popupHeaderWrapper">
+  					<table width="100%">
+  						<tr>
+  							<td width="100%">
+  							
+  							</td>
+  							<td>
+  							<ice:commandButton
+  									id="citeriaPopupCloseButton"
+  									image="images/cancel.png"
+  									action="#{dynamicSearchBean.toggleEditTextPopupRendered}"
+  									title="Close Popup" /></td>
+  						</tr>
+  					</table>
+  				</ice:panelGroup>
+  			</f:facet>
+  
+  			<f:facet name="body">
+  				<ice:panelGroup style="overflow: auto; width:400px; height: 200px">
+  					<h:outputText styleClass="formLabel"  value="#{dynamicSearchBean.selectedField}" style="border:0px" />
+  					<h:outputText styleClass="formLabel"  value="#{dynamicSearchBean.selectedOperand}" style="border:0px" />
+  					<h:inputText value="#{dynamicSearchBean.inputValue}"
+  						escape="false" />
+  					 <ice:commandButton id="editTextCriteria" actionListener="#{dynamicSearchBean.submitEditCriteria}" 
+ 	           		image="images/plus_16.png" 
+ 	           		title="Modify Criteria"/>	
+  				</ice:panelGroup>
+  			</f:facet>
+  		</ice:panelPopup>
+	</ice:form>
+  
+  
 </ui:composition>

@@ -72,6 +72,9 @@ L-->
           <copy file="${branding.left.submenu.quicklinks.path}"
                 tofile="@{webapp.dir.path}/WEB-INF/facelets/layout/quickLinks.xhtml"
                 overwrite="true"/>
+          <replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/quickLinks.xhtml"
+		  match="\{NBIA_WIKI_UG_URL}"
+  	        replace="${nbia.wiki.user.guide.url}" flags="g" />         
         </then>
       </if>
 

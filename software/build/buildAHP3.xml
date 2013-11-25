@@ -212,6 +212,8 @@ L-->
 				<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}" />
 				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
 				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
+				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
+				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
 			</filterset>
 		</copy>
 		
@@ -372,7 +374,7 @@ L-->
       <property name="database.driver" value="${database.driver}"/-->
 		</ant>
 	</target>
-	
+	<!-- rewrite the code since github does not support $headURL$ so whenever to display tag in home page build with '-Dnbia_prod_build_tag=value' to diplay on home page -->
 	<target name="compute-tag-properties">
 	   <if>
              <and>
@@ -600,6 +602,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="jar-signing.execution.time" value="${jar-signing.execution.time}" />
 			<!-- Need absolution location, relative path would fail in sub-project since file would not exist -->
 			<property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}" />
+			<property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
 		</ant>
 	</target>
 	<!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
@@ -833,6 +836,8 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="project.name" value="${project.name}" />
 			<property name="nbia.version" value="${nbia.version}" />
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
+			<property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+			<property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" />
 		</ant>
 	</target>
 	

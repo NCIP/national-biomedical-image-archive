@@ -17,8 +17,13 @@ L-->
 
 <h:form id="sideMenuForm" style="height:100%;display:inline">
 
-<table summary="" cellpadding="0" cellspacing="0" border="0" width="130" height="100%">
+<table summary="" cellpadding="0" cellspacing="0" border="0" height="10%">
 
+  <tr>
+  <td bgcolor="#4C5D87">
+   <img src="images/menuLogo.jpg" alt="Logo"/>
+   </td>
+ </tr>
   <tr>
     <td height="22" colspan="2" class="subMenuPrimaryTitle">
       <h:outputText value="#{msg.menu_tools}" />
@@ -204,6 +209,18 @@ L-->
               <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
               <h:commandLink action="#{qcToolBean.performDelete}" 
                              value="#{msg.menu_qcDelete}" 
+                             styleClass="subMenuPrimary"/>      
+            </div>
+          </td>
+        </tr>
+      </f:subview>
+      <f:subview id="sharedListDeleteView" rendered="#{securityBean.hasSuperCuratorRole}">
+        <tr>
+          <td colspan="2" class="subMenuPrimaryItems">
+            <div>
+              <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+              <h:commandLink action="manageCustomList"
+                             value="Manage Shared List" 
                              styleClass="subMenuPrimary"/>      
             </div>
           </td>

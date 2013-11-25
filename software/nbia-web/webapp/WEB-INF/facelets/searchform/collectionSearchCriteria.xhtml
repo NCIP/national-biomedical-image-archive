@@ -16,7 +16,7 @@ L-->
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
 <tr>
-  <td class="formLabel">
+  <td align="center">
     <h:outputText value="#{msg.criteria_CollectionCriteria}" />
     <br/>
     
@@ -28,38 +28,15 @@ L-->
     </f:subview>
     
   </td>
-  <td class="formField">
- 
-    <table width="90%" align="left" cellpadding="0"
+  </tr>
+  <tr>
+  <td>
+    <table width="100%" align="center" cellpadding="0"
            cellspacing="0">
       <tr>
-        <td width="30%">
-          <div align="center">
-            <span class="formMessage">
-              <h:outputText value="#{msg.search_available}" />
-            </span>
-          </div>
-        </td>
-        <td width="40%" align="center" valign="middle">
-          <f:verbatim>&amp;nbsp;</f:verbatim>
-        </td>
-        <td width="30%">
-          <div align="center">
-            <span class="formMessage">
-              <h:outputText value="#{msg.search_selected}" />
-            </span>
-          </div>
-        </td>
-        <td width="4%" valign="bottom">
-          <f:verbatim>&amp;nbsp;</f:verbatim>
-        </td>
-      </tr>
-                                                                                                  
-      <tr>
-        <td valign="top">
+        <td valign="top" align="center">
           <div id="collectionsDiv"
                class="searchFormSelector">
-
             <h:dataTable id="collectionsCheckboxesTable"
                          width="100%"
                          border="0"
@@ -69,7 +46,7 @@ L-->
                          var="collectionItem">
               <h:column id="collectionItemsColumn">
                 <ice:selectBooleanCheckbox value="#{collectionItem.value}" 
-                                           partialSubmit="true" /> 
+                                           partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
                 <h:commandLink id="viewDescriptionLink"
                                actionListener="#{displayCollectionDescBean.collectionDescriptionAction}">
                   <f:attribute name="collectionName" value="#{collectionItem}" />
@@ -78,34 +55,8 @@ L-->
                 <h:outputText value="#{collectionItem.label}"/>                                      
               </h:column>    
             </h:dataTable> 
-
           </div>
         </td>
-        <td align="center" valign="middle">
-          <h:commandButton id="collectionAllRight" 
-                           image="images/SELECTall-noarrow.gif" 
-                           action="#{searchWorkflowBean.selectAllCollections}" />                            
-          <br/>
-          <h:commandButton id="collectionAllLeft"
-                           image="images/REMOVE-all-noarrow.gif"
-                           action="#{searchWorkflowBean.unselectAllCollections}" /> 
-        </td>
-        <td valign="top">
-          <div class="searchFormSelector">
-            <h:dataTable id="selectedCollectionsTable"
-                         width="100%" 
-                         border="0" 
-                         cellpadding="0" 
-                         cellspacing="0" 
-                         value="#{searchWorkflowBean.selectedCollectionNames}"
-                         var="item">
-              <h:column id="selectedCollectionColumn">
-                <h:outputText value="#{item}"/> 
-              </h:column>    
-            </h:dataTable>                            
-          </div>
-        </td>
-        <td valign="top"></td>
       </tr>               
     </table>                       
   </td>

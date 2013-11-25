@@ -152,13 +152,23 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
      *
      */
     public void removeSelectedSeries() {
-        basket.removeSelectedSeries();
-
+        //basket.removeSelectedSeries();
+        basket.removeSelectedSeries(toDelete);
         ftpDownload = (getDownloadType().equals(FTP_DOWNLOAD) ? true:false);
         logger.debug("ftpDownload="+ftpDownload);
     }
 
-
+    private String toDelete;
+    public String getToDelete() {
+		return toDelete;
+	}
+    
+    public void removeAllSeries() {
+    	basket.removeAllSeries();
+    }
+	public void setToDelete(String toDelete) {
+		this.toDelete = toDelete;
+	}
     /**
      * Returns the total number of series in the basket.
      */
@@ -612,6 +622,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     }
 
     public boolean getEnableCreateAList(){
+    	Boolean localSeries = getLocalSeriesList();
+    	System.out.println("EnableCreateAList...  localSeries: " + localSeries);
+        return (sb.getHasLoggedInAsRegisteredUser() && localSeries);
+    }
+    public boolean getLocalSeriesList(){
     	List<BasketSeriesItemBean> seriesItems = getBasket().getSeriesItems();
     	String localNodeName = NCIAConfig.getLocalNodeName();
     	List<BasketSeriesItemBean> localSeriesItems = new ArrayList<BasketSeriesItemBean>();
@@ -622,9 +637,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
             }
             localSeriesItems.add(bsib);
         }
-    	Boolean localSeries = localSeriesItems.size()>0 ? true:false;
-    	System.out.println("EnableCreateAList...  localSeries: " + localSeries);
-        return (sb.getHasLoggedInAsRegisteredUser() && localSeries);
+    	return localSeriesItems.size()>0 ? true:false;
     }
 
     public String getCustomListName(){
@@ -895,5 +908,26 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 		{
 			return false;
 		}
+	}
+	private String exportIMFileName;
+	
+	public String getExportIMFileName(){
+		return exportIMFileName;
+	}
+	/**
+	 * generate the csv file with the series instance uids in the data basket
+	 *
+	 * @throws Exception
+	*/
+	public Resource getExportImageMetadata() throws Exception{
+		exportIMFileName = "seriesInstanceUids" + System.currentTimeMillis() + ".csv";
+		if(basket.isEmpty()){
+			System.out.println("No data in data basket, do not show the export");
+		    return null;
+		}
+		FileGenerator fg = new FileGenerator();
+		String exportString = fg.generateImageMetadata(this.getSeriesItems());
+		ByteArrayResource bar = new ByteArrayResource(exportString.getBytes());
+		return bar;
 	}
 }

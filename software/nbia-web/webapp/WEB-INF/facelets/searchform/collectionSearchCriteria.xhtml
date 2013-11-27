@@ -15,26 +15,27 @@ L-->
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
-<tr>
-  <td align="center">
-    <h:outputText value="#{msg.criteria_CollectionCriteria}" />
-    <br/>
-    
-    <f:subview id="collection_descriptions" rendered="#{securityBean.installationSite}">
-      <a href="https://wiki.nci.nih.gov/x/lRWy"
-         target="_blank">
-        <h:outputText value="#{msg.search_collectionDescriptions}" />
-      </a>
-    </f:subview>
-    
-  </td>
-  </tr>
-  <tr>
-  <td>
-    <table width="100%" align="center" cellpadding="0"
-           cellspacing="0">
-      <tr>
-        <td valign="top" align="center">
+                
+                
+<ice:panelCollapsible expanded="true" rendered="true">
+
+	<f:facet name="header">
+	  <ice:panelGroup>
+	    <ice:outputText id="collectionHeader" value="#{msg.criteria_CollectionCriteria}" />
+	    <br/>
+
+	    <f:subview id="collection_descriptions" rendered="#{securityBean.installationSite}">
+	      <a href="https://wiki.nci.nih.gov/x/lRWy"
+		 target="_blank">
+		<h:outputText value="#{msg.search_collectionDescriptions}" />
+	      </a>
+	    </f:subview>
+	    </ice:panelGroup>
+	 </f:facet>
+ 
+ <br/>
+  
+        
           <div id="collectionsDiv"
                class="searchFormSelector">
             <h:dataTable id="collectionsCheckboxesTable"
@@ -56,10 +57,9 @@ L-->
               </h:column>    
             </h:dataTable> 
           </div>
-        </td>
-      </tr>               
-    </table>                       
-  </td>
-</tr>       
-           
+                 
+                     
+   </ice:panelCollapsible> 
+   
+
 </ui:composition>                

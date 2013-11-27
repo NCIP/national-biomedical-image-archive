@@ -16,6 +16,8 @@ L-->
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ice="http://www.icesoft.com/icefaces/component"
 	xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+	
+	
 	<table cellspacing="0" cellpadding="0" width="100%" summary=""	border="0" valign="top">
 	<tr>
 	<h:form id="searchMenuForm">
@@ -105,50 +107,34 @@ L-->
 		</tr>
 		<tr>
 			<f:subview id="simpleView" rendered="#{!searchWorkflowBean.advanced}">
-			<td width="10%" valign="top">
+			<td width="1%" valign="top">
 				<h:form id="searchForm">
 					<table  class="contentPage" cellspacing="0" cellpadding="0" width="100%" summary="" border="0" valign="top">
 						<tr>
-			              <td width="20%" align="center">
-			               <div id="resultsPerPageDiv" style="height: 40px;">
-			                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
-			                
-			                 <span class="formFieldWhite">                        
-			                  <ice:selectOneMenu id="resultsPerPage" 
-			                                   value="#{searchWorkflowBean.resultPerPageOption}"
-			                                   style="margin-left: 15px"
-			                                   immediate="true"
-			                                   partialSubmit="true"
-			                                   valueChangeListener="#{searchWorkflowBean.resultPerPageOptionChangeListener}">
-			                    <f:selectItem itemValue="20" itemLabel="20" />
-			                    <f:selectItem itemValue="40" itemLabel="40"/>
-			                    <f:selectItem itemValue="60" itemLabel="60" />
-			                    <f:selectItem itemValue="100" itemLabel="100" />
-			                  </ice:selectOneMenu>
-			                </span>
-			                </div>
-			              </td>
-			            </tr>							
-						<tr>
-							<td><f:subview id="collectionSearchCriteriaRow"
+							<td>
+							<ice:panelCollapsible expanded="true" rendered="true">
+								 <f:facet name="header">
+									<ice:panelGroup>
+										<ice:outputText value=""/>
+									</ice:panelGroup>
+                						  </f:facet> 
+							
+								<f:subview id="collectionSearchCriteriaRow"
 									rendered="#{searchLookupBean.showCollectionSearch}">
 									<ui:include src="collectionSearchCriteria.xhtml" />
-								</f:subview></td>
-						</tr>
-						<tr>
-							<td width="30%" >
-								<table width="100%" border="0" align="center" cellpadding="0"
-									cellspacing="0">
-									<tr>
-										<td align="center"><h:outputText
-												value="#{msg.criteria_ImageModalityCriteria}" /> <br /></td>
-									</tr>
-									<tr>
-										<td align="center"><f:subview id="modalityCriteria">
-												<table width="100%" border="0" align="center"
-													cellpadding="0" cellspacing="0">
-													<tr>
-														<td valign="top" align="center">
+								</f:subview>
+							
+									<ice:panelCollapsible expanded="true" rendered="true">
+									                <f:facet name="header">
+									                  <ice:panelGroup>
+									                    <ice:outputText value="#{msg.criteria_ImageModalityCriteria}"/>
+									                  </ice:panelGroup>
+                									</f:facet> 
+									
+											<f:subview id="modalityCriteria">
+												
+													
+														
 															<div id="modalitiesDiv" class="searchFormSelector">
 																<h:dataTable id="modalityCheckboxesTable" width="100%"
 																	border="0" cellpadding="0" cellspacing="0"
@@ -170,35 +156,34 @@ L-->
 																	</h:column>
 																</h:dataTable>
 															</div>
-														</td>
-													</tr>
-													<tr>
-														<td><f:subview id="usSearch"
+														
+													
+													
+														<f:subview id="usSearch"
 																rendered="#{searchWorkflowBean.usSearch}">
-																<table width="100%" border="1" align="center"
-																	cellpadding="0" cellspacing="0">
-																	<tr>
-																		<td><h:outputText
+																
+																	
+																		<h:outputText
 																				value="#{msg.criteria_NumFrameOptionCriteria}" /> <h:selectManyCheckbox
 																				id="numOfFrame" style="font-size: 1em"
 																				value="#{searchWorkflowBean.numFrameOptions}"
 																				layout="lineDirection">
 																				<f:selectItems
 																					value="#{searchLookupBean.numFrameOptionItems}" />
-																			</h:selectManyCheckbox></td>
-																	</tr>
-																	<tr>
-																		<td><h:outputText
+																			</h:selectManyCheckbox>
+																	
+																	
+																		<h:outputText
 																				value="Ultrasound Color Data Present (US)" /> <h:selectManyCheckbox
 																				id="colorMode" style="font-size: 1em"
 																				value="#{searchWorkflowBean.colorModeOptions}"
 																				layout="lineDirection">
 																				<f:selectItems
 																					value="#{searchLookupBean.colorModeOptionItems}" />
-																			</h:selectManyCheckbox></td>
-																	</tr>
-																	<tr>
-																		<td><h:outputText
+																			</h:selectManyCheckbox>
+																	
+																	
+																		<h:outputText
 																				value="Ultrasound Image Mode (US)" />
 																			<div id="imageTypeDiv" class="searchFormSelector"
 																				align="center">
@@ -215,59 +200,59 @@ L-->
 																						</span>
 																					</h:column>
 																				</h:dataTable>
-																			</div></td>
-																	</tr>
-																</table>
-															</f:subview></td>
-													</tr>
-												</table>
-											</f:subview></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td width="20%" align="center">
+																			</div>
+																	
+																
+															</f:subview>
+													
+												
+											</f:subview>
+										</ice:panelCollapsible>
+						
+						
+							
 							<f:subview id="anatomicCriteria"
 									rendered="#{searchWorkflowBean.showAnatomicCriteria}">
-									<table width="100%" border="0" align="center" cellpadding="0"
-										cellspacing="0">
-										<tr>
-											<td align="center"><h:outputText
-													value="#{msg.criteria_AnatomicalSiteCriteria}" /></td>
-										</tr>
-										<tr>
-											<td width="100%" align="center">
-												<table width="100%" border="0" align="center"
-													cellpadding="0" cellspacing="0">
-													<tr>
-														<td valign="top" align="center">
-															<div id="anatomicalSitesDiv" class="searchFormSelector">
-																<h:dataTable id="anatomicalSitesCheckboxesTable"
-																	width="100%" border="0" cellpadding="0" cellspacing="0"
-																	value="#{searchWorkflowBean.anatomicalSiteItems}"
-																	var="anatomicalSiteItem">
-																	<h:column id="anatomicalSiteItemsColumn">
-																		<span style="white-space: nowrap;"> <ice:selectBooleanCheckbox
-																				value="#{anatomicalSiteItem.value}"
-																				partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
-																		<h:outputText value="#{anatomicalSiteItem.label}" />
-																		</span>
-																	</h:column>
-																</h:dataTable>
-															</div>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-									</table>
+									
+										<ice:panelCollapsible expanded="true" rendered="true">
+										
+										
+											<f:facet name="header">
+											  <ice:panelGroup>
+											    <ice:outputText id="collectionHeader" style="float:left;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
+											   
+										
+											    </ice:panelGroup>
+											 </f:facet>
+										
+										
+										
+										
+											<div id="anatomicalSitesDiv" class="searchFormSelector">
+												<h:dataTable id="anatomicalSitesCheckboxesTable"
+													width="100%" border="0" cellpadding="0" cellspacing="0"
+													value="#{searchWorkflowBean.anatomicalSiteItems}"
+													var="anatomicalSiteItem">
+														<h:column id="anatomicalSiteItemsColumn">
+															<span style="white-space: nowrap;"> 
+															<ice:selectBooleanCheckbox 
+																style="float:left;"
+																value="#{anatomicalSiteItem.value}"
+																partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
+																	<h:outputText style="float:left;" value="#{anatomicalSiteItem.label}" />
+															</span>
+														</h:column>
+												</h:dataTable>
+											</div>
+										
+										
+									</ice:panelCollapsible>	
+									
 								</f:subview>
-								</td>
 								
-						</tr>
-		<tr>
-		<td>
+								
+						
+		
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
@@ -275,8 +260,28 @@ L-->
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
-		</td>
-		</tr>
+		
+             
+               <div id="resultsPerPageDiv" style="height: 40px;">
+                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
+                
+                 <span class="formFieldWhite">                        
+                  <ice:selectOneMenu id="resultsPerPage" 
+                                   value="#{searchWorkflowBean.resultPerPageOption}"
+                                   style="margin-left: 15px"
+                                   immediate="true"
+                                   partialSubmit="true"
+                                   valueChangeListener="#{searchWorkflowBean.resultPerPageOptionChangeListener}">
+                    <f:selectItem itemValue="20" itemLabel="20" />
+                    <f:selectItem itemValue="40" itemLabel="40"/>
+                    <f:selectItem itemValue="60" itemLabel="60" />
+                    <f:selectItem itemValue="100" itemLabel="100" />
+                  </ice:selectOneMenu>
+                </span>
+                </div>
+                </ice:panelCollapsible>
+              </td>
+            </tr>					
             </table>
 					</h:form>
 					</td>

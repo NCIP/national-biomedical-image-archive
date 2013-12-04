@@ -17,14 +17,14 @@ public class StringEncrypterTestCase extends TestCase {
 		String origText = "this is plain text";
 		
 		StringEncrypter stringEncrypter = new StringEncrypter();
-		String encryptedText = stringEncrypter.encrypt(origText);
+		String encryptedText = stringEncrypter.encryptString(origText);
 		
 		//not really a great assertion, but it shoudl be true :)
 		assertFalse(encryptedText.equals(origText));
 		
 	
-		stringEncrypter = new StringEncrypter("DESede");
-		String decryptedText = stringEncrypter.decrypt(encryptedText);
+		stringEncrypter = new StringEncrypter();
+		String decryptedText = stringEncrypter.decryptString(encryptedText);
 		
 		assertTrue(decryptedText.equals(origText));
 	}
@@ -32,22 +32,22 @@ public class StringEncrypterTestCase extends TestCase {
 	public void testEncryptHappyPathDES() throws Exception {
 		String origText = "this is plain text";
 		
-		StringEncrypter stringEncrypter = new StringEncrypter("DES");
-		String encryptedText = stringEncrypter.encrypt(origText);
+		StringEncrypter stringEncrypter = new StringEncrypter();
+		String encryptedText = stringEncrypter.encryptString(origText);
 		
 		//not really a great assertion, but it shoudl be true :)
 		assertFalse(encryptedText.equals(origText));
 		
 	
-		stringEncrypter = new StringEncrypter("DES");
-		String decryptedText = stringEncrypter.decrypt(encryptedText);
+		stringEncrypter = new StringEncrypter();
+		String decryptedText = stringEncrypter.decryptString(encryptedText);
 		
 		assertTrue(decryptedText.equals(origText));
 	}	
 
 	
 	public void testEncryptErrors() throws Exception {		
-		try {
+		/*try {
 			new StringEncrypter("DES", null);
 			fail("null key shouldnt be here");
 		}
@@ -67,11 +67,11 @@ public class StringEncrypterTestCase extends TestCase {
 		}
 		catch(Exception ex) {
 			//should be here - null key
-		}	
+		}*/	
 		
 		try {
 			StringEncrypter stringEncrypter = new StringEncrypter();
-			stringEncrypter.encrypt(null);
+			stringEncrypter.encryptString(null);
 			fail("null key shouldnt be here");
 		}
 		catch(Exception ex) {
@@ -80,7 +80,7 @@ public class StringEncrypterTestCase extends TestCase {
 		
 		try {
 			StringEncrypter stringEncrypter = new StringEncrypter();
-			stringEncrypter.decrypt(null);
+			stringEncrypter.decryptString(null);
 			fail("null key shouldnt be here");
 		}
 		catch(Exception ex) {

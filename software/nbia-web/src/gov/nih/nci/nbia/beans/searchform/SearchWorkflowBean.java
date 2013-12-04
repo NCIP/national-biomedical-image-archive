@@ -612,6 +612,8 @@ public class SearchWorkflowBean {
         if (!buildQuery()) {
             // If there is a validation error, stay on the
             // same page
+        	SearchResultBean srb = BeanManager.getSearchResultBean();
+        	srb.setPatientResults(null);        	
             return null;
         }
         try {
@@ -1242,6 +1244,8 @@ public class SearchWorkflowBean {
         unselectAllAnatomicalSites();
 
         this.aimSearchWorkflowBean.setDefaultValues();
+        SearchResultBean srb = BeanManager.getSearchResultBean();
+    	srb.setPatientResults(null);   
     }
 
     private void setDefaultKilovoltValues() {
@@ -1313,7 +1317,9 @@ public class SearchWorkflowBean {
             query.setQueryName(oldQuery.getQueryName());
             query.setSavedQueryId(oldQuery.getSavedQueryId());
         }
-
+        if(query.getCriteriaList().isEmpty()) {
+        	return false;
+        }
         return true;
     }
 

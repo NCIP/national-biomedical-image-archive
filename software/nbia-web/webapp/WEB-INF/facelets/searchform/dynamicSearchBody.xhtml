@@ -18,7 +18,7 @@ L-->
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
                 xmlns:ncia="http://imaging.nci.nih.gov/ncia">
 <div id="searchFormPanel">
-  <table width="100%" border="1"   cellspacing="0" cellpadding="0" summary="" valign="top"> 
+  <table width="100%" border="0"   cellspacing="0" cellpadding="0" summary="" valign="top"> 
    <tr>
      <td align="left" colspan ="2" valign="top">
      <h:form id="searchMenuForm">
@@ -46,10 +46,25 @@ L-->
      <tr>
       <td valign="top"  width="20%">
      	<ice:form id="iceForm" >
-        <table cellspacing="0" cellpadding="0" border="0" class="contentPage">
+        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" >
+	 <tr>
+	        <td>
+	          <ice:outputLabel for="perPage"
+	                           value="Results Per Page"/> 
+	
+	          <ice:selectOneMenu id="perPage" 
+	                             tabindex="40"
+	                             partialSubmit="true"
+	                             style="margin-left: 10px"
+	                             value="#{dynamicSearchBean.selectedResultPerPage}"
+	                             valueChangeListener="#{dynamicSearchBean.resultPerPageOptionChangeListener}">
+	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
+	          </ice:selectOneMenu>            
+	        </td>
+      </tr>        
          <tr>
 	   <td > 
-	   <table cellspacing="0" cellpadding="0" border="0">
+	   <table cellspacing="0" cellpadding="0" border="0" style="width: 249px;">
 	   <tr>
 	   <td>
 	    <h:outputText styleClass="formLabel"  value="#{msg.search_andTypeSerach}" style="border:0px" />
@@ -67,32 +82,13 @@ L-->
 	   </table>
 	   </td>
         </tr>  
-           <tr>
-	        <td>
-	          <ice:outputLabel for="perPage"
-	                           value="Results Per Page"/> 
-	
-	          <ice:selectOneMenu id="perPage" 
-	                             tabindex="40"
-	                             partialSubmit="true"
-	                             style="margin-left: 10px"
-	                             value="#{dynamicSearchBean.selectedResultPerPage}"
-	                             valueChangeListener="#{dynamicSearchBean.resultPerPageOptionChangeListener}">
-	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
-	          </ice:selectOneMenu>            
-	        </td>
-      </tr>
-       <tr>
-       <td>
-       <b><f:verbatim>&amp;nbsp;</f:verbatim></b>
-      </td>
-      </tr>
        <tr>
             <td>
             <b>
               Criteria</b>
             </td>
     </tr>   
+    
         <tr>
           <td>
           
@@ -108,9 +104,7 @@ L-->
            </tr>
            <tr>
             <td>
-  	    <table  cellspacing="0" cellpadding="0" >
-  	    <tr>
-  	    <td>
+  	    
                   <ice:selectOneMenu id="fields" 
                                      tabindex="20"
                                      partialSubmit="true"
@@ -152,12 +146,10 @@ L-->
                                      valueChangeListener="#{dynamicSearchBean.permissibleDataChangeListener}">
                     <f:selectItems value="#{dynamicSearchBean.permissibleData}"/>
                   </ice:selectOneMenu>                               
-                                 
                 </td>
             
               </tr>
-		</table>              
-                </td>
+		<tr>
                 <td>
                   <ice:outputLabel id="invalidDate" rendered="#{dynamicSearchBean.invalidInteger}"                          
                                    styleClass="errorLabel" 
@@ -178,6 +170,20 @@ L-->
 		</td>
           
           </tr> 
+          <tr>
+          <td>
+            <ice:commandLink id="addSeriesToBasketButton" action="#{dynamicSearchBean.resetAction}" >                                          
+	    			<ice:graphicImage value="images/reset.gif" style="border:none;display:inline;"/>                                                                               
+	    </ice:commandLink>
+          </td>
+          </tr>
+          <tr>
+          <td>
+        	  <f:verbatim>&amp;nbsp;</f:verbatim>
+	          <f:verbatim>&amp;nbsp;</f:verbatim>
+        
+          </td>
+          </tr>
 	  <tr>
 	    <td class="formTitleIIII">
 	       <h:outputText value="#{msg.search_selectedCriteria}" rendered="#{dynamicSearchBean.showCriteria}" />
@@ -244,7 +250,7 @@ L-->
 	       </tr>
 	         <tr>
 	           <td height="70%">
-	          <f:subview id="criteriaView"  rendered="#{not empty searchResultBean.nodeTablesWrappers}">
+	          <f:subview id="criteriaView">
 	            <ui:include src="../searchresults/searchResult.xhtml"/>
 	          </f:subview>
 	          </td>

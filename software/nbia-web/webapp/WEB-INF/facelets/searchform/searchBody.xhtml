@@ -115,10 +115,26 @@ L-->
 							<ice:panelCollapsible expanded="true" rendered="true">
 								 <f:facet name="header">
 									<ice:panelGroup>
-										<ice:outputText value=""/>
+										<ice:outputText value="Criteria"/>
 									</ice:panelGroup>
                 						  </f:facet> 
-							
+								<div id="resultsPerPageDiv" style="height: 40px;">
+								                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
+								                
+								                 <span class="formFieldWhite">                        
+								                  <ice:selectOneMenu id="resultsPerPage" 
+								                                   value="#{searchWorkflowBean.resultPerPageOption}"
+								                                   style="margin-left: 15px"
+								                                   immediate="true"
+								                                   partialSubmit="true"
+								                                   valueChangeListener="#{searchWorkflowBean.resultPerPageOptionChangeListener}">
+								                    <f:selectItem itemValue="20" itemLabel="20" />
+								                    <f:selectItem itemValue="40" itemLabel="40"/>
+								                    <f:selectItem itemValue="60" itemLabel="60" />
+								                    <f:selectItem itemValue="100" itemLabel="100" />
+								                  </ice:selectOneMenu>
+								                </span>
+                						</div>
 								<f:subview id="collectionSearchCriteriaRow"
 									rendered="#{searchLookupBean.showCollectionSearch}">
 									<ui:include src="collectionSearchCriteria.xhtml" />
@@ -251,35 +267,20 @@ L-->
 								</f:subview>
 								
 								
-						
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<f:verbatim>&amp;nbsp;</f:verbatim>
+							
+		
+		<div id="clear"  style="height: 20px;">
+		    <ice:commandLink id="addSeriesToBasketButton" action="#{searchWorkflowBean.reset}" >                                          
+			<ice:graphicImage value="images/reset.gif" style="border:none;display:inline;"/>                                                                               
+		    </ice:commandLink>
+		</div>
 		
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		
-             
-               <div id="resultsPerPageDiv" style="height: 40px;">
-                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
-                
-                 <span class="formFieldWhite">                        
-                  <ice:selectOneMenu id="resultsPerPage" 
-                                   value="#{searchWorkflowBean.resultPerPageOption}"
-                                   style="margin-left: 15px"
-                                   immediate="true"
-                                   partialSubmit="true"
-                                   valueChangeListener="#{searchWorkflowBean.resultPerPageOptionChangeListener}">
-                    <f:selectItem itemValue="20" itemLabel="20" />
-                    <f:selectItem itemValue="40" itemLabel="40"/>
-                    <f:selectItem itemValue="60" itemLabel="60" />
-                    <f:selectItem itemValue="100" itemLabel="100" />
-                  </ice:selectOneMenu>
-                </span>
-                </div>
-                </ice:panelCollapsible>
+
+		 </ice:panelCollapsible>
               </td>
             </tr>					
             </table>
@@ -293,12 +294,10 @@ L-->
 				</td>
 				</f:subview>
 			<td valign="top" width="90%" class="formField">
-			<f:subview id="criteriaView" rendered="#{not empty searchResultBean.nodeTablesWrappers}">
+			<f:subview id="criteriaView" >
 			  <ui:include src="../searchresults/searchResult.xhtml" />
 			</f:subview>
-			<f:subview id="criteriaView" rendered="#{empty searchResultBean.nodeTablesWrappers}">
-				<ice:outputText value="Select Criteria to search images" style="display:inline"/>
-			</f:subview>
+			
 			</td>
 
 		</tr>

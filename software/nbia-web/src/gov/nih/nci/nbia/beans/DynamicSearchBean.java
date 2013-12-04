@@ -565,19 +565,28 @@ public class DynamicSearchBean {
 		invalidDate = false;
 		invalidInteger = false;
 		invalidDouble = false;
+		criteriaBean = new ArrayList<DynamicSearchCriteriaBean>();
+		try {
+			populateSearchResults(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String submitSearch() throws Exception
 	{
 		String returnValue = "submitSearch";
+		if(criteria !=null && !criteria.isEmpty()) {
+			QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
+			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
+			qh.setQueryCriteria(criteria, relation, authorizedSiteData, seriesSecurityGroups);
+			qh.query();
+			List<PatientSearchResult> patients = qh.getPatients();
 
-		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
-		qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
-		qh.setQueryCriteria(criteria, relation, authorizedSiteData, seriesSecurityGroups);
-		qh.query();
-		List<PatientSearchResult> patients = qh.getPatients();
-
-		populateSearchResults(patients);
+			populateSearchResults(patients);
+		} else {
+			populateSearchResults(null);
+		}
 
 		return returnValue;
 	}

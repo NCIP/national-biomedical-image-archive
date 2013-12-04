@@ -890,3 +890,23 @@ table.promptbox {
 }
 /* end */
 
+.button {
+     padding: 5px 7px;
+        background: #d6d6dd;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        border: solid 1px #2A4E77;
+        -webkit-transition-duration: 0.2s;
+        -moz-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+    user-select:none;
+   }
+.button:hover {
+    background: #d6d6d4;
+    border: solid 1px #2A4E77;
+    text-decoration: none;
+}   

@@ -19,8 +19,15 @@ L-->
     <table border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td class="formMessage" style="text-align:left" >
-        <ice:outputText value="Add all found to  " style="display:inline" rendered="#{not empty searchResultBean.nodeTablesWrappers}" />
-        <h:commandButton action="#{perNodeResult.addAllPatientToBasket}" image="images/cart-empty.png" rendered="#{not empty searchResultBean.nodeTablesWrappers}"/>
+         <ice:commandLink id="addSeriesToBasketButton"  style="float:left;height:15px;border: solid 1px #2A4E77;" styleClass="button" action="#{perNodeResult.addAllPatientToBasket}"
+         	rendered="#{not empty searchResultBean.nodeTablesWrappers}">                                          
+		<ice:outputText value="Add all found to  " style="display:inline"/>
+		<ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;"/>                                                                               
+	 </ice:commandLink>
+        
+        
+        <!--ice:outputText value="Add all found to " style="float:left;height:20px;" styleClass="button"  rendered="#{not empty searchResultBean.nodeTablesWrappers}" />
+        <h:commandButton action="#{perNodeResult.addAllPatientToBasket}" image="images/cart-empty.png" rendered="#{not empty searchResultBean.nodeTablesWrappers}"/-->
         </td>
         <td>
         <f:verbatim>&amp;nbsp;</f:verbatim>

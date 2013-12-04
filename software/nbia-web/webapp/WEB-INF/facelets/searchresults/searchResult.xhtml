@@ -19,14 +19,14 @@ L-->
 <h:form id="dataForm" style="cellpadding:0px; cellspacing:0;padding-top: 0px; margin:0">
       <table width="100%" border="0" cellpadding="0" cellspacing="0" summary="" valign="top"  align="center" >
         <tr>
-          <td valign="top">                   
-            <h:message for="tableOfPatientResultTables"/>
+          <td valign="top"  width="100%">                   
+            <!--h:message for="tableOfPatientResultTables"/-->
             <!-- for the saved query when no active nodes in query -->
-            <ice:panelGroup rendered="#{empty searchResultBean.nodeTablesWrappers}" 
-                            style="border: 1px solid black">
-              <ice:outputText value="No NBIA nodes are avaialable/selected to search."/>
+            <ice:panelGroup rendered="#{empty searchResultBean.nodeTablesWrappers}" style="border: none;padding-top: 0px; margin: 0px 0 0 0;">
+              <ui:include src="patientResultsTable.xhtml" style="padding-top: 0px; margin: 0px 0 0 0;">
+	      	<ui:param name="perNodeResult" value="#{nodeTablesWrapper}"/>
+      	      </ui:include>     
             </ice:panelGroup>
-            
             <!-- 
               if this isn't ice table, v h table, scrollers will go haywire
               -->
@@ -34,7 +34,7 @@ L-->
                            value="#{searchResultBean.nodeTablesWrappers}"
                            width="100%"
                            var="perNodeResult"
-                           style="padding-top: 0px; margin: 0px 0 0 0;">
+                           style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
               <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0; ">
                 <ui:include src="patientResultsTable.xhtml">
 		        <ui:param name="perNodeResult" value="#{perNodeResult}"/>

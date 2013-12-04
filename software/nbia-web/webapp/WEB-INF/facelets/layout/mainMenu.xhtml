@@ -70,16 +70,15 @@ L-->
       	 
       	<ul >
       	    <li id="subMenuPrimary">
-	         <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
 	         <h:commandLink action="#{searchWorkflowBean.newSimpleSearch}"  value="#{msg.common_simpleSearch}" styleClass="subMenuPrimary"/>
               </li> 
               <li id="subMenuPrimary">
-	      	         <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+	      	         
 	      	         <h:commandLink action="#{searchWorkflowBean.newAdvSearch}"
                                          value="Text Search" styleClass="subMenuPrimary"/>
               </li> 
               <li id="subMenuPrimary">
-	      	         <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+	      	         
 	      	         <h:commandLink action="#{searchWorkflowBean.newDynamicSearch}"
                                          value="Advance Search" styleClass="subMenuPrimary"/>
               </li> 
@@ -142,10 +141,6 @@ L-->
 	 
 	<ul >
 	    <li id="subMenuPrimary">
-	      <img src="images/subMenuArrow.gif" 
-	      	                    width="5"
-	      	                    height="5" 
-	                    alt="" />
 	           <a href="#" 
 	           class="subMenuPrimary"
 	           onclick="window.open('/ncia/imageViewers.jsf', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=550,height=500,scrollbars=yes,resizable=yes')">
@@ -160,10 +155,6 @@ L-->
 	    
 	  
 	      <li id="subMenuPrimary">
-	        <img src="images/subMenuArrow.gif" 
-			                    width="5"
-			                    height="5" 
-	                    alt="" />
 	        <h:commandLink id="viewSavedQueriesLink"
 	                       action="#{savedQueryBean.viewSavedQueries}"
 	                       value="#{msg.menu_viewQueries}" 
@@ -179,10 +170,6 @@ L-->
 	      </li>
 	   
 	      <li id="subMenuPrimary">
-	        	<img src="images/subMenuArrow.gif" 
-				                    width="5"
-				                    height="5" 
-	                    alt="" />
 	    
 	        <h:commandLink action="#{savedQueryBean.viewQueryHistory}"
 	                       value="#{msg.menu_queryHistory}" styleClass="subMenuPrimary" />  
@@ -193,10 +180,6 @@ L-->
 	    <f:subview id="refImageView" rendered="#{ispyBean.isQueryFromUrl}">
 	     
 	        <li id="subMenuPrimary">
-	        	<img src="images/subMenuArrow.gif" 
-				                    width="5"
-				                    height="5" 
-	                    alt="" />
 	          
 	          <h:commandLink action="#{ispyBean.viewRefImage}"
 	                         value="#{msg.menu_queryRefImages}"
@@ -211,11 +194,6 @@ L-->
 	                  rendered="#{securityBean.changePassword}">
 	      
 	           <li id="subMenuPrimary">
-	               <img src="images/subMenuArrow.gif" 
-		 	                    width="5"
-		 	                    height="5" 
-	                    alt="" />
-	                 
 	               <h:outputLink value="#{msg.account_support_NCIPwdStation}"
 	                             target="blank" 
 	                             styleClass="subMenuPrimary">
@@ -230,10 +208,6 @@ L-->
 	       
 	           <li id="subMenuPrimary">
 	             
-	               <img src="images/subMenuArrow.gif" 
-	                    width="5"
-	                    height="5" 
-	                    alt="" />
 	               <h:commandLink id="createCustomSeriesListMenuItem"
 	                              action="#{customSeriesListBean.createListFromLink}"
 	                              value="Create Shared List" 
@@ -243,10 +217,6 @@ L-->
 	        
 	           <li id="subMenuPrimary">
 	             
-	               <img src="images/subMenuArrow.gif" 
-	                    width="5"
-	                    height="5" 
-	                    alt="" />
 	               <h:commandLink id="editCustomSeriesListMenuItem"
 	                              action="#{editCustomSeriesListBean.viewCreatedLists}"
 	                              value="Edit Shared List" 
@@ -259,10 +229,6 @@ L-->
 	         
 	           <li id="subMenuPrimary">
 	             
-	               <img src="images/subMenuArrow.gif" 
-	                    width="5"
-	                    height="5" 
-	                    alt="" />
 	               <h:commandLink id="searchCustomSeriesListMenuItem"
 	                              action="searchCustomSeriesList"
 	                              value="Search Shared List" 
@@ -304,7 +270,7 @@ L-->
             
               <li id="subMenuPrimary">
                
-                  <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+                  
                   <h:commandLink action="#{qcToolBean.performQc}" 
                                  value="#{msg.menu_qcTool}" 
                                  styleClass="subMenuPrimary"/>
@@ -317,7 +283,7 @@ L-->
             
               <li id="subMenuPrimary">
                 
-                  <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+                  
                   <h:commandLink action="#{qcToolBean.performDelete}" 
                                  value="#{msg.menu_qcDelete}" 
                                  styleClass="subMenuPrimary"/>      
@@ -329,7 +295,7 @@ L-->
             
               <li id="subMenuPrimary">
              
-                  <img src="images/subMenuArrow.gif" width="5" height="5" alt=""/>
+                  
                   <h:commandLink action="manageCustomList"
                                  value="Manage Shared List" 
                                  styleClass="subMenuPrimary"/>      
@@ -341,10 +307,6 @@ L-->
             
               <li id="subMenuPrimary">
                 
-                  <img src="images/subMenuArrow.gif" 
-                       width="5"
-                       height="5" 
-                       alt="" />
                   <h:commandLink id="submissionReportMenuItem"
                                  action="submissionReports"
                                  value="View Submission Reports" 
@@ -357,10 +319,6 @@ L-->
             
               <li id="subMenuPrimary">
                 
-                  <img src="images/subMenuArrow.gif" 
-                       width="5"
-                       height="5" 
-                       alt="" />
                   <h:commandLink id="submissionReportMenuItem"
                                  action="#{seriesDeletionBean.loadDeletion}"
                                  value="Perform Online Deletion" 
@@ -371,11 +329,6 @@ L-->
                      rendered="#{securityBean.hasCollectionDescRole}">
            
               <li id="subMenuPrimary">
-             
-                  <img src="images/subMenuArrow.gif" 
-                       width="5"
-                       height="5" 
-                       alt="" />
                   <h:commandLink id="collectionDescriptionMenuItem"
                                  action="editCollectionDescriptions"
                                  value="Edit Collection Desc" 

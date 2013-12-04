@@ -18,45 +18,50 @@ L-->
 
 <f:subview id="notWaitingView">
 <!--  ensure this is in naming container so resultTable isnt dupe -->  
-<ice:panelGroup id="patientResultsPanelGroup"
-                rendered="#{not empty perNodeResult.patients and not perNodeResult.errorState}">
-<div id="tabD" align="center">
+<ice:panelGroup id="patientResultsPanelGroup">
   <ice:dataTable id="patientResultsTable" 
                  value="#{perNodeResult.patients}" 
                  var="result" 
                  rows="#{searchResultBean.resultsPerPage}" 
                  scrollable="true" scrollHeight="43.3em"
-                 style="padding-top: 0px;  margin: 0px 0 0 0; text-align: center;"
+                 style="border:none;padding-top: 0px;  margin: 0px 0 0 0; text-align: center;"
                  styleClass="contentPage"
-                 columnWidths="45em,40%,10%,10%,9%,8%,5%">
+                 sortColumn="#{searchResultBean.sortColumnName}"
+        	 sortAscending="#{searchResultBean.ascending}"
+                 columnWidths="40em,40%,12%,10%,12%,10%,5%">
     <h:column id="collectionIdColumn">
       <f:facet name="header">
         <h:panelGroup>
-          <h:outputText value="#{msg.common_trialId}" />
+       		<ice:commandSortHeader columnName="#{searchResultBean.collectionNameHeader}" arrow="true" >
+				<ice:outputText value="#{searchResultBean.collectionNameHeader}" />
+			</ice:commandSortHeader>
         </h:panelGroup>
       </f:facet>
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
         <h:outputText value="#{result.patient.project}" />
       </div>
     </h:column>
-    <h:column id="subjectIdColumn">
-      <f:facet name="header">
-        <h:panelGroup>
-          <h:outputText value="#{msg.common_subjectId}" />
-         
-        </h:panelGroup>
-      </f:facet>
-      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
-        <h:commandLink id="viewPatientLink"
-	                       value="#{result.patient.subjectId}"
-	                       action="#{perNodeResult.navPatient}"
-                       actionListener="#{perNodeResult.viewPatient}" />
-      </div>
+    <h:column id="subjectIdColumn" style="text-align:center;">
+          <f:facet name="header">
+            <h:panelGroup>
+    		<ice:commandSortHeader columnName="#{searchResultBean.patientHeader}" arrow="true" >
+    		<ice:outputText value="#{searchResultBean.patientHeader}"/>
+    	</ice:commandSortHeader>         
+            </h:panelGroup>
+          </f:facet>
+          <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
+            <h:commandLink id="viewPatientLink"
+    	                       value="#{result.patient.subjectId}"
+    	                       action="#{perNodeResult.navPatient}"
+                           actionListener="#{perNodeResult.viewPatient}" />
+          </div>
     </h:column>
     <h:column id="matchStudiesCountColumn">
       <f:facet name="header">
         <h:panelGroup>
-          <h:outputText value="Matched #{msg.common_studies}" />
+          <ice:commandSortHeader columnName="#{searchResultBean.matchedStudyHeader}" arrow="true" >
+	      		<ice:outputText value="#{searchResultBean.matchedStudyHeader}"/>
+    	</ice:commandSortHeader>
         </h:panelGroup>
       </f:facet>
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
@@ -66,7 +71,9 @@ L-->
     <h:column id="totalStudiesCountColumn">
           <f:facet name="header">
             <h:panelGroup>
-              <h:outputText value="Total #{msg.common_studies}" />
+             <ice:commandSortHeader columnName="#{searchResultBean.totalStudyHeader}" arrow="true" >
+	         		<ice:outputText value="#{searchResultBean.totalStudyHeader}"/>
+    	</ice:commandSortHeader>
             </h:panelGroup>
           </f:facet>
           <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
@@ -76,7 +83,9 @@ L-->
     <h:column id="matchedSeriesCountColumn">
       <f:facet name="header">
         <h:panelGroup>
-          <h:outputText value="Matched #{msg.common_series}" />
+         <ice:commandSortHeader columnName="#{searchResultBean.matchedSeriesHeader}" arrow="true" >
+	 	         		<ice:outputText value="#{searchResultBean.matchedSeriesHeader}"/>
+    	</ice:commandSortHeader>
         </h:panelGroup>
       </f:facet>
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
@@ -86,7 +95,9 @@ L-->
     <h:column id="totalSeriesCountColumn">
           <f:facet name="header">
             <h:panelGroup>
-              <h:outputText value="Total #{msg.common_series}" />
+             <ice:commandSortHeader columnName="#{searchResultBean.totalSeriesHeader}" arrow="true" >
+	     	         		<ice:outputText value="#{searchResultBean.totalSeriesHeader}"/>
+    	</ice:commandSortHeader>
             </h:panelGroup>
           </f:facet>
           <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
@@ -120,26 +131,9 @@ L-->
     </h:column>                   
   </ice:dataTable>
   <ui:include src="searchResultPaginator.xhtml"/>
-  </div>
 </ice:panelGroup>
 
 
-
-<f:subview id="noResultView" 
-           rendered="#{empty perNodeResult.patients and not perNodeResult.errorState}">
-  <table width="100%" cellpadding="3" cellspacing="0" border="1" class="formLabel">
-    <tr>
-      <td>
-        <h:outputText value="#{msg.search_noResults}" />
-      </td>
-    </tr>
-  </table>
-</f:subview>                  
-
-<f:subview id="errorView" 
-           rendered="#{perNodeResult.errorState}">
-  <h:outputText value="There was an error retrieving the results from this node.  The node may be down.  Please try again later."/>
-</f:subview>
  
 </f:subview>
 </ui:composition>

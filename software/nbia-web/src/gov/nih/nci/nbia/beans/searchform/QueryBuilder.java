@@ -126,10 +126,11 @@ class QueryBuilder {
             imc.setImageModalityObjects(selectedModalities);
             query.setCriteria(imc);
         }
-        ModalityAndedSearchCriteria masc = new ModalityAndedSearchCriteria();
-        masc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
-        query.setCriteria(masc);
-
+        if (selectedModalities.size()>0) {
+        	ModalityAndedSearchCriteria masc = new ModalityAndedSearchCriteria();
+        	masc.setModalityAndedSearchValue(searchBean.getModalityAndedSearch());
+        	query.setCriteria(masc);
+        }
         // Setup US Multi modality criteria here
         List<String> selectedUsMultiModalities = searchBean.getSelectedUsMultiModalityNames();
         if (selectedUsMultiModalities.size()>0) {

@@ -31,7 +31,7 @@ L-->
 	          <h:commandButton image="images/study_red.gif" action="displayStudy" />
 	        </h:panelGroup>
 	      </td>
-	      <td width="80%">
+	      <td width="70%">
 	       <h2>
 	              <h:outputText value="#{msg.search_subjectResults} #{searchResultBean.patient.subjectId}) " />
 	              <ncia:help label="images/help_icon.png" helpId="-searchresultsstudiesforsubject" />
@@ -41,12 +41,10 @@ L-->
            <tr>
 	                    <td>
 	  		     <div>
-	  		      <ice:panelGroup styleClass="iceMnuBarItem" style="float:left;height:30px">   
-	  		     	     <ice:commandLink id="addSeriesToBasketButton"  styleClass="iceMnuBarItemLabel" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
+	  		     	     <ice:commandLink id="addSeriesToBasketButton"  style="float:left;border: solid 1px #2A4E77;" styleClass="button" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
 	  		     	         <ice:outputText value="Add all found to  " style="display:inline"/>
 	  		     	  	 <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;"/>                                                                               
 	  		     	     </ice:commandLink>
-	           		</ice:panelGroup>    
 	  	                <br/>
 	  	                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
 	  	                <h:message for="visualizeImages" errorClass="errorLabel" infoClass="infoLabel" />                                
@@ -213,7 +211,7 @@ L-->
 								 </div>
 							        </h:panelGroup>
 							        <h:panelGroup style="text-align: center;margin-top:5px;margin-bottom:5px" 
-								       rendered ="#{series.series.maxFrameCount gt 1}">
+								       rendered ="#{series.series.numberImages le 1 or series.series.maxFrameCount gt 1 }">
 								       <h:outputText value="NA" />
 								</h:panelGroup>       
 							    </h:column>

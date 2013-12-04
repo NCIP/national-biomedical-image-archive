@@ -68,7 +68,7 @@ public class DynamicJNLPGeneratorTestCase extends TestCase {
         Object userIdProperty = XPath.selectSingleNode(jdomDocument, "//property[@name='userId' and @value='fake_userid']");
         assertNotNull(userIdProperty);
         StringEncrypter encrypter = new StringEncrypter();
-        String encryptedPassword = encrypter.encrypt("fake_password");
+        String encryptedPassword = encrypter.encryptString("fake_password");
         //System.out.println("encryptedPassword: " +encryptedPassword);
 
         Object passwordProperty = XPath.selectSingleNode(jdomDocument, "//property[@name='password' and @value='" + encryptedPassword + "']");

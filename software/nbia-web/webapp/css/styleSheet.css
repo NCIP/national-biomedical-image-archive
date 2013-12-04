@@ -89,17 +89,15 @@ table.portal-footer {margin-left: auto; margin-right: auto;}
 
 tr.portal-footer{text-align: center; font-size: 79%; }
 
-a.portal-footer {text-decoration: none; color: #333333; border: none;}
+a.portal-footer {text-decoration: none; color: #333333; border: none; line-height: 1.1em;}
 
 a.portal-footer:visited {color: #333333;}
 
 a.portal-footer:hover {text-decoration: underline;}
 
-table.wrapper { width: 955px; margin-left: auto; margin-right: auto;} 
+#portal-footer { text-align: center; color: #333333; font-size: 79%; line-height: 3.2em;}
 
-#portal-footer {text-align: center; color: #333333; font-size: 79%;}
-
-#portal-footer a {color: #333333; border: none;}
+#portal-footer a {text-decoration: none; color: #333333; border: none;}
 
 #portal-footer a:visited {color: #333333;}
 

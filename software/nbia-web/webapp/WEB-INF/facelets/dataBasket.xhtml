@@ -20,7 +20,7 @@ L-->
 
   
 <h:form id="basketForm">
-<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="80%" align="center" valign="top">
+<table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="90%" align="center" valign="top">
   <tr>
     <td valign="top">
     <table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage"  width="100%">
@@ -236,12 +236,13 @@ L-->
                                border="1" 
                                cellpadding="3" 
                                cellspacing="0" 
-                               value="#{basketBean.seriesItems}"
+                               value="#{basketBean.sortedSeriesItems}"
                                scrollable="true" scrollHeight="30em"
                                var="item"
-                               style="word-break: break-all"
-                               columnWidths="5em,22em,13em,15em,22em,12em,28em,10.2em,8.5em,12.5em,9.5em">
-                    <h:column id="viewColumn">
+                               sortColumn="#{basketBean.sortColumnName}"
+        	 	       sortAscending="#{basketBean.ascending}"
+                               columnWidths="10px,17.5%,7%,8.8%,18.5%,7%,15.5%,6%,5%,5%,5%">
+                    <h:column id="viewColumn" >
                       <f:facet name="header">
                         <h:outputText value="#{msg.common_view_image}" />
                       </f:facet>
@@ -250,18 +251,22 @@ L-->
                       <h:commandLink target="newWin"
                                      onclick="doViewSeriesPopup('#{item.seriesId}','#{item.locationDisplayName}','#{item.gridLocation}'); return false;">
                         <h:graphicImage value="images/old_new_magnifying_glass.png"
-                                        style="border: none;" width="90%"/>
+                                        style="border: none;"/>
                       </h:commandLink> 
                     </h:column>
                     <h:column id="subjectIdColumn">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.common_subjectId}" />
+                         <ice:commandSortHeader columnName="#{basketBean.subjectIDHeader}" arrow="true" >
+			   <ice:outputText value="#{basketBean.subjectIDHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="#{item.patientId}" />
                     </h:column>
                     <h:column id="studyIdColumn">
                       <f:facet name="header">
-                        <h:outputText value="Study UID" />
+                        <ice:commandSortHeader columnName="#{basketBean.studyUIDHeader}" arrow="true" >
+			   <ice:outputText value="#{basketBean.studyUIDHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="...."/><h:outputText value="#{fn:substring(item.studyId,fn:length(item.studyId)-8,fn:length(item.studyId))}" />
                     </h:column>
@@ -273,37 +278,49 @@ L-->
                     </h:column>
                     <h:column id="studyDescriptionColumn">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.common_study_description}" />
+                        <ice:commandSortHeader columnName="#{basketBean.studyDescHeader}" arrow="true" >
+			    <ice:outputText value="#{basketBean.studyDescHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="#{item.studyDescription}" />
                     </h:column>
                     <h:column id="seriesIdColumn">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.common_seriesId}" />
+                        <ice:commandSortHeader columnName="#{basketBean.seriesIDHeader}" arrow="true" >
+			   <ice:outputText value="#{basketBean.seriesIDHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="...."/><h:outputText value="#{fn:substring(item.seriesId,fn:length(item.seriesId)-8,fn:length(item.seriesId))}" />
                     </h:column>
                     <h:column id="seriesDescriptionColumn">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.common_series_description}" />
+                        <ice:commandSortHeader columnName="#{basketBean.seriesDescHeader}" arrow="true" >
+				<ice:outputText value="#{basketBean.seriesDescHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="#{item.seriesDescription}" />
                     </h:column>
                     <h:column id="availableImagesColumn">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.dataBasket_availableImages}" />
+                        <ice:commandSortHeader columnName="#{basketBean.numberOfImageHeader}" arrow="true" >
+			     <ice:outputText value="#{basketBean.numberOfImageHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="#{item.totalImagesInSeries}" />
                     </h:column>
                     <h:column id="dataBasketSizeColumn">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.dataBasket_size}" />
+                        <ice:commandSortHeader columnName="#{basketBean.fileSizeHeader}" arrow="true" >
+			     <ice:outputText value="#{basketBean.fileSizeHeader}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="#{item.imageSize}"/>
                     </h:column>
-                    <h:column id="annotationsSizeColumn">
+                    <h:column id="annotationsSizeColumn" style="white-space: normal;">
                       <f:facet name="header">
-                        <h:outputText value="#{msg.annotations_size}"/>
+                         <ice:commandSortHeader columnName="#{basketBean.annotationFileSizeHeader}" arrow="true" >
+				<ice:outputText value="#{basketBean.annotationFileSizeHeader}" style="a:link{white-space: normal;}"/>
+    			 </ice:commandSortHeader>
                       </f:facet>
                       <h:outputText value="#{item.annotationSize3Digits}" escape="false"/>
                     </h:column>  

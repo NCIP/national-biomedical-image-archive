@@ -20,6 +20,7 @@ import gov.nih.nci.nbia.basket.DownloadRecorder;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.beans.searchresults.ImageResultWrapper;
+import gov.nih.nci.nbia.beans.searchresults.PatientResultWrapper;
 import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.FileGenerator;
@@ -45,6 +46,8 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,9 +112,20 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
      * Returns the sorted list of BasketSeriesItemBeans in the cart.
      */
     public List<BasketSeriesItemBean> getSeriesItems() {
-        return basket.getSeriesItems();
+    	return basket.getSeriesItems();
     }
 
+    public List<BasketSeriesItemBean> getSortedSeriesItems() {
+    	List<BasketSeriesItemBean> toSort = basket.getSeriesItems();
+    	if (!oldSort.equals(sortColumnName) ||
+             oldAscending != ascending) {
+    		 sort(toSort);
+             oldSort = sortColumnName;
+             oldAscending = ascending;
+        } 
+    	return toSort;
+    }
+    
 	/**
 	 * For a given series ID, tell whether that patient has been added to the basket.
 	 * This is a bit awkward but necessary for execution through EL which doesnt allow
@@ -930,4 +944,161 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 		ByteArrayResource bar = new ByteArrayResource(exportString.getBytes());
 		return bar;
 	}
+	//for sorting
+	private static final String subjectIDHeader = "Subject ID";
+	private static final String studyUIDHeader = "Study UID";
+    private static final String studyDateHeader = "Study Date";
+    private static final String studyDescHeader = "Study Description";
+    private static final String seriesIDHeader = "Series ID";
+    private static final String seriesDescHeader = "Series Description";
+    private static final String numberOfImageHeader = "Number of Images";
+    private static final String fileSizeHeader = "File Size";
+    private static final String annotationFileSizeHeader= "Annotation File Size";
+    
+
+    private String sortColumnName= "Subject ID";
+    private boolean ascending = true;
+    // we only want to resort if the oder or column has changed.
+    private String oldSort = sortColumnName;
+    private boolean oldAscending = ascending;
+
+   // ----------------
+    /**
+     * Gets the sortColumnName column.
+     *
+     * @return column to sortColumnName
+     */
+    public String getSortColumnName() {
+        return sortColumnName;
+    }
+
+    /**
+     * Sets the sortColumnName column
+     *
+     * @param sortColumnName column to sortColumnName
+     */
+    public void setSortColumnName(String sortColumnName) {
+    	 oldSort = this.sortColumnName;
+         this.sortColumnName = sortColumnName;
+
+    }
+
+    /**
+     * Is the sortColumnName ascending.
+     *
+     * @return true if the ascending sortColumnName otherwise false.
+     */
+    public boolean isAscending() {
+        return ascending;
+    }
+
+    /**
+     * Set sortColumnName type.
+     *
+     * @param ascending true for ascending sortColumnName, false for desending sortColumnName.
+     */
+    public void setAscending(boolean ascending) {
+    	 oldAscending = this.ascending;
+        this.ascending = ascending;
+    }
+
+    private void sort(List<BasketSeriesItemBean> toSort) {
+        Comparator comparator = new Comparator() {
+            public int compare(Object o1, Object o2) {
+            	BasketSeriesItemBean c1 = (BasketSeriesItemBean) o1;
+            	BasketSeriesItemBean c2 = (BasketSeriesItemBean) o2;
+
+                if (sortColumnName == null) {
+                    return 0;
+                }
+                if (sortColumnName.equals(subjectIDHeader)) {
+                    return compareObject(c1.getPatientId().compareTo(c2.getPatientId()),
+                        c2.getPatientId().compareTo(c1.getPatientId()));
+                } else if (sortColumnName.equals(studyUIDHeader)) {
+                	return compareObject(c1.getStudyId().compareTo(c2.getStudyId()),
+                		c2.getStudyId().compareTo(c1.getStudyId()));
+                }else if (sortColumnName.equals(studyDateHeader)) {
+                	return compareObject(c1.getStudyDate().compareTo(c2.getStudyDate()),
+                		c2.getStudyDate().compareTo(c1.getStudyDate()));
+                } else if (sortColumnName.equals(studyDescHeader)) {
+                	if(c1.getStudyDescription() == null) {
+                		return (c2.getStudyDescription() == null) ? 0 : -1;
+                	}
+                	if(c2.getStudyDescription() == null) {
+                		return 1;
+                	}
+                	return compareObject(c1.getStudyDescription().compareTo(c2.getStudyDescription()),
+                    		c2.getStudyDescription().compareTo(c1.getStudyDescription()));
+                } else if (sortColumnName.equals(seriesIDHeader)) {
+                	return compareObject(c1.getSeriesId().compareTo(c2.getSeriesId()),
+                		c2.getSeriesId().compareTo(c1.getSeriesId()));
+                }else if (sortColumnName.equals(seriesDescHeader)) {
+                	if(c1.getSeriesDescription() == null) {
+                		return (c2.getSeriesDescription() == null) ? 0 : -1;
+                	}
+                	if(c2.getSeriesDescription() == null) {
+                		return 1;
+                	}
+                	return compareObject(c1.getSeriesDescription().compareTo(c2.getSeriesDescription()),
+                		c2.getSeriesDescription().compareTo(c1.getSeriesDescription()));
+               } else if (sortColumnName.equals(numberOfImageHeader)) {
+                	return compareObject(c1.getTotalImagesInSeries().compareTo(c2.getTotalImagesInSeries()),
+                		c2.getTotalImagesInSeries().compareTo(c1.getTotalImagesInSeries()));
+               } else if (sortColumnName.equals(fileSizeHeader)) {
+                	return compareObject(c1.getImageSize().compareTo(c2.getImageSize()),
+                		c2.getImageSize().compareTo(c1.getImageSize()));
+               }  else if (sortColumnName.equals(annotationFileSizeHeader)) {
+                	return compareObject(c1.getAnnotationsSize().compareTo(c2.getAnnotationsSize()),
+                		c2.getAnnotationsSize().compareTo(c1.getAnnotationsSize()));
+               } else {
+                	return 0;
+                }
+            }
+        };
+        Collections.sort(toSort, comparator);
+    }
+
+    private int compareObject(int result1, int result2){
+    	return ascending ? result1 : result2;
+    }
+
+	public String getSubjectIDHeader() {
+		return subjectIDHeader;
+	}
+
+	public String getStudyUIDHeader() {
+		return studyUIDHeader;
+	}
+
+	public String getStudyDateHeader() {
+		return studyDateHeader;
+	}
+
+	public String getStudyDescHeader() {
+		return studyDescHeader;
+	}
+
+	public String getSeriesIDHeader() {
+		return seriesIDHeader;
+	}
+
+	public String getSeriesDescHeader() {
+		return seriesDescHeader;
+	}
+
+	public String getNumberOfImageHeader() {
+		return numberOfImageHeader;
+	}
+
+	public String getFileSizeHeader() {
+		return fileSizeHeader;
+	}
+
+	public String getAnnotationFileSizeHeader() {
+		return annotationFileSizeHeader;
+	}
+
+	
+
+	
 }

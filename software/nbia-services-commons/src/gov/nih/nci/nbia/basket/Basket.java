@@ -45,7 +45,7 @@ public class Basket {
      */	
     public List<BasketSeriesItemBean> getSeriesItems() {
         List<BasketSeriesItemBean> toSort = new ArrayList<BasketSeriesItemBean>(seriesItems.values());
-        Collections.sort(toSort);
+        //Collections.sort(toSort);
 
         return toSort;
     }

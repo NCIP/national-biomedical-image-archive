@@ -26,20 +26,17 @@ body {
 
 a:link {
   color: #0000CC; 
-  white-space: nowrap; 
   text-decoration: underline;
   border:0px;
 }
 
 a:visited {
   color: #551a8b; 
-  white-space: nowrap; 
   text-decoration: underline
 }
 
 a:active {
   color: #0033CC; 
-  white-space: nowrap; 
   text-decoration: underline; 
   border:0px;
 }

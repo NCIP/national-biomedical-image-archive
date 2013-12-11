@@ -843,7 +843,7 @@ table.promptbox {
 .corePopup {
     position: absolute;
     z-index: 1001;
-    width: 600px;
+    width: 630px;
     height: 300px;
     top: 60%;
     left: 40%;

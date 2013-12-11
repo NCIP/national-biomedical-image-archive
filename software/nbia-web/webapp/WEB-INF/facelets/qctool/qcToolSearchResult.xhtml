@@ -215,9 +215,10 @@ L-->
 			</ice:panelCollapsible>
 
 		</ice:panelGroup>
-		<ice:panelPopup id="resultPagePnlPop" draggable="true" modal="true"
-			styleClass="corePopup"
-			visible="#{qcToolUpdateBean.searchPgPopupRendered}" autoCentre="true">
+		<ice:panelPopup id="resultPagePnlPop" resizable="false"
+			draggable="false" modal="true"
+			styleClass="corePopup" 
+			visible="#{qcToolUpdateBean.searchPgPopupRendered}" >
 			<f:facet name="header">
 				<ice:panelGroup styleClass="popupHeaderWrapper">
 					<ice:outputText value="Alert" styleClass="popupHeaderText" />
@@ -230,10 +231,11 @@ L-->
 			<f:facet name="body">
 				<ice:panelGroup styleClass="popupBody">
 					<ice:outputText value="#{msg.qcTool_alertForSharedList}" />
-
+					<div style="height: 150px; overflow: auto;">
 					<ice:dataTable id="userName" var="uname" width="100%"
-						scrollable="true" scrollHeight="100px"
-						columnWidths="125px,300px,125px"
+						scrollHeight="100px"
+						style="word-break: break-all"
+						columnWidths="100px,410px,90px"
 						value="#{qcToolUpdateBean.userNameList}"
 						rendered="#{not empty qcToolUpdateBean.userNameList}">
 						<ice:column>
@@ -255,6 +257,7 @@ L-->
 							<ice:outputText value="#{uname.userName}" />
 						</ice:column>
 					</ice:dataTable>
+					</div>
 					<br />
 					<div align="right">
 						<ice:commandButton id="modalPnlContinueButton" type="submit"

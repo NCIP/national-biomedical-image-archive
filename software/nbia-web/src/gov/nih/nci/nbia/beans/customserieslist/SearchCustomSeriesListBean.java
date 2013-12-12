@@ -35,7 +35,8 @@ import org.apache.log4j.Logger;
 
 public class SearchCustomSeriesListBean {
 
-    private static Logger logger = Logger.getLogger(SearchCustomSeriesListBean.class);
+    private final String defaultSelectedValue = "--Please Select--";
+	private static Logger logger = Logger.getLogger(SearchCustomSeriesListBean.class);
     private List<String> noPermissionSeries;
     private CustomSeriesListProcessor processor;
     private SecurityBean sb;
@@ -74,6 +75,7 @@ public class SearchCustomSeriesListBean {
         for (String uName : uNames) {
         	userNameItems.add(new SelectItem(uName));
         }
+        userNameItems.add(new SelectItem(defaultSelectedValue));
         Collections.sort(userNameItems, new SelectItemComparator());
     }
 
@@ -289,11 +291,13 @@ public class SearchCustomSeriesListBean {
 	}
 	public String searchByUserName() {
 		reset();
-	    System.out.println("selectedUserName"+selectedUserName);
-	    if(!StringUtil.isEmptyTrim(selectedUserName)) {
+		System.out.println("selectedUserName"+selectedUserName);
+	    if(!StringUtil.isEmptyTrim(selectedUserName) && !selectedUserName.equals(defaultSelectedValue)) {
 	   		results = processor.getCustomListByUser(selectedUserName);
 	   	} else {
 	   		  message="The list could not be found.";
+	   		  results = null;
+	   		
 	   	}
 	    showSelectedList = false; 
 	    return null;
@@ -311,7 +315,7 @@ public class SearchCustomSeriesListBean {
 		selectedListName = selectedSharedList.getName();
 	}
 	public String resetManageList() {
-		selectedUserName= "";
+		selectedUserName= defaultSelectedValue;
 	    results.clear();
 	    showSelectedList=false;
 	    return reset();

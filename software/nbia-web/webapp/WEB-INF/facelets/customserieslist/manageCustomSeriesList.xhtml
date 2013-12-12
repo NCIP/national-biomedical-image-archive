@@ -30,7 +30,8 @@
                    <br />
                </td>
                <td class="formField" colspan="2">
-                   <ice:selectOneMenu id="userNameMenu" value="#{searchCustomSeriesListBean.selectedUserName}" style="font-size:1em" partialSubmit="false">
+                   <ice:selectOneMenu id="userNameMenu" value="#{searchCustomSeriesListBean.selectedUserName}" style="font-size:1em" partialSubmit="true"
+                   valueChangeListener="#{searchCustomSeriesListBean.selectedNameChangeListener}">
                    <f:selectItems value="#{searchCustomSeriesListBean.userNameItems}" />
                 </ice:selectOneMenu>
                </td>
@@ -38,10 +39,10 @@
               
             <tr>
               <td colspan="6" align="right" >
-                <ice:commandButton id="search"
+                <!-- ice:commandButton id="search"
                                    image="images/submit.gif" 
                                    action="#{searchCustomSeriesListBean.searchByUserName}"/>
-                <f:verbatim>&amp;nbsp;</f:verbatim>
+                <f:verbatim>&amp;nbsp;</f:verbatim-->
                 <ice:commandButton image="images/reset.gif"
                                    action="#{searchCustomSeriesListBean.resetManageList}" />
               </td>

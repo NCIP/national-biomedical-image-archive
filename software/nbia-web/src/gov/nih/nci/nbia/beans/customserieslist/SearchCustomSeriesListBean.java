@@ -27,6 +27,7 @@ import java.util.List;
 
 import javax.faces.component.UIData;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -274,16 +275,28 @@ public class SearchCustomSeriesListBean {
 	private String selectedUserName;
 	private int seriesCount=0;
 	private int toDelete;
-	    
+	
+	public void selectedNameChangeListener(ValueChangeEvent event) {
+		if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+	   		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+	   		event.queue();
+	        return;
+	    }
+		String selectedUser = (String)event.getNewValue();
+		System.out.println("user name new value" + selectedUser);
+		this.selectedUserName = selectedUser;
+		searchByUserName();
+	}
 	public String searchByUserName() {
 		reset();
-	   System.out.println("selectedUserName"+selectedUserName);
-	   if(!StringUtil.isEmptyTrim(selectedUserName)) {
+	    System.out.println("selectedUserName"+selectedUserName);
+	    if(!StringUtil.isEmptyTrim(selectedUserName)) {
 	   		results = processor.getCustomListByUser(selectedUserName);
 	   	} else {
 	   		  message="The list could not be found.";
 	   	}
-	    	return null;
+	    showSelectedList = false; 
+	    return null;
 	}
 	public void listNamedDetailsClicked(ActionEvent actionEvent) throws Exception {
 		reset();

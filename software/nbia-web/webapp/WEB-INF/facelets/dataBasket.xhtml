@@ -237,11 +237,12 @@ L-->
                                cellpadding="3" 
                                cellspacing="0" 
                                value="#{basketBean.sortedSeriesItems}"
-                               scrollable="true" scrollHeight="30em"
+                               scrollHeight="30em"
                                var="item"
                                sortColumn="#{basketBean.sortColumnName}"
         	 	       sortAscending="#{basketBean.ascending}"
-                               columnWidths="10px,19%,10%,7.6%,17%,7%,17.3%,6%,5%,5.5%,5%">
+        	 	       columnClasses="columnClasses1, columnClasses2, columnClasses3, columnClasses4, columnClasses5, columnClasses6, columnClasses7, columnClasses8, columnClasses9, columnClasses10, columnClasses11" >
+        	 	      
                     <h:column id="viewColumn" >
                       <f:facet name="header">
                         <h:outputText value="#{msg.common_view_image}" />
@@ -343,7 +344,7 @@ L-->
                       </f:facet>
                       <h:outputText value="#{item.locationDisplayName}" />
                     </h:column-->
-					<h:column id="dataBasketDeleteColumn">
+		    <h:column id="dataBasketDeleteColumn">
                      <f:facet name="header">Remove</f:facet>
 		         <div align="center">
 		                <h:commandButton image="images/remove_icon.png"

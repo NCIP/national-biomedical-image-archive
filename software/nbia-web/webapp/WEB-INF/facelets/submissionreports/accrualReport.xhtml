@@ -17,11 +17,11 @@ L-->
     <ui:include src="submissionReportsQueryControls.xhtml">      
     </ui:include>  
   </ice:panelGroup>
-  
+  <div align="center">
   <ice:panelGroup id="accrualReportResult" 
                   rendered="#{not empty accrualReportSubmissionBean.accrualReport}">
     <ui:include src="accrualReportResults.xhtml">      
     </ui:include>  
   </ice:panelGroup>
-    
+   </div> 
 </ui:composition>                

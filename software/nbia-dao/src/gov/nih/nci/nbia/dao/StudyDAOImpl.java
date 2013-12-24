@@ -35,7 +35,6 @@ public class StudyDAOImpl extends AbstractDAO
      * the SeriesListResultSet, which contains all of the information necessary
      * for the second level query.
      */
-	private static int PARAMETER_LIMIT = 700;
 	@Transactional(propagation=Propagation.REQUIRED)		
     public List<StudyDTO> findStudiesBySeriesId(Collection<Integer> seriesPkIds) throws DataAccessException {
     	if(seriesPkIds.size()==0) {
@@ -46,24 +45,21 @@ public class StudyDAOImpl extends AbstractDAO
         String fromStmt = SQL_QUERY_FROM;
         String whereStmt = SQL_QUERY_WHERE;
 
-       
-        
         // Add the series PK IDs to the where clause
         whereStmt += "and series.id IN (";
-        
+
         whereStmt += constructSeriesIdList(seriesPkIds);
 
         whereStmt += ")";
-        
+
         long start = System.currentTimeMillis();
         logger.info("Issuing query: " + selectStmt + fromStmt + whereStmt);
 
-        
+        List<Object[]> seriesResults = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt);
         long end = System.currentTimeMillis();
         logger.info("total query time: " + (end - start) + " ms");
     
-        logger.info("Issuing query: " + selectStmt + fromStmt + whereStmt);
-        List<Object[]> seriesResults = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt);
+        
         // List of StudyDTOs to eventually be returned
         Map<Integer, StudyDTO> studyList = new HashMap<Integer, StudyDTO>();
         Iterator<Object[]> iter = seriesResults.iterator();
@@ -94,7 +90,6 @@ public class StudyDAOImpl extends AbstractDAO
             seriesDTO.setTotalSizeForAllImagesInSeries((Long)row[12]);
             seriesDTO.setPatientId((String)row[13]);
             seriesDTO.setProject((String)row[14]);
-            seriesDTO.setMaxFrameCount((String)row[16]);
             // Try to get the study if it already exists
             StudyDTO studyDTO = studyList.get(seriesDTO.getStudyPkId());
 
@@ -132,9 +127,69 @@ public class StudyDAOImpl extends AbstractDAO
         }	   
         return returnList;
     }
+	
+	/**
+	 * Fetch a set of patient/study info filtered by query keys
+	 * This method is used for NBIA Rest API.
+	 * @param collection A label used to name a set of images collected for a specific trial or other reason.	 * Assigned during the process of curating the data. The info is kept under project column
+	 * @param patientId Patient ID
+	 * @param studyInstanceUid Study Instance UID
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)		
+	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid) throws DataAccessException 
+	{		
+		String hql = "select s.studyInstanceUID, s.studyDate, s.studyDesc, s.admittingDiagnosesDesc, s.studyId, " +
+				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
+				"s.patient.ethnicGroup, s.patient.dataProvenance.project, " +
+				"(select count(*) from GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID) "  +
+				"from Study as s";
+		StringBuffer where = new StringBuffer();
+		List<Object[]> rs = null;
+		List<String> paramList = new ArrayList<String>();
+		int i = 0;
+
+		if (collection != null) {
+			where = where.append(" where UPPER(s.patient.dataProvenance.project)=?");
+			paramList.add(collection.toUpperCase());
+		++i;
+		}
+		if (patientId != null) {
+			if (i >  0)
+				where = where.append(" and UPPER(s.patient.patientId)=?");
+			else where = where.append(" where UPPER(s.patient.patientId)=?");
+			paramList.add(patientId.toUpperCase());
+			++i;
+		}
+		if (studyInstanceUid != null) {
+			if (i > 0)
+				where = where.append(" and UPPER(s.studyInstanceUID)=?");
+			else where = where.append(" where UPPER(s.studyInstanceUID)=?");
+			paramList.add(studyInstanceUid.toUpperCase());
+			++i;
+		}
+
+		if (i > 0) {
+			Object[] values = paramList.toArray(new Object[paramList.size()]);
+			rs = getHibernateTemplate().find(hql + where.toString(), values);
+		} else
+			rs = getHibernateTemplate().find(hql + where.toString());
+		
+		//for testing
+//		if(rs != null && rs.size() > 0) {
+//			for (Object[] objects : rs) {
+//				for (Object obj: objects) {
+//					if (obj != null)
+//						System.out.println("obj name=" + obj.toString());
+//				}
+//			}
+//	    }
+//		// for testing
+        return rs;
+	}
+	
     
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////
-    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount ";
+    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize ";
     private static final String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join series.generalEquipment ge ";
     private static final String SQL_QUERY_WHERE = "WHERE series.visibility = '1' ";
     
@@ -156,112 +211,5 @@ public class StudyDAOImpl extends AbstractDAO
             }
         }
     	return theWhereStmt;
-    }
-    
-    
-    private <T> Collection<Collection<T>> split(Collection<T> bigCollection, int maxBatchSize) {
-        Collection<Collection<T>> result = new ArrayList<Collection<T>>();
-
-        ArrayList<T> currentBatch = null;
-        for (T t : bigCollection) {
-          if (currentBatch == null) {
-            currentBatch = new ArrayList<T>();
-          } else if (currentBatch.size() >= maxBatchSize) {
-            result.add(currentBatch);
-            currentBatch = new ArrayList<T>();
-          }
-
-          currentBatch.add(t);
-        }
-
-        if (currentBatch != null) {
-          result.add(currentBatch);
-        }
-
-        return result;
-      }
-    
-    @Transactional(propagation=Propagation.REQUIRED)		
-    public List<StudyDTO> findStudiesBySeriesIdDBSorted(Collection<Integer> seriesPkIds) throws DataAccessException {
-    	if(seriesPkIds.size()==0) {
-    		return new ArrayList<StudyDTO>();
-       	}
-        String selectStmt = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize , ge.manufacturerModelName, ge.softwareVersions ";
-        String fromStmt = SQL_QUERY_FROM;
-        String whereStmt = SQL_QUERY_WHERE;
-        String oderBy = " Order by study.patient.dataProvenance.project,series.patientId,study.studyDate, study.studyDesc, series.modality, series.seriesDesc,ge.manufacturer, ge.manufacturerModelName, ge.softwareVersions, series.seriesInstanceUID";
-        
-        StringBuffer hql = null;
-        List<Integer> partitions= null;;
-        int listSize =seriesPkIds.size();
-        List<StudyDTO> returnList = new ArrayList<StudyDTO>();
-        long start = System.currentTimeMillis();
-        
-        if(listSize > PARAMETER_LIMIT) {
-        	Collection<Collection<Integer>> seriesPkIdsBatches = split(seriesPkIds, PARAMETER_LIMIT);
-        	for (Collection<Integer> seriesPkIdBatch : seriesPkIdsBatches) {
-        		whereStmt = new String() + SQL_QUERY_WHERE;
-        		whereStmt += "and series.id IN (";
-        		whereStmt += constructSeriesIdList(seriesPkIdBatch);
-        		whereStmt += ")";
-        		returnList.addAll(getResults(selectStmt + fromStmt + whereStmt + oderBy));
-        	}
-        } else {
-        	whereStmt += "and series.id IN (";
-            whereStmt += constructSeriesIdList(seriesPkIds);
-            whereStmt += ")";
-            hql = new StringBuffer().append(selectStmt + fromStmt + whereStmt + oderBy);
-            returnList.addAll(getResults(hql.toString()));
-        }
-        long end = System.currentTimeMillis();
-        logger.info("total time to excute all queries: " + (end - start) + " ms");
-        return returnList;
-    }
-    private List<StudyDTO> getResults(String hql) {
-    	List<StudyDTO> resultList = new ArrayList<StudyDTO>();
-    	long start = System.currentTimeMillis();
-        List<Object[]> seriesResults = getHibernateTemplate().find(hql);
-        long end = System.currentTimeMillis();
-        logger.info("total query time: " + (end - start) + " ms");
-        Iterator<Object[]> iter = seriesResults.iterator();
-               // Loop through the results.  There is one result for each series
-        while (iter.hasNext()) {
-        	Object[] row = iter.next();
-            // Create the seriesDTO
-            SeriesDTO seriesDTO = new SeriesDTO();
-            //modality should never be null... but currently possible
-            seriesDTO.setModality(Util.nullSafeString(row[8]));
-            //Getting real data from Surendra, find data for manufacture could be null
-            seriesDTO.setManufacturer(Util.nullSafeString(row[9]));
-            seriesDTO.setSeriesUID(row[3].toString());
-            seriesDTO.setSeriesNumber(Util.nullSafeString(row[10]));
-            seriesDTO.setSeriesPkId((Integer) row[0]);
-            seriesDTO.setDescription(Util.nullSafeString(row[7]));
-            seriesDTO.setNumberImages((Integer) row[6]);
-            Boolean annotationFlag = (Boolean) row[11];
-            if(annotationFlag!=null) {
-            	seriesDTO.setAnnotationsFlag(true);
-            }
-            seriesDTO.setAnnotationsSize((row[15] != null) ? (Long) row[15] : 0);
-            seriesDTO.setStudyPkId((Integer) row[1]);
-            seriesDTO.setStudyId(row[2].toString());
-            seriesDTO.setTotalImagesInSeries((Integer)row[6]);
-            seriesDTO.setTotalSizeForAllImagesInSeries((Long)row[12]);
-            seriesDTO.setPatientId((String)row[13]);
-            seriesDTO.setProject((String)row[14]);
-                
-            seriesDTO.setManufacturerModelName((String)row[16]);
-            seriesDTO.setSoftwareVersion((String)row[17]);
-            // Try to get the study if it already exists
-            StudyDTO studyDTO = new StudyDTO();
-            studyDTO.setStudyId(row[2].toString());
-            studyDTO.setDate((Date) row[4]);
-            studyDTO.setDescription(Util.nullSafeString(row[5]));
-            studyDTO.setId(seriesDTO.getStudyPkId());
-            // Add the series to the study
-            studyDTO.getSeriesList().add(seriesDTO);
-            resultList.add(studyDTO);
-        }
-        return resultList;
-    }
+    }    
 }

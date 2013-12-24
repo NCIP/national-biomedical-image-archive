@@ -17,5 +17,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/runtime/nbia-dao.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

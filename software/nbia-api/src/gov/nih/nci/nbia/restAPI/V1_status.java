@@ -5,7 +5,7 @@ import javax.ws.rs.core.MediaType;
 
 import java.sql.*;
 
-import gov.nih.nci.nbia.restAPI.dao.*;
+//import gov.nih.nci.nbia.restAPI.dao.*;
 
 // http://localhost:8080/nbia-service/api/v1/status
 
@@ -56,27 +56,27 @@ public class V1_status {
 	@Produces(MediaType.TEXT_HTML)
 	public String returnDatabaseStatus() throws Exception {
 
-		PreparedStatement query = null;
+		//PreparedStatement query = null;
 		String myString = null;
 		String returnString = null;
 		Connection conn = null;
 
 		try {
 
-			conn = DbConnection.nbiaDSConn().getConnection(); 
-			// simple sql query to return the date/time
-			query = conn
-					.prepareStatement("select to_char(sysdate,'YYYY-MM-DD HH24:MI:SS') DATETIME "
-							+ "from sys.dual");
-			ResultSet rs = query.executeQuery();
-
-			// loops through the results and save it into myString
-			while (rs.next()) {
-				// /*Debug*/ System.out.println(rs.getString("DATETIME"));
-				myString = rs.getString("DATETIME");
-			}
-
-			query.close(); // close connection
+//			conn = DbConnection.nbiaDSConn().getConnection(); 
+//			// simple sql query to return the date/time
+//			query = conn
+//					.prepareStatement("select to_char(sysdate,'YYYY-MM-DD HH24:MI:SS') DATETIME "
+//							+ "from sys.dual");
+//			ResultSet rs = query.executeQuery();
+//
+//			// loops through the results and save it into myString
+//			while (rs.next()) {
+//				// /*Debug*/ System.out.println(rs.getString("DATETIME"));
+//				myString = rs.getString("DATETIME");
+//			}
+//
+//			query.close(); // close connection
 
 			returnString = "<p>Database Status</p> "
 					+ "<p>Database Date/Time return: " + myString + "</p>";

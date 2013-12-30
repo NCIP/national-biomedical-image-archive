@@ -249,7 +249,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-
+  <bean id="textSupportDAO" class="gov.nih.nci.nbia.textsupport.TextSupportDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
   <!-- deletion service bean -->
 
     <!-- Define all the services below -->

@@ -131,6 +131,8 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   <attribute name="Properties">gov.nih.nci.ncia.download.server.url=@gov.nih.nci.ncia.download.server.url@</attribute>
   <attribute name="Properties">enable_classic_download=@enable_classic_download@</attribute>
   <attribute name="Properties">registration.email.subject=@registration.email.subject@</attribute>
+  <attribute name="Properties">gov.nih.nci.ncia.solr.home=@gov.nih.nci.ncia.solr.home@</attribute>
+  <attribute name="Properties">gov.nih.nci.ncia.solr.updateinterval=@gov.nih.nci.ncia.solr.updateinterval@</attribute>
 
   <!-- remote search -->
   <attribute name="Properties">grid.index.url=@grid.index.url@</attribute>

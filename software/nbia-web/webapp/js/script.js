@@ -42,6 +42,8 @@ function checkAllInContainingTable(containedCheckbox) {
             inputElements[z].checked = containedCheckbox.checked;
         }
     }
+
+
 }
 
 function findContainingTable(element) {
@@ -57,6 +59,26 @@ function findContainingTable(element) {
     return null;
 }
 
+function resetBooleanCheckbox(){
+	
+	document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = false;
+	//document.getElementById("checkAllBox").checked = false;
+	//document.getElementById('checkAllBox').reset();
+		
+}
+
+function toggleBooleanCheckbox(){
+
+
+
+	if(document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked){
+		document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = false;
+	}
+		else{
+			document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = true;
+}
+}
+
 function checkUncheckAll(theElement) {
 	//documentation for this script at http://www.shawnolson.net/a/693/
     var theForm = theElement.form, z = 0;
@@ -66,6 +88,7 @@ function checkUncheckAll(theElement) {
         }
         z++;
     }
+   // document.getElementById('checkAllBox').checked = !document.getElementById('checkAllBox').checked;
 }
 
 // Check all of the series for a given study

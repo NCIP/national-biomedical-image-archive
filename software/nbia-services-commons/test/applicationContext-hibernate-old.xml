@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!--
+  Application context definition for PetClinic on Hibernate.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+  <!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+  <!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+  <!-- <context:property-placeholder location="classpath:database.properties"/> -->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:hibernate.properties"/>
+  </bean>
+
+  <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="${hibernate.connection.driver_class}"/>
+    <property name="jdbcUrl" value="${hibernate.connection.url}"/>
+    <property name="user" value="${hibernate.connection.username}"/>
+    <property name="password" value="${hibernate.connection.password}"/>
+  </bean>
+
+  <bean id="hProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <property name="location" value="classpath:hibernate.properties" />
+  </bean>
+
+  <!-- Hibernate SessionFactory -->
+  <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+    <property name="dataSource" ref="dataSource"/>
+
+    <property name="mappingResources">
+      <list>
+        <value>gov/nih/nci/nbia/internaldomain/ClinicalTrial.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Patient.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Study.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralSeries.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralEquipment.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CTImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/StudyNumber.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialDataProvenance.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialSite.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DeletionAuditTrail.hbm.xml</value>
+
+        <value>gov/nih/nci/nbia/security/NCIAUser.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CollectionDesc.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QCStatusHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QueryHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/QueryHistoryAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQuery.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQueryAttribute.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
+      </list>
+    </property>
+
+    <property name="hibernateProperties" ref="hProperties"/>
+  </bean>
+
+  <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+  <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+        p:sessionFactory-ref="sessionFactory"/>
+
+
+  <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+  <bean id="imageDAO2" class="gov.nih.nci.nbia.dao.ImageDAO2Impl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+
+  <bean id="annotationDAO2" class="gov.nih.nci.nbia.dao.AnnotationDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="collectionDescDAO" class="gov.nih.nci.nbia.dao.CollectionDescDAOImpl" scope="prototype">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="customSeriesListDAO" class="gov.nih.nci.nbia.dao.CustomSeriesListDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="downloadDataDAO" class="gov.nih.nci.nbia.dao.DownloadDataDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="generalSeriesDAO" class="gov.nih.nci.nbia.dao.GeneralSeriesDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="imageDAO" class="gov.nih.nci.nbia.dao.ImageDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="loginHistoryDAO" class="gov.nih.nci.nbia.dao.LoginHistoryDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="patientDAO" class="gov.nih.nci.nbia.dao.PatientDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="qcStatusDAO" class="gov.nih.nci.nbia.dao.QcStatusDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="studyDAO" class="gov.nih.nci.nbia.dao.StudyDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="studyNumberDAO" class="gov.nih.nci.nbia.dao.StudyNumberDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="submissionHistoryDAO" class="gov.nih.nci.nbia.dao.SubmissionHistoryDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="queryHandler" class="gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="markupManager" class="gov.nih.nci.nbia.markup.MarkupManagerImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="queryStorageManager" class="gov.nih.nci.nbia.querystorage.QueryStorageManagerImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="dicomQueryHandler" class="gov.nih.nci.nbia.search.DICOMQueryHandlerImpl" scope="prototype">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <!--  because of how dbubnit works v spring life cycle, this must be proto -->
+  <bean id="nciaSecurityManager"
+        class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"
+        init-method="init"
+        scope="prototype">
+
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+
+  <bean id="seriesDao" class="gov.nih.nci.nbia.deletion.dao.SeriesDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="annotationDao" class="gov.nih.nci.nbia.deletion.dao.AnnotationDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="imageDao" class="gov.nih.nci.nbia.deletion.dao.ImageDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="studyDao" class="gov.nih.nci.nbia.deletion.dao.StudyDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="patientDao" class="gov.nih.nci.nbia.deletion.dao.PatientDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="deletionAuditTrailDao" class="gov.nih.nci.nbia.deletion.dao.DeletionAuditTrailDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  
+    <bean id="textSupportDAO" class="gov.nih.nci.nbia.textsupport.TextSupportDAO">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <!--
+    Activates various annotations to be detected in bean classes:
+    Spring's @Required and @Autowired, as well as JSR 250's @Resource.
+  -->
+  <context:annotation-config/>
+
+  <!--
+    Instruct Spring to perform declarative transaction management
+    automatically on annotated classes.
+  -->
+  <tx:annotation-driven/>
+
+  <!--
+    Exporter that exposes the Hibernate statistics service via JMX. Autodetects the
+    service MBean, using its bean name as JMX object name.
+  -->
+  <context:mbean-export/>
+
+
+</beans>

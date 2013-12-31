@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!--
+	Application context definition for PetClinic on Hibernate.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			                     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+	<!-- Configurer that replaces ${...} placeholders with values from a properties file -->
+	<!-- (in this case, JDBC-related settings for the dataSource definition below) -->
+	<!-- <context:property-placeholder location="classpath:database.properties"/> -->
+
+	<!--
+		Uses Apache Commons DBCP for connection pooling. See Commons DBCP documentation
+		for the required JAR files. Alternatively you can use another connection pool
+		such as C3P0, similarly configured using Spring.
+	-->
+	<bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:hibernate.properties"/>
+	</bean>
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://localhost:3306/nbiadb?"/>
+    <property name="username" value="root"/>
+    <property name="password" value="Mysql1!."/>
+	</bean>
+
+	<bean id="hProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:hibernate.properties" />
+	</bean>
+
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource"/>
+
+		<property name="mappingResources">
+		  <list>
+        <value>gov/nih/nci/nbia/internaldomain/ClinicalTrial.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Patient.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Study.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralSeries.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/GeneralEquipment.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/CTImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/MRImage.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialDataProvenance.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/TrialSite.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/DeletionAuditTrail.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
+        <value>gov/nih/nci/nbia/internaldomain/AimQuantification.hbm.xml</value>
+
+   		</list>
+		</property>
+
+		<property name="hibernateProperties" ref="hProperties"/>
+
+    <!--
+		<property name="eventListeners">
+			<map>
+				<entry key="merge">
+					<bean class="org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener"/>
+				</entry>
+			</map>
+		</property>
+    -->
+	</bean>
+
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+        p:sessionFactory-ref="sessionFactory"/>
+  <bean id="patientAccess" class="gov.nih.nci.nbia.textsupport.PatientAccessDAO">
+      <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+  <bean id="annotation" class="gov.nih.nci.nbia.internaldomain.Annotation" scope="prototype"/>
+  <bean id="series" class="gov.nih.nci.nbia.internaldomain.GeneralSeries" scope="prototype" />
+  <bean id="ctimage" class="gov.nih.nci.nbia.internaldomain.CTImage" scope="prototype"/>
+  <bean id="generalEquipment" class="gov.nih.nci.nbia.internaldomain.GeneralEquipment" scope="prototype"/>
+  <bean id="generalImage" class="gov.nih.nci.nbia.internaldomain.GeneralImage" scope="prototype"/>
+  <bean id="patient" class="gov.nih.nci.nbia.internaldomain.Patient" scope="prototype"/>
+  <bean id="study" class="gov.nih.nci.nbia.internaldomain.Study" scope="prototype"/>
+  <bean id="trialSite" class="gov.nih.nci.nbia.internaldomain.TrialSite" scope="prototype"/>
+  <bean id="trialDataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" scope="prototype"/>
+
+	<!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+
+	<!--
+		Activates various annotations to be detected in bean classes:
+		Spring's @Required and @Autowired, as well as JSR 250's @Resource.
+	-->
+	<context:annotation-config/>
+
+<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	-->
+	<tx:annotation-driven/>
+
+	<!--
+		Exporter that exposes the Hibernate statistics service via JMX. Autodetects the
+		service MBean, using its bean name as JMX object name.
+	-->
+	<context:mbean-export/>
+
+
+
+</beans>

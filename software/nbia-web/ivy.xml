@@ -310,6 +310,134 @@ L-->
    		rev="1.0"
                 conf="compile->master;runtime->master"/>
 <!-- end of Spring 3.1.1.-->                
+
+<!-- solr --> 
+
+	<dependency org="commons-codec"
+                name="commons-codec"
+                rev="1.7"
+                conf="runtime->master"/> 
+                
+   	<dependency org="commons-fileupload"
+                name="commons-fileupload"
+                rev="1.2.2"
+                conf="runtime->master"/>  
+
+   	<dependency org="commons-io"
+                name="commons-io"
+                rev="2.1"
+                conf="runtime->master"/>  
+
+   	<dependency org="org.apache.httpcomponents"
+                name="httpclient"
+                rev="4.2.6"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-analyzers-common"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-analyzers-kuromoji"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-analyzers-phonetic"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-codecs"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-core"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-grouping"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-highlighter"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-join"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-memory"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-misc"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-queries"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-queryparser"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-spatial"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.lucene"
+                name="lucene-suggest"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.solr"
+                name="solr-core"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+
+   	<dependency org="org.apache.solr"
+                name="solr-solrj"
+                rev="4.6.0"
+                conf="runtime->master"/> 
+                
+   	<dependency org="com.google.guava"
+                name="guava"
+                rev="14.0.1"
+                conf="runtime->master"/>             
+                 
+   	<dependency org="org.apache.httpcomponents"
+                name="httpcore"
+                rev="4.2.5"
+                conf="runtime->master"/>                 
+                
+    <dependency org="org.noggit"
+                name="noggit"
+                rev="0.5"
+                conf="runtime->master"/>       
+                
+    <dependency org="com.spatial4j"
+                name="spatial4j"
+                rev="0.3"
+                conf="runtime->master"/>               
+
+   	<dependency org="org.apache.zookeeper"
+                name="zookeeper"
+                rev="3.4.5"
+                conf="runtime->master"/> 
 <!-- Added for jboss5.1.0GA-->                
 <dependency org="org.codehaus.xfire"
        		name="bcprov-jdk15"
@@ -334,6 +462,12 @@ L-->
     <exclude org="xerces" module="xercesImpl" conf="runtime" /> 
     <exclude org="javax.el" module="el-api" conf="runtime" />
     <exclude org="bouncycastle" module="bouncycastle" conf="runtime"/>
-<!-- end Added for jboss5.1.0GA-->                    
+<!-- end Added for jboss5.1.0GA-->   
+
+<!-- Exclude solr -->
+
+    <exclude org="org.apache.axis2" module="axis2-saaj" conf="runtime"/>
+    
+    <!-- end Exclude solr -->                 
   </dependencies>
 </ivy-module>

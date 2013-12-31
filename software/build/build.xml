@@ -143,6 +143,9 @@ $HeadURL$
   <property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
   <property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
   <property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
+  <property name="solr.dist.dir" value="${dist.exploded.dir}/${solr.dist.relative.dir}" />
+
+  
 
   <!-- locally used paths, not needed by install -->
   <property name="jboss.dest.file" value="${download.dir}/${jboss.binaries.file}"/>
@@ -853,7 +856,8 @@ $HeadURL$
     dist:upgrader,
     dist:src,
     dist:gui-installer,
-    dist:ncia-core-grid-client"/>
+    dist:ncia-core-grid-client,
+    dist:solr"/>
 
   <target name="dist:src">
     <!-- Add tasks here to zip up src into a distribution, may require some additoinal properties for distribution name" -->
@@ -1749,4 +1753,13 @@ jboss.home,ctp.server.home,ctp.client.home,
    <target name="nbia:runUtility" description="run the utility to correct db" depends="build:nbia-ctp">	
 	 <java jar="${nbia-ctp.dist.dir}/nbiaDatabaseUpdator.jar" fork="true"/>
    </target>	
+
+  <target name="dist:solr">
+    <copy todir="${solr.dist.dir}">
+      <fileset dir="${common.dir}/resources/solr/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+   </target>
+
 </project>

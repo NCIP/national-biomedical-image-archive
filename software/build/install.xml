@@ -481,6 +481,16 @@ L-->
         <echo message="GLOBUS_LOCATION is set to ${env.GLOBUS_LOCATION}."/>
       </else>
     </if>
+
+    <echo message="solr home = ${gov.nih.nci.ncia.solr.home}"/>
+
+    <mkdir dir="${gov.nih.nci.ncia.solr.home}"/>
+    <copy todir="${gov.nih.nci.ncia.solr.home}">
+      <fileset dir="common/resources/solr/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
   </target>
 
 

@@ -18,7 +18,7 @@ L-->
                 
 <ui:param name="helpId" value="-viewsubmissionreport"/>
   
-  <table>
+  <table align="center">
 				<tr>
 					<td>
 						<div class="submissionReportTitleContainer">
@@ -42,10 +42,10 @@ L-->
     <ice:form id="submissionReportCriteriaForm" 
               rendered="#{not empty submissionReportsBean.authorizedProjectsSitesSelectItems}">
      
-      <table class="topBorderOnly submissionReportControlsTable" 
+      <table width="80%"
              cellpadding="3" 
              cellspacing="0" 
-             summary="criteria section">
+             summary="criteria section" align="center">
         <tr>
           <td colspan="3" class="submissionReportFormTitle">           
             #{msg.search_criteria}

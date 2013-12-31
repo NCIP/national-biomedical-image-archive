@@ -84,4 +84,20 @@ public class ImageDAO2Impl extends AbstractDAO
         }
         return imageResults;
     }
+	
+	/**
+	 * Fetch set of list of file path/name for given the series instance uid
+	 * This method is used for NBIA Rest API.
+	 * @param seriesInstanceUid series instance UID
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)	
+	public List<String> getImage(String seriesInstanceUid) throws DataAccessException {
+		String hql = "select gi.filename "
+				+ "from  GeneralImage gi "
+				+ "where gi.generalSeries.visibility='1'"
+				+ " and UPPER(gi.seriesInstanceUID) = ? ";
+				List<String> rs = getHibernateTemplate().find(hql, seriesInstanceUid.toUpperCase()); // protect against sql injection
+
+        return rs;
+	}
 }

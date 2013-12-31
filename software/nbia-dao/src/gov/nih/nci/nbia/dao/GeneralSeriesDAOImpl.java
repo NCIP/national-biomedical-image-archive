@@ -74,6 +74,162 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
         return (Collection<String>)getHibernateTemplate().find(hql);
 	}
 
+	/**
+	 * Fetch set of Modality through project, ie. collection, and bodyPartExamined
+	 * This method is used for NBIA Rest API.
+	 * @param collection A label used to name a set of images collected for a specific trial or other reason.
+	 * Assigned during the process of curating the data. The info is kept under project column
+	 * @param bodyPart Body Part Examined
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)		
+	public List<String> getModalityValues(String collection, String bodyPart) throws DataAccessException 
+	{
+		String where = null;
+		List<String> rs = null;
+		String hql = "select distinct(modality) from GeneralSeries s"; 
+		String order = " order by upper(modality)";
+
+		if (collection != null && bodyPart != null) {
+			where =" where visibility = '1' and UPPER(s.project)=? and UPPER(s.bodyPartExamined)=?";
+			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase(), bodyPart.toUpperCase());
+		}
+		else if (collection != null) {			
+			where =" where visibility = '1' and UPPER(s.project)=?";	
+			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase());
+		}
+		else if (bodyPart != null) {			
+			where =" where visibility = '1' and UPPER(s.bodyPartExamined)=?";
+			rs  = getHibernateTemplate().find(hql + where + order, bodyPart.toUpperCase());
+		}
+		else {
+			rs  = getHibernateTemplate().find(hql + order);
+		}
+
+        return rs;
+	}
+	
+	/**
+	 * Fetch set of body part values through project, ie. collection, and modality
+	 * This method is used for NBIA Rest API.
+	 * @param collection A label used to name a set of images collected for a specific trial or other reason.
+	 * Assigned during the process of curating the data. The info is kept under project column
+	 * @param modality Body Part Examined
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)		
+	public List<String> getBodyPartValues(String collection, String modality) throws DataAccessException 
+	{
+		String where = null;
+		List<String> rs = null;
+		String hql = "select distinct(bodyPartExamined) from GeneralSeries s"; 
+		String order = " order by upper(bodyPartExamined)";
+
+		if (collection != null && modality != null) {
+			where =" where visibility = '1' and UPPER(s.project)=? and UPPER(s.modality)=?";
+			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase(), modality.toUpperCase());
+		}
+		else if (collection != null) {			
+			where =" where visibility = '1' and UPPER(s.project)=?";	
+			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase());
+		}
+		else if (modality != null) {			
+			where =" where visibility = '1' and UPPER(s.modality)=?";
+			rs  = getHibernateTemplate().find(hql + where + order, modality.toUpperCase());
+		}
+		else {
+			rs  = getHibernateTemplate().find(hql + order);
+		}
+		
+        return rs;
+	}
+	
+	/**
+	 * Fetch set of manufacturer names through project, ie. collection, bodyPart and modality
+	 * This method is used for NBIA Rest API.
+	 * @param collection A label used to name a set of images collected for a specific trial or other reason.
+	 * Assigned during the process of curating the data. The info is kept under project column
+	 * @param modality Modality
+	 * @param bodyPart Body Part Examined
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)		
+	public List<String> getManufacturerValues(String collection,
+			String modality, String bodyPart) throws DataAccessException {
+		StringBuffer where = new StringBuffer();
+		List<String> rs = null;
+		String hql = "select distinct(s.generalEquipment.manufacturer) from GeneralSeries s where s.visibility ='1'";
+		String order = " order by upper(s.generalEquipment.manufacturer)";
+		List<String> paramList = new ArrayList<String>();
+		int i = 0;
+
+		if (collection != null) {
+			where = where.append(" and UPPER(s.project)=?");
+			paramList.add(collection.toUpperCase());
+			++i;
+		}
+		if (modality != null) {
+			where = where.append(" and UPPER(s.modality)=?");
+			paramList.add(modality.toUpperCase());
+			++i;
+		}
+		if (bodyPart != null) {
+			where = where.append(" and UPPER(s.bodyPartExamined)=?");
+			paramList.add(bodyPart.toUpperCase());
+			++i;
+		}
+
+		if (i > 0) {
+			Object[] values = paramList.toArray(new Object[paramList.size()]);
+			rs = getHibernateTemplate().find(hql + where.toString() + order,
+					values);
+		} else
+			rs = getHibernateTemplate().find(hql + where.toString() + order);
+
+		return rs;
+	}
+	
+	/**
+	 * Fetch set of  series objects filtered by project, ie. collection, patientId and studyInstanceUid
+	 * This method is used for NBIA Rest API.
+	 * @param collection A label used to name a set of images collected for a specific trial or other reason.
+	 * @param patientId Patient ID
+	 * @param seriesInstanceUid Series Instance UID
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)		
+	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid) throws DataAccessException {
+		StringBuffer where = new StringBuffer();
+		List<Object[]> rs = null;
+		String hql = "select s.seriesInstanceUID, s.studyInstanceUID, s.modality, s.protocolName, s.seriesDate, s.seriesDesc, " +
+		"s.bodyPartExamined, s.seriesNumber, s.annotationsFlag, s.project, s.patientId, s.generalEquipment.manufacturer, " +
+		"s.generalEquipment.manufacturerModelName, s.generalEquipment.softwareVersions, s.imageCount"+
+		" from GeneralSeries s where s.visibility ='1'";
+
+		List<String> paramList = new ArrayList<String>();
+		int i = 0;
+
+		if (collection != null) {
+			where = where.append(" and UPPER(s.project)=?");
+			paramList.add(collection.toUpperCase());
+			++i;
+		}
+		if (patientId != null) {
+			where = where.append(" and UPPER(s.patientId)=?");
+			paramList.add(patientId.toUpperCase());
+			++i;
+		}
+		if (studyInstanceUid != null) {
+			where = where.append(" and UPPER(s.studyInstanceUID)=?");
+			paramList.add(studyInstanceUid.toUpperCase());
+			++i;
+		}
+
+		if (i > 0) {
+			Object[] values = paramList.toArray(new Object[paramList.size()]);
+			rs = getHibernateTemplate().find(hql + where.toString(), values);
+		} else
+			rs = getHibernateTemplate().find(hql + where.toString());
+
+		return rs;
+	}
+
 	@Transactional(propagation=Propagation.REQUIRED)
 	public Collection<String> findDistinctModalitiesFromVisibleSeries() throws DataAccessException {
 		String hql =

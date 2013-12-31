@@ -46,5 +46,32 @@ public class PatientDAOImpl extends AbstractDAO
 
 		return pDto; 
 	}
+	
+	/**
+	 * Fetch Patient Object through project, ie. collection
+	 * This method is used for NBIA Rest API.
+	 * @param collection A label used to name a set of images collected for a specific trial or other reason.
+	 * Assigned during the process of curating the data. The info is kept under project column
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)		
+	public List<Object[]> getPatientByCollection(String collection) throws DataAccessException 
+	{
+		String where = collection == null ? "":" where UPPER(p.dataProvenance.project)=?";
+		String hql = "select p.patientId, p.patientName, p.patientBirthDate, p.patientSex, p.ethnicGroup, p.dataProvenance.project from Patient as p"+where;
+		List<Object[]> rs = collection == null ? 
+				getHibernateTemplate().find(hql):
+				getHibernateTemplate().find(hql, collection.toUpperCase()); // protect against sql injection
 
+		//for testing
+		if(rs != null && rs.size() > 0) {
+			for (Object[] objects : rs) {
+				for (Object obj: objects) {
+					if (obj != null)
+						System.out.println("obj name=" + obj.toString());
+				}
+			}
+	    }
+		// for testing
+        return rs;
+	}
 }

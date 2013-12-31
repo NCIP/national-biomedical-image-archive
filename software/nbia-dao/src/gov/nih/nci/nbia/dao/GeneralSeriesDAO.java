@@ -69,4 +69,12 @@ public interface GeneralSeriesDAO  {
 			                                             List<String> authorizedSeriesSecurityGroups) throws DataAccessException;
 	
 	public SeriesDTO getGeneralSeriesByPKid(Integer seriesPkId) throws DataAccessException;
+	
+	public List<String> getModalityValues(String collection, String bodyPart) throws DataAccessException;
+	
+	public List<String> getBodyPartValues(String collection, String modality) throws DataAccessException;
+	
+	public List<String> getManufacturerValues(String collection, String modality, String bodyPart) throws DataAccessException;
+	
+	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid) throws DataAccessException;
 }

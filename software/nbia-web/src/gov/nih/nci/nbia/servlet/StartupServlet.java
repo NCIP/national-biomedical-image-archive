@@ -45,8 +45,10 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
+import org.quartz.SimpleTrigger;
 import org.quartz.TriggerUtils;
 import org.quartz.impl.StdSchedulerFactory;
+import  gov.nih.nci.nbia.textsupport.SolrUpdateJob;
 
 
 public class StartupServlet extends HttpServlet {
@@ -97,11 +99,38 @@ public class StartupServlet extends HttpServlet {
                                                      Scheduler.DEFAULT_GROUP,
                                                      NodeLookupJob.class);
        
+       // wait an 1 min before starting solrUpdates
+       long startTime = System.currentTimeMillis() + 60000L;
+       Long interval = null;
+       
+       try {
+		interval = Long.valueOf(NCIAConfig.getSolrUpdateInterval());
+	   } catch (Exception e1) {
+		    interval = Long.valueOf("60");
+		    System.out.println("unable to read solr interval, defaulting to one hour");
+	     	e1.printStackTrace();
+	   }
+       
+       
+       SimpleTrigger solrTrigger = new SimpleTrigger("myTrigger",
+               null,
+               new Date(startTime),
+               null,
+               SimpleTrigger.REPEAT_INDEFINITELY,
+               interval * 60000L);
+       
+       JobDetail solrUpdateJobDetail = new JobDetail("SolrUpdate",
+               Scheduler.DEFAULT_GROUP,
+               SolrUpdateJob.class);
+       
         //Schedule the tasks...
         try {
             SchedulerFactory sf = new StdSchedulerFactory();
 
             Scheduler scheduler = sf.getScheduler();
+            // my job goes first!
+            scheduler.scheduleJob(solrUpdateJobDetail, solrTrigger);
+            
             //Job 1 - Latest Curation Date
             scheduler.scheduleJob(latestCurationDateJobDetail, latestCurationDateTrigger);
 

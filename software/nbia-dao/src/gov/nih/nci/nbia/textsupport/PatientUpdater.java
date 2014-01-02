@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import gov.nih.nci.nbia.dao.PatientDAOImpl;
 import gov.nih.nci.nbia.dynamicsearch.QueryHandler;
 import gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl;
-import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.*;
@@ -53,7 +52,7 @@ public class PatientUpdater {
 	  {
     	 
     	  TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
-    	  this.sessionFactory= support.getSessionFactory();
+    	  //this.sessionFactory= support.getSessionFactory();
 
     	  log.error("Solr update submitted patients has been called");
     	  String maxTimeStamp;
@@ -114,7 +113,7 @@ public class PatientUpdater {
     protected void updateCollections()  throws Exception
     {
     	TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
-  	    this.sessionFactory=support.getSessionFactory();
+  	   // this.sessionFactory=support.getSessionFactory();
 		PatientAccessDAO patientAccess = new PatientAccessDAO();
 		patientAccess.setSessionFactory(sessionFactory);
 		List<String> localList = new ArrayList<String>();

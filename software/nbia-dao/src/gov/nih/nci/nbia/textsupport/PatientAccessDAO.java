@@ -1,7 +1,6 @@
 package gov.nih.nci.nbia.textsupport;
 import gov.nih.nci.nbia.dto.AnnotationFileDTO;
 import gov.nih.nci.nbia.internaldomain.*;
-import gov.nih.nci.nbia.util.NCIADicomObject;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import org.hibernate.SessionFactory;
 import org.hibernate.Hibernate;
@@ -164,9 +163,9 @@ public class PatientAccessDAO {
             }
             if (image.getFilename()!=null)
             {
-            	NCIADicomObject dicomObject;
+            	NCIADicomTextObject dicomObject;
 				try {
-					dicomObject = new NCIADicomObject(new File(image.getFilename()));
+					dicomObject = new NCIADicomTextObject(new File(image.getFilename()));
 					imageDoc.setTagInfo(dicomObject.getTagElements());
 				} catch (Exception e) {
 					e.printStackTrace();

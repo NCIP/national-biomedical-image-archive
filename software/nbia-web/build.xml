@@ -286,6 +286,7 @@ L-->
     <filter token="database.type" value="${database.type}"/>
     <filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
     <filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
+ 	<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
         
     <copy file="${jboss-conf}/properties-service.xml" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
         

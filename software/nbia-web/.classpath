@@ -17,43 +17,8 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/asm-hack-3.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/asm-tree-hack-3.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/axis-1.2RC2.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/axis2-saaj-1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/backport-util-concurrent-2.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/c3p0-0.9.0.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-authentication-service-client-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-authentication-service-common-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-authentication-service-stubs-1.4.jar"/-->
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-cds-stubs-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-core-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-CQL-cql.2.0-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-data-common-1.4.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-data-cql-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-data-service-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-data-stubs-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-data-utils-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-data-validation-1.4.jar"/-->
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-discovery-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-dorian-client-1.4.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-dorian-common-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-dorian-stubs-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-gaards-core-1.4.jar"/-->
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-metadata-common-1.4.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-metadata-data-1.4.jar"/-->
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-metadata-security-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-metadatautils-1.4.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-opensaml-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-sdkQuery4-beans-1.4.jar"/-->
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-sdkQuery4-processor-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-ServiceSecurityProvider-client-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-ServiceSecurityProvider-common-1.4.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-ServiceSecurityProvider-service-1.4.jar"/-->
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-ServiceSecurityProvider-stubs-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-Transfer-client-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-Transfer-common-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-Transfer-stubs-1.4.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-wsEnum-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/caGrid-wsEnum-stubs-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/castor-1.0.2.jar"/-->
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/ccl-29.50.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/cglib-2.1_3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/checkstyle-4.4.jar"/>
@@ -64,14 +29,11 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-beanutils-core-1.7.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-cli-1.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-codec-1.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-collections-3.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-digester-1.5.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-discovery-0.2-dev.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-el-1.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-fileupload-1.2.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-httpclient-3.0.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-io-1.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/cryptix-1.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/cryptix-asn1-0.1.11.jar"/>
@@ -91,7 +53,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/nbia-web/webapp/WEB-INF/lib/icefaces-facelets-1.8.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/ivi-core-1.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/jai_imageio-1.2_pre-dr-b04.jar"/>
-	<!-- classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/jasciidammit-1.1.jar"/-->
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/javancss-29.50.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/jaxen-core-1.0-FCS.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/jaxen-jdom-1.0-FCS.jar"/>
@@ -139,5 +100,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test-selenium/selenium-java-client-driver-1.0-beta-2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test-selenium/selenium-server-1.0-beta-2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test-selenium/selenium-server-coreless-1.0-beta-2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/runtime/commons-io-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

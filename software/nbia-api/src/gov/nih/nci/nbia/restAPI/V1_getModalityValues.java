@@ -48,6 +48,7 @@ public class V1_getModalityValues {
 
 	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
 			@QueryParam("BodyPartExamined") String bodyPart) {
+		
 		String returnString = null;
 		List<String> data = getDataFromDB (collection, bodyPart);
 		System.out.println("format=" +format);

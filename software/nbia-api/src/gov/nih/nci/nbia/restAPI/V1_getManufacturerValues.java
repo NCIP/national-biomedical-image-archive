@@ -40,10 +40,12 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -53,6 +55,8 @@ public class V1_getManufacturerValues {
 	private static final String column="Manufacturer";
 	public final static String TEXT_CSV = "text/csv";
 	public final static MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
+	
+	@Context private HttpServletRequest httpRequest;
 
 	/**
 	 * This method get a set of Manufacturer filtered by query keys
@@ -64,9 +68,10 @@ public class V1_getManufacturerValues {
 
 	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
 			@QueryParam("Modality") String modality, @QueryParam("BodyPartExamined") String bodyPart) {
+		System.out.println("##################################################"+httpRequest.getAttribute("authorizedCollections"));
 		String returnString = null;
 		List<String> data = getDataFromDB (collection, modality, bodyPart);
-		System.out.println("format=" +format);
+		System.out.println("format@@@@@@@@@@@@@@=" +format);
 		
 		if ((data != null) && (data.size() > 0)) {
 			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {

@@ -18,8 +18,10 @@ L-->
                                
   <ice:panelGroup>
       <h:commandButton image="images/checkall.gif" 
+      				   onclick="toggleBooleanCheckbox();" 
                        action="#{qcToolSearchBean.selectAll}" />
       <h:commandButton image="images/uncheckall.gif"
+      				   onclick="toggleBooleanCheckbox();"
                        action="#{qcToolSearchBean.unselectAll}" />
   </ice:panelGroup>  
 </ui:composition>

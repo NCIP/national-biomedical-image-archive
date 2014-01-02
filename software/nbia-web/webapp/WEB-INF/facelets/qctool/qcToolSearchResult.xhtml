@@ -46,14 +46,15 @@ L-->
 					rendered="#{not empty qcToolSearchBean.qsrDTOList}"
 					binding="#{qcToolSearchBean.dataTable}">
 
-					<ice:column>
-						<f:facet name="header">
-							<input name="checkAllBox" type="checkbox"
-								onclick="checkAllInContainingTable(this);" />
-						</f:facet>
-						<ice:selectBooleanCheckbox id="SlctRec" partialSubmit="false"
-							value="#{res.selected}" />
-					</ice:column>
+					 <ice:column>
+                                <f:facet name="header">
+                                    <!-- <input name="checkAllBox" type="checkbox"
+                                        onclick="checkAllInContainingTable(this);" /> -->
+                                        <h:selectBooleanCheckbox id="checkAllBox" name="checkAllBox"  onclick="checkAllInContainingTable(this);" />
+                                </f:facet>
+                                <ice:selectBooleanCheckbox id="SlctRec" partialSubmit="false"
+                                    value="#{res.selected}" />
+                    </ice:column>
 
 					<ice:column>
 						<f:facet name="header">
@@ -197,7 +198,9 @@ L-->
 						</f:subview>
 						<ice:commandButton id="UpdateBtn"
 							value="#{qcToolBean.buttonLabel}"
-							action="#{qcToolUpdateBean.update}" />
+							onclick="resetBooleanCheckbox();" 
+							action="#{qcToolUpdateBean.update}"/>
+							
 					</ice:panelGrid>
 				</ice:panelGroup>
 			</ice:panelCollapsible>

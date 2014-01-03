@@ -18,6 +18,10 @@
       <param-name>com.sun.jersey.config.property.packages</param-name>
       <param-value>gov.nih.nci.nbia.restAPI</param-value>
     </init-param>
+    <init-param>
+  		<param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+  		<param-value>gov.nih.nci.nbia.restSecurity.AuthorizationFilter</param-value>
+	</init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>

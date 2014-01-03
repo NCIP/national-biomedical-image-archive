@@ -77,4 +77,9 @@ public interface GeneralSeriesDAO  {
 	public List<String> getManufacturerValues(String collection, String modality, String bodyPart) throws DataAccessException;
 	
 	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid) throws DataAccessException;
+	
+	//this is to get authorizedSecurityGroups for rest API
+	
+	public List<String> getAuthorizedSecurityGroups(String name,String value) throws DataAccessException;
+	
 }

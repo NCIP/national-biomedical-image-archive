@@ -4,7 +4,7 @@
 package gov.nih.nci.nbia.dao;
 
 import java.util.List;
-import gov.nih.nci.nbia.internaldomain.Patient;
+
 import org.springframework.dao.DataAccessException;
 
 /**

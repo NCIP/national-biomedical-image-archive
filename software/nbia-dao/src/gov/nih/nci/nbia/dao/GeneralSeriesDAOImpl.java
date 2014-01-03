@@ -17,6 +17,7 @@ import gov.nih.nci.nbia.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Conjunction;
@@ -550,4 +551,26 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			criteria.add(Restrictions.isNull("securityGroup"));
 		}
 	}
+	/**
+	 * Fetch set of collection values by giving name.
+	 * 
+	 * This method is used for NBIA Rest API filter.
+	 */
+	public List<String> getAuthorizedSecurityGroups(String name, String value)
+			throws DataAccessException {
+		List<String> returnList = new ArrayList<String>();
+		String hql = "select distinct s.project, s.site from GeneralSeries s where upper(s." + name + ")=upper('" + value + "')";
+		
+		List<Object[]> lst = getHibernateTemplate().find(hql);
+		Iterator<Object[]> iter = lst.iterator();
+		// Loop through the results. There is one result for each series
+		while (iter.hasNext()) {
+			Object[] row = iter.next();
+			String proj = (String) row[0];
+			String site = (String) row[1];
+			returnList.add(proj + "//" + site);
+		}
+		return returnList;
+	}
+
 }

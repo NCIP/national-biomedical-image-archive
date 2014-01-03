@@ -114,6 +114,8 @@ public class SearchResultBean {
 	 * <P>This is only for synchronous searches (ispy and dynamic search)
 	 */
 	public void setPatientResults(List<PatientSearchResult> results) {
+		// set text to false so solr search does not interfere with anything else
+		isTextResult=false;
 		if (results != null) {
 			List<PatientResultWrapper> patientResultsWrapperList = new ArrayList<PatientResultWrapper>();
 			for(PatientSearchResult result : results) {

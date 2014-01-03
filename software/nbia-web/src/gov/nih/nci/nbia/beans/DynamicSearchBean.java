@@ -652,7 +652,6 @@ public class DynamicSearchBean {
 	}
 	protected void populateSearchResults(List<PatientSearchResult> patients) throws Exception {
 		SearchResultBean srb = BeanManager.getSearchResultBean();
-		System.out.println("********** populate called ****************");
         srb.setPatientResults(patients);
         if (patients!=null && patients.size()>0)
         {
@@ -660,11 +659,9 @@ public class DynamicSearchBean {
         	if (patient instanceof PatientTextSearchResultImpl)
         	{
         		srb.setTextResult(true);
-        		System.out.println("********** text result ****************");
         	} else
         	{
         		srb.setTextResult(false);
-        		System.out.println("********** not text result ****************");
         	}
         }
     	srb.setResultsPerPage(new Integer(selectedResultPerPage));

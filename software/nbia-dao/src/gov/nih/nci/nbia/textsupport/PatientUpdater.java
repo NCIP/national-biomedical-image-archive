@@ -88,7 +88,7 @@ public class PatientUpdater {
 			  log.error("It appears the submission log is empty");
 			  return; //nothing to do
 		  }
-		  List<Object>rs = support.getUpdatedPatients(maxTimeStamp, lastRan);
+		  List<Object>rs = support.getUpdatedPatients(lastRan, maxTimeStamp);
 		   if (rs.size()==0) {
 			   log.error("No new items in submission log");
 			   return; //nothing to do

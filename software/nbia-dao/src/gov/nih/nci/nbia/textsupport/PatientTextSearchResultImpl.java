@@ -11,7 +11,7 @@ public PatientTextSearchResultImpl(PatientSearchResult input)
 	this.setStudyIdentifiers(input.getStudyIdentifiers());
 	this.setSubjectId(input.getSubjectId());
 	this.setTotalNumberOfSeries(input.getTotalNumberOfSeries());
-	this.setTotalNumberOfStudies(this.getTotalNumberOfStudies());
+	this.setTotalNumberOfStudies(input.getTotalNumberOfStudies());
     this.associateLocation(input.associatedLocation());
 
 }

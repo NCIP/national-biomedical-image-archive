@@ -12,12 +12,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import gov.nih.nci.nbia.dao.PatientDAOImpl;
-import gov.nih.nci.nbia.dynamicsearch.QueryHandler;
-import gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl;
-import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.nbia.dao.*;
+
 @Transactional 
 public class PatientUpdater {
 	@Autowired

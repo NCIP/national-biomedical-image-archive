@@ -997,7 +997,13 @@ public class SearchWorkflowBean {
 		srb.setPatientResults(null);
 		return DYNAMIC_SEARCH;
 	}
-
+	public String newFreeTextSearch()
+	{
+		freeTextSearch = true;
+		SearchResultBean srb = BeanManager.getSearchResultBean();
+		srb.setPatientResults(null);
+		return FREE_TEXT_SEARCH;
+	}
 	public boolean isDynamicSearch() {
 		return dynamicSearch;
 	}
@@ -1005,7 +1011,9 @@ public class SearchWorkflowBean {
 	public void setDynamicSearch(boolean dynamicSearch) {
 		this.dynamicSearch = dynamicSearch;
 	}
-
+	public void setFreeTextSearch(boolean freeTextSearch) {
+		this.freeTextSearch = freeTextSearch;
+	}
 	public RangeValidator getRangeValidator() {
 		return new RangeValidator();
 	}
@@ -1098,6 +1106,7 @@ public class SearchWorkflowBean {
     private boolean usSearch = false;
 
     private boolean dynamicSearch = false;
+    private boolean freeTextSearch = false;
 
     /**
      * Holds the values for manufacturer, model and software version in the tree
@@ -1154,6 +1163,7 @@ public class SearchWorkflowBean {
 
     private static final String SEARCH = "search";
     private static final String DYNAMIC_SEARCH = "dynamicSearch";
+    private static final String FREE_TEXT_SEARCH = "freeTextSearch";
     private boolean fromSavedQuery= false;
 
     /**

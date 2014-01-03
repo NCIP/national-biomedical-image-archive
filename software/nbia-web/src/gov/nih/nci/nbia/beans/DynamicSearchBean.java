@@ -21,6 +21,9 @@ import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.security.AuthorizationManager;
+import gov.nih.nci.nbia.textsupport.SolrFoundDocumentMetaData;
+import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
+import gov.nih.nci.nbia.textsupport.PatientTextSearchResult;
 import gov.nih.nci.nbia.util.SelectItemLabelComparator;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
@@ -38,6 +41,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -74,6 +78,7 @@ public class DynamicSearchBean {
 	protected String selectedOperand;
 	protected String inputValue;
 	protected String newValue;
+	protected String textValue;
 	protected List<DynamicSearchCriteria> criteria = new ArrayList<DynamicSearchCriteria>();
 	protected List<DynamicSearchCriteriaBean> criteriaBean = new ArrayList<DynamicSearchCriteriaBean>();
 	
@@ -590,10 +595,78 @@ public class DynamicSearchBean {
 
 		return returnValue;
 	}
+	public String submitTextSearch() throws Exception
+	{
+		String returnValue = "submitTextSearch";
+		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
+		System.out.println("Searching Solr for"+textValue);
+		List<SolrFoundDocumentMetaData> results = qh.searchSolr(textValue);
+		StringBuffer patientIDs = new StringBuffer();
+		Map<String, SolrFoundDocumentMetaData> patientMap=new HashMap<String, SolrFoundDocumentMetaData>();
+		for (SolrFoundDocumentMetaData result : results)
+		{
+			patientIDs.append(result.getPatientId()+",");
+			patientMap.put(result.getPatientId(), result);
+		}
+		if (patientIDs.toString().length()<2) patientIDs.append("zzz33333###"); // no patients found
+		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
+		String selectFieldType = "java.lang.String";
+		dsc.setField("patientId");
+		dsc.setDataGroup("Patient");
+		Operator op = new Operator();
+		op.setValue("contains");
+		dsc.setOperator(op);
+		dsc.setValue(patientIDs.toString());
+        
+		criteria.clear();
+		criteria.add(dsc);
+		
 
+		if(criteria !=null && !criteria.isEmpty()) {
+
+			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
+			qh.setQueryCriteria(criteria, "AND", authorizedSiteData, seriesSecurityGroups);
+			qh.query();
+			List<PatientSearchResult> patients = qh.getPatients();
+			List<PatientSearchResult> textPatients = new ArrayList<PatientSearchResult>();
+			for (PatientSearchResult patient:patients)
+			{
+				PatientTextSearchResult textResult=new PatientTextSearchResultImpl(patient);
+				SolrFoundDocumentMetaData solrResult =  patientMap.get(textResult.getSubjectId());
+				if (solrResult==null)
+				{
+					System.out.println("******* can't find id in patient map " + textResult.getSubjectId());
+				} else
+				{
+					textResult.setHit(solrResult.getFieldName()+" - "+solrResult.getFieldValue());
+				    textPatients.add(textResult);
+				}
+			}
+			
+			populateSearchResults(textPatients);
+		} else {
+			populateSearchResults(null);
+		}
+
+		return returnValue;
+	}
 	protected void populateSearchResults(List<PatientSearchResult> patients) throws Exception {
 		SearchResultBean srb = BeanManager.getSearchResultBean();
+		System.out.println("********** populate called ****************");
         srb.setPatientResults(patients);
+        if (patients!=null && patients.size()>0)
+        {
+        	PatientSearchResult patient=patients.get(0);
+        	if (patient instanceof PatientTextSearchResultImpl)
+        	{
+        		srb.setTextResult(true);
+        		System.out.println("********** text result ****************");
+        	} else
+        	{
+        		srb.setTextResult(false);
+        		System.out.println("********** not text result ****************");
+        	}
+        }
     	srb.setResultsPerPage(new Integer(selectedResultPerPage));
 	}
 
@@ -939,7 +1012,7 @@ public class DynamicSearchBean {
 	public void addTextCriteria() {
 		try {
 		addCriteria();
-		submitSearch();
+		submitTextSearch();
 		defaultView();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -992,6 +1065,14 @@ public class DynamicSearchBean {
 
 	public boolean getEditTextPopupRendered() {
 		return this.editTextPopupRendered;
+	}
+
+	public String getTextValue() {
+		return textValue;
+	}
+
+	public void setTextValue(String textValue) {
+		this.textValue = textValue;
 	}
 }
 

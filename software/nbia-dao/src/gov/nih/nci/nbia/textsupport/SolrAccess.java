@@ -34,7 +34,7 @@ public class SolrAccess {
 		return returnValue;
 
 	}
-	public static SolrFoundDocumentMetaData findIndexes(String term, SolrDocument solrDoc, int patientId )
+	public static SolrFoundDocumentMetaData findIndexes(String term, SolrDocument solrDoc, int documentId )
 	{
 	    String fieldValue;
 	    SolrFoundDocumentMetaData found=null;
@@ -45,7 +45,7 @@ public class SolrAccess {
 			      if (fieldValue.toLowerCase().indexOf(term.toLowerCase()) != -1)
 			      {
 			    	  found=new SolrFoundDocumentMetaData(term, field, fieldValue, 
-			    			  fieldValue.toLowerCase().indexOf(term.toLowerCase()), patientId);
+			    			  fieldValue.toLowerCase().indexOf(term.toLowerCase()), documentId, (String)solrDoc.getFieldValue("patientId"));
 			          return found;
 			      }
 			  }

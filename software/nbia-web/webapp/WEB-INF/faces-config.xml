@@ -77,6 +77,12 @@ L-->
   </navigation-rule> 
     <navigation-rule>
     <navigation-case>
+      <from-outcome>freeTextSearch</from-outcome>
+      <to-view-id>/freeTextSearch.jsf</to-view-id>
+    </navigation-case>
+  </navigation-rule> 
+    <navigation-rule>
+    <navigation-case>
       <from-outcome>onlineDeletion</from-outcome>
       <to-view-id>/onlineDeletion.jsf</to-view-id>
     </navigation-case>

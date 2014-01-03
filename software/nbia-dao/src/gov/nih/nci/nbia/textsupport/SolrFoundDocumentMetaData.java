@@ -5,13 +5,15 @@ private String term;
 private String fieldName;
 private String fieldValue;
 private int index;
-private int patientId;
-public SolrFoundDocumentMetaData(String termIn, String fieldNameIn, String fieldValueIn, int indexIn, int patientIdIn)
+private String patientId;
+private int documentId;
+public SolrFoundDocumentMetaData(String termIn, String fieldNameIn, String fieldValueIn, int indexIn, int documentIdIn, String patientIdIn)
 {
 	term=termIn;
 	fieldName=fieldNameIn;
 	fieldValue=fieldValueIn;
 	index=indexIn;
+	documentId=documentIdIn;
 	patientId=patientIdIn;
 }
 public String getTerm() {
@@ -44,10 +46,16 @@ public String toString() {
 			+ fieldName + ", fieldValue=" + fieldValue + ", index=" + index
 			+ ", patientId=" + patientId + "]";
 }
-public int getPatientId() {
+public int getDocumentId() {
+	return documentId;
+}
+public void setDocumentId(int documentId) {
+	this.documentId = documentId;
+}
+public String getPatientId() {
 	return patientId;
 }
-public void setPatientId(int patientId) {
+public void setPatientId(String patientId) {
 	this.patientId = patientId;
 }
 }

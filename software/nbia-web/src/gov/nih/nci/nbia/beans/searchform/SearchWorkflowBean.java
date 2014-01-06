@@ -824,7 +824,10 @@ public class SearchWorkflowBean {
         {
         	return DYNAMIC_SEARCH;
         }
-
+        if (freeTextSearch)
+        {
+        	return FREE_TEXT_SEARCH;
+        }
         if (!showThickness) {
             defaultSliceThickness();
         }
@@ -993,6 +996,7 @@ public class SearchWorkflowBean {
 	public String newDynamicSearch()
 	{
 		dynamicSearch = true;
+		freeTextSearch = false;
 		SearchResultBean srb = BeanManager.getSearchResultBean();
 		srb.setPatientResults(null);
 		return DYNAMIC_SEARCH;
@@ -1000,6 +1004,7 @@ public class SearchWorkflowBean {
 	public String newFreeTextSearch()
 	{
 		freeTextSearch = true;
+		dynamicSearch = false;
 		SearchResultBean srb = BeanManager.getSearchResultBean();
 		srb.setPatientResults(null);
 		return FREE_TEXT_SEARCH;

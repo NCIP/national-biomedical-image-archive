@@ -14,6 +14,7 @@ import gov.nih.nci.nbia.util.SiteData;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -70,16 +71,16 @@ public interface GeneralSeriesDAO  {
 	
 	public SeriesDTO getGeneralSeriesByPKid(Integer seriesPkId) throws DataAccessException;
 	
-	public List<String> getModalityValues(String collection, String bodyPart) throws DataAccessException;
+	public List<String> getModalityValues(String collection, String bodyPart,List<SiteData> authorizedSites) throws DataAccessException;
 	
-	public List<String> getBodyPartValues(String collection, String modality) throws DataAccessException;
+	public List<String> getBodyPartValues(String collection, String modality,List<SiteData> authorizedSites) throws DataAccessException;
 	
-	public List<String> getManufacturerValues(String collection, String modality, String bodyPart) throws DataAccessException;
+	public List<String> getManufacturerValues(String collection, String modality, String bodyPart,List<SiteData> authorizedSites) throws DataAccessException;
 	
-	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid) throws DataAccessException;
+	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException;
 	
 	//this is to get authorizedSecurityGroups for rest API
 	
-	public List<String> getAuthorizedSecurityGroups(String name,String value) throws DataAccessException;
+	public List<SiteData> getAuthorizedSecurityGroups(Map<String,String> queryParams) throws DataAccessException;
 	
 }

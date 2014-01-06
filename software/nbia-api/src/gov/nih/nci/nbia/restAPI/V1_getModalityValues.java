@@ -20,14 +20,18 @@ package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;
+
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,7 +41,7 @@ public class V1_getModalityValues {
 	private static final String column="Modality";
 	public final static String TEXT_CSV = "text/csv";
 	public final static MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
-
+	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of all modality values (CT, MR, ...) filtered by query keys
 	 * 
@@ -88,10 +92,10 @@ public class V1_getModalityValues {
 	
 	private List<String> getDataFromDB (String collection, String bodyPart) {
 		List<String> results = null;
-		
+		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");
 		GeneralSeriesDAO tDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		try {
-			results = tDao.getModalityValues(collection, bodyPart);
+			results = tDao.getModalityValues(collection, bodyPart,authorisedSites);
 		}
 		catch (DataAccessException ex) {
 			ex.printStackTrace();

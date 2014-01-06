@@ -5,6 +5,7 @@ package gov.nih.nci.nbia.restSecurity;
 
 
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.security.AuthenticationManager;
 import gov.nih.nci.security.AuthorizationManager;
@@ -102,23 +103,20 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 			authenticationManager.login(username, password);
 			usr = authorizationManager.getUser(username);
 		}
-		List<String> collectionRequested = new ArrayList<String>();
-		for (String name : new ArrayList<String>(queryParamsMap.keySet())) {
-			if (name.equalsIgnoreCase("collection")) {
-				collectionRequested.add(queryParamsMap.get(name));
-				onlyPublicData = false;
-			} else if(!name.equalsIgnoreCase("format")) {
-				if (Arrays.asList("StudyInstanceUID","SeriesInstanceUID","PatientID").contains(name)) {
+		List<SiteData> collectionRequested = new ArrayList<SiteData>();
+		Map<String,String> daoParam = new HashMap<String, String>();
+		Set<String> keySet = queryParamsMap.keySet();
+		for (String name : keySet) {
+			if(!name.equalsIgnoreCase("format")) {
+				if (Arrays.asList("StudyInstanceUID","SeriesInstanceUID","PatientID","Collection").contains(name)) {
 					onlyPublicData = false;
 				}
-				GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
-				collectionRequested.addAll(generalSeriesDao.getAuthorizedSecurityGroups(parameterMapping.get(name),queryParamsMap.get(name)));
-				
+				daoParam.put(parameterMapping.get(name),queryParamsMap.get(name));
 			}
-			
-			System.out.println("requested param:-" + name + queryParamsMap.get(name));
-			System.out.println("requested param's collection name:-"+ collectionRequested);
 		}
+		GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
+		collectionRequested.addAll(generalSeriesDao.getAuthorizedSecurityGroups(daoParam));
+		System.out.println("requested param's collection name:-"+ collectionRequested);
 		//user is authenticated but not in local database		
 		if (usr != null) {
 			Set<ProtectionElementPrivilegeContext>  authorizedCollectionLst = authorizationManager.getProtectionElementPrivilegeContextForUser(usr.getUserId().toString());
@@ -132,14 +130,14 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 				}
 			}
 			//check if request collection is part of authorized collection for user
-			List<String> authorizedNameList = new ArrayList<String>();
-			for (String reqCollection :collectionRequested) {
-				if (authorizedCollections.contains("NCIA."+reqCollection)) {
-						authorizedNameList.add(reqCollection);
+			List<SiteData> authorizedProjectNameList = new ArrayList<SiteData>();
+			for (SiteData reqCollection :collectionRequested) {
+				if (authorizedCollections.contains("NCIA."+reqCollection.getCollection())) {
+					  authorizedProjectNameList.add(reqCollection);
 				}
 			}
 			if(onlyPublicData) {
-				httpRequest.setAttribute("authorizedCollections", authorizedNameList);	
+				httpRequest.setAttribute("authorizedCollections", authorizedProjectNameList);	
 			} else {
 				throw new Exception("Does not have access to requested information.");
 			}
@@ -147,21 +145,22 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		} else {
 				// check if requested collection is public then allow else throw
 				//un-Authorized exception
-				for (String collectionRq : collectionRequested) {
-					ProtectionElement pe = authorizationManager.getProtectionElement("NCIA." + collectionRq);
+				List<SiteData> publicPGNameList = new ArrayList<SiteData>();
+				List<String> protectionGroupLst = new ArrayList<String>();
+				for (SiteData collectionRq : collectionRequested) {
+					ProtectionElement pe = authorizationManager.getProtectionElement("NCIA." + collectionRq.getCollection());
 					Set pGs = authorizationManager.getProtectionGroups(pe.getProtectionElementId().toString());
-					List<String> privatePGNameList = new ArrayList<String>();
 					for (Object pg : pGs) {
-						System.out.println("protection group of reuested prarm @@@@:-" + ((ProtectionGroup) pg).getProtectionGroupName());
-						if (!(((ProtectionGroup) pg).getProtectionGroupName()).contains("NCIA.PUBLIC")) {
-							privatePGNameList.add(((ProtectionGroup) pg).getProtectionGroupName());
+						if ((((ProtectionGroup) pg).getProtectionGroupName()).contains("NCIA.PUBLIC") && !publicPGNameList.contains(collectionRq)) {
+							publicPGNameList.add(collectionRq);
 						}
+						protectionGroupLst.add(((ProtectionGroup) pg).getProtectionGroupName());
 					}
-					if(onlyPublicData) {
-						httpRequest.setAttribute("authorizedCollections", privatePGNameList);
-					} else {
-						throw new Exception("Does not have access to requested information.");
-					}
+				}
+				if(onlyPublicData) {
+					httpRequest.setAttribute("authorizedCollections", publicPGNameList);
+				} else if (!protectionGroupLst.contains("NCIA.PUBLIC")) {
+					throw new Exception("Does not have access to requested information.");
 				}
 			}
 		

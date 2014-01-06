@@ -19,10 +19,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
@@ -83,27 +88,33 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	 * @param bodyPart Body Part Examined
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)		
-	public List<String> getModalityValues(String collection, String bodyPart) throws DataAccessException 
+	public List<String> getModalityValues(String collection, String bodyPart,List<SiteData> authorizedSites) throws DataAccessException 
 	{
-		String where = null;
+		
 		List<String> rs = null;
-		String hql = "select distinct(modality) from GeneralSeries s"; 
+		String hql = "select distinct(modality) from GeneralSeries s where visibility = '1'"; 
 		String order = " order by upper(modality)";
-
-		if (collection != null && bodyPart != null) {
-			where =" where visibility = '1' and UPPER(s.project)=? and UPPER(s.bodyPartExamined)=?";
-			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase(), bodyPart.toUpperCase());
+		List<String> paramList = new ArrayList<String>();
+		int i = 0;
+		StringBuffer where = new StringBuffer();
+		
+		if (collection != null) {			
+			where.append(" and UPPER(s.project)=?");
+			paramList.add(collection.toUpperCase());
+			i++;
 		}
-		else if (collection != null) {			
-			where =" where visibility = '1' and UPPER(s.project)=?";	
-			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase());
+		if (bodyPart != null) {			
+			where.append(" and UPPER(s.bodyPartExamined)=?");
+			paramList.add(bodyPart.toUpperCase());
+			i++;
 		}
-		else if (bodyPart != null) {			
-			where =" where visibility = '1' and UPPER(s.bodyPartExamined)=?";
-			rs  = getHibernateTemplate().find(hql + where + order, bodyPart.toUpperCase());
-		}
-		else {
-			rs  = getHibernateTemplate().find(hql + order);
+		where.append(addSecurityGroup(authorizedSites));
+		if (i > 0) {
+			Object[] values = paramList.toArray(new Object[paramList.size()]);
+			rs = getHibernateTemplate().find(hql + where.toString() + order,
+					values);
+		} else {
+			rs  = getHibernateTemplate().find(hql +  where.toString() +order);
 		}
 
         return rs;
@@ -117,27 +128,32 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	 * @param modality Body Part Examined
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)		
-	public List<String> getBodyPartValues(String collection, String modality) throws DataAccessException 
+	public List<String> getBodyPartValues(String collection, String modality,List<SiteData> authorizedSites) throws DataAccessException 
 	{
-		String where = null;
+		
 		List<String> rs = null;
-		String hql = "select distinct(bodyPartExamined) from GeneralSeries s"; 
+		String hql = "select distinct(bodyPartExamined) from GeneralSeries s where visibility = '1' "; 
 		String order = " order by upper(bodyPartExamined)";
-
-		if (collection != null && modality != null) {
-			where =" where visibility = '1' and UPPER(s.project)=? and UPPER(s.modality)=?";
-			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase(), modality.toUpperCase());
+		List<String> paramList = new ArrayList<String>();
+		int i = 0;
+		StringBuffer where = new StringBuffer();
+		if (collection != null) {			
+			where.append(" and UPPER(s.project)=?");	
+			paramList.add(collection.toUpperCase());
+			i++;
 		}
-		else if (collection != null) {			
-			where =" where visibility = '1' and UPPER(s.project)=?";	
-			rs  = getHibernateTemplate().find(hql + where + order, collection.toUpperCase());
+		if (modality != null) {			
+			where.append(" UPPER(s.modality)=?");
+			paramList.add(modality.toUpperCase());
 		}
-		else if (modality != null) {			
-			where =" where visibility = '1' and UPPER(s.modality)=?";
-			rs  = getHibernateTemplate().find(hql + where + order, modality.toUpperCase());
-		}
-		else {
-			rs  = getHibernateTemplate().find(hql + order);
+		
+		where.append(addSecurityGroup(authorizedSites));
+		if (i > 0) {
+			Object[] values = paramList.toArray(new Object[paramList.size()]);
+			rs = getHibernateTemplate().find(hql + where.toString() + order,
+					values);
+		} else {
+			rs  = getHibernateTemplate().find(hql  + where.toString() + order);
 		}
 		
         return rs;
@@ -153,7 +169,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)		
 	public List<String> getManufacturerValues(String collection,
-			String modality, String bodyPart) throws DataAccessException {
+			String modality, String bodyPart,List<SiteData> authorizedSites) throws DataAccessException {
 		StringBuffer where = new StringBuffer();
 		List<String> rs = null;
 		String hql = "select distinct(s.generalEquipment.manufacturer) from GeneralSeries s where s.visibility ='1'";
@@ -176,6 +192,9 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			paramList.add(bodyPart.toUpperCase());
 			++i;
 		}
+		
+		where.append(addSecurityGroup(authorizedSites));
+		
 
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
@@ -186,6 +205,16 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 
 		return rs;
 	}
+
+	private StringBuffer addSecurityGroup(List<SiteData> authorizedSites) {
+		StringBuffer where = new StringBuffer(); 
+		String authorisedProjectName = getProjectNames(authorizedSites);
+		String authorisedSiteName = getSiteNames(authorizedSites);
+		if(authorisedProjectName != null && authorisedSiteName != null) {
+			where = where.append(" and UPPER(s.project) in (").append(authorisedProjectName).append(")").append(" and UPPER(s.site) in (" + authorisedSiteName+")");
+		}
+		return where;
+	}
 	
 	/**
 	 * Fetch set of  series objects filtered by project, ie. collection, patientId and studyInstanceUid
@@ -195,7 +224,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	 * @param seriesInstanceUid Series Instance UID
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)		
-	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid) throws DataAccessException {
+	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException {
 		StringBuffer where = new StringBuffer();
 		List<Object[]> rs = null;
 		String hql = "select s.seriesInstanceUID, s.studyInstanceUID, s.modality, s.protocolName, s.seriesDate, s.seriesDesc, " +
@@ -221,7 +250,8 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			paramList.add(studyInstanceUid.toUpperCase());
 			++i;
 		}
-
+		where.append(addSecurityGroup(authorizedSites));
+		
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString(), values);
@@ -556,21 +586,57 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	 * 
 	 * This method is used for NBIA Rest API filter.
 	 */
-	public List<String> getAuthorizedSecurityGroups(String name, String value)
+	@Transactional(propagation=Propagation.REQUIRED)	
+	public List<SiteData> getAuthorizedSecurityGroups(Map<String, String> queryParams)
 			throws DataAccessException {
-		List<String> returnList = new ArrayList<String>();
-		String hql = "select distinct s.project, s.site from GeneralSeries s where upper(s." + name + ")=upper('" + value + "')";
 		
-		List<Object[]> lst = getHibernateTemplate().find(hql);
-		Iterator<Object[]> iter = lst.iterator();
-		// Loop through the results. There is one result for each series
-		while (iter.hasNext()) {
-			Object[] row = iter.next();
-			String proj = (String) row[0];
-			String site = (String) row[1];
-			returnList.add(proj + "//" + site);
+		List<SiteData> returnList = new ArrayList<SiteData>();
+		Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(GeneralSeries.class);
+		criteria.setProjection(Projections.distinct(Projections.projectionList().add(Projections.property("project")).add(Projections.property("site"))));
+		Set<String> paramLst = queryParams.keySet();
+		for (String param : paramLst) {
+			criteria.add(Restrictions.eq(param,queryParams.get(param)));
+		}
+		
+		List<Object[]> result = criteria.list();
+		Iterator<Object[]> iter = result.iterator();
+		 while (iter.hasNext()) {
+		 Object[] row = iter.next();
+		 	returnList.add(new SiteData((String) row[0]+ "//" +(String) row[1]));
 		}
 		return returnList;
 	}
+	
+	private String getProjectNames(Collection<SiteData> sites) {
+		if(sites == null || sites.isEmpty()) {
+			return null;
+		}
+		String projectNameStmt = "";
+    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
+    		SiteData str = i.next();
+            projectNameStmt += ("'" + str.getCollection() + "'");
+
+            if (i.hasNext()) {
+            	projectNameStmt += ",";
+            }
+        }
+    	return projectNameStmt;
+    }
+	private String getSiteNames(Collection<SiteData> sites) {
+		if(sites == null || sites.isEmpty()) {
+			return null;
+		}
+		String theWhereStmt = "";
+    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
+    		SiteData str = i.next();
+            theWhereStmt += ("'" + str.getSiteName() + "'");
+
+            if (i.hasNext()) {
+            	theWhereStmt += ",";
+            }
+        }
+    	return theWhereStmt;
+    }
+
 
 }

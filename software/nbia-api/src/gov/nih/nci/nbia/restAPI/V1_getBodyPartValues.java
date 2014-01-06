@@ -20,14 +20,18 @@ package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;
+
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,7 +41,7 @@ public class V1_getBodyPartValues {
 	private static final String column="BodyPartExamined";
 	public final static String TEXT_CSV = "text/csv";
 	public final static MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
-
+	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of body part values filtered by query keys
 	 * 
@@ -87,10 +91,10 @@ public class V1_getBodyPartValues {
 	
 	private List<String> getDataFromDB (String collection, String modality) {
 		List<String> results = null;
-		
+		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");
 		GeneralSeriesDAO tDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		try {
-			results = tDao.getBodyPartValues(collection, modality);
+			results = tDao.getBodyPartValues(collection, modality,authorisedSites);
 		}
 		catch (DataAccessException ex) {
 			ex.printStackTrace();

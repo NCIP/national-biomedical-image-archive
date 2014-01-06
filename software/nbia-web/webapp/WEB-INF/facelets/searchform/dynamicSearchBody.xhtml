@@ -34,8 +34,16 @@ L-->
 		</div>
 	</td>
 	<td>
-	      	  <ui:include src="../searchresults/searchResultButtons.xhtml">
-	  	 </ui:include>
+	   <ice:dataTable id="tableOfPatientResultTables1"
+	   	                            value="#{searchResultBean.nodeTablesWrappers}"
+	   	                            var="perNodeResult"
+	   	                            style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
+	      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0; ">
+	   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
+	   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
+	   	 </ui:include>     
+	   	</ice:column>
+           </ice:dataTable>
   	</td>
   	
 	</tr>

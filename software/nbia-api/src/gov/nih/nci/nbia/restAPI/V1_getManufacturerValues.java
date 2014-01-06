@@ -36,6 +36,8 @@ package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;
+
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
@@ -68,7 +70,8 @@ public class V1_getManufacturerValues {
 
 	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
 			@QueryParam("Modality") String modality, @QueryParam("BodyPartExamined") String bodyPart) {
-		System.out.println("##################################################"+httpRequest.getAttribute("authorizedCollections"));
+		
+		
 		String returnString = null;
 		List<String> data = getDataFromDB (collection, modality, bodyPart);
 		System.out.println("format@@@@@@@@@@@@@@=" +format);
@@ -108,10 +111,10 @@ public class V1_getManufacturerValues {
 	
 	private List<String> getDataFromDB (String collection, String modality, String bodyPart) {
 		List<String> results = null;
-		
+		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");
 		GeneralSeriesDAO tDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		try {
-			results = tDao.getManufacturerValues(collection, modality, bodyPart);
+			results = tDao.getManufacturerValues(collection, modality, bodyPart,authorisedSites);
 		}
 		catch (DataAccessException ex) {
 			ex.printStackTrace();

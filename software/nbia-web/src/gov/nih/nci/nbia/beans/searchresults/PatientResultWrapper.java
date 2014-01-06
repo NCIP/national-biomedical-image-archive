@@ -9,7 +9,8 @@
 package gov.nih.nci.nbia.beans.searchresults;
 
 import gov.nih.nci.ncia.search.PatientSearchResult;
-
+import gov.nih.nci.nbia.textsupport.PatientTextSearchResult;
+import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
 
 public class PatientResultWrapper {
 	public PatientResultWrapper(PatientSearchResult patient) {
@@ -53,6 +54,17 @@ public class PatientResultWrapper {
 	private boolean checked;
 	
 	private PatientSearchResult patient;
-
+    
+	public String getHit()
+	{
+		if (patient instanceof PatientTextSearchResultImpl)
+		{
+		   return ((PatientTextSearchResult)patient).getHit();
+		}  else
+		{
+		   return "";
+		}
+	}
+	
 
 }

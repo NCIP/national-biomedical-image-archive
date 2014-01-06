@@ -10,6 +10,7 @@ package gov.nih.nci.nbia.dynamicsearch;
 
 import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
+import gov.nih.nci.nbia.textsupport.SolrFoundDocumentMetaData;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 
@@ -53,6 +54,7 @@ public interface QueryHandler {
 			                     List<SiteData> aData,
 			                     List<String> sGrooups) throws Exception;
 
+
 	/**
 	 * Call this before executing the query method.  This
 	 * determines the criteria to be used when going to the database.
@@ -86,6 +88,12 @@ public interface QueryHandler {
 			                              String dataSource,
 			                              String field) throws Exception;
 
-
+	/**
+	 * This method will return list of data corresponding to patients found in Solr
+	 * as permissible data.
+	 *
+	 * @param testCriteria
+	 */
+	public List<SolrFoundDocumentMetaData> searchSolr(String textCriteria);
 
 }

@@ -45,13 +45,14 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
+import gov.nih.nci.nbia.textsupport.*;
 //the name of this object should reflect that the target of the
 //query is always a Patient.
 public class QueryHandlerImpl extends AbstractDAO 
                               implements QueryHandler {
 	private List<DynamicSearchCriteria> searchCriteria = new ArrayList<DynamicSearchCriteria>();
 	private List<DynamicSearchCriteria> originalCriteria = null;
+	private String textSearchCriteria;
 	private List<Element> elementTree;
 	private String currentNode ="";
 	private String statementRelation = "";
@@ -226,6 +227,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			throw new RuntimeException(ex);
 		}
 	}
+
 	/**
 	 * This method prepares all necessary conditions for Query builder method.
 	 * This method must be called before calling buildQuery().
@@ -563,7 +565,16 @@ public class QueryHandlerImpl extends AbstractDAO
 	private static String generateAlias(String foreignKeyPropertyName) {
 		return foreignKeyPropertyName+"1";
 	}
-
+    
+	public List<SolrFoundDocumentMetaData> searchSolr(String textCriteria)
+	{
+	   this.textSearchCriteria=textCriteria;
+	   SolrAccess access=new SolrAccess();
+	   List <SolrFoundDocumentMetaData> results=access.querySolr(textCriteria);
+	   if (results==null||results.size()==0) System.out.println("no results from solr");
+	   System.out.println("Solr found "+results.size());
+	   return results;
+	}
 }
 
 

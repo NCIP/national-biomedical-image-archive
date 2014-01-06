@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"  
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia">
+<div id="searchFormPanel">
+  <table width="100%" border="0"   cellspacing="0" cellpadding="0" summary="" valign="top"> 
+   <tr>
+     <td align="left" colspan ="2" valign="top">
+     <h:form id="searchMenuForm">
+	<table cellspacing="0" cellpadding="0" width="100%" summary=""	border="0" valign="top">
+	<tr>
+	
+	  <td valign="top" align="center">
+         		<h:commandButton action="#" image="images/advance-search.png" immediate="true" /> 
+         		<ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" />
+		<div align="left" style="font-size: 1.4em">
+			<h:inputHidden id="editQueryMessage" />
+			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
+		</div>
+	</td>
+	<td>
+	      	  <ui:include src="../searchresults/searchResultButtons.xhtml">
+	  	 </ui:include>
+  	</td>
+  	
+	</tr>
+	</table>
+	</h:form> 
+      </td>
+     </tr>
+     <tr>
+      <td valign="top"  width="20%">
+     	<ice:form id="iceForm" >
+        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" >
+        
+	    <tr>
+	        <td>
+	          <ice:outputLabel for="perPage"
+	                           value="Results Per Page"/> 
+	
+	          <ice:selectOneMenu id="perPage" 
+	                             tabindex="40"
+	                             partialSubmit="true"
+	                             style="margin-left: 10px"
+	                             value="#{dynamicSearchBean.selectedResultPerPage}"
+	                             valueChangeListener="#{dynamicSearchBean.resultPerPageOptionChangeListener}">
+	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
+	          </ice:selectOneMenu>            
+	        </td>
+	        <td>
+	        		<h:inputText id="testSearchValue" value="#{dynamicSearchBean.textValue}" tabindex="40"  size="55"/>
+             </td>
+             <td align="left">
+	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>
+ 	        </td>
+          </tr> 
+         </table>       
+      </ice:form>
+     </td>
+    </tr>
+
+<tr>
+      <td valign="top">
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" >
+               <tr>
+               <td>
+               <ice:form id="criteriaForm">
+	           <table width="100%"  cellspacing="0" cellpadding="0" border="0">
+	             
+	             
+	           </table>
+	         </ice:form>
+	       </td>
+	       </tr>
+	         <tr>
+	           <td height="70%">
+	          <f:subview id="criteriaView">
+	            <ui:include src="../searchresults/searchResult.xhtml"/>
+	          </f:subview>
+	          </td>
+               </tr>
+         </table>
+        </td>
+       </tr>
+     </table>
+      <div style="display:none;"> #{dynamicSearchBean.criteriaLength} </div>
+      <table border="0" width="80%" class="contentPage">
+        <tr>
+          <td>
+            <div id="notification" style="display: none;">
+              <img src="images/ajax_indicator.gif" 
+                   alt=""/>
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+              Searching...
+            </div>
+          </td>
+        </tr>
+      </table>
+ </div>
+</ui:composition>

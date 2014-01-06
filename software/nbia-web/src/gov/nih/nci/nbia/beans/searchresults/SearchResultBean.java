@@ -114,6 +114,8 @@ public class SearchResultBean {
 	 * <P>This is only for synchronous searches (ispy and dynamic search)
 	 */
 	public void setPatientResults(List<PatientSearchResult> results) {
+		// set text to false so solr search does not interfere with anything else
+		isTextResult=false;
 		if (results != null) {
 			List<PatientResultWrapper> patientResultsWrapperList = new ArrayList<PatientResultWrapper>();
 			for(PatientSearchResult result : results) {
@@ -337,6 +339,9 @@ public class SearchResultBean {
 	 */
 	private Boolean updateQuery = true;
 
+	
+	
+	private boolean isTextResult=false;
 
 	/**
      * Each object in this collection represents the gui state for the search
@@ -431,6 +436,7 @@ public class SearchResultBean {
     private static final String totalStudyHeader = "Total Studies";
     private static final String matchedSeriesHeader = "Matched Series";
     private static final String totalSeriesHeader = "Total Series";
+    private static final String hitHeader = "Hit";
 
     private String sortColumnName= "Subject ID";
     private boolean ascending = true;
@@ -544,5 +550,17 @@ public class SearchResultBean {
 	public String getTotalSeriesHeader() {
 		return totalSeriesHeader;
 	}
-  
+
+	public boolean isTextResult() {
+		return isTextResult;
+	}
+
+	public void setTextResult(boolean isTextResult) {
+		this.isTextResult = isTextResult;
+	}
+
+
+	public String getHitHeader() {
+		return hitHeader;
+	}
 }

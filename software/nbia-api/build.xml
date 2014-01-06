@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+
+<?xml-stylesheet type="text/xsl"
+                 href="../common/ant2html.xsl"?>
+
+<project basedir="." default="run" name="nbia-api" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<!-- Properties -->
+	<property name="common.dir" value="${basedir}/../" />
+
+	<!-- The following should not need modifying -->
+	<property name="src.java.dir" value="src" />
+	<property name="resources.dir" value="resources" />
+	<property name="classes.dir" value="${basedir}/classes" />
+
+	<property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-ear" />
+	<property name="war.name" value="nbia-api.war" />
+	<property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
+
+	<property name="webapp.dir" value="${classes.dir}/webapp" />
+	<property name="web.classes.dir" value="${classes.dir}/webapp/WEB-INF/classes" />
+	<property name="web.lib.dir" value="${classes.dir}/webapp/WEB-INF/lib" />
+	<property name="web.nbia.webapp.dir" value="WebContent" />
+
+	<property name="web.j2ee.resources.dir" value="${resources.dir}" />
+	<property name="project.lib.dir" value="${common.dir}/target/lib/nbia-api"/>
+	<property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
+
+	<!-- Paths -->
+	<path id="common.classpath">
+		<fileset dir="${common.dir}/target/lib">
+			<include name="ivy-*.jar" />
+		</fileset>
+	</path>
+
+	<path id="project.compile.classpath">
+		<fileset dir="${project.lib.dir}/compile">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- Task definitions -->
+	<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
+	<path id="common.lib.classpath">
+		<fileset dir="${common.lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath refid="common.lib.classpath" />
+	</taskdef>
+
+	<!-- Targets -->
+	<target name="ivy-settings">
+		<ivy:settings file="${global.ivy.settings.file}"/>
+	</target>
+
+	<target name="ivy-compile" depends="ivy-settings">
+		<ivy:resolve file="ivy.xml"
+                   conf="compile" />
+		<ivy:retrieve conf="compile"
+                    pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+	</target>
+
+	<target name="ivy-runtime" depends="ivy-settings">
+		<ivy:resolve file="ivy.xml"
+                   conf="runtime" />
+		<ivy:retrieve conf="runtime"
+                    pattern="${project.lib.dir}/[conf]/[artifact]-[revision].[ext]" />
+
+		<move todir="${project.lib.dir}/runtime">
+			<fileset dir="${project.lib.dir}/runtime">
+				<include name="*-working@*.jar"/>
+			</fileset>
+			<mapper type="regexp"
+          from="^(.*)\-working\@(.*)\.jar$"
+          to="\1.jar"/>
+		</move>
+	</target>
+
+	<!-- This will delete all of the files created by the build process -->
+	<target name="-pre-clean">
+		<delete dir="${classes.dir}" quiet="true" />
+		<delete file="${target.dir}/${war.name}" quiet="false" />
+		<delete dir="${project.lib.dir}" quiet="false" />
+	</target>
+
+	<!-- This sets up all of the neccessary directories -->
+	<target name="-init" depends="-pre-clean">
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${web.classes.dir}" />
+		<mkdir dir="${web.lib.dir}" />
+		<mkdir dir="${target.dir}" />
+		<mkdir dir="${project.lib.dir}"/>
+	</target>
+
+	<target name="copy-and-prepare-nbia-api_war" depends="-init, ivy-runtime">
+		<echo message="**********************************************" />
+		<echo message="***  Copying NBIA API webapp to the classes dir **" />
+		<echo message="**********************************************" />
+		<copy todir="${webapp.dir}/">
+			<fileset dir="${web.nbia.webapp.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${webapp.dir}/WEB-INF/lib">
+			<fileset dir="${project.lib.dir}/runtime">
+				<include name="*.*" />
+				<!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
+				<exclude name="log*.jar" />
+				<!-- avoid org.jboss.tm.TxManager class cast exception -->
+				<exclude name="jta*.jar" />
+				<exclude name="commons-logging*.jar" />
+				<exclude name="cglib-2.1_3.jar" />
+			</fileset>
+
+		</copy>
+		<copy todir="${webapp.dir}/WEB-INF/classes">
+			<fileset dir="${resources.dir}">
+				<include name="applicationContext-hibernate.xml"/>
+				<include name="ESAPI.properties"/>
+				<include name="hibernate.properties"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="compile" depends="ivy-compile">
+		<javac srcdir="${src.java.dir}" destdir="${web.classes.dir}" debug="true">
+			<classpath refid="project.compile.classpath" />
+			<!--classpath refid="project.compile.web.classpath" /-->
+		</javac>
+	</target>
+
+	<target name="war" depends="compile, copy-and-prepare-nbia-api_war">
+		<war destfile="${target.dir}/${war.name}"
+           webxml="${webapp.dir}/WEB-INF/web.xml"
+           basedir="${webapp.dir}"
+           compress="false"
+           excludes="*.war" />
+	</target>
+
+	<target name="post-clean">
+		<delete dir="${classes.dir}" quiet="false" />
+	</target>
+
+	<!-- throw the ivy-test-selenium in here to make Eclipse happy -->
+	<target name="run" depends="-pre-clean, -init, war, post-clean" description="Default target" />
+</project>

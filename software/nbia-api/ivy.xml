@@ -180,6 +180,10 @@ L-->
      		rev="1.0"
                   conf="compile->master;runtime->master"/>
 <!-- end of Spring 3.1.1.-->       
+		<dependency org="javax.servlet"
+                name="servlet-api"
+                rev="2.4"
+                conf="compile->master"/>
   </dependencies>
    
 </ivy-module>

@@ -12,14 +12,18 @@ package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;
+
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.PatientDAO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -29,7 +33,7 @@ public class V1_getPatient {
 	private static final String[] columns={"PatientId", "PatientName", "PatientBirthDate", "PatientSex", "EthnicGroup", "Collection"};
 	public final static String TEXT_CSV = "text/csv";
 	public final static MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
-
+	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of patient objects filtered by collection
 	 * 
@@ -76,10 +80,10 @@ public class V1_getPatient {
 	
 	private List<Object[]> getDataFromDB (String collection) {
 		List<Object []> results = null;
-		
+		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");
 		PatientDAO tDao = (PatientDAO)SpringApplicationContext.getBean("patientDAO");
 		try {
-			results = tDao.getPatientByCollection(collection);
+			results = tDao.getPatientByCollection(collection,authorisedSites);
 		}
 		catch (DataAccessException ex) {
 			ex.printStackTrace();

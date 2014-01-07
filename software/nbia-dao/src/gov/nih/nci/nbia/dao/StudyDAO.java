@@ -9,6 +9,7 @@
 package gov.nih.nci.nbia.dao;
 
 import gov.nih.nci.nbia.dto.StudyDTO;
+import gov.nih.nci.nbia.util.SiteData;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,7 +26,7 @@ public interface StudyDAO  {
      */
     public List<StudyDTO> findStudiesBySeriesId(Collection<Integer> seriesPkIds) throws DataAccessException;  
     
-    public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid) throws DataAccessException;
+    public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException;
     
     /**
         * This method will deal with the query where a list of SeriesPkId's

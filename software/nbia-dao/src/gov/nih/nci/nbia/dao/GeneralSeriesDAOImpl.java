@@ -143,8 +143,9 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			i++;
 		}
 		if (modality != null) {			
-			where.append(" UPPER(s.modality)=?");
+			where.append(" and UPPER(s.modality)=?");
 			paramList.add(modality.toUpperCase());
+			i++;
 		}
 		
 		where.append(addSecurityGroup(authorizedSites));
@@ -626,16 +627,16 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		if(sites == null || sites.isEmpty()) {
 			return null;
 		}
-		String theWhereStmt = "";
+		String siteWhereStmt = "";
     	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
     		SiteData str = i.next();
-            theWhereStmt += ("'" + str.getSiteName() + "'");
+            siteWhereStmt += ("'" + str.getSiteName() + "'");
 
             if (i.hasNext()) {
-            	theWhereStmt += ",";
+            	siteWhereStmt += ",";
             }
         }
-    	return theWhereStmt;
+    	return siteWhereStmt;
     }
 
 

@@ -10,6 +10,7 @@ package gov.nih.nci.nbia.dao;
 
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.StudyDTO;
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.Util;
 
 import java.util.ArrayList;
@@ -137,38 +138,34 @@ public class StudyDAOImpl extends AbstractDAO
 	 * @param studyInstanceUid Study Instance UID
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)		
-	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid) throws DataAccessException 
+	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException 
 	{		
 		String hql = "select s.studyInstanceUID, s.studyDate, s.studyDesc, s.admittingDiagnosesDesc, s.studyId, " +
 				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
 				"s.patient.ethnicGroup, s.patient.dataProvenance.project, " +
 				"(select count(*) from GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID) "  +
-				"from Study as s";
+				"from Study as s, GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID and gs.visibility = '1' ";
 		StringBuffer where = new StringBuffer();
 		List<Object[]> rs = null;
 		List<String> paramList = new ArrayList<String>();
 		int i = 0;
 
 		if (collection != null) {
-			where = where.append(" where UPPER(s.patient.dataProvenance.project)=?");
+			where = where.append(" and UPPER(s.patient.dataProvenance.project)=?");
 			paramList.add(collection.toUpperCase());
 		++i;
 		}
 		if (patientId != null) {
-			if (i >  0)
-				where = where.append(" and UPPER(s.patient.patientId)=?");
-			else where = where.append(" where UPPER(s.patient.patientId)=?");
+			where = where.append(" and UPPER(s.patient.patientId)=?");
 			paramList.add(patientId.toUpperCase());
 			++i;
 		}
 		if (studyInstanceUid != null) {
-			if (i > 0)
-				where = where.append(" and UPPER(s.studyInstanceUID)=?");
-			else where = where.append(" where UPPER(s.studyInstanceUID)=?");
+			where = where.append(" and UPPER(s.studyInstanceUID)=?");
 			paramList.add(studyInstanceUid.toUpperCase());
 			++i;
 		}
-
+		where.append(addSecurityGroup(authorizedSites));
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString(), values);
@@ -187,6 +184,45 @@ public class StudyDAOImpl extends AbstractDAO
 //		// for testing
         return rs;
 	}
+	private StringBuffer addSecurityGroup(List<SiteData> authorizedSites) {
+		StringBuffer where = new StringBuffer(); 
+		String authorisedProjectName = getProjectNames(authorizedSites);
+		String authorisedSiteName = getSiteNames(authorizedSites);
+		if(authorisedProjectName != null && authorisedSiteName != null) {
+			where = where.append(" and UPPER(gs.project) in (").append(authorisedProjectName).append(")").append(" and UPPER(gs.site) in (" + authorisedSiteName+")");
+		}
+		return where;
+	}
+	private String getProjectNames(Collection<SiteData> sites) {
+		if(sites == null || sites.isEmpty()) {
+			return null;
+		}
+		String projectNameStmt = "";
+    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
+    		SiteData str = i.next();
+            projectNameStmt += ("'" + str.getCollection() + "'");
+
+            if (i.hasNext()) {
+            	projectNameStmt += ",";
+            }
+        }
+    	return projectNameStmt;
+    }
+	private String getSiteNames(Collection<SiteData> sites) {
+		if(sites == null || sites.isEmpty()) {
+			return null;
+		}
+		String siteWhereStmt = "";
+    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
+    		SiteData str = i.next();
+            siteWhereStmt += ("'" + str.getSiteName() + "'");
+
+            if (i.hasNext()) {
+            	siteWhereStmt += ",";
+            }
+        }
+    	return siteWhereStmt;
+    }
 	
     
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////

@@ -217,6 +217,8 @@ L-->
 				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
 				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
 				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
+				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
 			</filterset>
 		</copy>
 		

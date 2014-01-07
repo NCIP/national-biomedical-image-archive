@@ -93,6 +93,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		parameterMapping.put("BodyPartExamined", "bodyPartExamined");
 		parameterMapping.put("StudyInstanceUID", "studyInstanceUID");
 		parameterMapping.put("SeriesInstanceUID", "seriesInstanceUID");
+		parameterMapping.put("Collection", "project");
 		
 		String applicationName = "NCIA";
 		AuthorizationManager authorizationManager  = SecurityServiceProvider.getAuthorizationManager(applicationName);

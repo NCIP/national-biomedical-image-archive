@@ -114,7 +114,7 @@ public class V1_getPatientStudy {
 		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");
 		StudyDAO tDao = (StudyDAO)SpringApplicationContext.getBean("studyDAO");
 		try {
-			results = tDao.getPatientStudy(collection, patientId, studyInstanceUid);
+			results = tDao.getPatientStudy(collection, patientId, studyInstanceUid,authorisedSites);
 		}
 		catch (DataAccessException ex) {
 			ex.printStackTrace();

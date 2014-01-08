@@ -23,7 +23,6 @@ public class PatientUpdater {
     private static String lastRan;
     private static boolean stillRunning=false;
     private static List<String> collectionList = new ArrayList<String>();
-    private static SolrServer server = NBIAEmbeddedSolrServer.getInstance().GetServer();
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -52,6 +51,8 @@ public class PatientUpdater {
 
     	  log.error("Solr update submitted patients has been called");
     	  String maxTimeStamp;
+    	  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
+    	  SolrServer server = serverAccess.GetServer();
 		  if (lastRan==null)  // either new installation or server restarted we will look for it in Solr
 		  {
   

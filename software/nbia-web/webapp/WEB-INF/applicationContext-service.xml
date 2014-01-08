@@ -52,4 +52,8 @@ L-->
     </property>
   </bean>
    <!-- End of Spring Quartz Job --> 
+   
+      
+   <!-- This returns the singleton used for solr server -->
+   <bean id="solrServer" class="gov.nih.nci.nbia.textsupport.NBIAEmbeddedSolrServer" scope="singleton"/>
 </beans>

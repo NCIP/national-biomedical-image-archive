@@ -108,14 +108,14 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 
 
 
-  <!--  bean id="nciaSecurityManager"
+  <bean id="nciaSecurityManager"
         class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"
         init-method="init">
 
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
-  </bean-->
+  </bean>
   
   <bean id="patientDAO" class="gov.nih.nci.nbia.dao.PatientDAOImpl">
     <property name="sessionFactory">

@@ -99,8 +99,8 @@ public class StartupServlet extends HttpServlet {
                                                      Scheduler.DEFAULT_GROUP,
                                                      NodeLookupJob.class);
        
-       // wait an 1 min before starting solrUpdates
-       long startTime = System.currentTimeMillis() + 60000L;
+       // wait an 10 min before starting solrUpdates
+       long startTime = System.currentTimeMillis() + 600000L;
        Long interval = null;
        
        try {

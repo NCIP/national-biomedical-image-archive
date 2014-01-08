@@ -11,13 +11,15 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.core.*;
 import gov.nih.nci.nbia.dao.*;
 import gov.nih.nci.nbia.dto.*;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 public class SolrStorage {
   static Logger log = Logger.getLogger(SolrStorage.class);
   public static void  addPatientDocument(PatientDocument patientDocument)
   {
 	  log.warn("Solr asked to store patient document for -"+patientDocument.getId());
-	  SolrServer server = NBIAEmbeddedSolrServer.getInstance().GetServer();
+	  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
+	  SolrServer server = serverAccess.GetServer();
 	  try {
 	    SolrInputDocument solrDoc = new SolrInputDocument();
 	    solrDoc.addField( "id", patientDocument.getId());

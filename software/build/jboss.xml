@@ -85,6 +85,10 @@ L-->
     <copy file="${basedir}/nbia-ear/nbia.ear"
           todir="${jboss.home}/server/${jboss.server.name}/deploy"
           overwrite="true" />
+          
+    <copy file="${basedir}/nbia-ear/nbia-api.ear"
+          todir="${jboss.home}/server/${jboss.server.name}/deploy"
+          overwrite="true" />
 
     <copy file="${database.driver.file}"
           todir="${jboss.home}/server/${jboss.server.name}/lib"

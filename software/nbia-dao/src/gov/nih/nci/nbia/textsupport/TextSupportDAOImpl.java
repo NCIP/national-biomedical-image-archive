@@ -60,7 +60,7 @@ public List<Object> getUpdatedPatients(String high, String low)
 	List<Object> returnValue = new ArrayList<Object>();
 	
 	try {
-		if (low=="NOT_FOUND")
+		if (low.equals("NOT_FOUND"))
 		{
 			returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_QUERY_REINDEX)
 			.setParameter("high", high).list();

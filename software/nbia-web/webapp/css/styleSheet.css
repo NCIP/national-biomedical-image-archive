@@ -73,7 +73,9 @@ p {
 }
 
 .ftrTable {
-  padding-top: 0.4em
+  padding-top: 0.4em;
+  background-color: white;  
+
 }
 
 td.mainMenu {
@@ -253,9 +255,32 @@ a.footerMenuLink:active {
   text-decoration: none
 }
 
-a.footerMenuLink:hover {
+.footerMenuLink:hover {
   color: #ffffff
 }
+
+.footerMenuLink:link {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+.footerMenuLink:visited {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+.footerMenuLink:active {
+  color: #ffffff; 
+  white-space: nowrap; 
+  text-decoration: none
+}
+
+.footerMenuLink:hover {
+  color: #ffffff
+}
+
 /* ********************************* END MAIN LAYOUT RULES ***************************************/
 
 .errorLabel {

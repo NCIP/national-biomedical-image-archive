@@ -7,59 +7,179 @@
    Distributed under the OSI-approved BSD 3-Clause License.
    See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
 L-->
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
+
 <tr>
 	<td height="20" 
 			class="subMenuSecondaryTitle"
 			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
 			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<a class="footerMenuLink"
-			 href="HTML/help/NBIA_Users_Guide.pdf" 
+		<p/>
+		<a style="footerMenuLink"
+			href="https://wiki.nci.nih.gov/x/zAWwB"
+        		target="_blank">
+        		HELP
+      		</a>
+      		<p/>
+    </td>
+   
+</tr> 
+
+<f:subview id="pdfView" rendered="#{securityBean.loggedIn}">
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<a style="footerMenuLink"
+			 href="http://oai.epi-ucsf.org/datarelease/" 
 			 target="_blank">
-			User Guide
+			NIAMS OAI Home
 		</a>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-	</td>
-</tr>
-<!--
-<tr>
-	<td height="20" class="subMenuSecondaryTitle"
-			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
-			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
-			onclick="window.open('http://www.niams.nih.gov/Funding/Funded_Research/Osteoarthritis_Initiative/OAI_36months.asp', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')">
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<a class="footerMenuLink" href="#">
-			Clinical Data
-		</a>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
+		<p/>
 	</td>
 </tr>
 <tr>
-	<td height="20" class="subMenuSecondaryTitle"
+	<td height="20" 
+			class="subMenuSecondaryTitle"
 			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
-			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()"
-			onclick="window.open('http://oai.epi-ucsf.org/datarelease/', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=500,scrollbars=yes,resizable=yes')">
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<a class="footerMenuLink" href="#">
-			OAI Online
-		</a>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
-		<f:verbatim>&amp;nbsp;</f:verbatim>
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		 <ice:outputResource id="releaseNotePdf" style="footerMenuLink"
+                                     label="OAI Release Notes"
+                                     resource="#{fileAccessBean.releaseNote}"                                                                              
+                                     type="text" 
+                                     attachment="false"/>     
+                                        
+		<p/>
 	</td>
 </tr>
--->
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<ice:outputResource id="mriManualPdf" 
+				    style="footerMenuLink"
+		                    label="MRI Manual"
+		                    resource="#{fileAccessBean.mriManual}"                                                                              
+		                    type="text" 
+                                        attachment="false"/>     
+		<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<ice:outputResource id="xrayManualPdf" 
+				    style="footerMenuLink"
+		                    label="X-Ray Manual"
+		                    resource="#{fileAccessBean.xrayManual}"                                                                              
+		                    type="text" 
+                                        attachment="false"/>     
+		<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<ice:outputResource id="examLogPdf" 
+				    style="footerMenuLink"
+				    label="OAI Exam Log"
+				    resource="#{fileAccessBean.examLog}"  
+				    type="text" 
+                                    attachment="false"/>
+		<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<ice:outputResource id="interviewLogPdf" 
+				    style="footerMenuLink"
+				    label="OAI Interview Log"
+				    resource="#{fileAccessBean.interviewLog}"                                                                              
+				    type="text" 
+                                    attachment="false"/>
+		<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<a style="footerMenuLink"
+			 href="http://www.ncbi.nlm.nih.gov/pubmed/18786841" 
+			 target="_blank">
+			OAI MR Protocol 
+		</a>
+		<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+					class="subMenuSecondaryTitle"
+					onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+					onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+				<p/>
+				<a style="footerMenuLink"
+					 href="http://www.ncbi.nlm.nih.gov/pubmed/18424108" 
+					 target="_blank">
+					OAI MR Quality Assurance (2008)
+				</a>
+				<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+					class="subMenuSecondaryTitle"
+					onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+					onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+				<p/>
+				<a style="footerMenuLink"
+					 href="http://www.ncbi.nlm.nih.gov/pubmed/23092792" 
+					 target="_blank">
+					OAI MR Quality Assurance Update (2013)
+				</a>
+				<p/>
+	</td>
+</tr>
+<tr>
+	<td height="20" 
+			class="subMenuSecondaryTitle"
+			onmouseover="changeMenuStyle(this,'subMenuSecondaryTitleOver'),showCursor()"
+			onmouseout="changeMenuStyle(this,'subMenuSecondaryTitle'),hideCursor()">
+		<p/>
+		<a style="footerMenuLink"
+			 href="http://www.adobe.com/products/reader.html" 
+			 target="_blank">
+			 Adobe Reader Download
+		</a>
+		<p/>
+	</td>
+</tr>
+
+</f:subview>
 <tr>
 	<td height="100%" colspan="2" valign="top" class="subMenuFill">
 	</td>

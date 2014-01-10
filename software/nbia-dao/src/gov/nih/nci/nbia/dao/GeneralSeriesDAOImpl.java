@@ -594,6 +594,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		List<SiteData> returnList = new ArrayList<SiteData>();
 		Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(GeneralSeries.class);
 		criteria.setProjection(Projections.distinct(Projections.projectionList().add(Projections.property("project")).add(Projections.property("site"))));
+		criteria.add(Restrictions.eq("visibility","1"));
 		Set<String> paramLst = queryParams.keySet();
 		for (String param : paramLst) {
 			criteria.add(Restrictions.eq(param,queryParams.get(param)));

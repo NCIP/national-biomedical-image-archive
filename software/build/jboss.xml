@@ -85,6 +85,17 @@ L-->
     <copy file="${basedir}/nbia-ear/nbia.ear"
           todir="${jboss.home}/server/${jboss.server.name}/deploy"
           overwrite="true" />
+          
+    <if>
+      <not>
+        <equals arg1="${exclude.nbia-api}" arg2="true"/>
+      </not>
+      <then>
+        <copy file="${basedir}/nbia-ear/nbia-api.war"
+	          todir="${jboss.home}/server/${jboss.server.name}/deploy"
+          overwrite="true" />
+      </then>      
+    </if>	    
 
     <copy file="${database.driver.file}"
           todir="${jboss.home}/server/${jboss.server.name}/lib"

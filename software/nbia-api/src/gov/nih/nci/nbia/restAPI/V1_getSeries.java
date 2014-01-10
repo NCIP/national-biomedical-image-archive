@@ -68,7 +68,7 @@ public class V1_getSeries {
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 
 	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
-			@QueryParam("PatientID ") String patientId, @QueryParam("StudyInstanceUID") String studyInstanceUid) {
+			@QueryParam("PatientID") String patientId, @QueryParam("StudyInstanceUID") String studyInstanceUid) {
 		String returnString = null;
 		List<Object[]> data = getDataFromDB (collection, patientId, studyInstanceUid);
 		System.out.println("format=" +format);

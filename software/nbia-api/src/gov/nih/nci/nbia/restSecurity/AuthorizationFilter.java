@@ -5,17 +5,18 @@ package gov.nih.nci.nbia.restSecurity;
 
 
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.security.NCIASecurityManager;
+import gov.nih.nci.nbia.security.TableProtectionElement;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.security.AuthenticationManager;
 import gov.nih.nci.security.AuthorizationManager;
 import gov.nih.nci.security.SecurityServiceProvider;
-import gov.nih.nci.security.authorization.domainobjects.ProtectionElement;
 import gov.nih.nci.security.authorization.domainobjects.ProtectionElementPrivilegeContext;
-import gov.nih.nci.security.authorization.domainobjects.ProtectionGroup;
 import gov.nih.nci.security.authorization.domainobjects.User;
 import gov.nih.nci.security.exceptions.CSConfigurationException;
 import gov.nih.nci.security.exceptions.CSException;
+import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -117,7 +118,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		}
 		GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		collectionRequested.addAll(generalSeriesDao.getAuthorizedSecurityGroups(daoParam));
-		System.out.println("requested param's collection name:-"+ collectionRequested);
+		
 		//user is authenticated but not in local database		
 		if (usr != null) {
 			Set<ProtectionElementPrivilegeContext>  authorizedCollectionLst = authorizationManager.getProtectionElementPrivilegeContextForUser(usr.getUserId().toString());
@@ -132,39 +133,63 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 			}
 			//check if request collection is part of authorized collection for user
 			List<SiteData> authorizedProjectNameList = new ArrayList<SiteData>();
+			List<SiteData> unAuthorizedList = new ArrayList<SiteData>();
 			for (SiteData reqCollection :collectionRequested) {
-				if (authorizedCollections.contains("NCIA."+reqCollection.getCollection())) {
+				if (authorizedCollections.contains("NCIA."+reqCollection.getCollection()+"//"+reqCollection.getSiteName())) {
 					  authorizedProjectNameList.add(reqCollection);
+				} else {
+					unAuthorizedList.add(reqCollection);
 				}
 			}
 			if(onlyPublicData) {
 				httpRequest.setAttribute("authorizedCollections", authorizedProjectNameList);	
-			} else {
+			} else if (!unAuthorizedList.isEmpty()) {
 				throw new Exception("Does not have access to requested information.");
 			}
 			
 		} else {
 				// check if requested collection is public then allow else throw
 				//un-Authorized exception
-				List<SiteData> publicPGNameList = new ArrayList<SiteData>();
-				List<String> protectionGroupLst = new ArrayList<String>();
+				List<SiteData> publicCollections = new ArrayList<SiteData>();
+				List<SiteData> privateCollections = new ArrayList<SiteData>();
+				List<String> pePublic = getCollectionForPublicRole();
 				for (SiteData collectionRq : collectionRequested) {
-					ProtectionElement pe = authorizationManager.getProtectionElement("NCIA." + collectionRq.getCollection());
-					Set pGs = authorizationManager.getProtectionGroups(pe.getProtectionElementId().toString());
-					for (Object pg : pGs) {
-						if ((((ProtectionGroup) pg).getProtectionGroupName()).contains("NCIA.PUBLIC") && !publicPGNameList.contains(collectionRq)) {
-							publicPGNameList.add(collectionRq);
-						}
-						protectionGroupLst.add(((ProtectionGroup) pg).getProtectionGroupName());
+					if(pePublic.contains("NCIA."+collectionRq.getCollection())) {
+						publicCollections.add(collectionRq);
+					} else {
+						privateCollections.add(collectionRq);
 					}
+//					ProtectionElement pe = null;
+//					if(collectionRq.getCollection().equals("ISPY")) {
+//						pe = authorizationManager.getProtectionElement("NCIA.ISPY ");
+//					} else{
+//					   pe = authorizationManager.getProtectionElement("NCIA." + collectionRq.getCollection());
+//					}
+//					Set pGs = authorizationManager.getProtectionGroups(pe.getProtectionElementId().toString());
+//					for (Object pg : pGs) {
+//						if ((((ProtectionGroup) pg).getProtectionGroupName()).contains("NCIA.PUBLIC") && !publicCollections.contains(collectionRq)) {
+//							publicCollections.add(collectionRq);
+//						}
+//						protectionGroupLst.add(((ProtectionGroup) pg).getProtectionGroupName());
+//					}
 				}
 				if(onlyPublicData) {
-					httpRequest.setAttribute("authorizedCollections", publicPGNameList);
-				} else if (!protectionGroupLst.contains("NCIA.PUBLIC")) {
+					httpRequest.setAttribute("authorizedCollections", publicCollections);
+				} else if (!privateCollections.isEmpty()) {
 					throw new Exception("Does not have access to requested information.");
 				}
 			}
 		
 		return true;
+	}
+	private List<String> getCollectionForPublicRole() throws CSObjectNotFoundException {
+		List<String> protectionGroupLst = new ArrayList<String>();
+		NCIASecurityManager mgr = (NCIASecurityManager)SpringApplicationContext.getBean("nciaSecurityManager");
+		 Set<TableProtectionElement> publicPEs =  mgr.getSecurityMapForPublicRole();
+		 for (TableProtectionElement tPE : publicPEs) {
+			 protectionGroupLst.add(tPE.getAttributeValue());
+			 
+		 }
+		 return protectionGroupLst;
 	}
 }

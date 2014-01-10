@@ -93,6 +93,7 @@ $HeadURL$
   <property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
   <property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain"/>
   <property name="nbia-web.base.dir" value="${software.dir}/nbia-web"/>
+  <property name="nbia-api.base.dir" value="${software.dir}/nbia-api" />
   <property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
   <property name="nbia-download.base.dir" value="${software.dir}/nbia-download"/>
   <property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search" />
@@ -108,6 +109,7 @@ $HeadURL$
   <property name="nbia-services-grid.build.target" value="run"/>
   <property name="nbia-domain.build.target" value="all"/>
   <property name="nbia-web.build.target" value="run"/>
+  <property name="nbia-api.build.target" value="run" />
   <property name="nbia-download-manager.build.target" value="run"/>
   <property name="nbia-download.build.target" value="run"/>
   <!-- Default install time targets passed by deploy targets to the installer, can be overridden by being set on the command line if different target is desitred.  -->
@@ -391,6 +393,7 @@ $HeadURL$
     compute-tag-properties,
     keygen,
     build:nbia-web,
+    build:nbia-api,
     build:nbia-ctp,
     build:ncia-core-grid,
     build:nbia-grid,
@@ -853,7 +856,6 @@ $HeadURL$
     depends="
     build:all,
     dist:installer,
-    dist:upgrader,
     dist:src,
     dist:gui-installer,
     dist:ncia-core-grid-client,
@@ -1760,6 +1762,12 @@ jboss.home,ctp.server.home,ctp.client.home,
         <include name="**/*"/>
       </fileset>
     </copy>
+   </target>
+   
+   <target name="build:nbia-api" depends="init,
+   	                   build:nbia-domain,
+   		           build:nbia-dao">			
+   		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-api.build.target}" dir="${nbia-api.base.dir}"/>
    </target>
 
 </project>

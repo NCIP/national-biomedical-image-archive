@@ -35,6 +35,7 @@ public class TextSupportDAOImpl extends AbstractDAO
 {
 	static Logger log = Logger.getLogger(TextSupportDAOImpl.class);
     private final static String PATIENT_QUERY="select distinct patient_id from submission_history where submission_timestamp between :low and :high";
+    private final static String PATIENT_QUERY_REINDEX="select distinct patient_id from submission_history where submission_timestamp <= :high";
     private final static String PATIENT_CATEGORY_QUERY="select distinct patient_id from patient where patient_pk_id in (select patient_pk_id from trial_data_provenance where project=:project)";
     private final static String MAX_TIME_QUERY ="select max(submission_timestamp) from submission_history";
 @Transactional(propagation=Propagation.REQUIRED)
@@ -59,13 +60,20 @@ public List<Object> getUpdatedPatients(String high, String low)
 	List<Object> returnValue = new ArrayList<Object>();
 	
 	try {
-		returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_QUERY)
+		if (low=="NOT_FOUND")
+		{
+			returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_QUERY_REINDEX)
+			.setParameter("high", high).list();
+		} else
+		{
+			returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_QUERY)
 		  .setParameter("low", low)
 		  .setParameter("high", high).list();
+	    }
 		if (returnValue.size()==0) {
 			   log.error("No new items in submission log");
 			   return returnValue; //nothing to do
-		   }
+		}
 	} catch (HibernateException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

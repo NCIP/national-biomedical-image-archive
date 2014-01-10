@@ -63,14 +63,14 @@ public class PatientUpdater {
 				   if (docs.size()<1)
 				   {  // can't find it, we need to re-index to be sure
 					   log.error("Can find last ran doc, we need to reindex");
-					   lastRan = "2003-04-04 05:54:01";
+					   lastRan = "NOT_FOUND";
 				   } else // get the value
 				   {
 					   if (docs.get(0).get("lastRan") == null)
 					   {
 						   log.error("Can find last ran doc, we need to reindex");
 						   System.out.println(docs.get(0));
-						   lastRan = "2003-04-04 05:54:01";
+						   lastRan = "NOT_FOUND";
 					   } else 
 					   {
 					       lastRan = docs.get(0).get("lastRan").toString();

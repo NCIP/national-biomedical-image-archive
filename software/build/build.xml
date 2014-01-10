@@ -856,7 +856,6 @@ $HeadURL$
     depends="
     build:all,
     dist:installer,
-    dist:upgrader,
     dist:src,
     dist:gui-installer,
     dist:ncia-core-grid-client,

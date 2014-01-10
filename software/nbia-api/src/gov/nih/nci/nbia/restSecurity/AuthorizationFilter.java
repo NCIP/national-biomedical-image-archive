@@ -135,7 +135,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 			List<SiteData> authorizedProjectNameList = new ArrayList<SiteData>();
 			List<SiteData> unAuthorizedList = new ArrayList<SiteData>();
 			for (SiteData reqCollection :collectionRequested) {
-				if (authorizedCollections.contains("NCIA."+reqCollection.getCollection())) {
+				if (authorizedCollections.contains("NCIA."+reqCollection.getCollection()+"//"+reqCollection.getSiteName())) {
 					  authorizedProjectNameList.add(reqCollection);
 				} else {
 					unAuthorizedList.add(reqCollection);

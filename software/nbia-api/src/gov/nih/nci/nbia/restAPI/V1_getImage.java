@@ -18,28 +18,31 @@
 
 package gov.nih.nci.nbia.restAPI;
 
+import gov.nih.nci.nbia.dao.ImageDAO2;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
-import java.io.InputStream;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.springframework.dao.DataAccessException;
-import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.nbia.dao.ImageDAO2;
-
-import javax.ws.rs.Path;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+
+import org.springframework.dao.DataAccessException;
+
+import com.sun.jersey.api.client.ClientResponse.Status;
 
 
 @Path("/v1/getImage")
@@ -60,11 +63,11 @@ public class V1_getImage {
 		PipedInputStream source = new PipedInputStream(sink);
 		
 		if (sid == null) {
+			throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity("SeriesInstanceUID is required.").build());
 //			Response.status(400)
 //			.entity("Error: please specify SeriesInstanceUID for this search")
 //			.build().;	
 			//need to improve to provide meaningful feedback
-			return null;
 		}
 		
 		// apparently we need to write to the PipedOutputStream in a separate

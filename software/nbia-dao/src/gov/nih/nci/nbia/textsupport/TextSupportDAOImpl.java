@@ -37,16 +37,16 @@ public class TextSupportDAOImpl extends AbstractDAO
     private final static String PATIENT_QUERY="select distinct patient_id from submission_history where submission_timestamp between :low and :high";
     private final static String PATIENT_QUERY_REINDEX="select distinct patient_id from submission_history where submission_timestamp <= :high";
     private final static String PATIENT_CATEGORY_QUERY="select distinct patient_id from patient where patient_pk_id in (select patient_pk_id from trial_data_provenance where project=:project)";
-    private final static String MAX_TIME_QUERY ="select max(submission_timestamp) from submission_history";
+    private final static String MAX_TIME_QUERY ="select max(submission_timestamp) d from submission_history";
 @Transactional(propagation=Propagation.REQUIRED)
-public String getMaxTimeStamp()
+public Date getMaxTimeStamp()
 {
-	String returnValue=null;
+	Date returnValue=null;
 	
 	try {
-		List<Object> rs = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(MAX_TIME_QUERY).list();
+		List<Object> rs = this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(MAX_TIME_QUERY).addScalar("d", Hibernate.TIMESTAMP).list();
 		if (rs==null || rs.size()<1) return returnValue; //nothing to do
-		returnValue=rs.get(0).toString();
+		returnValue=(Date)rs.get(0);
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -55,20 +55,20 @@ public String getMaxTimeStamp()
 	return returnValue;
 }
 @Transactional(propagation=Propagation.REQUIRED)
-public List<Object> getUpdatedPatients(String high, String low)
+public List<Object> getUpdatedPatients(Date high, Date low)
 {
 	List<Object> returnValue = new ArrayList<Object>();
 	System.out.println("high-"+high+" low-"+low);
 	try {
-		if (low.equals("NOT_FOUND"))
+		if (low == null)
 		{
 			returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_QUERY_REINDEX)
-			.setParameter("high", high).list();
+			.setTimestamp("high", high).list();
 		} else
 		{
 			returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_QUERY)
-		  .setParameter("low", low)
-		  .setParameter("high", high).list();
+		  .setTimestamp("low", low)
+		  .setTimestamp("high", high).list();
 	    }
 		if (returnValue.size()==0) {
 			   log.error("No new items in submission log");

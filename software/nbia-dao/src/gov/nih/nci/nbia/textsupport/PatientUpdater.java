@@ -2,6 +2,9 @@ package gov.nih.nci.nbia.textsupport;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
@@ -20,7 +23,7 @@ public class PatientUpdater {
 	
     static Logger log = Logger.getLogger(PatientUpdater.class);
     private SessionFactory sessionFactory;
-    private static String lastRan;
+    private static Date lastRan;
     private static boolean stillRunning=false;
     private static List<String> collectionList = new ArrayList<String>();
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -50,9 +53,11 @@ public class PatientUpdater {
     	  //this.sessionFactory= support.getSessionFactory();
 
     	  log.error("Solr update submitted patients has been called");
-    	  String maxTimeStamp;
+    	  Date maxTimeStamp;
     	  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
     	  SolrServer server = serverAccess.GetServer();
+    	  DateFormat df = new SimpleDateFormat("yyyyMMdd  HH:mm");
+    	  String sdt = df.format(new Date(System.currentTimeMillis()));
 		  if (lastRan==null)  // either new installation or server restarted we will look for it in Solr
 		  {
   
@@ -63,24 +68,24 @@ public class PatientUpdater {
 				   if (docs.size()<1)
 				   {  // can't find it, we need to re-index to be sure
 					   log.error("Can find last ran doc, we need to reindex");
-					   lastRan = "NOT_FOUND";
+					   lastRan = null;
 				   } else // get the value
 				   {
 					   if (docs.get(0).get("lastRan") == null)
 					   {
 						   log.error("Can find last ran doc, we need to reindex");
 						   System.out.println(docs.get(0));
-						   lastRan = "NOT_FOUND";
+						   lastRan = null;
 					   } else 
 					   {
-					       lastRan = docs.get(0).get("lastRan").toString();
+					       lastRan = df.parse(docs.get(0).get("lastRan").toString());
 					       log.error("The patient updater was last run - "+lastRan);
 					   }
 			       }
 		  }
 		  PatientAccessDAO patientAccess = new PatientAccessDAO();
 		  maxTimeStamp = support.getMaxTimeStamp();
-		  if (maxTimeStamp.length()<2)
+		  if (maxTimeStamp==null)
 		  {
 			  log.error("It appears the submission log is empty");
 			  return; //nothing to do
@@ -99,7 +104,7 @@ public class PatientUpdater {
 			  }
 		   SolrInputDocument solrDoc = new SolrInputDocument();
 		   solrDoc.addField( "id", "NBIAsolrIndexingRun");
-		   solrDoc.addField( "lastRan", maxTimeStamp);
+		   solrDoc.addField( "lastRan", df.format(maxTimeStamp));
 		   log.debug("Last ran = "+solrDoc.toString());
 		   server.add(solrDoc);
 		   server.commit();

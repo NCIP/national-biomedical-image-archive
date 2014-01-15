@@ -100,7 +100,9 @@ public class PatientUpdater {
 				  String patientId = result.toString();
 				  log.error("Updated patient-"+patientId+" Solr Update request made");
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
-			      SolrStorage.addPatientDocument(doc);
+			      if (doc!=null){
+			         SolrStorage.addPatientDocument(doc);
+			      }
 			  }
 		   SolrInputDocument solrDoc = new SolrInputDocument();
 		   solrDoc.addField( "id", "NBIAsolrIndexingRun");

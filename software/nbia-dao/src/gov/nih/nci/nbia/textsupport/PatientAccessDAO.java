@@ -1,4 +1,5 @@
 package gov.nih.nci.nbia.textsupport;
+import gov.nih.nci.nbia.dao.AbstractDAO;
 import gov.nih.nci.nbia.dto.AnnotationFileDTO;
 import gov.nih.nci.nbia.internaldomain.*;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
@@ -18,13 +19,11 @@ import gov.nih.nci.nbia.internaldomain.Study;
 
 import org.apache.log4j.Logger;
 
-public class PatientAccessDAO {
+public class PatientAccessDAO extends AbstractDAO{
     private SessionFactory sessionFactory;
     static Logger log = Logger.getLogger(PatientAccessDAO.class);
 	TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+
     // Seriously unfortunate that for some reason hibernate would not keep a single transaction across methods even
     // with the propagation required set, so this patient document method is huge in order to maintain the single
     // transaction.
@@ -33,8 +32,11 @@ public class PatientAccessDAO {
 	{
 		PatientDocument returnValue = new PatientDocument();
 		Patient patient = (Patient)SpringApplicationContext.getBean("patient");
-		List rs = support.getPatients(patientId);
-		if (rs.size()==0) return returnValue;
+		List rs = getHibernateTemplate().getSessionFactory().getCurrentSession()
+	    .createQuery("from Patient as patient where patient.patientId =?")
+	    .setParameter(0, patientId)
+	    .list();
+		if (rs.size()==0) return null;
 		patient=(Patient)rs.get(0);
 		returnValue.setId(patient.getId());
 		returnValue.setPatientId(patient.getPatientId());

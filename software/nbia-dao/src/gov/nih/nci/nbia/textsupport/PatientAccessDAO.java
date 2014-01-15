@@ -81,6 +81,25 @@ public class PatientAccessDAO {
 						studyDoc.setTimePointId(study.getTimePointId());
 						studyDoc.setAgeGroup(study.getAgeGroup());
 						studyDoc.setOccupation(study.getOccupation());
+						if (patient.getTrialSite()!=null)
+						{
+							TrialSite site=patient.getTrialSite();
+							TrialSiteDoc trialSiteDoc = new TrialSiteDoc();
+							trialSiteDoc.setTrialSiteId(site.getTrialSiteId());
+							trialSiteDoc.setTrialSiteName(site.getTrialSiteName());
+							//trialSiteDoc=fillInClinicalTrials(trialSiteDoc, site);
+							if (site.getTrial()!=null)
+							{
+								ClinicalTrial trial=site.getTrial();
+								ClinicalTrialSubDoc clinicalTrialDoc = new ClinicalTrialSubDoc();
+								clinicalTrialDoc.setCoordinatingCenter(trial.getCoordinatingCenter());
+								clinicalTrialDoc.setProtocolName(trial.getProtocolName());
+								clinicalTrialDoc.setSponsorName(trial.getSponsorName());
+								trialSiteDoc.setTrial(clinicalTrialDoc);
+							}
+							
+							returnValue.setTrialSite(trialSiteDoc);
+						}
 						log.info("series size-" + study.getGeneralSeriesCollection().size());
 						if (study.getGeneralSeriesCollection()!=null)
 						{
@@ -183,25 +202,7 @@ public class PatientAccessDAO {
 			}
 			
 			///returnValue=fillInTrials(returnValue, patient);
-			if (patient.getTrialSite()!=null)
-			{
-				TrialSite site=patient.getTrialSite();
-				TrialSiteDoc trialSiteDoc = new TrialSiteDoc();
-				trialSiteDoc.setTrialSiteId(site.getTrialSiteId());
-				trialSiteDoc.setTrialSiteName(site.getTrialSiteName());
-				//trialSiteDoc=fillInClinicalTrials(trialSiteDoc, site);
-				if (site.getTrial()!=null)
-				{
-					ClinicalTrial trial=site.getTrial();
-					ClinicalTrialSubDoc clinicalTrialDoc = new ClinicalTrialSubDoc();
-					clinicalTrialDoc.setCoordinatingCenter(trial.getCoordinatingCenter());
-					clinicalTrialDoc.setProtocolName(trial.getProtocolName());
-					clinicalTrialDoc.setSponsorName(trial.getSponsorName());
-					trialSiteDoc.setTrial(clinicalTrialDoc);
-				}
-				
-				returnValue.setTrialSite(trialSiteDoc);
-			}
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

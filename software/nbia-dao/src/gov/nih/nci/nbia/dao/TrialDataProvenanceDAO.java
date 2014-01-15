@@ -3,6 +3,8 @@
  */
 package gov.nih.nci.nbia.dao;
 
+import gov.nih.nci.nbia.util.SiteData;
+
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -20,5 +22,5 @@ public interface TrialDataProvenanceDAO {
 	 * Assigned during the process of curating the data. The info is kept under project column
 	 * This method is used for NBIA Rest API.
 	 */
-	public List<String> getCollectionValues() throws DataAccessException;
+	public List<String> getCollectionValues(List<SiteData> siteData) throws DataAccessException;
 }

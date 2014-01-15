@@ -851,14 +851,22 @@ $HeadURL$
           todir="${dist.dir}"/>
   </target>
 
-  <!-- Produces all distributions: installer, upgrader and source -->
+  <!-- Produces all distributions: installer, and source -->
+  <!-- Test target for signing
   <target name="dist" description="Makes all distributions: installer, upgrader and source"
     depends="
     build:all,
-    dist:installer,
+
     dist:src,
-    dist:gui-installer,
     dist:ncia-core-grid-client,
+    dist:solr"/--> 
+    
+    <target name="dist" description="Makes all distributions: installer, upgrader and source" 
+        depends="
+        build:all,
+        dist:installer,
+        dist:src,
+        dist:ncia-core-grid-client,
     dist:solr"/>
 
   <target name="dist:src">

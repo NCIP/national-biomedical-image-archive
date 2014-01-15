@@ -8,14 +8,18 @@ package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
 import org.springframework.dao.DataAccessException;
+
+import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.TrialDataProvenanceDAO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,7 +29,7 @@ public class V1_getCollectionValues {
 	private static final String column="Collection";
 	public final static String TEXT_CSV = "text/csv";
 	public final static MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
-
+	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of all collection names
 	 * 
@@ -74,10 +78,10 @@ public class V1_getCollectionValues {
 	
 	private List<String> getDataFromDB () {
 		List<String> results = null;
-		
+		List<SiteData> siteData = (List)httpRequest.getAttribute("authorizedCollections");
 		TrialDataProvenanceDAO tDao = (TrialDataProvenanceDAO)SpringApplicationContext.getBean("trialDataProvenanceDAO");
 		try {
-			results = tDao.getCollectionValues();
+			results = tDao.getCollectionValues(siteData);
 		}
 		catch (DataAccessException ex) {
 			ex.printStackTrace();

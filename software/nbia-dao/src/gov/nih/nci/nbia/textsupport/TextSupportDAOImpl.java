@@ -58,7 +58,7 @@ public String getMaxTimeStamp()
 public List<Object> getUpdatedPatients(String high, String low)
 {
 	List<Object> returnValue = new ArrayList<Object>();
-	
+	System.out.println("high-"+high+" low-"+low);
 	try {
 		if (low.equals("NOT_FOUND"))
 		{

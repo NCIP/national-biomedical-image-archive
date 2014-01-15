@@ -254,6 +254,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
+  <bean id="patientAccessDAO" class="gov.nih.nci.nbia.textsupport.PatientAccessDAO">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
 
     <!-- Define all the services below -->
    <bean id="annotation" class="gov.nih.nci.nbia.internaldomain.Annotation" scope="prototype"/>

@@ -1,7 +1,7 @@
 package gov.nih.nci.nbia.textsupport;
 import java.util.ArrayList;
 import java.util.List;
-
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
@@ -83,7 +83,7 @@ public class PatientUpdater {
 					   }
 			       }
 		  }
-		  PatientAccessDAO patientAccess = new PatientAccessDAO();
+		  
 		  maxTimeStamp = support.getMaxTimeStamp();
 		  if (maxTimeStamp==null)
 		  {
@@ -97,10 +97,13 @@ public class PatientUpdater {
 		   }
 			for (Object result : rs)
 			  {
+				  PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
 				  String patientId = result.toString();
 				  log.error("Updated patient-"+patientId+" Solr Update request made");
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
-			      SolrStorage.addPatientDocument(doc);
+			      if (doc!=null){
+			         SolrStorage.addPatientDocument(doc);
+			      }
 			  }
 		   SolrInputDocument solrDoc = new SolrInputDocument();
 		   solrDoc.addField( "id", "NBIAsolrIndexingRun");

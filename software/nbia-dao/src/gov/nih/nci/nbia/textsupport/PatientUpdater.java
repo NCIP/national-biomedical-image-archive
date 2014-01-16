@@ -95,6 +95,7 @@ public class PatientUpdater {
 			   log.error("No new items in submission log");
 			   return; //nothing to do
 		   }
+		   int i = 0;
 			for (Object result : rs)
 			  {
 				  PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
@@ -102,8 +103,14 @@ public class PatientUpdater {
 				  log.error("Updated patient-"+patientId+" Solr Update request made");
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
 			      if (doc!=null){
+			    	 i++;
 			         SolrStorage.addPatientDocument(doc);
-			         server.commit();
+			         //commit every 10 docs for performance
+			         if (i==10)
+			         {
+			        	i=0;
+			            server.commit();
+			         }
 			      }
 			  }
 		   SolrInputDocument solrDoc = new SolrInputDocument();

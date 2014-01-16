@@ -97,7 +97,7 @@ public class PatientUpdater {
 		   }
 			for (Object result : rs)
 			  {
-				  PatientAccessDAOImpl patientAccess = (PatientAccessDAOImpl)SpringApplicationContext.getBean("patientAccessDAO");
+				  PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
 				  String patientId = result.toString();
 				  log.error("Updated patient-"+patientId+" Solr Update request made");
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
@@ -120,8 +120,7 @@ public class PatientUpdater {
     {
     	TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
   	   // this.sessionFactory=support.getSessionFactory();
-		PatientAccessDAOImpl patientAccess = new PatientAccessDAOImpl();
-		patientAccess.setSessionFactory(sessionFactory);
+    	PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
 		List<String> localList = new ArrayList<String>();
 		localList.addAll(collectionList);
 		collectionList.clear();

@@ -132,12 +132,12 @@ public class NCIADicomTextObject extends FileObject {
             parser.parseDcmFile(fileFormat, Tags.PixelData);
             //See if this is a real image.
             boolean isImage = (parser.getReadTag() == Tags.PixelData);
-            System.out.println("isImage:"+isImage);
+           // System.out.println("isImage:"+isImage);
             //Get the charset in case we need it for manifest processing.
             scharset = dataset.getSpecificCharacterSet(); 
-            System.out.println("==============SpecificCharacterSet: ");
-            System.out.println(scharset );
-            System.out.println(" ==========================");
+            //System.out.println("==============SpecificCharacterSet: ");
+           // System.out.println(scharset );
+           // System.out.println(" ==========================");
             in.close();
         } 
         catch (Exception exception) {

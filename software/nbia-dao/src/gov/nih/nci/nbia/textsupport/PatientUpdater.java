@@ -103,6 +103,7 @@ public class PatientUpdater {
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
 			      if (doc!=null){
 			         SolrStorage.addPatientDocument(doc);
+			         server.commit();
 			      }
 			  }
 		   SolrInputDocument solrDoc = new SolrInputDocument();

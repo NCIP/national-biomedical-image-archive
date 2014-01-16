@@ -100,6 +100,7 @@ public List<Object> getPatientsForCollection(String collection)
 	
 	return returnValue;
 }
+// gave up on this hibernate would just mess up the sessions
 @Transactional(propagation=Propagation.REQUIRED)
 public List<Object> getPatients(String patientId)
 {

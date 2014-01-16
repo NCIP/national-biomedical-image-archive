@@ -96,11 +96,12 @@ public class PatientUpdater {
 			   return; //nothing to do
 		   }
 		   int i = 0;
+		   int x = 0;
 			for (Object result : rs)
 			  {
 				  PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
 				  String patientId = result.toString();
-				  log.error("Updated patient-"+patientId+" Solr Update request made");
+				  log.error("Updated patient-"+patientId+" Solr Update request made, this is the " + x++ + " patient updated");
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
 			      if (doc!=null){
 			    	 i++;

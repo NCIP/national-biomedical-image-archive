@@ -190,13 +190,13 @@ public class SearchResultBean {
 		logger.debug("query name is: " + queryName);
 
 		SearchWorkflowBean swb = BeanManager.getSearchWorkflowBean();
-		String queryNameText = "MAINbody:criteriaView:dataForm:saveQueryView:queryName";
+		String queryNameText = "MAINbody:searchMenuForm:saveQueryView:queryName";
 
 		// Check to see if the query is being edited, if so, this will be
 		// performed
 		// when the user wants to update the query
 		if (swb.isEditingSavedQuery()) {
-			queryNameText = "MAINbody:criteriaView:dataForm:saveQueryView:newQueryName";
+			queryNameText = "MAINbody:searchMenuForm:saveQueryView:newDataQuery";
 
 			if (updateQuery) {
 				QueryStorageManager qManager = (QueryStorageManager)SpringApplicationContext.getBean("queryStorageManager");

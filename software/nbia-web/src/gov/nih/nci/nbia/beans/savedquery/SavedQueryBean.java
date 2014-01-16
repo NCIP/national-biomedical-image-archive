@@ -299,10 +299,10 @@ public class SavedQueryBean {
             e.printStackTrace();
         }
 
-        MessageUtil.addInfoMessage("MAINbody:dataForm:queryName",
+        MessageUtil.addInfoMessage("MAINbody:searchMenuForm:saveQueryView:queryName",
             "resubmitQuery", new Object[] { swb.getQuery().getQueryName() });
 
-        return "submitSearch";
+        return "search";
     }
 
     /**
@@ -322,7 +322,7 @@ public class SavedQueryBean {
 
        	updateNewResultsFlag(newQuery, dto.getExecutionTime());
 
-        MessageUtil.addInfoMessage("MAINbody:searchForm:editQueryMessage",
+        MessageUtil.addInfoMessage("MAINbody:searchMenuForm:saveQueryView:editQueryMessage",
             "editingSavedQuery", new Object[] { swb.getQuery().getQueryName() });
 
         return "search";
@@ -362,7 +362,12 @@ public class SavedQueryBean {
         }
         swb.setQuery(newQuery);
         swb.updateTree();
-
+        try{
+        	swb.submitSearch();
+        } catch (Exception e) {
+            logger.error("Error submitting query", e);
+            e.printStackTrace();
+        }
         return newQuery;
     }
 
@@ -411,7 +416,7 @@ public class SavedQueryBean {
             logger.error("Error resubmitting query", e);
         }
 
-        MessageUtil.addInfoMessage("MAINbody:dataForm:newDataQuery",
+        MessageUtil.addInfoMessage("MAINbody:searchMenuForm:saveQueryView:newDataQuery",
             "newDataQuery",
             new Object[] { swb.getQuery().getQueryName(), startDate });
 
@@ -446,10 +451,10 @@ public class SavedQueryBean {
 
         // Put messages on the page to inform the user of what has occoured.
         if (queryDeleted) {
-            MessageUtil.addErrorMessage("MAINbody:queryForm:queryMessage",
+            MessageUtil.addErrorMessage("MAINbody:searchMenuForm:saveQueryView:queryMessage",
                 "queriesDeleted");
         } else {
-            MessageUtil.addErrorMessage("MAINbody:queryForm:queryMessage","noQueriesDeleted");
+            MessageUtil.addErrorMessage("MAINbody:searchMenuForm:saveQueryView:queryMessage","noQueriesDeleted");
         }
 
         loadSavedQueries();

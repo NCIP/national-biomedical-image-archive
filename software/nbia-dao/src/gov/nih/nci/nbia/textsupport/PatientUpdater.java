@@ -37,6 +37,7 @@ public class PatientUpdater {
     			log.info("Previous update is still running");
     		} else
     		{
+    		  stillRunning=true;
     		  updateSubmittedPatients();
     		  updateCollections();
     		  stillRunning = false;

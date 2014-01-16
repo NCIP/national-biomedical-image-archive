@@ -67,7 +67,9 @@ public class PatientAccessDAOImpl extends AbstractDAO
 			   }
 			   returnValue.setDataProvenance(trialDPDoc);
 			}
-			
+			// needed to prevent server dieing for now
+			int maxDicomFiles = 1000;
+			int dicomFileCount = 0;
 			if (patient.getStudyCollection()!=null)
 			{
 					Collection<StudyDoc> studyDocs= new ArrayList<StudyDoc>();
@@ -168,13 +170,17 @@ public class PatientAccessDAOImpl extends AbstractDAO
 					                }
 					                if (image.getFilename()!=null)
 					                {
+					                	dicomFileCount++;
 					                	NCIADicomTextObject dicomObject;
-					    				try {
+					                	if (dicomFileCount<maxDicomFiles)
+					                	{
+					    				  try {
 					    					dicomObject = new NCIADicomTextObject(new File(image.getFilename()));
 					    					imageDoc.setTagInfo(dicomObject.getTagElements());
-					    				} catch (Exception e) {
+					    				  } catch (Exception e) {
 					    					e.printStackTrace();
-					    				}
+					    				  }
+					                	}
 					                }
 					    			imageDocs.add(imageDoc);
 					    		    

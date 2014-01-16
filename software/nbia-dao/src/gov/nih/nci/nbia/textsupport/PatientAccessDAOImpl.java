@@ -10,10 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
+import java.io.*;
+import org.apache.commons.io.*;
 
 import gov.nih.nci.nbia.internaldomain.Study;
 
@@ -408,7 +411,23 @@ public class PatientAccessDAOImpl extends AbstractDAO
 			for (Object result : rs)
 			  {
 				  String filePath = result.toString();
-				  String text = new Scanner( new File(filePath) ).useDelimiter("\\A").next();
+				  //String text = new Scanner( new File(filePath) ).useDelimiter("\\A").next();
+				    String text = "";
+				    FileInputStream inputStream = new FileInputStream("foo.txt");
+				    try {
+				        String everything = IOUtils.toString(inputStream);
+				    } catch (Exception e) {
+				    	e.printStackTrace();
+				    }
+				    
+				    finally {
+				        try {
+							inputStream.close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    }
 				  returnValue.add(text);
 			  }
 		} catch (FileNotFoundException e) {

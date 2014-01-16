@@ -35,9 +35,12 @@ public class PatientUpdater {
     		if (stillRunning) 
     		{
     			log.info("Previous update is still running");
+    		} else
+    		{
+    		  updateSubmittedPatients();
+    		  updateCollections();
+    		  stillRunning = false;
     		}
-    		updateSubmittedPatients();
-    		updateCollections();
     	} catch (Exception e)
     	{
     		stillRunning = false;  // I'm dead!
@@ -132,19 +135,29 @@ public class PatientUpdater {
 		List<String> localList = new ArrayList<String>();
 		localList.addAll(collectionList);
 		collectionList.clear();
+		SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
+		SolrServer server = serverAccess.GetServer();
     	for (String collection:localList)
     	{
     		{
     			log.error("updating all patients in collection "+collection);
     			List<Object> rs = support.getPatientsForCollection(collection);
     			   if (rs.size()==0) return; //nothing to do
+    			   int i = 0;
     				for (Object result : rs)
     				  {
     					  String patientId = result.toString();
     					  log.error("Calling to update patient from collection " + patientId);
     				      PatientDocument doc = patientAccess.getPatientDocument(patientId);
     				      SolrStorage.addPatientDocument(doc);
+    				         //commit every 10 docs for performance
+    				         if (i==10)
+    				         {
+    				        	i=0;
+    				            server.commit();
+    				         }
     				  }
+    				server.commit();
     		}
     	}
     	

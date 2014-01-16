@@ -1009,7 +1009,7 @@ public class DynamicSearchBean {
 	public void addTextCriteria() {
 		try {
 		addCriteria();
-		submitTextSearch();
+		submitSearch();
 		defaultView();
 		}catch (Exception e) {
 			e.printStackTrace();

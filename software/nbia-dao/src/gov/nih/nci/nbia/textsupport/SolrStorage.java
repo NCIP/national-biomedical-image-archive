@@ -40,8 +40,7 @@ public class SolrStorage {
 	    solrDoc.addField("text", allFields);
 	    log.debug(solrDoc.toString());
 	    server.add(solrDoc);
-	    server.commit();
-	    log.warn("Solr committed patient document for -"+patientDocument.getId());
+	    log.warn("Solr has stored document for -"+patientDocument.getId());
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

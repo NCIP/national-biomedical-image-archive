@@ -5,7 +5,7 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
-
+import org.apache.solr.common.params.GroupParams;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -23,9 +23,9 @@ public class SolrAccess {
 		if (returnValue.length()<61) return returnValue;
 		return returnValue.substring(0, 60);
 	}
-	public static List<SolrFoundDocumentMetaData> querySolr(String queryTerm)
+	public static List<SolrAllDocumentMetaData> querySolr(String queryTerm)
 	{
-		  List <SolrFoundDocumentMetaData> returnValue = new ArrayList<SolrFoundDocumentMetaData> ();
+		  List <SolrAllDocumentMetaData> returnValue = new ArrayList<SolrAllDocumentMetaData> ();
 		  try {			   
 			  if (queryTerm==null || queryTerm.length()<2)
 			  {
@@ -37,21 +37,27 @@ public class SolrAccess {
 			   SolrQuery query = new SolrQuery(term);
 			   query.setHighlight(true).setHighlightSnippets(1);
 			   query.addHighlightField("text");
+			   query.setFields("id,patientId,docType");
+			   query.setRows(1000);
+			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
+			   query.setParam(GroupParams.GROUP_FIELD, "patientId"); 
+			   query.setParam(GroupParams.GROUP_MAIN, true);
+			   query.setParam(GroupParams.GROUP_FORMAT, "simple");
+			   query.setParam(GroupParams.GROUP_LIMIT, "1");
 			   QueryResponse rsp = server.query( query );
 			   SolrDocumentList docs = rsp.getResults();
 			   for (SolrDocument doc : docs){
-				   Integer documentId = Integer.valueOf(doc.get("id").toString());
 				   String highlightedHit = "";
 				   if (rsp.getHighlighting().get(doc.get("id").toString()) != null) {
 				          List<String> highlightSnippets = rsp.getHighlighting().get(doc.get("id").toString()).get("text");
 				          if (highlightSnippets!=null&&highlightSnippets.size()>0)
 				          {
-				        	  //System.out.println("Found highlight"+(String)highlightSnippets.get(0));
+				        	  System.out.println("Found highlight"+(String)highlightSnippets.get(0));
 				        	  highlightedHit=(String)highlightSnippets.get(0);
 				          }
 				   }
-				   SolrFoundDocumentMetaData hits = findIndexes(queryTerm, doc, documentId.intValue(), highlightedHit);
-				   //System.out.println(hits);
+				   SolrAllDocumentMetaData hits = new SolrAllDocumentMetaData(queryTerm, highlightedHit, doc.get("id").toString(),
+						   doc.getFieldValue("patientId").toString());
 				   returnValue.add(hits);
 			   }
 			   
@@ -62,10 +68,10 @@ public class SolrAccess {
 		return returnValue;
 
 	}
-	public static SolrFoundDocumentMetaData findIndexes(String term, SolrDocument solrDoc, int documentId,  String highlightedHit)
+	public static SolrAllDocumentMetaData findIndexes(String term, SolrDocument solrDoc, String documentId,  String highlightedHit)
 	{
 	    String fieldValue;
-	    SolrFoundDocumentMetaData found=null;
+	    SolrAllDocumentMetaData found=null;
 	    // need to remove wildcards to find in text
 	    String localTerm=term.replaceAll("\\*", "");
         localTerm=localTerm.replaceAll("\\?", "");
@@ -77,15 +83,12 @@ public class SolrAccess {
 			      {
 			    	  if (highlightedHit!=null&&highlightedHit.length()>0)
 			          {
-		    	          found=new SolrFoundDocumentMetaData(localTerm, field, 
-		    	        		  highlightedHit,
-				    			  fieldValue.toLowerCase().indexOf(localTerm.toLowerCase()), 
+		    	          found=new SolrAllDocumentMetaData(localTerm, field+"-"+ highlightedHit,
 				    			  documentId, (String)solrDoc.getFieldValue("patientId"));
 			          }
 			    	  else {
-			    	          found=new SolrFoundDocumentMetaData(localTerm, field, 
-			    			  getHitText(fieldValue, fieldValue.toLowerCase().indexOf(term.toLowerCase())),
-			    			  fieldValue.toLowerCase().indexOf(localTerm.toLowerCase()), 
+			    	          found=new SolrAllDocumentMetaData(localTerm, field + "-" +
+			    	          getHitText(fieldValue, fieldValue.toLowerCase().indexOf(term.toLowerCase())), 
 			    			  documentId, (String)solrDoc.getFieldValue("patientId"));
 			    	  }
 			          return found;
@@ -93,9 +96,7 @@ public class SolrAccess {
 			  }
 		  }
 		  // unable to locate where the hit is
-          return new SolrFoundDocumentMetaData(term, "", 
-        		  highlightedHit,
-    			  -1, 
+          return new SolrAllDocumentMetaData(term, highlightedHit,
     			  documentId, (String)solrDoc.getFieldValue("patientId"));
 	}
 	 

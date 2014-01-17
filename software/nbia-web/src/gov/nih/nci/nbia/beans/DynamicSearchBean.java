@@ -638,7 +638,7 @@ public class DynamicSearchBean {
 					System.out.println("******* can't find id in patient map " + textResult.getSubjectId());
 				} else
 				{
-					textResult.setHit(getFoundValue());
+					textResult.setHit(solrResult.getFoundValue());
 				    textPatients.add(textResult);
 				}
 			}

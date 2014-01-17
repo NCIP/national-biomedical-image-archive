@@ -16,6 +16,7 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 public class SolrStorage {
   static Logger log = Logger.getLogger(SolrStorage.class);
   private List<SolrInputDocument>seriesDocs=new ArrayList<SolrInputDocument>();
+  private List<SolrInputDocument>imageDocs=new ArrayList<SolrInputDocument>();
   public void  addPatientDocument(PatientDocument patientDocument)
   {
 	  log.warn("Solr asked to store patient document for -"+patientDocument.getId());
@@ -39,21 +40,21 @@ public class SolrStorage {
 	    String allFields=documentString(solrDoc);
 	    System.out.println("**** Text of patient document is "+allFields.length() + " characters long");
 	    // in the end it was not feasible to retrieve all the information from solr
-	    SolrInputDocument finalDoc = new SolrInputDocument();
-	    finalDoc.addField("id", patientDocument.getId());
-	    finalDoc.addField("patientId", patientDocument.getPatientId());
-	    finalDoc.addField("text", allFields);
-	    finalDoc.addField("docType","patient");
-	    server.add(finalDoc);
+	    solrDoc.addField("docType","patient");
+	    server.add(solrDoc);
 	    for (SolrInputDocument seriesDoc : seriesDocs){
 	    	String seriesFields=documentString(seriesDoc);
 	    	System.out.println("**** Text of series document is "+seriesFields.length() + " characters long");
-		    SolrInputDocument finalSeriesDoc = new SolrInputDocument();
-		    finalSeriesDoc.addField("id", patientDocument.getId());
-		    finalSeriesDoc.addField("patientId", patientDocument.getPatientId());
-		    finalSeriesDoc.addField("text", allFields);
-		    finalSeriesDoc.addField("docType","series");
+	    	seriesDoc.addField("text", seriesFields);
+	    	seriesDoc.addField("docType","series");
 	    	server.add(seriesDoc);
+	    }
+	    for (SolrInputDocument imageDoc : imageDocs){
+	    	String imageFields=documentString(imageDoc);
+	    	System.out.println("**** Text of image document is "+imageFields.length() + " characters long");
+	    	imageDoc.addField("text", imageFields);
+	    	imageDoc.addField("docType","image");
+	    	server.add(imageDoc);
 	    }
 	    log.warn("Solr has stored documents for -"+patientDocument.getId());
 	    } catch (Exception e) {
@@ -147,7 +148,7 @@ public class SolrStorage {
 			}
 
 			seriesDoc=fillInEquipment(seriesDoc, series.getGeneralEquipment(), "Series"+i+"-");
-			seriesDoc=fillInImages(seriesDoc, series, "Series"+i+"-");
+			fillInImages(seriesDoc, series, "Series"+i+"-");
 			seriesDocs.add(seriesDoc);
 		}
 
@@ -166,44 +167,48 @@ public class SolrStorage {
 		document.addField(equipmentIdentifier+"stationName",equipment.getStationName());
 		return document;
 	}
-	private SolrInputDocument fillInImages(SolrInputDocument document, GeneralSeriesSubDoc series, String seriesIndentifier)
+	private void fillInImages(SolrInputDocument document, GeneralSeriesSubDoc series, String seriesIndentifier)
 	{
 		
-		if (series.getGeneralImageCollection()==null) return document;
+		if (series.getGeneralImageCollection()==null) return;
 		int x=0;
 		for (GeneralImageSubDoc image : series.getGeneralImageCollection()){
 			x++;
-			String imageIdentifier = seriesIndentifier+"Image"+x+"-";
-			document.addField(imageIdentifier+"imageType",image.getImageType());
-			document.addField(imageIdentifier+"lossyImageCompression",image.getLossyImageCompression());
-			document.addField(imageIdentifier+"imageOrientationPatient",image.getImageOrientationPatient());
-			document.addField(imageIdentifier+"imagePositionPatient",image.getImagePositionPatient());
-			document.addField(imageIdentifier+"contrastBolusAgent",image.getContrastBolusAgent());
-			document.addField(imageIdentifier+"contrastBolusRoute",image.getContrastBolusRoute());
-			document.addField(imageIdentifier+"patientPosition",image.getPatientPosition());
-			document.addField(imageIdentifier+"imageComments",image.getImageComments());
-			document.addField(imageIdentifier+"annotation",image.getAnnotation());
-			document.addField(imageIdentifier+"imageLaterality",image.getImageLaterality());
-			document.addField(imageIdentifier+imageIdentifier+"patientId",image.getPatientId());
-			document.addField(imageIdentifier+"project",image.getProject());
-			document.addField(imageIdentifier+"usFrameNum",image.getUsFrameNum());
-			document.addField(imageIdentifier+"usColorDataPresent",image.getUsColorDataPresent());
-			document.addField(imageIdentifier+"usMultiModality",image.getUsMultiModality());
-			document.addField(imageIdentifier+"imageTypeValue3",image.getImageTypeValue3());
-			document.addField(imageIdentifier+"scanningSequence",image.getScanningSequence());
-			document.addField(imageIdentifier+"sequenceVariant",image.getSequenceVariant());
-			document.addField(imageIdentifier+"sequenceName",image.getSequenceName());
-			document.addField(imageIdentifier+"imagedNucleus",image.getImagedNucleus());
-			document.addField(imageIdentifier+"scanOptions",image.getScanOptions());
-			document.addField(imageIdentifier+"convolutionKernel",image.getConvolutionKernel());
-			document.addField(imageIdentifier+"anatomicRegionSeq",image.getAnatomicRegionSeq());
+			
+			SolrInputDocument imageDoc = new SolrInputDocument();
+			String orginalId = document.getField("id").toString();
+			String imageIdentifier = "Patient-"+orginalId+"-"+seriesIndentifier+"Image"+x;
+			imageDoc.addField("id",imageIdentifier);
+			imageDoc.addField("imageType",image.getImageType());
+			imageDoc.addField("lossyImageCompression",image.getLossyImageCompression());
+			imageDoc.addField("imageOrientationPatient",image.getImageOrientationPatient());
+			imageDoc.addField("imagePositionPatient",image.getImagePositionPatient());
+			imageDoc.addField("contrastBolusAgent",image.getContrastBolusAgent());
+			imageDoc.addField("contrastBolusRoute",image.getContrastBolusRoute());
+			imageDoc.addField("patientPosition",image.getPatientPosition());
+			imageDoc.addField("imageComments",image.getImageComments());
+			imageDoc.addField("annotation",image.getAnnotation());
+			imageDoc.addField("imageLaterality",image.getImageLaterality());
+			imageDoc.addField("patientId",image.getPatientId());
+			imageDoc.addField("project",image.getProject());
+			imageDoc.addField("usFrameNum",image.getUsFrameNum());
+			imageDoc.addField("usColorDataPresent",image.getUsColorDataPresent());
+			imageDoc.addField("usMultiModality",image.getUsMultiModality());
+			imageDoc.addField("imageTypeValue3",image.getImageTypeValue3());
+			imageDoc.addField("scanningSequence",image.getScanningSequence());
+			imageDoc.addField("sequenceVariant",image.getSequenceVariant());
+			imageDoc.addField("sequenceName",image.getSequenceName());
+			imageDoc.addField("imagedNucleus",image.getImagedNucleus());
+			imageDoc.addField("scanOptions",image.getScanOptions());
+			imageDoc.addField("convolutionKernel",image.getConvolutionKernel());
+			imageDoc.addField("anatomicRegionSeq",image.getAnatomicRegionSeq());
 			if (image.getTagInfo()!=null)
 			{
 				for (DicomTagDTO tag : image.getTagInfo())
 				{
 					if (tag.getData()!=null&&(tag.getData().length()>2))
 					{
-					   String elementName=imageIdentifier+"dicomTag-"+tag.getElement()+"-"+tag.getName();
+					   String elementName="dicomTag-"+tag.getElement()+"-"+tag.getName();
 					   String orginalName=elementName;
 					   //log.debug(elementName + " - " + tag.getData());
 					   if (document.get(elementName)!=null) // tag has multiple values
@@ -220,13 +225,13 @@ public class SolrStorage {
 					      }
 					   }
 						 //log.debug("added-"+elementName+"-" + tag.getData());
-					     document.addField(elementName,tag.getData());
+					   imageDoc.addField(elementName,tag.getData());
  					}
 				}
             }
-
+			imageDocs.add(imageDoc);
 		}
-		return document;
+
      }
 	  private String documentString(SolrInputDocument solrDoc)
 	  {

@@ -4,8 +4,8 @@ public class SolrAllDocumentMetaData {
 private String term;
 private String foundValue;
 private String patientId;
-private int documentId;
-public SolrAllDocumentMetaData(String termIn, String foundValueIn, int documentIdIn, String patientIdIn)
+private String documentId;
+public SolrAllDocumentMetaData(String termIn, String foundValueIn, String documentIdIn, String patientIdIn)
 {
 	term=termIn;
 	foundValue=foundValueIn;
@@ -25,10 +25,10 @@ public void setFoundValue(String foundValue) {
 	this.foundValue = foundValue;
 }
 
-public int getDocumentId() {
+public String getDocumentId() {
 	return documentId;
 }
-public void setDocumentId(int documentId) {
+public void setDocumentId(String documentId) {
 	this.documentId = documentId;
 }
 public String getPatientId() {

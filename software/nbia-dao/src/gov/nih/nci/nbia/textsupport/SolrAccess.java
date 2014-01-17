@@ -5,7 +5,7 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
-
+import org.apache.solr.common.params.GroupParams;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -26,7 +26,6 @@ public class SolrAccess {
 	public static List<SolrAllDocumentMetaData> querySolr(String queryTerm)
 	{
 		  List <SolrAllDocumentMetaData> returnValue = new ArrayList<SolrAllDocumentMetaData> ();
-		  HashMap patientMap=new HashMap();
 		  try {			   
 			  if (queryTerm==null || queryTerm.length()<2)
 			  {
@@ -39,15 +38,15 @@ public class SolrAccess {
 			   query.setHighlight(true).setHighlightSnippets(1);
 			   query.addHighlightField("text");
 			   query.setFields("id,patientId,docType");
+			   query.setRows(1000);
+			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
+			   query.setParam(GroupParams.GROUP_FIELD, "patientId"); 
+			   query.setParam(GroupParams.GROUP_MAIN, true);
+			   query.setParam(GroupParams.GROUP_FORMAT, "simple");
+			   query.setParam(GroupParams.GROUP_LIMIT, "1");
 			   QueryResponse rsp = server.query( query );
 			   SolrDocumentList docs = rsp.getResults();
 			   for (SolrDocument doc : docs){
-				   Integer documentId = Integer.valueOf(doc.get("id").toString());
-				   if (patientMap.containsKey(doc.getFieldValue("patientId").toString()))
-				   {
-					   continue;
-				   }
-				   patientMap.put(doc.getFieldValue("patientId").toString(), doc);
 				   String highlightedHit = "";
 				   if (rsp.getHighlighting().get(doc.get("id").toString()) != null) {
 				          List<String> highlightSnippets = rsp.getHighlighting().get(doc.get("id").toString()).get("text");
@@ -57,10 +56,8 @@ public class SolrAccess {
 				        	  highlightedHit=(String)highlightSnippets.get(0);
 				          }
 				   }
-				   SolrAllDocumentMetaData hits = new SolrAllDocumentMetaData(queryTerm, highlightedHit, documentId.intValue(),
+				   SolrAllDocumentMetaData hits = new SolrAllDocumentMetaData(queryTerm, highlightedHit, doc.get("id").toString(),
 						   doc.getFieldValue("patientId").toString());
-				   //SolrAllDocumentMetaData hits = new findIndexes(queryTerm, doc, documentId.intValue(), highlightedHit);
-				   //System.out.println(hits);
 				   returnValue.add(hits);
 			   }
 			   

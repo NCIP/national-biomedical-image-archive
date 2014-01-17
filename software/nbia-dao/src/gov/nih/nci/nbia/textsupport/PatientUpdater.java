@@ -15,7 +15,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import gov.nih.nci.nbia.util.SpringApplicationContext;
+
 
 @Transactional 
 public class PatientUpdater {
@@ -101,6 +101,7 @@ public class PatientUpdater {
 		   }
 		   int i = 0;
 		   int x = 0;
+		   SolrStorage solrStorage = new SolrStorage();
 			for (Object result : rs)
 			  {
 				  PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
@@ -109,7 +110,7 @@ public class PatientUpdater {
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
 			      if (doc!=null){
 			    	 i++;
-			         SolrStorage.addPatientDocument(doc);
+			    	 solrStorage.addPatientDocument(doc);
 			         //commit every 20 docs for performance
 			         if (i==20)
 			         {
@@ -139,6 +140,7 @@ public class PatientUpdater {
 		collectionList.clear();
 		SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
 		SolrServer server = serverAccess.GetServer();
+		SolrStorage solrStorage = new SolrStorage();
     	for (String collection:localList)
     	{
     		{
@@ -151,7 +153,7 @@ public class PatientUpdater {
     					  String patientId = result.toString();
     					  log.error("Calling to update patient from collection " + patientId);
     				      PatientDocument doc = patientAccess.getPatientDocument(patientId);
-    				      SolrStorage.addPatientDocument(doc);
+    				      solrStorage.addPatientDocument(doc);
     				         //commit every 10 docs for performance
     				         if (i==10)
     				         {

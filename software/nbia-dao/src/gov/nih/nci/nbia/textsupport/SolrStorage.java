@@ -15,7 +15,8 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 public class SolrStorage {
   static Logger log = Logger.getLogger(SolrStorage.class);
-  public static void  addPatientDocument(PatientDocument patientDocument)
+  private List<SolrInputDocument>seriesDocs=new ArrayList<SolrInputDocument>();
+  public void  addPatientDocument(PatientDocument patientDocument)
   {
 	  log.warn("Solr asked to store patient document for -"+patientDocument.getId());
 	  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
@@ -36,17 +37,22 @@ public class SolrStorage {
 		}
 	    solrDoc=fillInStudies(solrDoc, patientDocument);
 	    String allFields=documentString(solrDoc);
-	    System.out.println("**** Text of document is "+allFields.length() + " characters long");
+	    System.out.println("**** Text of patient document is "+allFields.length() + " characters long");
 	    solrDoc.addField("text", allFields);
-	    log.debug(solrDoc.toString());
 	    server.add(solrDoc);
-	    log.warn("Solr has stored document for -"+patientDocument.getId());
+	    for (SolrInputDocument seriesDoc : seriesDocs){
+	    	String seriesFields=documentString(seriesDoc);
+	    	System.out.println("**** Text of series document is "+seriesFields.length() + " characters long");
+	    	seriesDoc.addField("text", seriesFields);
+	    	server.add(seriesDoc);
+	    }
+	    log.warn("Solr has stored documents for -"+patientDocument.getId());
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
   }
-	private static SolrInputDocument fillInTrials(SolrInputDocument document, PatientDocument patient)
+	private SolrInputDocument fillInTrials(SolrInputDocument document, PatientDocument patient)
 	{
 		if (patient.getTrialSite()==null) return document;
 		TrialSiteDoc site = patient.getTrialSite();		
@@ -55,7 +61,7 @@ public class SolrStorage {
 		document=fillInClinicalTrials(document, site);
 		return document;
 	}
-	private static SolrInputDocument fillInClinicalTrials(SolrInputDocument document, TrialSiteDoc site)
+	private SolrInputDocument fillInClinicalTrials(SolrInputDocument document, TrialSiteDoc site)
 	{
 		if (site.getTrial()==null) return document;
 		ClinicalTrialSubDoc trial=site.getTrial();
@@ -64,7 +70,7 @@ public class SolrStorage {
 		document.addField("sponsorName", trial.getSponsorName());
 		return document;
 	}
-	private static SolrInputDocument fillInTrialDP(SolrInputDocument document, PatientDocument patient)
+	private SolrInputDocument fillInTrialDP(SolrInputDocument document, PatientDocument patient)
 	{
 		if (patient.getDataProvenance()==null) return document;
 		TrialDataProvenanceDoc trialDP = patient.getDataProvenance();		
@@ -74,7 +80,7 @@ public class SolrStorage {
 		document.addField("collectionDescription", trialDP.getCollectionDescription());
 		return document;
 	}
-	private static SolrInputDocument fillInStudies(SolrInputDocument document, PatientDocument patient)
+	private SolrInputDocument fillInStudies(SolrInputDocument document, PatientDocument patient)
 	{
 		if (patient.getStudyCollection()==null) return document;
 		int i=0;
@@ -91,32 +97,35 @@ public class SolrStorage {
 			document.addField(studyIndentifier+"timePointId", study.getTimePointId());
 			document.addField(studyIndentifier+"ageGroup", study.getAgeGroup());
 			document.addField(studyIndentifier+"occupation", study.getOccupation());
-			document=fillInSeries(document, study, studyIndentifier);
+			fillInSeries(document, study, studyIndentifier);
 		}
 
 		return document;
 	}
-	private static SolrInputDocument fillInSeries(SolrInputDocument document, StudyDoc study, String studyIndentifier)
+	private void fillInSeries(SolrInputDocument document, StudyDoc study, String studyIndentifier)
 	{
 		
-		if (study.getGeneralSeriesCollection()==null) return document;
+		if (study.getGeneralSeriesCollection()==null) return;
 		int i=0;
 		for (GeneralSeriesSubDoc series : study.getGeneralSeriesCollection()){
 			i++;
-			String seriesIndentifier = studyIndentifier+"Series"+i+"-";
-			document.addField(seriesIndentifier+"modality",series.getModality());
-			document.addField(seriesIndentifier+"laterality",series.getLaterality());
-			document.addField(seriesIndentifier+"protocolName",series.getProtocolName());
-			document.addField(seriesIndentifier+"seriesDesc",series.getSeriesDesc());
-			document.addField(seriesIndentifier+"bodyPartExamined",series.getBodyPartExamined());
-			document.addField(seriesIndentifier+"trialProtocolId",series.getTrialProtocolId());
-			document.addField(seriesIndentifier+"site",series.getSite());
-			document.addField(seriesIndentifier+"studyDesc",series.getSeriesDesc());
-			document.addField(seriesIndentifier+"admittingDiagnosesDesc",series.getAdmittingDiagnosesDesc());
-			document.addField(seriesIndentifier+"patientSex",series.getPatientSex());
-			document.addField(seriesIndentifier+"ageGroup",series.getAgeGroup());
-			document.addField(seriesIndentifier+"patientId",series.getPatientId());
-			document.addField(seriesIndentifier+"project",series.getProject());
+			SolrInputDocument seriesDoc = new SolrInputDocument();
+			String orginalId = document.getField("id").toString();
+			String seriesIndentifier = "Patient-"+orginalId+"-"+studyIndentifier+"Series"+i;
+			seriesDoc.addField("id",seriesIndentifier);
+			seriesDoc.addField("modality",series.getModality());
+			seriesDoc.addField("laterality",series.getLaterality());
+			seriesDoc.addField("protocolName",series.getProtocolName());
+			seriesDoc.addField("seriesDesc",series.getSeriesDesc());
+			seriesDoc.addField("bodyPartExamined",series.getBodyPartExamined());
+			seriesDoc.addField("trialProtocolId",series.getTrialProtocolId());
+			seriesDoc.addField("site",series.getSite());
+			seriesDoc.addField("studyDesc",series.getSeriesDesc());
+			seriesDoc.addField("admittingDiagnosesDesc",series.getAdmittingDiagnosesDesc());
+			seriesDoc.addField("patientSex",series.getPatientSex());
+			seriesDoc.addField("ageGroup",series.getAgeGroup());
+			seriesDoc.addField("patientId",series.getPatientId());
+			seriesDoc.addField("project",series.getProject());
 			int x = 0;
 			List <String> annotationFileContents=series.getAnnotationContents();
 			if (annotationFileContents!=null)
@@ -124,17 +133,17 @@ public class SolrStorage {
 				for (String fileContent : annotationFileContents)
 				{
 					x++;
-					document.addField(seriesIndentifier+"annotationFileContents-"+1, fileContent);
+					seriesDoc.addField("annotationFileContents-"+1, fileContent);
 				}
 			}
 
-			document=fillInEquipment(document, series.getGeneralEquipment(), seriesIndentifier);
-			document=fillInImages(document, series, seriesIndentifier);
-	    
+			seriesDoc=fillInEquipment(seriesDoc, series.getGeneralEquipment(), "Series"+i+"-");
+			seriesDoc=fillInImages(seriesDoc, series, "Series"+i+"-");
+			seriesDocs.add(seriesDoc);
 		}
-		return document;
+
 	}
-	private static SolrInputDocument fillInEquipment(SolrInputDocument document, GeneralEquipmentSubDoc equipment, String seriesIndentifier)
+	private SolrInputDocument fillInEquipment(SolrInputDocument document, GeneralEquipmentSubDoc equipment, String seriesIndentifier)
 	{
 		if (equipment==null) return document;
 		String equipmentIdentifier=seriesIndentifier+"Equipment-";
@@ -148,7 +157,7 @@ public class SolrStorage {
 		document.addField(equipmentIdentifier+"stationName",equipment.getStationName());
 		return document;
 	}
-	private static SolrInputDocument fillInImages(SolrInputDocument document, GeneralSeriesSubDoc series, String seriesIndentifier)
+	private SolrInputDocument fillInImages(SolrInputDocument document, GeneralSeriesSubDoc series, String seriesIndentifier)
 	{
 		
 		if (series.getGeneralImageCollection()==null) return document;
@@ -210,7 +219,7 @@ public class SolrStorage {
 		}
 		return document;
      }
-	  private static String documentString(SolrInputDocument solrDoc)
+	  private String documentString(SolrInputDocument solrDoc)
 	  {
 		  StringBuilder returnValue = new StringBuilder("");
 		  for (String field  : solrDoc.getFieldNames()){

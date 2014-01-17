@@ -35,7 +35,8 @@ public class SolrStorage {
 		       solrDoc=fillInTrialDP(solrDoc, patientDocument);
 		}
 	    solrDoc=fillInStudies(solrDoc, patientDocument);
-	    String allFields=documentString(solrDoc);;
+	    String allFields=documentString(solrDoc);
+	    System.out.println("**** Text of document is "+allFields.length() + " characters long");
 	    solrDoc.addField("text", allFields);
 	    log.debug(solrDoc.toString());
 	    server.add(solrDoc);

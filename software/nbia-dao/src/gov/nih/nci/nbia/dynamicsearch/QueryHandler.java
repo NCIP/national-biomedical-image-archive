@@ -10,7 +10,7 @@ package gov.nih.nci.nbia.dynamicsearch;
 
 import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
-import gov.nih.nci.nbia.textsupport.SolrFoundDocumentMetaData;
+import gov.nih.nci.nbia.textsupport.SolrAllDocumentMetaData;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 
@@ -94,6 +94,6 @@ public interface QueryHandler {
 	 *
 	 * @param testCriteria
 	 */
-	public List<SolrFoundDocumentMetaData> searchSolr(String textCriteria);
+	public List<SolrAllDocumentMetaData> searchSolr(String textCriteria);
 
 }

@@ -111,13 +111,7 @@ public class PatientUpdater {
 			      if (doc!=null){
 			    	 i++;
 			    	 solrStorage.addPatientDocument(doc);
-			         //commit every 2 docs for performance
-			         if (i==2)
-			         {
-			        	i=0;
-			        	System.gc();
-			            server.commit();
-			         }
+			         server.commit();
 			      }
 			  }
 		   SolrInputDocument solrDoc = new SolrInputDocument();

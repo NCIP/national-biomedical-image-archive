@@ -38,12 +38,21 @@ public class SolrStorage {
 	    solrDoc=fillInStudies(solrDoc, patientDocument);
 	    String allFields=documentString(solrDoc);
 	    System.out.println("**** Text of patient document is "+allFields.length() + " characters long");
-	    solrDoc.addField("text", allFields);
-	    server.add(solrDoc);
+	    // in the end it was not feasible to retrieve all the information from solr
+	    SolrInputDocument finalDoc = new SolrInputDocument();
+	    finalDoc.addField("id", patientDocument.getId());
+	    finalDoc.addField("patientId", patientDocument.getPatientId());
+	    finalDoc.addField("text", allFields);
+	    finalDoc.addField("docType","patient");
+	    server.add(finalDoc);
 	    for (SolrInputDocument seriesDoc : seriesDocs){
 	    	String seriesFields=documentString(seriesDoc);
 	    	System.out.println("**** Text of series document is "+seriesFields.length() + " characters long");
-	    	seriesDoc.addField("text", seriesFields);
+		    SolrInputDocument finalSeriesDoc = new SolrInputDocument();
+		    finalSeriesDoc.addField("id", patientDocument.getId());
+		    finalSeriesDoc.addField("patientId", patientDocument.getPatientId());
+		    finalSeriesDoc.addField("text", allFields);
+		    finalSeriesDoc.addField("docType","series");
 	    	server.add(seriesDoc);
 	    }
 	    log.warn("Solr has stored documents for -"+patientDocument.getId());

@@ -111,8 +111,8 @@ public class PatientUpdater {
 			      if (doc!=null){
 			    	 i++;
 			    	 solrStorage.addPatientDocument(doc);
-			         //commit every 20 docs for performance
-			         if (i==20)
+			         //commit every 5 docs for performance
+			         if (i==5)
 			         {
 			        	i=0;
 			        	System.gc();

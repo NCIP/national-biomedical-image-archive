@@ -566,7 +566,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		return foreignKeyPropertyName+"1";
 	}
     
-	public List<SolrFoundDocumentMetaData> searchSolr(String textCriteria)
+	public List<SolrAllDocumentMetaData> searchSolr(String textCriteria)
 	{
 	   this.textSearchCriteria=textCriteria;
 	   SolrAccess access=new SolrAccess();

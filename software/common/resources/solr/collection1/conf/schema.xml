@@ -121,11 +121,12 @@
      installations. See the <uniqueKey> declaration below where <uniqueKey> is set to "id".
    -->   
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />    
-
+   <field name="patientId" type="string" indexed="true" stored="true" required="true" multiValued="false" />  
+   <field name="docType" type="string" indexed="true" stored="true" required="true" multiValued="false" />  
 
    <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->
-   <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
+   <field name="text" type="text_general" indexed="true" stored="true" multiValued="true"/>
 
    <!-- catchall text field that indexes tokens both normally and in reverse for efficient
         leading wildcard queries. -->
@@ -180,28 +181,6 @@
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
 
-   <copyField source="cat" dest="text"/>
-   <copyField source="name" dest="text"/>
-   <copyField source="manu" dest="text"/>
-   <copyField source="features" dest="text"/>
-   <copyField source="includes" dest="text"/>
-   <copyField source="manu" dest="manu_exact"/>
-
-   <!-- Copy the price into a currency enabled field (default USD) -->
-   <copyField source="price" dest="price_c"/>
-
-   <!-- Text fields from SolrCell to search by default in our catch-all field -->
-   <copyField source="title" dest="text"/>
-   <copyField source="author" dest="text"/>
-   <copyField source="description" dest="text"/>
-   <copyField source="keywords" dest="text"/>
-   <copyField source="content" dest="text"/>
-   <copyField source="content_type" dest="text"/>
-   <copyField source="resourcename" dest="text"/>
-   <copyField source="url" dest="text"/>
-
-   <!-- Create a string version of author for faceting -->
-   <copyField source="author" dest="author_s"/>
 	
    <!-- Above, multiple source fields are copied to the [text] field. 
 	  Another way to map multiple source fields to the same 

@@ -114,6 +114,7 @@ public class PatientUpdater {
 			         if (i==10)
 			         {
 			        	i=0;
+			        	System.gc();
 			            server.commit();
 			         }
 			      }

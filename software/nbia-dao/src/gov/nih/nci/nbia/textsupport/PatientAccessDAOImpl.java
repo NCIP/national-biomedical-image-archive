@@ -175,15 +175,15 @@ public class PatientAccessDAOImpl extends AbstractDAO
 					                {
 					                	dicomFileCount++;
 					                	NCIADicomTextObject dicomObject;
-					                	if (dicomFileCount<maxDicomFiles)
-					                	{
+					                	//if (dicomFileCount<maxDicomFiles)
+					                	//{
 					    				  try {
 					    					dicomObject = new NCIADicomTextObject(new File(image.getFilename()));
 					    					imageDoc.setTagInfo(dicomObject.getTagElements());
 					    				  } catch (Exception e) {
 					    					e.printStackTrace();
 					    				  }
-					                	}
+					                	//}
 					                }
 					    			imageDocs.add(imageDoc);
 					    		    
@@ -210,6 +210,8 @@ public class PatientAccessDAOImpl extends AbstractDAO
 						}
 						studyDocs.add(studyDoc);
 					}
+					System.out.println("************** total image files indexed **************");
+					System.out.println("**************     " +dicomFileCount + "      **************");
 					returnValue.setStudyCollection(studyDocs);
 			}
 			

@@ -68,10 +68,10 @@ public class SolrAccess {
 		return returnValue;
 
 	}
-	public static SolrFoundDocumentMetaData findIndexes(String term, SolrDocument solrDoc, int documentId,  String highlightedHit)
+	public static SolrAllDocumentMetaData findIndexes(String term, SolrDocument solrDoc, String documentId,  String highlightedHit)
 	{
 	    String fieldValue;
-	    SolrFoundDocumentMetaData found=null;
+	    SolrAllDocumentMetaData found=null;
 	    // need to remove wildcards to find in text
 	    String localTerm=term.replaceAll("\\*", "");
         localTerm=localTerm.replaceAll("\\?", "");
@@ -83,15 +83,12 @@ public class SolrAccess {
 			      {
 			    	  if (highlightedHit!=null&&highlightedHit.length()>0)
 			          {
-		    	          found=new SolrFoundDocumentMetaData(localTerm, field, 
-		    	        		  highlightedHit,
-				    			  fieldValue.toLowerCase().indexOf(localTerm.toLowerCase()), 
+		    	          found=new SolrAllDocumentMetaData(localTerm, field+"-"+ highlightedHit,
 				    			  documentId, (String)solrDoc.getFieldValue("patientId"));
 			          }
 			    	  else {
-			    	          found=new SolrFoundDocumentMetaData(localTerm, field, 
-			    			  getHitText(fieldValue, fieldValue.toLowerCase().indexOf(term.toLowerCase())),
-			    			  fieldValue.toLowerCase().indexOf(localTerm.toLowerCase()), 
+			    	          found=new SolrAllDocumentMetaData(localTerm, field + "-" +
+			    	          getHitText(fieldValue, fieldValue.toLowerCase().indexOf(term.toLowerCase())), 
 			    			  documentId, (String)solrDoc.getFieldValue("patientId"));
 			    	  }
 			          return found;
@@ -99,9 +96,7 @@ public class SolrAccess {
 			  }
 		  }
 		  // unable to locate where the hit is
-          return new SolrFoundDocumentMetaData(term, "", 
-        		  highlightedHit,
-    			  -1, 
+          return new SolrAllDocumentMetaData(term, highlightedHit,
     			  documentId, (String)solrDoc.getFieldValue("patientId"));
 	}
 	 

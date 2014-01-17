@@ -21,7 +21,7 @@ import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.security.AuthorizationManager;
-import gov.nih.nci.nbia.textsupport.SolrFoundDocumentMetaData;
+import gov.nih.nci.nbia.textsupport.SolrAllDocumentMetaData;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResult;
 import gov.nih.nci.nbia.util.SelectItemLabelComparator;
@@ -600,10 +600,10 @@ public class DynamicSearchBean {
 		String returnValue = "submitTextSearch";
 		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
 		System.out.println("Searching Solr for"+textValue);
-		List<SolrFoundDocumentMetaData> results = qh.searchSolr(textValue);
+		List<SolrAllDocumentMetaData> results = qh.searchSolr(textValue);
 		StringBuffer patientIDs = new StringBuffer();
-		Map<String, SolrFoundDocumentMetaData> patientMap=new HashMap<String, SolrFoundDocumentMetaData>();
-		for (SolrFoundDocumentMetaData result : results)
+		Map<String, SolrAllDocumentMetaData> patientMap=new HashMap<String, SolrAllDocumentMetaData>();
+		for (SolrAllDocumentMetaData result : results)
 		{
 			patientIDs.append(result.getPatientId()+",");
 			patientMap.put(result.getPatientId(), result);
@@ -632,13 +632,13 @@ public class DynamicSearchBean {
 			for (PatientSearchResult patient:patients)
 			{
 				PatientTextSearchResult textResult=new PatientTextSearchResultImpl(patient);
-				SolrFoundDocumentMetaData solrResult =  patientMap.get(textResult.getSubjectId());
+				SolrAllDocumentMetaData solrResult =  patientMap.get(textResult.getSubjectId());
 				if (solrResult==null)
 				{
 					System.out.println("******* can't find id in patient map " + textResult.getSubjectId());
 				} else
 				{
-					textResult.setHit(solrResult.getFieldName()+" - "+solrResult.getFieldValue());
+					textResult.setHit(getFoundValue());
 				    textPatients.add(textResult);
 				}
 			}

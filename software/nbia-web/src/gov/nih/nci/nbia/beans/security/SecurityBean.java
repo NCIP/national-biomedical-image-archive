@@ -130,7 +130,7 @@ public class SecurityBean {
 			// User is not authorized to view one or more of the collections, so
 			// create a message
 			MessageUtil.addErrorMessage(
-					"MAINbody:dataForm:unauthorizedCollections",
+					"MAINbody:searchMenuForm:unauthorizedCollections",
 					"unallowedCollection");
 		}
 	}

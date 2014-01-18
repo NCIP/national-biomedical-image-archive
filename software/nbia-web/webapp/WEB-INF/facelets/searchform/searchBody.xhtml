@@ -50,6 +50,8 @@ L-->
            </ice:dataTable>
   	</td>
       	<td>
+      	<h:inputHidden id="unauthorizedCollections" value="true" />
+  		<h:message for="unauthorizedCollections" errorClass="errorLabel" infoClass="infoLabel" />
       	      <f:subview id="saveQueryView" rendered="#{!anonymousLoginBean.guestLoggedIn or searchWorkflowBean.dynamicSearch}">
 	      <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	        <tr>

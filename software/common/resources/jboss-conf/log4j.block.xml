@@ -10,7 +10,7 @@ L-->
 		<priority value="FATAL"/>
 	</category>
 	<category name="gov.nih.nci">
-		<priority value="ERROR"/>
+		<priority value="INFO"/>
 	</category>
 	<category name="com.sun.faces">
 		<priority value="ERROR"/>

@@ -45,7 +45,7 @@
     that avoids logging every request
 -->
 
-<schema name="example" version="1.5">
+<schema name="NBIA-Solr" version="1.5">
   <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and 
        semantics.  It should not normally be changed by applications.
@@ -123,6 +123,9 @@
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />    
    <field name="patientId" type="string" indexed="true" stored="true" required="false" multiValued="false" />  
    <field name="docType" type="string" indexed="true" stored="true" required="false" multiValued="false" />  
+   <field name="lastRan" type="string" indexed="true" stored="true" required="false" multiValued="false" /> 
+    <!-- put in to keep solr happy about the field cache -->  
+   <field name="f" type="string" indexed="true" stored="true" required="false" multiValued="false" /> 
 
    <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->
@@ -141,7 +144,7 @@
        a "*" only at the start or the end.  -->
    
 
-   <dynamicField name="*"  type="string"  indexed="false"  stored="true" />
+   <dynamicField name="f*"  type="string"  indexed="false"  stored="true" />
 
 
    <!-- uncomment the following to ignore any fields that don't already match an existing 
@@ -180,7 +183,8 @@
   <!-- copyField commands copy one field to another at the time a document
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
-   <copyField source="*" dest="text" maxChars="25000" />
+   <copyField source="patientId" dest="text" maxChars="250000" />
+   <copyField source="f-*" dest="text" maxChars="250000" />
 	
    <!-- Above, multiple source fields are copied to the [text] field. 
 	  Another way to map multiple source fields to the same 

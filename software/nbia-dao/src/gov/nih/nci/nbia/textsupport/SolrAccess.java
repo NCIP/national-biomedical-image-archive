@@ -40,7 +40,7 @@ public class SolrAccess {
 			   query.addHighlightField("text");
 			   query.setHighlightSimplePre("<strong>");
 			   query.setHighlightSimplePost("</strong>");
-			   query.setFields("id,patientId,f*");
+			   query.setFields("id,patientId,*");
 			   query.setRows(1000);
 			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
 			   query.setParam(GroupParams.GROUP_FIELD, "patientId"); 

@@ -422,11 +422,14 @@ public class PatientAccessDAOImpl extends AbstractDAO
 				    String filePath = result.toString();
 				    String text = "";
 				    File fileTest = new File(filePath);
+				    log.info("found annotation file");
 				    if (fileTest.exists())
 				    {	
 				      FileInputStream inputStream = new FileInputStream(filePath);
 				      try {
 				    	  text = IOUtils.toString(inputStream);
+				    	  log.info("********* annotation text ****************");
+				    	  log.info(text);
 				      } catch (Exception e) {
 				    	e.printStackTrace();
 				      }

@@ -413,31 +413,37 @@ public class PatientAccessDAOImpl extends AbstractDAO
 	  {
 		  List<String>returnValue=new ArrayList<String>();
 		  try {
-		  TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
-		  List<Object> rs = support.getAnnotationFiles(seriesPK);
-		  if (rs==null) return returnValue;
+		    TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
+		    List<Object> rs = support.getAnnotationFiles(seriesPK);
+		    if (rs==null) return returnValue;
 		  
 			for (Object result : rs)
 			  {
-				  String filePath = result.toString();
-				  //String text = new Scanner( new File(filePath) ).useDelimiter("\\A").next();
+				    String filePath = result.toString();
 				    String text = "";
-				    FileInputStream inputStream = new FileInputStream("foo.txt");
-				    try {
-				        String everything = IOUtils.toString(inputStream);
-				    } catch (Exception e) {
+				    File fileTest = new File(filePath);
+				    if (fileTest.exists())
+				    {	
+				      FileInputStream inputStream = new FileInputStream(filePath);
+				      try {
+				    	  text = IOUtils.toString(inputStream);
+				      } catch (Exception e) {
 				    	e.printStackTrace();
-				    }
+				      }
 				    
-				    finally {
+				      finally {
 				        try {
 							inputStream.close();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+				      }
+				      returnValue.add(text);
+				    } else
+				    {
+				    	log.error("*** annotation file "+filePath+" does not exist *******");
 				    }
-				  returnValue.add(text);
 			  }
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

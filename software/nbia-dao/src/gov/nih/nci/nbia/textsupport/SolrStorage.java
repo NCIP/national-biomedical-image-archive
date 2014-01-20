@@ -38,9 +38,12 @@ public class SolrStorage {
 		}
 	    solrDoc=fillInStudies(solrDoc, patientDocument);
 	    String allFields=documentString(solrDoc);
-	    System.out.println("**** Text of patient document is "+allFields.length() + " characters long");
+	    log.info("**** Text of patient document is "+allFields.length() + " characters long");
 	    // in the end it was not feasible to retrieve all the information from solr
-	    solrDoc.addField("docType","patient");
+	    // so broke out into subdocs - patient series and image
+	    // prefixing with a b and c allows the grouping in the solr query
+	    // to bring the most important document to the top
+	    solrDoc.addField("docType","a-patient");
 	    server.add(solrDoc);
 	    log.warn("Solr has stored documents for -"+patientDocument.getId());
 	    } catch (Exception e) {
@@ -82,7 +85,7 @@ public class SolrStorage {
 		int i=0;
 		for (StudyDoc study : patient.getStudyCollection()){
 			i++;
-			String studyIndentifier = "Study"+i+"-";
+			String studyIndentifier = "Study"+i+"^";
 			document.addField(studyIndentifier+"admittingDiagnosesCodeSeq", study.getAdmittingDiagnosesCodeSeq());
 			document.addField(studyIndentifier+"admittingDiagnosesDesc",study.getAdmittingDiagnosesDesc());
 			document.addField(studyIndentifier+"studyDate", study.getStudyDate());
@@ -93,7 +96,7 @@ public class SolrStorage {
 			document.addField(studyIndentifier+"timePointId", study.getTimePointId());
 			document.addField(studyIndentifier+"ageGroup", study.getAgeGroup());
 			document.addField(studyIndentifier+"occupation", study.getOccupation());
-			fillInSeries(document, study, studyIndentifier);
+			fillInSeries(document, study, "Study"+i+"-");
 		}
 
 		return document;
@@ -130,16 +133,16 @@ public class SolrStorage {
 				for (String fileContent : annotationFileContents)
 				{
 					x++;
-					seriesDoc.addField("annotationFileContents-"+1, fileContent);
+					seriesDoc.addField("annotationFileContents-"+x, fileContent);
 				}
 			}
 
 			seriesDoc=fillInEquipment(seriesDoc, series.getGeneralEquipment(), "Series"+i+"-");
 			fillInImages(seriesDoc, series, "Series"+i+"-");
 	    	String seriesFields=documentString(seriesDoc);
-	    	System.out.println("**** Text of series document is "+seriesFields.length() + " characters long");
-	    	seriesDoc.addField("text", seriesFields);
-	    	seriesDoc.addField("docType","series");
+	    	log.info("**** Text of series document is "+seriesFields.length() + " characters long");
+	    //	seriesDoc.addField("text", seriesFields);
+	    	seriesDoc.addField("docType","b-series");
 	    	try {
 				server.add(seriesDoc);
 			} catch (SolrServerException e) {
@@ -155,7 +158,7 @@ public class SolrStorage {
 	private SolrInputDocument fillInEquipment(SolrInputDocument document, GeneralEquipmentSubDoc equipment, String seriesIndentifier)
 	{
 		if (equipment==null) return document;
-		String equipmentIdentifier=seriesIndentifier+"Equipment-";
+		String equipmentIdentifier=seriesIndentifier+"Equipment^";
 		document.addField(equipmentIdentifier+"id", equipment.getId());
 		document.addField(equipmentIdentifier+"deviceSerialNumber",equipment.getDeviceSerialNumber());
 		document.addField(equipmentIdentifier+"manufacturer",equipment.getManufacturer());
@@ -215,7 +218,7 @@ public class SolrStorage {
 					   {
 					     for (int i=0; i<100000; i++) // that would be a real lot of values
 					     {
-					    	 String newElementName=elementName+"-"+i;
+					    	 String newElementName=elementName+"-"+i+"^";
 					    	 //log.debug(newElementName + " - " + tag.getData());
 					    	 if (document.get(newElementName)==null)
 					    	 {
@@ -230,9 +233,9 @@ public class SolrStorage {
 				}
             }
 	    	String imageFields=documentString(imageDoc);
-	    	System.out.println("**** Text of image document is "+imageFields.length() + " characters long");
-	    	imageDoc.addField("text", imageFields);
-	    	imageDoc.addField("docType","image");
+	    	log.info("**** Text of image document is "+imageFields.length() + " characters long");
+	    	//imageDoc.addField("text", imageFields);
+	    	imageDoc.addField("docType","c-image");
 	    	try {
 				server.add(imageDoc);
 			} catch (SolrServerException e) {

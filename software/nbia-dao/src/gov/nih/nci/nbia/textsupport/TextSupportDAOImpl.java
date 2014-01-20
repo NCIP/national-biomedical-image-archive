@@ -58,7 +58,7 @@ public Date getMaxTimeStamp()
 public List<Object> getUpdatedPatients(Date high, Date low)
 {
 	List<Object> returnValue = new ArrayList<Object>();
-	System.out.println("high-"+high+" low-"+low);
+	log.info("high-"+high+" low-"+low);
 	try {
 		if (low == null)
 		{

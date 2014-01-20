@@ -78,12 +78,12 @@ public class PatientUpdater {
 					   if (docs.get(0).get("lastRan") == null)
 					   {
 						   log.error("Can find last ran doc, we need to reindex");
-						   System.out.println(docs.get(0));
+						   log.info(docs.get(0));
 						   lastRan = null;
 					   } else 
 					   {
 					       lastRan = df.parse(docs.get(0).get("lastRan").toString());
-					       log.error("The patient updater was last run - "+lastRan);
+					       log.info("The patient updater was last run - "+lastRan);
 					   }
 			       }
 		  }

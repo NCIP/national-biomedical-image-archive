@@ -185,7 +185,7 @@ public class PatientAccessDAOImpl extends AbstractDAO
 					    					   imageDoc.setTagInfo(dicomObject.getTagElements());
 					    					} else
 					    					{
-					    						System.out.println("**** The image file "+dicomFile+" does not exist ****");
+					    						log.warn("**** The image file "+dicomFile+" does not exist ****");
 					    					}
 					    				  } catch (Exception e) {
 					    					e.printStackTrace();
@@ -217,8 +217,8 @@ public class PatientAccessDAOImpl extends AbstractDAO
 						}
 						studyDocs.add(studyDoc);
 					}
-					System.out.println("************** total image files indexed **************");
-					System.out.println("**************     " +dicomFileCount + "      **************");
+					log.info("************** total image files indexed **************");
+					log.info("**************     " +dicomFileCount + "      **************");
 					returnValue.setStudyCollection(studyDocs);
 			}
 			

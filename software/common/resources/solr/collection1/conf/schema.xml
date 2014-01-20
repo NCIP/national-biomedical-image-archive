@@ -121,8 +121,8 @@
      installations. See the <uniqueKey> declaration below where <uniqueKey> is set to "id".
    -->   
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />    
-   <field name="patientId" type="string" indexed="true" stored="true" required="true" multiValued="false" />  
-   <field name="docType" type="string" indexed="true" stored="true" required="true" multiValued="false" />  
+   <field name="patientId" type="string" indexed="true" stored="true" required="false" multiValued="false" />  
+   <field name="docType" type="string" indexed="true" stored="true" required="false" multiValued="false" />  
 
    <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->
@@ -180,7 +180,7 @@
   <!-- copyField commands copy one field to another at the time a document
         is added to the index.  It's used either to index the same field differently,
         or to add multiple fields to the same field for easier/faster searching.  -->
-
+   <copyField source="*" dest="text" maxChars="25000" />
 	
    <!-- Above, multiple source fields are copied to the [text] field. 
 	  Another way to map multiple source fields to the same 

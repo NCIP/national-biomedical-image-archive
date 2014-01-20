@@ -959,8 +959,24 @@ public class DynamicSearchBean {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
+	// this will have to work for now, the spreading of logic across searchworkflowbean makes it ugly
+	public void resultPerPageOptionChangeListenerText(ValueChangeEvent event) {
+		if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+	   		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+	   		event.queue();
+	        return;
+	    }
+		String resultPerPageOptionNewValue = (String)event.getNewValue();
+		System.out.println("resultPerPageOption new value in text search" + resultPerPageOptionNewValue);
+		this.selectedResultPerPage = resultPerPageOptionNewValue;
+		try {
+			submitTextSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<DynamicSearchCriteriaBean> getCriteriaBean() {
 		return criteriaBean;
 	}

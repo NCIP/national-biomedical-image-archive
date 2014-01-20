@@ -21,7 +21,7 @@ public class NBIAEmbeddedSolrServer implements SolrServerInterface{
 		   log.warn("SolrHome is "+solrHome);
 			server = new EmbeddedSolrServer(CoreContainer.createAndLoad(
 					solrHome, new File(solrHome + "solr.xml")), null);
-			System.out.println("Embedded Solr Server started successfully");
+			log.info("Embedded Solr Server started successfully");
 	   }
 	   private void stopServer()
 	   {

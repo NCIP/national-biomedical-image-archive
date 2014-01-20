@@ -137,7 +137,7 @@ L-->
 
 <!--  text search results  -->
 <ice:panelGroup id="patientResultsPanelGroup"  rendered="#{searchResultBean.textResult}">>
-  <ice:dataTable id="patientResultsTable" 
+  <ice:dataTable id="patientResultsTableText" 
                  value="#{perNodeResult.patients}" 
                  var="result" 
                  rows="#{searchResultBean.resultsPerPage}" 
@@ -178,12 +178,12 @@ L-->
       <f:facet name="header">
         <h:panelGroup>
           <ice:commandSortHeader columnName="#{searchResultBean.hitHeader}" arrow="true" >
-	      		<ice:outputText value="#{searchResultBean.hitHeader}" escape="false"/>
+	      		<ice:outputText value="#{searchResultBean.hitHeader}"/>
     	</ice:commandSortHeader>
         </h:panelGroup>
       </f:facet>
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
-        <h:outputText value="#{result.hit}"  />
+        <h:outputText value="#{result.hit}"  escape="false"/>
       </div>
     </h:column>
     <h:column id="matchStudiesCountColumn">
@@ -260,7 +260,7 @@ L-->
       </div>
     </h:column>                   
   </ice:dataTable>
-  <ui:include src="searchResultPaginator.xhtml"/>
+  <ui:include src="searchResultPaginatorText.xhtml"/>
 </ice:panelGroup>
 
  

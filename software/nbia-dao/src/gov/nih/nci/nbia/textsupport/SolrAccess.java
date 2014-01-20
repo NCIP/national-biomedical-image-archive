@@ -2,9 +2,9 @@ package gov.nih.nci.nbia.textsupport;
 
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.*;
+
+import org.apache.log4j.Logger;
 import org.apache.solr.common.params.GroupParams;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
@@ -13,6 +13,7 @@ import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 public class SolrAccess {
+	static Logger log = Logger.getLogger(SolrAccess.class);
 	private static String getHitText(String hitContext, int index){
 		int hitLength=60;
 		int offsetFromStart = 20;
@@ -37,6 +38,8 @@ public class SolrAccess {
 			   SolrQuery query = new SolrQuery(term);
 			   query.setHighlight(true).setHighlightSnippets(1);
 			   query.addHighlightField("text");
+			   query.setHighlightSimplePre("<strong>");
+			   query.setHighlightSimplePost("</strong>");
 			   query.setFields("id,patientId,docType");
 			   query.setRows(1000);
 			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
@@ -52,12 +55,12 @@ public class SolrAccess {
 				          List<String> highlightSnippets = rsp.getHighlighting().get(doc.get("id").toString()).get("text");
 				          if (highlightSnippets!=null&&highlightSnippets.size()>0)
 				          {
-				        	  System.out.println("Found highlight"+(String)highlightSnippets.get(0));
+				        	  log.info("Found highlight"+(String)highlightSnippets.get(0));
 				        	  highlightedHit=(String)highlightSnippets.get(0);
 				          }
 				   }
-				   SolrAllDocumentMetaData hits = new SolrAllDocumentMetaData(queryTerm, highlightedHit, doc.get("id").toString(),
-						   doc.getFieldValue("patientId").toString());
+				   SolrAllDocumentMetaData hits = findIndexes(queryTerm, doc, doc.get("id").toString(),
+						   highlightedHit);
 				   returnValue.add(hits);
 			   }
 			   
@@ -65,6 +68,10 @@ public class SolrAccess {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		for (SolrAllDocumentMetaData hit : returnValue)
+		{
+			System.out.println(hit);
+		}
 		return returnValue;
 
 	}
@@ -75,20 +82,37 @@ public class SolrAccess {
 	    // need to remove wildcards to find in text
 	    String localTerm=term.replaceAll("\\*", "");
         localTerm=localTerm.replaceAll("\\?", "");
+        // remove the html so I can find the hit
+        if (highlightedHit==null)
+        {
+        	highlightedHit="";
+        }
+        String localHighlightHit = highlightedHit.replaceAll("<strong>", "");
+        localHighlightHit = localTerm.replaceAll("</strong>", "");
 		for (String field  : solrDoc.getFieldNames()){
 			  if (solrDoc.getFieldValue(field)!=null)
 			  {
 				  fieldValue=solrDoc.getFieldValue(field).toString();
-			      if (fieldValue.toLowerCase().indexOf(localTerm.toLowerCase()) != -1)
+				  System.out.println("field - "+field);
+				  System.out.println("field value is - "+fieldValue);
+				  System.out.println("localHighlightHit value is - "+localHighlightHit);
+			      if (fieldValue.toLowerCase().indexOf(localHighlightHit.toLowerCase()) != -1)
 			      {
-			    	  if (highlightedHit!=null&&highlightedHit.length()>0)
+			    	  String foundField = field;
+			    	  //up carret is used to mark of the start of a dynamic field
+			    	  if (foundField.indexOf("^")>1)
+			    	  {
+			    		  foundField=foundField.substring(foundField.indexOf("^")-1);
+			    	  }
+			    	  if (localHighlightHit!=null&&localHighlightHit.length()>0)
 			          {
-		    	          found=new SolrAllDocumentMetaData(localTerm, field+"-"+ highlightedHit,
+		    	          found=new SolrAllDocumentMetaData(localTerm, 
+		    	        		  "<em>"+foundField+"</em>"+": "+ highlightedHit,
 				    			  documentId, (String)solrDoc.getFieldValue("patientId"));
 			          }
 			    	  else {
-			    	          found=new SolrAllDocumentMetaData(localTerm, field + "-" +
-			    	          getHitText(fieldValue, fieldValue.toLowerCase().indexOf(term.toLowerCase())), 
+			    	          found=new SolrAllDocumentMetaData(localTerm, "<em>"+foundField+"</em>"+": "+
+			    	          getHitText(fieldValue, fieldValue.toLowerCase().indexOf(localHighlightHit.toLowerCase())), 
 			    			  documentId, (String)solrDoc.getFieldValue("patientId"));
 			    	  }
 			          return found;

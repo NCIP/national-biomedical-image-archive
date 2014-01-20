@@ -40,7 +40,7 @@ public class SolrAccess {
 			   query.addHighlightField("text");
 			   query.setHighlightSimplePre("<strong>");
 			   query.setHighlightSimplePost("</strong>");
-			   query.setFields("id,patientId,docType");
+			   query.setFields("id,patientId,f*");
 			   query.setRows(1000);
 			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
 			   query.setParam(GroupParams.GROUP_FIELD, "patientId"); 
@@ -102,7 +102,11 @@ public class SolrAccess {
 			    	  //up carret is used to mark of the start of a dynamic field
 			    	  if (foundField.indexOf("^")>1)
 			    	  {
-			    		  foundField=foundField.substring(foundField.indexOf("^")-1);
+			    		  foundField=foundField.substring(foundField.indexOf("^")+1);
+			    	  }
+			    	  if (foundField.startsWith("f-"))
+			    	  {
+			    		  foundField=foundField.substring(2);
 			    	  }
 			    	  if (localHighlightHit!=null&&localHighlightHit.length()>0)
 			          {

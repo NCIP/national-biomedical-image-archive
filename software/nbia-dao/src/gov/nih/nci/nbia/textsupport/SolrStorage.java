@@ -23,13 +23,16 @@ public class SolrStorage {
 	  serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
 	  server = serverAccess.GetServer();
 	  try {
+		// all fields that are to be returned by the query are prefixed by f-
+		// this allows us to filter out the housekeeping fields and indexing such as id 
+		//  and doctype and text by using the field parameter of solrquery
 	    SolrInputDocument solrDoc = new SolrInputDocument();
 	    solrDoc.addField( "id", patientDocument.getId());
 	    solrDoc.addField( "patientId", patientDocument.getPatientId());
-	    solrDoc.addField("ethnicGroup", patientDocument.getEthnicGroup());
-	    solrDoc.addField("patientBirthDate", patientDocument.getPatientBirthDate());
-	    solrDoc.addField("patientName", patientDocument.getPatientName());
-	    solrDoc.addField("patientSex", patientDocument.getPatientSex());
+	    solrDoc.addField("f-ethnicGroup", patientDocument.getEthnicGroup());
+	    solrDoc.addField("f-patientBirthDate", patientDocument.getPatientBirthDate());
+	    solrDoc.addField("f-patientName", patientDocument.getPatientName());
+	    solrDoc.addField("f-patientSex", patientDocument.getPatientSex());
 	    if (patientDocument.getTrialSite() != null){
 	       solrDoc=fillInTrials(solrDoc, patientDocument);
 	    }
@@ -55,8 +58,8 @@ public class SolrStorage {
 	{
 		if (patient.getTrialSite()==null) return document;
 		TrialSiteDoc site = patient.getTrialSite();		
-		document.addField("trialSiteId", site.getTrialSiteId());
-		document.addField("trialSiteName", site.getTrialSiteName());
+		document.addField("f-trialSiteId", site.getTrialSiteId());
+		document.addField("f-trialSiteName", site.getTrialSiteName());
 		document=fillInClinicalTrials(document, site);
 		return document;
 	}
@@ -64,19 +67,19 @@ public class SolrStorage {
 	{
 		if (site.getTrial()==null) return document;
 		ClinicalTrialSubDoc trial=site.getTrial();
-		document.addField("coordinatingCenter", trial.getCoordinatingCenter());
-		document.addField("protocolName", trial.getProtocolName());
-		document.addField("sponsorName", trial.getSponsorName());
+		document.addField("f-coordinatingCenter", trial.getCoordinatingCenter());
+		document.addField("f-protocolName", trial.getProtocolName());
+		document.addField("f-sponsorName", trial.getSponsorName());
 		return document;
 	}
 	private SolrInputDocument fillInTrialDP(SolrInputDocument document, PatientDocument patient)
 	{
 		if (patient.getDataProvenance()==null) return document;
 		TrialDataProvenanceDoc trialDP = patient.getDataProvenance();		
-		document.addField("dpSiteId", trialDP.getDpSiteId());
-		document.addField("dpSiteName", trialDP.getDpSiteName());
-		document.addField("project", trialDP.getProject());
-		document.addField("collectionDescription", trialDP.getCollectionDescription());
+		document.addField("f-dpSiteId", trialDP.getDpSiteId());
+		document.addField("f-dpSiteName", trialDP.getDpSiteName());
+		document.addField("f-project", trialDP.getProject());
+		document.addField("f-collectionDescription", trialDP.getCollectionDescription());
 		return document;
 	}
 	private SolrInputDocument fillInStudies(SolrInputDocument document, PatientDocument patient)
@@ -85,7 +88,7 @@ public class SolrStorage {
 		int i=0;
 		for (StudyDoc study : patient.getStudyCollection()){
 			i++;
-			String studyIndentifier = "Study"+i+"^";
+			String studyIndentifier = "f-Study"+i+"^";
 			document.addField(studyIndentifier+"admittingDiagnosesCodeSeq", study.getAdmittingDiagnosesCodeSeq());
 			document.addField(studyIndentifier+"admittingDiagnosesDesc",study.getAdmittingDiagnosesDesc());
 			document.addField(studyIndentifier+"studyDate", study.getStudyDate());
@@ -112,20 +115,19 @@ public class SolrStorage {
 			String orginalId = document.getField("id").toString();
 			String seriesIndentifier = "Patient-"+orginalId+"-"+studyIndentifier+"Series-"+i;
 			seriesDoc.addField("id",seriesIndentifier);
-			seriesDoc.addField("modality",series.getModality());
-			seriesDoc.addField("laterality",series.getLaterality());
-			seriesDoc.addField("protocolName",series.getProtocolName());
-			seriesDoc.addField("seriesDesc",series.getSeriesDesc());
-			seriesDoc.addField("bodyPartExamined",series.getBodyPartExamined());
-			seriesDoc.addField("trialProtocolId",series.getTrialProtocolId());
-			seriesDoc.addField("site",series.getSite());
-			seriesDoc.addField("studyDesc",series.getSeriesDesc());
-			seriesDoc.addField("admittingDiagnosesDesc",series.getAdmittingDiagnosesDesc());
-			seriesDoc.addField("patientSex",series.getPatientSex());
-			seriesDoc.addField("ageGroup",series.getAgeGroup());
-			//seriesDoc.addField("patientId",series.getPatientId());
+			seriesDoc.addField("f-modality",series.getModality());
+			seriesDoc.addField("f-laterality",series.getLaterality());
+			seriesDoc.addField("f-protocolName",series.getProtocolName());
+			seriesDoc.addField("f-seriesDesc",series.getSeriesDesc());
+			seriesDoc.addField("f-bodyPartExamined",series.getBodyPartExamined());
+			seriesDoc.addField("f-trialProtocolId",series.getTrialProtocolId());
+			seriesDoc.addField("f-site",series.getSite());
+			seriesDoc.addField("f-studyDesc",series.getSeriesDesc());
+			seriesDoc.addField("f-admittingDiagnosesDesc",series.getAdmittingDiagnosesDesc());
+			seriesDoc.addField("f-patientSex",series.getPatientSex());
+			seriesDoc.addField("f-ageGroup",series.getAgeGroup());
 			seriesDoc.addField("patientId",document.getFieldValue("patientId").toString());
-			seriesDoc.addField("project",series.getProject());
+			seriesDoc.addField("f-project",series.getProject());
 			int x = 0;
 			List <String> annotationFileContents=series.getAnnotationContents();
 			if (annotationFileContents!=null)
@@ -133,7 +135,7 @@ public class SolrStorage {
 				for (String fileContent : annotationFileContents)
 				{
 					x++;
-					seriesDoc.addField("annotationFileContents-"+x, fileContent);
+					seriesDoc.addField("f-annotationFileContents-"+x, fileContent);
 				}
 			}
 
@@ -141,7 +143,6 @@ public class SolrStorage {
 			fillInImages(seriesDoc, series, "Series"+i+"-");
 	    	String seriesFields=documentString(seriesDoc);
 	    	log.info("**** Text of series document is "+seriesFields.length() + " characters long");
-	    //	seriesDoc.addField("text", seriesFields);
 	    	seriesDoc.addField("docType","b-series");
 	    	try {
 				server.add(seriesDoc);
@@ -160,6 +161,7 @@ public class SolrStorage {
 		if (equipment==null) return document;
 		String equipmentIdentifier=seriesIndentifier+"Equipment^";
 		document.addField(equipmentIdentifier+"id", equipment.getId());
+		equipmentIdentifier="f-"+equipmentIdentifier;
 		document.addField(equipmentIdentifier+"deviceSerialNumber",equipment.getDeviceSerialNumber());
 		document.addField(equipmentIdentifier+"manufacturer",equipment.getManufacturer());
 		document.addField(equipmentIdentifier+"institutionName",equipment.getInstitutionName());
@@ -181,30 +183,29 @@ public class SolrStorage {
 			String orginalId = document.getField("id").toString();
 			String imageIdentifier = "Patient-"+orginalId+"-"+seriesIndentifier+"Image-"+x;
 			imageDoc.addField("id",imageIdentifier);
-			imageDoc.addField("imageType",image.getImageType());
-			imageDoc.addField("lossyImageCompression",image.getLossyImageCompression());
-			imageDoc.addField("imageOrientationPatient",image.getImageOrientationPatient());
-			imageDoc.addField("imagePositionPatient",image.getImagePositionPatient());
-			imageDoc.addField("contrastBolusAgent",image.getContrastBolusAgent());
-			imageDoc.addField("contrastBolusRoute",image.getContrastBolusRoute());
-			imageDoc.addField("patientPosition",image.getPatientPosition());
-			imageDoc.addField("imageComments",image.getImageComments());
-			imageDoc.addField("annotation",image.getAnnotation());
-			imageDoc.addField("imageLaterality",image.getImageLaterality());
-			//imageDoc.addField("patientId",image.getPatientId());
+			imageDoc.addField("f-imageType",image.getImageType());
+			imageDoc.addField("f-lossyImageCompression",image.getLossyImageCompression());
+			imageDoc.addField("f-imageOrientationPatient",image.getImageOrientationPatient());
+			imageDoc.addField("f-imagePositionPatient",image.getImagePositionPatient());
+			imageDoc.addField("f-contrastBolusAgent",image.getContrastBolusAgent());
+			imageDoc.addField("f-contrastBolusRoute",image.getContrastBolusRoute());
+			imageDoc.addField("f-patientPosition",image.getPatientPosition());
+			imageDoc.addField("f-imageComments",image.getImageComments());
+			imageDoc.addField("f-annotation",image.getAnnotation());
+			imageDoc.addField("f-imageLaterality",image.getImageLaterality());
 			imageDoc.addField("patientId",document.getFieldValue("patientId").toString());
-			imageDoc.addField("project",image.getProject());
-			imageDoc.addField("usFrameNum",image.getUsFrameNum());
-			imageDoc.addField("usColorDataPresent",image.getUsColorDataPresent());
-			imageDoc.addField("usMultiModality",image.getUsMultiModality());
-			imageDoc.addField("imageTypeValue3",image.getImageTypeValue3());
-			imageDoc.addField("scanningSequence",image.getScanningSequence());
-			imageDoc.addField("sequenceVariant",image.getSequenceVariant());
-			imageDoc.addField("sequenceName",image.getSequenceName());
-			imageDoc.addField("imagedNucleus",image.getImagedNucleus());
-			imageDoc.addField("scanOptions",image.getScanOptions());
-			imageDoc.addField("convolutionKernel",image.getConvolutionKernel());
-			imageDoc.addField("anatomicRegionSeq",image.getAnatomicRegionSeq());
+			imageDoc.addField("f-project",image.getProject());
+			imageDoc.addField("f-usFrameNum",image.getUsFrameNum());
+			imageDoc.addField("f-usColorDataPresent",image.getUsColorDataPresent());
+			imageDoc.addField("f-usMultiModality",image.getUsMultiModality());
+			imageDoc.addField("f-imageTypeValue3",image.getImageTypeValue3());
+			imageDoc.addField("f-scanningSequence",image.getScanningSequence());
+			imageDoc.addField("f-sequenceVariant",image.getSequenceVariant());
+			imageDoc.addField("f-sequenceName",image.getSequenceName());
+			imageDoc.addField("f-imagedNucleus",image.getImagedNucleus());
+			imageDoc.addField("f-scanOptions",image.getScanOptions());
+			imageDoc.addField("f-convolutionKernel",image.getConvolutionKernel());
+			imageDoc.addField("f-anatomicRegionSeq",image.getAnatomicRegionSeq());
 			if (image.getTagInfo()!=null)
 			{
 				for (DicomTagDTO tag : image.getTagInfo())
@@ -218,7 +219,7 @@ public class SolrStorage {
 					   {
 					     for (int i=0; i<100000; i++) // that would be a real lot of values
 					     {
-					    	 String newElementName=elementName+"-"+i+"^";
+					    	 String newElementName=elementName+"-"+i;
 					    	 //log.debug(newElementName + " - " + tag.getData());
 					    	 if (document.get(newElementName)==null)
 					    	 {
@@ -228,7 +229,7 @@ public class SolrStorage {
 					      }
 					   }
 						 //log.debug("added-"+elementName+"-" + tag.getData());
-					   imageDoc.addField(elementName,tag.getData());
+					   imageDoc.addField("f-"+elementName+"^",tag.getData());
  					}
 				}
             }
@@ -248,6 +249,7 @@ public class SolrStorage {
 		}
 
      }
+	 // depricated by the use of copyfield
 	  private String documentString(SolrInputDocument solrDoc)
 	  {
 		  StringBuilder returnValue = new StringBuilder("");

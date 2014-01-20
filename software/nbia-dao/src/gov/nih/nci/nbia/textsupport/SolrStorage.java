@@ -212,7 +212,7 @@ public class SolrStorage {
 				{
 					if (tag.getData()!=null&&(tag.getData().length()>2))
 					{
-					   String elementName="dicomTag-"+tag.getElement()+"-"+tag.getName();
+					   String elementName=""f-"+dicomTag-"+tag.getElement()+"-"+tag.getName();
 					   String orginalName=elementName;
 					   //log.debug(elementName + " - " + tag.getData());
 					   if (document.get(elementName)!=null) // tag has multiple values, so we needed make up a unique name
@@ -229,7 +229,7 @@ public class SolrStorage {
 					      }
 					   }
 						 //log.debug("added-"+elementName+"-" + tag.getData());
-					   imageDoc.addField("f-"+elementName+"^",tag.getData());
+					   imageDoc.addField(elementName+"^",tag.getData());
  					}
 				}
             }

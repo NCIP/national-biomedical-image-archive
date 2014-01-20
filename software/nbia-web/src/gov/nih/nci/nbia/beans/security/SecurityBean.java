@@ -129,7 +129,7 @@ public class SecurityBean {
 		if (!authMgr.authorizeCollections(query)) {
 			// User is not authorized to view one or more of the collections, so
 			// create a message
-			MessageUtil.addErrorMessage(
+			MessageUtil.addInfoMessage(
 					"MAINbody:searchMenuForm:unauthorizedCollections",
 					"unallowedCollection");
 		}

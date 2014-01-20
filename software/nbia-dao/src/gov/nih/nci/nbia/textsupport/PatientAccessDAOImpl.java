@@ -428,8 +428,8 @@ public class PatientAccessDAOImpl extends AbstractDAO
 				      FileInputStream inputStream = new FileInputStream(filePath);
 				      try {
 				    	  text = IOUtils.toString(inputStream);
-				    	  log.info("********* annotation text ****************");
-				    	  log.info(text);
+				    	  //log.info("********* annotation text ****************");
+				    	  //log.info(text);
 				      } catch (Exception e) {
 				    	e.printStackTrace();
 				      }

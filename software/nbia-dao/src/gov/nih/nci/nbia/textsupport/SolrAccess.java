@@ -40,7 +40,7 @@ public class SolrAccess {
 			   query.addHighlightField("text");
 			   query.setHighlightSimplePre("<strong>");
 			   query.setHighlightSimplePost("</strong>");
-			   query.setFields("id,patientId,*");
+			   query.setFields("id,patientId,f*");
 			   query.setRows(1000);
 			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
 			   query.setParam(GroupParams.GROUP_FIELD, "patientId"); 
@@ -92,10 +92,11 @@ public class SolrAccess {
 		for (String field  : solrDoc.getFieldNames()){
 			  if (solrDoc.getFieldValue(field)!=null)
 			  {
+				  if (field=="id") continue;
 				  fieldValue=solrDoc.getFieldValue(field).toString();
-				  System.out.println("field - "+field);
-				  System.out.println("field value is - "+fieldValue);
-				  System.out.println("localHighlightHit value is - "+localHighlightHit);
+				  //System.out.println("field - "+field);
+				  //System.out.println("field value is - "+fieldValue);
+				  //System.out.println("localHighlightHit value is - "+localHighlightHit);
 			      if (fieldValue.toLowerCase().indexOf(localHighlightHit.toLowerCase()) != -1)
 			      {
 			    	  String foundField = field;

@@ -82,7 +82,7 @@ public class SolrAccess {
 	    // need to remove wildcards to find in text
 	    String localTerm=term.replaceAll("\\*", "");
         localTerm=localTerm.replaceAll("\\?", "");
-        // remove the html so I can find the hit
+        // remove the html so I can find the hit in the orginal field
         if (highlightedHit==null)
         {
         	highlightedHit="";
@@ -105,6 +105,7 @@ public class SolrAccess {
 			    	  {
 			    		  foundField=foundField.substring(foundField.indexOf("^")+1);
 			    	  }
+			    	//fields we want to check for text start with f-
 			    	  if (foundField.startsWith("f-"))
 			    	  {
 			    		  foundField=foundField.substring(2);

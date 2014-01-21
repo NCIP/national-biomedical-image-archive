@@ -19,7 +19,7 @@ import java.io.*;
 import org.apache.commons.io.*;
 
 import gov.nih.nci.nbia.internaldomain.Study;
-
+import gov.nih.nci.nbia.qctool.VisibilityStatus;
 import org.apache.log4j.Logger;
 
 public class PatientAccessDAOImpl extends AbstractDAO
@@ -266,28 +266,34 @@ public class PatientAccessDAOImpl extends AbstractDAO
 		Collection<GeneralSeriesSubDoc> seriesDocs= new ArrayList<GeneralSeriesSubDoc>();
 		for (GeneralSeries series : study.getGeneralSeriesCollection()){
 			GeneralSeriesSubDoc seriesDoc = new GeneralSeriesSubDoc();
-			seriesDoc.setId(series.getId());
-			seriesDoc.setModality(series.getModality());
-			seriesDoc.setLaterality(series.getLaterality());
-			seriesDoc.setProtocolName(series.getProtocolName());
-			seriesDoc.setSeriesDesc(series.getSeriesDesc());
-			seriesDoc.setBodyPartExamined(series.getBodyPartExamined());
-			seriesDoc.setTrialProtocolId(series.getTrialProtocolId());
-			seriesDoc.setProtocolName(series.getProtocolName());
-            seriesDoc.setSite(series.getSite());
-            seriesDoc.setStudyDesc(series.getSeriesDesc());
-            seriesDoc.setAdmittingDiagnosesDesc(series.getAdmittingDiagnosesDesc());
-            seriesDoc.setPatientSex(series.getPatientSex());
-            seriesDoc.setAgeGroup(series.getAgeGroup());
-            seriesDoc.setPatientId(series.getPatientId());
-            seriesDoc.setProject(series.getProject());
-            seriesDoc.setSite(series.getSite());
-            List<String> annotationFileConents = getFileAnnotationContents(seriesDoc.getId());
-            seriesDoc.setAnnotationContents(annotationFileConents);
-            seriesDoc = fillInImages(seriesDoc, series);
-            seriesDoc = fillInEquipment(seriesDoc, series.getGeneralEquipment());
-            log.info("equipment size-" + series.getGeneralEquipment());
-			seriesDocs.add(seriesDoc);
+			if (series.getVisibility().equals(VisibilityStatus.VISIBLE))
+			{
+			  log.info("*** series "+ series.getId()+" visible adding to index *****");
+			  seriesDoc.setId(series.getId());
+			  seriesDoc.setModality(series.getModality());
+			  seriesDoc.setLaterality(series.getLaterality());
+			  seriesDoc.setProtocolName(series.getProtocolName());
+			  seriesDoc.setSeriesDesc(series.getSeriesDesc());
+			  seriesDoc.setBodyPartExamined(series.getBodyPartExamined());
+			  seriesDoc.setTrialProtocolId(series.getTrialProtocolId());
+			  seriesDoc.setProtocolName(series.getProtocolName());
+              seriesDoc.setSite(series.getSite());
+              seriesDoc.setStudyDesc(series.getSeriesDesc());
+              seriesDoc.setAdmittingDiagnosesDesc(series.getAdmittingDiagnosesDesc());
+              seriesDoc.setPatientSex(series.getPatientSex());
+              seriesDoc.setAgeGroup(series.getAgeGroup());
+              seriesDoc.setPatientId(series.getPatientId());
+              seriesDoc.setProject(series.getProject());
+              seriesDoc.setSite(series.getSite());
+              List<String> annotationFileConents = getFileAnnotationContents(seriesDoc.getId());
+              seriesDoc.setAnnotationContents(annotationFileConents);
+              seriesDoc = fillInImages(seriesDoc, series);
+              seriesDoc = fillInEquipment(seriesDoc, series.getGeneralEquipment());
+			  seriesDocs.add(seriesDoc);
+			} else
+			{
+			  log.info("*** series "+ series.getId()+" not visible *****");
+			}
 		    
 		}
 		document.setGeneralSeriesCollection(seriesDocs);

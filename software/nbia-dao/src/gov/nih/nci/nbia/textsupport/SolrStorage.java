@@ -27,6 +27,8 @@ public class SolrStorage {
 		// this allows us to filter out the housekeeping fields and indexing such as id 
 		//  and doctype and text by using the field parameter of solrquery
 	    SolrInputDocument solrDoc = new SolrInputDocument();
+	    // get rid of all of this patients documents before adding updated ones
+	    server.deleteByQuery( "patientId:"+patientDocument.getId());
 	    solrDoc.addField( "id", patientDocument.getId());
 	    solrDoc.addField( "patientId", patientDocument.getPatientId());
 	    solrDoc.addField("f-ethnicGroup", patientDocument.getEthnicGroup());

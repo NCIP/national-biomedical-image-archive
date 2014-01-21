@@ -1,6 +1,5 @@
 package gov.nih.nci.nbia.textsupport;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -52,10 +51,6 @@ public class PatientUpdater {
     @Transactional(propagation=Propagation.REQUIRED)
     protected void updateSubmittedPatients() throws Exception
 	  {
-    	 
-    	  TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
-    	  //this.sessionFactory= support.getSessionFactory();
-
     	  log.error("Solr update submitted patients has been called");
     	  Date maxTimeStamp;
     	  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
@@ -88,25 +83,16 @@ public class PatientUpdater {
 			       }
 		  }
 		  
-		  maxTimeStamp = support.getMaxTimeStamp();
-		  if (maxTimeStamp==null)
-		  {
-			  log.error("It appears the submission log is empty");
-			  return; //nothing to do
-		  }
-		  List<Object>rs = support.getUpdatedPatients(maxTimeStamp, lastRan);
-		   if (rs.size()==0) {
-			   log.error("No new items in submission log");
-			   return; //nothing to do
-		   }
+		  maxTimeStamp = new Date(System.currentTimeMillis());
+		  Set<String> patientSet = getUpdatedPatients(maxTimeStamp, lastRan);
 		   int i = 0;
 		   int x = 0;
 		   SolrStorage solrStorage = new SolrStorage();
-			for (Object result : rs)
+			for (String result : patientSet)
 			  {
 				  PatientAccessDAO patientAccess = (PatientAccessDAO)SpringApplicationContext.getBean("patientAccessDAO");
-				  String patientId = result.toString();
-				  log.error("Updated patient-"+patientId+" Solr Update request made, this is the " + x++ + " patient updated");
+				  String patientId = result;
+				  log.info("Updated patient-"+patientId+" Solr Update request made, this is the " + x++ + " patient updated");
 			      PatientDocument doc = patientAccess.getPatientDocument(patientId);
 			      if (doc!=null){
 			    	 i++;
@@ -117,7 +103,7 @@ public class PatientUpdater {
 		   SolrInputDocument solrDoc = new SolrInputDocument();
 		   solrDoc.addField( "id", "NBIAsolrIndexingRun");
 		   solrDoc.addField( "lastRan", df.format(maxTimeStamp));
-		   log.debug("Last ran = "+solrDoc.toString());
+		   log.info("Last ran = "+solrDoc.toString());
 		   server.add(solrDoc);
 		   server.commit();
 	  
@@ -148,12 +134,7 @@ public class PatientUpdater {
     					  log.error("Calling to update patient from collection " + patientId);
     				      PatientDocument doc = patientAccess.getPatientDocument(patientId);
     				      solrStorage.addPatientDocument(doc);
-    				         //commit every 10 docs for performance
-    				         if (i==10)
-    				         {
-    				        	i=0;
-    				            server.commit();
-    				         }
+    				      server.commit();
     				  }
     				server.commit();
     		}
@@ -166,5 +147,50 @@ public class PatientUpdater {
 		if (collection==null) return; // nothing to do;
 		if (collectionList.contains(collection)) return; //already got it
 		collectionList.add(collection);
+	}
+	private Set<String> getUpdatedPatients(Date maxTimeStamp, Date lastRan)
+	{
+		TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");
+		Set<String> returnValue = new HashSet<String>();
+		// patients in submission log
+		List<Object>rs = support.getUpdatedPatients(maxTimeStamp, lastRan);
+		for (Object result : rs)
+		{
+			log.info("adding patient "+result.toString()+" to update set due to patient submission");
+			returnValue.add(result.toString());
+		}
+		if (lastRan==null)
+		{  
+			// just in case last ran was deleted set it to the past
+			lastRan=new Date(System.currentTimeMillis()-200000000000L);
+		}
+		// need to get patients out of visibility and deleted logs
+		rs = support.getVisibilityUpdatedPatients(maxTimeStamp, lastRan);
+		for (Object result : rs)
+		{
+			log.info("adding patient "+result.toString()+" to update set due to updated visibility");
+			returnValue.add(result.toString());
+		}
+		rs = support.getDeletedPatients(maxTimeStamp, lastRan);
+		for (Object result : rs)
+		{
+			log.info("adding patient "+result.toString()+" to update set due to patient deletion");
+			returnValue.add(result.toString());
+		}
+		rs = support.getDeletedSeriesPatients(maxTimeStamp, lastRan);
+		for (Object result : rs)
+		{
+			log.info("adding patient "+result.toString()+" to update set due to series deletion");
+			returnValue.add(result.toString());
+		}
+		rs = support.getDeletedStudyPatients(maxTimeStamp, lastRan);
+		for (Object result : rs)
+		{
+			log.info("adding patient "+result.toString()+" to update set due to study deletion");
+			returnValue.add(result.toString());
+		}
+			
+
+		return returnValue;
 	}
 }

@@ -19,6 +19,10 @@ public interface TextSupportDAO  {
   public Date getMaxTimeStamp();
   public List<Object> getPatientsForCollection(String collection);
   public List<Object> getUpdatedPatients(Date high, Date low);
+  public List<Object> getVisibilityUpdatedPatients(Date high, Date low);
+  public List<Object> getDeletedPatients(Date high, Date low);
+  public List<Object> getDeletedSeriesPatients(Date high, Date low);
+  public List<Object> getDeletedStudyPatients(Date high, Date low);
   public List<Object> getPatients(String patientId);
   public List<Object> getCollectionDesc(String collection);
   public List<Object> getAnnotationFiles(Integer seriesPK);

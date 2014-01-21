@@ -51,7 +51,7 @@ public class PatientUpdater {
     @Transactional(propagation=Propagation.REQUIRED)
     protected void updateSubmittedPatients() throws Exception
 	  {
-    	  log.error("Solr update submitted patients has been called");
+    	  log.info("Solr update submitted patients has been called");
     	  Date maxTimeStamp;
     	  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
     	  SolrServer server = serverAccess.GetServer();

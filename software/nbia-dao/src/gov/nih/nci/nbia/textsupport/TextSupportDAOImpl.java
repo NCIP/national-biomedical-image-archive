@@ -76,7 +76,7 @@ public List<Object> getUpdatedPatients(Date high, Date low)
 		  .setTimestamp("high", high).list();
 	    }
 		if (returnValue.size()==0) {
-			   log.error("No new items in submission log");
+			   log.info("No new items in submission log");
 			   return returnValue; //nothing to do
 		}
 	} catch (HibernateException e) {
@@ -96,7 +96,7 @@ public List<Object> getVisibilityUpdatedPatients(Date high, Date low)
 		  .setTimestamp("low", low)
 		  .setTimestamp("high", high).list();
 		if (returnValue.size()==0) {
-			   log.error("No new items in submission log");
+			   log.info("No changes to items in the visibility log");
 			   return returnValue; //nothing to do
 		}
 	} catch (HibernateException e) {
@@ -116,7 +116,7 @@ public List<Object> getDeletedSeriesPatients(Date high, Date low)
 		  .setTimestamp("low", low)
 		  .setTimestamp("high", high).list();
 		if (returnValue.size()==0) {
-			   log.error("No new items in submission log");
+			   log.info("No new deleted series");
 			   return returnValue; //nothing to do
 		}
 	} catch (HibernateException e) {
@@ -136,7 +136,7 @@ public List<Object> getDeletedStudyPatients(Date high, Date low)
 		  .setTimestamp("low", low)
 		  .setTimestamp("high", high).list();
 		if (returnValue.size()==0) {
-			   log.error("No new items in submission log");
+			   log.info("No new deleted studies");
 			   return returnValue; //nothing to do
 		}
 	} catch (HibernateException e) {
@@ -156,7 +156,7 @@ public List<Object> getDeletedPatients(Date high, Date low)
 		  .setTimestamp("low", low)
 		  .setTimestamp("high", high).list();
 		if (returnValue.size()==0) {
-			   log.error("No new items in submission log");
+			   log.info("No new deleted patients");
 			   return returnValue; //nothing to do
 		}
 	} catch (HibernateException e) {
@@ -175,7 +175,7 @@ public List<Object> getPatientsForCollection(String collection)
 		returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(PATIENT_CATEGORY_QUERY)
     	  .setParameter("project", collection).list();
 		if (returnValue.size()==0) {
-			   log.error("No new items in submission log");
+			   log.info("No patients for collection");
 			   return returnValue; //nothing to do
 		   }
 	} catch (HibernateException e) {

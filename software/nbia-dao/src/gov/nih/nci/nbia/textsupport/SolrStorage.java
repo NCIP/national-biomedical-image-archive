@@ -148,6 +148,7 @@ public class SolrStorage {
 	    	seriesDoc.addField("docType","b-series");
 	    	try {
 				server.add(seriesDoc);
+				server.commit();
 			} catch (SolrServerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

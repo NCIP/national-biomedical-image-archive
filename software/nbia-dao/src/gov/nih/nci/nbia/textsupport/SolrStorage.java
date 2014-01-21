@@ -208,6 +208,27 @@ public class SolrStorage {
 			imageDoc.addField("f-scanOptions",image.getScanOptions());
 			imageDoc.addField("f-convolutionKernel",image.getConvolutionKernel());
 			imageDoc.addField("f-anatomicRegionSeq",image.getAnatomicRegionSeq());
+			// moved over from the orginal DAO to deal with memory issues
+            if (image.getFilename()!=null)
+            {
+            	NCIADicomTextObject dicomObject;
+            	//if (dicomFileCount<maxDicomFiles)
+            	//{
+				  try {
+					File dicomFile = new File(image.getFilename());
+					if (dicomFile.exists())
+					{
+					   dicomObject = new NCIADicomTextObject(dicomFile);
+					   image.setTagInfo(dicomObject.getTagElements());
+					} else
+					{
+						log.warn("**** The image file "+dicomFile+" does not exist ****");
+					}
+				  } catch (Exception e) {
+					e.printStackTrace();
+				  }
+            	//}
+            }
 			if (image.getTagInfo()!=null)
 			{
 				for (DicomTagDTO tag : image.getTagInfo())

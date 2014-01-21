@@ -55,7 +55,7 @@ public class SolrAccess {
 				          List<String> highlightSnippets = rsp.getHighlighting().get(doc.get("id").toString()).get("text");
 				          if (highlightSnippets!=null&&highlightSnippets.size()>0)
 				          {
-				        	  log.info("Found highlight"+(String)highlightSnippets.get(0));
+				        	  log.debug("Found highlight"+(String)highlightSnippets.get(0));
 				        	  highlightedHit=(String)highlightSnippets.get(0);
 				          }
 				   }

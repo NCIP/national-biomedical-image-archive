@@ -148,6 +148,7 @@ public class PatientUpdater {
 		if (collectionList.contains(collection)) return; //already got it
 		collectionList.add(collection);
 	}
+	@Transactional(propagation=Propagation.REQUIRED)
 	private Set<String> getUpdatedPatients(Date maxTimeStamp, Date lastRan)
 	{
 		TextSupportDAO support = (TextSupportDAO)SpringApplicationContext.getBean("textSupportDAO");

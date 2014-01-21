@@ -39,7 +39,7 @@ public class TextSupportDAOImpl extends AbstractDAO
     private final static String PATIENT_VISIBILITY_QUERY="select distinct patient_id from general_series where series_instance_uid in (select series_instance_uid from qc_status_history where history_timestamp between :low and :high)";
     private final static String PATIENT_SERIES_DELETED_QUERY="select distinct patient_id from general_series where series_instance_uid in (select data_id from deletion_audit_trail where data_type='GENERAL SERIES' and time_stamp between :low and :high)";
     private final static String PATIENT_STUDY_DELETED_QUERY="select distinct patient_id from patient where patient_pk_id in(select patient_pk_id from study where study_instance_uid in (select data_id from deletion_audit_trail where data_type='STUDY' and time_stamp between :low and :high))";
-    private final static String PATIENT_DELETED_QUERY="select distinct data_id from deletion_audit_trail where data_type='PATIENT' time_stamp between :low and :high";
+    private final static String PATIENT_DELETED_QUERY="select distinct data_id from deletion_audit_trail where data_type='PATIENT' and time_stamp between :low and :high";
     private final static String PATIENT_QUERY_REINDEX="select distinct patient_id from submission_history where submission_timestamp <= :high";
     private final static String PATIENT_CATEGORY_QUERY="select distinct patient_id from patient where patient_pk_id in (select patient_pk_id from trial_data_provenance where project=:project)";
     private final static String MAX_TIME_QUERY ="select max(submission_timestamp) d from submission_history";

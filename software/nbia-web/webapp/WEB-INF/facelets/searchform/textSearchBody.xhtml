@@ -24,7 +24,7 @@ L-->
 	<h:inputText id="inputValue" tabindex="40"  size="55"/>
       </td>
       <td align="left">
-	<h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>
+	<h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif"  title="Search"/>
     </td>
     </tr>
      <tr>
@@ -33,7 +33,7 @@ L-->
                 <img src="images/ajax_indicator.gif" 
                      width="16"
                      height="16" 
-                     alt=""/>
+                     alt="Searching"/>
                 <f:verbatim>&amp;nbsp;</f:verbatim>
                 Searching...
               </div>

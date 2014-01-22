@@ -188,7 +188,7 @@ L-->
 							         </f:facet>
 				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" align="center">
 							          <h:commandLink target="newWin"
-							                        onclick="doViewThumbnailPopup('#{series.series.id}'); return false;">
+							                        onclick="doViewThumbnailPopup('#{series.series.id}'); return false;"  title="Thumbnails">
 							           <h:graphicImage value="images/old_new_magnifying_glass.png"
 							             style="border: none;" width="20%"/>
 							          </h:commandLink> 
@@ -203,6 +203,7 @@ L-->
 								 <div align="center" class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}">
 								  <h:outputLink id="viewMovieLink"                       
 								                 target="slideshow" 
+								                 title = "movie link"
 								                 onclick="window.open('/ncia/viewSlideShow.jsf?seriesId=#{series.series.id}', 'slideshow', 'resizable=no,scrollbars=no,width=602,height=602');return false;">
 								     <img style="vertical-align: middle; margin-left: 5px"
 								          src="images/movie_reel_32x32.jpg"
@@ -221,7 +222,7 @@ L-->
 								 </f:facet>
 								 <div align="center" class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" >
 								 <h:commandButton image="images/dicom.gif" 
-								           onclick="doDicomTagPopup('#{series.series.id}'); return false;" 
+								           onclick="doDicomTagPopup('#{series.series.id}'); return false;"
 								           onmouseover="return overlib('View DICOM header for the first image in the series');" onmouseout="return nd();"/>
 								 </div>
 				                              </h:column>

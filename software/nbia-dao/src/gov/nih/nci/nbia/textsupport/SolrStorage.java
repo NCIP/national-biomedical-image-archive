@@ -270,6 +270,7 @@ public class SolrStorage {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	image = new GeneralImageSubDoc();
 		}
 
      }

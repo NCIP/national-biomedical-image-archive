@@ -225,8 +225,7 @@ public class SolrStorage {
 					File dicomFile = new File(image.getFilename());
 					if (dicomFile.exists())
 					{
-					   dicomObject = new NCIADicomTextObject(dicomFile);
-					   List<DicomTagDTO> tags=dicomObject.getTagElements();
+					   List<DicomTagDTO> tags=NCIADicomTextObject.getTagElements(dicomFile);
 					   if (tags!=null)
 						{
 							for (DicomTagDTO tag : tags)
@@ -249,7 +248,7 @@ public class SolrStorage {
 								    	 }
 								      }
 								   }
-									 //log.debug("added-"+elementName+"-" + tag.getData());
+									log.debug("added-"+elementName+"-" + tag.getData());
 								   imageDoc.addField(elementName,tag.getData());
 			 					}
 							}
@@ -280,8 +279,9 @@ public class SolrStorage {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	image = new GeneralImageSubDoc();
 		}
+		// get memory back
+		series.setGeneralImageCollection(null);
 		log.info("**** Text of "+x+" image documents is "+ y/1000 + "kb ");
         return x;
      }

@@ -55,67 +55,14 @@ import org.apache.commons.io.IOUtils;
  *
  * @author NCIA Team
  */
-public class NCIADicomTextObject extends FileObject {
-    private static final DcmParserFactory pFact = DcmParserFactory.getInstance();
-    private static final DcmObjectFactory oFact = DcmObjectFactory.getInstance();
-    private static final DictionaryFactory dFact = DictionaryFactory.getInstance();
-    private static final TagDictionary tagDictionary = dFact.getDefaultTagDictionary();
-    private Dataset dataset = null;
-    private SpecificCharacterSet scharset = null;
-    private String nullValue = "null";
-    
-    public static boolean isDicom(InputStream inputStream){
-		DcmParser parser = pFact.newDcmParser(inputStream);
-		 
-		FileFormat fileFormat = null;
-		try {
-			fileFormat = parser.detectFileFormat();
-		}
-		catch(Throwable t) {
-			fileFormat = null;
-		}
-		if (fileFormat == null){
-			return false;
-		}else{
-			return true;
-		}
-		
-    }
-    
-    public static String loadSOPInstanceUID(File dicomFile) throws Exception {
-    	InputStream inputStream = new BufferedInputStream(new FileInputStream(dicomFile));
-			
-    	try {
-			DcmParser parser = pFact.newDcmParser(inputStream);
-				 
-			FileFormat fileFormat = null;
-			try {
-				fileFormat = parser.detectFileFormat();
-			}
-			catch(Throwable t) {
-				fileFormat = null;
-			}
-	        if (fileFormat == null) {
-	        	return null;
-	        }
-		 
-		    Dataset dataset = oFact.newDataset();
-		    parser.setDcmHandler(dataset.getDcmHandler());
-		    parser.parseDcmFile(fileFormat, Tags.PixelData);
-		    
-		    return dataset.getString(Tags.SOPInstanceUID);
-    	}
-    	finally {
-    		IOUtils.closeQuietly(inputStream);
-    	}
-    }
-    
-    
-    public NCIADicomTextObject(File file) throws Exception {
-        super(file);
+public class NCIADicomTextObject{
 
+    
+    public static List<DicomTagDTO> getTagElements(File file) throws Exception {
+        DcmParserFactory pFact = DcmParserFactory.getInstance();
+        DcmObjectFactory oFact = DcmObjectFactory.getInstance();
         BufferedInputStream in = null;
-
+        List<DicomTagDTO> allElements = new ArrayList<DicomTagDTO>();
         try {
             in = new BufferedInputStream(new FileInputStream(file));
 
@@ -126,15 +73,21 @@ public class NCIADicomTextObject extends FileObject {
                 throw new IOException("Unrecognized file format: " + file);
             }
 
-            dataset = oFact.newDataset();
+            Dataset dataset = oFact.newDataset();
             parser.setDcmHandler(dataset.getDcmHandler());
             //Parse the file, but don't get the pixels in order to save heap space
             parser.parseDcmFile(fileFormat, Tags.PixelData);
             //See if this is a real image.
             boolean isImage = (parser.getReadTag() == Tags.PixelData);
             //Get the charset in case we need it for manifest processing.
-            scharset = dataset.getSpecificCharacterSet(); 
+
             in.close();
+
+            SpecificCharacterSet cs = dataset.getSpecificCharacterSet(); 
+            allElements.addAll(walkDataset(dataset.getFileMetaInfo(), cs,""));
+            allElements.addAll(walkDataset(dataset, cs,""));
+            parser=null;
+         
         } 
         catch (Exception exception) {
             if (in != null) {
@@ -143,19 +96,9 @@ public class NCIADicomTextObject extends FileObject {
 
             throw exception;
         }
-    }
-
-    /**
-     *
-     */
-    public List<DicomTagDTO> getTagElements() {
-        List<DicomTagDTO> allElements = new ArrayList<DicomTagDTO>();
-        SpecificCharacterSet cs = dataset.getSpecificCharacterSet(); 
-        allElements.addAll(walkDataset(dataset.getFileMetaInfo(), cs,""));
-        allElements.addAll(walkDataset(dataset, cs,""));
-
         return allElements;
     }
+
 
     /**
      * Walks over all the dicom tags and pulls out the values.
@@ -163,7 +106,7 @@ public class NCIADicomTextObject extends FileObject {
      * @param dataset
      * @param cs
      */
-    private List<DicomTagDTO> walkDataset(DcmObject dataset, SpecificCharacterSet cs, String prefix) {
+    private static List<DicomTagDTO> walkDataset(DcmObject dataset, SpecificCharacterSet cs, String prefix) {
         List<DicomTagDTO> tagList = new ArrayList<DicomTagDTO>();
         //int maxLength = 80;
         DcmElement el;
@@ -171,6 +114,8 @@ public class NCIADicomTextObject extends FileObject {
         String tagName;
         String vrString;
         String valueString;
+        DictionaryFactory dFact = DictionaryFactory.getInstance();
+        TagDictionary tagDictionary = dFact.getDefaultTagDictionary();
         //String valueLength;
         int vr;
 
@@ -211,18 +156,18 @@ public class NCIADicomTextObject extends FileObject {
     }
 
     //Handle null element values (e.g. missing elements).
-    private String checkForNull(String s) {
+    private static String checkForNull(String s) {
         if (s != null) {
             return s;
         }
 
-        return nullValue;
+        return "null";
     }
 
     //Make a displayable text value for an element, handling
     //cases where the element is multivalued and where the element value
     //is too long to be reasonably displayed.
-    private String getElementValueString(SpecificCharacterSet cs, DcmElement el) {
+    private static String getElementValueString(SpecificCharacterSet cs, DcmElement el) {
         int tag = el.tag();
 
         if ((tag & 0xffff0000) >= 0x60000000) {

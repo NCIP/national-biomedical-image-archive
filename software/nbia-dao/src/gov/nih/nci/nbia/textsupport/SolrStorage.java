@@ -28,7 +28,7 @@ public class SolrStorage {
 		//  and doctype and text by using the field parameter of solrquery
 	    SolrInputDocument solrDoc = new SolrInputDocument();
 	    // get rid of all of this patients documents before adding updated ones
-	    server.deleteByQuery( "patientId:"+patientDocument.getId());
+	    server.deleteByQuery( "patientId:"+patientDocument.getPatientId());
 	    solrDoc.addField( "id", patientDocument.getId());
 	    solrDoc.addField( "patientId", patientDocument.getPatientId());
 	    solrDoc.addField("f-ethnicGroup", patientDocument.getEthnicGroup());
@@ -42,15 +42,15 @@ public class SolrStorage {
 		       solrDoc=fillInTrialDP(solrDoc, patientDocument);
 		}
 	    solrDoc=fillInStudies(solrDoc, patientDocument);
-	    String allFields=documentString(solrDoc);
-	    log.info("**** Text of patient document is "+allFields.length() + " characters long");
+	    //String allFields=documentString(solrDoc);
+	    //log.info("**** Text of patient document is "+allFields.length() + " characters long");
 	    // in the end it was not feasible to retrieve all the information from solr
 	    // so broke out into subdocs - patient series and image
 	    // prefixing with a b and c allows the grouping in the solr query
 	    // to bring the most important document to the top
 	    solrDoc.addField("docType","a-patient");
 	    server.add(solrDoc);
-	    log.warn("Solr has stored documents for -"+patientDocument.getId());
+	    log.warn("Solr has stored documents for -"+patientDocument.getPatientId());
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,6 +88,7 @@ public class SolrStorage {
 	{
 		if (patient.getStudyCollection()==null) return document;
 		int i=0;
+		long totalImages=0;
 		for (StudyDoc study : patient.getStudyCollection()){
 			i++;
 			String studyIndentifier = "f-Study"+i+"^";
@@ -101,20 +102,21 @@ public class SolrStorage {
 			document.addField(studyIndentifier+"timePointId", study.getTimePointId());
 			document.addField(studyIndentifier+"ageGroup", study.getAgeGroup());
 			document.addField(studyIndentifier+"occupation", study.getOccupation());
-			fillInSeries(document, study, "Study"+i+"-");
+			totalImages=totalImages+fillInSeries(document, study, "Study"+i+"-");
 		}
-
+        log.info(totalImages+" stored for patient "+patient.getPatientId());
 		return document;
 	}
-	private void fillInSeries(SolrInputDocument document, StudyDoc study, String studyIndentifier)
+	private long fillInSeries(SolrInputDocument document, StudyDoc study, String studyIndentifier)
 	{
 		
-		if (study.getGeneralSeriesCollection()==null) return;
+		if (study.getGeneralSeriesCollection()==null) return 0;
+		long totalImages=0;
 		int i=0;
 		for (GeneralSeriesSubDoc series : study.getGeneralSeriesCollection()){
 			i++;
 			SolrInputDocument seriesDoc = new SolrInputDocument();
-			String orginalId = document.getField("id").toString();
+			String orginalId = document.getFieldValue("id").toString();
 			String seriesIndentifier = "Patient-"+orginalId+"-"+studyIndentifier+"Series-"+i;
 			seriesDoc.addField("id",seriesIndentifier);
 			seriesDoc.addField("f-modality",series.getModality());
@@ -142,9 +144,9 @@ public class SolrStorage {
 			}
 
 			seriesDoc=fillInEquipment(seriesDoc, series.getGeneralEquipment(), "Series"+i+"-");
-			fillInImages(seriesDoc, series, "Series"+i+"-");
+			totalImages=totalImages+fillInImages(seriesDoc, series, "Series"+i+"-");
 	    	String seriesFields=documentString(seriesDoc);
-	    	log.info("**** Text of series document is "+seriesFields.length() + " characters long");
+	    	log.debug("**** Text of series document is "+seriesFields.length() + " characters long");
 	    	seriesDoc.addField("docType","b-series");
 	    	try {
 				server.add(seriesDoc);
@@ -157,7 +159,7 @@ public class SolrStorage {
 				e.printStackTrace();
 			}
 		}
-
+        return totalImages;
 	}
 	private SolrInputDocument fillInEquipment(SolrInputDocument document, GeneralEquipmentSubDoc equipment, String seriesIndentifier)
 	{
@@ -174,17 +176,21 @@ public class SolrStorage {
 		document.addField(equipmentIdentifier+"stationName",equipment.getStationName());
 		return document;
 	}
-	private void fillInImages(SolrInputDocument document, GeneralSeriesSubDoc series, String seriesIndentifier)
+	private long fillInImages(SolrInputDocument document, GeneralSeriesSubDoc series, String seriesIndentifier)
 	{
 		
-		if (series.getGeneralImageCollection()==null) return;
+		if (series.getGeneralImageCollection()==null) return 0;
 		int x=0;
+		long y=1;
+		// to be safe we will commit every 100 docs some of them are pretty big
+		// and the process slows down due to memory
+		int commitCounter=0;
 		for (GeneralImageSubDoc image : series.getGeneralImageCollection()){
 			x++;
-			
+			commitCounter++;
 			SolrInputDocument imageDoc = new SolrInputDocument();
 			String orginalId = document.getField("id").toString();
-			String imageIdentifier = "Patient-"+orginalId+"-"+seriesIndentifier+"Image-"+x;
+			String imageIdentifier = "Patient-"+orginalId+"-"+"Image-"+x;
 			imageDoc.addField("id",imageIdentifier);
 			imageDoc.addField("f-imageType",image.getImageType());
 			imageDoc.addField("f-lossyImageCompression",image.getLossyImageCompression());
@@ -220,7 +226,34 @@ public class SolrStorage {
 					if (dicomFile.exists())
 					{
 					   dicomObject = new NCIADicomTextObject(dicomFile);
-					   image.setTagInfo(dicomObject.getTagElements());
+					   List<DicomTagDTO> tags=dicomObject.getTagElements();
+					   if (tags!=null)
+						{
+							for (DicomTagDTO tag : tags)
+							{
+								if (tag.getData()!=null&&(tag.getData().length()>2))
+								{
+								   String elementName="f-dicomTag-"+tag.getElement()+"^"+tag.getName();
+								   String orginalName=elementName;
+								   //log.debug(elementName + " - " + tag.getData());
+								   if (document.get(elementName)!=null) // tag has multiple values, so we needed make up a unique name
+								   {
+								     for (int i=0; i<100000; i++) // that would be a real lot of values
+								     {
+								    	 String newElementName=elementName+"-"+i;
+								    	 //log.debug(newElementName + " - " + tag.getData());
+								    	 if (document.get(newElementName)==null)
+								    	 {
+								    		 elementName=newElementName;
+								    		 break;
+								    	 }
+								      }
+								   }
+									 //log.debug("added-"+elementName+"-" + tag.getData());
+								   imageDoc.addField(elementName,tag.getData());
+			 					}
+							}
+			            }
 					} else
 					{
 						log.warn("**** The image file "+dicomFile+" does not exist ****");
@@ -230,39 +263,16 @@ public class SolrStorage {
 				  }
             	//}
             }
-			if (image.getTagInfo()!=null)
-			{
-				for (DicomTagDTO tag : image.getTagInfo())
-				{
-					if (tag.getData()!=null&&(tag.getData().length()>2))
-					{
-					   String elementName="f-dicomTag-"+tag.getElement()+"^"+tag.getName();
-					   String orginalName=elementName;
-					   //log.debug(elementName + " - " + tag.getData());
-					   if (document.get(elementName)!=null) // tag has multiple values, so we needed make up a unique name
-					   {
-					     for (int i=0; i<100000; i++) // that would be a real lot of values
-					     {
-					    	 String newElementName=elementName+"-"+i;
-					    	 //log.debug(newElementName + " - " + tag.getData());
-					    	 if (document.get(newElementName)==null)
-					    	 {
-					    		 elementName=newElementName;
-					    		 break;
-					    	 }
-					      }
-					   }
-						 //log.debug("added-"+elementName+"-" + tag.getData());
-					   imageDoc.addField(elementName,tag.getData());
- 					}
-				}
-            }
-	    	String imageFields=documentString(imageDoc);
-	    	log.info("**** Text of image document is "+imageFields.length() + " characters long");
-	    	//imageDoc.addField("text", imageFields);
+            y=y+documentString(imageDoc).length();
 	    	imageDoc.addField("docType","c-image");
 	    	try {
 				server.add(imageDoc);
+				if (commitCounter==100)
+				{
+					log.info("Perform interum commit "+orginalId);
+					commitCounter=0;
+					server.commit();
+				}
 			} catch (SolrServerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -272,7 +282,8 @@ public class SolrStorage {
 			}
 	    	image = new GeneralImageSubDoc();
 		}
-
+		log.info("**** Text of "+x+" image documents is "+ y/1000 + "kb ");
+        return x;
      }
 	 // depricated by the use of copyfield
 	  private String documentString(SolrInputDocument solrDoc)

@@ -197,8 +197,6 @@ public class PatientAccessDAOImpl extends AbstractDAO
 						}
 						studyDocs.add(studyDoc);
 					}
-					log.info("************** total image files indexed **************");
-					log.info("**************     " +dicomFileCount + "      **************");
 					returnValue.setStudyCollection(studyDocs);
 			}
 			

@@ -331,16 +331,7 @@ public class PatientAccessDAOImpl extends AbstractDAO
             	imageDoc.setConvolutionKernel(ctImage.getConvolutionKernel());
             	imageDoc.setAnatomicRegionSeq(ctImage.getAnatomicRegionSeq());
             }
-            if (image.getFilename()!=null)
-            {
-            	NCIADicomTextObject dicomObject;
-				try {
-					dicomObject = new NCIADicomTextObject(new File(image.getFilename()));
-					imageDoc.setTagInfo(dicomObject.getTagElements());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-            }
+            imageDoc.setFilename(image.getFilename());
 			imageDocs.add(imageDoc);
 		    
 		}

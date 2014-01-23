@@ -3,7 +3,6 @@ import gov.nih.nci.ncia.dto.DicomTagDTO;
 
 import java.io.*;
 import java.util.*;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.*;
 import org.apache.solr.client.solrj.embedded.*;

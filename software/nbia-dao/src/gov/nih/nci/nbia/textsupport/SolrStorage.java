@@ -3,7 +3,7 @@ import gov.nih.nci.ncia.dto.DicomTagDTO;
 
 import java.io.*;
 import java.util.*;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.*;
 import org.apache.solr.client.solrj.embedded.*;
@@ -28,7 +28,11 @@ public class SolrStorage {
 		//  and doctype and text by using the field parameter of solrquery
 	    SolrInputDocument solrDoc = new SolrInputDocument();
 	    // get rid of all of this patients documents before adding updated ones
-	    server.deleteByQuery( "patientId:"+patientDocument.getPatientId());
+	    try {
+			server.deleteByQuery( "patientId:"+patientDocument.getPatientId()); 
+		} catch (Exception e) {
+			log.warn("Unable to delete old document for patient "+patientDocument.getPatientId());
+		}
 	    solrDoc.addField( "id", patientDocument.getId());
 	    solrDoc.addField( "patientId", patientDocument.getPatientId());
 	    solrDoc.addField("f-ethnicGroup", patientDocument.getEthnicGroup());

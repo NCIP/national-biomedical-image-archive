@@ -67,17 +67,18 @@ public class NCIADatabase extends DatabaseAdapter{
    	
     public Status process(DicomObject file, File storedFile,String url) {
     	Status status = Status.OK;
+    	File anonymizedFile = anonymizeFile(file);
     	try{
     		System.out.println("hashCode: " + this.hashCode());
     		// Temporary fix until new CTP release provides a better solution
-    		delegator.setCorrectFileSize(anonymizeFile(file));
+    		delegator.setCorrectFileSize(anonymizedFile);
     		delegator.process(file, storedFile, url);
     		status = Status.OK;
-    		
     	}catch(RuntimeException rx){
     		log.error("Dicom Submission Failed!");
     		status = Status.FAIL;
     	}
+    	anonymizedFile.delete();
     	return status;
     }
     

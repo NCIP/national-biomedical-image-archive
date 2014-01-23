@@ -37,7 +37,7 @@ L-->
 		</f:subview>
       	  </h:panelGroup>
       	</td>  
-      	<td>
+      	<td width="20%">
 	      	 <ice:dataTable id="tableOfPatientResultTables1"
 	   	                            value="#{searchResultBean.nodeTablesWrappers}"
 	   	                            var="perNodeResult"
@@ -49,7 +49,7 @@ L-->
 	   	</ice:column>
            </ice:dataTable>
   	</td>
-      	<td>
+      	<td width="45%">
       	<h:inputHidden id="unauthorizedCollections" value="true" />
   		<h:message for="unauthorizedCollections" errorClass="errorLabel" infoClass="infoLabel" />
       	      <f:subview id="saveQueryView" rendered="#{!anonymousLoginBean.guestLoggedIn or searchWorkflowBean.dynamicSearch}">
@@ -299,12 +299,6 @@ L-->
 					</h:form>
 					</td>
 					</f:subview>
-					<f:subview id="advSubView2" rendered="#{searchWorkflowBean.advanced}">
-					<td valign="top" width="10%">
-					
-					   <ui:include src="textSearchBody.xhtml" />
-				</td>
-				</f:subview>
 			<td valign="top" width="90%" class="formField">
 			<f:subview id="criteriaView" >
 			  <ui:include src="../searchresults/searchResult.xhtml" />

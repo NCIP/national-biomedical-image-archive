@@ -335,7 +335,7 @@
 
   <!-- The default high-performance update handler -->
   <updateHandler class="solr.DirectUpdateHandler2">
-
+    <str name="df">patientId</str>
     <!-- Enables a transaction log, used for real-time get, durability, and
          and solr cloud replica recovery.  The log can grow as big as
          uncommitted changes to the index, so use of a hard autoCommit

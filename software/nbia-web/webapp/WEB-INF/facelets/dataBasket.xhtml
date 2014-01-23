@@ -232,98 +232,135 @@ L-->
               <tr>
                 <td colspan="7">
                   <ice:dataTable id="dataBasketDataTable"
-                               width="100%" 
                                border="1" 
                                cellpadding="3" 
                                cellspacing="0" 
                                value="#{basketBean.sortedSeriesItems}"
                                scrollHeight="30em"
+                               scrollable="true"
                                var="item"
                                sortColumn="#{basketBean.sortColumnName}"
         	 	       sortAscending="#{basketBean.ascending}"
-        	 	       columnClasses="columnClasses1, columnClasses2, columnClasses3, columnClasses4, columnClasses5, columnClasses6, columnClasses7, columnClasses8, columnClasses9, columnClasses10, columnClasses11" >
+        	 	       columnWidths="35px,145px,70px,90px,180px,70px,190px,40px,40px,65px,45px" >
         	 	      
                     <h:column id="viewColumn" >
                       <f:facet name="header">
+                      	<ice:panelGroup style="width:40px">
                         <h:outputText value="#{msg.common_view_image}" />
+                        </ice:panelGroup>
                       </f:facet>
                       <!-- 
                       action="#{basketBean.viewSeriesData}"  -->
+                      <ice:panelGroup style="width:40px">
                       <h:commandLink target="newWin"
                                      onclick="doViewSeriesPopup('#{item.seriesId}','#{item.locationDisplayName}','#{item.gridLocation}'); return false;">
                         <h:graphicImage value="images/old_new_magnifying_glass.png"
                                         style="border: none;"/>
                       </h:commandLink> 
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="subjectIdColumn">
                       <f:facet name="header">
+                      <ice:panelGroup style="width:145px">
                          <ice:commandSortHeader columnName="#{basketBean.subjectIDHeader}" arrow="true" >
 			   <ice:outputText value="#{basketBean.subjectIDHeader}"/>
     			 </ice:commandSortHeader>
+    			</ice:panelGroup> 
                       </f:facet>
+                      <ice:panelGroup style="width:145px">
                       <h:outputText value="#{item.patientId}" />
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="studyIdColumn">
                       <f:facet name="header">
-                        <ice:commandSortHeader columnName="#{basketBean.studyUIDHeader}" arrow="true" >
+                      <ice:panelGroup style="width:70px">
 			   <ice:outputText value="#{basketBean.studyUIDHeader}"/>
-    			 </ice:commandSortHeader>
+			</ice:panelGroup>   
                       </f:facet>
+                      <ice:panelGroup style="width:70px">
                       <h:outputText value="...."/><h:outputText value="#{fn:substring(item.studyId,fn:length(item.studyId)-8,fn:length(item.studyId))}" />
+                      
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="studyDateColumn">
                       <f:facet name="header">
+                      <ice:panelGroup style="width:90px">
                         <h:outputText value="#{msg.common_study_date}" />
+                        </ice:panelGroup>
                       </f:facet>
+                      <ice:panelGroup style="width:90px">
                       <h:outputText value="#{item.studyDate}" />
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="studyDescriptionColumn">
                       <f:facet name="header">
-                        <ice:commandSortHeader columnName="#{basketBean.studyDescHeader}" arrow="true" >
+                      <ice:panelGroup style="width:180px">
+                      <ice:commandSortHeader columnName="#{basketBean.studyDescHeader}" arrow="true" >
 			    <ice:outputText value="#{basketBean.studyDescHeader}"/>
-    			 </ice:commandSortHeader>
+			</ice:commandSortHeader>    
+			</ice:panelGroup>
                       </f:facet>
+                      <ice:panelGroup style="width:180px">
                       <h:outputText value="#{item.studyDescription}" />
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="seriesIdColumn">
                       <f:facet name="header">
-                        <ice:commandSortHeader columnName="#{basketBean.seriesIDHeader}" arrow="true" >
+                      <ice:panelGroup style="width:70px">
 			   <ice:outputText value="#{basketBean.seriesIDHeader}"/>
-    			 </ice:commandSortHeader>
+		       </ice:panelGroup>	   
                       </f:facet>
+                      <ice:panelGroup style="width:70px">
                       <h:outputText value="...."/><h:outputText value="#{fn:substring(item.seriesId,fn:length(item.seriesId)-8,fn:length(item.seriesId))}" />
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="seriesDescriptionColumn">
                       <f:facet name="header">
-                        <ice:commandSortHeader columnName="#{basketBean.seriesDescHeader}" arrow="true" >
+                      <ice:panelGroup style="width:190px">
+                      <ice:commandSortHeader columnName="#{basketBean.seriesDescHeader}" arrow="true" >
 				<ice:outputText value="#{basketBean.seriesDescHeader}"/>
-    			 </ice:commandSortHeader>
+		       </ice:commandSortHeader>	
+		       </ice:panelGroup>
                       </f:facet>
+                      <ice:panelGroup style="width:190px">
                       <h:outputText value="#{item.seriesDescription}" />
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="availableImagesColumn">
                       <f:facet name="header">
+                      <ice:panelGroup style="width:45px">
                         <ice:commandSortHeader columnName="#{basketBean.numberOfImageHeader}" arrow="true" >
-			     <ice:outputText value="#{basketBean.numberOfImageHeader}"/>
+			      <ice:outputText value="#{basketBean.numberOfImageHeader}"/>
     			 </ice:commandSortHeader>
+    			 </ice:panelGroup>
                       </f:facet>
+                      <ice:panelGroup style="width:45px">
                       <h:outputText value="#{item.totalImagesInSeries}" />
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="dataBasketSizeColumn">
                       <f:facet name="header">
+                      <ice:panelGroup style="width:40px">
                         <ice:commandSortHeader columnName="#{basketBean.fileSizeHeader}" arrow="true" >
 			     <ice:outputText value="#{basketBean.fileSizeHeader}"/>
     			 </ice:commandSortHeader>
+    			 </ice:panelGroup>
                       </f:facet>
+                      <ice:panelGroup style="width:40px">
                       <h:outputText value="#{item.imageSize}"/>
+                      </ice:panelGroup>
                     </h:column>
                     <h:column id="annotationsSizeColumn" style="white-space: normal;">
                       <f:facet name="header">
+                      <ice:panelGroup style="width:65px">
                          <ice:commandSortHeader columnName="#{basketBean.annotationFileSizeHeader}" arrow="true" >
 				<ice:outputText value="#{basketBean.annotationFileSizeHeader}" style="a:link{white-space: normal;}"/>
     			 </ice:commandSortHeader>
+    			 </ice:panelGroup>
                       </f:facet>
+                      <ice:panelGroup style="width:65px">
                       <h:outputText value="#{item.annotationSize3Digits}" escape="false"/>
+                      </ice:panelGroup>
                     </h:column>  
                     <!-- h:column id="dataBasketDeleteColumn">
                       <f:facet name="header">
@@ -345,7 +382,12 @@ L-->
                       <h:outputText value="#{item.locationDisplayName}" />
                     </h:column-->
 		    <h:column id="dataBasketDeleteColumn">
-                     <f:facet name="header">Remove</f:facet>
+                     <f:facet name="header">
+                     <ice:panelGroup style="width:45px">
+                     Remove
+                     </ice:panelGroup>
+                     </f:facet>
+                     <ice:panelGroup style="width:45px">
 		         <div align="center">
 		                <h:commandButton image="images/remove_icon.png"
 		                                     alt="Remove" title="Remove"
@@ -355,7 +397,7 @@ L-->
                                                       value="#{item.seriesPkId}||#{item.gridLocation}"/>
                                </h:commandButton>                       
                           </div>                            
-                    
+                    </ice:panelGroup>
                     </h:column>                                                    
                   </ice:dataTable>
                   

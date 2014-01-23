@@ -68,10 +68,6 @@ public class SolrAccess {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		for (SolrAllDocumentMetaData hit : returnValue)
-		{
-			System.out.println(hit);
-		}
 		return returnValue;
 
 	}

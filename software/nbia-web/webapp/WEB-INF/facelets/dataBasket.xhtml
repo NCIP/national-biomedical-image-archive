@@ -274,10 +274,12 @@ L-->
                     <h:column id="studyIdColumn">
                       <f:facet name="header">
                       <ice:panelGroup style="width:70px">
+                      <ice:commandSortHeader columnName="#{basketBean.studyUIDHeader}" arrow="true" >
 			   <ice:outputText value="#{basketBean.studyUIDHeader}"/>
+		       </ice:commandSortHeader>			   
 			</ice:panelGroup>   
                       </f:facet>
-                      <ice:panelGroup style="width:70px">
+                      <ice:panelGroup style="width:70px" onmouseover="return overlib('#{item.studyId}');" onmouseout="return nd();">
                       <h:outputText value="...."/><h:outputText value="#{fn:substring(item.studyId,fn:length(item.studyId)-8,fn:length(item.studyId))}" />
                       
                       </ice:panelGroup>
@@ -307,11 +309,13 @@ L-->
                     <h:column id="seriesIdColumn">
                       <f:facet name="header">
                       <ice:panelGroup style="width:70px">
+                      <ice:commandSortHeader columnName="#{basketBean.seriesIDHeader}" arrow="true" >
 			   <ice:outputText value="#{basketBean.seriesIDHeader}"/>
+			</ice:commandSortHeader>   
 		       </ice:panelGroup>	   
                       </f:facet>
-                      <ice:panelGroup style="width:70px">
-                      <h:outputText value="...."/><h:outputText value="#{fn:substring(item.seriesId,fn:length(item.seriesId)-8,fn:length(item.seriesId))}" />
+                      <ice:panelGroup style="width:70px" onmouseover="return overlib('#{item.seriesId}');" onmouseout="return nd();">
+                      <h:outputText value="...."/><h:outputText value="#{fn:substring(item.seriesId,fn:length(item.seriesId)-8,fn:length(item.seriesId))}"/>
                       </ice:panelGroup>
                     </h:column>
                     <h:column id="seriesDescriptionColumn">

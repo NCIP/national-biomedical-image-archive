@@ -33,7 +33,7 @@ L-->
 			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
 		</div>
 	</td>
-	<td>
+	<td width="60%">
 	    <ice:dataTable id="tableOfPatientResultTables1"
 	   	                            value="#{searchResultBean.nodeTablesWrappers}"
 	   	                            var="perNodeResult"
@@ -52,9 +52,12 @@ L-->
       </td>
      </tr>
      <tr>
-      <td valign="top"  width="20%">
-     	<ice:form id="iceForm" >
-        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" >
+     <td width="7%">
+     </td>
+     
+      <td valign="top">
+        <ice:form id="iceForm" >
+        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" style="width:50%; height:60%;">
         
 	    <tr>
 	        <td>
@@ -70,6 +73,9 @@ L-->
 	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
 	          </ice:selectOneMenu>            
 	        </td>
+	        <td width="10%">
+	        </td>
+	        
 	        <td>
 	        		<h:inputText id="testSearchValue" value="#{dynamicSearchBean.textValue}" tabindex="40"  size="55"/>
              </td>
@@ -83,7 +89,9 @@ L-->
     </tr>
 
 <tr>
-      <td valign="top">
+<td width="7%">
+     </td>
+      <td valign="top" >
         <table cellspacing="0" cellpadding="0" border="0" width="100%" >
                <tr>
                <td>

@@ -145,8 +145,8 @@ L-->
                  styleClass="contentPage"
                  sortColumn="#{searchResultBean.sortColumnName}"
         	 sortAscending="#{searchResultBean.ascending}"
-                 columnWidths="40em,15%,25%,12%,10%,12%,10%,5%">
-    <h:column id="collectionIdColumn">
+                 columnWidths="100px,150px,400px,60px,60px,40px">
+    <h:column id="collectionIdColumn" style="text-align:center;width:100px">
       <f:facet name="header">
         <h:panelGroup>
        		<ice:commandSortHeader columnName="#{searchResultBean.collectionNameHeader}" arrow="true" >
@@ -158,7 +158,7 @@ L-->
         <h:outputText value="#{result.patient.project}" />
       </div>
     </h:column>
-    <h:column id="subjectIdColumn" style="text-align:center;">
+    <h:column id="subjectIdColumn" style="text-align:center;width:150px">
           <f:facet name="header">
             <h:panelGroup>
     		<ice:commandSortHeader columnName="#{searchResultBean.patientHeader}" arrow="true" >
@@ -173,7 +173,7 @@ L-->
                            actionListener="#{perNodeResult.viewPatient}" />
           </div>
     </h:column>
-    <h:column id="hitColumn">
+    <h:column id="hitColumn" style="text-align:center;width:400px">
       <f:facet name="header">
         <h:panelGroup>
           <ice:commandSortHeader columnName="#{searchResultBean.hitHeader}" arrow="true" >
@@ -185,19 +185,7 @@ L-->
         <h:outputText value="#{result.hit}"  escape="false"/>
       </div>
     </h:column>
-    <h:column id="matchStudiesCountColumn">
-      <f:facet name="header">
-        <h:panelGroup>
-          <ice:commandSortHeader columnName="#{searchResultBean.matchedStudyHeader}" arrow="true" >
-	      		<ice:outputText value="#{searchResultBean.matchedStudyHeader}"/>
-    	</ice:commandSortHeader>
-        </h:panelGroup>
-      </f:facet>
-      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
-        <h:outputText value="#{result.studyCounts}"  />
-      </div>
-    </h:column>
-    <h:column id="totalStudiesCountColumn">
+    <h:column id="totalStudiesCountColumn" style="text-align:center;width:60px">
           <f:facet name="header">
             <h:panelGroup>
              <ice:commandSortHeader columnName="#{searchResultBean.totalStudyHeader}" arrow="true" >
@@ -209,19 +197,7 @@ L-->
             <h:outputText value="#{result.patient.totalNumberOfStudies}"  />
           </div>
     </h:column>
-    <h:column id="matchedSeriesCountColumn">
-      <f:facet name="header">
-        <h:panelGroup>
-         <ice:commandSortHeader columnName="#{searchResultBean.matchedSeriesHeader}" arrow="true" >
-	 	<ice:outputText value="#{searchResultBean.matchedSeriesHeader}"/>
-    	</ice:commandSortHeader>
-        </h:panelGroup>
-      </f:facet>
-      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
-        <h:outputText value="#{result.seriesCounts}" />
-      </div>
-    </h:column>
-    <h:column id="totalSeriesCountColumn">
+    <h:column id="totalSeriesCountColumn" style="text-align:center;width:60px">
           <f:facet name="header">
             <h:panelGroup>
              <ice:commandSortHeader columnName="#{searchResultBean.totalSeriesHeader}" arrow="true" >
@@ -233,7 +209,7 @@ L-->
             <h:outputText value="#{result.patient.totalNumberOfSeries}" />
           </div>
     </h:column>
-    <h:column id="addToBasketColumn">
+    <h:column id="addToBasketColumn" style="text-align:center;width:60px">
     <f:facet name="header">
      	<h:commandButton action="#" image="images/cart-empty.png"  title="Add to Basket"/>
             

@@ -742,7 +742,7 @@ public class SearchWorkflowBean {
     	dynamicSearch = false;
         advanced = false;
         usSearch = false;
-
+        freeTextSearch = false;
         return newSearch();
     }
 

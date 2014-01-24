@@ -45,7 +45,7 @@ public class NCIADatabase extends DatabaseAdapter{
    			e.printStackTrace();
    		}
    	}
-   	
+
    	// Temporary fix until new CTP release provides a better solution
    	private File anonymizeFile(DicomObject infile) {
    		Configuration config = Configuration.getInstance();
@@ -61,29 +61,31 @@ public class NCIADatabase extends DatabaseAdapter{
 		File outDicomFile = new File(inDicomFile.getAbsolutePath()+"tmp");
 		AnonymizerStatus anonStatus =
 				DICOMAnonymizer.anonymize(inDicomFile, outDicomFile, script, lookup, intTable, false, false);
-		
+
 		return outDicomFile;
    	}
-   	
+
     public Status process(DicomObject file, File storedFile,String url) {
     	Status status = Status.OK;
+    	File anonymizedFile = anonymizeFile(file);
     	try{
     		System.out.println("hashCode: " + this.hashCode());
     		// Temporary fix until new CTP release provides a better solution
-    		delegator.setCorrectFileSize(anonymizeFile(file));
+    		delegator.setCorrectFileSize(anonymizedFile);
     		delegator.process(file, storedFile, url);
     		status = Status.OK;
-    		
+
     	}catch(RuntimeException rx){
     		log.error("Dicom Submission Failed!");
     		status = Status.FAIL;
     	}
+    	anonymizedFile.delete();
     	return status;
     }
-    
+
     public Status process(XmlObject file,File storedFile, String url) {
     	Status status = Status.OK;
-    	
+
     	try{
     		status = delegator.process(file, storedFile, url);
     	}catch(RuntimeException rx){
@@ -91,12 +93,12 @@ public class NCIADatabase extends DatabaseAdapter{
     		status = Status.FAIL;
     	}
     	return status;
-    	
+
     }
-    
+
     public Status process(ZipObject file, File storedFile, String url) {
     	Status status = Status.OK;
-    	
+
     	try{
     		delegator.process(file, storedFile, url);
     		status = Status.OK;
@@ -105,12 +107,12 @@ public class NCIADatabase extends DatabaseAdapter{
     		status = Status.FAIL;
     	}
     	return status;
-    	
+
     }
-    
+
     public Status process(FileObject file, File storedFile, String url) {
     	Status status = Status.OK;
-    	
+
     	try{
     		delegator.process(file, storedFile, url);
     		status = Status.OK;
@@ -119,12 +121,12 @@ public class NCIADatabase extends DatabaseAdapter{
     		status = Status.FAIL;
     	}
     	return status;
-    	
+
     }
-    
+
     public Map<String, UIDResult> uidQuery(Set<String> uidSet)
     {
     	return delegator.uidQuery(uidSet);
     }
-    
+
 }

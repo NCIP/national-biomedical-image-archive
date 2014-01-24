@@ -70,8 +70,7 @@ public class PatientAccessDAOImpl extends AbstractDAO
 			   }
 			   returnValue.setDataProvenance(trialDPDoc);
 			}
-			// needed to prevent server dieing for now
-			int maxDicomFiles = 1000;
+
 			int dicomFileCount = 0;
 			if (patient.getStudyCollection()!=null)
 			{

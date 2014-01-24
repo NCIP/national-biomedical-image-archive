@@ -41,7 +41,8 @@ public class SolrAccess {
 			   query.setHighlightSimplePre("<strong>");
 			   query.setHighlightSimplePost("</strong>");
 			   query.setFields("id,patientId,f*");
-			   query.setRows(1000);
+			   // hold to 3000 values for performance
+			   query.setRows(3000);
 			   query.setParam(GroupParams.GROUP, Boolean.TRUE);
 			   query.setParam(GroupParams.GROUP_FIELD, "patientId"); 
 			   query.setParam(GroupParams.GROUP_MAIN, true);

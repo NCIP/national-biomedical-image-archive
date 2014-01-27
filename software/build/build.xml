@@ -938,7 +938,7 @@ $HeadURL$
     <get src="${ws-core.src.url}"
       dest="${ws-core.dest.file}"/>
     <get src="${ws-core.src.url}.md5"
-      dest="${ws-core.dest.file}.md5"/>
+      dest="${ws-core.dest.file}.MD5"/>
     <checksum file="${ws-core.dest.file}" verifyProperty="ws-core.cksum.ok"/>
     <if>
       <equals arg1="${ws-core.cksum.ok}" arg2="true"/>
@@ -965,7 +965,7 @@ $HeadURL$
     <get src="${jboss.src.url}"
          dest="${jboss.dest.file}"/>
     <get src="${jboss.src.url}.md5"
-         dest="${jboss.dest.file}.md5"/>
+         dest="${jboss.dest.file}.MD5"/>
     <checksum file="${jboss.dest.file}" verifyProperty="jboss.cksum.ok"/>
     <if>
       <equals arg1="${jboss.cksum.ok}" arg2="true"/>
@@ -983,7 +983,7 @@ $HeadURL$
       <get src="${ncia-core-grid.jboss.src.url}"
            dest="${ncia-core-grid.jboss.dest.file}"/>
       <get src="${ncia-core-grid.jboss.src.url}.md5"
-           dest="${ncia-core-grid.jboss.dest.file}.md5"/>
+           dest="${ncia-core-grid.jboss.dest.file}.MD5"/>
       <checksum file="${ncia-core-grid.jboss.dest.file}" verifyProperty="jboss.cksum.ok"/>
       <if>
         <equals arg1="${jboss.cksum.ok}" arg2="true"/>

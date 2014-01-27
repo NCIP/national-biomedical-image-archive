@@ -515,6 +515,7 @@ L-->
 				<filter token="ctp.server.king.password" value="${ctp.server.king.password}" />
 			</filterset>
 		</copy>
+		<copy file="${common.dir}/resources/ctp/server/Launcher.properties" todir="${nbia-ctp.dist.dir}/CTP_Server/CTP"/>
 		<copy file="${common.dir}/resources/ctp/server/config-block.xml" tofile="${nbia-ctp.dist.dir}/CTP_Server/CTP/config.xml">
 			<filterset>
 				<filter token="ctp.server.port" value="${ctp.server.port}" />

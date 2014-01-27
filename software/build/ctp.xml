@@ -271,6 +271,9 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
           tofile="${ctp.server.home}/CTP/config.xml.unpretty"/>
     <move file="${ctp.server.home}/CTP/config.xml.out"
           tofile="${ctp.server.home}/CTP/config.xml"/>
+    <copy file="${working.dir}/common/resources/ctp/server/Launcher.properties"
+              todir="${ctp.server.home}/CTP" overwrite="true" >
+    </copy>
 
     <chmod dir="${ctp.server.home}/CTP" perm="ugo+rx" includes="**/*.sh, **/*.bat"/>
   </target>

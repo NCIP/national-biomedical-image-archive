@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,6 +66,7 @@ public class QueryHandlerImpl extends AbstractDAO
 
 	private static final String LOGICAL_OPERATOR_AND = "AND";
 	private static final String LOGICAL_OPERATOR_OR = "OR";
+	private static final int PARAMETER_LIMIT = 900;
 
 	public void setStudyNumberMap(StudyNumberMap theStudyNumberMap) {
 		this.studyNumberMap = theStudyNumberMap;
@@ -364,8 +366,10 @@ public class QueryHandlerImpl extends AbstractDAO
 			    if (fieldName.endsWith(".visibility")) {
 			    	
 			    	criteriaToBuild.add(Restrictions.in(fieldName, dCriteria.getValue().split(",")));
-			     } else if(fieldName.endsWith("patientId") && dCriteria.getValue().contains(",")) {
-			    	 criteriaToBuild.add(Restrictions.in(fieldName, dCriteria.getValue().split(",")));
+			     }
+			    if(fieldName.endsWith("patientId") && dCriteria.getValue().contains(",")) {
+			    	String[] patIds = dCriteria.getValue().split(",");
+			    	criteriaToBuild.add(buildInCriterion(fieldName,Arrays.asList(patIds))); 
 			     } else {
 		    	   criteriaToBuild.add(criteriaFactory.constructCriteria(fieldName,
 		    			                                              dCriteria.getValue(),
@@ -394,6 +398,10 @@ public class QueryHandlerImpl extends AbstractDAO
         		{
         			criteriaToBuild.add(Restrictions.in(fieldName, dCriteria.getValue().split(",")));
         		}
+        		if(fieldName.endsWith("patientId") && dCriteria.getValue().contains(",")) {
+        			String[] patIds = dCriteria.getValue().split(",");
+			    	criteriaToBuild.add(buildInCriterion(fieldName,Arrays.asList(patIds))); 
+			    } 
         		else
         		{
             		Criterion criterion = criteriaFactory.constructCriteria(fieldName,
@@ -411,6 +419,27 @@ public class QueryHandlerImpl extends AbstractDAO
 		}
 
 		return criteriaToBuild;
+	}
+	
+	private Criterion buildInCriterion(String propertyName, List values) {
+		Criterion criterion = null;
+		int listSize = values.size();
+		for (int i = 0; i < listSize; i += PARAMETER_LIMIT) {
+			List subList;
+			if (listSize > i + PARAMETER_LIMIT) {
+				subList = values.subList(i, (i + PARAMETER_LIMIT));
+			}
+			else {
+				subList = values.subList(i, listSize);
+			}
+			if (criterion != null) {
+				criterion = Restrictions.or(criterion, Restrictions.in(propertyName, subList));
+			}
+			else {
+				criterion = Restrictions.in(propertyName, subList);
+			}
+		}
+		return criterion;
 	}
 
 	private List<String> getRelations(String node)
@@ -575,6 +604,8 @@ public class QueryHandlerImpl extends AbstractDAO
 	   System.out.println("Solr found "+results.size());
 	   return results;
 	}
+	
+	
 }
 
 

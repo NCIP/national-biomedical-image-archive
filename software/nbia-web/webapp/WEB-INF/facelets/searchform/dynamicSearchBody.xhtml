@@ -218,6 +218,7 @@ L-->
 	  	          </f:facet>
 	  	       	 <ice:outputText value="#{item.criteria.label}" style="padding-left: 30px;"/>
 	  	       	 <ice:outputText value="#{item.criteria.operator.value}" style="padding-left: 30px;"/>
+	  	       	 <div style ="width:249px; height:100px; overflow-x:scroll; table-layout:fixed">
 	  		<h:panelGroup style="padding-left: 30px;">
 	  		<ice:selectOneMenu id="itemPermissibleDataValue" 
 				  	   tabindex="25"
@@ -236,7 +237,8 @@ L-->
 	  				  <f:attribute name="textCiteria" value="#{item}" />
 	  				  <h:graphicImage value="/images/edit-icon.png" style="border:0px" />
 	                  	</h:commandLink>
-	  	       	</h:panelGroup>		
+	  	       	</h:panelGroup>	
+	  	       	</div>
 	  	                </h:panelGrid>
 	               </ice:panelSeries>  
           </td>

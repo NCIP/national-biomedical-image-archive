@@ -84,13 +84,17 @@ public class QcStatusDAOImpl extends AbstractDAO
 			Timestamp submissionDate = (Timestamp) row[6];
 			String modality = (String) row[7];
 			String seriesDesc = (String) row[8];
+			Date subDate = null;
+			if(submissionDate != null) {
+				subDate = new Date(submissionDate.getTime());
+			} 
 
 			QcSearchResultDTO qcSrDTO = new QcSearchResultDTO(collection,
 					                                          site,
 					                                          patient,
 					                                          study,
 					                                          series,
-					                                          new Date(submissionDate.getTime()),
+					                                          subDate,
 					                                          visibilitySt, modality, seriesDesc);
 			searchResultDtos.add(qcSrDTO);
 		}

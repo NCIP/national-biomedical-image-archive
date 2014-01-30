@@ -18,6 +18,7 @@ import gov.nih.nci.nbia.exception.DataAccessException;
 import gov.nih.nci.nbia.internaldomain.DeletionAuditTrail;
 import gov.nih.nci.nbia.util.NCIAConstants;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -31,18 +32,37 @@ public class DeletionAuditTrailDAOImpl extends HibernateDaoSupport implements
 		for (DeletionAuditSeriesInfo info : seriesInfos)
 		{	
 			DeletionAuditTrail deletionAuditTrail = getDeletionAuditTrail(info, userName);
-			session.save(deletionAuditTrail);
+            try {
+            	session.save(deletionAuditTrail);
+            } catch (HibernateException e) {
+                System.out.println("******** Unable to add series  deletion to audit trail  *********");
+                System.out.println(" Series - "+info.getSeriesInstanceUID()+" User - "+userName);
+                e.printStackTrace();                      
+          }
+
 		}
 	}
 	public void recordStudy(DeletionAuditStudyInfo study, String userName) throws DataAccessException {
 		Session session = getExistingSession();
 		DeletionAuditTrail deletionAuditTrail = getDeletionAuditTrail(study, userName);
-		session.save(deletionAuditTrail);
+		 try {
+			 session.save(deletionAuditTrail);
+		 } catch (HibernateException e) {
+             System.out.println("******** Unable to add study deletion to audit trail  *********");
+             System.out.println(" Series - "+study.getStudyInstanceUID()+" User - "+userName);
+             e.printStackTrace();                      
+       }
 	}
 	public void recordPatient(DeletionAuditPatientInfo patient, String userName) throws DataAccessException {
 		Session session = getExistingSession();
 		DeletionAuditTrail deletionAuditTrail = getDeletionAuditTrail(patient, userName);
-		session.save(deletionAuditTrail);
+		try {
+			session.save(deletionAuditTrail);
+		} catch (HibernateException e) {
+			System.out.println("******** Unable to add patient deletion to audit trail  *********");
+			System.out.println(" Series - "+patient.getPatientId()+" User - "+userName);
+			e.printStackTrace();                      
+		}
 	}
 
 	private Session getExistingSession() throws DataAccessException

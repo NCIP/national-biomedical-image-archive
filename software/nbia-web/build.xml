@@ -170,18 +170,21 @@ L-->
       <fileset dir="${download.mgr.target.dir}">
         <exclude name="NBIADownloadManager.jar"/>
         <include name="*.jar"/>
+        <exclude name="nbia-dao.jar" />
       </fileset>
     </copy>
 
     <copy todir="${webapp.dir}/download-mgr-dependencies">
       <fileset dir="${download.mgr.target.dir}/../nbia-remote-search">
         <include name="*.jar"/>
+        <exclude name="nbia-dao.jar" />
       </fileset>
     </copy>
     <copy todir="${webapp.dir}/download-mgr-dependencies">
       <fileset dir="${remote.search.lib.dir}/runtime">
         <include name="*.jar"/>
         <exclude name="jce*"/>
+        <exclude name="nbia-dao.jar" />
       </fileset>
     </copy>
   </target>
@@ -220,7 +223,7 @@ L-->
   <target name="patch-jnlp" depends="copy-and-prepare-nbia_war">
     <for param="jar">
       <path>
-        <fileset dir="${webapp.dir}/download-mgr-dependencies" includes="*"/>
+        <fileset dir="${webapp.dir}/download-mgr-dependencies" includes="*" excludes="nbia-dao.jar"/>
       </path>
       <sequential>
         <var name="just.jar.filename" unset="true"/>

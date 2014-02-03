@@ -328,6 +328,11 @@ public class NodeTableWrapper {
 		addToBasket(allPatients);
 		return null;
 	}
-	 
+	public String addAllPatientInTableToBasket() throws Exception {
+		List<PatientSearchResult> allPatients= new ArrayList<PatientSearchResult>();
+		allPatients = findSelectedPatients();
+		addToBasket(allPatients);
+		return null;
+	}	 
 
 }

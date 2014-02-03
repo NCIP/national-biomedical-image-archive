@@ -278,3 +278,17 @@ function countDataBasketSelection(form)
     }
 }
 /************************* END CEDARA RELATED JAVASCRIPT *****************************/
+function selectAllInContainingTable(containerTableName) {
+    var containerTable = document.getElementById(containerTableName);
+    if(containerTable==null) {
+        return;
+    }
+    var inputElements = containerTable.getElementsByTagName('input');
+    for(var z = 0; z<inputElements.length; z++) {
+        if (inputElements[z].type == "checkbox") {
+            inputElements[z].checked = "yes";
+        }
+    }
+
+
+}

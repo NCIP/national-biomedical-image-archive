@@ -107,7 +107,7 @@ L-->
     </h:column>
     <h:column id="addToBasketColumn">
     <f:facet name="header">
-     	<h:commandButton action="#" image="images/cart-empty.png"  title="Add to Basket"/>
+     	<h:commandButton action="#{perNodeResult.addAllPatientInTableToBasket}" image="images/cart-empty.png"  title="Add to Basket" onclick="selectAllInContainingTable('MAINbody:criteriaView:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:tbody');"/>
       </f:facet>       
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
         <div align="center" class="formFieldWhite">

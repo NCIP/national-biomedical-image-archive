@@ -26,7 +26,7 @@ L-->
     <table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage"  width="100%">
       <tr>
         <td>
-            <h:commandButton image="images/back_to_search_results.jpg" 
+            <h:commandButton image="images/back_to_search_results.jpg" alt="Back To Search Results"
                              action="#{searchWorkflowBean.backToSearch}"  
                              rendered="#{not empty searchResultBean.nodeTablesWrappers}" />                                                                
         </td>
@@ -74,7 +74,7 @@ L-->
                        but dont want to set downloading bit low until
                        the js on this page gets a chance to fire. if server
                        sets it, button will never fire -->        
-                  <h:commandButton id="completeDownloadButton"
+                  <h:commandButton id="completeDownloadButton" alt="complete Download Button"
                                    style="display:none"
                                    action="#{basketBean.finishDownloading}"
                                    onclick="setTimeout(doDownloadPopup,1500);" />
@@ -141,8 +141,9 @@ L-->
             </table>
             <table width="100%" border="0" cellspacing="0" cellpadding="5">
               <tr>
-                <td align="left">                                             
-                  <h:selectBooleanCheckbox value="#{basketBean.includeAnnotation}" 
+                <td align="left">                                     
+                  <ice:outputLabel for="includeAnnotation" value="include Annotation" style="display:none"/>        
+                  <h:selectBooleanCheckbox value="#{basketBean.includeAnnotation}" id="includeAnnotation"
                                            onclick="javascript:setChanged(document.getElementById('MAINbody:basketForm:basketChanged'),'yes');submit();"/>
                           
                   <h:outputText styleClass="formMessage" value="#{msg.dataBasket_includeAnnotation}" />
@@ -255,7 +256,7 @@ L-->
                       <h:commandLink target="newWin"
                                      onclick="doViewSeriesPopup('#{item.seriesId}','#{item.locationDisplayName}','#{item.gridLocation}'); return false;">
                         <h:graphicImage value="images/old_new_magnifying_glass.png"
-                                        style="border: none;"/>
+                                        style="border: none;" alt="view"/>
                       </h:commandLink> 
                       </ice:panelGroup>
                     </h:column>

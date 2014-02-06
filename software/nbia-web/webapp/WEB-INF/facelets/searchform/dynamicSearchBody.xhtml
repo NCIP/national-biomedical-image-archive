@@ -26,7 +26,7 @@ L-->
 	<tr>
 	
 	  <td valign="top" align="center">
-         		<h:commandButton action="#" image="images/advance-search.png" immediate="true"  title="advance search"/> 
+         		<h:commandButton action="#" image="images/advance-search.png" immediate="true"  title="Advanced search" alt="Advanced Search"/> 
          		<ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" />
 		<div align="left" style="font-size: 1.4em">
 			<h:inputHidden id="editQueryMessage" />
@@ -99,7 +99,8 @@ L-->
     
         <tr>
           <td>
-          
+           <ice:outputLabel for="group"
+	                           value="Group" style="display:none"/> 
             <ice:selectOneMenu id="group" 
                                tabindex="10"
                                partialSubmit="true"
@@ -112,7 +113,9 @@ L-->
            </tr>
            <tr>
             <td>
-  	    
+  	    <ice:outputLabel for="fields"
+	                           value="Fields" style="display:none"/> 
+	                           
                   <ice:selectOneMenu id="fields" 
                                      tabindex="20"
                                      partialSubmit="true"
@@ -124,6 +127,8 @@ L-->
                 </tr>
                 <tr>
                 <td>
+                <ice:outputLabel for="operand"
+	                           value="operand" style="display:none"/> 
                   <ice:selectOneMenu id="operand"
                                      tabindex="30"
                                      partialSubmit="true"
@@ -136,6 +141,8 @@ L-->
                 <td>
                   <!--  originally rendered=#{!dynamicSearchBean.hasPermissibleData} but icefaces doesnt refresh properly -->
                   <span>
+                  <ice:outputLabel for="inputValue"
+	                           value="inputValue" style="display:none"/> 
                   <h:inputText id="inputValue"
                                  tabindex="40"
                                  style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}"
@@ -144,7 +151,7 @@ L-->
  	           <ice:commandButton id="addC" action="#{dynamicSearchBean.addTextCriteria}" 
  	           		image="images/plus_16.png" 
  	           		style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}" 
- 	           		title="Add Criteria"/>                                
+ 	           		title="Add Criteria" alt="Add Criteria"/>                                
                   </span>
                   <ice:selectOneMenu id="permissibleDataValue" 
                                      tabindex="25"
@@ -181,7 +188,7 @@ L-->
           <tr>
           <td>
             <ice:commandLink id="addSeriesToBasketButton" action="#{dynamicSearchBean.resetAction}" >                                          
-	    			<ice:graphicImage value="images/reset.gif" style="border:none;display:inline;"/>                                                                               
+	    			<ice:graphicImage value="images/reset.gif" style="border:none;display:inline;" alt="reset"/>                                                                               
 	    </ice:commandLink>
           </td>
           </tr>
@@ -212,7 +219,7 @@ L-->
 	  		       	  
 	  		  <f:facet name="header">
 	  		    <h:panelGroup>
-	  		       	  <ice:commandButton actionListener="#{dynamicSearchBean.removeCriteriaItem}" image="images/cancel.png" title="Remove Criteria" style="float: right;" />
+	  		       	  <ice:commandButton actionListener="#{dynamicSearchBean.removeCriteriaItem}" image="images/cancel.png" title="Remove Criteria" alt="Remove Criteria" style="float: right;" />
 	  			          Criteria Record
 	  		    </h:panelGroup>       
 	  	          </f:facet>
@@ -220,6 +227,8 @@ L-->
 	  	       	 <ice:outputText value="#{item.criteria.operator.value}" style="padding-left: 30px;"/>
 	  	       	 <div style ="width:249px; height:100px; overflow-x:scroll; table-layout:fixed">
 	  		<h:panelGroup style="padding-left: 30px;">
+	  		<ice:outputLabel for="itemPermissibleDataValue"
+	                           value="itemPermissibleDataValue" style="display:none" rendered="#{not empty item.permissibleData}"/> 
 	  		<ice:selectOneMenu id="itemPermissibleDataValue" 
 				  	   tabindex="25"
 				  	   partialSubmit="true"
@@ -235,7 +244,7 @@ L-->
 	                                   size="31" />	                         
 	  	       		<h:commandLink id="editCriteriaLink" actionListener="#{dynamicSearchBean.editTextCriteria}"  rendered="#{empty item.permissibleData}">
 	  				  <f:attribute name="textCiteria" value="#{item}" />
-	  				  <h:graphicImage value="/images/edit-icon.png" style="border:0px" />
+	  				  <h:graphicImage value="/images/edit-icon.png" style="border:0px" alt="edit"/>
 	                  	</h:commandLink>
 	  	       	</h:panelGroup>	
 	  	       	</div>

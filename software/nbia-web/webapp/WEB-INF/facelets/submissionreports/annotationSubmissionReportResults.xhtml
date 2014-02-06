@@ -65,11 +65,11 @@ L-->
                 <ice:commandLink id="dayDetailsLink"
                                  actionListener="#{annotationSubmissionReportBean.dayDetailsClicked}">
                   <f:attribute name="day" value="#{detail.key}"/>
-                  <h:graphicImage id="collapse"
+                  <h:graphicImage id="collapse" alt="collapse"
                                   value="/xmlhttp/css/rime/css-images/tree_nav_top_close_no_siblings.gif"
                                   rendered="#{detail.value.expanded}"
                                   style="border:0;vertical-align:middle"/>
-                  <h:graphicImage id="expand"
+                  <h:graphicImage id="expand" alt="expand"
                                   value="/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
                                   rendered="#{not detail.value.expanded}"
                                   style="border:0;vertical-align:middle"/>                              

@@ -76,7 +76,7 @@ L-->
                           <ice:outputText value="#{basketBean.imageLabel}" 
                                           rendered="#{basketBean.cellVisibility}"/>
                           <br/>
-                          <ice:graphicImage id="image"
+                          <ice:graphicImage id="image" alt="thumbnail"
                                             url="#{basketBean.cellValue.image.thumbnailURL}"
                                             style="border:none;"
                                             width="100"
@@ -98,32 +98,32 @@ L-->
                                        pageCountVar="pageCount"
                                        pageIndexVar="pageIndex">
                       <f:facet name="first">
-                        <ice:graphicImage id="firstpage_1"
+                        <ice:graphicImage id="firstpage_1" alt="first"
                                           url="/xmlhttp/css/rime/css-images/arrow-first.gif"
                                           style="border:none;"/>
                       </f:facet>
                       <f:facet name="last">
-                        <ice:graphicImage id="lastpage_1"
+                        <ice:graphicImage id="lastpage_1" alt="last"
                                           url="/xmlhttp/css/rime/css-images/arrow-last.gif"
                                           style="border:none;"/>
                       </f:facet>
                       <f:facet name="previous">
-                        <ice:graphicImage id="previouspage_1"
+                        <ice:graphicImage id="previouspage_1" alt="previous"
                                           url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
                                           style="border:none;"/>
                       </f:facet>
                       <f:facet name="next">
-                        <ice:graphicImage id="nextpage_1"
+                        <ice:graphicImage id="nextpage_1" alt="next"
                                           url="/xmlhttp/css/rime/css-images/arrow-next.gif"
                                           style="border:none;"/>
                       </f:facet>
                       <f:facet name="fastforward">
-                        <ice:graphicImage id="fastforward_1"
+                        <ice:graphicImage id="fastforward_1" alt="fast forward"
                                           url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
                                           style="border:none;"/>
                       </f:facet>
                       <f:facet name="fastrewind">
-                        <ice:graphicImage id="fastrewind_1"
+                        <ice:graphicImage id="fastrewind_1" alt="fast rewind"
                                           url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
                                           style="border:none;"/>
                       </f:facet>

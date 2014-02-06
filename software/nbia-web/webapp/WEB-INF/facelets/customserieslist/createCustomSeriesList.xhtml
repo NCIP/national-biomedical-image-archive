@@ -80,7 +80,7 @@ L-->
               <ice:outputLabel for="inputFileComponent" value="Upload a CSV File of Series UIDs: "/>
             </td>
             <td colspan="5">
-              <ice:inputFile id="inputFileComponent" 
+              <ice:inputFile id="inputFileComponent" title="input File Component"
                              autoUpload="true"
                              actionListener="#{customSeriesListBean.uploadActionListener}"
                              progressListener="#{customSeriesListBean.fileUploadProgress}"/>
@@ -100,7 +100,7 @@ L-->
           </td>
           <td align="right" >
             <ice:commandButton id="creation"
-                               image="images/submit.gif" 
+                               image="images/submit.gif" alt="create shared list"
                                action="#{customSeriesListBean.submit}" />
           </td>        
         </tr>

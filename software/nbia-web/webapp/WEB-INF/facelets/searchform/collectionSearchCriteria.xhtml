@@ -46,12 +46,13 @@ L-->
                          value="#{searchWorkflowBean.collectionItems}"
                          var="collectionItem">
               <h:column id="collectionItemsColumn">
-                <ice:selectBooleanCheckbox value="#{collectionItem.value}" 
+              <ice:outputLabel for="selectCollection"  value="select Collection" style="display:none"/> 
+                <ice:selectBooleanCheckbox value="#{collectionItem.value}" id="selectCollection"
                                            partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
-                <h:commandLink id="viewDescriptionLink"
+                <h:commandLink id="viewDescriptionLink" alt="view Description" title="view Description"
                                actionListener="#{displayCollectionDescBean.collectionDescriptionAction}">
                   <f:attribute name="collectionName" value="#{collectionItem}" />
-                  <h:graphicImage value="/images/help.gif" style="border:0px" />
+                  <h:graphicImage value="/images/help.gif" style="border:0px" alt="help" title="help"/>
                 </h:commandLink>
                 <h:outputText value="#{collectionItem.label}"/>                                      
               </h:column>    

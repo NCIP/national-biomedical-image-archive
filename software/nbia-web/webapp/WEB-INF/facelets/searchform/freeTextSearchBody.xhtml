@@ -26,7 +26,7 @@ L-->
 	<tr>
 	
 	  <td valign="top" align="center">
-         		<h:commandButton action="#" image="images/text-search.png" immediate="true" title="free text search"/> 
+         		<h:commandButton action="#" image="images/text-search.png" immediate="true" title="text search" alt="Text search"/> 
          		<ncia:help label="images/help_icon.png" helpId="-performtextsearch" />
 		<div align="left" style="font-size: 1.4em">
 			<h:inputHidden id="editQueryMessage" />
@@ -77,10 +77,11 @@ L-->
 	        </td>
 	        
 	        <td>
+	        		<ice:outputLabel for="testSearchValue" value="Search Value" style="display:none"/>
 	        		<h:inputText id="testSearchValue" value="#{dynamicSearchBean.textValue}" tabindex="40"  size="55"/>
              </td>
              <td align="left">
-	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif"/>
+	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" title="Submit Search" alt="Submit Search"/>
  	        </td>
           </tr> 
          </table>       

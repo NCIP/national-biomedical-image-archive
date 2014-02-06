@@ -23,7 +23,8 @@ L-->
                                 rendered="#{not qcToolBean.superRole}">
                                 <tr>
                                     <td width="12%" class="formLabel">
-                                        #{msg.qcTool_qcStatus}
+                                        
+                                        <ice:outputLabel for="slctQcStatus" value="#{msg.qcTool_qcStatus}" />
                                     </td>
                                     <td class="formField" colspan="2">
                                         <ice:selectManyCheckbox id="slctQcStatus"
@@ -37,7 +38,7 @@ L-->
                             </f:subview>
                             <tr>
                                 <td width="12%" class="formLabel">
-                                    <h:outputText value="#{msg.criteria_CollectionCriteria}" />
+                                    <ice:outputLabel for="collectionSiteMenu" value="#{msg.criteria_CollectionCriteria}" />
                                     <br />
                                 </td>
                                 <td class="formField" colspan="2">
@@ -51,7 +52,8 @@ L-->
     
                             <tr>
                                 <td width="12%" class="formLabel">
-                                    #{msg.qcTool_patientId}
+                                    
+                                    <ice:outputLabel for="patientID" value="#{msg.qcTool_patientId}" />
                                 </td>
                                 <td class="formField" colspan="2">
                                     <ice:inputTextarea id="patientID"
@@ -66,8 +68,8 @@ L-->
                                 #{msg.qctool_sub_date}
                               </td>
                               <td class="formField" >
-                                #{msg.date_from}
-                    
+                                
+                    		<ice:outputLabel for="fromDate" value="#{msg.date_from}" />
                                 <ice:selectInputDate id="fromDate"
                                                      value="#{qcToolBean.fromDate}" 
                                                      popupDateFormat="MM/dd/yyyy"
@@ -79,8 +81,7 @@ L-->
                                 </ice:selectInputDate>                                                 
                               </td>
                               <td class="formField"> 
-                                #{msg.date_to}
-                             
+                                <ice:outputLabel for="toDate" value="#{msg.date_to}" />
                                 <ice:selectInputDate id="toDate"
                                                      value="#{qcToolBean.toDate}" 
                                                      popupDateFormat="MM/dd/yyyy"
@@ -95,7 +96,7 @@ L-->
                             <tr>
                                 <td colspan="3" class="formLabel" style="text-align: right">
                                     <ice:commandButton id="qcToolSearch" partialSubmit="true"
-                                        action="#{qcToolSearchBean.submit}" image="/images/submit.gif"
+                                        action="#{qcToolSearchBean.submit}" image="/images/submit.gif" alt="search"
                                         onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});" />
                                 </td>
                             </tr>

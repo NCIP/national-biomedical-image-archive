@@ -154,6 +154,7 @@ L-->
                               <table class="promptbox" style="display: block;" id="fieldsTable">   
                                 <tr>
                                   <td>
+                                  <ice:outputLabel for="fields"  value="select fields" style="display:none"/> 
                                     <ice:selectOneMenu id="fields" 
                                                        tabindex="20"
                                                        partialSubmit="true"
@@ -163,6 +164,7 @@ L-->
                                     </ice:selectOneMenu>
                                   </td>
                                   <td>
+                                  <ice:outputLabel for="operand"  value="select operand" style="display:none"/> 
                                     <ice:selectOneMenu id="operand"
                                                        tabindex="30"
                                                        partialSubmit="false"
@@ -172,6 +174,7 @@ L-->
                                   </td>
                                   <td>
                                     <!--  originally rendered=#{!dynamicSearchBean.hasPermissibleData} but icefaces doesnt refresh properly -->
+                                    <ice:outputLabel for="inputValue" value="inputValue" style="display:none"/> 
                                     <h:inputText id="inputValue"
                                                    tabindex="40"
                                                    style="display: #{dynamicQcSearchBean.hasPermissibleData ? 'none':'inline'}"

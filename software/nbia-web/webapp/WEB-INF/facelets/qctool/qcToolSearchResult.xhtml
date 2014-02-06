@@ -52,7 +52,7 @@ L-->
                                         onclick="checkAllInContainingTable(this);" /> -->
                                         <h:selectBooleanCheckbox id="checkAllBox" name="checkAllBox"  onclick="checkAllInContainingTable(this);" />
                                 </f:facet>
-                                <ice:selectBooleanCheckbox id="SlctRec" partialSubmit="false"
+                                <ice:selectBooleanCheckbox id="SlctRec" partialSubmit="false" title="Select"
                                     value="#{res.selected}" />
                     </ice:column>
 
@@ -176,7 +176,7 @@ L-->
 						<f:subview id="qcToolAdminView"
 							rendered="#{not qcToolBean.superRole}">
 							<ice:panelGroup styleClass="selectionRadioGroup">
-								<ice:outputLabel for="slctQcStatus" value="New Status"
+								<ice:outputLabel for="slctQcStatusUpdate" value="New Status"
 									style="line-height:200%" />
 								<br />
 								<ice:selectOneRadio id="slctQcStatusUpdate"
@@ -187,7 +187,7 @@ L-->
 								</ice:selectOneRadio>
 							</ice:panelGroup>
 						</f:subview>
-
+						<ice:outputLabel for="chngCmt"  value="comments" style="display:none"/> 
 						<ice:inputTextarea id="chngCmt"
 							value="#{qcToolUpdateBean.comments}" cols="100" rows="2"
 							partialSubmit="false" style="overflow: auto;">

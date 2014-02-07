@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.nih.nci.nbia.dao;
 
@@ -16,13 +16,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author panq
- * 
+ *
  */
 public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 		TrialDataProvenanceDAO {
 	/**
 	 * Fetch set of collection values.
-	 * 
+	 *
 	 * This method is used for NBIA Rest API.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -38,7 +38,7 @@ public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 	}
 
 	private StringBuffer addSecurityGroup(List<SiteData> authorizedSites) {
-		StringBuffer where = new StringBuffer(); 
+		StringBuffer where = new StringBuffer();
 		String authorisedProjectName = getProjectNames(authorizedSites);
 		String authorisedSiteName = getSiteNames(authorizedSites);
 		if(authorisedProjectName != null && authorisedSiteName != null) {
@@ -53,7 +53,7 @@ public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 		String projectNameStmt = "";
     	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
     		SiteData str = i.next();
-            projectNameStmt += ("'" + str.getCollection() + "'");
+            projectNameStmt += ("'" + str.getCollection().toUpperCase() + "'");
 
             if (i.hasNext()) {
             	projectNameStmt += ",";
@@ -68,7 +68,7 @@ public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 		String siteWhereStmt = "";
     	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
     		SiteData str = i.next();
-            siteWhereStmt += ("'" + str.getSiteName() + "'");
+            siteWhereStmt += ("'" + str.getSiteName().toUpperCase() + "'");
 
             if (i.hasNext()) {
             	siteWhereStmt += ",";

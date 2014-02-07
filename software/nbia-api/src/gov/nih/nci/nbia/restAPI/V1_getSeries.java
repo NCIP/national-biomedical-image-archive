@@ -61,29 +61,28 @@ public class V1_getSeries {
 	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of Manufacturer filtered by query keys
-	 * 
+	 *
 	 * @return String - set of series info
 	 */
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 
-	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
+	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,
 			@QueryParam("PatientID") String patientId, @QueryParam("StudyInstanceUID") String studyInstanceUid) {
 		String returnString = null;
 		List<Object[]> data = getDataFromDB (collection, patientId, studyInstanceUid);
-		System.out.println("format=" +format);
-		
+
 		if ((data != null) && (data.size() > 0)) {
 			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {
 				returnString = FormatOutput.toJSONArray(columns, data).toString();
 				return Response.ok(returnString).type("application/json").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("HTML")) {
 				returnString = FormatOutput.toHtml(columns, data);
 				return Response.ok(returnString).type("text/html").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("XML")) {
 				returnString = FormatOutput.toXml(columns, data);
 				System.out.println("returnString="+returnString);
@@ -93,7 +92,7 @@ public class V1_getSeries {
 				returnString = FormatOutput.toCsv(columns, data);
 				return Response.ok(returnString).type("text/csv").build();
 			}
-			
+
 		}
 		else {
 			return Response.status(500)
@@ -105,7 +104,7 @@ public class V1_getSeries {
 				.build();
 	}
 
-	
+
 	private List<Object[]> getDataFromDB (String collection, String patientId, String studyInstanceUid) {
 		List<Object[]> results = null;
 		List<SiteData> siteData = (List)httpRequest.getAttribute("authorizedCollections");

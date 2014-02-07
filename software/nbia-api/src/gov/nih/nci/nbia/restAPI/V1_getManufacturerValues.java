@@ -57,36 +57,35 @@ public class V1_getManufacturerValues {
 	private static final String column="Manufacturer";
 	public final static String TEXT_CSV = "text/csv";
 	public final static MediaType TEXT_CSV_TYPE = new MediaType("text", "csv");
-	
+
 	@Context private HttpServletRequest httpRequest;
 
 	/**
 	 * This method get a set of Manufacturer filtered by query keys
-	 * 
+	 *
 	 * @return String - set of manufacture values
 	 */
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 
-	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
+	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,
 			@QueryParam("Modality") String modality, @QueryParam("BodyPartExamined") String bodyPart) {
-		
-		
+
+
 		String returnString = null;
 		List<String> data = getDataFromDB (collection, modality, bodyPart);
-		System.out.println("format@@@@@@@@@@@@@@=" +format);
-		
+
 		if ((data != null) && (data.size() > 0)) {
 			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {
 				returnString = FormatOutput.toJSONArray(column, data).toString();
 				return Response.ok(returnString).type("application/json").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("HTML")) {
 				returnString = FormatOutput.toHtml(column, data);
 				return Response.ok(returnString).type("text/html").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("XML")) {
 				returnString = FormatOutput.toXml(column, data);
 				System.out.println("returnString="+returnString);
@@ -96,7 +95,7 @@ public class V1_getManufacturerValues {
 				returnString = FormatOutput.toCsv(column, data);
 				return Response.ok(returnString).type("text/csv").build();
 			}
-			
+
 		}
 		else {
 			return Response.status(500)
@@ -108,7 +107,7 @@ public class V1_getManufacturerValues {
 				.build();
 	}
 
-	
+
 	private List<String> getDataFromDB (String collection, String modality, String bodyPart) {
 		List<String> results = null;
 		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");

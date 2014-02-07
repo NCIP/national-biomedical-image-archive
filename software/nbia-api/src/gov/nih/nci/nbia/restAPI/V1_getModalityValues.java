@@ -44,31 +44,30 @@ public class V1_getModalityValues {
 	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of all modality values (CT, MR, ...) filtered by query keys
-	 * 
+	 *
 	 * @return String - set of patient
 	 */
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 
-	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
+	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,
 			@QueryParam("BodyPartExamined") String bodyPart) {
-		
+
 		String returnString = null;
 		List<String> data = getDataFromDB (collection, bodyPart);
-		System.out.println("format=" +format);
-		
+
 		if ((data != null) && (data.size() > 0)) {
 			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {
 				returnString = FormatOutput.toJSONArray(column, data).toString();
 				return Response.ok(returnString).type("application/json").build();
 				//returnString = "test now";
 			}
-			
+
 			if (format.equalsIgnoreCase("HTML")) {
 				returnString = FormatOutput.toHtml(column, data);
 				return Response.ok(returnString).type("text/html").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("XML")) {
 				returnString = FormatOutput.toXml(column, data);
 				return Response.ok(returnString).type("application/xml").build();
@@ -77,7 +76,7 @@ public class V1_getModalityValues {
 				returnString = FormatOutput.toCsv(column, data);
 				return Response.ok(returnString).type("text/csv").build();
 			}
-			
+
 		}
 		else {
 			return Response.status(500)
@@ -89,7 +88,7 @@ public class V1_getModalityValues {
 				.build();
 	}
 
-	
+
 	private List<String> getDataFromDB (String collection, String bodyPart) {
 		List<String> results = null;
 		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");

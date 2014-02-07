@@ -44,30 +44,29 @@ public class V1_getBodyPartValues {
 	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of body part values filtered by query keys
-	 * 
+	 *
 	 * @return String - set of patient
 	 */
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 
-	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,  
+	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,
 			@QueryParam("Modality") String modality) {
 		String returnString = null;
 		List<String> data = getDataFromDB (collection, modality);
-		System.out.println("format=" +format);
-		
+
 		if ((data != null) && (data.size() > 0)) {
 			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {
 				returnString = FormatOutput.toJSONArray(column, data).toString();
 				return Response.ok(returnString).type("application/json").build();
 				//returnString = "test now";
 			}
-			
+
 			if (format.equalsIgnoreCase("HTML")) {
 				returnString = FormatOutput.toHtml(column, data);
 				return Response.ok(returnString).type("text/html").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("XML")) {
 				returnString = FormatOutput.toXml(column, data);
 				return Response.ok(returnString).type("application/xml").build();
@@ -76,7 +75,7 @@ public class V1_getBodyPartValues {
 				returnString = FormatOutput.toCsv(column, data);
 				return Response.ok(returnString).type("text/csv").build();
 			}
-			
+
 		}
 		else {
 			return Response.status(500)
@@ -88,7 +87,7 @@ public class V1_getBodyPartValues {
 				.build();
 	}
 
-	
+
 	private List<String> getDataFromDB (String collection, String modality) {
 		List<String> results = null;
 		List<SiteData> authorisedSites = (List)httpRequest.getAttribute("authorizedCollections");

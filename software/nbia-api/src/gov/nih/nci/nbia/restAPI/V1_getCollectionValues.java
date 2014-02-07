@@ -32,7 +32,7 @@ public class V1_getCollectionValues {
 	@Context private HttpServletRequest httpRequest;
 	/**
 	 * This method get a set of all collection names
-	 * 
+	 *
 	 * @return String - set of collection names
 	 */
 	@GET
@@ -41,20 +41,19 @@ public class V1_getCollectionValues {
 	public Response  constructResponse(@QueryParam("format") String format) {
 		String returnString = null;
 		List<String> data = getDataFromDB ();
-		System.out.println("format=" +format);
-		
+
 		if ((data != null) && (data.size() > 0)) {
 			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {
 				returnString = FormatOutput.toJSONArray(column, data).toString();
 				return Response.ok(returnString).type("application/json").build();
 				//returnString = "test now";
 			}
-			
+
 			if (format.equalsIgnoreCase("HTML")) {
 				returnString = FormatOutput.toHtml(column, data);
 				return Response.ok(returnString).type("text/html").build();
 			}
-			
+
 			if (format.equalsIgnoreCase("XML")) {
 				returnString = FormatOutput.toXml(column, data);
 				return Response.ok(returnString).type("application/xml").build();
@@ -63,7 +62,7 @@ public class V1_getCollectionValues {
 				returnString = FormatOutput.toCsv(column, data);
 				return Response.ok(returnString).type("text/csv").build();
 			}
-			
+
 		}
 		else {
 			return Response.status(500)
@@ -75,7 +74,7 @@ public class V1_getCollectionValues {
 				.build();
 	}
 
-	
+
 	private List<String> getDataFromDB () {
 		List<String> results = null;
 		List<SiteData> siteData = (List)httpRequest.getAttribute("authorizedCollections");

@@ -27,21 +27,21 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-public class StudyDAOImpl extends AbstractDAO 
+public class StudyDAOImpl extends AbstractDAO
                           implements StudyDAO {
-	
+
     /**
      * This method will deal with the query where a list of SeriesPkId's
      * is passed in as a Query to the QueryHandler.  It will then return
      * the SeriesListResultSet, which contains all of the information necessary
      * for the second level query.
      */
-	@Transactional(propagation=Propagation.REQUIRED)		
+	@Transactional(propagation=Propagation.REQUIRED)
     public List<StudyDTO> findStudiesBySeriesId(Collection<Integer> seriesPkIds) throws DataAccessException {
     	if(seriesPkIds.size()==0) {
     		return new ArrayList<StudyDTO>();
     	}
-    	
+
         String selectStmt = SQL_QUERY_SELECT;
         String fromStmt = SQL_QUERY_FROM;
         String whereStmt = SQL_QUERY_WHERE;
@@ -59,8 +59,8 @@ public class StudyDAOImpl extends AbstractDAO
         List<Object[]> seriesResults = getHibernateTemplate().find(selectStmt + fromStmt + whereStmt);
         long end = System.currentTimeMillis();
         logger.info("total query time: " + (end - start) + " ms");
-    
-        
+
+
         // List of StudyDTOs to eventually be returned
         Map<Integer, StudyDTO> studyList = new HashMap<Integer, StudyDTO>();
         Iterator<Object[]> iter = seriesResults.iterator();
@@ -68,7 +68,7 @@ public class StudyDAOImpl extends AbstractDAO
         // Loop through the results.  There is one result for each series
         while (iter.hasNext()) {
         	Object[] row = iter.next();
-        	
+
             // Create the seriesDTO
             SeriesDTO seriesDTO = new SeriesDTO();
             //modality should never be null... but currently possible
@@ -104,9 +104,9 @@ public class StudyDAOImpl extends AbstractDAO
                 studyDTO.setStudyId(row[2].toString());
                 studyDTO.setDate((Date) row[4]);
                 studyDTO.setDescription(Util.nullSafeString(row[5]));
-                
+
                 studyDTO.setId(seriesDTO.getStudyPkId());
-                
+
                 // Add the series to the study
                 studyDTO.getSeriesList().add(seriesDTO);
 
@@ -116,7 +116,7 @@ public class StudyDAOImpl extends AbstractDAO
         }
 
         //maybe a candidate to move this out of DAO into higher level
-        
+
         // Convert to a list for sorting and to be returned
         List<StudyDTO> returnList = new ArrayList<StudyDTO>(studyList.values());
 
@@ -126,10 +126,10 @@ public class StudyDAOImpl extends AbstractDAO
         	List<SeriesDTO> seriesList = new ArrayList<SeriesDTO>(studyDTO.getSeriesList());
             Collections.sort(seriesList);
             studyDTO.setSeriesList(seriesList);
-        }	   
+        }
         return returnList;
     }
-	
+
 	/**
 	 * Fetch a set of patient/study info filtered by query keys
 	 * This method is used for NBIA Rest API.
@@ -137,9 +137,9 @@ public class StudyDAOImpl extends AbstractDAO
 	 * @param patientId Patient ID
 	 * @param studyInstanceUid Study Instance UID
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)		
-	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException 
-	{		
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException
+	{
 		String hql = "select s.studyInstanceUID, s.studyDate, s.studyDesc, s.admittingDiagnosesDesc, s.studyId, " +
 				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
 				"s.patient.ethnicGroup, s.patient.dataProvenance.project, " +
@@ -171,21 +171,11 @@ public class StudyDAOImpl extends AbstractDAO
 			rs = getHibernateTemplate().find(hql + where.toString(), values);
 		} else
 			rs = getHibernateTemplate().find(hql + where.toString());
-		
-		//for testing
-//		if(rs != null && rs.size() > 0) {
-//			for (Object[] objects : rs) {
-//				for (Object obj: objects) {
-//					if (obj != null)
-//						System.out.println("obj name=" + obj.toString());
-//				}
-//			}
-//	    }
-//		// for testing
+
         return rs;
 	}
 	private StringBuffer addSecurityGroup(List<SiteData> authorizedSites) {
-		StringBuffer where = new StringBuffer(); 
+		StringBuffer where = new StringBuffer();
 		String authorisedProjectName = getProjectNames(authorizedSites);
 		String authorisedSiteName = getSiteNames(authorizedSites);
 		if(authorisedProjectName != null && authorisedSiteName != null) {
@@ -193,46 +183,15 @@ public class StudyDAOImpl extends AbstractDAO
 		}
 		return where;
 	}
-	private String getProjectNames(Collection<SiteData> sites) {
-		if(sites == null || sites.isEmpty()) {
-			return null;
-		}
-		String projectNameStmt = "";
-    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
-    		SiteData str = i.next();
-            projectNameStmt += ("'" + str.getCollection() + "'");
 
-            if (i.hasNext()) {
-            	projectNameStmt += ",";
-            }
-        }
-    	return projectNameStmt;
-    }
-	private String getSiteNames(Collection<SiteData> sites) {
-		if(sites == null || sites.isEmpty()) {
-			return null;
-		}
-		String siteWhereStmt = "";
-    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
-    		SiteData str = i.next();
-            siteWhereStmt += ("'" + str.getSiteName() + "'");
-
-            if (i.hasNext()) {
-            	siteWhereStmt += ",";
-            }
-        }
-    	return siteWhereStmt;
-    }
-	
-    
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////
     private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount  ";
     private static final String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join series.generalEquipment ge ";
     private static final String SQL_QUERY_WHERE = "WHERE series.visibility = '1' ";
-    
+
 	private static Logger logger = Logger.getLogger(ImageDAO.class);
-    
-    
+
+
     /**
      * Given a collection of integers, return a Stirng that is a comma
      * separate list of the single-quoted integers, without a trailing comma
@@ -248,7 +207,7 @@ public class StudyDAOImpl extends AbstractDAO
             }
         }
     	return theWhereStmt;
-    }    
+    }
     private static int PARAMETER_LIMIT = 700;
 
 	private <T> Collection<Collection<T>> split(Collection<T> bigCollection, int maxBatchSize) {
@@ -363,4 +322,35 @@ public class StudyDAOImpl extends AbstractDAO
 		}
 		return resultList;
 	}
+
+		private String getProjectNames(Collection<SiteData> sites) {
+			if(sites == null || sites.isEmpty()) {
+				return null;
+			}
+			String projectNameStmt = "";
+	    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
+	    		SiteData str = i.next();
+	            projectNameStmt += ("'" + str.getCollection().toUpperCase() + "'");
+
+	            if (i.hasNext()) {
+	            	projectNameStmt += ",";
+	            }
+	        }
+	    	return projectNameStmt;
+	    }
+		private String getSiteNames(Collection<SiteData> sites) {
+			if(sites == null || sites.isEmpty()) {
+				return null;
+			}
+			String siteWhereStmt = "";
+	    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
+	    		SiteData str = i.next();
+	            siteWhereStmt += ("'" + str.getSiteName().toUpperCase() + "'");
+
+	            if (i.hasNext()) {
+	            	siteWhereStmt += ",";
+	            }
+	        }
+	    	return siteWhereStmt;
+    }
 }

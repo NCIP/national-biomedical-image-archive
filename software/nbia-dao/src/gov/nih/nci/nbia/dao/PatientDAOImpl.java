@@ -24,19 +24,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class PatientDAOImpl extends AbstractDAO
                             implements PatientDAO {
-	 
+
 	/**
 	 * Fetch Patient Object through patient PK ID
 	 * @param pid patient PK id
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)		
-	public PatientDTO getPatientById(Integer pid) throws DataAccessException 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public PatientDTO getPatientById(Integer pid) throws DataAccessException
 	{
 		PatientDTO pDto = null;
-		
+
         DetachedCriteria criteria = DetachedCriteria.forClass(Patient.class);
 		criteria.add(Restrictions.eq("id", pid));
-		
+
 		List<Patient> result = getHibernateTemplate().findByCriteria(criteria);
 		if (result != null && result.size() > 0)
 		{
@@ -44,20 +44,20 @@ public class PatientDAOImpl extends AbstractDAO
 			pDto = new PatientDTO();
 			pDto.setProject(patient.getDataProvenance().getProject());
 			pDto.setSiteName(patient.getDataProvenance().getDpSiteName());
-			
+
 		}
 
-		return pDto; 
+		return pDto;
 	}
-	
+
 	/**
 	 * Fetch Patient Object through project, ie. collection
 	 * This method is used for NBIA Rest API.
 	 * @param collection A label used to name a set of images collected for a specific trial or other reason.
 	 * Assigned during the process of curating the data. The info is kept under project column
 	 */
-	@Transactional(propagation=Propagation.REQUIRED)		
-	public List<Object[]> getPatientByCollection(String collection,List<SiteData> authorizedSites) throws DataAccessException 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<Object[]> getPatientByCollection(String collection,List<SiteData> authorizedSites) throws DataAccessException
 	{
 		StringBuffer whereCondition = new StringBuffer();
 		String authorisedProjectName = getProjectNames(authorizedSites);
@@ -66,23 +66,13 @@ public class PatientDAOImpl extends AbstractDAO
 			whereCondition = whereCondition.append(" and UPPER(gs.project) in (").append(authorisedProjectName).append(")").append(" and UPPER(gs.site) in (" + authorisedSiteName+")");
 		}
 		whereCondition.append(collection == null ? "":" and UPPER(p.dataProvenance.project)=?");
-		
+
 		String hql = "select distinct p.patientId, p.patientName, p.patientBirthDate, p.patientSex, p.ethnicGroup, p.dataProvenance.project from Patient as p, GeneralSeries as gs " +
 				" where gs.visibility = '1' and p.patientId = gs.patientId "+ whereCondition;
-		List<Object[]> rs = collection == null ? 
+		List<Object[]> rs = collection == null ?
 				getHibernateTemplate().find(hql):
 				getHibernateTemplate().find(hql, collection.toUpperCase()); // protect against sql injection
 
-		//for testing
-		if(rs != null && rs.size() > 0) {
-			for (Object[] objects : rs) {
-				for (Object obj: objects) {
-					if (obj != null)
-						System.out.println("obj name=" + obj.toString());
-				}
-			}
-	    }
-		// for testing
         return rs;
 	}
 	private String getProjectNames(Collection<SiteData> sites) {
@@ -92,7 +82,7 @@ public class PatientDAOImpl extends AbstractDAO
 		String projectNameStmt = "";
     	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
     		SiteData str = i.next();
-            projectNameStmt += ("'" + str.getCollection() + "'");
+            projectNameStmt += ("'" + str.getCollection().toUpperCase() + "'");
 
             if (i.hasNext()) {
             	projectNameStmt += ",";
@@ -107,7 +97,7 @@ public class PatientDAOImpl extends AbstractDAO
 		String siteWhereStmt = "";
     	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
     		SiteData str = i.next();
-            siteWhereStmt += ("'" + str.getSiteName() + "'");
+            siteWhereStmt += ("'" + str.getSiteName().toUpperCase() + "'");
 
             if (i.hasNext()) {
             	siteWhereStmt += ",";

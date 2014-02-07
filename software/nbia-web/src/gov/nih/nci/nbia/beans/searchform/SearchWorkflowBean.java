@@ -23,6 +23,7 @@ import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
 import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.DynamicSearchBean;
 import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
@@ -1007,6 +1008,8 @@ public class SearchWorkflowBean {
 		dynamicSearch = false;
 		SearchResultBean srb = BeanManager.getSearchResultBean();
 		srb.setPatientResults(null);
+		DynamicSearchBean dySarchBean = BeanManager.getDynamicSearchBean();
+		dySarchBean.setTextValue("");
 		return FREE_TEXT_SEARCH;
 	}
 	public boolean isDynamicSearch() {

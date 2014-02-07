@@ -105,7 +105,11 @@ public class BeanManager {
     public static AnonymousLoginBean getAnonymousLoginBean() {
         return (AnonymousLoginBean) getBean("#{anonymousLoginBean}");
     }
-
+    
+    public static DynamicSearchBean getDynamicSearchBean() {
+        return (DynamicSearchBean) getBean("#{dynamicSearchBean}");
+    }
+    
     /**
      *  Generically retrieves a bean from the context
      */

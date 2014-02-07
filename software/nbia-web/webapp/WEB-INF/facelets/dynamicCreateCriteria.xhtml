@@ -21,7 +21,7 @@ L-->
     
                       <tr>
                             <td width="12%" class="formLabel">
-                                #{msg.qcTool_qcStatus}
+                                <ice:outputLabel for="dslctQcStatus"  value="#{msg.qcTool_qcStatus}" />
                             </td>
                             <td class="formField" colspan="2">
                                 <ice:selectManyCheckbox id="dslctQcStatus" value="#{dynamicQcSearchBean.selectedQcStatus}" partialSubmit="false" style="white-space:nowrap; ">
@@ -31,10 +31,10 @@ L-->
                       </tr>
                       <tr>
                          <td class="formLabel">
-                                #{msg.qctool_sub_date}
+                               #{msg.qctool_sub_date}
                          </td>
                          <td class="formField" >
-                                #{msg.date_from}
+                                <ice:outputLabel for="dyfromDate"  value="#{msg.date_from}"/> 
                                 <ice:selectInputDate id="dyfromDate"
                                                      value="#{dynamicQcSearchBean.fromDate}" 
                                                      popupDateFormat="MM/dd/yyyy"
@@ -46,7 +46,7 @@ L-->
                                 </ice:selectInputDate>                                                 
                          </td>
                          <td class="formField"> 
-                                #{msg.date_to}
+                                <ice:outputLabel for="dytoDate"  value="#{msg.date_to}" /> 
                                 <ice:selectInputDate id="dytoDate"
                                                      value="#{dynamicQcSearchBean.toDate}" 
                                                      popupDateFormat="MM/dd/yyyy"
@@ -102,7 +102,7 @@ L-->
                               <center>
                                 <ice:commandButton actionListener="#{dynamicQcSearchBean.removeItem}" 
                                                    image="images/cancel.png"
-                                                   title="Remove Criteria"/>
+                                                   title="Remove Criteria" alt="Remove Criteria"/>
                               </center>
                             </h:column>
                           </ice:dataTable>
@@ -111,11 +111,11 @@ L-->
                       <tr>
                         <td align="right" colspan="3">
                           <ice:commandButton id="submission"
-                                             image="images/submit.gif" 
+                                             image="images/submit.gif" alt="submit"
                                              action="#{dynamicQcSearchBean.submitQCSearch}"
                                              onclick="if (!checkCriteriaAndShowProgress(#{dynamicQcSearchBean.criteriaLength})){return false;}"/>
                           <f:verbatim>&amp;nbsp;</f:verbatim>
-                          <ice:commandButton image="images/reset.gif"
+                          <ice:commandButton image="images/reset.gif" alt="reset"
                                              action="#{dynamicQcSearchBean.resetAction}" 
                                              onclick="document.getElementById('MAINbody:qcToolSearchCritForm:qcToolDeleteView:j_id290:0:inputValue').value='';"/>
                             </td>
@@ -154,6 +154,7 @@ L-->
                               <table class="promptbox" style="display: block;" id="fieldsTable">   
                                 <tr>
                                   <td>
+                                  <ice:outputLabel for="fields"  value="select fields" style="display:none"/> 
                                     <ice:selectOneMenu id="fields" 
                                                        tabindex="20"
                                                        partialSubmit="true"
@@ -163,6 +164,7 @@ L-->
                                     </ice:selectOneMenu>
                                   </td>
                                   <td>
+                                  <ice:outputLabel for="operand"  value="select operand" style="display:none"/> 
                                     <ice:selectOneMenu id="operand"
                                                        tabindex="30"
                                                        partialSubmit="false"
@@ -172,6 +174,7 @@ L-->
                                   </td>
                                   <td>
                                     <!--  originally rendered=#{!dynamicSearchBean.hasPermissibleData} but icefaces doesnt refresh properly -->
+                                    <ice:outputLabel for="inputValue" value="inputValue" style="display:none"/> 
                                     <h:inputText id="inputValue"
                                                    tabindex="40"
                                                    style="display: #{dynamicQcSearchBean.hasPermissibleData ? 'none':'inline'}"
@@ -189,7 +192,7 @@ L-->
                                   <td>
                                     <ice:commandButton action="#{dynamicQcSearchBean.addCriteria}"
                                                        image="images/plus_16.png" 
-                                                       title="Add Criteria"/>
+                                                       title="Add Criteria" alt="Add Criteria"/>
                                   </td>
                                 </tr>
                                 <tr>

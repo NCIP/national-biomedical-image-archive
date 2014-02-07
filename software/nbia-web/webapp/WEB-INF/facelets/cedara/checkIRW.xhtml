@@ -20,15 +20,15 @@ L-->
 		<tr>
 			<td><h:form id="dataForm">
 					<h:panelGroup>
-						<h:commandButton image="images/search_grey.gif"
+						<h:commandButton image="images/search_grey.gif" alt="search"
 							action="#{searchWorkflowBean.backToSearch}"
 							disabled="#{ispyBean.isQueryFromUrl}" />
-						<h:graphicImage url="images/breadcrumb_arrows.gif" />
-						<h:commandButton image="images/subject_grey.gif"
+						<h:graphicImage url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
+						<h:commandButton image="images/subject_grey.gif" alt="subject"
 							action="submitSearch" />
-						<h:graphicImage url="images/breadcrumb_arrows.gif" />
+						<h:graphicImage url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
 						<h:commandButton image="images/study_red.gif"
-							action="displayStudy" />
+							action="displayStudy" alt="study"/>
 					</h:panelGroup>
 				</h:form></td>
 		</tr>
@@ -38,7 +38,7 @@ L-->
 
 	<div style="text-align: center">
 		<h:graphicImage id="wrnimage" url="images/Stop_hand.png"
-			style="display:none; height:75px; width: 75px" />
+			style="display:none; height:75px; width: 75px" alt="stop"/>
 	</div>
 
 	<h:form id="chkIRWFormMsg">
@@ -137,10 +137,10 @@ L-->
                                                               '#{cedaraBean.host}',
                                                               '#{cedaraBean.archiveValue}',
                                                               '#{cedaraBean.uid}'); return false;" /-->
-			<h:commandButton id="returnToStudyResultsPageButton"
+			<h:commandButton id="returnToStudyResultsPageButton" alt="Return To Study Results Page Button"
 				value="#{msg.irwStaus_return}"
 				rendered="#{not cedaraBean.fromBasket}" action="displayStudy" />
-			<h:commandButton id="returnToDataBasketPageButton"
+			<h:commandButton id="returnToDataBasketPageButton" alt="Return To Data Basket Page Button"
 				value="#{msg.irwStaus_return_data_basket}"
 				rendered="#{cedaraBean.fromBasket}" action="displayDataBasket" />
 		</h:form>

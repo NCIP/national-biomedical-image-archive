@@ -28,7 +28,7 @@ L-->
       <div style="white-space:nowrap;">
         <ice:commandLink actionListener="#{patientDetail.toggleSubGroupAction}"
                          rendered="#{not empty patientDetail.patient}">
-          <ice:graphicImage id="expandContractImage"
+          <ice:graphicImage id="expandContractImage" alt="expand"
                             value="#{patientDetail.expandContractImage}"
                             style="border: 0px solid;"/>
         </ice:commandLink>            
@@ -42,7 +42,7 @@ L-->
       <div style="white-space:nowrap;">
         <ice:commandLink actionListener="#{patientDetail.toggleSubGroupAction}"
                          rendered="#{empty patientDetail.patient and not empty patientDetail.study}">
-          <ice:graphicImage id="expandContractImage"
+          <ice:graphicImage id="expandContractImage" alt="expand"
                             value="#{patientDetail.expandContractImage}"
                             style="border: 0px solid;"/>
         </ice:commandLink>             

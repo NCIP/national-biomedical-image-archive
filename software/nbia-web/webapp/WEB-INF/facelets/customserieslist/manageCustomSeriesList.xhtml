@@ -27,10 +27,11 @@
              </tr>
              <tr>
                <td width="12%" class="formLabel">
-                   <h:outputText value="User Name(s)" />
+                   <ice:outputLabel for="userNameMenu"  value="User Name(s)" />
                    <br />
                </td>
                <td class="formField" colspan="2">
+               	    
                    <ice:selectOneMenu id="userNameMenu" value="#{searchCustomSeriesListBean.selectedUserName}" style="font-size:1em" partialSubmit="true"
                    valueChangeListener="#{searchCustomSeriesListBean.selectedNameChangeListener}">
                    <f:selectItems value="#{searchCustomSeriesListBean.userNameItems}" />
@@ -44,7 +45,7 @@
                                    image="images/submit.gif" 
                                    action="#{searchCustomSeriesListBean.searchByUserName}"/>
                 <f:verbatim>&amp;nbsp;</f:verbatim-->
-                <ice:commandButton image="images/reset.gif"
+                <ice:commandButton image="images/reset.gif" alt="reset"
                                    action="#{searchCustomSeriesListBean.resetManageList}" />
               </td>
             </tr>          
@@ -161,22 +162,22 @@
                                              renderFacetsIfSinglePage="false"
                                              paginatorMaxPages="20">
                             <f:facet name="first">
-                              <ice:graphicImage url="images/arrow-first.gif" style="border:none;"/>
+                              <ice:graphicImage url="images/arrow-first.gif" style="border:none;" alt="first"/>
                             </f:facet> 
                             <f:facet name="last">
-                              <ice:graphicImage url="images/arrow-last.gif" style="border:none;"/>
+                              <ice:graphicImage url="images/arrow-last.gif" style="border:none;" at="last"/>
                             </f:facet> 
                             <f:facet name="previous">
-                              <ice:graphicImage url="images/arrow-previous.gif" style="border:none;" />
+                              <ice:graphicImage url="images/arrow-previous.gif" style="border:none;" alt="previous"/>
                             </f:facet> 
                             <f:facet name="next">
-                              <ice:graphicImage url="images/arrow-next.gif" style="border:none;" />
+                              <ice:graphicImage url="images/arrow-next.gif" style="border:none;" alt="next"/>
                             </f:facet> 
                             <f:facet name="fastforward">
-                              <ice:graphicImage url="images/arrow-ff.gif" style="border:none;" />
+                              <ice:graphicImage url="images/arrow-ff.gif" style="border:none;" alt="fast forward"/>
                             </f:facet> 
                             <f:facet name="fastrewind">
-                              <ice:graphicImage url="images/arrow-fr.gif" style="border:none;" /> 
+                              <ice:graphicImage url="images/arrow-fr.gif" style="border:none;" alt="fast rewind"/> 
                             </f:facet> 
                           </ice:dataPaginator>
                         </ice:panelGrid>

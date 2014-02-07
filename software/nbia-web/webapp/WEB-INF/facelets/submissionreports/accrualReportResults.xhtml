@@ -89,10 +89,11 @@ This text above will not be displayed.
                   <f:attribute name="day" value="#{detail.key}"/>
                   <h:graphicImage value="/xmlhttp/css/rime/css-images/tree_nav_top_close_no_siblings.gif"
                                   rendered="#{detail.value.expanded}"
-                                  style="border:0;vertical-align:middle"/>
+                                  style="border:0;vertical-align:middle"
+                                  alt="collapse"/>
                   <h:graphicImage value="/xmlhttp/css/rime/css-images/tree_nav_top_open_no_siblings.gif"
                                   rendered="#{not detail.value.expanded}"
-                                  style="border:0;vertical-align:middle"/>                              
+                                  style="border:0;vertical-align:middle" alt="expand"/>                              
                 </ice:commandLink>
                 <h:outputText value="#{detail.key}"/>                 
               </h:panelGroup>             

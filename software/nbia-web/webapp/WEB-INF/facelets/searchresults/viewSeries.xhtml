@@ -25,13 +25,13 @@ L-->
   <tr>
     <td>
       <h:panelGroup>
-        <h:commandButton image="images/search_grey.gif" 
+        <h:commandButton image="images/search_grey.gif" alt="Back To Search"
                          action="#{searchWorkflowBean.backToSearch}" 
                          disabled="#{ispyBean.isQueryFromUrl}"/>
-        <h:graphicImage url="images/breadcrumb_arrows.gif" />
+        <h:graphicImage url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
         <h:commandButton image="images/study_grey.gif" action="displayStudy" />
-        <h:graphicImage url="images/breadcrumb_arrows.gif" />
-        <h:commandButton image="images/series_red.gif" action="viewImages" />
+        <h:graphicImage url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
+        <h:commandButton image="images/series_red.gif" action="viewImages" alt="view Images"/>
       </h:panelGroup>
     </td>
   </tr>
@@ -88,7 +88,7 @@ L-->
                   </f:subview>
                   <th class="formTitleII" scope="col">
 		     <div align="left">
-		         <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;"/>   
+		         <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;" alt="Add to Basket"/>   
 		     </div>
                   </th>
                 </tr>
@@ -111,7 +111,7 @@ L-->
                   </td>
                   <f:subview id="localNodeView2">
                     <td class="formField">
-                      <h:commandButton image="images/dicom.gif" 
+                      <h:commandButton image="images/dicom.gif" alt="view DICOM"
                                        onclick="doDicomPopup(); return false;" 
                                        onmouseover="return overlib('View DICOM header for the first image in the series');" 
                                        onmouseout="return nd();"/>
@@ -165,17 +165,17 @@ L-->
     <td>
       <h:form id="breadcrumbBottom">
         <h:panelGroup>
-          <h:commandButton id="bCrumbSearch" 
+          <h:commandButton id="bCrumbSearch" alt="Back To Search"
                            image="images/search_grey.gif" 
                            action="#{searchWorkflowBean.backToSearch}" />
           <h:graphicImage id="bCrumbArrow1" 
-                          url="images/breadcrumb_arrows.gif" />
-          <h:commandButton id="bCrumbStudy" 
+                          url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
+          <h:commandButton id="bCrumbStudy" alt="Display Study"
                            image="images/study_grey.gif" 
                            action="displayStudy" />
-          <h:graphicImage id="bCrumbArrow3" 
+          <h:graphicImage id="bCrumbArrow3" alt="breadcrumb arrow"
                           url="images/breadcrumb_arrows.gif" />
-          <h:commandButton id="bCrumbSeries" 
+          <h:commandButton id="bCrumbSeries" alt="view Images"
                            image="images/series_red.gif" 
                            action="viewImages" />
         </h:panelGroup>

@@ -28,7 +28,7 @@ L-->
 	<td align="center">
 	<h:panelGroup>
 	  <f:subview id="simpleSearchHelp" rendered="#{!searchWorkflowBean.advanced}">
-		<h:commandButton action="#" image="images/simple-search.png" immediate="true"  title="Simple Search"/>
+		<h:commandButton action="#" image="images/simple-search.png" immediate="true"  title="Simple Search" alt="Simple Search"/>
 		 <ncia:help label="images/help_icon.png"	helpId="-performsimplesearch" />
 		</f:subview>
 		<f:subview id="textSearchHelp" rendered="#{searchWorkflowBean.advanced}">
@@ -59,6 +59,7 @@ L-->
 	            <div align="right">
 	              <h:panelGrid columns="3" 
 	                           rendered="#{searchWorkflowBean.query.savedQueryId == 0}">
+	                <ice:outputLabel for="queryName"  value="queryName" style="display:none"/> 
 	                <h:inputText id="queryName" 
 	                             value="#{searchResultBean.queryName}"
 	                             maxlength="200" 
@@ -95,7 +96,7 @@ L-->
 	                                 onfocus="javascript:selectRadio();"/>
 	                  </h:panelGrid>
 	
-	                  <h:commandButton id="editingSaveQueryButton"
+	                  <h:commandButton id="editingSaveQueryButton" alt="Save Query" title="Save Query"
 	                                   image="images/SAVEQUERY.gif" 
 	                                   action="#{searchResultBean.saveQuery}" />
 	                </h:panelGrid>
@@ -131,7 +132,7 @@ L-->
 									</ice:panelGroup>
                 						  </f:facet> 
 								<div id="resultsPerPageDiv" style="height: 40px;">
-								                <ice:outputLabel for="perPage" value="#{msg.search_resultsPerPage}" />
+								                <ice:outputLabel for="resultsPerPage" value="#{msg.search_resultsPerPage}" />
 								                
 								                 <span class="formFieldWhite">                        
 								                  <ice:selectOneMenu id="resultsPerPage" 
@@ -170,7 +171,8 @@ L-->
 																	var="modalityItem">
 																	<h:column id="modalityItemsColumn">
 																		<span style="white-space: nowrap;"> 
-																		<ice:selectBooleanCheckbox
+																		<ice:outputLabel for="selectModality"  value="select Modality" style="display:none"/> 
+																		<ice:selectBooleanCheckbox id="selectModality"
 																				value="#{modalityItem.value}"
 																				valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
 																				partialSubmit="true" />
@@ -247,7 +249,7 @@ L-->
 										
 											<f:facet name="header">
 											  <ice:panelGroup>
-											    <ice:outputText id="collectionHeader" style="float:left;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
+											    <ice:outputText id="anatomicalHeader" style="float:left;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
 											   
 										
 											    </ice:panelGroup>
@@ -263,7 +265,8 @@ L-->
 													var="anatomicalSiteItem">
 														<h:column id="anatomicalSiteItemsColumn">
 															<span style="white-space: nowrap;"> 
-															<ice:selectBooleanCheckbox 
+														        <ice:outputLabel for="selectAnatomicalSites"  value="select Anatomical site" style="display:none"/> 
+															<ice:selectBooleanCheckbox id="selectAnatomicalSites"
 																style="float:left;"
 																value="#{anatomicalSiteItem.value}"
 																partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
@@ -285,7 +288,7 @@ L-->
 		
 		<div id="clear"  style="height: 20px;">
 		    <ice:commandLink id="addSeriesToBasketButton" action="#{searchWorkflowBean.reset}" >                                          
-			<ice:graphicImage value="images/reset.gif" style="border:none;display:inline;"/>                                                                               
+			<ice:graphicImage value="images/reset.gif" alt="reset" style="border:none;display:inline;"/>                                                                               
 		    </ice:commandLink>
 		</div>
 		

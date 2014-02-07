@@ -18,7 +18,7 @@ L-->
                                
   <ice:panelGroup style="text-align: center" >
     <!--  since multiple tables on this page, have to carefully discriminate for value -->
-     <ice:dataPaginator 
+     <ice:dataPaginator  id="dataScroll_1"
                            for="patientResultsTable"
                            rowsCountVar="rowsCount"
                            pageCountVar="pageCount"
@@ -30,30 +30,33 @@ L-->
             <f:param value="#{pageCount}"/>
           </ice:outputFormat>
     </ice:dataPaginator>
-    <ice:dataPaginator 
+    <ice:dataPaginator id="dataScroll_2" 
                        for="patientResultsTable"
                        fastStep="2"
                        paginator="true"
                        paginatorMaxPages="5"
                        renderFacetsIfSinglePage="false"
+                       rowsCountVar="rowsCount"
+                       pageCountVar="pageCount"
+                       pageIndexVar="pageIndex"
                        style="margin-left:auto;margin-right:auto">
       <f:facet name="first">
-        <ice:graphicImage 
+        <ice:graphicImage  alt="first"
                           url="/xmlhttp/css/rime/css-images/arrow-first.gif"
                           style="border:none;"/>
       </f:facet>
       <f:facet name="last">
-        <ice:graphicImage 
+        <ice:graphicImage alt="last"
                           url="/xmlhttp/css/rime/css-images/arrow-last.gif"
                           style="border:none;"/>
       </f:facet>
       <f:facet name="previous">
-        <ice:graphicImage 
+        <ice:graphicImage alt="previous"
                           url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
                           style="border:none;"/>
       </f:facet>
       <f:facet name="next">
-        <ice:graphicImage 
+        <ice:graphicImage alt="next"
                           url="/xmlhttp/css/rime/css-images/arrow-next.gif"
                           style="border:none;"/>
       </f:facet>

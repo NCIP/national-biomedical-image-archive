@@ -46,7 +46,7 @@ L-->
               <td align="center">
                 <h:graphicImage url="#{image.image.thumbnailURL}" 
                                 width="200" 
-                                height="200"
+                                height="200" alt="thumbnail"
                                 onclick="javascript:showInNewWindow('/ncia/showFullRefImage.jsf?refImageId=#{image.image.thumbnailURL}');return false;"/>
                 <!--
                 <ncia:thumbnailImage value="#{image.image.registeredId}" 
@@ -86,7 +86,7 @@ L-->
           <table width="100%" border="0" cellspacing="0" cellpadding="1">
             <tr>
               <td align="center">
-                <h:commandButton image="images/add2basket.gif" 
+                <h:commandButton image="images/add2basket.gif"  alt="Add To Basket"
                                  action="#{ispyBean.addImagesToBasketForRefImage}" />
               </td>
             </tr>

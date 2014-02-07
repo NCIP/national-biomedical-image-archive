@@ -23,14 +23,14 @@ L-->
   <tr>
     <td>
       <h:panelGrid columns="2">
-        <h:commandButton image="images/savedquery_01.gif" 
+        <h:commandButton image="images/savedquery_01.gif" alt="Saved Query" tile="Saved Query"
                          rendered="#{savedQueryBean.historyMode}" 
                          action="#{savedQueryBean.switchView}" />
-        <h:commandButton image="images/queryhistory_01.gif" 
+        <h:commandButton image="images/queryhistory_01.gif" alt="Query History" title="Query History"
                          rendered="#{savedQueryBean.historyMode}" />
-        <h:commandButton image="images/savedquery_02.gif" 
+        <h:commandButton image="images/savedquery_02.gif" alt="Saved Query" tile="Saved Query"
                          rendered="#{!savedQueryBean.historyMode}" />
-        <h:commandButton image="images/queryhistory_02.gif" 
+        <h:commandButton image="images/queryhistory_02.gif" alt="Query History" title="Query History"
                          rendered="#{!savedQueryBean.historyMode}" 
                          action="#{savedQueryBean.switchView}" />
       </h:panelGrid>
@@ -63,7 +63,7 @@ L-->
         <tr>
           <td>
             <div align="left">
-              <h:commandButton image="images/removeSelectedItems.gif" 
+              <h:commandButton image="images/removeSelectedItems.gif" alt="remove" title="remove"
                                action="#{savedQueryBean.deleteQueries}" 
                                rendered="#{!savedQueryBean.historyMode}" />
               <table width="100%" border="0" cellspacing="0">
@@ -87,7 +87,7 @@ L-->
                             <h:panelGrid columns="2">
                               <h:outputText value="#{msg.queries_queryName}"
                                             styleClass="queryHeader" />
-                              <h:commandButton image="images/sort.gif" 
+                              <h:commandButton image="images/sort.gif" alt="sort" title="sort"
                                                action="#{savedQueryBean.savedQueries.sortByQueryName}" />
                             </h:panelGrid>
                           </f:facet>                                         
@@ -137,7 +137,7 @@ L-->
                             <h:panelGrid columns="2">
                               <h:outputText value="#{msg.queries_lastExecute}" 
                                             styleClass="queryHeader" />
-                              <h:commandButton image="images/sort.gif"
+                              <h:commandButton image="images/sort.gif" alt="sort" title="sort"
                                                action="#{savedQueryBean.savedQueries.sortByLastExecute}" />
                             </h:panelGrid>
                           </f:facet>
@@ -149,7 +149,7 @@ L-->
                           </f:facet>
                           <div align="center">
                             <f:verbatim>&amp;nbsp;</f:verbatim>
-                            <h:commandButton image="images/newdataicon.gif"
+                            <h:commandButton image="images/newdataicon.gif" alt="new data" title="new data"
                                              rendered="#{item.newResults}" 
                                              action="#{savedQueryBean.searchNewData}" />
                           </div>
@@ -158,14 +158,14 @@ L-->
                           <f:facet name="header">
                             <h:outputText value="#{msg.queries_resubmit}" />
                           </f:facet>
-                          <h:commandButton image="images/resubmitquery.gif" 
+                          <h:commandButton image="images/resubmitquery.gif" alt="resubmit query" title="resubmit query"
                                            action="#{savedQueryBean.resubmitQuery}" />
                         </h:column>
                         <h:column id="savedQueryEditColumn">
                           <f:facet name="header">
                             <h:outputText value="#{msg.queries_edit}" />
                           </f:facet>
-                          <h:commandButton id="editQueryButton"
+                          <h:commandButton id="editQueryButton" alt="edit Query" title="edit Query"
                                            image="images/editquery.gif" 
                                            action="#{savedQueryBean.editQuery}" />
                         </h:column>

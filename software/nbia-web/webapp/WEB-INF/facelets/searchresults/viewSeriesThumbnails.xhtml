@@ -36,7 +36,7 @@ L-->
 						rendered="#{seriesSearchResultBean.cellVisibility}" />
 					<br />
 					 <ice:panelGroup rendered="#{not empty seriesSearchResultBean.cellValue.image.thumbnailURL}">
-					<ice:graphicImage id="image"
+					<ice:graphicImage id="image" alt="thumbnail"
 						url="#{seriesSearchResultBean.cellValue.image.thumbnailURL}"
 						style="border:none;" width="100" height="100" />
 					<br />
@@ -60,22 +60,22 @@ L-->
 				rendered="#{seriesSearchResultBean.showPaginator}"
 				pageCountVar="pageCount" pageIndexVar="pageIndex">
 				<f:facet name="first">
-					<ice:graphicImage id="firstpage_1"
+					<ice:graphicImage id="firstpage_1" alt="first"
 						url="/xmlhttp/css/rime/css-images/arrow-first.gif"
 						style="border:none;" />
 				</f:facet>
 				<f:facet name="last">
-					<ice:graphicImage id="lastpage_1"
+					<ice:graphicImage id="lastpage_1" alt="last"
 						url="/xmlhttp/css/rime/css-images/arrow-last.gif"
 						style="border:none;" />
 				</f:facet>
 				<f:facet name="previous">
-					<ice:graphicImage id="previouspage_1"
+					<ice:graphicImage id="previouspage_1" alt="previous"
 						url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
 						style="border:none;" />
 				</f:facet>
 				<f:facet name="next">
-					<ice:graphicImage id="nextpage_1"
+					<ice:graphicImage id="nextpage_1" alt="next"
 						url="/xmlhttp/css/rime/css-images/arrow-next.gif"
 						style="border:none;" />
 				</f:facet>

@@ -167,6 +167,7 @@ td.mainMenuItem ul{
 
 td.mainMenuItem:hover {
   background-color: #d6d6d4;
+  color: #000000; 
 }
 
 
@@ -197,9 +198,13 @@ td.mainMenuItem li a {
   text-decoration: none;
 	 
 }
+td.mainMenuItem li a:hover {
+  color: #000000; 
+  background-color: #d6d6d4;
+}
 
 td.mainMenuItem li:hover {
-  color: #FFFFFF; 
+  color: #000000; 
   background-color: #d6d6d4;
 }
 

@@ -20,7 +20,7 @@ L-->
 		<tr>
 			<td>
 				<ice:outputLabel for="SlctDispItemNum" value="Results Per Page: " />
-				<ice:selectOneMenu 
+				<ice:selectOneMenu id="SlctDispItemNum" 
 					valueChangeListener="#{qcToolSearchBean.pageNumberChangeListener}"
 					value="#{qcToolSearchBean.selectedDispItemNum}"
 					partialSubmit="true">

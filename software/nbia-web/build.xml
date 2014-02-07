@@ -216,7 +216,12 @@ L-->
   	                   
   	<replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/quickLinks.xhtml"
   	                   match="\{NBIA_WIKI_UG_URL}"
-  	                   replace="${nbia.wiki.user.guide.url}" flags="g" />                   
+  	                   replace="${nbia.wiki.user.guide.url}" flags="g" />     
+  	 
+  	<replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/mainMenu.xhtml"
+	   	           match="\{NBIA_WIKI_UG_URL}"
+  	                   replace="${nbia.wiki.user.guide.url}" flags="g" />     
+  	 
   	<!-- end: Insert wiki link into login Failure and to quick links-->
   </target>
 

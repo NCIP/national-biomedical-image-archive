@@ -24,11 +24,11 @@ L-->
            <tr>
 	      <td>
 	        <h:panelGroup>
-	          <h:commandButton image="images/search_grey.gif" 
+	          <h:commandButton image="images/search_grey.gif" alt="Search" title="Search"
 	                     action="#{searchWorkflowBean.backToSearch}" 
 	                     disabled="#{ispyBean.isQueryFromUrl}"/>
-	          <h:graphicImage url="images/breadcrumb_arrows.gif" />
-	          <h:commandButton image="images/study_red.gif" action="displayStudy" />
+	          <h:graphicImage url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
+	          <h:commandButton image="images/study_red.gif" action="displayStudy" alt="Study" title="Study"/>
 	        </h:panelGroup>
 	      </td>
 	      <td width="70%">
@@ -43,7 +43,7 @@ L-->
 	  		     <div>
 	  		     	     <ice:commandLink id="addSeriesToBasketButton"  style="float:left;border: solid 1px #2A4E77;" styleClass="button" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
 	  		     	         <ice:outputText value="Add all found to  " style="display:inline"/>
-	  		     	  	 <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;"/>                                                                               
+	  		     	  	 <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;" alt="Add All To Basket"/>                                                                               
 	  		     	     </ice:commandLink>
 	  	                <br/>
 	  	                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
@@ -59,7 +59,7 @@ L-->
 			     </font>
 		  	</td>
 		  	<td>
-		  	<h:commandButton id="visualizeImages" 
+		  	<h:commandButton id="visualizeImages" alt="visualize Images" title="visualize Images"
 						  			image="images/visualizeImages.gif"  
 						  			onclick="if(!countUserSelection(this.form)){return false};"
 						  			rendered="#{searchResultBean.local}" 
@@ -188,8 +188,8 @@ L-->
 							         </f:facet>
 				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" align="center">
 							          <h:commandLink target="newWin"
-							                        onclick="doViewThumbnailPopup('#{series.series.id}'); return false;"  title="Thumbnails">
-							           <h:graphicImage value="images/old_new_magnifying_glass.png"
+							                        onclick="doViewThumbnailPopup('#{series.series.id}'); return false;"  alt="view Thumbnails">
+							           <h:graphicImage value="images/old_new_magnifying_glass.png" alt="view Thumbnails" title="view Thumbnails"
 							             style="border: none;" width="20%"/>
 							          </h:commandLink> 
 				                                </div>
@@ -204,10 +204,11 @@ L-->
 								  <h:outputLink id="viewMovieLink"                       
 								                 target="slideshow" 
 								                 title = "movie link"
+								                 alt="movie link"
 								                 onclick="window.open('/ncia/viewSlideShow.jsf?seriesId=#{series.series.id}', 'slideshow', 'resizable=no,scrollbars=no,width=602,height=602');return false;">
 								     <img style="vertical-align: middle; margin-left: 5px"
 								          src="images/movie_reel_32x32.jpg"
-								          alt=""/>
+								          alt="movie link"/>
   								  </h:outputLink>
 								 </div>
 							        </h:panelGroup>
@@ -221,7 +222,7 @@ L-->
 									<h:outputText value="DICOM" />
 								 </f:facet>
 								 <div align="center" class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}" >
-								 <h:commandButton image="images/dicom.gif" 
+								 <h:commandButton image="images/dicom.gif" alt="view DICOM" title="view DICOM"
 								           onclick="doDicomTagPopup('#{series.series.id}'); return false;"
 								           onmouseover="return overlib('View DICOM header for the first image in the series');" onmouseout="return nd();"/>
 								 </div>
@@ -233,13 +234,13 @@ L-->
 								      <h:commandButton action="#{studiesSearchResultBean.addSeriesToBasket}"
 								             			 rendered ="#{empty basketBean.inBasketMap[series.basketKey]}"   
 								                                      image="images/add-icon.png" 
-								                                      title="Add To Basket">                         
+								                                      title="Add To Basket" alt="Add To Basket">                         
 								   	<f:setPropertyActionListener target="#{studiesSearchResultBean.toAdd}" value="#{series.series.id}"/>
 								   </h:commandButton>  
 								   <h:commandButton action="#{studiesSearchResultBean.removeSeriesFromBasket}"
 								             			      rendered ="#{basketBean.inBasketMap[series.basketKey]}"
 								                                      image="images/remove_icon.png" 
-								                                      title="Remove From Basket">                                                             
+								                                      title="Remove From Basket" alt="Remove From Basket">                                                             
 								   <f:setPropertyActionListener target="#{studiesSearchResultBean.toAdd}" value="#{series.series.id}"/>
           							</h:commandButton>       				                                   
 				                                                                   
@@ -264,12 +265,12 @@ L-->
     <td>
       <h:form id="breadcrumbBottom">
         <h:panelGroup>
-          <h:commandButton id="bCrumbSearch" 
+          <h:commandButton id="bCrumbSearch" alt="Back To Search"
                            image="images/search_grey.gif" 
                            action="#{searchWorkflowBean.backToSearch}" />
           <h:graphicImage id="bCrumbArrow1" 
-                          url="images/breadcrumb_arrows.gif" />
-          <h:commandButton id="bCrumbStudy"
+                          url="images/breadcrumb_arrows.gif" alt="breadcrumb arrow"/>
+          <h:commandButton id="bCrumbStudy" alt="Display Study"
                            image="images/study_red.gif" 
                            action="displayStudy" />
         </h:panelGroup>

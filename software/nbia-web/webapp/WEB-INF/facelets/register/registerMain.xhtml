@@ -73,7 +73,7 @@ L-->
                        cellspacing="3">
                   <tr class="formMessage">
                     <td width="20%">
-                      <LABEL FOR="MAINbody:d:j_id286">Title:</LABEL>
+                      <LABEL FOR="MAINbody:registerForm:registerUsrTitle">Title:</LABEL>
                     </td>
                     <td width="30%">
                       <span>
@@ -91,7 +91,7 @@ L-->
                   <tr>
                     <td>
                       <span class="formFieldWhite">
-                        <h:selectOneMenu value="#{registerBean.title}">
+                        <h:selectOneMenu id="registerUsrTitle" value="#{registerBean.title}">
                           <f:selectItems value="#{registerBean.titleItems}"/>
                         </h:selectOneMenu>  
                       </span>
@@ -239,7 +239,8 @@ L-->
             </tr> 
             <tr>
               <td style="text-align: left">
-                <h:selectBooleanCheckbox value="#{registerBean.registerToUsersList}"/>
+                <h:outputLabel for="registerToUserList"  value="registerToUserList" style="display:none"/>
+                <h:selectBooleanCheckbox value="#{registerBean.registerToUsersList}" id="registerToUserList"/>
                 <h:outputText value="Also register me for the NBIA user group email list."/>                  
               </td>
             </tr>                                                

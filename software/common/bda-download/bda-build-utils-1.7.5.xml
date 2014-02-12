@@ -476,6 +476,7 @@ $HeadURL: http://gforge.nci.nih.gov/svnroot/automation/branches/automation-1.7.5
 					</then>
 				</elseif>
 				<else>
+					<chmod dir="@{jboss.home}/bin" perm="ugo+rx" includes="**/*.sh" osfamily="unix"/>
 					<echo message="Starting JBoss instance at @{jboss.home}/bin/run.sh" />
 					<var name="bind.address.arg" value=""/>
 					<if>

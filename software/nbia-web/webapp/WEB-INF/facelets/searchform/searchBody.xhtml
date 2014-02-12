@@ -125,12 +125,6 @@ L-->
 					<table  class="contentPage" cellspacing="0" cellpadding="0" width="100%" summary="" border="0" valign="top">
 						<tr>
 							<td>
-							<ice:panelCollapsible expanded="true" rendered="true">
-								 <f:facet name="header">
-									<ice:panelGroup>
-										<ice:outputText value="Criteria"/>
-									</ice:panelGroup>
-                						  </f:facet> 
 								<div id="resultsPerPageDiv" style="height: 40px;">
 								                <ice:outputLabel for="resultsPerPage" value="#{msg.search_resultsPerPage}" />
 								                
@@ -153,12 +147,7 @@ L-->
 									<ui:include src="collectionSearchCriteria.xhtml" />
 								</f:subview>
 							
-									<ice:panelCollapsible expanded="true" rendered="true">
-									                <f:facet name="header">
-									                  <ice:panelGroup>
-									                    <ice:outputText value="#{msg.criteria_ImageModalityCriteria}"/>
-									                  </ice:panelGroup>
-                									</f:facet> 
+									                    <ice:outputText style="float:left;font-weight: bold;" value="#{msg.criteria_ImageModalityCriteria}"/>
 									
 											<f:subview id="modalityCriteria">
 												
@@ -237,23 +226,18 @@ L-->
 													
 												
 											</f:subview>
-										</ice:panelCollapsible>
+										
 						
 						
 							
 							<f:subview id="anatomicCriteria"
 									rendered="#{searchWorkflowBean.showAnatomicCriteria}">
 									
-										<ice:panelCollapsible expanded="true" rendered="true">
 										
-										
-											<f:facet name="header">
-											  <ice:panelGroup>
-											    <ice:outputText id="anatomicalHeader" style="float:left;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
+											    <ice:outputText id="anatomicalHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
 											   
 										
-											    </ice:panelGroup>
-											 </f:facet>
+											    
 										
 										
 										
@@ -277,7 +261,7 @@ L-->
 											</div>
 										
 										
-									</ice:panelCollapsible>	
+
 									
 								</f:subview>
 								
@@ -295,7 +279,7 @@ L-->
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 
-		 </ice:panelCollapsible>
+
               </td>
             </tr>					
             </table>
@@ -329,7 +313,7 @@ L-->
 									id="collectionDescriptionPopupCloseButton"
 									image="images/cancel.png"
 									action="#{displayCollectionDescBean.toggleCollectionDescriptionPopup}"
-									title="Close Popup" /></td>
+									title="Close Popup" alt="Close Popup"/></td>
 						</tr>
 					</table>
 				</ice:panelGroup>

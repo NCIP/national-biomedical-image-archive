@@ -17,13 +17,10 @@ L-->
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
                 
-<ice:panelCollapsible expanded="true" rendered="true">
 
-	<f:facet name="header">
+
 	  <ice:panelGroup>
-	    <ice:outputText id="collectionHeader" value="#{msg.criteria_CollectionCriteria}" />
-	    <br/>
-
+	    <ice:outputText id="collectionHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_CollectionCriteria}" />
 	    <!-- f:subview id="collection_descriptions" rendered="#{securityBean.installationSite}">
 	      <a href="https://wiki.nci.nih.gov/x/lRWy"
 		 target="_blank">
@@ -31,7 +28,6 @@ L-->
 	      </a>
 	    </f:subview-->
 	    </ice:panelGroup>
-	 </f:facet>
  
  <br/>
   
@@ -60,7 +56,7 @@ L-->
           </div>
                  
                      
-   </ice:panelCollapsible> 
+   
    
 
 </ui:composition>                

@@ -286,7 +286,8 @@ L-->
                             <f:facet name="header">Delete</f:facet>
 		                    <h:commandButton image="images/cancel.png"
 		                                     alt="Delete" title="Delete"
-		                                     action="#{editCustomSeriesListBean.performDelete}" >
+		                                     action="#{editCustomSeriesListBean.performDelete}"
+		                                     onclick="if (!confirm('Do you really want to remove shared list?')) return false;">
                          <f:setPropertyActionListener target="#{editCustomSeriesListBean.toDelete}"
                                                       value="#{item.id}"/>
                     </h:commandButton>

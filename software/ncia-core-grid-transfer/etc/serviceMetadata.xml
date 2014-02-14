@@ -192,7 +192,7 @@ L-->
    <ns34:Address country="USA" locality="Rockille" postalCode="20852" stateProvince="MD" street1="2115 E. Jefferson Street" street2=""/>
    <ns34:ResearchCenterDescription description="" homepageURL="" imageURL="" rssNewsURL=""/>
    <ns34:pointOfContactCollection>
-    <ns34:PointOfContact affiliation="National Cancer Institute Center for Bioinformatics - NCICB" email="ncicb@pop.nci.nih.gov" firstName="Application Support" lastName="x" phoneNumber="301.451.4384" role="Application Support/Administration"/>
+    <ns34:PointOfContact affiliation="National Cancer Institute Center for Bioinformatics - NCICB" email="ncicbiit@mail.nih.gov" firstName="Application Support" lastName="x" phoneNumber="301.451.4384" role="Application Support/Administration"/>
    </ns34:pointOfContactCollection>
   </ns34:ResearchCenter>
  </ns1:hostingResearchCenter>

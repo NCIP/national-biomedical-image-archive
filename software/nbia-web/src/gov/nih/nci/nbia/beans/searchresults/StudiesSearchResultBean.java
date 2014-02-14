@@ -74,6 +74,13 @@ public class StudiesSearchResultBean {
 	 */
 	public String addSeriesToBasket() throws Exception {
 		SeriesSearchResult seriesSearchResult = getSelectedSeries(toAdd);
+		for(StudyResultWrapper studywraper : studyResults) {
+			for(SeriesResultWrapper seriesWrapper : studywraper.getSeriesResults()) {
+				if(seriesWrapper.getSeries().getId() == toAdd) {
+					seriesWrapper.setChecked(true);
+				}
+			}
+		}
 		addToBasket(Arrays.asList(seriesSearchResult));
 		return null;
 	}
@@ -95,7 +102,7 @@ public class StudiesSearchResultBean {
 				return null;
 			}
     	}
-		uncheckAllSeries();
+		//uncheckAllSeries();
 		dataBasket.getBasket().addSeries(selectedSeriesList);
 		return null;
 	}

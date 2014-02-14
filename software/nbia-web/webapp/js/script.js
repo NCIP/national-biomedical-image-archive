@@ -241,7 +241,7 @@ function countUserSelection(form)
     for (var i = 0; i < studyTableCheckboxes.length; i++) {
   
         //example: MAINbody:dataForm:studyTable:0:seriesTable:1:seriesSelectionCheckbox
-        if (studyTableCheckboxes[i].id.match(/.*seriesSelectionCheckbox$/)) {                  
+        if (studyTableCheckboxes[i].id.match(/.*seriesSelectionCheckbox$/)) {    
 	      if( studyTableCheckboxes[i].checked) { 
 	          count=count + 1;
           }
@@ -257,6 +257,26 @@ function countUserSelection(form)
        return true; 
     }
 }
+
+
+function slctVis(element) {
+	var eleName = element.name;
+	var checkBoxNamePrefix= eleName.substring(0,eleName.lastIndexOf(":"));
+	var studyTable = document.getElementById("MAINbody:dataForm:studyTable");
+	var checkBoxName = checkBoxNamePrefix+":seriesSelectionCheckbox";
+	var studyTableCheckboxes = studyTable.getElementsByTagName("input");     
+	    for (var i = 0; i < studyTableCheckboxes.length; i++) {
+	        if (studyTableCheckboxes[i].id == checkBoxName) {
+		   studyTableCheckboxes[i].checked = true;
+		   alert(studyTableCheckboxes[i].checked);
+		   break;
+	        }
+	}
+	
+	return true;
+
+}
+
 
 function countDataBasketSelection(form)
 {

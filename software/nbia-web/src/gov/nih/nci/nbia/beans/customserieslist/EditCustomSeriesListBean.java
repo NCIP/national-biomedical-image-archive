@@ -14,8 +14,10 @@ import gov.nih.nci.nbia.customserieslist.CustomSeriesListProcessor;
 import gov.nih.nci.nbia.customserieslist.FileParser;
 import gov.nih.nci.nbia.dto.CustomSeriesListAttributeDTO;
 import gov.nih.nci.nbia.dto.CustomSeriesListDTO;
+import gov.nih.nci.nbia.mail.MailManager;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.MessageUtil;
+import gov.nih.nci.nbia.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.EventObject;
@@ -42,6 +44,8 @@ public class EditCustomSeriesListBean {
 	private String username;
 	private UIData table;
 	private String selectedDispItemNum = "10";
+	private String selectedUserName;
+	private final String defaultSelectedValue = "--Please Select--";
 
 	/* hold the list of the custom series for the user */
 	private List<CustomSeriesListDTO> customList = new ArrayList<CustomSeriesListDTO>();
@@ -49,6 +53,7 @@ public class EditCustomSeriesListBean {
 	private List<String> seriesInstanceUids = new ArrayList<String>();
 	/* hold list of attribute for a given custom list */
 	private List<CustomSeriesListAttributeDTO> seriesInstanceUidsList = new ArrayList<CustomSeriesListAttributeDTO>();
+	private List<CustomSeriesListDTO> results= new ArrayList<CustomSeriesListDTO>();
 	private boolean showSelected = false;
 	private List<String> noPermissionSeries = new ArrayList<String>();
 	private List<String> privateSeries = new ArrayList<String>();
@@ -333,6 +338,22 @@ public class EditCustomSeriesListBean {
 		this.seriesInstanceUidsList = seriesInstanceUidsList;
 	}
 
+	public List<CustomSeriesListDTO> getResults() {
+		return results;
+	}
+
+	public void setResults(List<CustomSeriesListDTO> results) {
+		this.results = results;
+	}
+	
+	public String getSelectedUserName() {
+		return selectedUserName;
+	}
+	
+	public void setSelectedUserName(String selectedUserName) {
+		this.selectedUserName = selectedUserName;
+	}
+	
 	public CustomSeriesListDTO getSelectedList() {
 		return selectedList;
 	}
@@ -445,12 +466,34 @@ public class EditCustomSeriesListBean {
 		 * @return
 	*/
 	public String performDelete() {
+		
+	    if(!StringUtil.isEmptyTrim(username) && !username.equals(defaultSelectedValue)) {
+	   		results = processor.getCustomListByUser(username);
+	   	} else {
+	   		  message="The list could not be found.";
+	   		  results = null;	
+	   	}		
+		int index = table.getRowIndex();
+		System.out.println("index: " + index);
+		CustomSeriesListDTO selectedSharedList = results.get(index);
+		System.out.println("name: " + selectedSharedList.getName() + " comment: " + selectedSharedList.getComment());
+		if (seriesInstanceUidsList == null || seriesInstanceUidsList.isEmpty()) {
+			seriesInstanceUidsList = processor.getCustomseriesListAttributesById(selectedSharedList.getId());
+		}
 		CustomSeriesListDTO editDTO = new CustomSeriesListDTO();
 		System.out.println("id getting deleted:- " + toDelete);
 		editDTO.setId(toDelete);
 		processor.delete(editDTO);
+		String email = processor.findEmailByUserName(username);
+		StringBuffer impactList = new StringBuffer();
+		for (CustomSeriesListAttributeDTO series : seriesInstanceUidsList) {
+			impactList.append(series.getSeriesInstanceUid()).append(", ");
+		}
+		System.out.println("impact List: " + impactList.toString());
+		MailManager.sendDeletionOfShareListEmail(email, selectedSharedList.getName(), impactList.toString());
 		return viewCreatedLists();
 	}
+	
 	public int getToDelete() {
 		return toDelete;
 	}

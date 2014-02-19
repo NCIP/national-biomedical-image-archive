@@ -74,15 +74,19 @@ public class StudiesSearchResultBean {
 	 */
 	public String addSeriesToBasket() throws Exception {
 		SeriesSearchResult seriesSearchResult = getSelectedSeries(toAdd);
+		setSeriesCheckBox(true);
+		addToBasket(Arrays.asList(seriesSearchResult));
+		return null;
+	}
+
+	private void setSeriesCheckBox(boolean value) {
 		for(StudyResultWrapper studywraper : studyResults) {
 			for(SeriesResultWrapper seriesWrapper : studywraper.getSeriesResults()) {
 				if(seriesWrapper.getSeries().getId() == toAdd) {
-					seriesWrapper.setChecked(true);
+					seriesWrapper.setChecked(value);
 				}
 			}
 		}
-		addToBasket(Arrays.asList(seriesSearchResult));
-		return null;
 	}
 	
 	private String addToBasket(List<SeriesSearchResult> selectedSeriesList) throws Exception {
@@ -122,7 +126,7 @@ public class StudiesSearchResultBean {
 			SeriesSearchResult s = getSelectedSeries(toAdd);
 			String toDelete = s.getId() + "||" + s.associatedLocation().getURL();
 			BeanManager.getBasketBean().getBasket().removeSelectedSeries(toDelete);
-				
+			setSeriesCheckBox(false);		
 		} catch(Exception ex) {
 			MessageUtil.addErrorMessage("MAINbody:dataForm:tableOfPatientResultTables",
                     "drillDownRequestFailure",

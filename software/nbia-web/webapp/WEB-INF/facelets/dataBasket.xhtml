@@ -211,8 +211,7 @@ L-->
                   <ice:panelGroup styleClass="iceMnuBarItem" 
                                   rendered="#{basketBean.ncicb}">               
                     <ice:commandLink value="Visualize Images"
-                                     id="visualizeImages"
-                                     onclick="if(!countDataBasketSelection(this.form)){return false;};"
+                                     id="visualizeImages" rendered="#{not empty basketBean.seriesItems}"
                                      action="#{cedaraBean.initiateCedaraAgainstSelectedBasketItems}"/>
                   </ice:panelGroup>  
                 </td>

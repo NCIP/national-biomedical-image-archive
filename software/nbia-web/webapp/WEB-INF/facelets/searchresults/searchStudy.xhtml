@@ -39,7 +39,7 @@ L-->
 	      </td>
   	</tr>
            <tr>
-	                    <td>
+	                    <td width="30%">
 	  		     <div>
 	  		     	     <ice:commandLink id="addSeriesToBasketButton"  style="float:left;border: solid 1px #2A4E77;" styleClass="button" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
 	  		     	         <ice:outputText value="Add all found to  " style="display:inline"/>
@@ -47,7 +47,6 @@ L-->
 	  		     	     </ice:commandLink>
 	  	                <br/>
 	  	                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
-	  	                <h:message for="visualizeImages" errorClass="errorLabel" infoClass="infoLabel" />                                
 	  	              </div>                  
 	                    </td>
 	  	          <f:subview id="cedaraView" rendered="#{searchResultBean.local}">
@@ -59,6 +58,7 @@ L-->
 			     </font>
 		  	</td>
 		  	<td>
+		  	<h:message for="visualizeImages" errorClass="errorLabel" infoClass="infoLabel" />
 		  	<h:commandButton id="visualizeImages" alt="visualize Images" title="visualize Images"
 						  			image="images/visualizeImages.gif"  
 						  			onclick="if(!countUserSelection(this.form)){return false};"

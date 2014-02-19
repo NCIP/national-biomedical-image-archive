@@ -78,7 +78,7 @@ public class CedaraBean {
      */
     public String visualizeSelectedSeries() {
     	fromDataBasket = false;
-    	String dataFormVisualizeImageTag = "MAINbody:dataForm:visualizeImages";
+    	String dataFormVisualizeImageTag = "MAINbody:dataForm:cedaraView:visualizeImages";
         //if guest user, give them warning that they need to login to use this feature
         AnonymousLoginBean anonymousLoginBean = BeanManager.getAnonymousLoginBean();
 		if(anonymousLoginBean.getGuestLoggedIn()){

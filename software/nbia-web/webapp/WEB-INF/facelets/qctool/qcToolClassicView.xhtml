@@ -26,7 +26,7 @@ L-->
                                         
                                         <ice:outputLabel for="slctQcStatus" value="#{msg.qcTool_qcStatus}" />
                                     </td>
-                                    <td class="formField" colspan="2">
+                                    <td class="formField" colspan="2" align="left">
                                         <ice:selectManyCheckbox id="slctQcStatus"
                                             value="#{qcToolBean.selectedQcStatus}" partialSubmit="false"
                                             style="white-space:nowrap; ">
@@ -41,7 +41,7 @@ L-->
                                     <ice:outputLabel for="collectionSiteMenu" value="#{msg.criteria_CollectionCriteria}" />
                                     <br />
                                 </td>
-                                <td class="formField" colspan="2">
+                                <td class="formField" colspan="2" align="left">
                                     <ice:selectOneMenu id="collectionSiteMenu"
                                         value="#{qcToolBean.selectedCollectionSite}"
                                         style="font-size:1em" partialSubmit="false">

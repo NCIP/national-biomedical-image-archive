@@ -67,16 +67,25 @@ function resetBooleanCheckbox(){
 		
 }
 
-function toggleBooleanCheckbox(){
-
-
+function toggleBooleanCheckAll(){
 
 	if(document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked){
-		document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = false;
+		document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = true;
 	}
 		else{
 			document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = true;
+	}
 }
+
+
+function toggleBooleanUnCheckAll(){
+
+	if(!document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked){
+		document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = false;
+	}
+		else{
+			document.getElementById('MAINbody:qcToolForm:data:checkAllBox').checked = false;
+	}
 }
 
 function checkUncheckAll(theElement) {

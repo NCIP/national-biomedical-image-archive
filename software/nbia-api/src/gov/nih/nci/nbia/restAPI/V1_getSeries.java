@@ -85,7 +85,6 @@ public class V1_getSeries {
 
 			if (format.equalsIgnoreCase("XML")) {
 				returnString = FormatOutput.toXml(columns, data);
-				System.out.println("returnString="+returnString);
 				return Response.ok(returnString).type("application/xml").build();
 			}
 			if (format.equalsIgnoreCase("CSV")) {

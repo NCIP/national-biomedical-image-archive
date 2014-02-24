@@ -15,6 +15,7 @@ import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
@@ -23,6 +24,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIData;
 
@@ -57,6 +59,19 @@ public class StudiesSearchResultBean {
 	
 	
 	public List<StudyResultWrapper> getStudyResults() {
+		String installationSite = NCIAConfig.getInstallationSite();
+		if (installationSite.equalsIgnoreCase(NCIAConstants.INSTALLATION_SITE)) {
+			//check if in basket
+			BasketBean dataBasket = BeanManager.getBasketBean();
+			Map<String, Boolean> basketMap = dataBasket.getInBasketMap();
+			for(StudyResultWrapper study : studyResults) {
+				for(SeriesResultWrapper seriesWrapper : study.getSeriesResults()) {
+					if(basketMap.containsKey(seriesWrapper.getBasketKey())) {
+						seriesWrapper.setChecked(true);
+					}
+				}
+			}
+		}
 		return studyResults;
 	}
 
@@ -299,6 +314,7 @@ public class StudiesSearchResultBean {
 				series.setStudyDate(study.getDateString());
 				series.setStudyDescription(study.getStudy().getDescription());
 				seriesList.add(series);
+				seriesWrapper.setChecked(true);
 			}
 		}		
 		addToBasket(seriesList);

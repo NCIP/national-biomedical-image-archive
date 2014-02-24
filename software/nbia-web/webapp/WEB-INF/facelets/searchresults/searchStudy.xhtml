@@ -231,7 +231,7 @@ L-->
 				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
 				                                     style="width:100%">
 				                                  <div align="center" class="formFieldWhite">
-				                                   <h:selectBooleanCheckbox id="seriesSelectionCheckbox" value="#{series.checked}" style="display:none"/>
+				                      <h:selectBooleanCheckbox id="seriesSelectionCheckbox" value="#{series.checked}" style="display:none"/>
 								      <h:commandButton action="#{studiesSearchResultBean.addSeriesToBasket}"
 								             			 rendered ="#{empty basketBean.inBasketMap[series.basketKey]}"   
 								                                      image="images/add-icon.png" 

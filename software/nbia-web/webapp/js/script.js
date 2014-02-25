@@ -258,7 +258,7 @@ function countUserSelection(form)
 	}
     
     if(count == 0 ){
-    	alert("Please select a series for visualization.");
+    	alert("Please add series to basket for visualization.");
     	return false;
     }
     else {
@@ -299,7 +299,7 @@ function countDataBasketSelection(form)
 	    }
 	}
     if(count == 0 ){
-    	alert("Please add series to basket for visualization.");
+    	alert("Please select a series for visualization.");
     	return false;
     }
     else {

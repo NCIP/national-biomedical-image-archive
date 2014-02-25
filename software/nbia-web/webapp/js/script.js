@@ -299,7 +299,7 @@ function countDataBasketSelection(form)
 	    }
 	}
     if(count == 0 ){
-    	alert("Please select a series for visualization.");
+    	alert("Please add series to basket for visualization.");
     	return false;
     }
     else {

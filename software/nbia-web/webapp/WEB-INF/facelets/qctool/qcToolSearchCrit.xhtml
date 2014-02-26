@@ -70,7 +70,7 @@ L-->
         </f:subview>
         <f:subview id="qcToolDeleteView" rendered="#{not qcToolBean.superRole}">
                 <ice:panelTabSet tabChangeListener="#{dynamicQcSearchBean.tabChangeListener}" selectedIndex="#{dynamicQcSearchBean.tabIndex}">
-                        <ice:panelTab id="tab1" label="classic">                
+                        <ice:panelTab id="tab1" label="Classic">                
                             <ui:include src="./qcToolClassicView.xhtml"/>
                         </ice:panelTab>         
                     <ice:panelTab id="tab2" label="Dynamic">                

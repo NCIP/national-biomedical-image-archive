@@ -140,7 +140,7 @@ public class StudyDAOImpl extends AbstractDAO
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException
 	{
-		String hql = "select s.studyInstanceUID, s.studyDate, s.studyDesc, s.admittingDiagnosesDesc, s.studyId, " +
+		String hql = "select distinct s.studyInstanceUID, s.studyDate, s.studyDesc, s.admittingDiagnosesDesc, s.studyId, " +
 				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
 				"s.patient.ethnicGroup, s.patient.dataProvenance.project, " +
 				"(select count(*) from GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID) "  +

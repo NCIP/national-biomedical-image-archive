@@ -1661,5 +1661,12 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
     </createIndex>
  
   </changeSet>
+  
+  <changeSet id="6.0.NBIA.REST.API.GetPatientStudy.performance.improvement" author="panq">
+    	<comment>Creat index for study instance UID in general_series table</comment>
+        	<createIndex tableName="GENERAL_SERIES" indexName="STUDY_INSTANCE_UID_IDX">
+  		<column name="STUDY_INSTANCE_UID"/>
+  	</createIndex>    
+  </changeSet>
 
 </databaseChangeLog>

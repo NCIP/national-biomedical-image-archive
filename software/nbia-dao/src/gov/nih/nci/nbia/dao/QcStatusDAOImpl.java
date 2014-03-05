@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class QcStatusDAOImpl extends AbstractDAO
                              implements QcStatusDAO{
+
+	private static final int PARAMETER_LIMIT = 800;
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
@@ -111,20 +114,47 @@ public class QcStatusDAOImpl extends AbstractDAO
 				+ "qsh.comment," + "qsh.userId ";
 		String fromStmt = "FROM QCStatusHistory as qsh";
 		String whereStmt = " WHERE qsh.seriesInstanceUid in (";
-		if (seriesList != null) {
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < seriesList.size(); ++i) {
-				if (i == 0) {
-					sb.append("'" + seriesList.get(i) + "'");
-				} else {
-					sb.append(", '" + seriesList.get(i) + "'");
-				}
+
+		if (seriesList.size() > PARAMETER_LIMIT) {
+			Collection<Collection<String>> seriesPkIdsBatches = split(new ArrayList<String>(seriesList), PARAMETER_LIMIT);
+			for (Collection<String> seriesPkIdBatch : seriesPkIdsBatches) {
+				String hql = new String() + selectStmt + fromStmt + whereStmt;
+				hql += constructSeriesIdList(new ArrayList<String>(seriesPkIdBatch));
+				hql += ") ORDER BY qsh.seriesInstanceUid,qsh.historyTimestamp";
+				qcsList.addAll(getResults(hql));
 			}
-			whereStmt = whereStmt + sb.toString() + ")"
+		} else {
+		
+			whereStmt = whereStmt + constructSeriesIdList(seriesList) + ")"
 					+ " ORDER BY qsh.seriesInstanceUid,qsh.historyTimestamp";
+			String hql = selectStmt + fromStmt + whereStmt;
+			qcsList.addAll(getResults(hql));
+		}
+		return qcsList;
+
+	}
+	private <T> Collection<Collection<T>> split(Collection<T> bigCollection, int maxBatchSize) {
+		Collection<Collection<T>> result = new ArrayList<Collection<T>>();
+		ArrayList<T> currentBatch = null;
+		for (T t : bigCollection) {
+			if (currentBatch == null) {
+				currentBatch = new ArrayList<T>();
+			} else if (currentBatch.size() >= maxBatchSize) {
+				result.add(currentBatch);
+				currentBatch = new ArrayList<T>();
+			}
+			currentBatch.add(t);
 		}
 
-		String hql = selectStmt + fromStmt + whereStmt;
+		if (currentBatch != null) {
+			result.add(currentBatch);
+		}
+
+		return result;
+	}
+
+	private List<QcStatusHistoryDTO> getResults(String hql) {
+		List<QcStatusHistoryDTO> qcsList = new ArrayList<QcStatusHistoryDTO>();
 		List<Object[]> searchResults = getHibernateTemplate().find(hql);
 
 		for (Object[] row : searchResults) {
@@ -139,11 +169,21 @@ public class QcStatusDAOImpl extends AbstractDAO
 					oldValue, comment, userId);
 			qcsList.add(qcshDTO);
 		}
-
 		return qcsList;
-
 	}
-
+	private String constructSeriesIdList(List<String> seriesList) {
+		StringBuffer sb = new StringBuffer();
+		if (seriesList != null) {
+			for (int i = 0; i < seriesList.size(); ++i) {
+				if (i == 0) {
+					sb.append("'" + seriesList.get(i) + "'");
+				} else {
+					sb.append(", '" + seriesList.get(i) + "'");
+				}
+			}
+		}
+		return sb.toString();
+	}
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateQcStatus(List<String> seriesList,
 			                   List<String> statusList,

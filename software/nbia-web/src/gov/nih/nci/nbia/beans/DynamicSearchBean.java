@@ -1025,8 +1025,10 @@ public class DynamicSearchBean {
 	public void addTextCriteria() {
 		try {
 		addCriteria();
-		submitSearch();
-		defaultView();
+		if(!errorMessage) {
+			submitSearch();
+			defaultView();
+		}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1053,17 +1055,22 @@ public class DynamicSearchBean {
     			selectedOperand = String.valueOf(stringOperandValues[i]);
     		}
 		}
+		for(int i=0; i< otherOperands.length; i++){
+    		if(selectedOperand.equalsIgnoreCase(otherOperands[i])) {
+    			selectedOperand = String.valueOf(otherOperandValues[i]);
+    		}
+		}
 		try {
 			newValue= selectedDataGroup;
 			addCriteria();
-			criteria.clear();
-			for (DynamicSearchCriteriaBean tmp:criteriaBean) {
-				criteria.add(tmp.getCriteria());
+			if(!errorMessage) {
+				criteria.clear();
+				for (DynamicSearchCriteriaBean tmp:criteriaBean) {
+					criteria.add(tmp.getCriteria());
+				}	
+				hasDuplicate = false;
+				submitSearch();
 			}
-			hasDuplicate = false;
-			submitSearch();
-			defaultView();
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -1071,6 +1078,27 @@ public class DynamicSearchBean {
 		defaultView();
 	}
 
+	private boolean containsCriteria(DynamicSearchCriteria tmp) {
+		for(DynamicSearchCriteriaBean cBean : criteriaBean) {
+			if(cBean.getCriteria().equals(tmp)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public String cancelEditPopup() {
+		for (DynamicSearchCriteria tmp:criteria) {
+			if(!containsCriteria(tmp)) {	
+				DynamicSearchCriteriaBean criteriaBeanTemp = new DynamicSearchCriteriaBean();
+				criteriaBeanTemp.setCriteria(tmp);
+				criteriaBean.add(criteriaBeanTemp);
+			}
+		}	
+		hasDuplicate = false;
+		toggleEditTextPopupRendered();
+		defaultView();
+		return null;
+	}
 	public String toggleEditTextPopupRendered() {
 		editTextPopupRendered = false;
 		return null;

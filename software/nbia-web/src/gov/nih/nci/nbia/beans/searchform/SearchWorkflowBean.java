@@ -24,11 +24,13 @@ import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.DynamicSearchBean;
+import gov.nih.nci.nbia.beans.DynamicSearchCriteriaBean;
 import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.FileGenerator;
 import gov.nih.nci.nbia.dto.ModalityDescDTO;
+import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.modalitydescription.ModalityDescProcessor;
@@ -66,7 +68,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 
@@ -1000,6 +1001,8 @@ public class SearchWorkflowBean {
 		freeTextSearch = false;
 		SearchResultBean srb = BeanManager.getSearchResultBean();
 		srb.setPatientResults(null);
+		DynamicSearchBean dySearchBean = BeanManager.getDynamicSearchBean();
+		dySearchBean.resetAction();
 		return DYNAMIC_SEARCH;
 	}
 	public String newFreeTextSearch()

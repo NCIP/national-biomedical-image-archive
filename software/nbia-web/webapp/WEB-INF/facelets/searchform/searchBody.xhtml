@@ -175,51 +175,44 @@ L-->
 																	</h:column>
 																</h:dataTable>
 															</div>
-														
-													
-													
-														<f:subview id="usSearch"
-																rendered="#{searchWorkflowBean.usSearch}">
-																
-																	
-																		<h:outputText
-																				value="#{msg.criteria_NumFrameOptionCriteria}" /> <h:selectManyCheckbox
-																				id="numOfFrame" style="font-size: 1em"
-																				value="#{searchWorkflowBean.numFrameOptions}"
-																				layout="lineDirection">
-																				<f:selectItems
-																					value="#{searchLookupBean.numFrameOptionItems}" />
-																			</h:selectManyCheckbox>
+														<f:subview id="usSearch" rendered="#{searchWorkflowBean.usSearch}">
+															<h:outputText value="#{msg.criteria_NumFrameOptionCriteria}" /> 
+															<ice:selectManyCheckbox
+																	id="numOfFrame" style="font-size: 1em"
+																	value="#{searchWorkflowBean.numFrameOptions}"
+																	valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+																	partialSubmit="true"
+																	layout="lineDirection">
+															<f:selectItems value="#{searchLookupBean.numFrameOptionItems}" />
+															</ice:selectManyCheckbox>
 																	
 																	
-																		<h:outputText
-																				value="Ultrasound Color Data Present (US)" /> <h:selectManyCheckbox
-																				id="colorMode" style="font-size: 1em"
-																				value="#{searchWorkflowBean.colorModeOptions}"
-																				layout="lineDirection">
-																				<f:selectItems
-																					value="#{searchLookupBean.colorModeOptionItems}" />
-																			</h:selectManyCheckbox>
+															<h:outputText value="Ultrasound Color Data Present (US)" /> 
+																<ice:selectManyCheckbox
+																	id="colorMode" style="font-size: 1em"
+																	value="#{searchWorkflowBean.colorModeOptions}"
+																	valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+																	partialSubmit="true"
+																	layout="lineDirection">
+																	<f:selectItems
+																		value="#{searchLookupBean.colorModeOptionItems}" />
+																	</ice:selectManyCheckbox>
 																	
-																	
-																		<h:outputText
-																				value="Ultrasound Image Mode (US)" />
-																			<div id="imageTypeDiv" class="searchFormSelector"
-																				align="center">
-																				<h:dataTable id="imageTypeCheckboxesTable"
-																					width="100%" border="0" cellpadding="0"
-																					cellspacing="0"
-																					value="#{searchWorkflowBean.usMultiModalityItems}"
-																					var="imageTypeItem">
-																					<h:column id="imageTypeItemsColumn">
-																						<span style="white-space: nowrap;"> <ice:selectBooleanCheckbox
-																								value="#{imageTypeItem.value}"
-																								partialSubmit="true" /> <h:outputText
-																								value="#{imageTypeItem.label}" />
-																						</span>
-																					</h:column>
-																				</h:dataTable>
-																			</div>
+															<h:outputText value="Ultrasound Image Mode (US)" />
+																<div id="imageTypeDiv" class="searchFormSelector" align="center">
+																	<h:dataTable id="imageTypeCheckboxesTable" width="100%" border="0" cellpadding="0"
+																		cellspacing="0"
+																		value="#{searchWorkflowBean.usMultiModalityItems}"
+																		var="imageTypeItem">
+																	<h:column id="imageTypeItemsColumn">
+																		<span style="white-space: nowrap;"> 
+																		<ice:selectBooleanCheckbox value="#{imageTypeItem.value}"
+																		partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
+																		<h:outputText value="#{imageTypeItem.label}" />
+																		</span>
+																	</h:column>
+																	</h:dataTable>
+																</div>
 																	
 																
 															</f:subview>

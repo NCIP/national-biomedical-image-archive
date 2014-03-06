@@ -144,7 +144,7 @@
                             <h:commandButton image="images/cancel.png"
                                              alt="Delete" title="Delete"
                                              action="#{searchCustomSeriesListBean.performDelete}" 
-		                                     onclick="if (!confirm('Are you sure you want to delete Share List #{item.name}?')) return false;">
+		                                     onclick='if (!confirm("Are you sure you want to delete Share List &#39;#{item.name}&#39;?")) return false;'>
                          <f:setPropertyActionListener target="#{searchCustomSeriesListBean.toDelete}"
                                                       value="#{item.id}"/>
                     </h:commandButton>

@@ -13,7 +13,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/compile/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/compile/csm-4.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/compile/esapi-2.1.0.jar"/>
-	
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/runtime/nbia-domain.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 5.1 Runtime">
 		<attributes>
@@ -27,5 +26,7 @@
 	</classpathentry>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/runtime/nbia-dao.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/compile/servlet-api-2.4.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/compile/jettison-1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

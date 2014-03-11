@@ -73,36 +73,12 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/powermock-easymock-1.3.5.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/aopalliance-1.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/commons-codec-1.7.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/commons-fileupload-1.2.2.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/commons-io-2.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/commons-io-1.3.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/commons-lang-2.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/guava-14.0.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/httpclient-4.2.6.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/httpcore-4.2.5.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-analyzers-common-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-analyzers-kuromoji-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-analyzers-phonetic-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-codecs-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-core-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-grouping-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-highlighter-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-join-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-memory-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-misc-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-queries-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-queryparser-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-spatial-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/lucene-suggest-4.6.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-dao-working@nbia-dao-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-domain-working@nbia-domain-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-services-grid-working@nbia-services-grid-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-util-working@nbia-util-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/noggit-0.5.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/quartz-1.6.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/solr-core-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/solr-solrj-4.6.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/spatial4j-0.3.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/zookeeper-3.4.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/nbia-dao.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-dao-working@nbia-dao-resolver.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

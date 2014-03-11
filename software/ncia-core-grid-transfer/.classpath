@@ -109,8 +109,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-Transfer-service-1.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-Transfer-stubs-1.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-Transfer-tests-1.4.jar"/>
-	<!--classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-wsEnum-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/caGrid-wsEnum-stubs-1.4.jar"/-->
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/castor-1.0.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/ccl-29.50.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/cglib-2.1_3.jar"/>
@@ -127,7 +125,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-digester.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-discovery-0.2-dev.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-httpclient-3.0.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-io-1.3.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-io-2.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/commons-lang-2.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/concurrent.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/cryptix-1.2.jar"/>
@@ -312,5 +310,9 @@
 	<classpathentry kind="lib" path="lib/spring-tx-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-web-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring.jar"/>
+	<classpathentry kind="var" path="ECLIPSE_HOME"/>
+	<classpathentry kind="var" path="GLOBUS_LOCATION"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/test/nbia-dao.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/ncia-core-grid-transfer/compile/nbia-domain.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

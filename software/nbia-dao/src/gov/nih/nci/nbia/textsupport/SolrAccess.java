@@ -37,7 +37,7 @@ public class SolrAccess {
 			  queryTerm=queryTerm.replaceAll(":", "");
 			   if (queryTerm==null || queryTerm.length()<2)
 			   {
-					  return returnValue;
+			       return returnValue;
 			   }
 			   String term = "text:"+queryTerm;
 			   SolrQuery query = new SolrQuery(term);

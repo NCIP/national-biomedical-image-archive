@@ -34,6 +34,11 @@ public class SolrAccess {
 			  }
 			  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
 			  SolrServer server = serverAccess.GetServer();
+			   queryTerm.replaceAll(":", "");
+			   if (queryTerm==null || queryTerm.length()<2)
+			   {
+					  return returnValue;
+			   }
 			   String term = "text:"+queryTerm;
 			   SolrQuery query = new SolrQuery(term);
 			   query.setHighlight(true).setHighlightSnippets(1);

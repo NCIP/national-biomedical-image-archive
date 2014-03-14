@@ -34,7 +34,7 @@ public class SolrAccess {
 			  }
 			  SolrServerInterface serverAccess = (SolrServerInterface)SpringApplicationContext.getBean("solrServer");
 			  SolrServer server = serverAccess.GetServer();
-			   queryTerm.replaceAll(":", "");
+			  queryTerm=queryTerm.replaceAll(":", "");
 			   if (queryTerm==null || queryTerm.length()<2)
 			   {
 					  return returnValue;

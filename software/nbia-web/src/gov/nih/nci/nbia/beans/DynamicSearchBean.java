@@ -580,7 +580,7 @@ public class DynamicSearchBean {
 
 	public String submitSearch() throws Exception
 	{
-		String returnValue = "submitSearch";
+		String returnValue = "dynamicSearch";
 		if(criteria !=null && !criteria.isEmpty()) {
 			QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
 			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
@@ -597,7 +597,7 @@ public class DynamicSearchBean {
 	}
 	public String submitTextSearch() throws Exception
 	{
-		String returnValue = "submitTextSearch";
+		String returnValue = "freeTextSearch";
 		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
 		System.out.println("Searching Solr for"+textValue);
 		List<SolrAllDocumentMetaData> results = qh.searchSolr(textValue);
@@ -743,6 +743,7 @@ public class DynamicSearchBean {
 			catch (Exception e)
 			{
 				invalidDate = true;
+				errorMessage = true;
 				returnBoolean = invalidDate;
 			}
 		}
@@ -754,6 +755,7 @@ public class DynamicSearchBean {
 			}catch (Exception e)
 			{
 				invalidInteger = true;
+				errorMessage = true;
 				returnBoolean = invalidInteger;
 			}
 		}
@@ -765,6 +767,7 @@ public class DynamicSearchBean {
 			}catch(Exception e)
 			{
 				invalidDouble = true;
+				errorMessage = true;
 				returnBoolean = invalidDouble;
 			}
 		}

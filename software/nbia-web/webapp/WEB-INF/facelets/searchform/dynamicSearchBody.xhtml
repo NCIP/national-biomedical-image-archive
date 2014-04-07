@@ -148,10 +148,11 @@ L-->
                                  style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}"
                                  value="#{dynamicSearchBean.inputValue}"
                                  size="31"/>
- 	           <ice:commandButton id="addC" action="#{dynamicSearchBean.addTextCriteria}" 
+ 	           <h:commandButton id="addC" action="#{dynamicSearchBean.addTextCriteria}" 
  	           		image="images/plus_16.png" 
  	           		style="display: #{dynamicSearchBean.hasPermissibleData ? 'none':'inline'}" 
- 	           		title="Add Criteria" alt="Add Criteria"/>                                
+ 	           		title="Add Criteria" alt="Add Criteria"
+ 	           		onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>                                
                   </span>
                   <ice:selectOneMenu id="permissibleDataValue" 
                                      tabindex="25"
@@ -269,6 +270,18 @@ L-->
 	       </tr>
 	         <tr>
 	           <td height="70%">
+	            <table border="0" width="80%" class="contentPage">
+		           <tr>
+		             <td>
+		               <div id="notification" style="display: none;">
+		                 <img src="images/ajax_indicator.gif" title="#{searchWorkflowBean.notificationHack}" 
+		                      alt="Searching"/>
+		                 <f:verbatim>&amp;nbsp;</f:verbatim>
+		                 Searching...
+		               </div>
+		             </td>
+		           </tr>
+      		</table>
 	          <f:subview id="criteriaView">
 	            <ui:include src="../searchresults/searchResult.xhtml"/>
 	          </f:subview>
@@ -279,18 +292,7 @@ L-->
        </tr>
      </table>
       <div style="display:none;"> #{dynamicSearchBean.criteriaLength} </div>
-      <table border="0" width="80%" class="contentPage">
-        <tr>
-          <td>
-            <div id="notification" style="display: none;">
-              <img src="images/ajax_indicator.gif" 
-                   alt="Searching"/>
-              <f:verbatim>&amp;nbsp;</f:verbatim>
-              Searching...
-            </div>
-          </td>
-        </tr>
-      </table>
+     
 </div>
   <ice:form id="editTextPopupForm">
   		<ice:panelPopup id="editTextPopup"
@@ -315,15 +317,27 @@ L-->
   					</table>
   				</ice:panelGroup>
   			</f:facet>
-  
   			<f:facet name="body">
-  				<ice:panelGroup style="overflow: auto; width:400px; height: 200px">
+  			<ice:panelGroup style="overflow: auto; width:400px; height: 200px">
+  			<table border="0" width="80%" class="contentPage">
+								           <tr>
+								             <td>
+								               <div id="notificationEdit" style="display: none;">
+								                 <img src="images/ajax_indicator.gif" 
+								                      alt="Searching"/>
+								                 <f:verbatim>&amp;nbsp;</f:verbatim>
+								                 Searching...
+								               </div>
+								             </td>
+								           </tr>
+      			</table>
+      			
   					<h:outputText styleClass="formLabel"  value="#{dynamicSearchBean.selectedField}" style="border:0px" />
   					<h:outputText styleClass="formLabel"  value="#{dynamicSearchBean.selectedOperand}" style="border:0px" />
   					<h:inputText value="#{dynamicSearchBean.inputValue}"
   						escape="false" />
-  					 <ice:commandButton id="editTextCriteria" actionListener="#{dynamicSearchBean.submitEditCriteria}" 
- 	           		image="images/plus_16.png" 
+  					 <h:commandButton id="editTextCriteria" actionListener="#{dynamicSearchBean.submitEditCriteria}" 
+ 	           		image="images/plus_16.png"  onclick="Effect.Appear('notificationEdit',{duration: 0.25, queue: 'end'});"
  	           		title="Modify Criteria"/>	
   				</ice:panelGroup>
   			</f:facet>

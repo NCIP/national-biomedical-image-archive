@@ -3,7 +3,7 @@
     <wb-module deploy-name="rest.test">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="rest.test"/>
         <property name="java-output-path" value="/rest.test/build/classes"/>
+        <property name="context-root" value="nbia-api"/>
     </wb-module>
 </project-modules>

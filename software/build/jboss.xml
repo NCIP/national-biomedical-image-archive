@@ -112,6 +112,9 @@ L-->
 
     <copy file="${jboss-conf.dir.dest}/properties-service.xml"
           todir="${jboss.home}/server/${jboss.server.name}/deploy" overwrite="true" >
+          <filterset>
+          	<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+          </filterset>
     </copy>
     <copy file="${jboss-conf.dir.dest}/${resource.file.ds-xml}"
           todir="${jboss.home}/server/${jboss.server.name}/deploy" overwrite="true" >

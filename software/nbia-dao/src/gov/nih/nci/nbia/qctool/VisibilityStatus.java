@@ -34,7 +34,14 @@ public enum VisibilityStatus {
     VISIBLE(1, "Visible"),
     NOT_VISIBLE(2, "Not Visible"),
     TO_BE_DELETED(3, "To Be Deleted"),
-    DELETE(4, "Delete");
+    DELETE(4, "Delete"),
+	STAGE_1(5,"Stage 1"),
+	STAGE_2(6,"Stage 2"),
+	STAGE_3(7,"Stage 3"),
+	STAGE_4(8,"Stage 4"),
+	STAGE_5(9,"Stage 5"),
+	STAGE_6(10,"Stage 6"),
+	STAGE_7(11,"Stage 7");
 
     /**
      * Reads in an integer and creates the correct VisibilityStatus for that integer.
@@ -54,6 +61,20 @@ public enum VisibilityStatus {
            return TO_BE_DELETED;
         } else if (status == 4) {
             return DELETE;
+        } else if (status == 5) {
+            return STAGE_1;
+        } else if (status == 6) {
+            return STAGE_2;
+        } else if (status == 7) {
+            return STAGE_3;
+        } else if (status == 8) {
+            return STAGE_4;
+        } else if (status == 9) {
+            return STAGE_5;
+        } else if (status == 10) {
+            return STAGE_6;
+        } else if (status == 11) {
+            return STAGE_7;
         }       
         return null;
     }
@@ -74,7 +95,22 @@ public enum VisibilityStatus {
             return TO_BE_DELETED;
         } else if (status.equals(DELETE.getText())) {
             return DELETE;
-        }        
+        } else if (status.equals(STAGE_1.getText())) {
+            return STAGE_1;
+        } else if (status.equals(STAGE_2.getText())) {
+            return STAGE_2;
+        } else if (status.equals(STAGE_3.getText())) {
+            return STAGE_3;
+        } else if (status.equals(STAGE_4.getText())) {
+            return STAGE_4;
+        } else if (status.equals(STAGE_5.getText())) {
+            return STAGE_5;
+        } else if (status.equals(STAGE_6.getText())) {
+            return STAGE_6;
+        } else if (status.equals(STAGE_7.getText())) {
+            return STAGE_7;
+        }  
+        
         return null;
     }
 

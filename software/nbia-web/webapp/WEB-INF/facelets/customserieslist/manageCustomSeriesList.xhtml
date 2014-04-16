@@ -84,9 +84,10 @@
                                          lastRowIndexVar="lastRowIndex"
                                          pageCountVar="pageCount"
                                          pageIndexVar="pageIndex">
-                        <ice:outputFormat value="{0} list found, displaying {1} records, from {2} to {3}. Page {4} / {5}" 
+                        <ice:outputFormat value="{0} {1} found, displaying {2} records, from {3} to {4}. Page {5} / {6}" 
                                           styleClass="standard" >
                           <f:param value="#{rowsCount}" />
+                          <f:param value="#{searchCustomSeriesListBean.list}"/>
                           <f:param value="#{displayedRowsCountVar}" />
                           <f:param value="#{firstRowIndex}" />
                           <f:param value="#{lastRowIndex}" />
@@ -144,7 +145,7 @@
                             <h:commandButton image="images/cancel.png"
                                              alt="Delete" title="Delete"
                                              action="#{searchCustomSeriesListBean.performDelete}" 
-		                                     onclick='if (!confirm("Are you sure you want to delete Share List &#39;#{item.name}&#39;?")) return false;'>
+		                                     onclick='if (!confirm("Are you sure you want to delete Shared List &#39;#{item.name}&#39;?")) return false;'>
                          <f:setPropertyActionListener target="#{searchCustomSeriesListBean.toDelete}"
                                                       value="#{item.id}"/>
                     </h:commandButton>

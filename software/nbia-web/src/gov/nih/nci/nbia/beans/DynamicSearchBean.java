@@ -81,7 +81,7 @@ public class DynamicSearchBean {
 	protected String textValue;
 	protected List<DynamicSearchCriteria> criteria = new ArrayList<DynamicSearchCriteria>();
 	protected List<DynamicSearchCriteriaBean> criteriaBean = new ArrayList<DynamicSearchCriteriaBean>();
-	
+
 	protected boolean showCriteria = false;
 	protected boolean hasDuplicate = false;
 	protected UIData table;
@@ -166,7 +166,7 @@ public class DynamicSearchBean {
 					dataGroupItems.add(new SelectItem(ds.getSourceName(), ds.getSourceLabel()));
 				}
 			}
-		}	
+		}
 		return dataGroupItems;
 	}
 
@@ -420,7 +420,7 @@ public class DynamicSearchBean {
 					break;
 				}
 			}
-			
+
 		}
 		if (newValue != null)
 		{
@@ -430,8 +430,8 @@ public class DynamicSearchBean {
 		{
 			dsc.setDataGroup(initialDataGroup.trim());
 		}
-		System.out.println("get selected field="+ selectedField.trim());		
-				
+		System.out.println("get selected field="+ selectedField.trim());
+
 		dsc.setLabel(itemLabelTable.get(selectedField.trim()));
 
 		if (!isDuplicate(dsc)) {
@@ -529,7 +529,7 @@ public class DynamicSearchBean {
 	        	isCT = false;
 	        }
 	        criteria.remove(tmpBean);
-	        
+
 	      }
 	    }
 	    if (criteria.size() == 0)
@@ -538,9 +538,9 @@ public class DynamicSearchBean {
 	    }
 	    hasDuplicate = false;
 	    defaultView();
-	    
+
 	}
-	
+
 
 	public String getRelation() {
 		return relation;
@@ -617,10 +617,10 @@ public class DynamicSearchBean {
 		op.setValue("contains");
 		dsc.setOperator(op);
 		dsc.setValue(patientIDs.toString());
-        
+
 		criteria.clear();
 		criteria.add(dsc);
-		
+
 
 		if(criteria !=null && !criteria.isEmpty()) {
 
@@ -642,7 +642,7 @@ public class DynamicSearchBean {
 				    textPatients.add(textResult);
 				}
 			}
-			
+
 			populateSearchResults(textPatients);
 		} else {
 			populateSearchResults(null);
@@ -743,7 +743,6 @@ public class DynamicSearchBean {
 			catch (Exception e)
 			{
 				invalidDate = true;
-				errorMessage = true;
 				returnBoolean = invalidDate;
 			}
 		}
@@ -755,7 +754,6 @@ public class DynamicSearchBean {
 			}catch (Exception e)
 			{
 				invalidInteger = true;
-				errorMessage = true;
 				returnBoolean = invalidInteger;
 			}
 		}
@@ -767,7 +765,6 @@ public class DynamicSearchBean {
 			}catch(Exception e)
 			{
 				invalidDouble = true;
-				errorMessage = true;
 				returnBoolean = invalidDouble;
 			}
 		}
@@ -905,7 +902,7 @@ public class DynamicSearchBean {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}		
+		}
 	}
 	private void editCriteria(ValueChangeEvent event) {
 		UIComponent tmpComponent = event.getComponent();
@@ -933,7 +930,7 @@ public class DynamicSearchBean {
 	        	}
 	        }
 	      }
-		
+
 	}
 
 	public void relationChangeListener(ValueChangeEvent event) {
@@ -945,9 +942,9 @@ public class DynamicSearchBean {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void resultPerPageOptionChangeListener(ValueChangeEvent event) {
 		if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
 	   		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -979,7 +976,7 @@ public class DynamicSearchBean {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<DynamicSearchCriteriaBean> getCriteriaBean() {
 		return criteriaBean;
 	}
@@ -987,7 +984,7 @@ public class DynamicSearchBean {
 	public void setCriteriaBean(List<DynamicSearchCriteriaBean> criteriaBean) {
 		this.criteriaBean = criteriaBean;
 	}
-	
+
 	public void removeCriteriaItem (ActionEvent event)	{
 	    UIComponent tmpComponent = event.getComponent();
 
@@ -1007,7 +1004,7 @@ public class DynamicSearchBean {
 	 	        	isCT = false;
 	 	        }
 		        criteriaBean.remove(tmpCBean);
-		     
+
 	      }
 	    }
 	    if (criteriaBean.size() == 0) {
@@ -1018,7 +1015,7 @@ public class DynamicSearchBean {
 	    	criteria.clear();
 			for (DynamicSearchCriteriaBean tmp:criteriaBean) {
 				criteria.add(tmp.getCriteria());
-			}	
+			}
 			submitSearch();
 			defaultView();
 	    }catch (Exception e) {
@@ -1028,17 +1025,17 @@ public class DynamicSearchBean {
 	public void addTextCriteria() {
 		try {
 		addCriteria();
-		if(!errorMessage) {
+		if(!errorMessage && !invalidDate && !invalidDouble && !invalidInteger) {
 			submitSearch();
 			defaultView();
 		}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	private boolean editTextPopupRendered = false;
-	
+
 	public void editTextCriteria(ActionEvent event){
 		DynamicSearchCriteriaBean selectItem = (DynamicSearchCriteriaBean) event.getComponent().getAttributes().get("textCiteria");
     	System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+ selectItem.getCriteria().getValue());
@@ -1049,9 +1046,9 @@ public class DynamicSearchBean {
     	selectedOperand = selectItem.getCriteria().getOperator().getValue();
     	criteriaBean.remove(selectItem);
 		editTextPopupRendered= true;
-		
+
     }
-	
+
 	public void submitEditCriteria(ActionEvent event){
 		for(int i=0; i< stringOperands.length; i++){
     		if(selectedOperand.equalsIgnoreCase(stringOperands[i])) {
@@ -1066,11 +1063,11 @@ public class DynamicSearchBean {
 		try {
 			newValue= selectedDataGroup;
 			addCriteria();
-			if(!errorMessage) {
+			if(!errorMessage && !invalidDate && !invalidDouble && !invalidInteger) {
 				criteria.clear();
 				for (DynamicSearchCriteriaBean tmp:criteriaBean) {
 					criteria.add(tmp.getCriteria());
-				}	
+				}
 				hasDuplicate = false;
 				submitSearch();
 			}
@@ -1091,12 +1088,12 @@ public class DynamicSearchBean {
 	}
 	public String cancelEditPopup() {
 		for (DynamicSearchCriteria tmp:criteria) {
-			if(!containsCriteria(tmp)) {	
+			if(!containsCriteria(tmp)) {
 				DynamicSearchCriteriaBean criteriaBeanTemp = new DynamicSearchCriteriaBean();
 				criteriaBeanTemp.setCriteria(tmp);
 				criteriaBean.add(criteriaBeanTemp);
 			}
-		}	
+		}
 		hasDuplicate = false;
 		toggleEditTextPopupRendered();
 		defaultView();

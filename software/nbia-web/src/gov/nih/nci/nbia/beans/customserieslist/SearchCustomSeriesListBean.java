@@ -43,6 +43,7 @@ public class SearchCustomSeriesListBean {
     private String name="";
     private boolean errorMessage=false;
     private String message;
+    private String list = "";
     private List<CustomSeriesListDTO> results= new ArrayList<CustomSeriesListDTO>();
     private UIData table;
     private String selectedDispItemNum = "10";
@@ -71,6 +72,10 @@ public class SearchCustomSeriesListBean {
         AuthorizationManager am = sb.getAuthorizationManager();
         processor = new CustomSeriesListProcessor(sb.getUsername(), am);
         List<String> uNames = processor.getSharedListUserNames(); 
+        if(uNames.size()>1){
+			list = "lists";
+		}
+		else{list = "list";}
         userNameItems.clear();
         for (String uName : uNames) {
         	userNameItems.add(new SelectItem(uName));
@@ -299,6 +304,10 @@ public class SearchCustomSeriesListBean {
 	   		  results = null;
 	   		
 	   	}
+	    if(results.size()>1){
+			list = "lists";
+		}
+		else{list = "list";}
 	    showSelectedList = false; 
 	    return null;
 	}
@@ -345,6 +354,10 @@ public class SearchCustomSeriesListBean {
 		System.out.println("impact List: " + impactList.toString());
 		MailManager.sendDeletionOfShareListEmail(email, selectedSharedList.getName(), impactList.toString());
 	    return searchByUserName();
+	}
+	
+	public String getList() {
+		return list;
 	}
 	
 	public List<SelectItem> getUserNameItems() {

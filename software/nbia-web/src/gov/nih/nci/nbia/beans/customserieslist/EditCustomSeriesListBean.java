@@ -36,6 +36,8 @@ public class EditCustomSeriesListBean {
 	private String comment = "";
 	private String hyperlink = "";
 	private String seriesUIDs = "";
+	private String list = "";
+
 	private CustomSeriesListDTO selectedList;
 
 	private CustomSeriesListProcessor processor;
@@ -153,6 +155,10 @@ public class EditCustomSeriesListBean {
 				+ username);
 		showSelected = false;
 		customList = processor.getCustomListByUser(username);
+		if(customList.size()>1){
+			list = "lists";
+		}
+		else{list = "list";}
 		return "editCustomSeriesList";
 	}
 
@@ -423,6 +429,10 @@ public class EditCustomSeriesListBean {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public String getList() {
+		return list;
 	}
 
 	public FileInfo getCurrentFile() {

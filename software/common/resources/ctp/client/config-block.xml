@@ -27,6 +27,10 @@ L-->
             root="roots/dicom-import"
             port="@ctp.client.dicom_import_service.port@" 
             timeTag="00120050"/>
+    <IDMap
+            name="IDMap"
+            class="org.rsna.ctp.stdstages.IDMap"
+            root="roots/IDMap" />  
     <Anonymizer
             name="Anonymizer"
             id="dicomAnonymizer"

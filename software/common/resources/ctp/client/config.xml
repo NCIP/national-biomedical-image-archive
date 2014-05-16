@@ -9,7 +9,6 @@ L-->
 <Configuration>
   <Server port="8001" />
   <Pipeline name="DICOM Pipeline">
-
     <ImportService 
             name="HTTP Import"
             class="org.rsna.ctp.stdstages.HttpImportService"
@@ -27,6 +26,10 @@ L-->
             root="roots/dicom-import"
             port="1205" 
             timeTag="00120050"/>
+    <IDMap
+            name="IDMap"
+            class="org.rsna.ctp.stdstages.IDMap"
+            root="roots/IDMap" />           
     <Anonymizer
             name="Anonymizer"
              id="dicomAnonymizer"
@@ -47,12 +50,6 @@ L-->
                 root="roots/zip-anonymizer" 
                 script="roots/anonymizer/scripts/xml-anonymizer.script" 
                 quarantine="quarantines/zip-anonymizer" />            
-    <Processor 
-      name="IDMap" 
-      id="idmap"
-      class="org.rsna.ctp.stdstages.IDMap" 
-      root="IDMap" />
-    
     <DatabaseVerifier
                 class="org.rsna.ctp.stdstages.DatabaseVerifier"
                 name="DatabaseVerifier"

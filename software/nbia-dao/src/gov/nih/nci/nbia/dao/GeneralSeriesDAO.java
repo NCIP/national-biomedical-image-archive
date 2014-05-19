@@ -68,19 +68,13 @@ public interface GeneralSeriesDAO  {
 	public List<SeriesDTO> findSeriesBySeriesInstanceUID(List<String> seriesIds,
 			                                             List<SiteData> authorizedSites,
 			                                             List<String> authorizedSeriesSecurityGroups) throws DataAccessException;
-	
+
 	public SeriesDTO getGeneralSeriesByPKid(Integer seriesPkId) throws DataAccessException;
-	
-	public List<String> getModalityValues(String collection, String bodyPart,List<SiteData> authorizedSites) throws DataAccessException;
-	
-	public List<String> getBodyPartValues(String collection, String modality,List<SiteData> authorizedSites) throws DataAccessException;
-	
-	public List<String> getManufacturerValues(String collection, String modality, String bodyPart,List<SiteData> authorizedSites) throws DataAccessException;
-	
-	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException;
-	
-	//this is to get authorizedSecurityGroups for rest API
-	
-	public List<SiteData> getAuthorizedSecurityGroups(Map<String,String> queryParams) throws DataAccessException;
-	
+
+	// Below Methods are added for Rest API
+	public List<String> getModalityValues(String collection, String bodyPart, List<String> authorizedProjAndSites) throws DataAccessException;
+	public List<String> getBodyPartValues(String collection, String modality, List<String> authorizedProjAndSites) throws DataAccessException;
+	public List<String> getManufacturerValues(String collection, String modality, String bodyPart, List<String> authorizedProjAndSites) throws DataAccessException;
+	public List<Object[]> getSeries(String collection, String patientId, String studyInstanceUid, List<String> authorizedProjAndSites) throws DataAccessException;
+	public List<String> getRequestedProjectAndSite(Map<String,String> queryParams) throws DataAccessException;
 }

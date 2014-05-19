@@ -26,54 +26,38 @@ public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 	 * This method is used for NBIA Rest API.
 	 */
 	@Transactional(propagation = Propagation.REQUIRED)
-	public List<String> getCollectionValues(List<SiteData> siteData) throws DataAccessException {
-		// Actually the Rest API only need project. Added second project just
-		// for using common util for format transferring.
+	public List<String> getCollectionValues(List<String> authorizedProjAndSites) throws DataAccessException {
+	// Actually the Rest API only need project. Added second project just
+	// for using common util for format transferring.
 
-		String hql = "select distinct(tdp.project) from TrialDataProvenance tdp " + addSecurityGroup(siteData);
-		String orderBy = " order by upper(tdp.project)";
-		List<String> rs = getHibernateTemplate().find(hql + orderBy);
+	String hql = "select distinct(tdp.project) from TrialDataProvenance tdp " + addAuthorizedProjAndSites(authorizedProjAndSites);
+	String orderBy = " order by upper(tdp.project)";
+	List<String> rs = getHibernateTemplate().find(hql + orderBy);
 
-		return rs;
-	}
-
-	private StringBuffer addSecurityGroup(List<SiteData> authorizedSites) {
+	return rs;
+}
+	/**
+	 * Construct the partial where clause which contains checking with authorized project and site combinations.
+	 *
+	 * This method is used for NBIA Rest API filter.
+	 */
+	private StringBuffer addAuthorizedProjAndSites(List<String> authorizedProjAndSites) {
 		StringBuffer where = new StringBuffer();
-		String authorisedProjectName = getProjectNames(authorizedSites);
-		String authorisedSiteName = getSiteNames(authorizedSites);
-		if(authorisedProjectName != null && authorisedSiteName != null) {
-			where = where.append(" where UPPER(tdp.project) in (").append(authorisedProjectName).append(")").append(" and UPPER(tdp.dpSiteName) in (" + authorisedSiteName+")");
+
+		if ((authorizedProjAndSites != null) && (!authorizedProjAndSites.isEmpty())){
+			where = where.append("where (tdp.project || '//' || tdp.dpSiteName) in (");
+
+			for (Iterator<String> projAndSites =  authorizedProjAndSites.iterator(); projAndSites .hasNext();) {
+	    		String str = projAndSites.next();
+	            where.append (str);
+
+	            if (projAndSites.hasNext()) {
+	            	where.append(",");
+	            }
+	        }
+			where.append(")");
 		}
+		System.out.println("&&&&&&&&&&&&where clause for project and group=" + where.toString());
 		return where;
 	}
-	private String getProjectNames(Collection<SiteData> sites) {
-		if(sites == null || sites.isEmpty()) {
-			return null;
-		}
-		String projectNameStmt = "";
-    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
-    		SiteData str = i.next();
-            projectNameStmt += ("'" + str.getCollection().toUpperCase() + "'");
-
-            if (i.hasNext()) {
-            	projectNameStmt += ",";
-            }
-        }
-    	return projectNameStmt;
-    }
-	private String getSiteNames(Collection<SiteData> sites) {
-		if(sites == null || sites.isEmpty()) {
-			return null;
-		}
-		String siteWhereStmt = "";
-    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
-    		SiteData str = i.next();
-            siteWhereStmt += ("'" + str.getSiteName().toUpperCase() + "'");
-
-            if (i.hasNext()) {
-            	siteWhereStmt += ",";
-            }
-        }
-    	return siteWhereStmt;
-    }
 }

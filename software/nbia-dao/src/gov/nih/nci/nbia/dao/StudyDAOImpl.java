@@ -138,7 +138,7 @@ public class StudyDAOImpl extends AbstractDAO
 	 * @param studyInstanceUid Study Instance UID
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
-	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException
+	public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid, List<String> authorizedProjAndSites) throws DataAccessException
 	{
 		String hql = "select distinct s.studyInstanceUID, s.studyDate, s.studyDesc, s.admittingDiagnosesDesc, s.studyId, " +
 				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
@@ -165,7 +165,8 @@ public class StudyDAOImpl extends AbstractDAO
 			paramList.add(studyInstanceUid.toUpperCase());
 			++i;
 		}
-		where.append(addSecurityGroup(authorizedSites));
+
+		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString(), values);
@@ -174,13 +175,29 @@ public class StudyDAOImpl extends AbstractDAO
 
         return rs;
 	}
-	private StringBuffer addSecurityGroup(List<SiteData> authorizedSites) {
+
+	/**
+	 * Construct the partial where clause which contains checking with authorized project and site combinations.
+	 *
+	 * This method is used for NBIA Rest API
+	 */
+	private StringBuffer addAuthorizedProjAndSites(List<String> authorizedProjAndSites) {
 		StringBuffer where = new StringBuffer();
-		String authorisedProjectName = getProjectNames(authorizedSites);
-		String authorisedSiteName = getSiteNames(authorizedSites);
-		if(authorisedProjectName != null && authorisedSiteName != null) {
-			where = where.append(" and UPPER(gs.project) in (").append(authorisedProjectName).append(")").append(" and UPPER(gs.site) in (" + authorisedSiteName+")");
+
+		if ((authorizedProjAndSites != null) && (!authorizedProjAndSites.isEmpty())){
+			where = where.append(" and (gs.project || '//' || gs.site) in (");
+
+			for (Iterator<String> projAndSites =  authorizedProjAndSites.iterator(); projAndSites .hasNext();) {
+	    		String str = projAndSites.next();
+	            where.append (str);
+
+	            if (projAndSites.hasNext()) {
+	            	where.append(",");
+	            }
+	        }
+			where.append(")");
 		}
+		System.out.println("&&&&&&&&&&&&where clause for project and group=" + where.toString());
 		return where;
 	}
 
@@ -322,35 +339,4 @@ public class StudyDAOImpl extends AbstractDAO
 		}
 		return resultList;
 	}
-
-		private String getProjectNames(Collection<SiteData> sites) {
-			if(sites == null || sites.isEmpty()) {
-				return null;
-			}
-			String projectNameStmt = "";
-	    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
-	    		SiteData str = i.next();
-	            projectNameStmt += ("'" + str.getCollection().toUpperCase() + "'");
-
-	            if (i.hasNext()) {
-	            	projectNameStmt += ",";
-	            }
-	        }
-	    	return projectNameStmt;
-	    }
-		private String getSiteNames(Collection<SiteData> sites) {
-			if(sites == null || sites.isEmpty()) {
-				return null;
-			}
-			String siteWhereStmt = "";
-	    	for (Iterator<SiteData> i = sites.iterator(); i.hasNext();) {
-	    		SiteData str = i.next();
-	            siteWhereStmt += ("'" + str.getSiteName().toUpperCase() + "'");
-
-	            if (i.hasNext()) {
-	            	siteWhereStmt += ",";
-	            }
-	        }
-	    	return siteWhereStmt;
-    }
 }

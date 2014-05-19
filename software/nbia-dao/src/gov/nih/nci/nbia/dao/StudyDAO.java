@@ -17,21 +17,22 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 public interface StudyDAO  {
-	
+
     /**
      * This method will deal with the query where a list of SeriesPkId's
      * is passed in as a Query to the QueryHandler.  It will then return
      * the SeriesListResultSet, which contains all of the information necessary
      * for the second level query.
      */
-    public List<StudyDTO> findStudiesBySeriesId(Collection<Integer> seriesPkIds) throws DataAccessException;  
-    
-    public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid,List<SiteData> authorizedSites) throws DataAccessException;
-    
+    public List<StudyDTO> findStudiesBySeriesId(Collection<Integer> seriesPkIds) throws DataAccessException;
+
+
+    public List<Object[]> getPatientStudy(String collection, String patientId, String studyInstanceUid, List<String> authorizedProjAndSites) throws DataAccessException;
+
     /**
-        * This method will deal with the query where a list of SeriesPkId's
-        * is passed in as a Query to the QueryHandler.  It will then return
-        * the SeriesListResultSet, which contains all of the information sorted.
-    */
+     * This method will deal with the query where a list of SeriesPkId's
+     * is passed in as a Query to the QueryHandler.  It will then return
+     * the SeriesListResultSet, which contains all of the information sorted.
+     */
     public List<StudyDTO> findStudiesBySeriesIdDBSorted(Collection<Integer> seriesPkIds) throws DataAccessException;
 }

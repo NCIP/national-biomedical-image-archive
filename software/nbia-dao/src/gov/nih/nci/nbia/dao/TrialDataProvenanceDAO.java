@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.nih.nci.nbia.dao;
 
@@ -22,5 +22,5 @@ public interface TrialDataProvenanceDAO {
 	 * Assigned during the process of curating the data. The info is kept under project column
 	 * This method is used for NBIA Rest API.
 	 */
-	public List<String> getCollectionValues(List<SiteData> siteData) throws DataAccessException;
+	public List<String> getCollectionValues(List<String> authorizedProjAndSites) throws DataAccessException;
 }

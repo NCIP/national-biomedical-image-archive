@@ -28,8 +28,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/v1/getPatient")
-public class V1_getPatient extends getData{
+@Path("/v2/getPatient")
+public class V2_getPatient extends getData{
 	private static final String[] columns={"PatientId", "PatientName", "PatientBirthDate", "PatientSex", "EthnicGroup", "Collection"};
 	public final static String TEXT_CSV = "text/csv";
 
@@ -46,7 +46,7 @@ public class V1_getPatient extends getData{
 		List<String> authorizedCollections = null;
 		
 		try {
-			authorizedCollections = getPublicCollections();
+			authorizedCollections = getAuthorizedCollections();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

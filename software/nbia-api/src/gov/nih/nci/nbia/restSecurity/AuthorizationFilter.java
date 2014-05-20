@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.nih.nci.nbia.restSecurity;
 
@@ -45,15 +45,15 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
 	private static final String AUTHENTICATION_SCHEME = "Basic";
-	
+
 	@Context private HttpServletRequest httpRequest;
-	
+
 	public ContainerRequest filter(ContainerRequest request) {
-	
+
 		// Get the authentication passed in HTTP headers parameters
 		String authorization = request.getHeaderValue(AUTHORIZATION_PROPERTY);
 		String username = null;
-		String password = null; 
+		String password = null;
 		// If no authorization information present; block access
 		if (authorization != null && !authorization.isEmpty()) {
 			// Get encoded username and password
@@ -66,7 +66,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 						usernameAndPassword, ":");
 			username = tokenizer.nextToken();
 			password = tokenizer.nextToken();
-		} 
+		}
 		// authenticate User name and password
 		try {
 			authenticateAndAuthorizeUser(username,password,request);
@@ -86,8 +86,8 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		for (String key : new ArrayList<String>(map.keySet())) {
 			queryParamsMap.put(key, map.get(key).get(0));
 		}
-		
-		
+
+
 		Map<String,String> parameterMapping = new HashMap<String, String>();
 		parameterMapping.put("PatientID", "patientId");
 		parameterMapping.put("Modality", "modality");
@@ -95,7 +95,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		parameterMapping.put("StudyInstanceUID", "studyInstanceUID");
 		parameterMapping.put("SeriesInstanceUID", "seriesInstanceUID");
 		parameterMapping.put("Collection", "project");
-		
+
 		String applicationName = "NCIA";
 		AuthorizationManager authorizationManager  = SecurityServiceProvider.getAuthorizationManager(applicationName);
 		AuthenticationManager authenticationManager  = SecurityServiceProvider.getAuthenticationManager(applicationName);
@@ -118,8 +118,8 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		}
 		GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		collectionRequested.addAll(generalSeriesDao.getAuthorizedSecurityGroups(daoParam));
-		
-		//user is authenticated but not in local database		
+
+		//user is authenticated but not in local database
 		if (usr != null) {
 			Set<ProtectionElementPrivilegeContext>  authorizedCollectionLst = authorizationManager.getProtectionElementPrivilegeContextForUser(usr.getUserId().toString());
 			List<String> authorizedCollections= new ArrayList<String>();
@@ -142,11 +142,11 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 				}
 			}
 			if(onlyPublicData) {
-				httpRequest.setAttribute("authorizedCollections", authorizedProjectNameList);	
+				httpRequest.setAttribute("authorizedCollections", authorizedProjectNameList);
 			} else if (!unAuthorizedList.isEmpty()) {
 				throw new Exception("Does not have access to requested information.");
 			}
-			
+
 		} else {
 				// check if requested collection is public then allow else throw
 				//un-Authorized exception
@@ -179,7 +179,7 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 					throw new Exception("Does not have access to requested information.");
 				}
 			}
-		
+
 		return true;
 	}
 	private List<String> getCollectionForPublicRole() throws CSObjectNotFoundException {
@@ -188,8 +188,25 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		 Set<TableProtectionElement> publicPEs =  mgr.getSecurityMapForPublicRole();
 		 for (TableProtectionElement tPE : publicPEs) {
 			 protectionGroupLst.add(tPE.getAttributeValue());
-			 
+
+			//test code
+						 if (tPE.getAttributeName().equalsIgnoreCase("NCIA.PROJECT//DP_SITE_NAME")) {
+						 System.out.println("attibute name=" + tPE.getAttributeName());
+						 System.out.println("attibute value=" + tPE.getAttributeValue());
+					 }
+			 //test code
 		 }
+
+		 //test code
+//		 List<SiteData> authorizedPublicSites = mgr.getAuthorizedSites();
+//
+
+//		 			for (SiteData sd : authorizedPublicSites)
+//		 			{
+//		 				System.out.println("site name=" + sd.getSiteName());
+//		 				System.out.println("collection name = " + sd.getCollection());
+//			}
+		 //test code
 		 return protectionGroupLst;
 	}
 }

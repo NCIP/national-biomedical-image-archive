@@ -21,6 +21,7 @@ package gov.nih.nci.nbia.restAPI;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
@@ -41,8 +42,8 @@ import javax.ws.rs.core.Response;
 import com.sun.jersey.api.client.ClientResponse.Status;
 
 
-@Path("/v1/getImage")
-public class V1_getImage extends getData {
+@Path("/v2/getImage")
+public class V2_getImage extends getData {
 	static final int BUFFER = 2048;
 	/**
 	 * This method get a set of images in a zip file
@@ -64,9 +65,8 @@ public class V1_getImage extends getData {
 		Map<String,String> paramMap = new HashMap<String, String>();
 		paramMap.put("seriesInstanceUID", sid);
 			 
-		//SecurityContextHolder will return the last logged in user if the user is not logged out.
-		//For getting around the problem, the path will be used here to determine if it is anonymousUser 
-		if (!isUserHasAccess("anonymousUser", paramMap))
+		//SecurityContextHolder will be used to get the user name later.
+		if (!isUserHasAccess(null, paramMap))
 			throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity("Image with given SeriesInstanceUID" +sid + "is not in public domain.").build());
 
 
@@ -75,7 +75,7 @@ public class V1_getImage extends getData {
 		final PipedOutputStream sink = new PipedOutputStream();
 		PipedInputStream source = new PipedInputStream(sink);
 
-
+		
 		// apparently we need to write to the PipedOutputStream in a separate
 		// thread
 		Runnable runnable = new Runnable() {
@@ -110,7 +110,14 @@ public class V1_getImage extends getData {
 		                writer.flush();
 						zip.closeEntry();
 			        }
-				} catch (Exception e) {
+				}
+				catch (FileNotFoundException fnex) {
+					fnex.printStackTrace();
+					writer.flush();
+					writer.close();
+					System.out.println("Requested Image file is missing in the file server.");
+				}
+				catch (Exception e) {
 					e.printStackTrace();
 //					return Response.status(500)
 //							.entity("Server was not able to process your request")
@@ -121,11 +128,11 @@ public class V1_getImage extends getData {
 				writer.close();
 			}
 		};
+
 		Thread writerThread = new Thread(runnable, "FileGenerator");
 		writerThread.start();
 
 		return source;
-
 	}
 
 	private void closeInputStream(FileInputStream bis) throws IOException {

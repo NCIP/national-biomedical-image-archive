@@ -24,13 +24,14 @@ import org.springframework.dao.DataAccessException;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.restSecurity.AuthorizationService;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,31 +41,35 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.authentication.BadCredentialsException;
 
+import com.sun.jersey.api.client.ClientResponse.Status;
 
-@Path("/v1/getModalityValues")
-public class V1_getModalityValues extends getData{
-	private static final String column="Modality";
+@Path("/v2/getModalityValues")
+public class V2_getModalityValues extends getData {
+	private static final String column = "Modality";
 	public final static String TEXT_CSV = "text/csv";
 
-	@Context private HttpServletRequest httpRequest;
 	/**
-	 * This method get a set of all modality values (CT, MR, ...) filtered by query keys
-	 *
-	 * @return String - set of patient
+	 * This method get a set of all modality values (CT, MR, ...) filtered by
+	 * query keys
+	 * 
+	 * @return String - set of modalities
 	 */
 	@GET
-	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
-
-	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("format") String format,
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON,
+			MediaType.TEXT_HTML, TEXT_CSV })
+	public Response constructResponse(
+			@QueryParam("Collection") String collection,
+			@QueryParam("format") String format,
 			@QueryParam("BodyPartExamined") String bodyPart) {
 		List<String> authorizedCollections = null;
 		try {
-			authorizedCollections = getPublicCollections();
+			authorizedCollections = getAuthorizedCollections();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		List<String> data = getModalityValues (collection, bodyPart, authorizedCollections);
+
+		List<String> data = getModalityValues(collection, bodyPart, authorizedCollections);
 		return formatResponse(format, data, column);
 	}
 }

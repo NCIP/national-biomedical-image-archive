@@ -3,10 +3,10 @@ package gov.nih.nci.nbia.restUtil;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
-import java.lang.reflect.Field;
+//import java.sql.ResultSet;
+//import java.util.ArrayList;
+//import java.lang.reflect.Field;
 
 import org.owasp.esapi.ESAPI;
 

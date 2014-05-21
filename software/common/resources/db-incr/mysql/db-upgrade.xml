@@ -1668,5 +1668,22 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
   		<column name="STUDY_INSTANCE_UID"/>
   	</createIndex>    
   </changeSet>
+<changeSet id="6.1.workflow.create" author="gustafss" dbms="mysql">
+  <comment>
+   create new table to support workflow
+  </comment>
 
+  <sql>
+    CREATE TABLE MR_IMAGE (
+      WORKFLOW_ID bigint(20) ,
+      NAME VARCHAR(50) NULL ,
+      COLLECTION VARCHAR(200) NULL ,
+      SITE VARCHAR(200) NULL ,
+      URL VARCHAR(255) NULL ,
+      WORKFLOW_ID VARCHAR(50) NULL ,
+      PRIMARY KEY (WORKFLOW_ID) 
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+  </sql>
+</changeSet>
 </databaseChangeLog>

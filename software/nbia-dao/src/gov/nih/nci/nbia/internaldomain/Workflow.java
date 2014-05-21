@@ -14,6 +14,7 @@ import java.util.Date;
 
 public class Workflow  implements Serializable
 {
+	
 	/**
 	* An attribute to allow serialization of the domain objects
 	*/

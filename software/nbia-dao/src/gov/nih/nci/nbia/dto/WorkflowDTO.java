@@ -55,5 +55,5 @@ public class WorkflowDTO {
 		this.type = type;
 	}
 
-	
+
 }

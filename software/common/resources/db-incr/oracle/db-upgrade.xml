@@ -431,7 +431,7 @@ L-->
 		<column name="STUDY_INSTANCE_UID"/>
 	</createIndex>    
   </changeSet>
-  <changeSet id="6.1.workflow.create" author="gustafss" dbms="mysql">
+  <changeSet id="6.1.workflow.create" author="gustafss" dbms="oracle">
     <comment>
      create new table to support workflow
     </comment>
@@ -445,7 +445,6 @@ L-->
       URL VARCHAR2(255) NULL ,
       WORKFLOW_TYPE VARCHAR2(50) NULL 
       ) 
-
     </sql>
    </changeSet>
 </databaseChangeLog>

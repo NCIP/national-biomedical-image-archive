@@ -18,6 +18,7 @@ L-->
 				<param name="column">next_hi</param>
 			</generator>
 		</id>
+		
 		<!-- Attributes mapping for the CustomSeriesList class -->
 		<property name="name" type="string" column="WORKFLOW_NAME"/>
 		<property name="url" type="string" column="URL"/>

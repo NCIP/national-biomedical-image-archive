@@ -84,7 +84,7 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/SavedQueryAttribute.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
-
+        <value>gov/nih/nci/nbia/internaldomain/Workflow.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/AimQuantification.hbm.xml</value>
       </list>
@@ -259,7 +259,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-
+  <bean id="workflowDAO" class="gov.nih.nci.nbia.dao.WorkflowDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
  	<bean id="imageDeletionService" class="gov.nih.nci.nbia.deletion.ImageDeletionServiceImpl">
      </bean>
      <bean id="imageFileDeletionService" class="gov.nih.nci.nbia.deletion.ImageFileDeletionServiceImpl">

@@ -19,9 +19,12 @@ import org.springframework.dao.DataAccessException;
 public interface WorkflowDAO {
 	 
 
+	public List<WorkflowDTO> getNewSeriesWorkflowsByCollectionAndSite(String collection, String site) throws DataAccessException;
+	
+	public List<WorkflowDTO> getVisibilityWorkflowsByCollectionAndSite(String collection, String site) throws DataAccessException;
+	
 	public WorkflowDTO getWorkflowById(Integer wid) throws DataAccessException;
 	
-
 	public List<WorkflowDTO> getWorkflows() throws DataAccessException ;
 	
 	public long delete(WorkflowDTO toRemove) throws DataAccessException ;

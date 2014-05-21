@@ -17,6 +17,8 @@ public class WorkflowDTO {
 	private String collection;
 	private String site;
 	private String type;
+	public final static String VISIBILITY_TYPE = "Visibility Change";
+	public final static String SERIES_TYPE = "New Series";
 	
     public Integer getId() {
 		return id;

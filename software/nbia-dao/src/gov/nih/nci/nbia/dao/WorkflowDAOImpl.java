@@ -31,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 		return 1L;
 	}
 
+	
+	
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public WorkflowDTO getWorkflowById(Integer wid) throws DataAccessException{
 		WorkflowDTO wDto = null;
@@ -46,6 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 		}
 		return wDto;
 	}
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<WorkflowDTO> getWorkflows() throws DataAccessException{
 		List<WorkflowDTO> wDtos = new ArrayList<WorkflowDTO>();
@@ -60,7 +64,37 @@ import org.springframework.transaction.annotation.Transactional;
 		return wDtos;
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<WorkflowDTO> getNewSeriesWorkflowsByCollectionAndSite(String collection, String site) throws DataAccessException{
+		List<WorkflowDTO> wDtos = new ArrayList<WorkflowDTO>();
 
+        DetachedCriteria criteria = DetachedCriteria.forClass(Workflow.class);
+        criteria.add(Restrictions.eq("collection", collection));
+        criteria.add(Restrictions.eq("site", site));
+        criteria.add(Restrictions.eq("type", WorkflowDTO.SERIES_TYPE));
+		List<Workflow> result = getHibernateTemplate().findByCriteria(criteria);
+		for (Workflow workflow : result){
+			WorkflowDTO wDto=convertObjectToDTO(workflow);
+			wDtos.add(wDto);
+		}
+		return wDtos;
+	}
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<WorkflowDTO> getVisibilityWorkflowsByCollectionAndSite(String collection, String site) throws DataAccessException{
+		List<WorkflowDTO> wDtos = new ArrayList<WorkflowDTO>();
+
+        DetachedCriteria criteria = DetachedCriteria.forClass(Workflow.class);
+        criteria.add(Restrictions.eq("collection", collection));
+        criteria.add(Restrictions.eq("site", site));
+        criteria.add(Restrictions.eq("type", WorkflowDTO.VISIBILITY_TYPE));
+		List<Workflow> result = getHibernateTemplate().findByCriteria(criteria);
+		for (Workflow workflow : result){
+			WorkflowDTO wDto=convertObjectToDTO(workflow);
+			wDtos.add(wDto);
+		}
+		return wDtos;
+	}
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public long save(WorkflowDTO wDTO) throws DataAccessException {
 

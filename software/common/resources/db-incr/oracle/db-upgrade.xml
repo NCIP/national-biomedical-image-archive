@@ -437,7 +437,7 @@ L-->
     </comment>
 
     <sql>
-      CREATE TABLE MR_IMAGE (
+      CREATE TABLE WORKFLOW (
       WORKFLOW_ID NUMBER(24) primary key,
       NAME VARCHAR2(50) NULL ,
       COLLECTION VARCHAR2(200) NULL ,

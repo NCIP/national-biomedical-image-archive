@@ -52,8 +52,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/v1/getPatientStudy")
-public class V1_getPatientStudy extends getData{
+@Path("/v2/getPatientStudy")
+public class V2_getPatientStudy extends getData{
 	private static final String[] columns={"StudyInstanceUID", "StudyDate", "StudyDescription", "AdmittingDiagnosesDescription", "StudyID", "PatientAge", "PatientID", "PatientName", "PatientBirthDate", "PatientSex", "EthnicGroup", "Collection", "SeriesCount"};
 	public final static String TEXT_CSV = "text/csv";
 
@@ -68,7 +68,7 @@ public class V1_getPatientStudy extends getData{
 	public Response  constructResponse(@QueryParam("Collection") String collection, @QueryParam("PatientID") String patientId, @QueryParam("StudyInstanceUID") String studyInstanceUid, @QueryParam("format") String format) {
 		List<String> authorizedCollections = null;
 		try {
-			authorizedCollections = getPublicCollections();
+			authorizedCollections = getAuthorizedCollections();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

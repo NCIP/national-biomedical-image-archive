@@ -17,8 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/v1/getCollectionValues")
-public class V1_getCollectionValues extends getData{
+@Path("/v2/getCollectionValues")
+public class V2_getCollectionValues extends getData{
 	private static final String column="Collection";
 	public final static String TEXT_CSV = "text/csv";
 
@@ -34,7 +34,7 @@ public class V1_getCollectionValues extends getData{
 	public Response  constructResponse(@QueryParam("format") String format) {
 		List<String> authorizedCollections = null;
 		try {
-			authorizedCollections = getPublicCollections();
+			authorizedCollections = getAuthorizedCollections();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

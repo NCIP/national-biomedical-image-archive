@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--L
+   Copyright SAIC and Ellumen
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+  xmlns:beans="http://www.springframework.org/schema/beans"
+  xmlns:oauth="http://www.springframework.org/schema/security/oauth"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+              http://www.springframework.org/schema/security/oauth http://www.springframework.org/schema/security/spring-security-oauth-1.0.xsd">
+
+  <http auto-config='true' access-denied-page="/login.jsp">
+    <intercept-url pattern="/services/v1/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+    <intercept-url pattern="/services/v2/**" access="ROLE_USER" />
+    <intercept-url pattern="/oauth/**" access="ROLE_USER" />
+    <intercept-url pattern="/request_token_authorized.jsp" access="ROLE_USER" />
+    <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+    <form-login authentication-failure-url="/login.jsp" default-target-url="/index.jsp" login-page="/login.jsp" login-processing-url="/login.do"/>
+    <logout logout-success-url="/index.jsp" logout-url="/logout.do"/>
+  </http>
+
+  <!--  authentication-manager>
+    <authentication-provider>
+      <user-service>
+        <user name="nbia_guest" password="changeme" authorities="ROLE_USER" />
+        <user name="marissa" password="marissakoala" authorities="ROLE_USER" />
+        <user name="paul" password="emu" authorities="ROLE_USER" />
+      </user-service>
+    </authentication-provider>
+  </authentication-manager-->
+  
+  <beans:bean id="csmAuthenticationProvider" class="gov.nih.nci.nbia.restSecurity.CsmAuthenticationProvider">
+  </beans:bean>
+  
+  <authentication-manager>
+    <authentication-provider ref="csmAuthenticationProvider">
+    </authentication-provider>
+  </authentication-manager>
+
+  <oauth:provider consumer-details-service-ref="consumerDetails"
+                  token-services-ref="tokenServices"
+                  request-token-url="/oauth/request_token"
+                  authenticate-token-url="/oauth/authorize"
+                  user-approval-url="/oauth/confirm_access"
+                  access-granted-url="/request_token_authorized.jsp"
+                  access-token-url="/oauth/access_token"
+                  require10a="false"/>
+
+  <oauth:consumer-details-service id="consumerDetails">
+    <oauth:consumer name="Tonr.com" key="tonr-consumer-key" secret="SHHHHH!!!!!!!!!!" resourceName="DICOM Image Resource" resourceDescription="Access DICOM Images and related info in imaging.nci.nih.gov."/>
+  </oauth:consumer-details-service>
+
+  <oauth:token-services id="tokenServices"/>
+
+</beans:beans>

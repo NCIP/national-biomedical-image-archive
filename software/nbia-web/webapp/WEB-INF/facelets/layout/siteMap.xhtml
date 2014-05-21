@@ -10,6 +10,11 @@ L-->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+               
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+               
 <html>
 
 <head>
@@ -21,6 +26,7 @@ li.c {list-style-position:inside;}
 </head>
 
 <body>
+<h:form>
 <ul class="b">
   	
     
@@ -64,21 +70,52 @@ li.c {list-style-position:inside;}
 		    <h4>Searching the Image</h4>
 	</li>
 	
-	<li class="c">	
-	    <a href="searchMain.xhtml">Simple/Text/Dynamic Search</a>
-	</li>
 
+	
+	<f:subview id="simpleSearchHelp" rendered="#{!securityBean.loggedIn}"> 
+		<li class="c">	
+		    <a href="searchMain.xhtml">Simple Search</a>
+		</li>
+		
+		<!-- <li class="c">	
+		    <a href="freeTextSearch.xhtml">Text Search</a>
+		</li>
+		
+		<li class="c">	
+		    <a href="dynamicSearch.xhtml">Advanced Search</a>
+		</li> -->
+		
+	 </f:subview>   
+	
+	 
+	<f:subview id="simpleSearchHelp" rendered="#{securityBean.loggedIn}">
+		<li class="c">
+		    <h:commandLink action="#{searchWorkflowBean.newSimpleSearch}"  value="#{msg.common_simpleSearch}"/>
+	    </li> 
+	    
+	    <li class="c">
+		    <h:commandLink action="#{searchWorkflowBean.newFreeTextSearch}" value="#{msg.common_textSearch}"/>
+	    </li> 
+	    
+	    <li class="c">
+		   <h:commandLink action="#{searchWorkflowBean.newDynamicSearch}" value="#{msg.common_advSearch}"/>
+	    </li> 
+	</f:subview>
+	
 	
 	<li class="e">
 	    <h4>Help</h4>
 	</li>
 
 	<li class="c">	
-	    <a href="https://wiki.nci.nih.gov/display/NBIA/NBIA+6.0+User%27s+Guide+DRAFT">Wiki Based NBIA Help</a>
+	  <a href="{NBIA_WIKI_UG_URL}" target="_self">
+			<h:outputText value="NBIA Help" />
+		</a>
 	</li>
     
     
 </ul>
-
+</h:form>
 </body>
 </html>
+</ui:composition>

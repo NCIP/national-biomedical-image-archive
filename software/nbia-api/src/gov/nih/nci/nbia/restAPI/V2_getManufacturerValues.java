@@ -45,8 +45,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/v1/getManufacturerValues")
-public class V1_getManufacturerValues extends getData{
+@Path("/v2/getManufacturerValues")
+public class V2_getManufacturerValues extends getData{
 	private static final String column="Manufacturer";
 	public final static String TEXT_CSV = "text/csv";
 
@@ -64,7 +64,7 @@ public class V1_getManufacturerValues extends getData{
 			@QueryParam("Modality") String modality, @QueryParam("BodyPartExamined") String bodyPart) {
 		List<String> authorizedCollections = null;
 		try {
-			authorizedCollections = getPublicCollections();
+			authorizedCollections = getAuthorizedCollections();
 		} 
 		catch (Exception e) {
 			// TODO Auto-generated catch block

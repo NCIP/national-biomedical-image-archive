@@ -1,0 +1,32 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
+<body>
+
+This text above will not be displayed.
+
+<ui:composition template="WEB-INF/facelets/layout/mainLayout.xhtml">
+
+  <ui:define name="title">NBIA Image - Edit Workflow List</ui:define>
+  
+  <ui:define name="body">
+    <ui:include src="WEB-INF/facelets/workflowItem/editWorkflowItemList.xhtml"/>
+  </ui:define>
+  
+</ui:composition>
+
+This text below will also not be displayed.
+
+</body>
+</html>

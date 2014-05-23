@@ -234,17 +234,7 @@ L-->
 	           </li>
 	                
 	       </f:subview>
-   
-   	 
-   	 
-   	 
-   	 
-   	 
-   	 
-   	 
-   	 
-   	 
-   	 
+
     	</ul>
     </td>
     
@@ -331,18 +321,32 @@ L-->
                                  value="Edit Collection Desc" />
                                 
               </li>
-          </f:subview>   
-          
+          </f:subview>
+          <f:subview id="addWorkFlowItemView" 
+           		rendered="#{securityBean.hasWorkFlowRole}">
+ 
+            	<li>
+                  <h:commandLink id="addWorkFlowItem"
+                       action="xxx.xxx"
+                       value="Add WorkFlow Item" />
+                      
+           		</li>
+           </f:subview>
+           <f:subview id="editWorkFlowItemView" 
+           		rendered="#{securityBean.hasWorkFlowRole}">
+ 
+            	<li>
+                  <h:commandLink id="editWorkFlowItem"
+                       action="xxx.xxx"
+                       value="Edit WorkFlow Item" />
+                      
+           		</li>
+           </f:subview>
     
     </ul>
     </td>
     </f:subview>
-    
-    
-    
-    
-    
-    
+
         
      <td>
             <img src="images/mainMenuSeparator.gif" 
@@ -350,8 +354,6 @@ L-->
                  height="16"
                  alt="" />
       </td>    
-    
-
     
     <!-- link 5 begins -->
     <td height="20" class="mainMenuItem"

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ncia="http://imaging.nci.nih.gov/ncia"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<ice:form id="createWorkFlowForm">
+
+<table summary="" cellpadding="5" cellspacing="0" border="0" class="contentPage" width="80%" align="center">
+  <tr>
+    <td colspan="2">
+      <h2 align="center"> 
+        <ice:outputText value="Workflow Item"/>
+      </h2>
+      <table border="0" cellpadding="5" cellspacing="0" width="100%" class="promptbox" style="display: block;">                 
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="name" value="Name: "/>
+          </td>
+          <td colspan="5">
+            <ice:inputText id="name"
+                           partialSubmit="true"
+                           value="#{addWorkFlowItemBean.name}"
+                           required="true"
+                           size="20" maxlength="50"
+                           styleClass="formField"
+                           title="Name your list. The length cannot be longer than 200 characters."/> 
+            <br/>
+            <h:message id="nameError" for="name" infoClass="errorLabel"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="visibilityWorkflowType" value="Type "/>
+          </td>
+          <td colspan="3">
+	        <ice:selectOneMenu id="visibilityWorkflowType" 
+	                           value="#{addWorkFlowItemBean.type}"
+	                           partialSubmit="true">
+	          <f:selectItems value="#{xxx.xxx}"/>     
+	        </ice:selectOneMenu>
+	       </td>
+	       <td colspan="1">
+            <ice:outputLabel for="newWorkflowCollection" value="New Collection "/>
+           </td>
+	       <td colspan="3"> 
+            <ice:inputText id="newWorkflowCollection"
+                           partialSubmit="true"
+                           rendered="true"
+                           value="#{addWorkFlowItemBean.collection}"
+                           size="30" 
+                           maxlength="100"
+                           styleClass="formField"
+                           title="Add a collection name. The length cannot be longer than 100 characters."/>
+          </td>
+        </tr>
+        
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="visibilityWorkflowSite" value="Site "/>
+          </td>
+          <td colspan="3">
+	        <ice:selectOneMenu id="visibilityWorkflowSite" 
+	                           value="#{addWorkFlowItemBean.site}"
+	                           partialSubmit="true">
+	          <f:selectItems value="#{}"/>     
+	        </ice:selectOneMenu>
+	       </td>
+	       <td colspan="1">
+            <ice:outputLabel for="newWorkflowSite" value="New Site "/>
+           </td>
+	       <td colspan="3"> 
+            <ice:inputText id="newWorkflowSite"
+                           partialSubmit="true"
+                           rendered="true"
+                           value="#{}"
+                           size="20" 
+                           maxlength="80"
+                           styleClass="formField"
+                           title="Add a Site name. The length cannot be longer than 100 characters."/>
+          </td>
+        </tr>
+        
+        <tr>
+          <td colspan="1">
+            <ice:outputLabel for="hyperlinkWorkFlow" value="URL "/>
+          </td>
+          <td colspan="5">
+            <ice:inputText id="hyperlinkWorkFlow"
+                           partialSubmit="true"
+                           rendered="true"
+                           value="#{addWorkFlowItemBean.url}"
+                           size="100" maxlength="200"
+                           styleClass="formField"
+                           title="Add a URL which links to additional information. The length cannot be longer than 200 characters."/>
+          </td>
+        </tr>
+        <tr>
+        <ice:commandButton id="saveWorkflowButton"
+                           value="Save"
+                           action="#{addWorkFlowItemBean.submit}"/>
+        </tr>
+     </table>
+ 
+     <br/>
+     </td>
+     <td valign="top">
+       <ncia:help label="images/help_icon.png" helpId="-createsharedlist" />
+     </td>
+   </tr>
+ </table>
+</ice:form>
+</ui:composition>

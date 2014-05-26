@@ -1,7 +1,7 @@
 package gov.nih.nci.nbia.beans.workflow;
 
 
-
+import org.apache.log4j.Logger;
 
 public class AddWorkFlowItemBean {
 	

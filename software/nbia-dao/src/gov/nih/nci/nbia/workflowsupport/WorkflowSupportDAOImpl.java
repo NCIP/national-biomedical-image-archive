@@ -10,7 +10,6 @@ package gov.nih.nci.nbia.workflowsupport;
 
 import gov.nih.nci.nbia.dao.AbstractDAO;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
-import gov.nih.nci.nbia.dao.WorkflowDAO;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.WorkflowDTO;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;

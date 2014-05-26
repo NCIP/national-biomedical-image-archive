@@ -40,7 +40,7 @@ public class RESTCaller {
         	
             // Creating the GetMethod instance
             getMethod = new HttpGet(urlString);
- 
+            System.out.println("About to execute : "+urlString);
             // Retries to establish a successful connection the specified number
             // of times if the initial attempts are not successful.
             //getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,

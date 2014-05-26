@@ -92,7 +92,8 @@ public class WorkflowExecutor {
 
     private void runNewVisibilityWorkflows(Date high, Date low)
     {
-    	WorkflowSupportDAO support = (WorkflowSupportDAO)SpringApplicationContext.getBean("workflowSupportDAO");
+    	Object test=SpringApplicationContext.getBean("workflowDAO");
+    	WorkflowSupportDAO support = (WorkflowSupportDAO)SpringApplicationContext.getBean("workflowDAO");
     	List<WorkflowVisibilityUpdateDTO> visibilityDTOs = support.getVisibilityUpdated(high, low);
     	for (WorkflowVisibilityUpdateDTO vDTO: visibilityDTOs)
     	{

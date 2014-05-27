@@ -10,6 +10,7 @@ package gov.nih.nci.nbia.workflowsupport;
 
 import gov.nih.nci.nbia.dao.AbstractDAO;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
+import gov.nih.nci.nbia.dao.WorkflowDAO;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.WorkflowDTO;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
@@ -31,9 +32,9 @@ public class WorkflowSupportDAOImpl extends AbstractDAO
 {
 	static Logger log = Logger.getLogger(WorkflowSupportDAOImpl.class);
     
-    private final static String UPDATED_VISIBILITY_QUERY="select distince series_instance_uid, new_value from qc_status_history where history_timestamp between :low and :high)";
-    private final static String SERIES_ADDED_QUERY="select distinct series_instance_uid from submission_history where submission_timestamp history_timestamp between :low and :high";
-    private final static String SERIES_EXISTS_QUERY="select distinct series_instance_uid from submission_history where submission_timestamp history_timestamp < :low and series_instance_uid = :series";
+    private final static String UPDATED_VISIBILITY_QUERY="select distinct series_instance_uid, new_value from qc_status_history where history_timestamp between :low and :high";
+    private final static String SERIES_ADDED_QUERY="select distinct series_instance_uid from submission_history where submission_timestamp between :low and :high";
+    private final static String SERIES_EXISTS_QUERY="select distinct series_instance_uid from submission_history where submission_timestamp < :low and series_instance_uid = :series";
 
 
 @Transactional(propagation=Propagation.REQUIRED)

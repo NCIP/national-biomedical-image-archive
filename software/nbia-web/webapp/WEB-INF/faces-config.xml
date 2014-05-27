@@ -265,6 +265,20 @@ L-->
   </navigation-rule>  
   <navigation-rule>
     <navigation-case>
+      <from-outcome>manageWorkflowItems</from-outcome>
+      <to-view-id>/manageWorkflowItems.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule> 
+    <navigation-rule>
+    <navigation-case>
+      <from-outcome>createWorkflow</from-outcome>
+      <to-view-id>/createWorkflow.jsf</to-view-id>
+      <redirect /> 
+    </navigation-case>
+  </navigation-rule> 
+  <navigation-rule>
+    <navigation-case>
       <from-outcome>remoteSearch</from-outcome>
       <to-view-id>/remoteSearch.jsf</to-view-id>
     </navigation-case>
@@ -458,14 +472,14 @@ L-->
   <managed-bean>
     <description>Create Workflow Item</description>
     <managed-bean-name>addWorkFlowItemBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.nbia.beans.AddWorkFlowItemBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.workflow.AddWorkFlowItemBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean> 
   
   <managed-bean>
-    <description>Edit Workflow Item</description>
-    <managed-bean-name>editWorkFlowItemBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.nbia.beans.EditWorkFlowItemBean</managed-bean-class>
+    <description>Manage Workflow Items</description>
+    <managed-bean-name>manageWorkFlowBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.nbia.beans.workflow.ManageWorkFlowBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean> 
     

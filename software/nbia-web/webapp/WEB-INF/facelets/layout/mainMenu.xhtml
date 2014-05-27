@@ -322,26 +322,17 @@ L-->
                                 
               </li>
           </f:subview>
-          <f:subview id="addWorkFlowItemView" 
-           		rendered="#{securityBean.hasWorkFlowRole}">
+          <f:subview id="ManageWorkFlowItemsView" 
+           		rendered="#{securityBean.hasSuperCuratorRole}">
  
             	<li>
-                  <h:commandLink id="addWorkFlowItem"
-                       action="xxx.xxx"
-                       value="Add WorkFlow Item" />
+                  <h:commandLink id="manageWorkFlowMenuItem"
+                       action="manageWorkflowItems"
+                       value="Manage WorkFlow Items" />
                       
            		</li>
            </f:subview>
-           <f:subview id="editWorkFlowItemView" 
-           		rendered="#{securityBean.hasWorkFlowRole}">
- 
-            	<li>
-                  <h:commandLink id="editWorkFlowItem"
-                       action="xxx.xxx"
-                       value="Edit WorkFlow Item" />
-                      
-           		</li>
-           </f:subview>
+
     
     </ul>
     </td>

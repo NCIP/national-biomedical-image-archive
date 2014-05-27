@@ -264,7 +264,7 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="workflowDAO" class="gov.nih.nci.nbia.dao.WorkflowSupportDAOImpl">
+  <bean id="workflowSupportDAO" class="gov.nih.nci.nbia.workflowsupport.WorkflowSupportDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>

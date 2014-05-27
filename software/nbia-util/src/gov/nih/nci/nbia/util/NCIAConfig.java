@@ -581,6 +581,7 @@ public class NCIAConfig {
      */
     public static String getSolrHome(){
         String propertyValue = System.getProperty("gov.nih.nci.ncia.solr.home");
+        if (propertyValue==null) propertyValue="/Apps/nbia/solr-home";
         checkProperty("gov.nih.nci.ncia.solr.home", propertyValue);
         return propertyValue;
     }
@@ -593,6 +594,17 @@ public class NCIAConfig {
     public static String getSolrUpdateInterval(){
         String propertyValue = System.getProperty("gov.nih.nci.ncia.solr.updateinterval");
         checkProperty("gov.nih.nci.ncia.solr.updateinterval", propertyValue);
+        return propertyValue;
+    }
+    /**
+     * Externalized Property!
+     *  Property: gov.nih.nci.ncia.encrypt.key
+     *  This property is configured via the JBoss Property Service MDB (property-service.xml)
+     *  to contain value for the download servlet server url.
+     */
+    public static String getWorkflowUpdateInterval(){
+        String propertyValue = System.getProperty("gov.nih.nci.ncia.solr.workflowinterval");
+        checkProperty("gov.nih.nci.ncia.solr.workflowinterval", propertyValue);
         return propertyValue;
     }
     /**

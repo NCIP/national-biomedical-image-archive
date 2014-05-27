@@ -49,6 +49,7 @@ import org.quartz.SimpleTrigger;
 import org.quartz.TriggerUtils;
 import org.quartz.impl.StdSchedulerFactory;
 import  gov.nih.nci.nbia.textsupport.SolrUpdateJob;
+import gov.nih.nci.nbia.workflowsupport.WorkflowUpdateJob;
 
 
 public class StartupServlet extends HttpServlet {
@@ -99,8 +100,8 @@ public class StartupServlet extends HttpServlet {
                                                      Scheduler.DEFAULT_GROUP,
                                                      NodeLookupJob.class);
        
-       // wait an 10 min before starting solrUpdates
-       long startTime = System.currentTimeMillis() + 600000L;
+       // wait an 1 min before starting solrUpdates
+       long startTime = System.currentTimeMillis() + 6000L;
        Long interval = null;
        
        try {
@@ -123,14 +124,38 @@ public class StartupServlet extends HttpServlet {
                Scheduler.DEFAULT_GROUP,
                SolrUpdateJob.class);
        
+       // wait an 10 min before starting workflows
+       long startTimeWorkflow = System.currentTimeMillis() + 1000L;
+       Long intervalWorkflow = null;
+       
+       try {
+		interval = Long.valueOf(NCIAConfig.getWorkflowUpdateInterval());
+	   } catch (Exception e1) {
+		    intervalWorkflow = Long.valueOf("10");
+		    System.out.println("unable to read workflow interval, defaulting to ten minutes");
+	   }
+       
+       
+       SimpleTrigger workflowTrigger = new SimpleTrigger("wTrigger",
+               null,
+               new Date(startTimeWorkflow),
+               null,
+               SimpleTrigger.REPEAT_INDEFINITELY,
+               intervalWorkflow * 60000L);
+       
+       JobDetail worflowUpdateJobDetail = new JobDetail("Workflow",
+               Scheduler.DEFAULT_GROUP,
+               WorkflowUpdateJob.class);
+       
+       
         //Schedule the tasks...
         try {
             SchedulerFactory sf = new StdSchedulerFactory();
 
             Scheduler scheduler = sf.getScheduler();
-            // my job goes first!
+            // my jobs  first!
             scheduler.scheduleJob(solrUpdateJobDetail, solrTrigger);
-            
+            scheduler.scheduleJob(worflowUpdateJobDetail, workflowTrigger);
             //Job 1 - Latest Curation Date
             scheduler.scheduleJob(latestCurationDateJobDetail, latestCurationDateTrigger);
 

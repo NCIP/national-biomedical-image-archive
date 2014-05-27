@@ -22,10 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 
  class WorkflowDAOImpl extends AbstractDAO
                                    implements WorkflowDAO {
+	 
+	private final static String SITES_QUERY="select distinct series_instance_uid, new_value from qc_status_history where history_timestamp between :low and :high";
+	private final static String COLLECTION_QUERY="select distinct series_instance_uid from submission_history where submission_timestamp between :low and :high";
+
 	
 	@Transactional(propagation=Propagation.REQUIRED)
-	public long delete(WorkflowDTO toRemove) throws DataAccessException {
-		    Workflow existingWorkflow = (Workflow)getHibernateTemplate().load(Workflow.class, toRemove.getId());
+	public long delete(Integer toRemove) throws DataAccessException {
+		    Workflow existingWorkflow = (Workflow)getHibernateTemplate().load(Workflow.class, toRemove);
 			getHibernateTemplate().delete(existingWorkflow);
 			getHibernateTemplate().flush();
 		return 1L;
@@ -109,6 +113,32 @@ import org.springframework.transaction.annotation.Transactional;
 		return 1L;
 	}
 
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<String> getSites() throws DataAccessException{
+		List<String> returnValue=new ArrayList<String>();
+
+		List <String>sites= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(SITES_QUERY)
+        .list();		
+		for (String site : sites )
+		{
+        	returnValue.add((String)site);
+		}
+		return returnValue;
+	}
+	
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<String> getCollections() throws DataAccessException{
+		List<String> returnValue=new ArrayList<String>();
+
+		List <String>collections= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(COLLECTION_QUERY)
+        .list();		
+		for (String collection : collections )
+		{
+        	returnValue.add((String)collection);
+		}
+		return returnValue;
+	}
+	
 	////////////////////////////////PROTECTED//////////////////////////////////////////////
 
 

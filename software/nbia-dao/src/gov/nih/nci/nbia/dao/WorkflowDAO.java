@@ -27,6 +27,12 @@ public interface WorkflowDAO {
 	
 	public List<WorkflowDTO> getWorkflows() throws DataAccessException ;
 	
-	public long delete(WorkflowDTO toRemove) throws DataAccessException ;
+	public long delete(Integer toRemove) throws DataAccessException ;
+	
+	public long save(WorkflowDTO wDTO) throws DataAccessException;
+	
+	public List<String> getSites() throws DataAccessException;
+	
+	public List<String> getCollections() throws DataAccessException;
 	
 }

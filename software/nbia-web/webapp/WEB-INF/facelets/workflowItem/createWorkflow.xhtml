@@ -37,7 +37,7 @@ L-->
                            required="true"
                            size="20" maxlength="50"
                            styleClass="formField"
-                           title="Name your list. The length cannot be longer than 200 characters."/> 
+                           title="Name your list. The length cannot be longer than 50 characters."/> 
             <br/>
             <h:message id="nameError" for="name" infoClass="errorLabel"/>
           </td>
@@ -50,7 +50,19 @@ L-->
 	        <ice:selectOneMenu id="visibilityWorkflowType" 
 	                           value="#{addWorkFlowItemBean.type}"
 	                           partialSubmit="true">
-	          <f:selectItems value="#{xxx.xxx}"/>     
+	          <f:selectItems value="#{addWorkFlowItemBean.types}"/>     
+	        </ice:selectOneMenu>
+	       </td>
+	    </tr>
+	    <tr>
+	     <td colspan="1">
+            <ice:outputLabel for="visibilityWorkflowCollection" value="Site "/>
+          </td>
+          <td colspan="3">
+	        <ice:selectOneMenu id="visibilityWorkflowCollection" 
+	                           value="#{addWorkFlowItemBean.collection}"
+	                           partialSubmit="true">
+	          <f:selectItems value="#{addWorkFlowItemBean.collections}"/>     
 	        </ice:selectOneMenu>
 	       </td>
 	       <td colspan="1">
@@ -76,7 +88,7 @@ L-->
 	        <ice:selectOneMenu id="visibilityWorkflowSite" 
 	                           value="#{addWorkFlowItemBean.site}"
 	                           partialSubmit="true">
-	          <f:selectItems value="#{}"/>     
+	          <f:selectItems value="#{addWorkFlowItemBean.sites}"/>     
 	        </ice:selectOneMenu>
 	       </td>
 	       <td colspan="1">
@@ -118,7 +130,7 @@ L-->
      <br/>
      </td>
      <td valign="top">
-       <ncia:help label="images/help_icon.png" helpId="-createsharedlist" />
+       <ncia:help label="images/help_icon.png" helpId="-createworkflowitem" />
      </td>
    </tr>
  </table>

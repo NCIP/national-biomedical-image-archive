@@ -479,10 +479,15 @@ L-->
   <managed-bean>
     <description>Manage Workflow Items</description>
     <managed-bean-name>manageWorkFlowBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.nbia.beans.workflow.ManageWorkFlowBean</managed-bean-class>
+    <managed-bean-class>gov.nih.nci.nbia.beans.ManageWorkflowBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean> 
-    
+  <managed-bean>
+    <description>Manage Workflow Items</description>
+    <managed-bean-name>mngWorkFlowBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.nbia.beans.workflow.MngWorkflowBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean> 
   <managed-bean>
     <description>Workflow Bean for Search Page</description>
     <managed-bean-name>searchWorkflowBean</managed-bean-name>

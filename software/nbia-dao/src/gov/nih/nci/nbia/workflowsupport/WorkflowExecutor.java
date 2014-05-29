@@ -59,7 +59,7 @@ public class WorkflowExecutor {
 				   QueryResponse rsp = server.query( query );
 				   SolrDocumentList docs = rsp.getResults();
 				   if (docs.size()<1)
-				   {  // can't find it, we need to re-index to be sure
+				   {  // can't find it, we need to run from now
 					   log.error("Can't find last time workflow run, set the date to now");
 					   lastRan = new Date(System.currentTimeMillis());
 				   } else // get the value
@@ -81,7 +81,7 @@ public class WorkflowExecutor {
 		   runNewVisibilityWorkflows(maxTimeStamp, lastRan);
 		   runNewSeriesWorkflows(maxTimeStamp, lastRan);
 		   SolrInputDocument solrDoc = new SolrInputDocument();
-		   solrDoc.addField( "id", "id:NBIAWorkflowRun");
+		   solrDoc.addField( "id", "NBIAWorkflowRun");
 		   solrDoc.addField( "lastRan", df.format(maxTimeStamp));
 		   log.info("Workflow Last ran at finish= "+solrDoc.toString());
 		   server.add(solrDoc);

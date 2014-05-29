@@ -603,8 +603,8 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getWorkflowUpdateInterval(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.solr.workflowinterval");
-        checkProperty("gov.nih.nci.ncia.solr.workflowinterval", propertyValue);
+        String propertyValue = System.getProperty("gov.nih.nci.ncia.workflow.updateinterval");
+        checkProperty("gov.nih.nci.ncia.workflow.updateinterval", propertyValue);
         return propertyValue;
     }
     /**

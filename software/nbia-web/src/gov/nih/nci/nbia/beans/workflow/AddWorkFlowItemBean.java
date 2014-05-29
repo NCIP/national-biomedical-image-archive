@@ -172,6 +172,7 @@ public class AddWorkFlowItemBean implements Serializable{
 		if (url==null || !isValidURL(url))
 		{
 			errorMessage="The URL "+url+" is not valid";
+			return "createWorkflow";
 		}
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
@@ -218,6 +219,11 @@ public class AddWorkFlowItemBean implements Serializable{
 		sites.add(new SelectItem(newSite));
 		newSite=null;
 		return "createWorkflow";
+	}
+	public String cancel()
+	{
+		newWorkflow();
+		return "manageWorkflowItems";
 	}
 	private boolean isValidURL(String url) {  
 

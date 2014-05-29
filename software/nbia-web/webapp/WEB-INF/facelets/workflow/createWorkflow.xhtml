@@ -25,6 +25,10 @@ L-->
       <h2 align="center"> 
         <ice:outputText value="Workflow Item"/>
       </h2>
+      <br/>
+       <h3 align="center"> 
+        <ice:outputText value="#{addWorkFlowItemBean.errorMessage}"/>
+      </h3>     
       <table border="0" cellpadding="5" cellspacing="0" width="100%" class="promptbox" style="display: block;">                 
         <tr>
           <td colspan="1">
@@ -56,7 +60,7 @@ L-->
 	    </tr>
 	    <tr>
 	     <td colspan="1">
-            <ice:outputLabel for="visibilityWorkflowCollection" value="Site "/>
+            <ice:outputLabel for="visibilityWorkflowCollection" value="Collection "/>
           </td>
           <td colspan="3">
 	        <ice:selectOneMenu id="visibilityWorkflowCollection" 
@@ -72,14 +76,19 @@ L-->
             <ice:inputText id="newWorkflowCollection"
                            partialSubmit="true"
                            rendered="true"
-                           value="#{addWorkFlowItemBean.collection}"
+                           value="#{addWorkFlowItemBean.newCollection}"
                            size="30" 
                            maxlength="100"
                            styleClass="formField"
                            title="Add a collection name. The length cannot be longer than 100 characters."/>
           </td>
+          <td colspan="1">
+                    <ice:commandButton id="addCollectionToList"
+                           value="Add to Collection List"
+                           action="#{addWorkFlowItemBean.addCollection}"/>
+           </td>
+          
         </tr>
-        
         <tr>
           <td colspan="1">
             <ice:outputLabel for="visibilityWorkflowSite" value="Site "/>
@@ -98,14 +107,18 @@ L-->
             <ice:inputText id="newWorkflowSite"
                            partialSubmit="true"
                            rendered="true"
-                           value="#{}"
+                           value="#{addWorkFlowItemBean.newSite}"
                            size="20" 
                            maxlength="80"
                            styleClass="formField"
                            title="Add a Site name. The length cannot be longer than 100 characters."/>
           </td>
+           <td colspan="1">
+                    <ice:commandButton id="addSiteToList"
+                           value="Add to Site List"
+                           action="#{addWorkFlowItemBean.addSite}"/>
+           </td>
         </tr>
-        
         <tr>
           <td colspan="1">
             <ice:outputLabel for="hyperlinkWorkFlow" value="URL "/>
@@ -121,9 +134,11 @@ L-->
           </td>
         </tr>
         <tr>
+         <td colspan="5">
         <ice:commandButton id="saveWorkflowButton"
                            value="Save"
                            action="#{addWorkFlowItemBean.submit}"/>
+           </td>                
         </tr>
      </table>
  

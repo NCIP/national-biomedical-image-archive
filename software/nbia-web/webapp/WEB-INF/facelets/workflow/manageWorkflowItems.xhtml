@@ -11,53 +11,53 @@
 
   <br/>
   <br/>
-
+<ice:form id="manageWorkflowForm" >
   <table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="80%" align="center">
     <tr>
       <td>
         <h2 align="center">
           <ice:outputText value="Manage Workflow Items" />
+          <ice:outputText value="#{mngWorkFlowBean.myString}" />
           <ncia:help alt="help" label="images/help_icon.png" helpId="-manageworkflowitems" />
         </h2>
       </td>
       </tr>
       <tr>
       <td>
-      <h:commandButton action="#{manageWorkflowBean.createWorkflow}"
-      value="Page1" />
+      <h:commandButton action="#{mngWorkFlowBean.createWorkflow}"
+      value="Create Workflow" />
       </td>
       </tr>
       <tr>
       <td>
          <ice:dataTable id="data" 
-             resizable="true" 
              width="100%" 
              border="1" 
              cellpadding="0" 
              cellspacing="0" 
              styleClass="dataTable" 
              headerClass="dataTableHeader" 
-             value="#{manageWorkflowBean.interfaceDTOs}"
-             binding="#{manageWorkflowBean.table}"
+             value="#{mngWorkFlowBean.tempDTOs}"
              rowClasses="dataRowLight, dataRowDark" 
-             var="item" ">
+             var="item"
+             rows="100">
              <ice:column id="name">
                   <f:facet name="header">
                             <ice:outputText value="Name" />  
                   </f:facet>
-                          <ice:outputText value="#{item.Name}" />
+                          <ice:outputText value="#{item.name}" />
              </ice:column>
              <ice:column id="collectionSite">
                     <f:facet name="header">  
                             <ice:outputText value="Collection-Site" /> 
-                   
+                    </f:facet>
                           <ice:outputText value="#{item.collectionSite}" />
              </ice:column>
              <ice:column>
                     <f:facet name="header">Edit</f:facet>
                             <h:commandButton image="images/edit-icon.png"
                                              alt="Edit" title="Edit"
-                                             action="#{manageWorkflowBean.performEdit}" 
+                                             action="#{mngWorkFlowBean.performEdit}" >
                          <f:setPropertyActionListener target="#{addWorkFlowItemBean.load}"
                                                       value="#{item.id}"/>
                     </h:commandButton>
@@ -67,16 +67,17 @@
                     <f:facet name="header">Delete</f:facet>
                             <h:commandButton image="images/cancel.png"
                                              alt="Delete" title="Delete"
-                                             action="#{manageWorkflowBean.performDelete}" 
+                                             action="#{mngWorkFlowBean.performDelete}" 
 		                                     onclick='if (!confirm("Are you sure you want to delete workflow &#39;#{item.name}&#39;?")) return false;'>
-                         <f:setPropertyActionListener target="#{manageWorkflowBean.toDelete}"
+                         <f:setPropertyActionListener target="#{mngWorkFlowBean.toDelete}"
                                                       value="#{item.id}"/>
                     </h:commandButton>
  
              </ice:column>
 
-               
+              </ice:dataTable>
           </td>
         </tr>
 </table>
+</ice:form>
 </ui:composition>

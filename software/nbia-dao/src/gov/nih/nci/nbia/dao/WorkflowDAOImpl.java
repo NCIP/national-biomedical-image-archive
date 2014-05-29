@@ -23,8 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
  class WorkflowDAOImpl extends AbstractDAO
                                    implements WorkflowDAO {
 	 
-	private final static String SITES_QUERY="select distinct series_instance_uid, new_value from qc_status_history where history_timestamp between :low and :high";
-	private final static String COLLECTION_QUERY="select distinct series_instance_uid from submission_history where submission_timestamp between :low and :high";
+	private final static String SITES_QUERY="select distinct dp_site_name from trial_data_provenance";
+	private final static String COLLECTION_QUERY="select distinct project from trial_data_provenance";
 
 	
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -35,8 +35,6 @@ import org.springframework.transaction.annotation.Transactional;
 		return 1L;
 	}
 
-	
-	
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public WorkflowDTO getWorkflowById(Integer wid) throws DataAccessException{

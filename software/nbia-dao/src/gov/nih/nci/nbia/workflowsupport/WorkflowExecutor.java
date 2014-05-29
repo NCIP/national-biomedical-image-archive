@@ -60,13 +60,13 @@ public class WorkflowExecutor {
 				   SolrDocumentList docs = rsp.getResults();
 				   if (docs.size()<1)
 				   {  // can't find it, we need to re-index to be sure
-					   log.error("Can find last time workflow run, set the date to now");
+					   log.error("Can't find last time workflow run, set the date to now");
 					   lastRan = new Date(System.currentTimeMillis());
 				   } else // get the value
 				   {
 					   if (docs.get(0).get("lastRan") == null)
 					   {
-						   log.error("Can find last workflow doc, we need to set date to now");
+						   log.error("Found workflow doc, last ran not there we need to set date to now");
 						   log.info(docs.get(0));
 						   lastRan = new Date(System.currentTimeMillis());
 					   } else 

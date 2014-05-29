@@ -12,7 +12,7 @@ L-->
 <hibernate-mapping package="gov.nih.nci.nbia.internaldomain">
 	<class name="Workflow" table="WORKFLOW" lazy="true" polymorphism="explicit">
 		<cache usage="read-write" />
-		<id name="id" column="WORKFLOW" unsaved-value="0">
+		<id name="id" column="WORKFLOW_ID" unsaved-value="0">
 			<generator class="org.hibernate.id.TableHiLoGenerator">
   	  			<param name="table">hibernate_unique_key</param>
 				<param name="column">next_hi</param>
@@ -20,7 +20,7 @@ L-->
 		</id>
 		
 		<!-- Attributes mapping for the CustomSeriesList class -->
-		<property name="name" type="string" column="WORKFLOW_NAME"/>
+		<property name="name" type="string" column="NAME"/>
 		<property name="url" type="string" column="URL"/>
 		<property name="collection" type="string" column="COLLECTION" />
 		<property name="site" type="string" column="SITE" />

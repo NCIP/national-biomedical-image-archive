@@ -1,23 +1,37 @@
 package gov.nih.nci.nbia.beans.workflow;
 
 
-import org.apache.log4j.Logger;
-import java.io.Serializable;
-import java.util.*;
-import gov.nih.nci.nbia.dao.*;
-import gov.nih.nci.nbia.dto.*;
+import gov.nih.nci.nbia.dao.WorkflowDAO;
+import gov.nih.nci.nbia.dto.WorkflowDTO;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
+import org.apache.log4j.Logger;
+
 public class AddWorkFlowItemBean implements Serializable{
 	
     private Integer id;
+    private int load; //used to load for editing
     private String name;
     private String url;
     private String collection;
+    private String newCollection;
     private String site;
+    private String newSite;
     private String type;
-    private List<String> collections;
-    private List<String> sites;
-    private List<String> types;
+    private String errorMessage;
+    private List<SelectItem> collections;
+    private List<SelectItem> sites;
+    private List<SelectItem> types;
     private static final long serialVersionUID = 1234567890L;
 
     
@@ -26,16 +40,42 @@ public class AddWorkFlowItemBean implements Serializable{
     
     public AddWorkFlowItemBean()
     {
-    	types=new ArrayList<String>();
-    	types.add(WorkflowDTO.VISIBILITY_TYPE);
-    	types.add(WorkflowDTO.SERIES_TYPE);
+    	types=new ArrayList<SelectItem>();
+    	types.add(new SelectItem(WorkflowDTO.VISIBILITY_TYPE));
+    	types.add(new SelectItem(WorkflowDTO.SERIES_TYPE));
     	refreshValues();
     }
     private void refreshValues()
     {
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
-    	sites=workflowDao.getSites();
-    	collections=workflowDao.getCollections();
+    	List <String>dataSites=workflowDao.getSites();
+    	if (site!=null)
+    	{
+             if (!dataSites.contains(site))
+             {
+            	 dataSites.add(site);
+             }
+    	}
+    	sites=new ArrayList<SelectItem>();
+    	for (String site: dataSites)
+    	{
+    		sites.add(new SelectItem(site));
+    	}
+
+    	List <String>dataCollections=workflowDao.getCollections();
+    	if (collection!=null)
+    	{
+             if (!dataCollections.contains(collection))
+             {
+            	 dataCollections.add(collection);
+             }
+    	}
+    	collections=new ArrayList<SelectItem>();
+    	for (String collection: dataCollections)
+    	{
+    		collections.add(new SelectItem(collection));
+    	}
+    	
     }
     
 	public Integer getId() {
@@ -75,39 +115,83 @@ public class AddWorkFlowItemBean implements Serializable{
 		this.type = type;
 	}
     
-    public List<String> getCollections() {
+    public List<SelectItem> getCollections() {
 		return collections;
 	}
-	public void setCollections(List<String> collections) {
+	public void setCollections(List<SelectItem> collections) {
 		this.collections = collections;
 	}
-	public List<String> getSites() {
+	public List<SelectItem> getSites() {
 		return sites;
 	}
-	public void setSites(List<String> sites) {
+	public void setSites(List<SelectItem> sites) {
 		this.sites = sites;
 	}
-	public List<String> getTypes() {
+	public List<SelectItem> getTypes() {
 		return types;
 	}
-	public void setTypes(List<String> types) {
+	public void setTypes(List<SelectItem> types) {
 		this.types = types;
 	}
-	public void submit()
+	
+	public String getNewCollection() {
+		return newCollection;
+	}
+	public void setNewCollection(String newCollection) {
+		this.newCollection = newCollection;
+	}
+	public String getNewSite() {
+		return newSite;
+	}
+	public void setNewSite(String newSite) {
+		this.newSite = newSite;
+	}
+	
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
+	}
+	public void newWorkflow()
+	{
+	    id=null;
+	    name=null;
+	    url=null;
+	    collection=null;
+	    newCollection=null;
+	    site=null;
+	    newSite=null;
+	    type=null;
+	    errorMessage=null;
+	    refreshValues();
+	}
+	public String submit()
     {
+		errorMessage=null;
+		if (url==null || !isValidURL(url))
+		{
+			errorMessage="The URL "+url+" is not valid";
+		}
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
     	dto.setCollection(collection);
-    	dto.setId(null);
+    	dto.setId(id);
     	dto.setName(name);
     	dto.setSite(site);
     	dto.setType(type);
     	dto.setUrl(url);
     	workflowDao.save(dto);
     	refreshValues();
+    	MngWorkflowBean manageWorkflowBean = (MngWorkflowBean) FacesContext.getCurrentInstance().
+		getExternalContext().getSessionMap().get("mngWorkFlowBean");
+    	manageWorkflowBean.refreshValues();
+    	return "manageWorkflowItems";
     }
-	public void load(int idIn)
+	public void setLoad(int idIn)
     {
+		errorMessage=null;
+		load=idIn;
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
         dto=workflowDao.getWorkflowById(new Integer(idIn));
@@ -119,6 +203,38 @@ public class AddWorkFlowItemBean implements Serializable{
         url=dto.getUrl();
     	refreshValues();
     }
-	
+	public int getLoad()
+	{
+		return load;
+	}
+	public String addCollection ()
+	{
+		collections.add(new SelectItem(newCollection));
+		newCollection=null;
+		return "createWorkflow";
+	}
+	public String addSite ()
+	{
+		sites.add(new SelectItem(newSite));
+		newSite=null;
+		return "createWorkflow";
+	}
+	private boolean isValidURL(String url) {  
 
+	    URL u = null;
+
+	    try {  
+	        u = new URL(url);  
+	    } catch (MalformedURLException e) {  
+	        return false;  
+	    }
+
+	    try {  
+	        u.toURI();  
+	    } catch (URISyntaxException e) {  
+	        return false;  
+	    }  
+
+	    return true;  
+	} 
 }

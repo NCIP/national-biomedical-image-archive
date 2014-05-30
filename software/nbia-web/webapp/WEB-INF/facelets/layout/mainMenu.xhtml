@@ -332,7 +332,16 @@ L-->
                       
            		</li>
            </f:subview>
-
+          <f:subview id="addWorkFlowItemsview" 
+           		rendered="#{securityBean.hasSuperCuratorRole}">
+ 
+            	<li>
+                  <h:commandLink id="addWorkflowIMenuItem"
+                       action="createWorkflow"
+                       value="Create Workflow Items" />
+                      
+           		</li>
+           </f:subview>
     
     </ul>
     </td>

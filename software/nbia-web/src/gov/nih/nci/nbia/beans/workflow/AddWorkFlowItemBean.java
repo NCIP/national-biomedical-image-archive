@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
@@ -71,16 +72,18 @@ public class AddWorkFlowItemBean implements Serializable{
     		} 
     		else
     		{
-    			collection=collections.get(0).toString();
+    			collection=collections.get(0).getValue().toString();
     		}
     	}
     	List <String>dataSites=null;
     	if (collection!=null)
     	{
+    		System.out.println("Searching on collection: "+collection.toString());
     		dataSites=workflowDao.getSitesByCollection(collection);
     	}
     	else
     	{
+    		System.out.println("getting all sites");
     		dataSites=workflowDao.getSites();
     	}
     	if (site!=null)
@@ -234,6 +237,10 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String addCollection ()
 	{
+		if (newCollection==null||newCollection.equals(""))
+		{
+			return "createWorkflow";
+		}
 		collections.add(new SelectItem(newCollection));
 		collection=newCollection;
 		newCollection=null;
@@ -241,6 +248,10 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String addSite ()
 	{
+		if (newSite==null||newSite.equals(""))
+		{
+			return "createWorkflow";
+		}
 		sites.add(new SelectItem(newSite));
 		site=newSite;
 		newSite=null;
@@ -250,6 +261,34 @@ public class AddWorkFlowItemBean implements Serializable{
 	{
 		newWorkflow();
 		return "manageWorkflowItems";
+	}
+	public String collectionChangeListener(ValueChangeEvent event)
+	{
+		String name = (String) event.getNewValue();
+    	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
+    	List <String>dataSites=null;
+    	if (collection!=null)
+    	{
+    		dataSites=workflowDao.getSitesByCollection(name);
+    	}
+    	else
+    	{
+    		dataSites=workflowDao.getSites();
+    	}
+    	if (site!=null)
+    	{
+             if (!dataSites.contains(site))
+             {
+            	 dataSites.add(site);
+             }
+    	}
+    	sites=new ArrayList<SelectItem>();
+    	for (String site: dataSites)
+    	{
+    		sites.add(new SelectItem(site));
+    	}
+
+    	return "createWorkflow";
 	}
 	private boolean isValidURL(String url) {  
 

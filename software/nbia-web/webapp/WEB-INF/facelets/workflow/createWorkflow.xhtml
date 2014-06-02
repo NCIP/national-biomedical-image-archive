@@ -65,6 +65,7 @@ L-->
           <td colspan="3">
 	        <ice:selectOneMenu id="visibilityWorkflowCollection" 
 	                           value="#{addWorkFlowItemBean.collection}"
+	                           valueChangeListener="#{addWorkFlowItemBean.collectionChangeListener}"
 	                           partialSubmit="true">
 	          <f:selectItems value="#{addWorkFlowItemBean.collections}"/>     
 	        </ice:selectOneMenu>
@@ -138,9 +139,9 @@ L-->
         <tr>
           <td>
             <!--<h:message id="urlError" for="hyperlinkWorkFlow" infoClass="errorLabel"/>-->
-            <h3 align="left" font color="red">
+            <font align="left"  color="red">
               <ice:outputText value="#{addWorkFlowItemBean.errorMessage}"/>
-            </h3>  
+            </font>  
           </td>
         </tr>
         <tr>

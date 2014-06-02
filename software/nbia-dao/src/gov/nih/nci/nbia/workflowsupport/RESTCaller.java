@@ -58,6 +58,7 @@ public class RESTCaller {
             client.execute(getMethod);
             log.info("Executed : "+urlString);
     
+            
         }
         catch (Exception e)
         {

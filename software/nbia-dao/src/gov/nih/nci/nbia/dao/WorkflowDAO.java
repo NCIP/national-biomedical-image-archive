@@ -35,4 +35,6 @@ public interface WorkflowDAO {
 	
 	public List<String> getCollections() throws DataAccessException;
 	
+	public List<String> getSitesByCollection(String collection);
+	
 }

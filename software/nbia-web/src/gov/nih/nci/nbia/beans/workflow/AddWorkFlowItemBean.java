@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -48,20 +50,6 @@ public class AddWorkFlowItemBean implements Serializable{
     private void refreshValues()
     {
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
-    	List <String>dataSites=workflowDao.getSites();
-    	if (site!=null)
-    	{
-             if (!dataSites.contains(site))
-             {
-            	 dataSites.add(site);
-             }
-    	}
-    	sites=new ArrayList<SelectItem>();
-    	for (String site: dataSites)
-    	{
-    		sites.add(new SelectItem(site));
-    	}
-
     	List <String>dataCollections=workflowDao.getCollections();
     	if (collection!=null)
     	{
@@ -75,6 +63,42 @@ public class AddWorkFlowItemBean implements Serializable{
     	{
     		collections.add(new SelectItem(collection));
     	}
+    	// no collection selected, so select the first one
+    	if (collection==null)
+    	{
+    		Collections.sort(collections, new SortSelectItemIgnoreCase());
+    		if (collections.size()==0) // rare situation
+    		{
+    			// do nothing
+    		} 
+    		else
+    		{
+    			collection=collections.get(0).toString();
+    		}
+    	}
+    	List <String>dataSites=null;
+    	if (collection!=null)
+    	{
+    		dataSites=workflowDao.getSitesByCollection(collection);
+    	}
+    	else
+    	{
+    		dataSites=workflowDao.getSites();
+    	}
+    	if (site!=null)
+    	{
+             if (!dataSites.contains(site))
+             {
+            	 dataSites.add(site);
+             }
+    	}
+    	sites=new ArrayList<SelectItem>();
+    	for (String site: dataSites)
+    	{
+    		sites.add(new SelectItem(site));
+    	}
+
+
     	
     }
     
@@ -116,12 +140,14 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
     
     public List<SelectItem> getCollections() {
+    	Collections.sort(collections, new SortSelectItemIgnoreCase());
 		return collections;
 	}
 	public void setCollections(List<SelectItem> collections) {
 		this.collections = collections;
 	}
 	public List<SelectItem> getSites() {
+		Collections.sort(sites, new SortSelectItemIgnoreCase());
 		return sites;
 	}
 	public void setSites(List<SelectItem> sites) {
@@ -211,12 +237,14 @@ public class AddWorkFlowItemBean implements Serializable{
 	public String addCollection ()
 	{
 		collections.add(new SelectItem(newCollection));
+		collection=newCollection;
 		newCollection=null;
 		return "createWorkflow";
 	}
 	public String addSite ()
 	{
 		sites.add(new SelectItem(newSite));
+		site=newSite;
 		newSite=null;
 		return "createWorkflow";
 	}
@@ -243,4 +271,11 @@ public class AddWorkFlowItemBean implements Serializable{
 
 	    return true;  
 	} 
+    public class SortSelectItemIgnoreCase implements Comparator<Object> {
+        public int compare(Object o1, Object o2) {
+            SelectItem s1 = (SelectItem) o1;
+            SelectItem s2 = (SelectItem) o2;
+            return s1.toString().toLowerCase().compareTo(s2.toString().toLowerCase());
+        }
+    }
 }

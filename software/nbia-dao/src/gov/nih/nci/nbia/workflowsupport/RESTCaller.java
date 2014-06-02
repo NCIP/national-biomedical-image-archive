@@ -4,10 +4,12 @@ import org.apache.http.client.methods.*;
 import org.apache.http.client.params.*;
 import org.apache.http.impl.client.*;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.log4j.Logger;
+
 import java.util.*;
 import java.net.URLEncoder;
 public class RESTCaller {
-
+	static Logger log = Logger.getLogger(RESTCaller.class);
     public static void requestNewSeriesWorkflow(WorkflowNewSeriesDTO workflowDTO) throws Exception
     {
     	StringBuilder sb = new StringBuilder();
@@ -40,7 +42,7 @@ public class RESTCaller {
         	
             // Creating the GetMethod instance
             getMethod = new HttpGet(urlString);
-            System.out.println("About to execute : "+urlString);
+            log.info("About to execute : "+urlString);
             // Retries to establish a successful connection the specified number
             // of times if the initial attempts are not successful.
             //getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
@@ -52,16 +54,15 @@ public class RESTCaller {
             client = new DefaultHttpClient();
  
 
-            // Sets the user-agent for the client instance
-            client.getParams().setParameter("http.useragent", "<USER_AGENT>");
- 
             // Sends the GET request and gets the response
             client.execute(getMethod);
+            log.info("Executed : "+urlString);
     
 
         }
         catch (Exception e)
         {
+        	log.error("Error executing "+urlString);
             e.printStackTrace();
         }
         finally

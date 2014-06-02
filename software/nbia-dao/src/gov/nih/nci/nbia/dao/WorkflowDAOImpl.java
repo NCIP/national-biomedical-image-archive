@@ -14,6 +14,7 @@ import gov.nih.nci.nbia.internaldomain.Workflow;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
@@ -25,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 	 
 	private final static String SITES_QUERY="select distinct dp_site_name from trial_data_provenance";
 	private final static String COLLECTION_QUERY="select distinct project from trial_data_provenance";
+	private final static String SITE_COLLECTION_QUERY="select distinct dp_site_name from trial_data_provenance where project=:project";
 
 	
 	@Transactional(propagation=Propagation.REQUIRED)
@@ -95,6 +97,22 @@ import org.springframework.transaction.annotation.Transactional;
 			wDtos.add(wDto);
 		}
 		return wDtos;
+	}
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<String> getSitesByCollection(String collection) throws DataAccessException{
+		List<String> returnValue = new ArrayList<String>();
+		try {
+			returnValue= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(SITE_COLLECTION_QUERY)
+	    	  .setParameter("project", collection).list();
+			if (returnValue.size()==0) {
+				 return returnValue; //nothing to do
+			}
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return returnValue;
 	}
 	
 	@Transactional(propagation=Propagation.REQUIRED)

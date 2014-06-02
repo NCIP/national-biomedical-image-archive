@@ -26,9 +26,9 @@ L-->
         <ice:outputText value="Workflow Item"/>
       </h2>
       <br/>
-       <h3 align="center"> 
+       <!-- <h3 align="center"> 
         <ice:outputText value="#{addWorkFlowItemBean.errorMessage}"/>
-      </h3>     
+      </h3>     --> 
       <table border="0" cellpadding="5" cellspacing="0" width="100%" class="promptbox" style="display: block;">                 
         <tr>
           <td colspan="1">
@@ -133,6 +133,14 @@ L-->
                            size="100" maxlength="200"
                            styleClass="formField"
                            title="Add a URL which links to additional information. The length cannot be longer than 200 characters."/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <!--<h:message id="urlError" for="hyperlinkWorkFlow" infoClass="errorLabel"/>-->
+            <h3 align="left" font color="red">
+              <ice:outputText value="#{addWorkFlowItemBean.errorMessage}"/>
+            </h3>  
           </td>
         </tr>
         <tr>

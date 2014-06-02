@@ -409,7 +409,7 @@ a.footerMenuLink:hover {
 /* ********************************* END MAIN LAYOUT RULES ***************************************/
 
 .errorLabel {
-  color: red; 
+  color:#FF0000;
   font-family: arial,helvetica,verdana,sans-serif; 
   text-align: left
 }

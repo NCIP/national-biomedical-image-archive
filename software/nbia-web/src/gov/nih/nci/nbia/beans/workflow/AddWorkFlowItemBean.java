@@ -36,8 +36,7 @@ public class AddWorkFlowItemBean implements Serializable{
     private List<SelectItem> types;
     private static final long serialVersionUID = 1234567890L;
 
-    
-    
+        
     private static Logger logger = Logger.getLogger(AddWorkFlowItemBean.class);
     
     public AddWorkFlowItemBean()

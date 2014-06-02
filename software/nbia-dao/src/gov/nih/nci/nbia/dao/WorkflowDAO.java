@@ -37,4 +37,5 @@ public interface WorkflowDAO {
 	
 	public List<String> getSitesByCollection(String collection);
 	
+	
 }

@@ -43,7 +43,7 @@ L-->
                            styleClass="formField"
                            title="Name your list. The length cannot be longer than 50 characters."/> 
             <br/>
-            <h:message id="nameError" for="name" infoClass="errorLabel"/>
+            <h:message id="nameError" for="name" infoClass="errorLabel" style="color:#FF0000;"/>
           </td>
         </tr>
         <tr>
@@ -134,13 +134,10 @@ L-->
                            size="100" maxlength="200"
                            styleClass="formField"
                            title="Add a URL which links to additional information. The length cannot be longer than 200 characters."/>
-          </td>
-        </tr>
-        <tr>
-          <td>
             <!--<h:message id="urlError" for="hyperlinkWorkFlow" infoClass="errorLabel"/>-->
+            <br/>
             <font align="left"  color="red">
-              <ice:outputText value="#{addWorkFlowItemBean.errorMessage}"/>
+              <ice:outputText value="#{addWorkFlowItemBean.errorMessage}" style="color: #FF0000;"/>
             </font>  
           </td>
         </tr>

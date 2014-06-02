@@ -244,6 +244,8 @@ public class AddWorkFlowItemBean implements Serializable{
 		collections.add(new SelectItem(newCollection));
 		collection=newCollection;
 		newCollection=null;
+		newSite=null;
+		sites=new ArrayList<SelectItem>();
 		return "createWorkflow";
 	}
 	public String addSite ()
@@ -312,7 +314,7 @@ public class AddWorkFlowItemBean implements Serializable{
         public int compare(Object o1, Object o2) {
             SelectItem s1 = (SelectItem) o1;
             SelectItem s2 = (SelectItem) o2;
-            return s1.toString().toLowerCase().compareTo(s2.toString().toLowerCase());
+            return s1.getValue().toString().toLowerCase().compareTo(s2.getValue().toString().toLowerCase());
         }
     }
 }

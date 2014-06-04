@@ -98,9 +98,8 @@ public class AddWorkFlowItemBean implements Serializable{
     	{
     		sites.add(new SelectItem(site));
     	}
-
-
-    	
+    	newCollection=null;
+		newSite=null;
     }
     
 	public Integer getId() {
@@ -256,6 +255,7 @@ public class AddWorkFlowItemBean implements Serializable{
 		}
 		sites.add(new SelectItem(newSite));
 		site=newSite;
+		newCollection=null;
 		newSite=null;
 		return "createWorkflow";
 	}

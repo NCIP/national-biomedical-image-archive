@@ -46,7 +46,7 @@ public List<WorkflowVisibilityUpdateDTO> getVisibilityUpdated(Date high, Date lo
 		List <Object[]>visbilities= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(UPDATED_VISIBILITY_QUERY)
 		  .setTimestamp("low", low)
 		  .setTimestamp("high", high).list();
-		if (returnValue.size()==0) {
+		if (visbilities.size()==0) {
 			   log.info("No updated visibilities");
 			   return returnValue; //nothing to do
 		}
@@ -102,7 +102,7 @@ public List<WorkflowNewSeriesDTO> getNewSeries(Date high, Date low)
 		List<String> seriesAdded= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(SERIES_ADDED_QUERY)
 		  .setTimestamp("low", low)
 		  .setTimestamp("high", high).list();
-		if (returnValue.size()==0) {
+		if (seriesAdded.size()==0) {
 			   log.info("No new series");
 			   return returnValue; //nothing to do
 		}

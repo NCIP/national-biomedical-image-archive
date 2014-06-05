@@ -28,7 +28,7 @@ public class WADOSupportDAOImpl extends AbstractDAO
     
     private final static String WADO_QUERY="select distinct gs.project, gs.site, dicom_file_uri from general_image gi, general_series gs" +
     		" where gs.study_instance_uid = :study and gs.series_instance_uid = :series and gi.sop_instance_uid = :image " +
-    		"  and gs.general_series_pk_id and gi.general_series_pk_id";
+    		"  and gs.general_series_pk_id = gi.general_series_pk_id";
 
 public WADOSupportDTO getWADOSupportDTO(String study, String series, String image)
 {

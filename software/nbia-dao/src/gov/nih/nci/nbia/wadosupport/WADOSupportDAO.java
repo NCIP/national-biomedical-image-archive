@@ -16,7 +16,7 @@ public interface WADOSupportDAO  {
 
 
   public SessionFactory getSessionFactory();
-  public WADOSupportDTO getWorkflowSupportDAO(String study, String series, String image, String user);
-  public WADOSupportDTO getWorkflowSupportDAO(String study, String series, String image);
+  public WADOSupportDTO getWADOSupportDTO(String study, String series, String image, String user);
+  public WADOSupportDTO getWADOSupportDTO(String study, String series, String image);
 
 }

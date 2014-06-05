@@ -27,17 +27,17 @@ public class WADOSupportDAOImpl extends AbstractDAO
 	static Logger log = Logger.getLogger(WADOSupportDAOImpl.class);
     
     private final static String WADO_QUERY="select distinct gs.project, gs.site, dicom_file_uri from general_image gi, general_series gs" +
-    		" where gs.study_instance_uid = :study and gs.study_instance_uid = :series and gi.sop_instance_uid = :image " +
+    		" where gs.study_instance_uid = :study and gs.series_instance_uid = :series and gi.sop_instance_uid = :image " +
     		"  and gs.general_series_pk_id and gi.general_series_pk_id";
 
-public WADOSupportDTO getWorkflowSupportDAO(String study, String series, String image)
+public WADOSupportDTO getWADOSupportDTO(String study, String series, String image)
 {
 	String user =  NCIAConfig.getGuestUsername();
-	return getWorkflowSupportDAO(study, series, image, user );
+	return getWADOSupportDTO(study, series, image, user );
 }
 	
 @Transactional(propagation=Propagation.REQUIRED)
-public WADOSupportDTO getWorkflowSupportDAO(String study, String series, String image, String user )
+public WADOSupportDTO getWADOSupportDTO(String study, String series, String image, String user )
 {
 	WADOSupportDTO returnValue = new WADOSupportDTO();
 	log.info("Study-"+study+" series-"+series+" image-"+image);
@@ -68,9 +68,10 @@ public WADOSupportDTO getWorkflowSupportDAO(String study, String series, String 
 		}
 		if (!isAuthorized)
 		{
+			System.out.println("User: "+user+" noy authorized");
 			return null; //not authorized
 		}
-		String filePath = (String)images.get(0)[1];
+		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);
 		if (!imageFile.exists())
 		{

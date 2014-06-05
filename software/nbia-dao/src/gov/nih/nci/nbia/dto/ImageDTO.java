@@ -72,6 +72,7 @@ public class ImageDTO implements Comparable<ImageDTO>  {
     private Integer instanceNumber;
     private String sopInstanceUid;
     private String seriesInstanceUid;
+    private String studyInstanceUid;
     private Long size; // in MB
     private String fileURI;
     private String project;
@@ -253,4 +254,15 @@ public class ImageDTO implements Comparable<ImageDTO>  {
 	public void setFrameNum(int frameNum) {
 		this.frameNum = frameNum;
 	}
+
+
+	public String getStudyInstanceUid() {
+		return studyInstanceUid;
+	}
+
+
+	public void setStudyInstanceUid(String studyInstanceUid) {
+		this.studyInstanceUid = studyInstanceUid;
+	}
+	
 }

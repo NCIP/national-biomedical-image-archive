@@ -251,7 +251,7 @@ public class ImageDAOImpl extends AbstractDAO
 
     private static final String LAST_CURATION_DATE_HQL = "select max(gi.curationTimestamp) from GeneralImage gi";
 
-	private static final String SQL_QUERY_SELECT = "SELECT image.id, image.contentDate, image.contentTime, image.filename, image.seriesPKId, image.dicomSize, image.instanceNumber, image.seriesInstanceUID, image.SOPInstanceUID, image.usFrameNum ";
+	private static final String SQL_QUERY_SELECT = "SELECT image.id, image.contentDate, image.contentTime, image.filename, image.seriesPKId, image.dicomSize, image.instanceNumber, image.seriesInstanceUID, image.SOPInstanceUID, image.usFrameNum, image.studyInstanceUID ";
     private static final String SQL_QUERY_FROM = "FROM GeneralImage image ";
     private static final String SQL_QUERY_WHERE = "WHERE ";
 
@@ -293,6 +293,7 @@ public class ImageDAOImpl extends AbstractDAO
 			            else {
 			            	thumbnailDTO.setFrameNum(Integer.parseInt((String) row[9]));
             }
+             thumbnailDTO.setStudyInstanceUid(row[10].toString());
             imageList.add(thumbnailDTO);
         }
 

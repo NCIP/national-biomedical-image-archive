@@ -8,6 +8,9 @@
 
 package gov.nih.nci.nbia.beans.searchresults;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import gov.nih.nci.nbia.util.UidDisplayUtil;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
@@ -25,6 +28,7 @@ public class ImageResultWrapper {
 		isrei.setSize(imageSearchResult.getSize());
 		isrei.setSopInstanceUid(imageSearchResult.getSopInstanceUid());
 		isrei.setThumbnailURL(imageSearchResult.getThumbnailURL());
+		isrei.setStudyInstanceUid(imageSearchResult.getStudyInstanceUid());
 		this.imageSearchResultEx = isrei;
 	}
 	
@@ -52,7 +56,21 @@ public class ImageResultWrapper {
     	return imageSearchResultEx.getSeriesId()+"||"+imageSearchResultEx.associatedLocation().getURL();
     }
 
-    
+    public String getLink()
+    {
+    	String start ="wado?";
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(start);
+    	sb.append("requestType=").append("WADO").append("&");
+    	try {
+			sb.append("studyUID=").append(URLEncoder.encode(imageSearchResultEx.getStudyInstanceUid(), "UTF-8")).append("&");
+			sb.append("seriesUID=").append(URLEncoder.encode(imageSearchResultEx.getSeriesInstanceUid(), "UTF-8")).append("&");
+			sb.append("objectUID=").append(URLEncoder.encode(imageSearchResultEx.getSopInstanceUid(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+    	return sb.toString();
+    }
     /////////////////////////////////////////PRIVATE////////////////////////////////////
     
 //    private ImageSearchResult imageSearchResult;

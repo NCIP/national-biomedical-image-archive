@@ -168,14 +168,25 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
 	public void setThumbnailURL(String thumbnailURL) {
 		this.thumbnailURL = thumbnailURL;
 	}
+	
+    public String getStudyInstanceUid() {
+		return studyInstanceUid;
+	}
 
+	public void setStudyInstanceUid(String studyInstanceUid) {
+		this.studyInstanceUid = studyInstanceUid;
+	}
     ///////////////////////////////////////////////PRIVATE///////////////////////////////////
 
-    protected Integer imagePkId;
+
+
+
+	protected Integer imagePkId;
     protected Integer seriesPkId;
     protected Integer instanceNumber;
     protected String sopInstanceUid;
     protected String seriesInstanceUid;
+    protected String studyInstanceUid;
     protected Long size;
     protected NBIANode location;
     protected String thumbnailURL;

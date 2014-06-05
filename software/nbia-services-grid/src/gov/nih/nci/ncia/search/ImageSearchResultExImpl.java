@@ -20,9 +20,11 @@ public class ImageSearchResultExImpl extends ImageSearchResultImpl
 		this.setInstanceNumber(isr.getInstanceNumber());
 		this.setSeriesId(isr.getSeriesId());
 		this.setSeriesInstanceUid(isr.getSeriesInstanceUid());
+		this.setStudyInstanceUid(isr.getStudyInstanceUid());
 		this.setSize(isr.getSize());
 		this.setSopInstanceUid(isr.getSopInstanceUid());
 		this.setThumbnailURL(isr.getThumbnailURL());
+		this.setStudyInstanceUid(isr.getStudyInstanceUid());
 		this.associateLocation(isr.associatedLocation());
 		this.nvPair = null;
 	}

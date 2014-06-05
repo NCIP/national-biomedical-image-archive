@@ -42,7 +42,11 @@ public interface ImageSearchResult extends Comparable<ImageSearchResult>  {
      * Return the series (pk) id of the series the image belongs to.
      */
     public Integer getSeriesId(); 
-   
+    
+    /**
+     * Return the study InstanceUid of the study the image belongs to.
+     */
+    public String getStudyInstanceUid(); 
     
     /**
      * Return the instance number of this image within the series (from DICOM tags ultimately)

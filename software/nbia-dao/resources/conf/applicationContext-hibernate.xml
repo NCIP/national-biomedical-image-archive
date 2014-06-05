@@ -269,6 +269,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
+    <bean id="WADOSupportDAO" class="gov.nih.nci.nbia.wadosupport.WADOSupportDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
  	<bean id="imageDeletionService" class="gov.nih.nci.nbia.deletion.ImageDeletionServiceImpl">
      </bean>
      <bean id="imageFileDeletionService" class="gov.nih.nci.nbia.deletion.ImageFileDeletionServiceImpl">

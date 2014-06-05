@@ -232,6 +232,7 @@ public class LocalDrillDown implements DrillDown {
         assert thumbnailURLResolver != null;
 
 		try {
+			System.out.println("in retrieveImagesbySeriesPkIDEx");
 	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
 	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesPkID(seriesPkIds);
 
@@ -325,6 +326,7 @@ public class LocalDrillDown implements DrillDown {
 		result.setId(imageDTO.getImagePkId());
 		result.setSopInstanceUid(imageDTO.getSopInstanceUid());
 		result.setSeriesInstanceUid(imageDTO.getSeriesInstanceUid());
+		result.setStudyInstanceUid(imageDTO.getStudyInstanceUid());
 		result.setSeriesId(imageDTO.getSeriesPkId());
 		result.setInstanceNumber(imageDTO.getInstanceNumber());
 		result.setSize(imageDTO.getSize());
@@ -339,6 +341,7 @@ public class LocalDrillDown implements DrillDown {
 		result.setSopInstanceUid(imageDTO.getSopInstanceUid());
 		result.setSeriesInstanceUid(imageDTO.getSeriesInstanceUid());
 		result.setSeriesId(imageDTO.getSeriesPkId());
+		result.setStudyInstanceUid(imageDTO.getStudyInstanceUid());
 		result.setInstanceNumber(imageDTO.getInstanceNumber());
 		result.setSize(imageDTO.getSize());
 		result.associateLocation(LocalNode.getLocalNode());

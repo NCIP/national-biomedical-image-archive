@@ -52,7 +52,6 @@ public class LocalDrillDown implements DrillDown {
 		this.thumbnailURLResolver = thumbnailURLResolver;
 	}
 
-
 	/**
 	 * {@inheritDoc}
 	 *

@@ -29,6 +29,8 @@ import gov.nih.nci.ncia.dto.DicomTagDTO;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -359,7 +361,7 @@ public class QcToolUpdateBean {
 			LocalDrillDown drillDown = new LocalDrillDown();
 			drillDown
 					.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
-
+            
 			if (isHasMultiFrame()) {
 				List<ImageSearchResultEx> imageList = Arrays.asList(drillDown
 						.retrieveImagesForSeriesEx(seriesId));
@@ -367,6 +369,7 @@ public class QcToolUpdateBean {
 				LocalDicomTagViewer ldtv = new LocalDicomTagViewer();
 				tagInfo = ldtv.viewDicomHeader(imageList.get(Integer.parseInt(getSelectedImgNumField())-1).getId());
 				currentSeriesSize = imageList.size();
+				createLink(imageList.get(imageCount));
 			}else {
 				
 				
@@ -376,7 +379,9 @@ public class QcToolUpdateBean {
 				LocalDicomTagViewer ldtv = new LocalDicomTagViewer();
 				tagInfo = ldtv.viewDicomHeader(imageList.get(imageCount).getId());
 				currentSeriesSize = imageList.size();
+				createLink(imageList.get(imageCount));
 			}
+			
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -587,6 +592,30 @@ public class QcToolUpdateBean {
 		this.selectedImgNumField = selectedImgNumField;
 	}
 
+	public String getImageLink() {
+		return imageLink;
+	}
+
+	public void setImageLink(String imageLink) {
+		this.imageLink = imageLink;
+	}
+
+    private void createLink(ImageSearchResult imageSearchResult)
+    {
+    	String start ="wado?";
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(start);
+    	sb.append("requestType=").append("WADO").append("&");
+    	try {
+			sb.append("studyUID=").append(URLEncoder.encode(imageSearchResult.getStudyInstanceUid(), "UTF-8")).append("&");
+			sb.append("seriesUID=").append(URLEncoder.encode(imageSearchResult.getSeriesInstanceUid(), "UTF-8")).append("&");
+			sb.append("objectUID=").append(URLEncoder.encode(imageSearchResult.getSopInstanceUid(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		setImageLink(sb.toString());
+    }
+
 
 	// //////////////////////////PRIVATE///////////////////////////////////////
 	private static final String DELETE = "Delete";
@@ -603,6 +632,7 @@ public class QcToolUpdateBean {
 	private String comments = INITIAL_COMMENT;
 	private String currDicomSopId;
 	private List<DicomTagDTO> tagInfo;
+	private String imageLink;
 	private String seriesId;
 	private int selectedRow;
 	private int imageCount = 0;

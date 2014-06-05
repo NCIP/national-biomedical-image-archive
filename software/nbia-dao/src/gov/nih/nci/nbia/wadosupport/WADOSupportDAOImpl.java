@@ -30,6 +30,7 @@ public class WADOSupportDAOImpl extends AbstractDAO
     		" where gs.study_instance_uid = :study and gs.series_instance_uid = :series and gi.sop_instance_uid = :image " +
     		"  and gs.general_series_pk_id = gi.general_series_pk_id";
 
+    
 public WADOSupportDTO getWADOSupportDTO(String study, String series, String image)
 {
 	String user =  NCIAConfig.getGuestUsername();

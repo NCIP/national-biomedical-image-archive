@@ -214,6 +214,11 @@ L-->
     <servlet-class>gov.nih.nci.nbia.servlet.PublicOnlyThumbnailServlet</servlet-class>
     <load-on-startup> 1 </load-on-startup>
   </servlet>
+  <servlet>
+    <servlet-name>WADOServlet</servlet-name>
+    <servlet-class>gov.nih.nci.nbia.servlet.WADOServlet</servlet-class>
+    <load-on-startup> 1 </load-on-startup>
+  </servlet>  
 <!-- CSRF -->
 <servlet>
      <servlet-name>JavaScriptServlet</servlet-name>
@@ -251,6 +256,10 @@ L-->
 
 <!--end of CSRF-->
 
+  <servlet-mapping>
+    <servlet-name>WADOServlet</servlet-name>
+    <url-pattern>/wado</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>publicThumbnailServlet</servlet-name>
     <url-pattern>/publicThumbnails</url-pattern>

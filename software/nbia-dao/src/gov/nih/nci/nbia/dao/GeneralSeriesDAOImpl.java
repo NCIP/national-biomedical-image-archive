@@ -433,7 +433,38 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		seriesDTOList = convertHibernateObjectToSeriesDTO(seriesList);
 		return seriesDTOList;
 	}
+	/**
+	 * Return all the series for a given list of series instance UIDs, but only when
+	 * the series are authorized.
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)
+	public List<SeriesDTO> findSeriesBySeriesInstanceUIDAnyVisibility(List<String> seriesIds) throws DataAccessException
+	{
+		List<GeneralSeries> seriesList = null;
+		List<SeriesDTO> seriesDTOList = null;
 
+		if (seriesIds == null || seriesIds.size() <= 0){
+			return null;
+		}
+
+		List<List<String>> breakdownList = Util.breakListIntoChunks(seriesIds, 900);
+		for (List<String> unitList : breakdownList) {
+
+			DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
+			criteria.add(Restrictions.in("seriesInstanceUID", unitList));
+			criteria = criteria.createCriteria("study");
+			criteria = criteria.createCriteria("patient");
+			criteria = criteria.createCriteria("dataProvenance");
+
+			List<GeneralSeries> results = getHibernateTemplate().findByCriteria(criteria);
+			if(seriesList==null) {
+				seriesList = new ArrayList<GeneralSeries>();
+			}
+			seriesList.addAll(results);
+		}
+		seriesDTOList = convertHibernateObjectToSeriesDTO(seriesList);
+		return seriesDTOList;
+	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public SeriesDTO getGeneralSeriesByPKid(Integer seriesPkId) throws DataAccessException
@@ -563,6 +594,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 				sd.setTotalImagesInSeries(gs.getImageCount());
 				sd.setTotalSizeForAllImagesInSeries(gs.getTotalSize());
 				sd.setProject(gs.getStudy().getPatient().getDataProvenance().getProject());
+				sd.setDataProvenanceSiteName(gs.getStudy().getPatient().getDataProvenance().getDpSiteName());
 				returnList.add(sd);
 			}
 		}

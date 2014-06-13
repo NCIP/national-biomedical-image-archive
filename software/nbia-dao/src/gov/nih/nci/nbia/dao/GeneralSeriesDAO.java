@@ -43,6 +43,11 @@ public interface GeneralSeriesDAO  {
 	 * authorization.
 	 */
 	public List<SeriesDTO> findSeriesBySeriesInstanceUID(List<String> seriesIds)throws DataAccessException;
+	/**
+	 * Return all the series for a given list of series instance UIDs IGNORING
+	 * authorization and visibility
+	 */
+	public List<SeriesDTO> findSeriesBySeriesInstanceUIDAnyVisibility(List<String> seriesIds)throws DataAccessException;
 
 	/**
 	 * Return all the series for a given list of patients, but only when

@@ -10,10 +10,12 @@ package gov.nih.nci.nbia.dao;
 
 import gov.nih.nci.nbia.dto.WorkflowDTO;
 import gov.nih.nci.nbia.internaldomain.Workflow;
+import gov.nih.nci.nbia.workflowsupport.RESTCaller;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -27,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 	private final static String SITES_QUERY="select distinct dp_site_name from trial_data_provenance";
 	private final static String COLLECTION_QUERY="select distinct project from trial_data_provenance";
 	private final static String SITE_COLLECTION_QUERY="select distinct dp_site_name from trial_data_provenance where project=:project";
-
+	static Logger log = Logger.getLogger(WorkflowDAOImpl.class);
 	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public long delete(Integer toRemove) throws DataAccessException {
@@ -76,6 +78,7 @@ import org.springframework.transaction.annotation.Transactional;
         criteria.add(Restrictions.eq("collection", collection));
         criteria.add(Restrictions.eq("site", site));
         criteria.add(Restrictions.eq("type", WorkflowDTO.SERIES_TYPE));
+        log.info("Searching for workflow - collection:"+collection+"; site:"+site+"; visibility type:"+WorkflowDTO.SERIES_TYPE);
 		List<Workflow> result = getHibernateTemplate().findByCriteria(criteria);
 		for (Workflow workflow : result){
 			WorkflowDTO wDto=convertObjectToDTO(workflow);
@@ -91,9 +94,11 @@ import org.springframework.transaction.annotation.Transactional;
         criteria.add(Restrictions.eq("collection", collection));
         criteria.add(Restrictions.eq("site", site));
         criteria.add(Restrictions.eq("type", WorkflowDTO.VISIBILITY_TYPE));
+        log.info("Searching for workflow - collection:"+collection+"; site:"+site+"; visibility type:"+WorkflowDTO.VISIBILITY_TYPE);
 		List<Workflow> result = getHibernateTemplate().findByCriteria(criteria);
 		for (Workflow workflow : result){
 			WorkflowDTO wDto=convertObjectToDTO(workflow);
+			System.out.println("Adding workflow DTO");
 			wDtos.add(wDto);
 		}
 		return wDtos;

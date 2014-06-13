@@ -80,6 +80,7 @@ public class WorkflowExecutor {
 		  
 		   runNewVisibilityWorkflows(maxTimeStamp, lastRan);
 		   runNewSeriesWorkflows(maxTimeStamp, lastRan);
+		   lastRan=maxTimeStamp;
 		   SolrInputDocument solrDoc = new SolrInputDocument();
 		   solrDoc.addField( "id", "NBIAWorkflowRun");
 		   solrDoc.addField( "lastRan", df.format(maxTimeStamp));

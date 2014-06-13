@@ -58,7 +58,7 @@ public List<WorkflowVisibilityUpdateDTO> getVisibilityUpdated(Date high, Date lo
 		}
 		GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
-		List<SeriesDTO> seriesList= generalSeriesDao.findSeriesBySeriesInstanceUID(seriesUIDs);
+		List<SeriesDTO> seriesList= generalSeriesDao.findSeriesBySeriesInstanceUIDAnyVisibility(seriesUIDs);
 		// now go through the list again find the series in the series dto list and then check if there are associated workflows.
 		for (Object[] visibilityRecord : visbilities )
 		{
@@ -81,6 +81,7 @@ public List<WorkflowVisibilityUpdateDTO> getVisibilityUpdated(Date high, Date lo
                 vuDTO.setPatientUID(foundSeries.getPatientId());
                 vuDTO.setSeriesUID(foundSeries.getSeriesUID());;
                 vuDTO.setwDTO(wDTO);
+                log.info("vuDTO: v-"+vuDTO.getNewVisibility()+" p-"+vuDTO.getPatientUID()+" s-"+vuDTO.getSeriesUID());
                 returnValue.add(vuDTO);
 			}
 			
@@ -120,11 +121,11 @@ public List<WorkflowNewSeriesDTO> getNewSeries(Date high, Date low)
 		}
 		GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
-		List<SeriesDTO> seriesList= generalSeriesDao.findSeriesBySeriesInstanceUID(seriesUIDs);
+		List<SeriesDTO> seriesList= generalSeriesDao.findSeriesBySeriesInstanceUIDAnyVisibility(seriesUIDs);
 		for (SeriesDTO sDTO: seriesList)
 		{
 			// now lets see if there are associated work flows
-			List<WorkflowDTO> wDtos = workflowDao.getVisibilityWorkflowsByCollectionAndSite
+			List<WorkflowDTO> wDtos = workflowDao.getNewSeriesWorkflowsByCollectionAndSite
 			              (sDTO.getProject(), sDTO.getDataProvenanceSiteName());
 			for (WorkflowDTO wDTO: wDtos)
 			{
@@ -149,6 +150,8 @@ private SeriesDTO findSeriesInList(List<SeriesDTO> seriesList, String series)
 	SeriesDTO returnValue = null;
 	for (SeriesDTO seriesDTO: seriesList)
 	{
+		System.out.println("Series:"+series);
+		System.out.println("SeriesId:"+seriesDTO.getSeriesId());
 		if (seriesDTO.getSeriesId().equals(series))
 		{
 			return seriesDTO;

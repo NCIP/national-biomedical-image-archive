@@ -82,6 +82,11 @@ L-->
                            maxlength="100"
                            styleClass="formField"
                            title="Add a collection name. The length cannot be longer than 100 characters."/>
+          <br/>
+            <font align="left"  color="red">
+              <ice:outputText value="#{addWorkFlowItemBean.errorMessageCollection}" style="color: #FF0000;"/>
+            </font>  
+            
           </td>
           <td colspan="1">
                     <ice:commandButton id="addCollectionToList"
@@ -114,6 +119,10 @@ L-->
                            maxlength="80"
                            styleClass="formField"
                            title="Add a Site name. The length cannot be longer than 100 characters."/>
+          <br/>
+            <font align="left"  color="red">
+              <ice:outputText value="#{addWorkFlowItemBean.errorMessageSite}" style="color: #FF0000;"/>
+            </font>  
           </td>
            <td colspan="1">
                     <ice:commandButton id="addSiteToList"

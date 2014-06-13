@@ -23,6 +23,12 @@ L-->
 </tr>
 <tr>
 <td>
+ <h:outputText value=" Click View Image to view in your desktop DICOM viewer" 
+ style="font-family: arial,helvetica,verdana,sans-serif;font-weight: bold;padding-left: 0.25em;background-color: #6E81A6;color: #FFFFFF;border-right: #5c5c5c 1px solid;border-bottom: #5c5c5c 1px solid;" />
+</td>
+</tr>
+<tr>
+<td>
 	<ice:dataTable id="imageTable"
 		value="#{seriesSearchResultBean.rowDataModel}" var="image"
 		cellpadding="0" cellspacing="0" width="100%" styleClass="dataTable"
@@ -41,7 +47,7 @@ L-->
 						style="border:none;" width="100" height="100" />
 					<br />
 					<ice:outputLink value="#{seriesSearchResultBean.cellValue.link}" > 
-                       <ice:outputText value="DICOM Image" />	
+                       <ice:outputText value="View Image" />	
                     </ice:outputLink>
 					
 					<br />

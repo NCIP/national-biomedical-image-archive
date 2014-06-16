@@ -51,11 +51,11 @@ L-->
     <dependency org="org.dbunit" name="dbunit" rev="2.4.8" conf="test->master"/>
     <dependency org="org.slf4j"
                 name="slf4j-api"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
     <dependency org="org.slf4j"
                 name="slf4j-nop"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
 
     <dependency org="ncicb"
@@ -181,7 +181,7 @@ L-->
 
     <dependency org="org.springframework"
                 name="spring-test"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="test->default"/>
 
 <!-- ********************************************************************************** -->

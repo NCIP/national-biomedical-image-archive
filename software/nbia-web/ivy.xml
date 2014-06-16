@@ -85,16 +85,17 @@ L-->
                 name="el-ri"
                 rev="1.0"
                 conf="compile->master"/>
+   
     <dependency org="commons-io"
                 name="commons-io"
                 rev="1.3.2"
                 conf="compile->master"/>
-
-<!--    <dependency org="commons-lang"
-                name="commons-lang"
-                rev="2.4"
-                conf="compile->master"/> -->
-
+                
+    <dependency org="commons-configuration" 
+    		name="commons-configuration" 
+    		rev="1.8" 
+    		conf="compile->master;runtime->master"/>  
+    
     <dependency org="commons-beanutils"
                 name="commons-beanutils"
                 rev="1.7.0"
@@ -164,10 +165,9 @@ L-->
                 rev="1.0.4"
                 conf="compile,test-selenium->master"/>
 
-
-    <dependency org="gov.nih.nci.security"
-                name="csm"
-                rev="4.0"
+    <dependency org="gov.nih.nci.csm"
+                name="csmapi"
+                rev="5.1"
                 conf="compile->master;runtime->default">
       <exclude module="jdom"/>
     </dependency>
@@ -203,7 +203,6 @@ L-->
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
 
-
     <dependency org="com.ocpsoft"
                 name="ocpsoft-pretty-faces"
                 rev="1.2.6"
@@ -213,23 +212,27 @@ L-->
                 name="dbunit"
                 rev="2.4.8"
                 conf="test->master"/>
+ 
     <dependency org="org.slf4j"
                 name="slf4j-api"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
+   
     <dependency org="org.slf4j"
                 name="slf4j-nop"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
 
     <dependency org="org.jdom"
                 name="jaxen-jdom"
                 rev="1.0-FCS"
                 conf="test->master"/>
+    
     <dependency org="org.jdom"
                 name="jaxen-core"
                 rev="1.0-FCS"
                 conf="test->master"/>
+   
     <dependency org="org.jdom"
                 name="saxpath"
                 rev="1.0-FCS"
@@ -243,73 +246,67 @@ L-->
 	
 	<dependency org="commons-lang" name="commons-lang" rev="2.4" conf="runtime->master"/>
 
-<!-- add spring framework 3.1.1-->
+<!-- add spring framework 3.2.8-->
        <dependency org="org.springframework"
                        name="spring-aop"
-                       rev="3.1.1.RELEASE"
-                   conf="compile->master;runtime->master"/>
-                   
-       <dependency org="org.springframework"
-                   name="spring-asm"
-                   rev="3.1.1.RELEASE"
+                       rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
                   
        <dependency org="org.springframework"
                        name="spring-beans"
-                       rev="3.1.1.RELEASE"
+                       rev="3.2.8.RELEASE"
                        conf="compile->master;runtime->master"/>
    
        <dependency org="org.springframework"
                    name="spring-context-support"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
    
        <dependency org="org.springframework"
                    name="spring-context"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
    
        <dependency org="org.springframework"
                    name="spring-core"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
    
        <dependency org="org.springframework"
                    name="spring-expression"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
        
-   
        <dependency org="org.springframework"
                    name="spring-jdbc"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
                    
       <dependency org="org.springframework"
                       name="spring-jms"
-                      rev="3.1.1.RELEASE"
+                      rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
    
       <dependency org="org.springframework"
                       name="spring-orm"
-                      rev="3.1.1.RELEASE"
+                      rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
    
       <dependency org="org.springframework"
                    name="spring-tx"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>  
                    
       <dependency org="org.springframework"
                    name="spring-web"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>      
       
       <dependency org="aopalliance"
    		name="aopalliance"
    		rev="1.0"
                 conf="compile->master;runtime->master"/>
-<!-- end of Spring 3.1.1.-->                
+<!-- end of Spring 3.2.8.-->                
 
 <!-- solr --> 
 
@@ -337,7 +334,6 @@ L-->
                 name="lucene-analyzers-common"
                 rev="4.6.0"
                 conf="runtime->master"/> 
-
 
    	<dependency org="org.apache.lucene"
                 name="lucene-analyzers-kuromoji"
@@ -438,8 +434,9 @@ L-->
                 name="zookeeper"
                 rev="3.4.5"
                 conf="runtime->master"/> 
-<!-- Added for jboss5.1.0GA-->                
-<dependency org="org.codehaus.xfire"
+                
+   <!-- Added for jboss5.1.0GA-->                
+   <dependency org="org.codehaus.xfire"
        		name="bcprov-jdk15"
        		rev="133"
                 conf="runtime->master"/>

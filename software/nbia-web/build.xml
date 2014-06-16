@@ -17,7 +17,6 @@ L-->
   <!-- Properties -->
   <property name="common.dir" value="${basedir}/../" />
   
-
   <!-- directory where the compiled and configured nbia-services-commons target directory can be found -->
   <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
   <property name="download.mgr.target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
@@ -40,8 +39,7 @@ L-->
   
   <property name="ear.lib" value="${common.dir}/target/lib/imagedeletionmdb/runtime" />
   
-  
-  <!-- define this for unittesting.xml import -->
+    <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${web.classes.dir}"/>
 
   <property name="web.j2ee.resources.dir" value="${resources.dir}/ear" />
@@ -107,10 +105,7 @@ L-->
       <mapper type="regexp"
         from="^(.*)\-working\@(.*)\.jar$"
         to="\1.jar"/>
-
     </move>
-
-
   </target>
 
 
@@ -148,10 +143,14 @@ L-->
         <exclude name="log*.jar" />
         <!-- avoid org.jboss.tm.TxManager class cast exception -->
         <exclude name="jta*.jar" />
-
         <exclude name="commons-logging*.jar" />
+        <exclude name="cglib-2.1_3.jar" />
+	    <exclude name="spring-asm*.jar" />
+	    <exclude name="spring-jsm*.jar" />
+	    <exclude name="xml-apis*.jar" />
+	    <exclude name="bcprov-*.jar" />
+	    <exclude name="spring-*-3.11.RELEASE.jar" />
       </fileset>
-
     </copy>
     <copy todir="${webapp.dir}/WEB-INF/classes">
       <fileset dir="${resources.dir}">

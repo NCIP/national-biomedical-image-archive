@@ -335,8 +335,9 @@ L-->
 		</copy>
 		<copy file="${common.resources.dir}/lib/mysql-connector-java-5.1.13.jar" todir="${common.dist.dir}" />
 		<copy file="${common.resources.dir}/lib/ojdbc14-10.2.0.3.0.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/clm-4.0.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/puretls.jar" todir="${common.dist.dir}" />	
+		<copy file="${common.resources.dir}/lib/puretls.jar" todir="${common.dist.dir}" />
+		<copy file="${common.resources.dir}/lib/bcprov-ext-jdk15on-1.47.jar" todir="${common.dist.dir}" />
+		<copy file="${common.resources.dir}/lib/bcprov-jdk15on-1.47.jar" todir="${common.dist.dir}" />
 	</target>
 	
 	

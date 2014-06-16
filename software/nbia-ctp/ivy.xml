@@ -35,11 +35,11 @@ L-->
     <dependency org="org.dbunit" name="dbunit" rev="2.4.8" conf="test->master"/>
     <dependency org="org.slf4j"
                 name="slf4j-api"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
     <dependency org="org.slf4j"
                 name="slf4j-nop"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
 
 
@@ -66,15 +66,6 @@ L-->
                 rev="1.1"
                 conf="runtime->master"/>
 
-
-
-    <!-- 1.6 was in commons/lib... save me some trouble and use slight upgrade -->
-    <!--
-    <dependency org="dom4j"
-                name="dom4j"
-                rev="1.6.1"
-                conf="runtime->master"/>
-      -->
     <!-- log4j and dcmche should be in runtime, but CTP has its own version of lib -->
     <dependency org="log4j"
                 name="log4j"
@@ -122,66 +113,59 @@ L-->
                 rev="X63"
                 conf="compile->master;runtime->master"/>
              
-
     <dependency org="org.springframework"
                     name="spring-aop"
-                    rev="3.1.1.RELEASE"
-                conf="compile->master;runtime->master"/>
-                
-    <dependency org="org.springframework"
-                name="spring-asm"
-                rev="3.1.1.RELEASE"
+                    rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
                
     <dependency org="org.springframework"
                     name="spring-beans"
-                    rev="3.1.1.RELEASE"
+                    rev="3.2.8.RELEASE"
                     conf="compile->master;runtime->master"/>
 
     <dependency org="org.springframework"
                 name="spring-context-support"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
 
     <dependency org="org.springframework"
                 name="spring-context"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
 
     <dependency org="org.springframework"
                 name="spring-core"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
 
     <dependency org="org.springframework"
                 name="spring-expression"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
     
-
     <dependency org="org.springframework"
                 name="spring-jdbc"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
                 
    <dependency org="org.springframework"
                    name="spring-jms"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
 
    <dependency org="org.springframework"
                    name="spring-orm"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>
 
    <dependency org="org.springframework"
                 name="spring-tx"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>  
                 
    <dependency org="org.springframework"
                 name="spring-web"
-                rev="3.1.1.RELEASE"
+                rev="3.2.8.RELEASE"
                 conf="compile->master;runtime->master"/>      
    
    <dependency org="aopalliance"
@@ -189,9 +173,9 @@ L-->
 		rev="1.0"
                 conf="compile->master;runtime->master"/>           
 
-        <dependency org="org.springframework"
+    <dependency org="org.springframework"
                     name="spring-test"
-                    rev="3.1.1.RELEASE"
+                    rev="3.2.8.RELEASE"
                 conf="test->default"/>
 
     <dependency org="c3p0"

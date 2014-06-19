@@ -98,5 +98,11 @@ L-->
             WHERE gi.general_series_pk_id = GENERAL_SERIES_PK_ID )
           </formula>
         </property>
+        
+        <property name="projAndSite">
+	          <formula>
+	          concat(concat(project, '//'), site)
+	          </formula>
+        </property>
   </class>
 </hibernate-mapping>

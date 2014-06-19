@@ -45,13 +45,14 @@ L-->
 		<dependency org="ncicb" name="nbia-util" rev="latest.integration" conf="compile->master;runtime"/>
 		<dependency org="commons-codec" name="commons-codec" rev="1.3" conf="compile->master;runtime->master"/>
 		<dependency org="commons-configuration" name="commons-configuration" rev="1.8" conf="compile->master;runtime->master"/>
+		<dependency org="commons-logging" name="commons-logging" rev="1.1.3" conf="compile->master;runtime->master"/>
 		<dependency org="org.apache.httpcomponents" name="httpclient" rev="4.1.1" conf="compile->master;runtime->master"/>
 		<dependency org="org.apache.httpcomponents" name="httpcore" rev="4.1" conf="compile->master;runtime->master"/>
 		<dependency org="jstl" name="jstl" rev="1.2" conf="compile->master;runtime->master"/>
 		<dependency org="org.hibernate" name="hibernate" rev="3.1.3" conf="compile->master;runtime->master,runtime;"/>
 		
 		<dependency org="org.springframework" name="spring-aop" rev="3.2.8.RELEASE" conf="compile->master;runtime->master"/>
-        <dependency org="org.springframework" name="spring-beans" rev="3.2.8.RELEASE" conf="compile->master;runtime->master"/>     
+        	<dependency org="org.springframework" name="spring-beans" rev="3.2.8.RELEASE" conf="compile->master;runtime->master"/>     
 		<dependency org="org.springframework" name="spring-context" rev="3.2.8.RELEASE" conf="compile->master;runtime->master"/>
 		<dependency org="org.springframework" name="spring-core" rev="3.2.8.RELEASE" conf="compile->master;runtime->master"/>
 		<dependency org="org.springframework" name="spring-expression" rev="3.2.8.RELEASE" conf="compile->master;runtime->master"/>

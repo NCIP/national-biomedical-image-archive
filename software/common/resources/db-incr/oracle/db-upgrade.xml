@@ -452,7 +452,7 @@ L-->
     <comment>
          Database upgrade for CSM/UPT 5.1
     </comment>
-    <sql>
+    <sql splitStatements="false">
 	ALTER TABLE CSM_USER MODIFY PHONE_NUMBER VARCHAR2(100);
 	ALTER TABLE CSM_USER ADD PASSWORD_EXPIRED NUMBER(1) DEFAULT 0;
 	ALTER TABLE CSM_USER ADD FIRST_TIME_LOGIN NUMBER(1) DEFAULT 0;

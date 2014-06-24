@@ -448,11 +448,11 @@ L-->
     </sql>
    </changeSet>
    
-  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1" author="panq">
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.1" author="panq">
     <comment>
-         Database upgrade for CSM/UPT 5.1
+         Database upgrade for CSM/UPT 5.1 -- part !
     </comment>
-    <sql splitStatements="false">
+    <sql>
     	ALTER TABLE CSM_USER MODIFY PHONE_NUMBER VARCHAR2(100);
     	ALTER TABLE CSM_USER ADD PASSWORD_EXPIRED NUMBER(1) DEFAULT 0;
     	ALTER TABLE CSM_USER ADD FIRST_TIME_LOGIN NUMBER(1) DEFAULT 0;
@@ -474,16 +474,6 @@ L-->
 	nocache
 	noorder;
 
-	CREATE OR REPLACE TRIGGER SET_CSM_PASSWORD_HISTORY
-	BEFORE INSERT
-	ON CSM_PASSWORD_HISTORY
-	FOR EACH ROW
-	BEGIN
-	  SELECT CSM_PASSWORD_HISTORY_SEQ.NEXTVAL
-	  INTO :NEW.CSM_PASSWORD_HISTORY_ID
-	  FROM DUAL;
-	END;
-
 	CREATE TABLE CSM_CONFIGURATION_PROPS (
 	  PROPERTY_KEY VARCHAR2(300) NOT NULL,
 	  PROPERTY_VALUE VARCHAR2(3000)
@@ -502,5 +492,22 @@ L-->
 	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('PASSWORD_PATTERN_DESCRIPTION','At least one Upper case alphabet, at least one lower case alphabet, at least one number and minimum 8 characters length');
      </sql>
   </changeSet>
-       
-</databaseChangeLog>
+  
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.2" author="panq">
+      <comment>
+           Database upgrade for CSM/UPT 5.1 -- part II
+      </comment>
+      <sql splitStatements="false">
+   	CREATE OR REPLACE TRIGGER SET_CSM_PASSWORD_HISTORY
+  	BEFORE INSERT
+  	ON CSM_PASSWORD_HISTORY
+  	FOR EACH ROW
+  	BEGIN
+  	  SELECT CSM_PASSWORD_HISTORY_SEQ.NEXTVAL
+  	  INTO :NEW.CSM_PASSWORD_HISTORY_ID
+  	  FROM DUAL;
+  	END;
+       </sql>
+  </changeSet>
+  
+  </databaseChangeLog>

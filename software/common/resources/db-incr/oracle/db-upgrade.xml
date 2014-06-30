@@ -510,4 +510,13 @@ L-->
        </sql>
   </changeSet>
   
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.3" author="panq">
+        <comment>
+             Database upgrade for CSM/UPT 5.1 -- part III
+        </comment>
+        <sql>
+     	ALTER TABLE CSM_USER MODIFY(ORGANIZATION VARCHAR2(500 CHAR));
+        </sql>
+  </changeSet>
+  
   </databaseChangeLog>

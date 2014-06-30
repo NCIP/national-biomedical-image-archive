@@ -1731,4 +1731,14 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
 
     </sql>
 </changeSet>
+
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.3" author="panq">
+        <comment>
+             Database upgrade for CSM/UPT 5.1 -- part III
+        </comment>
+        <sql>
+     	ALTER TABLE CSM_USER MODIFY COLUMN ORGANIZATION VARCHAR(500);
+        </sql>
+  </changeSet>
+  
 </databaseChangeLog>

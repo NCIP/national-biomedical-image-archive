@@ -520,7 +520,7 @@ L-->
   </changeSet>
   
   <changeSet id="6.1.NBIA.REST.API.performance.improvement" author="panq">
-           <comment>Creat function based index for project//site concatnation</comment>
+           <comment>Create function based index for project//site concatenation</comment>
       	 <sql>
       	 	create index project_site_concat_func_idx on general_series (PROJECT||'//'||SITE);
       	 </sql>

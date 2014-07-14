@@ -49,25 +49,6 @@ L-->
 	  	                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
 	  	              </div>                  
 	                    </td>
-	  	          <f:subview id="cedaraView" rendered="#{searchResultBean.local}">
-		  	  <td class="formMessage" align="right">
-		  	    <font color="#000000">
-			  	<b>To VISUALIZE IMAGES, a 3rd party software is required.<br/>
-			  	Click<f:verbatim>&amp;nbsp;</f:verbatim><a href="http://ncicb.nci.nih.gov/download/#NTools" target="blank" >
-			  	<font color="#0033CC">here</font></a> to download Cedara I-Response software.</b>
-			     </font>
-			     <br/>
-			     (Note that Cedara I-Response only operates on Windows XP)
-		  	</td>
-		  	<td>
-		  	<h:message for="visualizeImages" errorClass="errorLabel" infoClass="infoLabel" />
-		  	<h:commandButton id="visualizeImages" alt="visualize Images" title="visualize Images"
-						  			image="images/visualizeImages.gif"  
-						  			onclick="if(!countUserSelection(this.form)){return false};"
-						  			rendered="#{searchResultBean.local}" 
-			  			action="#{cedaraBean.visualizeSelectedSeries}"/>  
-		  	</td>
-		  	 </f:subview>  
 		  </tr>
           <tr>
             <td colspan="3">

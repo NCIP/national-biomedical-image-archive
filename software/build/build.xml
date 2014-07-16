@@ -887,7 +887,7 @@ $HeadURL$
     <get src="${jbosscp.src.url}" dest="${jbosscp.dest.file}" />
   </target>
 
-  <target name="dist:tools:retrieve:sync-gts">
+ <!-- <target name="dist:tools:retrieve:sync-gts">
     <if>
       <not>
         <available file="${download.dir}/${sync-gts.binaries.file}"/>
@@ -918,7 +918,7 @@ $HeadURL$
     <copy todir="${sync-gts.dist.dir}/cagrid-target">
       <fileset dir="${cagrid.target.co.dir}"/>
     </copy>
-  </target>
+  </target>   -->
 
   <!-- Wrapper target that downloads all required binaries from Common Tools Repository -->
   <target name="dist:tools:retrieve" description="Downloads binary support tools form common tools repository"
@@ -929,9 +929,7 @@ $HeadURL$
     dist:tools:retrieve:jai,
     dist:tools:retrieve:ws-core,
     dist:tools:retrieve:jboss-bindings,
-    dist:tools:retrieve:grid:jboss-bindings,
-    dist:tools:retrieve:sync-gts"
-    />
+    dist:tools:retrieve:grid:jboss-bindings"/>
 
 
   <target name="dist:tools:retrieve:ws-core" unless="ws-core.tools.exists">

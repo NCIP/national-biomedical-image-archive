@@ -1,20 +1,5 @@
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?format=xml
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?format=html
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?format=json
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?format=csv
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&Modality=CT&format=xml
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&Modality=CT&format=html
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&Modality=CT&format=json
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&Modality=CT&format=csv
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Modality=CT&format=xml
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Modality=CT&format=html
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Modality=CT&format=json
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Modality=CT&format=csv
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&format=xml
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&format=html
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&format=json
-//To Test: http://localhost:8080/nbia-api/api/v1/getBodyPartValues?Collection=IDRI&format=csv
+//To Test: https://imaging-dev.nci.nih.gov/nbia-api/services/v1/getImage?SeriesInstanceUID=1.3.6.1.4.1.9328.50.1.3
+
 
 package gov.nih.nci.nbia.restAPI;
 
@@ -60,12 +45,12 @@ public class V1_getImage extends getData {
 //			.build().;
 			//need to improve to provide meaningful feedback
 		}
-		
+
 		Map<String,String> paramMap = new HashMap<String, String>();
 		paramMap.put("seriesInstanceUID", sid);
-			 
+
 		//SecurityContextHolder will return the last logged in user if the user is not logged out.
-		//For getting around the problem, the path will be used here to determine if it is anonymousUser 
+		//For getting around the problem, the path will be used here to determine if it is anonymousUser
 		if (!isUserHasAccess("anonymousUser", paramMap))
 			throw new WebApplicationException(Response.status(Status.BAD_REQUEST).entity("Image with given SeriesInstanceUID" +sid + "is not in public domain.").build());
 
@@ -96,8 +81,8 @@ public class V1_getImage extends getData {
 
 					for (String filename : fileNames) {
 						FileInputStream fis = new FileInputStream(new File(filename));
-
-			            zip.putNextEntry(new ZipEntry(filename));
+						String fileNameInZip = sid+filename.substring(filename.lastIndexOf(File.separator));
+			            zip.putNextEntry(new ZipEntry(fileNameInZip));
 			            int count;
 			            byte[] data = new byte[2048];
 

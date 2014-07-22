@@ -447,4 +447,83 @@ L-->
       ) 
     </sql>
    </changeSet>
-</databaseChangeLog>
+   
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.1" author="panq">
+    <comment>
+         Database upgrade for CSM/UPT 5.1 -- part !
+    </comment>
+    <sql>
+    	ALTER TABLE CSM_USER MODIFY PHONE_NUMBER VARCHAR2(100);
+    	ALTER TABLE CSM_USER ADD PASSWORD_EXPIRED NUMBER(1) DEFAULT 0;
+    	ALTER TABLE CSM_USER ADD FIRST_TIME_LOGIN NUMBER(1) DEFAULT 0;
+    	ALTER TABLE CSM_USER ADD ACTIVE_FLAG NUMBER(1) DEFAULT 1;
+    	ALTER TABLE CSM_USER ADD PASSWORD_EXPIRY_DATE DATE DEFAULT sysdate;
+    	
+    	CREATE TABLE CSM_PASSWORD_HISTORY (
+		CSM_PASSWORD_HISTORY_ID NUMBER(38) NOT NULL,
+		LOGIN_NAME VARCHAR2(100),
+		PASSWORD VARCHAR2(255)
+	);
+
+	CREATE SEQUENCE CSM_PASSWORD_HISTORY_SEQ
+	increment by 1
+	start with 1
+	NOMAXVALUE
+	minvalue 1
+	nocycle
+	nocache
+	noorder;
+
+	CREATE TABLE CSM_CONFIGURATION_PROPS (
+	  PROPERTY_KEY VARCHAR2(300) NOT NULL,
+	  PROPERTY_VALUE VARCHAR2(3000)
+	);
+	
+	ALTER TABLE CSM_CONFIGURATION_PROPS ADD CONSTRAINT PK_CSM_CONFIGURATION_PROPS PRIMARY KEY (PROPERTY_KEY);
+	
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('AES_ENCRYPTION_KEY','super secret');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('ALLOWED_ATTEMPTS','3');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('ALLOWED_LOGIN_TIME','600000');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('MD5_HASH_KEY','true');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('PASSWORD_EXPIRY_DAYS','60');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('PASSWORD_LOCKOUT_TIME','1800000');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('PASSWORD_MATCH_NUM','24');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('PASSWORD_PATTERN_MATCH','^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$');
+	INSERT INTO CSM_CONFIGURATION_PROPS (PROPERTY_KEY, PROPERTY_VALUE) VALUES('PASSWORD_PATTERN_DESCRIPTION','At least one Upper case alphabet, at least one lower case alphabet, at least one number and minimum 8 characters length');
+     </sql>
+  </changeSet>
+  
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.2" author="panq">
+      <comment>
+           Database upgrade for CSM/UPT 5.1 -- part II
+      </comment>
+      <sql splitStatements="false">
+   	CREATE OR REPLACE TRIGGER SET_CSM_PASSWORD_HISTORY
+  	BEFORE INSERT
+  	ON CSM_PASSWORD_HISTORY
+  	FOR EACH ROW
+  	BEGIN
+  	  SELECT CSM_PASSWORD_HISTORY_SEQ.NEXTVAL
+  	  INTO :NEW.CSM_PASSWORD_HISTORY_ID
+  	  FROM DUAL;
+  	END;
+       </sql>
+  </changeSet>
+  
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1.part.3" author="panq">
+        <comment>
+             Database upgrade for CSM/UPT 5.1 -- part III
+        </comment>
+        <sql>
+     	ALTER TABLE CSM_USER MODIFY(ORGANIZATION VARCHAR2(500 CHAR));
+        </sql>
+  </changeSet>
+  
+  <changeSet id="6.1.NBIA.REST.API.performance.improvement" author="panq">
+           <comment>Create function based index for project//site concatenation</comment>
+      	 <sql>
+      	 	create index project_site_concat_func_idx on general_series (PROJECT||'//'||SITE);
+      	 </sql>
+  </changeSet>
+  
+  </databaseChangeLog>

@@ -32,6 +32,8 @@ public class AddWorkFlowItemBean implements Serializable{
     private String newSite;
     private String type;
     private String errorMessage;
+    private String errorMessageCollection;
+	private String errorMessageSite;
     private List<SelectItem> collections;
     private List<SelectItem> sites;
     private List<SelectItem> types;
@@ -179,6 +181,18 @@ public class AddWorkFlowItemBean implements Serializable{
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}
+    public String getErrorMessageCollection() {
+		return errorMessageCollection;
+	}
+	public void setErrorMessageCollection(String errorMessageCollection) {
+		this.errorMessageCollection = errorMessageCollection;
+	}
+	public String getErrorMessageSite() {
+		return errorMessageSite;
+	}
+	public void setErrorMessageSite(String errorMessageSite) {
+		this.errorMessageSite = errorMessageSite;
+	}
 	public void newWorkflow()
 	{
 	    id=null;
@@ -190,6 +204,8 @@ public class AddWorkFlowItemBean implements Serializable{
 	    newSite=null;
 	    type=null;
 	    errorMessage=null;
+	    errorMessageCollection=null;
+	    errorMessageSite=null;
 	    refreshValues();
 	}
 	public String submit()
@@ -218,6 +234,8 @@ public class AddWorkFlowItemBean implements Serializable{
 	public void setLoad(int idIn)
     {
 		errorMessage=null;
+		errorMessageCollection=null;
+	    errorMessageSite=null;
 		load=idIn;
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
@@ -236,8 +254,10 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String addCollection ()
 	{
+		errorMessageCollection=null;
 		if (newCollection==null||newCollection.equals(""))
 		{
+			errorMessageCollection="Please enter a valid Collection Name.";
 			return "createWorkflow";
 		}
 		collections.add(new SelectItem(newCollection));
@@ -249,8 +269,10 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String addSite ()
 	{
+		errorMessageSite=null;
 		if (newSite==null||newSite.equals(""))
 		{
+			errorMessageSite="Please enter a valid Site Name.";
 			return "createWorkflow";
 		}
 		sites.add(new SelectItem(newSite));

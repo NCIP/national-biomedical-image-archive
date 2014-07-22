@@ -207,14 +207,7 @@ L-->
                                         attachment="true"/>              
                   </ice:panelGroup> 
                 </td>
-                <td style="display:inline;margin-left: s0px;">              
-                  <ice:panelGroup styleClass="iceMnuBarItem" 
-                                  rendered="#{basketBean.ncicb}">               
-                    <ice:commandLink value="Visualize Images"
-                                     id="visualizeImages" rendered="#{not empty basketBean.seriesItems}"
-                                     action="#{cedaraBean.initiateCedaraAgainstSelectedBasketItems}"/>
-                  </ice:panelGroup>  
-                </td>
+
                 <td align="right" width="100%" style="padding-left: 10px">                                                                                     
                   <ice:panelGroup styleClass="iceMnuBarItem" style="float:right" rendered="#{not empty basketBean.seriesItems}">   
                     <ice:commandLink styleClass="iceMnuBarItemLabel" 

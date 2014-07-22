@@ -25,7 +25,7 @@ public class GeneralSeries  implements Serializable
 	private Long annotationTotalSize;
 
 	private Date maxSubmissionTimestamp;
-	
+
 	/**
 	* An name chosen by the image submitter to identify the collection that the image is a part of.	**/
 	private String site;
@@ -45,7 +45,7 @@ public class GeneralSeries  implements Serializable
 	public void setSite(String site){
 		this.site = site;
 	}
-	
+
 	/**
 	* An name chosen by the image submitter to identify the collection that the image is a part of.	**/
 	private String project;
@@ -64,9 +64,9 @@ public class GeneralSeries  implements Serializable
 
 	public void setProject(String project){
 		this.project = project;
-	}	
+	}
 
-	
+
 	/**
 	* Unique identifier for an occurrence of a medical imaging study.	**/
 	private String studyInstanceUID;
@@ -86,7 +86,7 @@ public class GeneralSeries  implements Serializable
 	public void setStudyInstanceUID(String studyInstanceUID){
 		this.studyInstanceUID = studyInstanceUID;
 	}
-	
+
 		/**
 	* Text to capture a description of the admitting diagnosis (diagnoses) of a patient/participant.	**/
 	private String admittingDiagnosesDesc;
@@ -744,7 +744,7 @@ public class GeneralSeries  implements Serializable
 	public void setMaxSubmissionTimestamp(Date maxSubmissionTimestamp) {
 		this.maxSubmissionTimestamp = maxSubmissionTimestamp;
 	}
-	
+
 	String maxFrameCount;
 	public String getMaxFrameCount() {
 		return maxFrameCount;
@@ -753,5 +753,13 @@ public class GeneralSeries  implements Serializable
 	public void setMaxFrameCount(String maxFrameCount) {
 		this.maxFrameCount = maxFrameCount;
 	}
-	
+
+	String projAndSite;
+	public String getProjAndSite() {
+		return projAndSite;
+	}
+
+	public void setProjAndSite(String projAndSite) {
+		this.projAndSite = projAndSite;
+	}
 }

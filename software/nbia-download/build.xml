@@ -49,6 +49,7 @@ L-->
   <target name="ivy-settings">
     <ivy:settings file="${global.ivy.settings.file}"/>
   </target>
+ 
  <target name="ivy-compile" depends="ivy-settings">
     <ivy:resolve file="ivy.xml"
                  conf="compile" />
@@ -133,8 +134,12 @@ L-->
         <exclude name="log*.jar" />
         <!-- avoid org.jboss.tm.TxManager class cast exception -->
         <exclude name="jta*.jar" />
-
         <exclude name="commons-logging*.jar" />
+        <exclude name="cglib-2.1_3.jar" />
+	    <exclude name="spring-asm*.jar" />
+	    <exclude name="spring-jsm*.jar" />
+	    <exclude name="xml-apis*.jar" />
+	    <exclude name="bcprov-*.jar" />
       </fileset>
     </copy>
 

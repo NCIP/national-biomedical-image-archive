@@ -114,8 +114,10 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString() + order,
 					values);
+			System.out.println("!!!!where.toString()=" + where.toString());
 		} else {
 			rs  = getHibernateTemplate().find(hql +  where.toString() +order);
+			System.out.println("!!!!where.toString()=" + where.toString());
 		}
 
         return rs;
@@ -220,7 +222,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		StringBuffer where = new StringBuffer();
 
 		if ((authorizedProjAndSites != null) && (!authorizedProjAndSites.isEmpty())){
-			where = where.append(" and (s.project || '//' || s.site) in (");
+			where = where.append(" and s.projAndSite in (");
 
 			for (Iterator<String> projAndSites =  authorizedProjAndSites.iterator(); projAndSites .hasNext();) {
 	    		String str = projAndSites.next();

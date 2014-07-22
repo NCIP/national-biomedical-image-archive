@@ -22,6 +22,11 @@ L-->
 		<property name="dpSiteId" type="string" column="DP_SITE_ID"/>
 		<property name="dpSiteName" type="string" column="DP_SITE_NAME"/>
 		<property name="project" type="string" column="PROJECT"/>
+		<property name="projAndSite">
+			          <formula>
+			          concat(concat(PROJECT,'//'),DP_SITE_NAME)
+			          </formula>
+        </property>
 		<!-- Associations mapping for the TrialDataProvenance class -->
 		<set name="generalImageCollection" lazy="true">
 			<cache usage="read-write" />

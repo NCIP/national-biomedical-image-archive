@@ -45,7 +45,7 @@ public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 		StringBuffer where = new StringBuffer();
 
 		if ((authorizedProjAndSites != null) && (!authorizedProjAndSites.isEmpty())){
-			where = where.append("where (tdp.project || '//' || tdp.dpSiteName) in (");
+			where = where.append("where tdp.projAndSite in (");
 
 			for (Iterator<String> projAndSites =  authorizedProjAndSites.iterator(); projAndSites .hasNext();) {
 	    		String str = projAndSites.next();

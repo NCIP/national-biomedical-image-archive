@@ -32,7 +32,7 @@ L-->
       <table border="0" cellpadding="5" cellspacing="0" width="100%" class="promptbox" style="display: block;">                 
         <tr>
           <td colspan="1">
-            <ice:outputLabel for="name" value="Name: "/>
+            <ice:outputLabel for="name" value="*Name: "/>
           </td>
           <td colspan="5">
             <ice:inputText id="name"
@@ -41,7 +41,7 @@ L-->
                            required="true"
                            size="20" maxlength="50"
                            styleClass="formField"
-                           title="Name your list. The length cannot be longer than 50 characters."/> 
+                           title="Name your Workflow Item. The name length cannot be longer than 50 characters."/> 
             <br/>
             <h:message id="nameError" for="name" infoClass="errorLabel" style="color:#FF0000;"/>
           </td>
@@ -82,6 +82,11 @@ L-->
                            maxlength="100"
                            styleClass="formField"
                            title="Add a collection name. The length cannot be longer than 100 characters."/>
+          <br/>
+            <font align="left"  color="red">
+              <ice:outputText value="#{addWorkFlowItemBean.errorMessageCollection}" style="color: #FF0000;"/>
+            </font>  
+            
           </td>
           <td colspan="1">
                     <ice:commandButton id="addCollectionToList"
@@ -114,6 +119,10 @@ L-->
                            maxlength="80"
                            styleClass="formField"
                            title="Add a Site name. The length cannot be longer than 100 characters."/>
+          <br/>
+            <font align="left"  color="red">
+              <ice:outputText value="#{addWorkFlowItemBean.errorMessageSite}" style="color: #FF0000;"/>
+            </font>  
           </td>
            <td colspan="1">
                     <ice:commandButton id="addSiteToList"
@@ -124,7 +133,7 @@ L-->
         </tr>
         <tr>
           <td colspan="1">
-            <ice:outputLabel for="hyperlinkWorkFlow" value="URL "/>
+            <ice:outputLabel for="hyperlinkWorkFlow" value="*URL "/>
           </td>
           <td colspan="5">
             <ice:inputText id="hyperlinkWorkFlow"

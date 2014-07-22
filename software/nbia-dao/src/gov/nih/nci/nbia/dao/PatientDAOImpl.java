@@ -82,7 +82,7 @@ public class PatientDAOImpl extends AbstractDAO
 		StringBuffer where = new StringBuffer();
 
 		if ((authorizedProjAndSites != null) && (!authorizedProjAndSites.isEmpty())){
-			where = where.append(" and (gs.project || '//' || gs.site) in (");
+			where = where.append(" and gs.projAndSite in (");
 
 			for (Iterator<String> projAndSites =  authorizedProjAndSites.iterator(); projAndSites .hasNext();) {
 	    		String str = projAndSites.next();

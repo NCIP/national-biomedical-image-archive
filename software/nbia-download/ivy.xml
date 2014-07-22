@@ -36,11 +36,12 @@ L-->
     <dependency org="org.dbunit" name="dbunit" rev="2.4.8" conf="test->master"/>
     <dependency org="org.slf4j"
                 name="slf4j-api"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
+    
     <dependency org="org.slf4j"
                 name="slf4j-nop"
-                rev="1.4.3"
+                rev="1.6.1"
                 conf="test->master"/>
 
     <dependency org="log4j"
@@ -63,24 +64,29 @@ L-->
                 rev="1.4"
                 conf="compile->master;runtime->master"/>
 	
-	<dependency org="commons-lang"
+    <dependency org="commons-lang"
                 name="commons-lang"
                 rev="2.4"
-                conf="compile->master;runtime->master"/> 
+                conf="compile->master;runtime->master"/>
+    
+    <dependency org="commons-configuration" 
+    		name="commons-configuration" 
+    		rev="1.8" 
+    		conf="compile->master;runtime->master"/>            
                 
-     <dependency org="org.springframework"
+    <dependency org="org.springframework"
                    name="spring-core"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>
                                
     <dependency org="org.springframework"
                    name="spring-tx"
-                   rev="3.1.1.RELEASE"
+                   rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>  
                     
-    <dependency org="gov.nih.nci.security"
-                name="csm"
-                rev="4.0"
+    <dependency org="gov.nih.nci.csm"
+                name="csmapi"
+                rev="5.1"
                 conf="compile->master;runtime->default">
       <exclude module="jdom"/>
     </dependency>            
@@ -108,10 +114,7 @@ L-->
     <!-- jsf stuff confuses app with EL that is missing.  all for @#$%@#$@'ing SelectItem  just drop it -->
     <exclude org="javax.faces"
              module="jsf-api"/>
-             <!--
-    <exclude org="org.springframework"
-             module="spring"/>
-             -->
+
     <!-- garbage from log4j as second order dependency -->
     <exclude org="javax.jms" module="jms"/>
     <exclude org="com.sun.jdmk" module="jmxtools"/>

@@ -115,6 +115,7 @@ public class NCIASecurityManagerImpl extends AbstractDAO
 	        }
     	}
         catch(Exception ex) {
+			ex.printStackTrace();
         	throw new RuntimeException(ex);
         }
 

@@ -19,12 +19,12 @@ public class TrialDataProvenance  implements Serializable
 	*/
 	private static final long serialVersionUID = 1234567890L;
 
-	
+
 		/**
 	* A numerical identifier chosen by the image submitter to identify the clinical trial site from which the image originated.	**/
 	private String dpSiteId;
 	/**
-	* Retreives the value of dpSiteId attribute
+	* Retrieves the value of dpSiteId attribute
 	* @return dpSiteId
 	**/
 
@@ -33,18 +33,18 @@ public class TrialDataProvenance  implements Serializable
 	}
 
 	/**
-	* Sets the value of dpSiteId attribue
+	* Sets the value of dpSiteId attribute
 	**/
 
 	public void setDpSiteId(String dpSiteId){
 		this.dpSiteId = dpSiteId;
 	}
-	
+
 		/**
 	* A name chosen by the image submitter to identify the clinical trial site from which the image originated.	**/
 	private String dpSiteName;
 	/**
-	* Retreives the value of dpSiteName attribute
+	* Retrieves the value of dpSiteName attribute
 	* @return dpSiteName
 	**/
 
@@ -53,18 +53,18 @@ public class TrialDataProvenance  implements Serializable
 	}
 
 	/**
-	* Sets the value of dpSiteName attribue
+	* Sets the value of dpSiteName attribute
 	**/
 
 	public void setDpSiteName(String dpSiteName){
 		this.dpSiteName = dpSiteName;
 	}
-	
+
 		/**
 	* One or more characters used to identify, name, or characterize the nature, properties, or contents of a thing.	**/
 	private Integer id;
 	/**
-	* Retreives the value of id attribute
+	* Retrieves the value of id attribute
 	* @return id
 	**/
 
@@ -73,18 +73,18 @@ public class TrialDataProvenance  implements Serializable
 	}
 
 	/**
-	* Sets the value of id attribue
+	* Sets the value of id attribute
 	**/
 
 	public void setId(Integer id){
 		this.id = id;
 	}
-	
+
 		/**
 	* An name chosen by the image submitter to identify the collection that the image is a part of.	**/
 	private String project;
 	/**
-	* Retreives the value of project attribute
+	* Retrieves the value of project attribute
 	* @return project
 	**/
 
@@ -93,20 +93,36 @@ public class TrialDataProvenance  implements Serializable
 	}
 
 	/**
-	* Sets the value of project attribue
+	* Sets the value of project attribute
 	**/
 
 	public void setProject(String project){
 		this.project = project;
 	}
-	
+
+	String projAndSite;
 	/**
-	* An associated gov.nih.nci.ncia.domain.GeneralImage object's collection 
+	* Retrieves the value of concatenation value of project,"//" and value of dpSiteName
+	* @return projAndSite
 	**/
-			
+	public String getProjAndSite() {
+		return projAndSite;
+	}
+
+	/**
+	* Sets the value of projAndSite attribute
+	**/
+	public void setProjAndSite(String projAndSite) {
+		this.projAndSite = projAndSite;
+	}
+
+	/**
+	* An associated gov.nih.nci.ncia.domain.GeneralImage object's collection
+	**/
+
 	private Collection<GeneralImage> generalImageCollection;
 	/**
-	* Retreives the value of generalImageCollection attribue
+	* Retrieves the value of generalImageCollection attribute
 	* @return generalImageCollection
 	**/
 
@@ -115,20 +131,20 @@ public class TrialDataProvenance  implements Serializable
 	}
 
 	/**
-	* Sets the value of generalImageCollection attribue
+	* Sets the value of generalImageCollection attribute
 	**/
 
 	public void setGeneralImageCollection(Collection<GeneralImage> generalImageCollection){
 		this.generalImageCollection = generalImageCollection;
 	}
-		
+
 	/**
-	* An associated gov.nih.nci.ncia.domain.Patient object's collection 
+	* An associated gov.nih.nci.ncia.domain.Patient object's collection
 	**/
-			
+
 	private Collection<Patient> patientCollection;
 	/**
-	* Retreives the value of patientCollection attribue
+	* Retrieves the value of patientCollection attribute
 	* @return patientCollection
 	**/
 
@@ -137,13 +153,13 @@ public class TrialDataProvenance  implements Serializable
 	}
 
 	/**
-	* Sets the value of patientCollection attribue
+	* Sets the value of patientCollection attribute
 	**/
 
 	public void setPatientCollection(Collection<Patient> patientCollection){
 		this.patientCollection = patientCollection;
 	}
-		
+
 	/**
 	* Compares <code>obj</code> to it self and returns true if they both are same
 	*
@@ -151,15 +167,15 @@ public class TrialDataProvenance  implements Serializable
 	**/
 	public boolean equals(Object obj)
 	{
-		if(obj instanceof TrialDataProvenance) 
+		if(obj instanceof TrialDataProvenance)
 		{
-			TrialDataProvenance c =(TrialDataProvenance)obj; 			 
+			TrialDataProvenance c =(TrialDataProvenance)obj;
 			if(getId() != null && getId().equals(c.getId()))
 				return true;
 		}
 		return false;
 	}
-		
+
 	/**
 	* Returns hash code for the primary key of the object
 	**/
@@ -169,5 +185,5 @@ public class TrialDataProvenance  implements Serializable
 			return getId().hashCode();
 		return 0;
 	}
-	
+
 }

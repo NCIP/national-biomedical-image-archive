@@ -4,7 +4,7 @@ package gov.nih.nci.nbia.beans.workflow;
 import gov.nih.nci.nbia.dao.WorkflowDAO;
 import gov.nih.nci.nbia.dto.WorkflowDTO;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -32,7 +32,7 @@ public class AddWorkFlowItemBean implements Serializable{
     private String newSite;
     private String type;
     private String errorMessage;
-    private String errorMessageCollection;
+	private String errorMessageCollection;
 	private String errorMessageSite;
     private List<SelectItem> collections;
     private List<SelectItem> sites;
@@ -174,7 +174,6 @@ public class AddWorkFlowItemBean implements Serializable{
 	public void setNewSite(String newSite) {
 		this.newSite = newSite;
 	}
-	
 	public String getErrorMessage() {
 		return errorMessage;
 	}
@@ -210,12 +209,12 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String submit()
     {
-		errorMessage=null;
-		if (url==null || !isValidURL(url))
-		{
+		errorMessage=null;	
+		if(!isValidURL(url)){
 			errorMessage="The URL "+url+" is not valid";
 			return "createWorkflow";
 		}
+		
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
     	dto.setCollection(collection);
@@ -286,6 +285,7 @@ public class AddWorkFlowItemBean implements Serializable{
 		newWorkflow();
 		return "manageWorkflowItems";
 	}
+	
 	public String collectionChangeListener(ValueChangeEvent event)
 	{
 		String name = (String) event.getNewValue();

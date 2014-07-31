@@ -27,7 +27,6 @@ L-->
 	
 	  <td valign="top" align="center">
          		<h:commandButton action="#" image="images/advance-search.png" immediate="true"  title="Advanced search" alt="Advanced Search"/> 
-         		<ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" />
 		<div align="left" style="font-size: 1.4em">
 			<h:inputHidden id="editQueryMessage" />
 			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
@@ -45,7 +44,9 @@ L-->
 	   	</ice:column>
            </ice:dataTable>
   	</td>
-  	
+  	<td valign="top">
+	   <ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" />		
+    </td>
 	</tr>
 	</table>
 	</h:form> 

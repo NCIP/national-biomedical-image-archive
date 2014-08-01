@@ -78,6 +78,15 @@ L-->
                 name="dcm4che"
                 rev="1.4.20"
                 conf="compile->master;runtime->default"/>
+             <dependency org="dcm4che"
+                name="dcm4che-imageio-rle"
+                rev="2.0.17"
+                conf="compile->master;runtime->default"/>
+             <dependency org="java.net"
+                name="jai_imageio"
+                rev="1.2_pre-dr-b04"
+                conf="runtime->master"/>
+
 		<!-- end of dicom -->
 	</dependencies>
 </ivy-module>

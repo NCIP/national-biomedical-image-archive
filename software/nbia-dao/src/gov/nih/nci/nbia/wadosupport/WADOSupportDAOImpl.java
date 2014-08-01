@@ -51,6 +51,8 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 			   log.info("image not found");
 			   return null; //nothing to do
 		}
+		if (user!="internal")
+		{
 		AuthorizationManager manager = new AuthorizationManager(user);
 		List<SiteData> authorizedSites = manager.getAuthorizedSites();
 		returnValue.setCollection((String)images.get(0)[0]);
@@ -72,6 +74,7 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 			System.out.println("User: "+user+" noy authorized");
 			return null; //not authorized
 		}
+		}
 		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);
 		if (!imageFile.exists())
@@ -88,5 +91,64 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 	
 	return returnValue;
 }
-
+@Transactional(propagation=Propagation.REQUIRED)
+public WADOSupportDTO getWADOSupportDTO(String study, String series, String image, String user, String contentType)
+{
+	WADOSupportDTO returnValue = new WADOSupportDTO();
+	log.info("Study-"+study+" series-"+series+" image-"+image);
+	try {
+		List <Object[]>images= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(WADO_QUERY)
+		  .setParameter("study", study)
+		  .setParameter("series", series)
+		  .setParameter("image", image).list();
+		if (images.size()==0) {
+			   log.info("image not found");
+			   return null; //nothing to do
+		}
+		if (user!="internal")
+		{
+		AuthorizationManager manager = new AuthorizationManager(user);
+		List<SiteData> authorizedSites = manager.getAuthorizedSites();
+		returnValue.setCollection((String)images.get(0)[0]);
+		returnValue.setSite((String)images.get(0)[1]);
+		boolean isAuthorized = false;
+		for (SiteData siteData : authorizedSites)
+		{
+			if (siteData.getCollection().equals(returnValue.getCollection()))
+			{
+				if (siteData.getSiteName().equals(returnValue.getSite()))
+				{
+					isAuthorized = true;
+					break;
+				}
+			}
+		}
+		if (!isAuthorized)
+		{
+			System.out.println("User: "+user+" noy authorized");
+			return null; //not authorized
+		}
+		}
+		String filePath = (String)images.get(0)[2];
+		File imageFile = new File(filePath);
+		if (!imageFile.exists())
+		{
+			log.error("File " + filePath + " does not exist");
+			return null;
+		}
+		if (contentType.equals("application/dicom"))
+		{
+		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
+		} else
+		{
+			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+	}
+	
+	return returnValue;
+}
 }

@@ -2,6 +2,7 @@ package gov.nih.nci.nbia.restAPI;
 
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.dao.ImageDAO2;
+import gov.nih.nci.nbia.dao.InstanceDAO;
 import gov.nih.nci.nbia.dao.PatientDAO;
 import gov.nih.nci.nbia.dao.StudyDAO;
 import gov.nih.nci.nbia.dao.TrialDataProvenanceDAO;
@@ -11,6 +12,8 @@ import gov.nih.nci.nbia.security.TableProtectionElement;
 import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.wadosupport.WADOSupportDAO;
+import gov.nih.nci.nbia.wadosupport.WADOSupportDTO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
 
 import java.util.ArrayList;
@@ -130,7 +133,37 @@ public class getData {
 				.entity("Server was not able to process your request")
 				.build();	
 	}
-	
+	protected Response formatResponseInstance(String format, List<Object[]> data, String[] columns) {
+		String returnString = null;
+		
+		if ((data != null) && (data.size() > 0)) {
+			if ((format == null) || (format.equalsIgnoreCase("JSON"))) {
+				returnString = FormatOutput.toJSONArrayInstance(columns, data).toString();
+				return Response.ok(returnString).type("application/json").build();
+			}
+			
+			if (format.equalsIgnoreCase("HTML")) {
+				returnString = FormatOutput.toHtml(columns, data);
+				return Response.ok(returnString).type("text/html").build();
+			}
+			
+			if (format.equalsIgnoreCase("XML")) {
+				returnString = FormatOutput.toXml(columns, data);
+				return Response.ok(returnString).type("application/xml").build();
+			}
+			if (format.equalsIgnoreCase("CSV")) {
+				returnString = FormatOutput.toCsv(columns, data);
+				return Response.ok(returnString).type("text/csv").build();
+			}		
+		}
+		else {
+			return Response.status(500)
+					.entity("No data found.").build();
+		}
+		return Response.status(500)
+				.entity("Server was not able to process your request")
+				.build();	
+	}
 	protected boolean isUserHasAccess(String userName, Map<String, String> paramMap){
 		if (userName == null) {
 			Authentication authentication = SecurityContextHolder.getContext()
@@ -236,7 +269,18 @@ public class getData {
 		}
 		return results;
 	}
-	
+	protected List<Object[]> getInstance(String sOPInstanceUID, String patientId, String studyInstanceUid, String seriesInstanceUid, List<String> authorizedCollections) {
+		List<Object[]> results = null;
+
+		InstanceDAO tDao = (InstanceDAO)SpringApplicationContext.getBean("instanceDAO");
+		try {
+			results = tDao.getImages(sOPInstanceUID, patientId, studyInstanceUid,  seriesInstanceUid, authorizedCollections);
+		}
+		catch (DataAccessException ex) {
+			ex.printStackTrace();
+		}
+		return results;
+	}
 	protected List<String> getImage(String seriesInstanceUid) {
 		List<String> results = null;
 
@@ -248,5 +292,13 @@ public class getData {
 			ex.printStackTrace();
 		}
 		return (List<String>) results;
+	}
+	protected byte[] getWadoImage(String study, String series, String image, String user, String contentType){
+		
+		WADOSupportDAO wadoDao = (WADOSupportDAO)SpringApplicationContext.getBean("WADOSupportDAO");
+		WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(study, series, image, "internal", contentType);
+		return wdto.getImage();
+		
+		
 	}
 }

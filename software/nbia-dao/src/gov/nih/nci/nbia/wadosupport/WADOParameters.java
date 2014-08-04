@@ -193,7 +193,7 @@ private void addError(String newError)
 	{
 		errorMessage = errorMessage+"; ";
 	}
-	errorMessage = newError;	
+	errorMessage = errorMessage+newError;	
 		
 }
 public String validate()

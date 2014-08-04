@@ -44,9 +44,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.log4j.Logger;
+
+import gov.nih.nci.nbia.wadosupport.*;
 
 @Path("/v1/wado")
 public class V1_wado extends getData {
+	private static final Logger log = Logger.getLogger(V1_wado.class);
 	private static final String[] columns={"SopIUID", "InstanceNumber", "SopClassUID", "NumberOfFrames", "Rows"};
 	public final static String TEXT_CSV = "text/csv";
 
@@ -58,8 +62,22 @@ public class V1_wado extends getData {
 	 */
 	@GET
 	@Produces({"application/dicom", "image/jpeg"})
-	public Response  constructResponse(@QueryParam("studyUID") String studyUID, @QueryParam("seriesUID") String seriesUID,
-			@QueryParam("objectUID") String objectUID, @QueryParam("contentType") String contentType) {
+	public Response  constructResponse(@QueryParam("studyUID") String studyUID, 
+			@QueryParam("seriesUID") String seriesUID,
+			@QueryParam("objectUID") String objectUID,
+			@QueryParam("contentType") String contentType,
+			@QueryParam("charset") String charset,
+			@QueryParam("anonymize") String anonymize,
+			@QueryParam("annotation") String annotation,
+			@QueryParam("rows") String rows,
+			@QueryParam("columns") String columns,
+			@QueryParam("region") String region,
+			@QueryParam("windowCenter") String windowCenter,
+			@QueryParam("windowWidth") String windowWidth,
+			@QueryParam("imageQuality") String imageQuality,
+			@QueryParam("presentationUID") String presentationUID,
+			@QueryParam("presentationSeriesUID") String presentationSeriesUID,
+			@QueryParam("transferSyntax") String transferSyntax) {
 		List<String> authorizedCollections = null;
 		try {
 			authorizedCollections = getPublicCollections();
@@ -67,11 +85,90 @@ public class V1_wado extends getData {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(contentType==null)
+
+        WADOParameters params = new WADOParameters();
+		if (studyUID!=null&&studyUID.length()>0)
 		{
-			contentType="image/jpeg";
+			params.setStudyUID(studyUID);
 		}
-		byte[] image = getWadoImage(studyUID, seriesUID, objectUID, null, contentType);
-		return Response.ok(image, contentType).build();
+		if (seriesUID!=null&&seriesUID.length()>0)
+		{
+			params.setSeriesUID(seriesUID);
+		}
+		if (objectUID!=null&&objectUID.length()>0)
+		{
+			params.setObjectUID(objectUID);
+		}
+		if (contentType!=null&&contentType.length()>0)
+		{
+			params.setContentType(contentType);
+		}
+		if (charset!=null&&charset.length()>0)
+		{
+			params.setCharset(charset);
+		}
+		if (anonymize!=null&&anonymize.length()>0)
+		{
+			params.setAnonymize(anonymize);
+		}
+		if (annotation!=null&&annotation.length()>0)
+		{
+			params.setAnnotation(annotation);
+		}
+		if (rows!=null&&rows.length()>0)
+		{
+			params.setRows(rows);
+		}
+		if (columns!=null&&columns.length()>0)
+		{
+			params.setColumns(columns);
+		}
+		
+		if (region!=null&&region.length()>0)
+		{
+			params.setRegion(region);
+		}
+		if (windowCenter!=null&&windowCenter.length()>0)
+		{
+			params.setWindowCenter(windowCenter);
+		}
+		if (windowWidth!=null&&windowWidth.length()>0)
+		{
+			params.setWindowWidth(windowWidth);
+		}
+		if (imageQuality!=null&&imageQuality.length()>0)
+		{
+			params.setImageQuality(imageQuality);
+		}
+		if (presentationUID!=null&&presentationUID.length()>0)
+		{
+			params.setPresentationUID(presentationUID);
+		}
+		if (presentationSeriesUID!=null&&presentationSeriesUID.length()>0)
+		{
+			params.setPresentationSeriesUID(presentationSeriesUID);
+		}
+		if (transferSyntax!=null&&transferSyntax.length()>0)
+		{
+			params.setTransferSyntax(transferSyntax);
+		}
+        log.info("WADO called with " + params.toString());
+        String errors=params.validate();
+        if (errors!=null)
+        {
+        	log.error("WADO Error: " + errors);
+    		return Response.status(500)
+			.entity(errors)
+			.build();	
+        }
+		WADOSupportDTO wdto = getWadoImage(params, null);
+		if (wdto.getErrors()!=null){
+			log.error("WADO Error: " + wdto.getErrors());
+    		return Response.status(500)
+			.entity(wdto.getErrors())
+			.build();
+		}
+		
+		return Response.ok(wdto.getImage(), contentType).build();
 	}
 }

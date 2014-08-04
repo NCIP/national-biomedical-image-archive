@@ -12,6 +12,7 @@ import gov.nih.nci.nbia.security.TableProtectionElement;
 import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.wadosupport.WADOParameters;
 import gov.nih.nci.nbia.wadosupport.WADOSupportDAO;
 import gov.nih.nci.nbia.wadosupport.WADOSupportDTO;
 import gov.nih.nci.nbia.restUtil.FormatOutput;
@@ -293,12 +294,11 @@ public class getData {
 		}
 		return (List<String>) results;
 	}
-	protected byte[] getWadoImage(String study, String series, String image, String user, String contentType){
+	protected WADOSupportDTO getWadoImage(WADOParameters params, String user){
 		
 		WADOSupportDAO wadoDao = (WADOSupportDAO)SpringApplicationContext.getBean("WADOSupportDAO");
-		WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(study, series, image, "internal", contentType);
-		return wdto.getImage();
-		
+		WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(params, "internal");
+		return wdto;
 		
 	}
 }

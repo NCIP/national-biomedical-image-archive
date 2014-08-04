@@ -62,7 +62,8 @@ public class V1_wado extends getData {
 	 */
 	@GET
 	@Produces({"application/dicom", "image/jpeg"})
-	public Response  constructResponse(@QueryParam("studyUID") String studyUID, 
+	public Response  constructResponse(@QueryParam("requestType") String requestType,
+			@QueryParam("studyUID") String studyUID, 
 			@QueryParam("seriesUID") String seriesUID,
 			@QueryParam("objectUID") String objectUID,
 			@QueryParam("contentType") String contentType,
@@ -157,14 +158,14 @@ public class V1_wado extends getData {
         if (errors!=null)
         {
         	log.error("WADO Error: " + errors);
-    		return Response.status(500)
+    		return Response.status(400)
 			.entity(errors)
 			.build();	
         }
 		WADOSupportDTO wdto = getWadoImage(params, null);
 		if (wdto.getErrors()!=null){
 			log.error("WADO Error: " + wdto.getErrors());
-    		return Response.status(500)
+    		return Response.status(400)
 			.entity(wdto.getErrors())
 			.build();
 		}

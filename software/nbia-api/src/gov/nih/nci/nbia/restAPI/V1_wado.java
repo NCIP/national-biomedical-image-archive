@@ -163,13 +163,13 @@ public class V1_wado extends getData {
         {
         	log.error("WADO Error: " + errors);
     		return Response.status(400)
-			.entity(errors)
+			.entity(errors).type("text/plain")
 			.build();	
         }
 		WADOSupportDTO wdto = getWadoImage(params, null);
 		if (wdto.getErrors()!=null){
 			log.error("WADO Error: " + wdto.getErrors());
-    		return Response.status(400)
+    		return Response.status(400).type("text/plain")
 			.entity(wdto.getErrors())
 			.build();
 		}

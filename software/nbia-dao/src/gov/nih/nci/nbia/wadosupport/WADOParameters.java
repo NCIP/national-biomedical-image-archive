@@ -198,11 +198,22 @@ private void addError(String newError)
 }
 public String validate()
 {
-	if (studyUID==null||seriesUID==null||objectUID==null)
+	if (studyUID==null)
 	{
-		addError("Missing studyUID or seriesUID or objectUID");
+		addError("Missing studyUID");
 	}
-	
+	if (seriesUID==null)
+	{
+		addError("Missing seriesUID");
+	}
+	if (objectUID==null)
+	{
+		addError("Missing objectUID");
+	}
+	if (requestType==null)
+	{
+		addError("Missing requestType");
+	}
 	return errorMessage;
 }
 private static boolean isNumeric(String str)  

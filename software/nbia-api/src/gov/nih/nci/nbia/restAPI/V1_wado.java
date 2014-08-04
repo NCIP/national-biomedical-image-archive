@@ -88,6 +88,10 @@ public class V1_wado extends getData {
 		}
 
         WADOParameters params = new WADOParameters();
+		if (requestType!=null&&requestType.length()>0)
+		{
+			params.setStudyUID(requestType);
+		}
 		if (studyUID!=null&&studyUID.length()>0)
 		{
 			params.setStudyUID(studyUID);

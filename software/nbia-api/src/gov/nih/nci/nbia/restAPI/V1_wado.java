@@ -90,7 +90,7 @@ public class V1_wado extends getData {
         WADOParameters params = new WADOParameters();
 		if (requestType!=null&&requestType.length()>0)
 		{
-			params.setStudyUID(requestType);
+			params.setRequestType(requestType);
 		}
 		if (studyUID!=null&&studyUID.length()>0)
 		{

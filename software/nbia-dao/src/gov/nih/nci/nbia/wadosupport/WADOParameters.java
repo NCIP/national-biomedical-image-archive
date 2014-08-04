@@ -192,6 +192,9 @@ private void addError(String newError)
 	if (errorMessage!=null)
 	{
 		errorMessage = errorMessage+"; ";
+	} else
+	{
+		errorMessage="";
 	}
 	errorMessage = errorMessage+newError;	
 		

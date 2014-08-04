@@ -92,18 +92,19 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 	return returnValue;
 }
 @Transactional(propagation=Propagation.REQUIRED)
-public WADOSupportDTO getWADOSupportDTO(String study, String series, String image, String user, String contentType)
+public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 {
 	WADOSupportDTO returnValue = new WADOSupportDTO();
-	log.info("Study-"+study+" series-"+series+" image-"+image);
+	log.info("Study-"+params.getStudyUID()+" series-"+params.getSeriesUID()+" image-"+params.getObjectUID());
 	try {
 		List <Object[]>images= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(WADO_QUERY)
-		  .setParameter("study", study)
-		  .setParameter("series", series)
-		  .setParameter("image", image).list();
+		  .setParameter("study", params.getStudyUID())
+		  .setParameter("series", params.getSeriesUID())
+		  .setParameter("image", params.getObjectUID()).list();
 		if (images.size()==0) {
-			   log.info("image not found");
-			   return null; //nothing to do
+			   log.error("image not found");
+			   returnValue.setErrors("image not found");
+			   return returnValue; 
 		}
 		if (user!="internal")
 		{
@@ -134,9 +135,10 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 		if (!imageFile.exists())
 		{
 			log.error("File " + filePath + " does not exist");
-			return null;
+			returnValue.setErrors("File does not exist");
+			return returnValue; 
 		}
-		if (contentType.equals("application/dicom"))
+		if (params.getContentType().equals(("application/dicom")))
 		{
 		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 		} else
@@ -146,7 +148,8 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
-		return null;
+		returnValue.setErrors("unable to process request");
+		return returnValue; 
 	}
 	
 	return returnValue;

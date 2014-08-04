@@ -18,7 +18,7 @@ public static byte[] getJPGFromFile(File file)
 {
 
 	BufferedImage myJpegImage = null;
-
+	ImageIO.scanForPlugins();
 	Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 	ImageReader reader = (ImageReader) iter.next();
 	DcmImageReadParam param = (DcmImageReadParam) reader.getDefaultReadParam();

@@ -5,6 +5,7 @@ public class WADOSupportDTO {
 	private byte[] image;
 	private String collection;
 	private String site;
+	private String errors;
 	public byte[] getImage() {
 		return image;
 	}
@@ -22,6 +23,12 @@ public class WADOSupportDTO {
 	}
 	public void setSite(String site) {
 		this.site = site;
+	}
+	public String getErrors() {
+		return errors;
+	}
+	public void setErrors(String errors) {
+		this.errors = errors;
 	}
 	
 	

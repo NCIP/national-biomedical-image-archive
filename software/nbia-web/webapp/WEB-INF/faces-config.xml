@@ -683,7 +683,13 @@ L-->
       <renderer-class>gov.nih.nci.nbia.components.ImageTableRenderer</renderer-class>
     </renderer>
   </render-kit>
-
-
+  <validator>  
+    <validator-id>gov.nih.nci.nbia.beans.workflow.nameValidator</validator-id>  
+    <validator-class>gov.nih.nci.nbia.beans.workflow.NameValidator</validator-class>  
+  </validator>   
+<validator>  
+    <validator-id>gov.nih.nci.nbia.beans.workflow.urlValidator</validator-id>  
+    <validator-class>gov.nih.nci.nbia.beans.workflow.URLValidator</validator-class>  
+  </validator>   
 </faces-config>
 

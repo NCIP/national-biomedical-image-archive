@@ -21,7 +21,7 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 public class AddWorkFlowItemBean implements Serializable{
-	
+
     private Integer id;
     private int load; //used to load for editing
     private String name;
@@ -38,9 +38,9 @@ public class AddWorkFlowItemBean implements Serializable{
     private List<SelectItem> sites;
     private List<SelectItem> types;
     private static final long serialVersionUID = 1234567890L;
-    
+
     private static Logger logger = Logger.getLogger(AddWorkFlowItemBean.class);
-    
+
     public AddWorkFlowItemBean()
     {
     	types=new ArrayList<SelectItem>();
@@ -71,7 +71,7 @@ public class AddWorkFlowItemBean implements Serializable{
     		if (collections.size()==0) // rare situation
     		{
     			// do nothing
-    		} 
+    		}
     		else
     		{
     			collection=collections.get(0).getValue().toString();
@@ -103,7 +103,7 @@ public class AddWorkFlowItemBean implements Serializable{
     	newCollection=null;
 		newSite=null;
     }
-    
+
 	public Integer getId() {
 		return id;
 	}
@@ -140,7 +140,7 @@ public class AddWorkFlowItemBean implements Serializable{
 	public void setType(String type) {
 		this.type = type;
 	}
-    
+
     public List<SelectItem> getCollections() {
     	Collections.sort(collections, new SortSelectItemIgnoreCase());
 		return collections;
@@ -161,7 +161,7 @@ public class AddWorkFlowItemBean implements Serializable{
 	public void setTypes(List<SelectItem> types) {
 		this.types = types;
 	}
-	
+
 	public String getNewCollection() {
 		return newCollection;
 	}
@@ -209,12 +209,12 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String submit()
     {
-		errorMessage=null;	
+		errorMessage=null;
 		if(!isValidURL(url)){
 			errorMessage="The URL "+url+" is not valid";
 			return "createWorkflow";
 		}
-		
+
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
     	dto.setCollection(collection);
@@ -285,7 +285,7 @@ public class AddWorkFlowItemBean implements Serializable{
 		newWorkflow();
 		return "manageWorkflowItems";
 	}
-	
+
 	public String collectionChangeListener(ValueChangeEvent event)
 	{
 		String name = (String) event.getNewValue();
@@ -314,24 +314,24 @@ public class AddWorkFlowItemBean implements Serializable{
 
     	return "createWorkflow";
 	}
-	private boolean isValidURL(String url) {  
+	private boolean isValidURL(String url) {
 
 	    URL u = null;
 
-	    try {  
-	        u = new URL(url);  
-	    } catch (MalformedURLException e) {  
-	        return false;  
+	    try {
+	        u = new URL(url);
+	    } catch (MalformedURLException e) {
+	        return false;
 	    }
 
-	    try {  
-	        u.toURI();  
-	    } catch (URISyntaxException e) {  
-	        return false;  
-	    }  
+	    try {
+	        u.toURI();
+	    } catch (URISyntaxException e) {
+	        return false;
+	    }
 
-	    return true;  
-	} 
+	    return true;
+	}
     public class SortSelectItemIgnoreCase implements Comparator<Object> {
         public int compare(Object o1, Object o2) {
             SelectItem s1 = (SelectItem) o1;

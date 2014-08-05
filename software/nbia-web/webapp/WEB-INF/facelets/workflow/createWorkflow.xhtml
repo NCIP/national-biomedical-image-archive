@@ -42,10 +42,12 @@ L-->
 	  	                             partialSubmit="true"
 	  	                             label="value"
 	  	                             value="#{addWorkFlowItemBean.name}"
-	  	                             required="true"
 	  	                             size="20" maxlength="50"
 	  	                             styleClass="formField"
-	  	                             title="Name your Workflow Item. The name length cannot be longer than 50 characters."/>
+	  	                             required="true"
+	  	                             title="Name your Workflow Item. The name length cannot be longer than 50 characters.">
+	  	                             <!-- <f:validator validatorId="gov.nih.nci.nbia.beans.workflow.nameValidator" />  -->
+	  	                             </ice:inputText>             
 	  	              <br/>
 	  	              <h:message id="nameError" for="name" infoClass="errorLabel" style="color:#FF0000;"/>
 	            </td>
@@ -148,11 +150,13 @@ L-->
                            value="#{addWorkFlowItemBean.url}"
                            size="100" maxlength="200"
                            styleClass="formField"
-                           title="Add a URL which links to additional information. The length cannot be longer than 200 characters."/>
+                           title="Add a URL which links to additional information. The length cannot be longer than 100 characters.">
+                           <!-- <f:validator validatorId="gov.nih.nci.nbia.beans.workflow.urlValidator" /> -->
+                           </ice:inputText>
             <br/>
             <h:message id="urlError" for="hyperlinkWorkFlow" infoClass="errorLabel"  style="color:#FF0000;"/>
             <font align="left"  color="red">
-              <ice:outputText value="#{addWorkFlowItemBean.errorMessage}" style="color: #FF0000;"/>
+              <ice:outputText id="errorMessageID" value="#{addWorkFlowItemBean.errorMessage}" style="color: #FF0000;"/>
             </font>  
           </td>
         </tr>
@@ -166,6 +170,7 @@ L-->
         <ice:commandButton id="cancelWorkflowButton"
                            value="Cancel"
                            partialSubmit="true"
+                           onclick="cancelValidation();"
                            action="#{addWorkFlowItemBean.cancel}"/>
            </td>            
         </tr>

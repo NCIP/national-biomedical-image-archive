@@ -321,3 +321,10 @@ function selectAllInContainingTable(containerTableName) {
 
 
 }
+
+/***************************WORKFLOW RELATED JAVASCRIPT*****************************/
+function cancelValidation()
+{
+	document.getElementById("MAINbody:createWorkFlowForm:name").value=" ";
+	document.getElementById("MAINbody:createWorkFlowForm:hyperlinkWorkFlow").value=" ";
+}

@@ -310,7 +310,7 @@ function countDataBasketSelection(form)
 function selectAllInContainingTable(containerTableName) {
     var containerTable = document.getElementById(containerTableName);
     if(containerTable==null) {
-        return;
+    	this.disabled="disabled"
     }
     var inputElements = containerTable.getElementsByTagName('input');
     for(var z = 0; z<inputElements.length; z++) {

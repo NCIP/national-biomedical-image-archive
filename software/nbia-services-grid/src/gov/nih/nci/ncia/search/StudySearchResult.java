@@ -77,4 +77,9 @@ public interface StudySearchResult extends Comparable<StudySearchResult> {
 	 * <p>This is intentionally not a property to avoid serialization.
 	 */
 	public void associateLocation(NBIANode nbiaNode);
+	
+	public String getLink();
+		
+    public void setLink(String link);
+    
 }

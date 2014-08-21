@@ -8,6 +8,7 @@
 
 package gov.nih.nci.ncia.search;
 
+
 import java.util.Date;
 
 /**
@@ -151,9 +152,17 @@ public class StudySearchResultImpl implements StudySearchResult {
 	public NBIANode associatedLocation() {
 		return location;
 	}
-
+	public String getLink(){
+		return APIURLHolder.getUrl()+"/oviyam2/oviyam?serverName="+APIURLHolder.getUrl()+
+		"/nbia-api/services/v1&studyUID="+studyInstanceUid;
+	}
 	
-    /**
+	
+    public void setLink(String link) {
+		//this.link = link;
+	}
+
+	/**
      * {@inheritDoc}
      */	
 	public void associateLocation(NBIANode location) {
@@ -173,7 +182,7 @@ public class StudySearchResultImpl implements StudySearchResult {
     private String description;
     private Integer id;
     private String offSetDesc=null;
-
+    private String link=null;
     // A filtered list of series that belong to this study
     private SeriesSearchResult[] seriesList;	
     private NBIANode location;

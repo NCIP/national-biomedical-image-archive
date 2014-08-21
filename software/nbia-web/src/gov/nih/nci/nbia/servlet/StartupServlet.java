@@ -131,7 +131,7 @@ public class StartupServlet extends HttpServlet {
        try {
 		intervalWorkflow = Long.valueOf(NCIAConfig.getWorkflowUpdateInterval());
 	   } catch (Exception e1) {
-		    intervalWorkflow = Long.valueOf("10");
+		    intervalWorkflow = Long.valueOf("1");
 		    System.out.println("unable to read workflow interval, defaulting to ten minutes");
 	   }
 

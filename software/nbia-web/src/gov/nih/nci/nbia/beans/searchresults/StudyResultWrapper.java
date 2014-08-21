@@ -58,7 +58,7 @@ public class StudyResultWrapper {
 		return seriesResults;
 	}
 	
-	
+
 	private List<SeriesResultWrapper> seriesResults;
 	
 	

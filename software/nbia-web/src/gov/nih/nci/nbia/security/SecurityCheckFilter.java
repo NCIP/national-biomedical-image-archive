@@ -31,6 +31,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
+import gov.nih.nci.ncia.search.APIURLHolder;
 
 /**
  * Taken from sun software forums
@@ -58,6 +59,14 @@ public class SecurityCheckFilter implements Filter {
         HttpServletRequest hreq = (HttpServletRequest) request;
         HttpSession session = hreq.getSession();
            
+        // added to know the current address
+        	try {
+				APIURLHolder.setUrl(hreq.getRequestURL().toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+        
         String checkforloginpage = hreq.getServletPath();
         String referer = (String)session.getAttribute("previous");
         logger.debug("!!!!previous= "+ referer);

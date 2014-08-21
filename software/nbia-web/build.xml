@@ -21,7 +21,7 @@ L-->
   <property name="commons.target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
   <property name="download.mgr.target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
   <property name="download.webapp.target.dir" value="${common.dir}/target/dist/exploded/nbia-download"/>
-
+  <property name="oviyam.dir" value="${common.dir}/common/resources/oviyam"/>
   <!-- The following should not need modifying -->
   <property name="src.java.dir" value="src" />
   <property name="resources.dir" value="resources" />
@@ -144,11 +144,12 @@ L-->
         <!-- avoid org.jboss.tm.TxManager class cast exception -->
         <exclude name="jta*.jar" />
         <exclude name="commons-logging*.jar" />
-        <exclude name="cglib-2.1_3.jar" />
+      	<exclude name="bouncycastle-jdk1.3_1.25.jar"/> 
 	    <exclude name="spring-asm*.jar" />
 	    <exclude name="spring-jsm*.jar" />
 	    <exclude name="xml-apis*.jar" />
-	    <exclude name="bcprov-*.jar" />
+      	<!--  <exclude name="bcprov-*.jar" />  -->
+            <exclude name="slf4j-log4j12-1.4.3.jar" />
 	    <exclude name="spring-*-3.11.RELEASE.jar" />
       </fileset>
     </copy>
@@ -258,14 +259,15 @@ L-->
   </target>
 
   <target name="ear" depends="war">
-    <ear compress="false" destfile="${target.dir}/${ear.name}" appxml="${web.j2ee.resources.dir}/application.xml">
+     <ear compress="false" destfile="${target.dir}/${ear.name}" appxml="${web.j2ee.resources.dir}/application.xml">
       <zipfileset dir="${ear.lib}" prefix="lib" excludes="xalan-2.6.0.jar,xercesImpl-2.6.2.jar"/> 
       <fileset dir="${target.dir}" includes="${war.name}" />
       <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
       <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />
       <fileset dir="${download.webapp.target.dir}" includes="*.war" />
+      <fileset dir="${oviyam.dir}" includes="*.war" />
     </ear>
-    <ivy:report todir="${reports.dir}/ivy/" graph="false"/>
+    <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  
     <!--antcall target="jboss-config.files"/-->
   </target>
 

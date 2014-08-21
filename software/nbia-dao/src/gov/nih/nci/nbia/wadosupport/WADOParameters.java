@@ -66,7 +66,7 @@ public String getAnonymize() {
 	return anonymize;
 }
 public void setAnonymize(String anonymize) {
-	addError("NBIA does not support anonymize parameter, images already anonymized");
+	//addError("NBIA does not support anonymize parameter, images already anonymized");
 	this.anonymize = anonymize;
 }
 public String getAnnotation() {
@@ -80,6 +80,7 @@ public String getRows() {
 	return rows;
 }
 public void setRows(String rows) {
+	if (rows==null) return;
 	if (contentType.equals("application/dicom"))
 	{
 		addError("rows not available for application/dicom");
@@ -94,6 +95,7 @@ public String getColumns() {
 	return columns;
 }
 public void setColumns(String columns) {
+	if (columns==null) return;
 	if (contentType.equals("application/dicom"))
 	{
 		addError("columns not available for application/dicom");
@@ -115,6 +117,7 @@ public String getWindowCenter() {
 	return windowCenter;
 }
 public void setWindowCenter(String windowCenter) {
+	if (windowCenter==null) return;
 	if (contentType.equals("application/dicom"))
 	{
 		addError("windowCenter not available for application/dicom");
@@ -129,6 +132,7 @@ public String getWindowWidth() {
 	return windowWidth;
 }
 public void setWindowWidth(String windowWidth) {
+	if (windowWidth==null) return;
 	if (contentType.equals("application/dicom"))
 	{
 		addError("windowWidth not available for application/dicom");
@@ -143,6 +147,7 @@ public String getImageQuality() {
 	return imageQuality;
 }
 public void setImageQuality(String imageQuality) {
+	if (imageQuality==null) return;
 	if (contentType.equals("application/dicom"))
 	{
 		addError("imageQuality not available for application/dicom");
@@ -158,7 +163,7 @@ public String getPresentationUID() {
 }
 public void setPresentationUID(String presentationUID) {
 
-		addError("presentationUID not supported by NBIA");
+	addError("presentationUID not supported by NBIA");
 
 	this.presentationUID = presentationUID;
 }
@@ -176,7 +181,7 @@ public String getTransferSyntax() {
 }
 public void setTransferSyntax(String transferSyntax) {
 
-		addError("presentationSeriesUID not supported by NBIA");
+		// addError("transferSyntax not supported by NBIA");
 
 	this.transferSyntax = transferSyntax;
 }

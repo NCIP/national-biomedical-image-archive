@@ -9,19 +9,32 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
 import org.dcm4che.imageio.plugins.DcmImageReadParam;
-
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class DCMUtils {
-
-public static byte[] getJPGFromFile(File file)
+private static boolean scanned =false;
+private static ImageReader reader;
+private static DcmImageReadParam param;
+public static synchronized byte[] getJPGFromFile(File file)
 {
 
 	BufferedImage myJpegImage = null;
-	ImageIO.scanForPlugins();
-	Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
-	ImageReader reader = (ImageReader) iter.next();
-	DcmImageReadParam param = (DcmImageReadParam) reader.getDefaultReadParam();
+	if (!scanned)
+	{
+	   scanned=true;
+	   ImageIO.scanForPlugins();
+	   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
+	   reader=(ImageReader) iter.next();
+	   System.out.println("reader is not has beeb set");
+	   param = (DcmImageReadParam) reader.getDefaultReadParam();
+	}
+	if (reader==null)
+	{
+		   System.out.println("reader was null");
+		   ImageIO.scanForPlugins();
+		   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
+		   reader=(ImageReader) iter.next();  
+	}
     
 	try {
 		ImageInputStream iis = ImageIO.createImageInputStream(file);

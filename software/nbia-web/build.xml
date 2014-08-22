@@ -149,7 +149,7 @@ L-->
 	    <exclude name="spring-asm*.jar" />
 	    <exclude name="spring-jsm*.jar" />
 	    <exclude name="xml-apis*.jar" />
-      	<!--  <exclude name="bcprov-*.jar" />  -->
+      	<exclude name="bcprov-*.jar" />
             <exclude name="slf4j-log4j12-1.4.3.jar" />
 	    <exclude name="spring-*-3.11.RELEASE.jar" />
       </fileset>

@@ -154,12 +154,21 @@ public class StudySearchResultImpl implements StudySearchResult {
 	}
 	public String getLink(){
 		return APIURLHolder.getUrl()+"/oviyam2/oviyam?serverName="+APIURLHolder.getUrl()+
-		"/nbia-api/services/v1&studyUID="+studyInstanceUid;
+		"/nbia-api/services/o&studyUID="+studyInstanceUid+"&oviyamId="+APIURLHolder.addUser(user)+
+		"&wadoUrl="+APIURLHolder.getWadoUrl();
 	}
 	
 	
     public void setLink(String link) {
 		//this.link = link;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	/**
@@ -186,5 +195,5 @@ public class StudySearchResultImpl implements StudySearchResult {
     // A filtered list of series that belong to this study
     private SeriesSearchResult[] seriesList;	
     private NBIANode location;
-	
+	private String user;
 }

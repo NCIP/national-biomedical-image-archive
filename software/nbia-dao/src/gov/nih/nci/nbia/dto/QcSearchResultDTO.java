@@ -27,7 +27,7 @@ public class QcSearchResultDTO {
 	private String modality;
 	private String seriesDescription;
 	private String link;
-	
+	private String user;
 	public QcSearchResultDTO(String collection, 
 							 String site,
 							 String patientId,
@@ -163,11 +163,20 @@ public class QcSearchResultDTO {
 
 	public String getLink() {
 		return APIURLHolder.getUrl()+"/oviyam2/oviyam?serverName="+APIURLHolder.getUrl()+
-		"/nbia-api/services/v1&studyUID="+study;
+		"/nbia-api/services/o&studyUID="+study+"&oviyamId="+APIURLHolder.addUser(user)+
+		"&wadoUrl="+APIURLHolder.getWadoUrl();
 	}
 
 	public void setLink(String link) {
 		//this.link = link;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	

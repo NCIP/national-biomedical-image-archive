@@ -60,6 +60,7 @@ public class SecurityCheckFilter implements Filter {
         HttpSession session = hreq.getSession();
            
         // added to know the current address
+        // and current user for Oviyam
         	try {
 				APIURLHolder.setUrl(hreq.getRequestURL().toString());
 			} catch (Exception e) {

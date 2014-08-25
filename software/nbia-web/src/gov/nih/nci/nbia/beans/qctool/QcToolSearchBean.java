@@ -8,6 +8,8 @@
 
 package gov.nih.nci.nbia.beans.qctool;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.dao.QcStatusDAO;
 import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.dto.QcStatusHistoryDTO;
@@ -159,6 +161,20 @@ public class QcToolSearchBean {
         QcStatusDAO qcStatusDAO = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
         qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
 
+        // the big o
+        try {
+        SecurityBean secure = BeanManager.getSecurityBean();
+        String userName = secure.getUsername();
+
+			for (QcSearchResultDTO dto:qsrDTOList){
+				System.out.println("-- adding user to QC DTO ---");
+				dto.setUser(userName);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        	
         if (this.getDataTable() != null)
         {
         	this.getDataTable().setFirst(0);

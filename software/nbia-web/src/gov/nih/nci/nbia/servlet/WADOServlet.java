@@ -18,7 +18,7 @@ import gov.nih.nci.nbia.dao.WorkflowDAO;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.wadosupport.*;
 
-import java.io.BufferedReader;
+import java.io.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -28,7 +28,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import gov.nih.nci.ncia.search.APIURLHolder;
 public class WADOServlet extends HttpServlet
 {
 	private static Logger logger = Logger.getLogger(WADOServlet.class);
@@ -50,6 +50,24 @@ public class WADOServlet extends HttpServlet
 			study = request.getParameter("studyUID");
 			series = request.getParameter("seriesUID");
 			image = request.getParameter("objectUID");
+			if (requestType!=null&&requestType.equalsIgnoreCase("oviyamLookup"))
+			{
+				String key = request.getParameter("oviyamId");
+				String oUser=APIURLHolder.getUser(key);
+				if (oUser==null)
+				{
+					oUser="NOT FOUND";
+				} 
+			    response.setContentType("text/html");
+			    PrintWriter out = response.getWriter();  
+			    out.println(oUser);
+				System.out.println("write out the stream...");
+				out.flush();   
+				System.out.println("flush.....");
+				out.close();  
+				System.out.println("close....... the stream");
+				return;
+			}
 			WADOSupportDAO wadoDao = (WADOSupportDAO)SpringApplicationContext.getBean("WADOSupportDAO");
 			WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(study, series, image, user);
             if (wdto==null)
@@ -59,8 +77,7 @@ public class WADOServlet extends HttpServlet
 			response.setContentType("application/dicom");   
 			response.addHeader("Content-Disposition", "attachment; filename=" + image + ".dcm");
 			
-			OutputStream out = response.getOutputStream();   
-						
+			OutputStream out = response.getOutputStream();   	
 			out.write(wdto.getImage());   
 			System.out.println("write out the stream...");
 			out.flush();   

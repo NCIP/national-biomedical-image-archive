@@ -30,6 +30,9 @@ public class WADOSupportDAOImpl extends AbstractDAO
     		" where gs.study_instance_uid = :study and gs.series_instance_uid = :series and gi.sop_instance_uid = :image " +
     		"  and gs.general_series_pk_id = gi.general_series_pk_id";
 
+    private final static String WADO_OVIYAM_QUERY="select distinct gs.project, gs.site, dicom_file_uri from general_image gi, general_series gs" +
+	" where gi.sop_instance_uid = :image " +
+	"  and gs.general_series_pk_id = gi.general_series_pk_id";
     
 public WADOSupportDTO getWADOSupportDTO(String study, String series, String image)
 {
@@ -91,6 +94,42 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 	
 	return returnValue;
 }
+@Transactional(propagation=Propagation.REQUIRED)
+public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
+{
+	WADOSupportDTO returnValue = new WADOSupportDTO();
+	log.info("Oviyam wado image-"+image);
+	try {
+		List <Object[]>images= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(WADO_OVIYAM_QUERY)
+		  .setParameter("image", image).list();
+		if (images.size()==0) {
+			   log.info("image not found");
+			   return null; //nothing to do
+		}
+		String filePath = (String)images.get(0)[2];
+		File imageFile = new File(filePath);
+		if (!imageFile.exists())
+		{
+			log.error("File " + filePath + " does not exist");
+			return null;
+		}
+		if (contentType.equals(("application/dicom")))
+		{
+		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
+		} else
+		{
+			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
+		}
+		returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		return null;
+	}
+	return returnValue;
+}
+
+
 @Transactional(propagation=Propagation.REQUIRED)
 public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 {

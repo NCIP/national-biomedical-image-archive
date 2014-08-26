@@ -38,7 +38,7 @@ L-->
   </tr>
   <tr>
     <td colspan="2">
-      <h2>
+      <div class="adminToolsContainer">
         <h:outputText value="#{msg.queries_saved}"
                       rendered="#{!savedQueryBean.historyMode}" />                
         <h:outputText value="#{msg.queries_history} " 
@@ -50,10 +50,8 @@ L-->
 	    <f:subview id="queryHistory" rendered="#{savedQueryBean.historyMode}"> 
 	      <ncia:help label="images/help_icon.png" helpId="-viewqueryhistory" />
 	    </f:subview>
-    
-      </h2>
-      <br/>
-      <br/>
+       </div>
+       
       <h:outputText value="#{msg.queries_savedContent}" 
                     rendered="#{!savedQueryBean.historyMode}" />
       <h:outputText value="#{msg.queries_historyContent}" 

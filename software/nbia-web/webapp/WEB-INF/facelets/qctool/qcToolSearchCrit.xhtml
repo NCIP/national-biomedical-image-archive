@@ -18,11 +18,11 @@ L-->
 	xmlns:ncia="http://imaging.nci.nih.gov/ncia">
 	<ice:form id="qcToolSearchCritForm">
 		<f:subview id="qcToolTitleView" rendered="#{not qcToolBean.superRole}">
-			<table>
+			<table align="center">
 				<tr>
 					<td>
-						<div class="submissionReportTitleContainer">
-							<span class="submissionReportTitle"> QC Tool </span>
+						<div class="adminToolsContainer">
+							<h:outputText value="QC Tool " />
 							<ncia:help label="images/help_icon.png" helpId="-useQCtool" />
 						</div>
 					</td>
@@ -35,11 +35,11 @@ L-->
 
 		<f:subview id="qcToolDeleteTitleView"
 			rendered="#{qcToolBean.superRole}">
-			<table>
+			<table align="center">
 				<tr>
 					<td>
-						<div class="submissionReportTitleContainer">
-							<span class="submissionReportTitle"> Approve Deletions</span>
+						<div class="adminToolsContainer">
+							<h:outputText value="Approve Deletions " />
 							<ncia:help label="images/help_icon.png" helpId="-approveimagedeletions" />
 						</div>
 					</td>

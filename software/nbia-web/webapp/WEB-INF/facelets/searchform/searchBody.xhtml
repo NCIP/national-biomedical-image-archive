@@ -23,107 +23,40 @@ L-->
 	
 	<td colspan="2">
 	<h:form id="searchMenuForm">
-	<table cellspacing="0" cellpadding="0" width="100%" summary=""	border="0" valign="top">
+	<table style="table-layout:fixed" cellspacing="0" cellpadding="0" width="100%" summary="" border="0" valign="top">
 	<tr>
-	<td align="center">
-	<h:panelGroup>
 	
-	  <f:subview id="simpleSearchHelp" rendered="#{!searchWorkflowBean.advanced}">
-		<h:commandButton action="#" image="images/simple-search.png" immediate="true"  title="Simple Search" alt="Simple Search"/>
+
+	
+	<td width="60%">
+	   <h:panelGroup>
+		<div class="adminToolsContainer">
+	    <f:subview id="simpleSearchHelp" rendered="#{!searchWorkflowBean.advanced}">
+	    	<div style="text-align:right">
+		<h:outputText value="Simple Search " /> 
 		<ncia:help label="images/help_icon.png"	helpId="-performsimplesearch" />
+		</div>
 		</f:subview>				 
       		  
 		<f:subview id="textSearchHelp" rendered="#{searchWorkflowBean.advanced}">
 		    <h:commandLink action="#" value="Text Search"	rendered="#{searchWorkflowBean.advanced}" immediate="true"  title="Text Search"/>
 		</f:subview>
-      	  </h:panelGroup>
-      	</td>  
-      	<td width="20%">
-	      	 <ice:dataTable id="tableOfPatientResultTables1"
-	   	                            value="#{searchResultBean.nodeTablesWrappers}"
-	   	                            var="perNodeResult"
-	   	                            style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
-	      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0; ">
-	   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
-	   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
-	   	 </ui:include>     
-	   	</ice:column>
-           </ice:dataTable>
+		</div>
+       </h:panelGroup>
+       </td>  
+       
+       	<td align="right">
+       	      	 <h:dataTable id="tableOfPatientResultTables1"
+       	   	                            value="#{searchResultBean.nodeTablesWrappers}"
+       	   	                            var="perNodeResult"
+       	   	                            style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
+       	      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 10px 0 0; ">
+       	   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
+       	   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
+       	   	 </ui:include>     
+       	   	</ice:column>
+                  </h:dataTable>
   	</td>
-      	<td width="45%">
-      	<h:inputHidden id="unauthorizedCollections" value="true" />
-  		<h:message for="unauthorizedCollections" errorClass="errorLabel" infoClass="infoLabel" />
-      	      <f:subview id="saveQueryView" rendered="#{!anonymousLoginBean.guestLoggedIn or searchWorkflowBean.dynamicSearch}">
-	      <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	        <tr>
-	          <td>
-	            <div align="right">
-	              <h:panelGrid columns="3" rendered="#{searchWorkflowBean.query.savedQueryId == 0}">
-	              <tr>
-	              <td>
-	                <ice:outputLabel for="queryName"  value="queryName" style="display:none"/> 
-	              </td>
-	              <td>
-	                <h:inputText id="queryName" 
-	                             value="#{searchResultBean.queryName}"
-	                             maxlength="200" 
-	                             disabled="#{ispyBean.isQueryFromUrl}"/>
-	              </td>
-	              <td>
-	                <h:commandLink id="saveQueryButton"
-	                                 value="Save Query"
-	                                 action="#{searchResultBean.saveQuery}" 
-	                                 disabled="#{ispyBean.isQueryFromUrl}"/>
-	              </td>
-	              <td>	                                 
-			       <ncia:help label="images/help.gif" helpId="-worksavedsearchqueries" /> 
-		      </td>	
-		      </tr>
-	              </h:panelGrid>
-	              
-	                
-	              
-	            </div>
-	            <div align="center">
-	              <h:panelGrid columns="1"
-	                           rendered="#{searchWorkflowBean.editingSavedQuery}">
-	                <h4>
-	                  <h:outputText value="#{msg.search_saveQuery}" />
-	                  <ncia:help label="images/help.gif" helpId="-editsavedqueries" />
-	                </h4>
-	                <h:panelGrid columns="2">
-	                  <h:selectOneRadio value="#{searchResultBean.updateQuery}"
-	                                    layout="pageDirection"
-	                                    enabledClass="formMessage">
-	                    <f:selectItem itemValue="true"
-	                                  itemLabel="#{msg.search_updateQuery}#{searchResultBean.query.queryName}#{msg.search_newCriteria}" />
-	                    <f:selectItem itemValue="false"
-	                                  itemLabel="#{msg.search_saveQueryAs}" />
-	                  </h:selectOneRadio>
-	                  <h:panelGrid>
-	                    <br/>
-	                    <h:inputText id="newQueryName" 
-	                                 value="#{searchResultBean.queryName}" 
-	                                 maxlength="200" 
-	                                 onfocus="javascript:selectRadio();"/>
-	                  </h:panelGrid>
-	
-	                  <h:commandButton id="editingSaveQueryButton" alt="Save Query" title="Save Query"
-	                                   image="images/SAVEQUERY.gif" 
-	                                   action="#{searchResultBean.saveQuery}" />
-	                </h:panelGrid>
-	              </h:panelGrid>
-	              <h:inputHidden id="newDataQuery" value="true" />
-	              <h:message for="newDataQuery" errorClass="errorLabel" infoClass="infoLabel" />
-	              <h:message for="queryName" errorClass="errorLabel" infoClass="infoLabel" />
-	              <h:message for="newQueryName" errorClass="errorLabel" infoClass="infoLabel" />
-	            </div>
-	          </td>
-	          
-	        </tr>
-	      </table>
-      </f:subview>
-      	</td>
       	
   	</tr>
   	</table>
@@ -287,7 +220,93 @@ L-->
 
 
               </td>
-            </tr>					
+              
+              
+              
+            </tr>
+            <tr>
+            		      	<td>
+	    		      	<h:inputHidden id="unauthorizedCollections" value="true" />
+	    		  		<h:message for="unauthorizedCollections" errorClass="errorLabel" infoClass="infoLabel" />
+	    		      	      <f:subview id="saveQueryView" rendered="#{!anonymousLoginBean.guestLoggedIn or searchWorkflowBean.dynamicSearch}">
+	    			      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	    			        <tr>
+	    			          <td>
+	    			            <div align="right">
+	    			              <h:panelGrid columns="3" rendered="#{searchWorkflowBean.query.savedQueryId == 0}">
+	    			              <tr>
+	    			              <td>
+	    			                <ice:outputLabel for="queryName"  value="queryName" style="display:none"/> 
+	    			              </td>
+	    			              <td width="100%">
+	    			                <h:inputText id="queryName" 
+	    			                             value="#{searchResultBean.queryName}"
+	    			                             size="28"
+	    			                             maxlength="200" 
+	    			                             disabled="#{ispyBean.isQueryFromUrl}"/>
+	    			              </td>
+	    			           </tr>
+	    			           <tr>
+	    			              <td colspan="3">
+	    			              <div style="font-size:15px">
+	    			                 <h:commandLink id="saveQueryButton"
+	    			                                 value="Save Query"
+	    			                                 action="#{searchResultBean.saveQuery}" 
+	    			                                 disabled="#{ispyBean.isQueryFromUrl}"/>
+	    			                                               
+	    					         <ncia:help label="images/help_icon.png" helpId="-worksavedsearchqueries" />
+	    					</div> 
+	    				      </td>	
+	    				      </tr>
+	    			              </h:panelGrid>
+	    			              
+	    			                
+	    			              
+	    			            </div>
+	    			            <div align="center">
+	    			              <h:panelGrid columns="1"
+	    			                           rendered="#{searchWorkflowBean.editingSavedQuery}">
+	    			                <div>
+	    			                  <h:outputText value="#{msg.search_saveQuery}" />
+	    			                  <ncia:help label="images/help_icon.png" helpId="-editsavedqueries" />
+	    			                </div>
+	    			                <h:panelGrid columns="2">
+	    			                  <h:selectOneRadio value="#{searchResultBean.updateQuery}"
+	    			                                    layout="pageDirection"
+	    			                                    enabledClass="formMessage">
+	    			                    <f:selectItem itemValue="true"
+	    			                                  itemLabel="#{msg.search_updateQuery}#{searchResultBean.query.queryName}#{msg.search_newCriteria}" />
+	    			                    <f:selectItem itemValue="false"
+	    			                                  itemLabel="#{msg.search_saveQueryAs}" />
+	    			                  </h:selectOneRadio>
+	    			                  <h:panelGrid>
+	    			                    <br/>
+	    			                    <h:inputText id="newQueryName" 
+	    			                                 value="#{searchResultBean.queryName}" 
+	    			                                 maxlength="200" 
+	    			                                 onfocus="javascript:selectRadio();"/>
+	    			                  </h:panelGrid>
+	    			
+	    			                  <h:commandButton id="editingSaveQueryButton" alt="Save Query" title="Save Query"
+	    			                                   image="images/SAVEQUERY.gif" 
+	    			                                   action="#{searchResultBean.saveQuery}" />
+	    			                </h:panelGrid>
+	    			              </h:panelGrid>
+	    			              <h:inputHidden id="newDataQuery" value="true" />
+	    			              <h:message for="newDataQuery" errorClass="errorLabel" infoClass="infoLabel" />
+	    			              <h:message for="queryName" errorClass="errorLabel" infoClass="infoLabel" />
+	    			              <h:message for="newQueryName" errorClass="errorLabel" infoClass="infoLabel" />
+	    			            </div>
+	    			          </td>
+	    			          
+	    			        </tr>
+	    			      </table>
+	    		      </f:subview>
+      	</td>
+            
+            
+            </tr>
+            
             </table>
 					</h:form>
 					</td>
@@ -300,6 +319,9 @@ L-->
 			</td>
 
 		</tr>
+	
+		
+		
 	</table>
 
 	<ice:form id="collectionDescriptionPopupForm">

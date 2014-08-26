@@ -865,16 +865,12 @@ table.contentPageII {
    border: 0px;
  }
  
-.submissionReportTitleContainer {
-  width: 800px;
+.adminToolsContainer {
   text-align: center;
-}
-
-.submissionReportTitle {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   color:#5C5C5C;
-  font-size:1.6em;
+  font-size:24px;
   font-weight:bold;
 }
  
@@ -931,6 +927,11 @@ table.promptbox {
   padding-right:2px;
 }
 /* end - stolen from caNanoLab */
+
+.searchFormHeader{
+	font-weight:bold; 
+	font-size: 25px;
+}
 
 .searchFormSelector {
     overflow: auto;

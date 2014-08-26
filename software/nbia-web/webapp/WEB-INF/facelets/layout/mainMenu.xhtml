@@ -66,7 +66,7 @@ L-->
     <!-- link 2 begins -->
     <f:subview id="simpleSearchSubview" rendered="#{securityBean.loggedIn}">
       <td height="20" class="mainMenuItem">
-         <h:outputText value="#{msg.common_searchImages}" />
+         <h:outputText style="white-space:nowrap" value="#{msg.common_searchImages}"/>
       	 <br/>
       	<ul >
       	    <li>
@@ -352,7 +352,7 @@ L-->
         onmouseout="changeMenuStyle(this,'mainMenuItem'),hideCursor()">
       <a class="mainMenuLink" 
          onclick="window.open('{NBIA_WIKI_UG_URL}', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=750,height=700,scrollbars=yes,resizable=yes')">
-        <h:outputText value="#{msg.menu_help}"/>
+        <h:outputText style="white-space:nowrap" value="#{msg.menu_help}"/>
       </a>
     </td>
     <!-- link 5 ends -->

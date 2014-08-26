@@ -24,28 +24,33 @@ L-->
      <h:form id="searchMenuForm">
 	<table cellspacing="0" cellpadding="0" width="100%" summary=""	border="0" valign="top">
 	<tr>
-	
-	  <td valign="top" align="center">
-         		<h:commandButton action="#" image="images/advance-search.png" immediate="true"  title="Advanced search" alt="Advanced Search"/>
-         		<ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" /> 
-		<div align="left" style="font-size: 1.4em">
+
+	  <td valign="top">
+	  	<div class="adminToolsContainer">
+	  		<div style="text-align:right">
+         		<h:outputText value="Advanced Search "/>
+         		<ncia:help label="images/help_icon.png" helpId="-performdynamicsearch" />
+        		</div>
+		</div>
+		  	<div align="left" style="font-size: 1.4em">
 			<h:inputHidden id="editQueryMessage" />
 			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
-		</div>
-	</td>
-	<td width="55%">
-	   <ice:dataTable id="tableOfPatientResultTables1"
-	   	                            value="#{searchResultBean.nodeTablesWrappers}"
-	   	                            var="perNodeResult"
-	   	                            style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
-	      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0; ">
-	   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
-	   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
-	   	 </ui:include>     
-	   	</ice:column>
-           </ice:dataTable>
-  	</td>		
-    
+			</div>	
+	 </td>	
+    	
+    	 <td width="42%" align="right">
+			   <h:dataTable id="tableOfPatientResultTables1"
+			   	                            value="#{searchResultBean.nodeTablesWrappers}"
+			   	                            var="perNodeResult"
+			   	                            style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
+			      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0; ">
+			   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
+			   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
+			   	 </ui:include>     
+			   	</ice:column>
+		           </h:dataTable>
+  	  </td>	
+    	
 	</tr>
 	</table>
 	</h:form> 

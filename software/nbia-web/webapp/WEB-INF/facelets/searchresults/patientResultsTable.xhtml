@@ -19,8 +19,8 @@ L-->
 <f:subview id="notWaitingView">
 <!--  ensure this is in naming container so resultTable isnt dupe -->  
 <!--  regular search results  -->
-<ice:panelGroup id="patientResultsPanelGroup" rendered="#{not searchResultBean.textResult}">
-  <ice:dataTable id="patientResultsTable" 
+<ice:panelGroup id="patientResultsPanelGroup" rendered="#{not searchResultBean.textResult}" >
+  <ice:dataTable id="patientResultsTableText" 
                  value="#{perNodeResult.patients}" 
                  var="result" 
                  rows="#{searchResultBean.resultsPerPage}" 
@@ -29,7 +29,7 @@ L-->
                  styleClass="contentPage"
                  sortColumn="#{searchResultBean.sortColumnName}"
         	 sortAscending="#{searchResultBean.ascending}"
-                 columnWidths="55em,35%,12%,10%,12%,10%,5%">
+                 columnWidths="120px,160px,420px,75px,75px,75px">
     <h:column id="collectionIdColumn">
       <f:facet name="header">
         <h:panelGroup>
@@ -42,7 +42,7 @@ L-->
         <h:outputText value="#{result.patient.project}" />
       </div>
     </h:column>
-    <h:column id="subjectIdColumn" style="text-align:center;">
+    <h:column id="subjectIdColumn">
           <f:facet name="header">
             <h:panelGroup>
     		<ice:commandSortHeader columnName="#{searchResultBean.patientHeader}" arrow="true" >
@@ -57,16 +57,16 @@ L-->
                            actionListener="#{perNodeResult.viewPatient}" />
           </div>
     </h:column>
-    <h:column id="matchStudiesCountColumn">
+    <h:column id="hitColumn">
       <f:facet name="header">
         <h:panelGroup>
-          <ice:commandSortHeader columnName="#{searchResultBean.matchedStudyHeader}" arrow="true" >
-	      		<ice:outputText value="#{searchResultBean.matchedStudyHeader}"/>
+          <ice:commandSortHeader columnName="#{searchResultBean.hitHeader}" arrow="true" >
+	      		<ice:outputText value="#{searchResultBean.hitHeader}"/>
     	</ice:commandSortHeader>
         </h:panelGroup>
       </f:facet>
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
-        <h:outputText value="#{result.studyCounts}"  />
+        <h:outputText value="#{result.hit}"  escape="false"/>
       </div>
     </h:column>
     <h:column id="totalStudiesCountColumn">
@@ -80,18 +80,6 @@ L-->
           <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
             <h:outputText value="#{result.patient.totalNumberOfStudies}"  />
           </div>
-    </h:column>
-    <h:column id="matchedSeriesCountColumn">
-      <f:facet name="header">
-        <h:panelGroup>
-         <ice:commandSortHeader columnName="#{searchResultBean.matchedSeriesHeader}" arrow="true" >
-	 	<ice:outputText value="#{searchResultBean.matchedSeriesHeader}"/>
-    	</ice:commandSortHeader>
-        </h:panelGroup>
-      </f:facet>
-      <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
-        <h:outputText value="#{result.seriesCounts}" />
-      </div>
     </h:column>
     <h:column id="totalSeriesCountColumn">
           <f:facet name="header">
@@ -107,49 +95,48 @@ L-->
     </h:column>
     <h:column id="addToBasketColumn">
     <f:facet name="header">
-     	<h:commandButton action="#{perNodeResult.addAllPatientInTableToBasket}" image="images/cart-empty.png"  title="Add to Basket"  alt="Add to Basket"  onclick="selectAllInContainingTable('MAINbody:criteriaView:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:tbody');"/>
+     	<h:commandButton action="#{perNodeResult.addAllPatientInTableToBasket}" image="images/cart-empty.png"  title="Add to Basket" alt="Add to Basket"  onclick="selectAllInContainingTable('MAINbody:criteriaView:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:tbody');"/>
+            
       </f:facet>       
       <div class="#{empty basketBean.patientInBasketMap[result.basketKey] ? '' : 'highlightedData'}">
         <div align="center" class="formFieldWhite">
-          <ice:outputLabel for="addPatientToBasketCheckbox"  value="addPatientToBasketCheckbox" style="display:none"/> 
+        <ice:outputLabel for="addPatientToBasketCheckbox"  value="addPatientToBasketCheckbox" style="display:none"/> 
           <h:selectBooleanCheckbox id="addPatientToBasketCheckbox" style="display: none;" 
                                    value="#{result.checked}" />
           <h:commandButton action="#{perNodeResult.addPatientToBasket}"
           			   rendered ="#{empty basketBean.patientInBasketMap[result.basketKey]}"
                                    image="images/add-icon.png" 
-                                   title="Add To Basket"
-                                   alt="Add To Basket">                         
+                                   title="Add To Basket" alt="Add To Basket">                         
 	<f:setPropertyActionListener target="#{perNodeResult.toAdd}" value="#{result.patient.id}"/>
 	
 	  </h:commandButton>  
 	  <h:commandButton action="#{perNodeResult.removePatientFromBasket}"
           			   rendered ="#{basketBean.patientInBasketMap[result.basketKey]}"
                                    image="images/remove_icon.png" 
-                                   title="Remove From Basket"
-                                   alt="Remove From Basket">                                                             
+                                   title="Remove From Basket" alt="Remove From Basket">                                                             
 	<f:setPropertyActionListener target="#{perNodeResult.toAdd}" value="#{result.patient.id}"/>
           </h:commandButton>                                                           
         </div>
       </div>
     </h:column>                   
   </ice:dataTable>
-  <ui:include src="searchResultPaginator.xhtml"/>
+  <ui:include src="searchResultPaginatorText.xhtml"/>
 </ice:panelGroup>
 
 
 <!--  text search results  -->
-<ice:panelGroup id="patientResultsPanelGroup"  rendered="#{searchResultBean.textResult}">
+<ice:panelGroup id="patientResultsPanelGroup" rendered="#{searchResultBean.textResult}">
   <ice:dataTable id="patientResultsTableText" 
                  value="#{perNodeResult.patients}" 
                  var="result" 
                  rows="#{searchResultBean.resultsPerPage}" 
                  scrollable="true" scrollHeight="43.3em"
-                 style="border:none;padding-top: 0px;  margin: 0px 0 0 0; text-align: center;"
+                 style="border:none; padding-top: 0px;  margin: 0px 0 0 0; text-align: center;"
                  styleClass="contentPage"
                  sortColumn="#{searchResultBean.sortColumnName}"
         	 sortAscending="#{searchResultBean.ascending}"
-                 columnWidths="100px,150px,400px,60px,60px,60px">
-    <h:column id="collectionIdColumn" style="text-align:center;width:100px">
+                 columnWidths="120px,160px,420px,75px,75px,75px">
+    <h:column id="collectionIdColumn">
       <f:facet name="header">
         <h:panelGroup>
        		<ice:commandSortHeader columnName="#{searchResultBean.collectionNameHeader}" arrow="true" >
@@ -161,7 +148,7 @@ L-->
         <h:outputText value="#{result.patient.project}" />
       </div>
     </h:column>
-    <h:column id="subjectIdColumn" style="text-align:center;width:150px">
+    <h:column id="subjectIdColumn">
           <f:facet name="header">
             <h:panelGroup>
     		<ice:commandSortHeader columnName="#{searchResultBean.patientHeader}" arrow="true" >
@@ -176,7 +163,7 @@ L-->
                            actionListener="#{perNodeResult.viewPatient}" />
           </div>
     </h:column>
-    <h:column id="hitColumn" style="text-align:center;width:400px">
+    <h:column id="hitColumn">
       <f:facet name="header">
         <h:panelGroup>
           <ice:commandSortHeader columnName="#{searchResultBean.hitHeader}" arrow="true" >
@@ -188,7 +175,7 @@ L-->
         <h:outputText value="#{result.hit}"  escape="false"/>
       </div>
     </h:column>
-    <h:column id="totalStudiesCountColumn" style="text-align:center;width:60px">
+    <h:column id="totalStudiesCountColumn">
           <f:facet name="header">
             <h:panelGroup>
              <ice:commandSortHeader columnName="#{searchResultBean.totalStudyHeader}" arrow="true" >
@@ -200,7 +187,7 @@ L-->
             <h:outputText value="#{result.patient.totalNumberOfStudies}"  />
           </div>
     </h:column>
-    <h:column id="totalSeriesCountColumn" style="text-align:center;width:60px">
+    <h:column id="totalSeriesCountColumn">
           <f:facet name="header">
             <h:panelGroup>
              <ice:commandSortHeader columnName="#{searchResultBean.totalSeriesHeader}" arrow="true" >
@@ -212,7 +199,7 @@ L-->
             <h:outputText value="#{result.patient.totalNumberOfSeries}" />
           </div>
     </h:column>
-    <h:column id="addToBasketColumn" style="text-align:center;width:60px">
+    <h:column id="addToBasketColumn">
     <f:facet name="header">
      	<h:commandButton action="#{perNodeResult.addAllPatientInTableToBasket}" image="images/cart-empty.png"  title="Add to Basket" alt="Add to Basket"  onclick="selectAllInContainingTable('MAINbody:criteriaView:dataForm:tableOfPatientResultTables:0:notWaitingView:patientResultsTable:tbody');"/>
             

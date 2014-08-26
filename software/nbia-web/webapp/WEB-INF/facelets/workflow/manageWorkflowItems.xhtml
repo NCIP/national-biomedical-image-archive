@@ -8,18 +8,15 @@
                 xmlns:ncia="http://imaging.nci.nih.gov/ncia"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
 
-
-  <br/>
-  <br/>
 <ice:form id="manageWorkflowForm" >
   <table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage" width="80%" align="center">
     <tr>
       <td>
-        <h2 align="center">
-          <ice:outputText value="Manage Workflow Items" />
+        <div class="adminToolsContainer">
+          <h:outputText value="Manage Workflow Items " />
           <ice:outputText value="#{mngWorkFlowBean.myString}" />
           <ncia:help alt="help" label="images/help_icon.png" helpId="-manageworkflowitems" />
-        </h2>
+        </div>
       </td>
       </tr>
       <tr>
@@ -43,18 +40,32 @@
              rows="100">
              <ice:column id="name">
                   <f:facet name="header">
-                            <ice:outputText value="Name" />  
+            		<h:panelGroup>
+    					<ice:commandSortHeader columnName="Name" arrow="true" >
+                            <ice:outputText value="Name" /> 
+                    	</ice:commandSortHeader>         
+            		</h:panelGroup>             
                   </f:facet>
                           <ice:outputText value="#{item.name}" />
              </ice:column>
              <ice:column id="collectionSite">
                     <f:facet name="header">  
+                      <h:panelGroup>
+    					<ice:commandSortHeader columnName="Collection-Site" arrow="true" >
                             <ice:outputText value="Collection-Site" /> 
+                        </ice:commandSortHeader>         
+            		  </h:panelGroup>
                     </f:facet>
                           <ice:outputText value="#{item.collectionSite}" />
-             </ice:column>
+             		</ice:column>
              <ice:column>
-                    <f:facet name="header">Edit</f:facet>
+                    <f:facet name="header">
+                     <h:panelGroup>
+    				   <ice:commandSortHeader columnName="Edit" arrow="true" >
+    					<ice:outputText value="Edit" /> 
+    				   </ice:commandSortHeader>         
+            		 </h:panelGroup>    
+    				</f:facet>
                            <div align="center">
                             <h:commandButton image="images/edit-icon.png"
                                              alt="Edit" title="Edit"
@@ -66,7 +77,13 @@
  
              </ice:column>
              <ice:column>
-                    <f:facet name="header">Delete</f:facet>
+                    <f:facet name="header">
+                      <h:panelGroup>
+    					<ice:commandSortHeader columnName="Delete" arrow="true" >
+    					<ice:outputText value="Delete" /> 
+    					</ice:commandSortHeader>         
+            		  </h:panelGroup>  
+            		</f:facet>
                             <div align="center">
                                 <h:commandButton image="images/cancel.png"
                                              alt="Delete" title="Delete"

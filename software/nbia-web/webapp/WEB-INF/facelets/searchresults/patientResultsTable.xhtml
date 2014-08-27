@@ -20,7 +20,7 @@ L-->
 <!--  ensure this is in naming container so resultTable isnt dupe -->  
 <!--  regular search results  -->
 
-<ice:panelGroup id="patientResultsPanelGroup" rendered="#{(not searchResultBean.textResult) and (searchWorkflowBean.simpleSearch)}">
+<ice:panelGroup id="patientResultsPanelGroup" rendered="#{(not searchResultBean.textResult) and ((searchWorkflowBean.simpleSearch) or (searchWorkflowBean.dynamicSearch))}">
   <ice:dataTable id="patientResultsTable" 
                  value="#{perNodeResult.patients}" 
                  var="result" 

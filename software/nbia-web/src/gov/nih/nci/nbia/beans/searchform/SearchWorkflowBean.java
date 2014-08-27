@@ -597,7 +597,14 @@ public class SearchWorkflowBean {
     public void setUsSearch(boolean usSearch) {
         this.usSearch = usSearch;
     }
+    
+    public boolean isSimpleSearch() {
+		return simpleSearch;
+	}
 
+	public void setSimpleSearch(boolean simpleSearch) {
+		this.simpleSearch = simpleSearch;
+	}
 
     /**
      * This action is performed when the search button is clicked.
@@ -745,6 +752,7 @@ public class SearchWorkflowBean {
         advanced = false;
         usSearch = false;
         freeTextSearch = false;
+        simpleSearch = true; 
         return newSearch();
     }
 
@@ -1005,9 +1013,15 @@ public class SearchWorkflowBean {
 		dySearchBean.resetAction();
 		return DYNAMIC_SEARCH;
 	}
+	
+	public boolean isFreeTextSearch() {
+		return freeTextSearch;
+	}
+
 	public String newFreeTextSearch()
 	{
 		freeTextSearch = true;
+		simpleSearch = false;
 		dynamicSearch = false;
 		SearchResultBean srb = BeanManager.getSearchResultBean();
 		srb.setPatientResults(null);
@@ -1118,8 +1132,11 @@ public class SearchWorkflowBean {
 
     private boolean dynamicSearch = false;
     private boolean freeTextSearch = false;
+    private boolean simpleSearch = false;
 
-    /**
+
+
+	/**
      * Holds the values for manufacturer, model and software version in the tree
      */
     private List<String> selectedManufacturers = new ArrayList<String>();

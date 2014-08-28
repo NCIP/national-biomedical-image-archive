@@ -120,7 +120,6 @@ public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
 		{
 			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
 		}
-		returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

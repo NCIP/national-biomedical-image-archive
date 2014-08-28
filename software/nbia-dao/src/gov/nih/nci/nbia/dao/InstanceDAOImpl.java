@@ -49,7 +49,7 @@ public class InstanceDAOImpl extends AbstractDAO
 			paramList.add(sOPInstanceUID);
 			++i;
 		}
-		if (patientId != null) {
+		if (patientId != null&&patientId.length()>0) {
 			where = where.append(" and UPPER(i.patientId)=?");
 			paramList.add(patientId.toUpperCase());
 			++i;

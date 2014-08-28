@@ -323,10 +323,6 @@ $HeadURL$
   <target name="init" >
     <mkdir dir="${dist.dir}"/>
     <mkdir dir="${dist.exploded.dir}"/>
-    <mkdir dir="${ncia-core-grid.artifact.dir}"/>
-    <mkdir dir="${nbia-grid.artifact.dir}"/>
-    <mkdir dir="${ncia-core-grid.dist.dir}"/>
-    <mkdir dir="${nbia-grid.dist.dir}"/>
     <mkdir dir="${nbia-web.dist.dir}"/>
     <mkdir dir="${db-install.dist.dir}"/>
     <mkdir dir="${db-upgrade.dist.dir}"/>
@@ -395,22 +391,10 @@ $HeadURL$
     build:nbia-web,
     build:nbia-api,
     build:nbia-ctp,
-    build:ncia-core-grid,
-    build:nbia-grid,
     build:nbia-download-manager,
     build:nbia-liquibase,
     static-analysis:simian
           "/>
-
-  <target name="build:nbia-remote-search" depends="init,
-                                                   build:ncia-core-grid,
-                                                   build:nbia-download-manager">
-    <ant inheritAll="false"
-         inheritRefs="false"
-         antfile="build.xml"
-         target="run"
-         dir="${nbia-remote-search.base.dir}"/>
-  </target>
 
   <target name="build:nbia-domain" depends="init">
     <ant inheritAll="false"
@@ -443,8 +427,8 @@ $HeadURL$
 
   <target name="build:nbia-dao" depends="init,
                                          build:nbia-util,
-                                         build:nbia-services-grid,
-                                         build:nbia-domain">
+					 build:nbia-services-grid,
+					 build:nbia-domain">
     <ant inheritAll="false"
          inheritRefs="false"
          antfile="${nbia.build.file}"
@@ -466,8 +450,7 @@ $HeadURL$
 
   <target name="build:nbia-services-commons" depends="init,
                                                       build:nbia-util,
-                                                      build:nbia-services-grid,
-                                                      build:nbia-dao">
+													  build:nbia-services-grid,                                                      build:nbia-dao">
     <ant inheritAll="false"
          inheritRefs="false"
          antfile="${nbia.build.file}"
@@ -568,25 +551,14 @@ $HeadURL$
                    build:nbia-services-commons,
                    build:nbia-download-manager,
                    build:nbia-download,
-                   build:nbia-remote-search,
                    -build:image-deletion-mdb,
                    -build:imagezipping-mdb">
 
     <!-- crud.  dealing with cyclical dependencies between nbia-download-mgr and nbia-remote-search -->
     <!-- nimpy - this sucks sucks sucks -->
     <copy todir="${target.dir}/dist/exploded/nbia-download-manager">
-      <fileset dir="${lib.dir}/nbia-remote-search/runtime">
-        <include name="*.jar" />
-      </fileset>
-    </copy>
-    <copy todir="${target.dir}/dist/exploded/nbia-download-manager">
       <fileset dir="${lib.dir}/nbia-download-manager/runtime">
         <include name="*.jar" />
-      </fileset>
-    </copy>
-    <copy todir="${target.dir}/dist/exploded/nbia-download-manager">
-      <fileset dir="${target.dir}/dist/exploded/nbia-remote-search">
-        <include name="*.jar"/>
       </fileset>
     </copy>
 
@@ -594,7 +566,7 @@ $HeadURL$
     <if>
       <equals arg1="${jar-signing.execution.time}" arg2="build"/>
       <then>
-        <unsignjar jar="${target.dir}/dist/exploded/nbia-download-manager/bouncycastle-jdk1.3_1.25.jar"/>
+        <!--unsignjar jar="${target.dir}/dist/exploded/nbia-download-manager/bouncycastle-jdk1.3_1.25.jar"/-->
         <echo message="jar-signing.execution.time set to build, signing jars"/>
 
         <comma-separated-file-list directory.to.list="${target.dir}/dist/exploded/nbia-download-manager"

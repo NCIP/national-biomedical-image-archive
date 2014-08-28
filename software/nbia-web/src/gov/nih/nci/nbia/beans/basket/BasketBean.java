@@ -28,7 +28,6 @@ import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.nbia.jms.ImageZippingMessage;
 import gov.nih.nci.nbia.jms.JMSClient;
-import gov.nih.nci.nbia.remotesearch.RemoteNode;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.LocalDrillDown;
@@ -122,10 +121,10 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     		 sort(toSort);
              oldSort = sortColumnName;
              oldAscending = ascending;
-        } 
+        }
     	return toSort;
     }
-    
+
 	/**
 	 * For a given series ID, tell whether that patient has been added to the basket.
 	 * This is a bit awkward but necessary for execution through EL which doesnt allow
@@ -176,7 +175,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     public String getToDelete() {
 		return toDelete;
 	}
-    
+
     public void removeAllSeries() {
     	basket.removeAllSeries();
     }
@@ -265,10 +264,10 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
                 BasketSeriesItemBean bsib = seriesItemMap.get(key);
                 SeriesSearchResult seriesDTO = bsib.getSeriesSearchResult();
                 NBIANode node = seriesDTO.associatedLocation();
-                if (node instanceof RemoteNode) {
-                    RemoteNode location = RemoteNode.constructPartialRemoteNode(node.getDisplayName(),node.getURL());
-                    seriesDTO.associateLocation(location);
-                }
+                //if (node instanceof RemoteNode) {
+                //    RemoteNode location = RemoteNode.constructPartialRemoteNode(node.getDisplayName(),node.getURL());
+                //    seriesDTO.associateLocation(location);
+                //}
                 localSeriesDTOs.put(seriesDTO.getId().toString(),seriesDTO);
             }
             izm.setItems(localSeriesDTOs);
@@ -482,7 +481,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
         imageList = new ListDataModel(wrappers);
 		icefacesDataModel = new IcefacesRowColumnDataModel(wrappers);
     }
-    
+
     /**
      * Used by the view data basket to view remote and local images.
      * @param theSeries
@@ -924,7 +923,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 		}
 	}
 	private String exportIMFileName;
-	
+
 	public String getExportIMFileName(){
 		return exportIMFileName;
 	}
@@ -954,7 +953,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     private static final String numberOfImageHeader = "Number of Images";
     private static final String fileSizeHeader = "File Size";
     private static final String annotationFileSizeHeader= "Annotation File Size";
-    
+
 
     private String sortColumnName= "Subject ID";
     private boolean ascending = true;
@@ -1098,7 +1097,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 		return annotationFileSizeHeader;
 	}
 
-	
 
-	
+
+
 }

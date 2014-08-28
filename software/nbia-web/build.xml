@@ -45,8 +45,7 @@ L-->
   <property name="web.j2ee.resources.dir" value="${resources.dir}/ear" />
 
   <property name="project.lib.dir" value="${common.dir}/target/lib/nbia-web"/>
-  <property name="remote.search.lib.dir" value="${common.dir}/target/lib/nbia-remote-search"/>
- <property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
+  <property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
   
   <!-- Paths -->
   <path id="common.classpath">
@@ -171,20 +170,6 @@ L-->
       <fileset dir="${download.mgr.target.dir}">
         <exclude name="NBIADownloadManager.jar"/>
         <include name="*.jar"/>
-        <exclude name="nbia-dao.jar" />
-      </fileset>
-    </copy>
-
-    <copy todir="${webapp.dir}/download-mgr-dependencies">
-      <fileset dir="${download.mgr.target.dir}/../nbia-remote-search">
-        <include name="*.jar"/>
-        <exclude name="nbia-dao.jar" />
-      </fileset>
-    </copy>
-    <copy todir="${webapp.dir}/download-mgr-dependencies">
-      <fileset dir="${remote.search.lib.dir}/runtime">
-        <include name="*.jar"/>
-        <exclude name="jce*"/>
         <exclude name="nbia-dao.jar" />
       </fileset>
     </copy>

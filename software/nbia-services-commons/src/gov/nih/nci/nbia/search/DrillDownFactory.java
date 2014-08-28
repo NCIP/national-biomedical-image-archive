@@ -8,7 +8,6 @@
 
 package gov.nih.nci.nbia.search;
 
-
 public class DrillDownFactory {
 
 	public static DrillDown getDrillDown() {
@@ -17,12 +16,12 @@ public class DrillDownFactory {
 		}
 		return instance;
 	}
-	
+
 	/////////////////////////////////////PRIVATE////////////////////////////////////
-	
+
 	private static DrillDown instance;
-	
-	
+
+
 	private static DrillDown createDrillDown() {
 		String drillDownClassName = System.getProperty("drilldown.className");
 
@@ -34,11 +33,12 @@ public class DrillDownFactory {
 				ClassLoader loader = Thread.currentThread().getContextClassLoader();
 				Class clazz = Class.forName(drillDownClassName, false, loader);
 				DrillDown drillDown =  (DrillDown)clazz.newInstance();
+
 				return drillDown;
 			}
 			catch(Exception ex) {
 				throw new RuntimeException(ex);
 			}
-		}			
-	}	
+		}
+	}
 }

@@ -12,6 +12,7 @@ import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
+import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
@@ -111,6 +112,7 @@ public class ViewSeriesPopulatorMgBean {
 	 */
 	public void populateImages() throws Exception {
 		LocalDrillDown localDrillDown = new LocalDrillDown();
+		localDrillDown.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
 		SeriesSearchResult theSeries = localDrillDown.retrieveSeries(Integer.parseInt(seriesId));
 		SeriesSearchResultBean bean = BeanManager.getSeriesSearchResultBean();
 		bean.populate(null);

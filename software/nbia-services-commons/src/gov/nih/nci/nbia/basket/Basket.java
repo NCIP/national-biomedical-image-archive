@@ -24,49 +24,49 @@ import java.util.Map;
  * dropped into.  It's really a collection of series items.
  */
 public class Basket {
-	
+
 	public static interface BasketChangeListener {
 		public void basketChanged(Basket b);
 	}
-	
-	
+
+
 	public void addBasketChangeListener(BasketChangeListener l) {
 		listeners.add(l);
 	}
-	
-	
+
+
 	public void removeBasketChangeListener(BasketChangeListener l) {
 		listeners.remove(l);
 	}
-	
-	
+
+
     /**
      * Retrieve all the series items sorted by paitent/study/series
-     */	
+     */
     public List<BasketSeriesItemBean> getSeriesItems() {
         List<BasketSeriesItemBean> toSort = new ArrayList<BasketSeriesItemBean>(seriesItems.values());
         //Collections.sort(toSort);
 
         return toSort;
     }
-    
-    
+
+
     /**
      * Retrieve all the series items keyed by the series instance UID+grid/node location.
      */
     public Map<String, BasketSeriesItemBean> getSeriesItemMap() {
     	return Collections.unmodifiableMap(this.seriesItems);
     }
-    
-    
+
+
     /**
      * Determines if the series is in the basket.
      */
     public boolean isSeriesInBasket(Integer seriesPkId, String location) {
         return (seriesItems.get(seriesPkId + DELIMETER + location) != null);
-    }    
-    
-    
+    }
+
+
     /**
      * Add all the specified series to the basket.
      */
@@ -78,14 +78,14 @@ public class Basket {
         }
 
         addResults(seriesBeans);
-        
+
         fireChangeEvent();
     }
-    
-    
+
+
     /**
      * Adds the series of the thumbnail to the data basket.
-     * 
+     *
      * <p>This method is only used by ISPY which is local, so no remote stuff here.
      * Need to add a method to DrillDown (to return series from image) if this needs
      * to be used remotely.
@@ -94,7 +94,7 @@ public class Basket {
 
         Integer seriesId = dto.getSeriesId();
         // Find the series
-        BasketSeriesItemBean seriesForImage = seriesItems.get(seriesId + 
+        BasketSeriesItemBean seriesForImage = seriesItems.get(seriesId +
 	                                                          DELIMETER +
 	                                                          dto.associatedLocation().getURL());
 
@@ -107,15 +107,15 @@ public class Basket {
             List<BasketSeriesItemBean> seriesBeans = new ArrayList<BasketSeriesItemBean>();
             BasketSeriesItemBean bsib = convert(seriesSearchResult);
             seriesBeans.add(bsib);
-        
+
             addResults(seriesBeans);
-        } 
+        }
         //else do nothing
-        
+
         fireChangeEvent();
     }
     /**
-     * Remove all series items 
+     * Remove all series items
      */
     public void removeAllSeries() {
         List<String> seriesIdsToRemove = new ArrayList<String>();
@@ -123,8 +123,8 @@ public class Basket {
         // Build list of IDs to remove. We can't remove them yet
         // because we're iterating through the list
         for (BasketSeriesItemBean item : seriesItems.values()) {
-           seriesIdsToRemove.add(item.getSeriesSearchResult().getId() + 
-                		              DELIMETER + 
+           seriesIdsToRemove.add(item.getSeriesSearchResult().getId() +
+                		              DELIMETER +
                 		              item.getGridLocation());
         }
 
@@ -132,12 +132,12 @@ public class Basket {
         for (String seriesId : seriesIdsToRemove) {
             seriesItems.remove(seriesId);
         }
-        
+
         fireChangeEvent();
     }
 
     /**
-     * Remove all series items that are "selected".  Revisit the conception of 
+     * Remove all series items that are "selected".  Revisit the conception of
      * selection which is probably more in the domain of presentation.
      */
     public void removeSelectedSeries() {
@@ -147,8 +147,8 @@ public class Basket {
         // because we're iterating through the list
         for (BasketSeriesItemBean item : seriesItems.values()) {
             if (item.isSelected()) {
-                seriesIdsToRemove.add(item.getSeriesSearchResult().getId() + 
-                		              DELIMETER + 
+                seriesIdsToRemove.add(item.getSeriesSearchResult().getId() +
+                		              DELIMETER +
                 		              item.getGridLocation());
             }
         }
@@ -157,26 +157,26 @@ public class Basket {
         for (String seriesId : seriesIdsToRemove) {
             seriesItems.remove(seriesId);
         }
-        
+
         fireChangeEvent();
     }
-    
-    
+
+
     /**
      * Returns the total number of series in the basket.
      */
     public int getBasketSeriesCount() {
         return seriesItems.size();
     }
-    
-    
+
+
     /**
      * Are there any series items in the basket?
      */
     public boolean isEmpty() {
     	return seriesItems.size()==0;
     }
-    
+
     /**
      * Calculates the total size of the basket in bytes.
      */
@@ -194,21 +194,21 @@ public class Basket {
      * Calculates the total size of the basket in MB.
      */
     public double calculateSizeInMB() {
-      
+
         return calculateSizeInBytes() / 1000000.0;
     }
 
     /**
      * Calculates the size of just the images in the basket in bytes.
-     */    
+     */
     public double calculateImageSizeInBytes() {
     	return calculateSizeInBytes() - calculateAnnotationSizeInBytes();
     }
 
-    
+
     /**
      * Calculates the size of just the annotations in the basket in bytes.
-     */ 
+     */
     public double calculateAnnotationSizeInBytes() {
     	double size = 0;
 
@@ -217,27 +217,27 @@ public class Basket {
         }
 
         return size;
-    }       
-   
+    }
+
     ///////////////////////////////////////////PRIVATE////////////////////////////////
-    
+
     private static final String DELIMETER = "||";
-       
+
     private List<BasketChangeListener> listeners = new ArrayList<BasketChangeListener>();
-    
+
     /**
      * This is the underlying map that stores all of the items that are placed
      * in the Data Basket. Key is the series ID
      */
     private Map<String, BasketSeriesItemBean> seriesItems = new HashMap<String, BasketSeriesItemBean>();
-    
+
     private void fireChangeEvent() {
     	for(BasketChangeListener l : listeners) {
     		l.basketChanged(this);
     	}
     }
-  
-    
+
+
     /**
      * Several other methods call this to add their series results to the basket
      *
@@ -247,23 +247,23 @@ public class Basket {
         // Loop through each result row
         for (BasketSeriesItemBean result : results) {
         	System.out.println("$$$ add results="+result.getSeriesId() + " "+result.getGridLocation());
-            BasketSeriesItemBean alreadyExisting = 
-            	seriesItems.get(result.getSeriesSearchResult().getId() + 
-            			        DELIMETER + 
+            BasketSeriesItemBean alreadyExisting =
+            	seriesItems.get(result.getSeriesSearchResult().getId() +
+            			        DELIMETER +
             			        result.getGridLocation());
-System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() + 
-            			        DELIMETER + 
+System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
+            			        DELIMETER +
             			        result.getGridLocation());
             // If the series does not exist, add it
             if (alreadyExisting == null) {
-                seriesItems.put(result.getSeriesSearchResult().getId() + 
-                		        DELIMETER + 
-                		        result.getGridLocation(), 
+                seriesItems.put(result.getSeriesSearchResult().getId() +
+                		        DELIMETER +
+                		        result.getGridLocation(),
                 		        result);
-                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId() + 
-    			        DELIMETER + 
-    			        result.getGridLocation());               
-            } 
+                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId() +
+    			        DELIMETER +
+    			        result.getGridLocation());
+            }
             else {
             	System.out.println("&&&&&&&&&&alreadyExisting="+alreadyExisting.getSeriesId());
             	  System.out.println("&&&&&&&&&&&&&&&&&neither="+result.getSeriesSearchResult().getId());
@@ -271,8 +271,8 @@ System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
             }
         }
         System.out.println("end add results="+results.size());
-    }  
-    
+    }
+
 	private static BasketSeriesItemBean convert(SeriesSearchResult seriesDTO){
 		BasketSeriesItemBean returnBean = new BasketSeriesItemBean(seriesDTO);
 
@@ -299,5 +299,5 @@ System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
 		System.out.println("id to delete" + toDeleteSeriesId);
         seriesItems.remove(toDeleteSeriesId);
         fireChangeEvent();
-	}        
+	}
 }

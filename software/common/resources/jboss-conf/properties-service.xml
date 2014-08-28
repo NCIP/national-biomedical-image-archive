@@ -141,12 +141,12 @@ gov.nih.nci.security.configFile=/usr/local/jboss4/ncia/conf/ApplicationSecurityC
   <attribute name="Properties">local.grid.uri=@local.grid.uri@</attribute>
   <attribute name="Properties">discover.remote.nodes=@discover.remote.nodes@</attribute>
   <attribute name="Properties">discover.period.in.hrs=4</attribute>
-  <attribute name="Properties">lookupManager.className=gov.nih.nci.nbia.lookup.CompositeLookupManager</attribute>
-  <attribute name="Properties">patientSearcherService.className=gov.nih.nci.nbia.remotesearch.CompositePatientSearcherService</attribute>
-  <attribute name="Properties">drilldown.className=gov.nih.nci.nbia.remotesearch.CompositeDrillDown</attribute>
+  <attribute name="Properties">lookupManager.className=gov.nih.nci.nbia.lookup.LookupManagerImpl</attribute>
+  <attribute name="Properties">patientSearcherService.className=gov.nih.nci.nbia.search.LocalPatientSearcherService</attribute>
+  <attribute name="Properties">drilldown.className=gov.nih.nci.nbia.search.LocalDrillDown</attribute>
   <attribute name="Properties">thumbnailResolver.className=gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver</attribute>
-  <attribute name="Properties">dicomTagViewer.className=gov.nih.nci.nbia.dicomtags.CompositeDicomTagViewer</attribute>
-  <attribute name="Properties">seriesFileRetriever.className=gov.nih.nci.nbia.zip.CompositeSeriesFileRetriever</attribute>
+  <attribute name="Properties">dicomTagViewer.className=gov.nih.nci.nbia.dicomtags.LocalDicomTagViewer</attribute>
+  <attribute name="Properties">seriesFileRetriever.className=gov.nih.nci.nbia.zip.LocalSeriesFileRetriever</attribute>
 
 
   <!-- max length for collection description -->

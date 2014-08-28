@@ -32,7 +32,6 @@
 package gov.nih.nci.nbia.servlet;
 
 import gov.nih.nci.nbia.factories.ApplicationFactory;
-import gov.nih.nci.nbia.jobs.NodeLookupJob;
 import gov.nih.nci.nbia.newresults.LatestCurationDateJob;
 import gov.nih.nci.nbia.newresults.NewResultsProcessor;
 import gov.nih.nci.nbia.util.NCIAConfig;
@@ -92,13 +91,13 @@ public class StartupServlet extends HttpServlet {
                                                               Scheduler.DEFAULT_GROUP,
                                                               LatestCurationDateJob.class);
 
-       Integer hrs = Integer.valueOf(NCIAConfig.getDiscoverPeriodInHrs());
-       Trigger nodeLookupTrigger = TriggerUtils.makeHourlyTrigger(hrs);
+       //Integer hrs = Integer.valueOf(NCIAConfig.getDiscoverPeriodInHrs());
+       //Trigger nodeLookupTrigger = TriggerUtils.makeHourlyTrigger(hrs);
 
-       nodeLookupTrigger.setName("Trigger for Node Lookup");
-       JobDetail nodeLookupJobDetail = new JobDetail("NodeLookup",
-                                                     Scheduler.DEFAULT_GROUP,
-                                                     NodeLookupJob.class);
+       //nodeLookupTrigger.setName("Trigger for Node Lookup");
+       //JobDetail nodeLookupJobDetail = new JobDetail("NodeLookup",
+       //                                              Scheduler.DEFAULT_GROUP,
+       //                                              NodeLookupJob.class);
 
        // wait an 1 min before starting solrUpdates
        long startTime = System.currentTimeMillis() + 6000L;
@@ -164,7 +163,7 @@ public class StartupServlet extends HttpServlet {
             	scheduler.scheduleJob(runNewDataFlagJobDetail, runNewDataFlagTrigger);
             }
 
-            scheduler.scheduleJob(nodeLookupJobDetail, nodeLookupTrigger);
+           // scheduler.scheduleJob(nodeLookupJobDetail, nodeLookupTrigger);
 
             scheduler.start();
         } catch (SchedulerException se) {

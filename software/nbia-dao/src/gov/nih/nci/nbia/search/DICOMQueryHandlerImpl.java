@@ -191,12 +191,11 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 	        List<PatientStudySeriesTriple> patientList = new ArrayList<PatientStudySeriesTriple>();
 
 	        /* Process non-image criteria */
-	        //this.nonImageProcess();
-	        System.out.println(whereStmt);
+	        this.nonImageProcess();
+
 	        /* Process UrlParamCriteria if the DICOMQuery is URLType */
 	        if (query.isQueryFromUrl()) {
-	        	System.out.println("Url type");
-	           // whereStmt += urlCriteriaProcess();
+	            whereStmt += urlCriteriaProcess();
 	        }
 
 	        /* Process Authorization */
@@ -206,15 +205,12 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 	            return new ArrayList<PatientStudySeriesTriple>();
 	        }
 	        else {
-	        	System.out.println("rc type");
-	        	//whereStmt += rc;
+	        	whereStmt += rc;
 	        }
 
 	        /* Process image criteria */
-	        System.out.println(whereStmt);
 	        String imageClause = imageCriteriaProcess(this.query);
-	        System.out.println(whereStmt);
-	        String hql = selectStmt + fromStmt + whereStmt;// + imageClause;
+	        String hql = selectStmt + fromStmt + whereStmt + imageClause;
 
 	        /* Run the query */
 	        logger.info("Search Issuing query : " + hql);
@@ -602,11 +598,6 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
     }
 
     private static String processAuthorizationCollections(DICOMQuery theQuery) {
-        if (1==1)
-        {
-        	logger.info("Mocking");
-        	return "";
-        }
         AuthorizationCriteria authCrit = theQuery.getAuthorizationCriteria();
 
         if (((authCrit.getCollections() != null) &&
@@ -638,16 +629,8 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
     }
 
     private static String processAuthorizationSites(DICOMQuery theQuery)  {
-    	 System.out.println("Hello!!!!!!!!!!!!!!!!!!");
-        if (1==1)
-        {
-        	logger.info("Mocking");
-        	return "";
-        }
         AuthorizationCriteria authCrit = theQuery.getAuthorizationCriteria();
-       
 
-        
         if (authCrit.getSites().isEmpty()) {
             // User is not allowed to view any sites.
             // Since all data has a site, user is not allowed to see anything

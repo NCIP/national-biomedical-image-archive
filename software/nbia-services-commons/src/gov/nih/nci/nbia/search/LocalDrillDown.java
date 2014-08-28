@@ -29,7 +29,6 @@ import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
 import gov.nih.nci.ncia.search.StudySearchResultImpl;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -172,7 +171,7 @@ public class LocalDrillDown implements DrillDown {
 			throw new RuntimeException(ex);
 		}
 	}
-	
+
 	/**
 	 * This method is only on the local drill down.  It's used by the
 	 * qc tool.  This method does not care about visibility status.

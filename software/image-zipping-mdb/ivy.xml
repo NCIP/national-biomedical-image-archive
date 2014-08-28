@@ -52,12 +52,6 @@ L-->
                 rev="latest.integration"
                 conf="runtime"/>
 
-    <dependency org="ncicb"
-                name="nbia-remote-search"
-                rev="latest.integration"
-                conf="runtime"/>
-
-
     <dependency org="rsna"
                 name="mircutil"
                 rev="T32"

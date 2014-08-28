@@ -49,6 +49,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		this.series = theSeries;
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
+		drillDown.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
 		imageSearchResults = drillDown.retrieveImagesForSeriesForAllVersion(theSeries);
 		setImageList(Arrays.asList(imageSearchResults));
 		icefacesDataModel = new IcefacesRowColumnDataModel(computeWrapperList(Arrays.asList(imageSearchResults)));
@@ -181,7 +182,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	public boolean getShowPaginator() {
 		return icefacesDataModel.getShowPaginator();
 	}
-	
+
 
     public String getImageIdx() {
 		return imageIdx;
@@ -190,19 +191,19 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	public void setImageIdx(String imageIdx) {
 		this.imageIdx = imageIdx;
 	}
-	
+
 	public void populate(String idx) {
 		if (idx == null){
 			setImageIdx ("1");
 		}
 		setImageIdx(idx);
 	}
-	
+
 	///////////////////////////////////////////PRIVATE/////////////////////////////////
 	private List<DicomTagDTO> tagInfo;
 
 	private SeriesSearchResult series;
-	
+
 	private String imageIdx;
 
 
@@ -283,12 +284,12 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		}
 		return wrappers;
 	}
-	
+
 	public String removeCurrentSeriesToBasket(ActionEvent event) throws Exception {
-		
+
 		BasketBean dataBasket = BeanManager.getBasketBean();
 		String toDelete = series.getId() + "||" + series.associatedLocation().getURL();
-		
+
 		dataBasket.getBasket().removeSelectedSeries(toDelete);
 
 		return null;

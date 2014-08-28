@@ -100,6 +100,11 @@ L-->
                 name="commons-beanutils"
                 rev="1.7.0"
                 conf="compile->master;runtime->master"/>
+                
+    <dependency org="commons-digester"
+                name="commons-digester"
+                rev="1.5"
+                conf="compile->master;runtime->master"/>
 
     <!--dependency org="org.icefaces"
                 name="icefaces"
@@ -195,11 +200,6 @@ L-->
 
     <dependency org="ncicb"
                 name="nbia-util"
-                rev="latest.integration"
-                conf="compile->master;runtime"/>
-
-    <dependency org="ncicb"
-                name="nbia-remote-search"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
 

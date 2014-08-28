@@ -53,12 +53,7 @@ L-->
                 conf="runtime"/>
 
     <dependency org="ncicb"
-                name="nbia-remote-search"
-                rev="latest.integration"
-                conf="runtime"/>
-
-    <dependency org="ncicb"
-    		        name="nbia-services-grid"
+    		name="nbia-services-grid"
                 rev="latest.integration"
                 conf="runtime->master"/>
   <!-- Added for jboss5.1.0GA-->                

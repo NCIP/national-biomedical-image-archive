@@ -269,8 +269,8 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			++i;
 		}
 		if (studyInstanceUid != null) {
-			where = where.append(" and UPPER(s.studyInstanceUID)=?");
-			paramList.add(studyInstanceUid.toUpperCase());
+			where = where.append(" and s.studyInstanceUID=?");
+			paramList.add(studyInstanceUid);
 			++i;
 		}
 		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));

@@ -77,15 +77,12 @@ L-->
                   <td colspan="7">
                     <f:subview id="savedQueryMode"
                                rendered="#{!savedQueryBean.historyMode}">
-                      <h:dataTable id="savedQueryModeDataTable"
+                      <ice:dataTable id="savedQueryModeDataTable"
                                    width="100%" 
                                    border="1" 
                                    cellpadding="3" 
                                    cellspacing="0" 
-                                   styleClass="dataTable" 
-                                   value="#{savedQueryBean.savedQueries}" 
-                                   rowClasses="dataRowLight, dataRowDark" 
-                                   headerClass="dataTableHeader" 
+                                   value="#{savedQueryBean.savedQueries}"
                                    var="item"
                                    binding="#{savedQueryBean.queryData}">
                         <h:column id="savedQueryShowCriteriaColumn">
@@ -103,17 +100,16 @@ L-->
                                              action="#{savedQueryBean.showCriteria}" />
                             </f:facet>
                             <ice:panelGroup>  
-                              <h:dataTable id="criteriaTable"
+                              <ice:dataTable id="criteriaTable"
                                            value="#{item.criteriaList}" 
                                            rendered="#{!(item.numCriteria == 0)}" 
                                            var="criteria" 
                                            width="100%"
-                                           rowClasses="formLabel" 
                                            cellpadding="3" 
                                            cellspacing="0" 
                                            border="1">
                                 <f:facet name="header">  
-                                  <ice:panelGroup styleClass="topBorder formTitleIIII">
+                                  <ice:panelGroup styleClass="panelGroupHeader">
                                     <h:outputText value="#{msg.search_selectedCriteria}" />
                                   </ice:panelGroup> 
                                 </f:facet>                                                
@@ -123,7 +119,7 @@ L-->
                                 <h:column>
                                   <h:outputText value="#{criteria.displayValue}" />
                                 </h:column>
-                              </h:dataTable>
+                              </ice:dataTable>
                               
                               <f:subview id="criteriaView" 
                                          rendered="#{item.numCriteria == 0}">
@@ -187,7 +183,7 @@ L-->
                             <h:selectBooleanCheckbox value="#{item.delete}" />
                           </div>                                               
                         </h:column>
-                      </h:dataTable>
+                      </ice:dataTable>
                                                                                           
                       <f:subview id="emptyQueryView" 
                                  rendered="#{savedQueryBean.savedQueryCount == 0}">

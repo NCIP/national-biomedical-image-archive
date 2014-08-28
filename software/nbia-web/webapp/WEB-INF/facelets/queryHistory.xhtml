@@ -18,15 +18,12 @@ L-->
                 
 <f:subview id="queryHistoryMode" 
            rendered="#{savedQueryBean.historyMode}">
-  <h:dataTable id="queryHistoryDataTable"
+  <ice:dataTable id="queryHistoryDataTable"
                width="100%"
                border="1" 
                cellpadding="3" 
                cellspacing="0" 
-               styleClass="dataTable" 
                value="#{savedQueryBean.queryHistory}" 
-               rowClasses="dataRowLight, dataRowDark" 
-               headerClass="dataTableHeader" 
                var="item"
                binding="#{savedQueryBean.queryHistoryData}">
   
@@ -40,17 +37,16 @@ L-->
                          action="#{savedQueryBean.showHistoryCriteria}" />
         </f:facet>
         <ice:panelGroup>            
-          <h:dataTable id="criteriaTable" 
+          <ice:dataTable id="criteriaTable" 
                        value="#{item.criteriaList}"
                        rendered="#{!(item.numCriteria == 0)}" 
                        var="criteria" 
                        width="100%" 
-                       rowClasses="formLabel" 
                        cellpadding="3" 
                        cellspacing="0" 
                        border="1">
             <f:facet name="header">  
-              <ice:panelGroup styleClass="topBorder formTitleIIII">
+              <ice:panelGroup  styleClass="panelGroupHeader">
                 <h:outputText value="#{msg.search_selectedCriteria}" />
               </ice:panelGroup> 
             </f:facet>                
@@ -60,7 +56,7 @@ L-->
             <h:column>
               <h:outputText value="#{criteria.displayValue}" />
             </h:column>
-          </h:dataTable>
+          </ice:dataTable>
           <f:subview id="criteriaView" 
                      rendered="#{item.numCriteria == 0}">
             <table width="100%" cellpadding="3" cellspacing="0" border="1">
@@ -88,7 +84,7 @@ L-->
                        action="#{savedQueryBean.resubmitQuery}" />
                    
     </h:column>
-  </h:dataTable>        
+  </ice:dataTable>        
  
   <f:subview id="emptyQueryView" 
              rendered="#{savedQueryBean.queryHistoryCount == 0}">

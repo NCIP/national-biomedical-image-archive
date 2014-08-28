@@ -805,6 +805,11 @@ table.contentPageII {
   font-weight: bold
 }
 
+.panelGroupHeader{
+  background-color:#6E81A6; 
+  color:#FFFFFF;
+}
+
 #notification {
   bottom: 0;
   padding: 0;

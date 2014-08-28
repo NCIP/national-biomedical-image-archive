@@ -246,14 +246,10 @@ L-->
                                      resizable="true" 
                                      rendered="#{not empty editCustomSeriesListBean.customList}"
                                      width="100%" 
-                                     border="1" 
                                      cellpadding="0" 
                                      cellspacing="0" 
-                                     styleClass="dataTable" 
-                                     headerClass="dataTableHeader" 
                                      value="#{editCustomSeriesListBean.customList}"
                                      binding="#{editCustomSeriesListBean.table}"
-                                     rowClasses="dataRowLight, dataRowDark" 
                                      var="item" 
                                      rows="#{editCustomSeriesListBean.selectedDispItemNum}">
                         <ice:column id="name">

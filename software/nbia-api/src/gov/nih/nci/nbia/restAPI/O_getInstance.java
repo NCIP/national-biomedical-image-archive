@@ -62,6 +62,7 @@ public class O_getInstance extends getData {
 			@QueryParam("StudyInstanceUID") String studyInstanceUid, @QueryParam("SeriesInstanceUID") String seriesInstanceUid
 			, @QueryParam("SOPInstanceUID") String sOPInstanceUID, @QueryParam("oviyamId") String oviyamId, @QueryParam("wadoUrl") String wadoUrl) {
 		List<String> authorizedCollections = null;
+		System.out.println("patient id:"+patientId);
 		try {
 			String user=null;
 			if (oviyamId!=null&&oviyamId.length()>0){
@@ -75,8 +76,10 @@ public class O_getInstance extends getData {
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//	e.printStackTrace();
 		}
+		System.out.println("patient id:"+patientId);
+		patientId=null;
 		List<Object[]> data = getInstance(sOPInstanceUID, patientId, studyInstanceUid, seriesInstanceUid, authorizedCollections);
 		return formatResponseInstance(format, data, columns);
 	}

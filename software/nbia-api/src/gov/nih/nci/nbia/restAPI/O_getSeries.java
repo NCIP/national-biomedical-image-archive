@@ -80,7 +80,7 @@ public class O_getSeries extends getData {
 			e.printStackTrace();
 		}
 		List<Object[]> data = getSeries(collection, patientId, studyInstanceUid, authorizedCollections);
-		if (seriesUid!=null&&seriesUid.length()>0)
+		if (seriesUid!=null&&seriesUid.length()>0&&!seriesUid.equals("null"))
 		{
 			for (Object[] object:data){
 				if (object[0].toString().equals(seriesUid)){

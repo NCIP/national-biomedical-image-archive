@@ -79,7 +79,7 @@ public class O_wado extends getData {
 			@QueryParam("presentationUID") String presentationUID,
 			@QueryParam("presentationSeriesUID") String presentationSeriesUID,
 			@QueryParam("transferSyntax") String transferSyntax) {
-
+        System.out.println("Oviyam wado called: + objectUID-"+objectUID+" contentType-"+contentType);
 		WADOSupportDTO wdto = getWadoImage(objectUID, contentType);
 		if (wdto.getErrors()!=null){
 			log.error("WADO Error: " + wdto.getErrors());

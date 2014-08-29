@@ -71,7 +71,7 @@ public class O_getInstance extends getData {
 			if (user==null){
 				authorizedCollections = getPublicCollections();
 			} else {
-				authorizedCollections = getAuthorizedCollections(oviyamId);
+				authorizedCollections = getAuthorizedCollections(user);
 			}
 			
 		} catch (Exception e) {

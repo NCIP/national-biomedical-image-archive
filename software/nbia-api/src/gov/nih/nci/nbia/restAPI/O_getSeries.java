@@ -73,7 +73,7 @@ public class O_getSeries extends getData {
 			if (user==null){
 				authorizedCollections = getPublicCollections();
 			} else {
-				authorizedCollections = getAuthorizedCollections(oviyamId);
+				authorizedCollections = getAuthorizedCollections(user);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

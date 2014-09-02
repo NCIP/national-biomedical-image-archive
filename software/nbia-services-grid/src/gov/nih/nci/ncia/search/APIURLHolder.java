@@ -10,11 +10,16 @@ public class APIURLHolder {
 	}
 	public static String addUser(String user)
 	{
+		try {
 		for(Map.Entry<String, String> entry : userMap.entrySet()){
 		    System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
 		    if (entry.getValue().equals(user)){
 		    	return entry.getKey();
 		    }
+		}
+		} catch (Exception e)
+		{
+			
 		}
 		UUID userKey = UUID.randomUUID();
 		userMap.put(userKey.toString(), user);

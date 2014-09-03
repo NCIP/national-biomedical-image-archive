@@ -111,9 +111,9 @@ L-->
 								<td>
 													
 														
-															<div id="modalitiesDiv" class="searchFormSelector" >
+															<div id="modalitiesDiv" class="searchFormSelector">
 																<h:dataTable id="modalityCheckboxesTable" width="100%"
-																	border="0" cellpadding="0" cellspacing="0"
+																	border="0" cellpadding="0" cellspacing="1"  style="margin-top:3px;"
 																	value="#{searchWorkflowBean.modalityItems}"
 																	var="modalityItem">
 																	<h:column id="modalityItemsColumn">
@@ -198,7 +198,8 @@ L-->
 										
 											<div id="anatomicalSitesDiv" class="searchFormSelector">
 												<h:dataTable id="anatomicalSitesCheckboxesTable"
-													width="100%" border="0" cellpadding="0" cellspacing="0"
+													width="100%" border="0" cellpadding="0"
+													cellspacing="1"  style="margin-top:3px"
 													value="#{searchWorkflowBean.anatomicalSiteItems}"
 													var="anatomicalSiteItem">
 														<h:column id="anatomicalSiteItemsColumn">
@@ -278,14 +279,26 @@ L-->
 	    			                
 	    			              
 	    			            </div>
+	    			           
+	    			           
 	    			            <div align="center">
 	    			              <h:panelGrid columns="1"
 	    			                           rendered="#{searchWorkflowBean.editingSavedQuery}">
+	    			                           
+	    			                 
+							<tr>
+	    			            		<td>
 	    			                <div>
 	    			                  <h:outputText value="#{msg.search_saveQuery}" />
 	    			                  <ncia:help label="images/help_icon.png" helpId="-editsavedqueries" />
 	    			                </div>
+	    			                </td>
+	    			                </tr>
+	    			                
 	    			                <h:panelGrid columns="2">
+	    			                <tr>
+	    			                <td>
+	    			                
 	    			                  <h:selectOneRadio value="#{searchResultBean.updateQuery}"
 	    			                                    layout="pageDirection"
 	    			                                    enabledClass="formMessage">
@@ -294,18 +307,31 @@ L-->
 	    			                    <f:selectItem itemValue="false"
 	    			                                  itemLabel="#{msg.search_saveQueryAs}" />
 	    			                  </h:selectOneRadio>
+	    			                 </td>
+	    			                 </tr>
+	    			                 
 	    			                  <h:panelGrid>
-	    			                    <br/>
+	    			                  
+	    			               <tr>
+	    			               <td>
+	    			               
 	    			                    <h:inputText id="newQueryName" 
 	    			                                 value="#{searchResultBean.queryName}" 
 	    			                                 maxlength="200" 
 	    			                                 onfocus="javascript:selectRadio();"/>
+	    			         	</td>
+	    			         	</tr>
+	    			         	
 	    			                  </h:panelGrid>
-	    			
+	    					<tr>
+	    					<td>
 	    			                  <h:commandButton id="editingSaveQueryButton" alt="Save Query" title="Save Query"
 	    			                                   image="images/SAVEQUERY.gif" 
 	    			                                   action="#{searchResultBean.saveQuery}" />
+	    			                </td>
+	    			                </tr>
 	    			                </h:panelGrid>
+	    			               
 	    			              </h:panelGrid>
 	    			              <h:inputHidden id="newDataQuery" value="true" />
 	    			              <h:message for="newDataQuery" errorClass="errorLabel" infoClass="infoLabel" />

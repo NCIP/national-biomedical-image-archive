@@ -830,7 +830,6 @@ $HeadURL$
     build:all,
 
     dist:src,
-    dist:ncia-core-grid-client,
     dist:solr"/--> 
     
     <target name="dist" description="Makes all distributions: installer, upgrader and source" 
@@ -838,8 +837,7 @@ $HeadURL$
         build:all,
         dist:installer,
         dist:src,
-        dist:ncia-core-grid-client,
-    dist:solr"/>
+        dist:solr"/>
 
   <target name="dist:src">
     <!-- Add tasks here to zip up src into a distribution, may require some additoinal properties for distribution name" -->

@@ -63,7 +63,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import gov.nih.nci.nbia.util.NCIAConfig;
 public class NCIASecurityManagerImpl extends AbstractDAO
                                      implements NCIASecurityManager {
 
@@ -92,7 +92,7 @@ public class NCIASecurityManagerImpl extends AbstractDAO
 	@Transactional(propagation=Propagation.REQUIRED)
     public void init() throws DataAccessException {
     	try {
-	        this.applicationName = "NCIA";
+	        this.applicationName = NCIAConfig.getCsmApplicationName();
 	        //logger.info("application name is " + name);
 	        upm = (UserProvisioningManager)SecurityServiceProvider.getAuthorizationManager(this.applicationName);
 

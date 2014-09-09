@@ -87,7 +87,11 @@ public class O_wado extends getData {
 			.entity(wdto.getErrors())
 			.build();
 		}
-		
-		return Response.ok(wdto.getImage(), contentType).build();
+		if (contentType.equals("application/dicom")){
+		   return Response.ok(wdto.getImage(), contentType).header("Content-Disposition", "attachment; filename=" + objectUID + ".dcm").build();
+		} else
+		{
+		   return Response.ok(wdto.getImage(), contentType).build();
+		}
 	}
 }

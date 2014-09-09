@@ -105,6 +105,7 @@ L-->
       </fileset>
 
     </copy>
+    <rename src="${assembly.classes.dir}/NCIA.csm.new.hibernate.cfg.xml" dest="${assembly.classes.dir}/${application.context.name}.csm.new.hibernate.cfg.xml"/>
   </target>
 
 

@@ -11,7 +11,10 @@ package gov.nih.nci.nbia.beans.searchresults;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.util.UidDisplayUtil;
+import gov.nih.nci.ncia.search.APIURLHolder;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
@@ -58,18 +61,12 @@ public class ImageResultWrapper {
 
     public String getLink()
     {
-    	String start ="wado?";
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(start);
-    	sb.append("requestType=").append("WADO").append("&");
-    	try {
-			sb.append("studyUID=").append(URLEncoder.encode(imageSearchResultEx.getStudyInstanceUid(), "UTF-8")).append("&");
-			sb.append("seriesUID=").append(URLEncoder.encode(imageSearchResultEx.getSeriesInstanceUid(), "UTF-8")).append("&");
-			sb.append("objectUID=").append(URLEncoder.encode(imageSearchResultEx.getSopInstanceUid(), "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-    	return sb.toString();
+        SecurityBean secure = BeanManager.getSecurityBean();
+        String userName = secure.getUsername();
+    	String url = APIURLHolder.getUrl()+"/nbia-api/services/o/wado?contentType=application/dicom&objectUID="+
+    	imageSearchResultEx.getSopInstanceUid()+"&oviyamId="+APIURLHolder.addUser(userName)+
+		"&wadoUrl="+APIURLHolder.getWadoUrl();
+    	return url;
     }
     /////////////////////////////////////////PRIVATE////////////////////////////////////
     

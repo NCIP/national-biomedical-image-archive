@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gov.nih.nci.nbia.restSecurity;
 
@@ -9,6 +9,7 @@ import gov.nih.nci.nbia.security.NCIASecurityManager;
 import gov.nih.nci.nbia.security.TableProtectionElement;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.security.AuthenticationManager;
 import gov.nih.nci.security.AuthorizationManager;
 import gov.nih.nci.security.SecurityServiceProvider;
@@ -50,6 +51,7 @@ public class AuthorizationService {
 	public static List<String> getCollectionForPublicRole()
 			throws CSObjectNotFoundException {
 		List<String> publicProtectionElemLst = new ArrayList<String>();
+		String csmContextName = NCIAConfig.getCsmApplicationName()+".";
 		NCIASecurityManager mgr = (NCIASecurityManager) SpringApplicationContext
 				.getBean("nciaSecurityManager");
 		Set<TableProtectionElement> publicPEs = mgr
@@ -58,7 +60,7 @@ public class AuthorizationService {
 			String protectionElementName = tPE.getAttributeValue();
 			if (protectionElementName.indexOf("//") != -1) {
 				protectionElementName = protectionElementName.replaceFirst(
-						"NCIA.", "'");
+						csmContextName, "'");
 				protectionElementName = protectionElementName.concat("'");
 				publicProtectionElemLst .add(protectionElementName);
 				System.out.println("!!!public protection group="
@@ -67,14 +69,14 @@ public class AuthorizationService {
 		}
 		return publicProtectionElemLst;
 	}
-	
+
 
 	public static List<String> getAuthorizedCollections(String userName) throws Exception {
-		String applicationName = "NCIA";
+		String applicationName = NCIAConfig.getCsmApplicationName();
 		User usr = null;
 		AuthorizationManager authorizationManager;
 		List<String> authorizedCollections = null;
-		
+
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //		System.out.println("!!!!!user name="+authentication.getPrincipal());
 //		String userName = (String)authentication.getPrincipal();
@@ -87,7 +89,7 @@ public class AuthorizationService {
 				Set<ProtectionElementPrivilegeContext> authorizedCollectionLst = authorizationManager
 						.getProtectionElementPrivilegeContextForUser(usr
 								.getUserId().toString());
-				
+
 				if (authorizedCollectionLst != null) {
 					authorizedCollections = new ArrayList<String>();
 					for (ProtectionElementPrivilegeContext authorizedCollection : authorizedCollectionLst) {
@@ -96,7 +98,7 @@ public class AuthorizationService {
 								.getProtectionElementName();
 						if (protectionElementName.indexOf("//") != -1) {
 							//make it ready to be used in sql
-							protectionElementName = protectionElementName.replaceFirst("NCIA.", "'");
+							protectionElementName = protectionElementName.replaceFirst(applicationName+".", "'");
 							protectionElementName = protectionElementName.concat("'");
 //							protectionElementName = protectionElementName.replaceFirst("NCIA.", "('");
 //							protectionElementName = protectionElementName.replaceFirst("//", "', '");
@@ -122,12 +124,12 @@ public class AuthorizationService {
 		}
 		return null;
 	}
-	
+
 	public static boolean isGivenUserHasAccess(String userName, Map<String,String> queryParamsMap) {
 	List<String> projAndSiteRequested = new ArrayList<String>();
 	List<String> authorizedProjAndSite = null;
-	 
-	try {	
+
+	try {
 	if (userName.equalsIgnoreCase("anonymousUser")) {
 		authorizedProjAndSite = AuthorizationService
 				.getCollectionForPublicRole();
@@ -135,23 +137,23 @@ public class AuthorizationService {
 		authorizedProjAndSite = AuthorizationService
 				.getAuthorizedCollections(userName);
 	}
-  
+
 	GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 	projAndSiteRequested.addAll(generalSeriesDao.getRequestedProjectAndSite(queryParamsMap));
-			
+
 	if (authorizedProjAndSite != null) {
 		//check if request collection is part of authorized collection for user
 		for (String reqPandS :projAndSiteRequested) {
 			System.out.println("requested Project and site ="+reqPandS);
 			String formatedS = "'"+ reqPandS +"'";
-			if (authorizedProjAndSite.contains(formatedS)) 
+			if (authorizedProjAndSite.contains(formatedS))
 			return true;
 		}
 	}
 	else {
 		return false;
 		 //throw new  CSObjectNotFoundException ("The user "+userName+" is not in authrization database");
-		//user is authenticated but not in local database	
+		//user is authenticated but not in local database
 	}
     }
     catch (Exception ex) {

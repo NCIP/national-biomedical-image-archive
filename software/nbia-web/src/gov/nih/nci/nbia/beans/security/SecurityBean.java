@@ -77,12 +77,6 @@ public class SecurityBean {
 	 * Returns a list of collection names that the user is allowed to view.
 	 */
 	public List<String> getAuthorizedCollections() {
-        if (1==1)
-        {
-        	List returnValue=new ArrayList();
-        	returnValue.add("Project");
-        	return returnValue;
-        }
 		if (authMgr != null) {
 			return authMgr.getAuthorizedCollections();
 		} else {

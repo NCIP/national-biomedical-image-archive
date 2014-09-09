@@ -214,6 +214,7 @@ L-->
 				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
 				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
 				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
+				<filter token="application.context.name" value="${application.context.name}"/>
 			</filterset>
 		</copy>
 		
@@ -362,19 +363,16 @@ L-->
 	</target>
 	
 	<target name="build:nbia-dao" depends="init,
-                                         build:nbia-util,
-                                         build:nbia-services-grid,
-                                         build:nbia-domain">
+                                               build:nbia-util,
+                                               build:nbia-services-grid,
+                                               build:nbia-domain">                             
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-dao.build.target}" dir="${nbia-dao.base.dir}">
-			<!--property name="project.name" value="${project.name}"/>
-
-      <property name="database.type" value="${database.type}"/>
-      <property name="database.user" value="${database.user}"/>
-      <property name="database.password" value="${database.password}"/>
-      <property name="database.url" value="${database.url}"/>
-      <property name="database.driver" value="${database.driver}"/-->
+			<property name="database.driver" value="${database.driver}"/>
+			<property name="database.dialect" value="${database.dialect}"/>
+			<property name="application.context.name" value="${application.context.name}"/>
 		</ant>
 	</target>
+	
 	<!-- rewrite the code since github does not support $headURL$ so whenever to display tag in home page build with '-Dnbia_prod_build_tag=value' to diplay on home page -->
 	<target name="compute-tag-properties">
 	   <if>

@@ -1,0 +1,1 @@
+These are the adapter classes that need to be integrated with any new version of Oviyam

@@ -60,7 +60,7 @@ public class ImageResultWrapper {
     public String getLink()
     {
 
-    	String url = APIURLHolder.getUrl()+"/nbia-api/services/o/wado&objectUID="+imageSearchResultEx.getSopInstanceUid();
+    	String url = APIURLHolder.getUrl()+"/nbia-api/services/o/wado?contentType=application/dicom&objectUID="+imageSearchResultEx.getSopInstanceUid();
     	return url;
     }
     /////////////////////////////////////////PRIVATE////////////////////////////////////

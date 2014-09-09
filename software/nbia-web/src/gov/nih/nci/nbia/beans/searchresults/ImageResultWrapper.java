@@ -11,6 +11,8 @@ package gov.nih.nci.nbia.beans.searchresults;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import gov.nih.nci.nbia.beans.BeanManager;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.util.UidDisplayUtil;
 import gov.nih.nci.ncia.search.APIURLHolder;
 import gov.nih.nci.ncia.search.ImageSearchResult;
@@ -59,8 +61,11 @@ public class ImageResultWrapper {
 
     public String getLink()
     {
-
-    	String url = APIURLHolder.getUrl()+"/nbia-api/services/o/wado?contentType=application/dicom&objectUID="+imageSearchResultEx.getSopInstanceUid();
+        SecurityBean secure = BeanManager.getSecurityBean();
+        String userName = secure.getUsername();
+    	String url = APIURLHolder.getUrl()+"/nbia-api/services/o/wado?contentType=application/dicom&objectUID="+
+    	imageSearchResultEx.getSopInstanceUid()+"&oviyamId="+APIURLHolder.addUser(userName)+
+		"&wadoUrl="+APIURLHolder.getWadoUrl();
     	return url;
     }
     /////////////////////////////////////////PRIVATE////////////////////////////////////

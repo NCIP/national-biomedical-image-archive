@@ -28,12 +28,12 @@ public static ArrayList<StudyModel> getStudyModels	(String patientID, String stu
 		if (studyUID!=null&&studyUID.length()>1){
 			fullURL =fullURL+"&StudyInstanceUID="+studyUID;
 		}
-		fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
+		//fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
 		System.out.println(fullURL);
 		HttpGet httpGet = new HttpGet(fullURL);
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 		String bodyAsString = EntityUtils.toString(response1.getEntity());
-		System.out.println(bodyAsString);
+		//System.out.println(bodyAsString);
 		JSONParser parser = new JSONParser();
 		Object jobj = parser.parse(bodyAsString);
 		JSONArray jsonarray = (JSONArray)jobj;
@@ -78,11 +78,11 @@ public static ArrayList<SeriesModel> getSeriesModels	(String patientID, String s
 			fullURL =fullURL+"&StudyInstanceUID="+studyUID;
 		}
 		fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
-		System.out.println(fullURL);
+		//System.out.println(fullURL);
 		HttpGet httpGet = new HttpGet(fullURL);
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 		String bodyAsString = EntityUtils.toString(response1.getEntity());
-		System.out.println(bodyAsString);
+		//System.out.println(bodyAsString);
 		JSONParser parser = new JSONParser();
 		Object jobj = parser.parse(bodyAsString);
 		JSONArray jsonarray = (JSONArray)jobj;
@@ -129,11 +129,11 @@ public static ArrayList<InstanceModel> getInstanceModels(String patientID, Strin
 			fullURL =fullURL+"&SOPInstanceUID="+SOPInstanceUID;
 		}
 		fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
-		System.out.println(fullURL);
+		//System.out.println(fullURL);
 		HttpGet httpGet = new HttpGet(fullURL);
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 		String bodyAsString = EntityUtils.toString(response1.getEntity());
-		System.out.println(bodyAsString);
+		//System.out.println(bodyAsString);
 		JSONParser parser = new JSONParser();
 		Object jobj = parser.parse(bodyAsString);
 		JSONArray jsonarray = (JSONArray)jobj;

@@ -534,7 +534,7 @@ L-->
            <sql>
              UPDATE csm_user
              SET FIRST_NAME='FsQcmjeTRwMyYjNa0oHwgA=='
-             WHERE login_name='nciadevtest';
+             WHERE login_name='prasaiyk';
            </sql>
     </changeSet>
     
@@ -546,7 +546,7 @@ L-->
            <sql>
              UPDATE csm_user
              SET LAST_NAME='qHd6B/O/6sCgHyhdRmAt7Q=='
-             WHERE login_name='nciadevtest';
+             WHERE login_name='prasaiyk';
            </sql>
     </changeSet>
     
@@ -558,7 +558,7 @@ L-->
              <sql>
                UPDATE csm_user
                SET PASSWORD='5kJqWYBdWCphljGP2pGUGg=='
-               WHERE login_name='nciadevtest';
+               WHERE login_name='prasaiyk';
              </sql>
     </changeSet>
     
@@ -570,7 +570,7 @@ L-->
            <sql>
              UPDATE csm_user
              SET PASSWORD_EXPIRY_DATE=ADDDATE(CURDATE(), INTERVAL 60 DAY)
-             WHERE login_name='nciadevtest';
+             WHERE login_name='prasaiyk';
            </sql>
   </changeSet>
   

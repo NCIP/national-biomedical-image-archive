@@ -74,7 +74,7 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 		}
 		if (!isAuthorized)
 		{
-			System.out.println("User: "+user+" noy authorized");
+			System.out.println("User: "+user+" not authorized");
 			return null; //not authorized
 		}
 		}
@@ -95,7 +95,7 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 	return returnValue;
 }
 @Transactional(propagation=Propagation.REQUIRED)
-public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
+public WADOSupportDTO getOviyamWADOSupportDTO(String image, String contentType, String user)
 {
 	WADOSupportDTO returnValue = new WADOSupportDTO();
 	log.info("Oviyam wado image-"+image);
@@ -105,6 +105,27 @@ public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
 		if (images.size()==0) {
 			   log.info("image not found");
 			   return null; //nothing to do
+		}
+		AuthorizationManager manager = new AuthorizationManager(user);
+		List<SiteData> authorizedSites = manager.getAuthorizedSites();
+		returnValue.setCollection((String)images.get(0)[0]);
+		returnValue.setSite((String)images.get(0)[1]);
+		boolean isAuthorized = false;
+		for (SiteData siteData : authorizedSites)
+		{
+			if (siteData.getCollection().equals(returnValue.getCollection()))
+			{
+				if (siteData.getSiteName().equals(returnValue.getSite()))
+				{
+					isAuthorized = true;
+					break;
+				}
+			}
+		}
+		if (!isAuthorized)
+		{
+			System.out.println("User: "+user+" not authorized");
+			return null; //not authorized
 		}
 		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);
@@ -144,8 +165,6 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 			   returnValue.setErrors("image not found");
 			   return returnValue; 
 		}
-		if (user!="internal")
-		{
 		AuthorizationManager manager = new AuthorizationManager(user);
 		List<SiteData> authorizedSites = manager.getAuthorizedSites();
 		returnValue.setCollection((String)images.get(0)[0]);
@@ -164,9 +183,8 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 		}
 		if (!isAuthorized)
 		{
-			System.out.println("User: "+user+" noy authorized");
+			System.out.println("User: "+user+" not authorized");
 			return null; //not authorized
-		}
 		}
 		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);

@@ -41,7 +41,11 @@ L-->
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
-  
+    <servlet>
+    <servlet-name>Startup Servlet</servlet-name>
+    <servlet-class>gov.nih.nci.nbia.servlet.DICOMServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
   
   <servlet>
         <servlet-name>spring</servlet-name>

@@ -88,6 +88,18 @@ L-->
                 rev="1.2_pre-dr-b04"
                 conf="runtime->master"/>
 
+    <dependency org="org.slf4j"
+                name="slf4j-api"
+                rev="1.7.5"
+                conf="compile->master;runtime->master"/>
+   
+    <dependency org="org.slf4j"
+                name="slf4j-nop"
+                rev="1.7.5"
+                conf="compile->master;runtime->master"/>
+
+
+
 		<!-- end of dicom -->
 	</dependencies>
 </ivy-module>

@@ -568,9 +568,9 @@ L-->
            </comment>  
            
            <sql>
-             UPDATE csm_user
-             SET PASSWORD_EXPIRY_DATE=ADDDATE(CURDATE(), INTERVAL 60 DAY)
-             WHERE login_name='prasaiyk';
+		UPDATE csm_user
+		SET PASSWORD_EXPIRY_DATE=sysdate + 60
+		WHERE login_name='prasaiyk'
            </sql>
   </changeSet>
   

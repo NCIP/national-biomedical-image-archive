@@ -4,18 +4,17 @@ import gov.nih.nci.nbia.util.SiteData;
 import java.util.*;
 public class UserObject {
 private List <SiteData>authorizedSites;
-private Date lastUpdated;
+private long lastUpdated;
 public List<SiteData> getAuthorizedSites() {
+	if ((lastUpdated+3600000)<System.currentTimeMillis()){
+       return null;
+	}
 	return authorizedSites;
 }
 public void setAuthorizedSites(List<SiteData> authorizedSites) {
 	this.authorizedSites = authorizedSites;
+	lastUpdated = System.currentTimeMillis();
 }
-public Date getLastUpdated() {
-	return lastUpdated;
-}
-public void setLastUpdated(Date lastUpdated) {
-	this.lastUpdated = lastUpdated;
-}
+
 
 }

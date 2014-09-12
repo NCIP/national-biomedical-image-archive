@@ -66,6 +66,12 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 		if (uo!=null)
 		{
 			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
 		} else
 		{
 		   AuthorizationManager manager = new AuthorizationManager(user);
@@ -121,8 +127,25 @@ public WADOSupportDTO getOviyamWADOSupportDTO(String image, String contentType, 
 			   log.info("image not found");
 			   return null; //nothing to do
 		}
-		AuthorizationManager manager = new AuthorizationManager(user);
-		List<SiteData> authorizedSites = manager.getAuthorizedSites();
+		List<SiteData> authorizedSites;
+		UserObject uo = userTable.get(user);
+		if (uo!=null)
+		{
+			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
+		} else
+		{
+		   AuthorizationManager manager = new AuthorizationManager(user);
+		   authorizedSites = manager.getAuthorizedSites();
+		   uo = new UserObject();
+		   uo.setAuthorizedSites(authorizedSites);
+		   userTable.put(user, uo);
+		}
 		returnValue.setCollection((String)images.get(0)[0]);
 		returnValue.setSite((String)images.get(0)[1]);
 		boolean isAuthorized = false;
@@ -180,8 +203,25 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 			   returnValue.setErrors("image not found");
 			   return returnValue; 
 		}
-		AuthorizationManager manager = new AuthorizationManager(user);
-		List<SiteData> authorizedSites = manager.getAuthorizedSites();
+		List<SiteData> authorizedSites;
+		UserObject uo = userTable.get(user);
+		if (uo!=null)
+		{
+			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
+		} else
+		{
+		   AuthorizationManager manager = new AuthorizationManager(user);
+		   authorizedSites = manager.getAuthorizedSites();
+		   uo = new UserObject();
+		   uo.setAuthorizedSites(authorizedSites);
+		   userTable.put(user, uo);
+		}
 		returnValue.setCollection((String)images.get(0)[0]);
 		returnValue.setSite((String)images.get(0)[1]);
 		boolean isAuthorized = false;

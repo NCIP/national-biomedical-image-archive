@@ -74,15 +74,17 @@ L-->
 		<dependency org="javax.servlet" name="servlet-api" rev="2.4" conf="compile->master"/>
 		
 		<!-- end of Spring 3.2.8-->
-		<!-- dicom -->
+		
 		     <dependency org="dcm4che"
                 name="dcm4che"
                 rev="1.4.20"
                 conf="compile->master;runtime->default"/>
+         <!-- dicom 
              <dependency org="dcm4che"
                 name="dcm4che-imageio-rle"
                 rev="2.0.17"
                 conf="compile->master;runtime->default"/>
+          -->
              <dependency org="java.net"
                 name="jai_imageio"
                 rev="1.2_pre-dr-b04"

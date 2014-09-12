@@ -8,13 +8,13 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-import org.dcm4che.imageio.plugins.DcmImageReadParam;
+import org.dcm4che2.imageio.plugins.dcm.DicomImageReadParam;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class DCMUtils {
 private static boolean scanned =false;
 private static ImageReader reader;
-private static DcmImageReadParam param;
+private static DicomImageReadParam param;
 public static synchronized byte[] getJPGFromFile(File file)
 {
 
@@ -25,8 +25,8 @@ public static synchronized byte[] getJPGFromFile(File file)
 	   ImageIO.scanForPlugins();
 	   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 	   reader=(ImageReader) iter.next();
-	   System.out.println("reader is not has beeb set");
-	   param = (DcmImageReadParam) reader.getDefaultReadParam();
+	   System.out.println("reader is not has been set");
+	   param = (DicomImageReadParam) reader.getDefaultReadParam();
 	}
 	if (reader==null)
 	{

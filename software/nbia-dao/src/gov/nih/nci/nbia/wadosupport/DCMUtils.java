@@ -24,9 +24,16 @@ public static synchronized byte[] getJPGFromFile(File file)
 	   scanned=true;
 	   ImageIO.scanForPlugins();
 	   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
-	   reader=(ImageReader) iter.next();
-	   System.out.println("reader is not has been set");
-	   param = (DicomImageReadParam) reader.getDefaultReadParam();
+	   while (iter.hasNext()){
+	     reader=(ImageReader) iter.next();
+	     System.out.println("reader is "+reader.getDefaultReadParam().getClass().getName());
+	     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
+	     {
+	         param = (DicomImageReadParam) reader.getDefaultReadParam();
+	         System.out.println("right reader found");
+	         break;
+	     }
+	   }
 	}
 	if (reader==null)
 	{

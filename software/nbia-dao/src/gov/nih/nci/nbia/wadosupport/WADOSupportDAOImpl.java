@@ -38,7 +38,7 @@ public class WADOSupportDAOImpl extends AbstractDAO
 public WADOSupportDAOImpl()
 {
 	if (userTable==null){
-		userTable=new HashMap <>String, UserObject>();
+		userTable=new HashMap <String, UserObject>();
 	}
 }
 public WADOSupportDTO getWADOSupportDTO(String study, String series, String image)

@@ -122,6 +122,9 @@ public List<WorkflowNewSeriesDTO> getNewSeries(Date high, Date low)
 		GeneralSeriesDAO generalSeriesDao = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
 		List<SeriesDTO> seriesList= generalSeriesDao.findSeriesBySeriesInstanceUIDAnyVisibility(seriesUIDs);
+		if (seriesList==null){
+			return returnValue;
+		}
 		for (SeriesDTO sDTO: seriesList)
 		{
 			// now lets see if there are associated work flows

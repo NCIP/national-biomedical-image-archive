@@ -274,26 +274,14 @@ L-->
     depends="
     common:jboss:init,
     common:common:init,
-    common:ncia-core-grid:init,
-    common:ncia-core-grid-unsecured:init,
-    common:nbia-grid:init,
     install:jboss:init,
-    install:ncia-core-grid:init,
-    install:ncia-core-grid-unsecured:init,
-    install:nbia-grid:init,
     install:common:validation:pre-install,
     install:jboss:validation:pre-install,
     install:database:validation:pre-install,
     install:jboss:stop,
-    install:ncia-core-grid:jboss:stop,
-    install:ncia-core-grid-unsecured:jboss:stop,
-    install:nbia-grid:jboss:stop,
     install:jboss:validation:pre-install:ports,
     install:database,
     install:jboss,
-    install:ncia-core-grid,
-    install:ncia-core-grid-unsecured,
-    install:nbia-grid,
     install:ctp,
     install:all:post,
     install:common:validation:post-install
@@ -313,21 +301,12 @@ L-->
           depends="upgrade:all:init,
                    common:common:init,
                    common:jboss:init,
-                   common:ncia-core-grid:init,
-                   common:ncia-core-grid-unsecured:init,
-                   common:nbia-grid:init,
                    install:common:validation:pre-install,
                    install:jboss:validation:pre-install,
                    install:database:validation:pre-install,
                    install:jboss:stop,
-                   install:ncia-core-grid:jboss:stop,
-                   install:ncia-core-grid-unsecured:jboss:stop,
-                   install:nbia-grid:jboss:stop,
                    upgrade:database,
                    upgrade:jboss,
-                   upgrade:ncia-core-grid,
-                   upgrade:ncia-core-grid-unsecured,
-                   upgrade:nbia-grid,
                    upgrade:ctp:server,
                    upgrade:ctp:client,
                    upgrade:database,
@@ -339,9 +318,6 @@ L-->
   <target name="install:all:post"
           depends="common:common:init,
                    install:jboss:post,
-                   install:ncia-core-grid:post,
-                   install:ncia-core-grid-unsecured:post,
-                   install:nbia-grid:post,
                    install:ctp:server:post"/>
 
 
@@ -460,28 +436,6 @@ L-->
     <property name="validation.post.socket.list"
               value="${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}"/>
 
-    <echo message="GLOBUS_LOCATION = ${env.GLOBUS_LOCATION}"/>
-    <if>
-      <not>
-        <isset property="env.GLOBUS_LOCATION"/>
-      </not>
-      <then>
-        <if>
-          <not>
-            <available file="${temp.dir}/${ws-core.binaries.relative.dir}"/>
-          </not>
-          <then>
-            <unzip dest="${temp.dir}" src="${tools.dir.src}/${ws-core.binaries.file}" />
-          </then>
-        </if>
-        <property name="env.GLOBUS_LOCATION" value="${temp.dir}/${ws-core.binaries.relative.dir}"/>
-        <echo message="Setting GLOBUS_LOCATION to ${env.GLOBUS_LOCATION}."/>
-      </then>
-      <else>
-        <echo message="GLOBUS_LOCATION is set to ${env.GLOBUS_LOCATION}."/>
-      </else>
-    </if>
-
     <echo message="solr home = ${gov.nih.nci.ncia.solr.home}"/>
 
     <mkdir dir="${gov.nih.nci.ncia.solr.home}"/>
@@ -495,10 +449,7 @@ L-->
 
 
   <target name="upgrade:all:init"
-          depends="upgrade:jboss:init,
-                   upgrade:ncia-core-grid:init,
-                   upgrade:ncia-core-grid-unsecured:init,
-                   upgrade:nbia-grid:init">
+          depends="upgrade:jboss:init">
   </target>
 
 
@@ -550,9 +501,6 @@ L-->
 
   <target name="upgrade:all:readers"
           depends="upgrade:jboss:init,
-                   upgrade:ncia-core-grid:init,
-                   upgrade:ncia-core-grid-unsecured:init,
-                   upgrade:nbia-grid:init,
                    upgrade:ctp:readers"/>
 
 </project>

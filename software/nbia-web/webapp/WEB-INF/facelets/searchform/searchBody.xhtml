@@ -183,8 +183,10 @@ L-->
 											</f:subview>
 										
 									</table>
+						</td>
 						
-							
+									<tr>
+									<td style="float:left;">
 							<f:subview id="anatomicCriteria"
 									rendered="#{searchWorkflowBean.showAnatomicCriteria}">
 									
@@ -192,11 +194,12 @@ L-->
 											    <ice:outputText id="anatomicalHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
 											   
 										
-											    
 										
 										
 										
-										<div style="margin-left:4px">
+										
+										
+										<div style="margin-left:4px; margin-top:20px;">
 											<div id="anatomicalSitesDiv" class="searchFormSelector">
 												<h:dataTable id="anatomicalSitesCheckboxesTable"
 													width="100%" border="0" cellpadding="0"
@@ -220,23 +223,26 @@ L-->
 
 									
 								</f:subview>
-								
+								</td>
+								</tr>
 								
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 							
-		
-		<div id="clear"  style="height: 20px;">
+		<tr>
+		<td>
+		<div id="clear" style="height: 20px; margin-top:10px; margin-bottom:20px">
 		    <ice:commandLink id="addSeriesToBasketButton" action="#{searchWorkflowBean.reset}" >                                          
 			<ice:graphicImage value="images/reset.gif" alt="reset" style="border:none;display:inline;"/>                                                                               
 		    </ice:commandLink>
 		</div>
-		
+		</td>
+		</tr>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 
 
-              </td>
+              
               
               
               

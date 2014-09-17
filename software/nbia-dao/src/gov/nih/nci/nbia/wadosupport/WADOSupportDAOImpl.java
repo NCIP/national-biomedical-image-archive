@@ -177,7 +177,7 @@ public WADOSupportDTO getOviyamWADOSupportDTO(String image, String contentType, 
 		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 		} else
 		{
-			JPEGResult result = DCMUtils.getJPGFromFile(imageFile, null);
+			JPEGResult result = DCMUtils.getJPGFromFile(imageFile, new WADOParameters());
 			if (result.getErrors()!=null)
 			{
 				returnValue.setErrors(result.getErrors());

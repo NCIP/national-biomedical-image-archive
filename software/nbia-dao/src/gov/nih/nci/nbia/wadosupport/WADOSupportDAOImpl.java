@@ -222,6 +222,7 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 			}
 		} else
 		{
+		   System.out.println("the user is " + user);
 		   AuthorizationManager manager = new AuthorizationManager(user);
 		   authorizedSites = manager.getAuthorizedSites();
 		   uo = new UserObject();

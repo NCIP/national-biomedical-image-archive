@@ -86,9 +86,9 @@ public void setRows(String rows) {
 	{
 		addError("rows not available for application/dicom");
 	}
-	if (!isNumeric(rows))
+	if (!isValidPositive(rows))
 	{
-		addError("rows is not a number");
+		addError("rows is not valid");
 	}
 	this.rows = rows;
 }
@@ -101,9 +101,9 @@ public void setColumns(String columns) {
 	{
 		addError("columns not available for application/dicom");
 	}
-	if (!isNumeric(columns))
+	if (!isValidPositive(columns))
 	{
-		addError("columns is not a number");
+		addError("columns is not valid");
 	}
 	this.columns = columns;
 }
@@ -123,9 +123,9 @@ public void setWindowCenter(String windowCenter) {
 	{
 		addError("windowCenter not available for application/dicom");
 	}	
-	if (!isNumeric(windowCenter))
+	if (!isValidPositive(windowCenter))
 	{
-		addError("windowCenter is not a number");
+		addError("windowCenter is not valid");
 	}
 	this.windowCenter = windowCenter;
 }
@@ -140,7 +140,7 @@ public void setWindowWidth(String windowWidth) {
 	}
 	if (!isNumeric(windowWidth))
 	{
-		addError("windowWidth is not a number");
+		addError("windowWidth is not valid");
 	}
 	this.windowWidth = windowWidth;
 }
@@ -162,7 +162,11 @@ public void setImageQuality(String imageQuality) {
 
 public void setFrameNumber(String frameNumber) {
 	if (frameNumber==null) return;
-	if (!isFrameValid(frameNumber))
+	if (contentType.equals("application/dicom"))
+	{
+		addError("imageQuality not available for application/dicom");
+	}
+	if (!isValidPositive(frameNumber))
 	{
 		addError("Frame Number is not valid");
 	}
@@ -232,6 +236,10 @@ public String validate()
 	{
 		addError("Missing requestType");
 	}
+	if ((windowWidth!=null&&windowCenter==null)||(windowWidth==null&&windowCenter!=null))
+	{
+		addError("windowWidth and windowCenter must both be set to be used");
+	}
 	return errorMessage;
 }
 private static boolean isNumeric(String str)  
@@ -275,7 +283,7 @@ private boolean isQualityValid(String str)
   }
   return false;  
 }
-private static boolean isFrameValid(String str)  
+private static boolean isValidPositive(String str)  
 {  
   try  
   {  
@@ -307,6 +315,42 @@ public int getFrameNumberInt()
 		return 0;
 	}
     return Integer.parseInt(frameNumber);  
+
+}
+public int getRowsInt()  
+{  
+	if (rows==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(rows);  
+
+}
+public int getColumnsInt()  
+{  
+	if (columns==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(columns);  
+
+}
+public int getWindowWidthInt()  
+{  
+	if (windowWidth==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(windowWidth);  
+
+}
+public int getWindowCenterInt()  
+{  
+	if (windowCenter==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(windowCenter);  
 
 }
 @Override

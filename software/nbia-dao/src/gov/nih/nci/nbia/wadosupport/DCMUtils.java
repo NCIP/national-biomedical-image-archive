@@ -1,9 +1,15 @@
 package gov.nih.nci.nbia.wadosupport;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.awt.image.*;
+import java.awt.Image;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.io.*;
 import java.util.Iterator;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
@@ -73,7 +79,24 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 			returnValue.setErrors("Cannot read DICOM image. BufferedImage is NULL");
 			return returnValue;
 		}
-         
+        if (params.getRowsInt()!=-1)
+        {
+        	BufferedImage  bdest;
+        	bdest=toBufferedImage(myJpegImage.getScaledInstance(-1, params.getRowsInt(), myJpegImage.SCALE_DEFAULT));
+        	myJpegImage=bdest;
+        }
+        if (params.getColumnsInt()!=-1)
+        {
+        	BufferedImage  bdest;
+        	bdest=toBufferedImage(myJpegImage.getScaledInstance(params.getColumnsInt(), -1, myJpegImage.SCALE_DEFAULT));
+        	myJpegImage=bdest;
+        }		
+        if (params.getWindowWidthInt()!=-1)
+        {
+        	RescaleOp rescale= new RescaleOp(params.getWindowWidthInt(),params.getWindowCenterInt(), null);
+        	myJpegImage=rescale.filter(myJpegImage,null);
+
+        }	
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(output);
 		JPEGEncodeParam enParam=JPEGCodec.getDefaultJPEGEncodeParam(myJpegImage);
@@ -97,11 +120,48 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 	    
 		public static void main(String[] args) {
 	        WADOParameters params = new WADOParameters();
-	        params.setImageQuality("50");
-	        params.setFrameNumber("16");
-	        File file = new File("/dev/test2.dcm");
-	        getJPGFromFile(file,params);
+	        //params.setImageQuality("50");
+	        //params.setFrameNumber("16");
+	        //params.setRows("50");
+	        params.setWindowCenter("10");
+	        params.setWindowWidth("40");
+	        File file = new File("/dev/test.dcm");
+	        JPEGResult result=getJPGFromFile(file,params);
+	        result.getImages().toString();
+	        try {
+				FileOutputStream fos = new FileOutputStream(new File("/dev/out.jpg"));
+
+               //create an object of BufferedOutputStream
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+				System.out.println(result.getImages().length);
+				bos.write(result.getImages());
+				bos.flush();
+				bos.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 	    }
+		private static BufferedImage toBufferedImage(Image img)
+		{
+		    if (img instanceof BufferedImage)
+		    {
+		        return (BufferedImage) img;
+		    }
 
+		    // Create a buffered image with transparency
+		    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+		    // Draw the image on to the buffered image
+		    Graphics2D bGr = bimage.createGraphics();
+		    bGr.drawImage(img, 0, 0, null);
+		    bGr.dispose();
+
+		    // Return the buffered image
+		    return bimage;
+		}
 }

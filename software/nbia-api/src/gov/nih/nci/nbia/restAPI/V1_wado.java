@@ -169,7 +169,7 @@ public class V1_wado extends getData {
 		}
         log.info("WADO called with " + params.toString());
         String errors=params.validate();
-		Application authentication = SecurityContextHolder.getContext()
+        Authentication authentication = SecurityContextHolder.getContext()
 		.getAuthentication();
 		String userName=null;
 		if (authentication==null){

@@ -50,6 +50,7 @@ public class DICOMServlet extends HttpServlet {
     public void init() {
 
     	QueryRetrieve qr = new QueryRetrieve();
+    	logger.info("starting query retrieve servlet");
     	qr.doStartService();
     }
 

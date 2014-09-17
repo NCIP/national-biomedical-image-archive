@@ -47,21 +47,27 @@ import in.raster.oviyam.model.InstanceModel;
 import in.raster.oviyam.delegate.ImageOrientation;
 import in.raster.oviyam.util.InstanceComparator;
 import in.raster.oviyam.xml.handler.LanguageHandler;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.InputStream;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.net.URL;
+
 import org.dcm4che2.io.DicomInputStream;
 import org.dcm4che2.data.DicomElement;
 import org.dcm4che2.data.DicomObject;
@@ -91,8 +97,11 @@ public class InstanceServlet extends HttpServlet {
         String seriesUID = request.getParameter("seriesUID");
         String dcmURL = request.getParameter("dcmURL");
         String wadoURL = request.getParameter("serverURL");
-		String oviyamId = request.getParameter("oviyamId");
-		String wadoLookupUrl = request.getParameter("wadoUrl");
+    	HttpSession session = request.getSession();
+    	String oviyamId = (String)session.getAttribute("oviyamId");
+    	String wadoLookupUrl = (String)session.getAttribute("wadoUrl");
+
+
 		System.out.println("In instanceinfoservlet patID:"+patID+"-studyUID:"+studyUID+"-serverURL:"+dcmURL
 				+"-oviyamId:"+oviyamId+"-wadoLookupUrl:"+wadoLookupUrl);
 
@@ -112,6 +121,8 @@ public class InstanceServlet extends HttpServlet {
             fname += File.separator + studyUID;
         } else {
             wadoURL += "?requestType=WADO&contentType=application/dicom&studyUID=" + studyUID + "&seriesUID=" + seriesUID;
+        	wadoURL=wadoURL.concat("&oviyamId="+oviyamId);
+        	wadoURL=wadoURL.concat("&wadoUrl="+wadoLookupUrl);
         }
 
         JSONArray jsonArray = new JSONArray();

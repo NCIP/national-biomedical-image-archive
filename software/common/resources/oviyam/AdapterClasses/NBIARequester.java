@@ -28,7 +28,7 @@ public static ArrayList<StudyModel> getStudyModels	(String patientID, String stu
 		if (studyUID!=null&&studyUID.length()>1){
 			fullURL =fullURL+"&StudyInstanceUID="+studyUID;
 		}
-		//fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
+		fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
 		System.out.println(fullURL);
 		HttpGet httpGet = new HttpGet(fullURL);
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);

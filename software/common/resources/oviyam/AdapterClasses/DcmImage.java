@@ -51,6 +51,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -120,6 +121,11 @@ public class DcmImage extends HttpServlet {
 
         // Get the response OutputStream instance to write a image in the response.
         OutputStream os = response.getOutputStream();
+    	HttpSession session = request.getSession();
+    	String oviyamId = (String)session.getAttribute("oviyamId");
+    	imageURL=imageURL.concat("&oviyamId="+oviyamId);
+    	String wado2Url = (String)session.getAttribute("wadoUrl");
+    	imageURL=imageURL.concat("&wadoUrl="+wado2Url);
 
         try {
             // Initialize the URL for the requested image.

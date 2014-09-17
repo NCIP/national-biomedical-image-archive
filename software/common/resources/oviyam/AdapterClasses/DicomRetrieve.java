@@ -50,6 +50,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -68,6 +69,12 @@ public class DicomRetrieve extends HttpServlet {
         String wadoUrl=request.getParameter("wadourl");
 	String modifiedWadoUrl=wadoUrl.replaceAll("_", "&");
 	String imageURL=modifiedWadoUrl.concat("&contentType=image/jpeg");
+	HttpSession session = request.getSession();
+	String oviyamId = (String)session.getAttribute("oviyamId");
+	imageURL=imageURL.concat("&oviyamId="+oviyamId);
+	String wado2Url = (String)session.getAttribute("wadoUrl");
+	imageURL=imageURL.concat("&wadoUrl="+wado2Url);
+	System.out.println(imageURL);
 	InputStream resultInStream = null;
 	OutputStream out = response.getOutputStream();
 	try {

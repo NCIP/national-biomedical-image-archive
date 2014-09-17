@@ -14,6 +14,7 @@ private String columns;
 private String region;
 private String windowCenter;
 private String windowWidth;
+private String frameNumber;
 private String imageQuality;
 private String presentationUID;
 private String presentationSeriesUID;
@@ -152,11 +153,20 @@ public void setImageQuality(String imageQuality) {
 	{
 		addError("imageQuality not available for application/dicom");
 	}
-	if (!isNumeric(imageQuality))
+	if (!isQualityValid(imageQuality))
 	{
-		addError("imageQuality is not a number");
+		addError("imageQuality is not valid");
 	}
 	this.imageQuality = imageQuality;
+}
+
+public void setFrameNumber(String frameNumber) {
+	if (frameNumber==null) return;
+	if (!isFrameValid(frameNumber))
+	{
+		addError("Frame Number is not valid");
+	}
+	this.frameNumber = frameNumber;
 }
 public String getPresentationUID() {
 	return presentationUID;
@@ -236,6 +246,69 @@ private static boolean isNumeric(String str)
   }  
   return true;  
 }
+private static boolean isInt(String str)  
+{  
+  try  
+  {  
+    Integer d = Integer.parseInt(str);  
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  return true;  
+}
+private boolean isQualityValid(String str)  
+{  
+	int i;
+  try  
+  {  
+    i = Integer.parseInt(str);  
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  if (i>=1&&i<=100)
+  {
+	  return true;  
+  }
+  return false;  
+}
+private static boolean isFrameValid(String str)  
+{  
+  try  
+  {  
+    Integer i = Integer.parseInt(str);  
+    if (i<0)
+    {
+    	return false;
+    }
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  return true;  
+}
+public float getQualityFloat()  
+{  
+	if (imageQuality==null)
+	{
+		return -1;
+	}
+    return Float.parseFloat(imageQuality)/100;  
+
+}
+public int getFrameNumberInt()  
+{  
+	if (frameNumber==null)
+	{
+		return 0;
+	}
+    return Integer.parseInt(frameNumber);  
+
+}
 @Override
 public String toString() {
 	return "WADOParameters [requestType=" + requestType + ", studyUID="
@@ -248,6 +321,16 @@ public String toString() {
 			+ ", presentationUID=" + presentationUID
 			+ ", presentationSeriesUID=" + presentationSeriesUID
 			+ ", transferSyntax=" + transferSyntax + "]";
+}
+
+public static void main(String args[])
+{
+	WADOParameters wp=new WADOParameters();
+	System.out.println(wp.isQualityValid("100"));
+	System.out.println(wp.isQualityValid("50"));
+	wp.setImageQuality("50");
+	System.out.println(wp.getQualityFloat());
+	System.out.println(wp.isQualityValid("T"));
 }
 
 }

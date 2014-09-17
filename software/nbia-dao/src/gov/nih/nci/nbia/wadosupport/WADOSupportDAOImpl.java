@@ -177,7 +177,13 @@ public WADOSupportDTO getOviyamWADOSupportDTO(String image, String contentType, 
 		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 		} else
 		{
-			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
+			JPEGResult result = DCMUtils.getJPGFromFile(imageFile, null);
+			if (result.getErrors()!=null)
+			{
+				returnValue.setErrors(result.getErrors());
+				return returnValue;
+			}
+			returnValue.setImage(result.getImages());
 		}
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
@@ -254,7 +260,13 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 		} else
 		{
-			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
+			JPEGResult result = DCMUtils.getJPGFromFile(imageFile, params);
+			if (result.getErrors()!=null)
+			{
+				returnValue.setErrors(result.getErrors());
+				return returnValue;
+			}
+			returnValue.setImage(result.getImages());
 		}
 	} catch (Exception e) {
 		// TODO Auto-generated catch block

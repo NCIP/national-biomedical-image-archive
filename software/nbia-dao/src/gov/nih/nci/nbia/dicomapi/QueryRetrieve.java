@@ -54,7 +54,7 @@ public class QueryRetrieve extends DicomNetwork
     private EchoReplyService verifService = null;
 
     /* DEFAULT Implemented module name */
-    private static final String MODULE_NAME = "DICOOGLE-STORAGE";
+    private static final String MODULE_NAME = "NBIA-STORAGE";
     /* Remote Application Entity (client) */
     private final NetworkApplicationEntity remoteAE = new NetworkApplicationEntity();
     /* Remote connection associated with remoteAE */
@@ -95,7 +95,7 @@ public class QueryRetrieve extends DicomNetwork
     public QueryRetrieve()
     {
 
-        super("DICOOGLE-QUERYRETRIEVE");
+        super("NBIA-QUERYRETRIEVE");
 
         // super(multiSop, executor);
                 this.sopClass = s.getSOPClass();
@@ -167,9 +167,10 @@ public class QueryRetrieve extends DicomNetwork
 
     @Override
     public boolean doStartService() {
-
-
+    	System.out.println("starting DICOM service");
+    	//this.device = new Device(MODULE_NAME);
         if (this.device != null) {
+        	System.out.println("Device is not null");
             this.verifService = new EchoReplyService();
             CommandUtils.setIncludeUIDinRSP(true);
            
@@ -177,7 +178,8 @@ public class QueryRetrieve extends DicomNetwork
                 this.device.startListening(QueryRetrieve.executor);
                 this.verifService.start();
             } catch (Exception ex) {
-            ex.printStackTrace();
+            	System.out.println("Exception!");
+                 ex.printStackTrace();
                  //MainWindow.getMw().add2ServerLogln(ex.getMessage(), LOG_MODES.ERROR);
                  return false;
             }
@@ -185,8 +187,10 @@ public class QueryRetrieve extends DicomNetwork
             // DebugManager.getInstance().debug("Starting server " +
             //        "- cmove server was started right now .. ");
                 this.startedAsService = true;
+                System.out.println("DICOM listening");
             return true;
         }
+        System.out.println("Device is null no DICOM service");
         return false ;
     }
 

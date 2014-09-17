@@ -403,7 +403,7 @@ public class ServerSettings
     {
         rGUIPort = 9014;
         storagePort = 104;
-        AETitle = "DICOOGLE";
+        AETitle = "NBIA";
         CAETitle = new String[0];
         permitAllAETitles = true;
         Path = "";
@@ -418,8 +418,8 @@ public class ServerSettings
          * Set default values of QueryRetrieve Server
          */
 
-        this.deviceDescription = "Dicoogle - Server SCP" ;
-        this.localAETName  = "Dicoogle";
+        this.deviceDescription = "NBIA - Server SCP" ;
+        this.localAETName  = "NBIA Service";
         this.permitedLocalInterfaces = "any";
         this.permitedRemoteHostnames = "any";
         this.wlsPort = 1045 ;  // default: 104
@@ -446,7 +446,7 @@ public class ServerSettings
     {
         rGUIPort = 9014;
         storagePort = 6666;
-        AETitle = "DICOOGLE-STORAGE";
+        AETitle = "NBIA-STORAGE";
         Path = System.getProperty("java.io.tmpdir");
         CAETitle = new String[0];
         permitAllAETitles = true;

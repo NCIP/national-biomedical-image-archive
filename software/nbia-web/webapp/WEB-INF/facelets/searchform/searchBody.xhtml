@@ -256,7 +256,7 @@ L-->
 	    			        <tr>
 	    			          <td>
 	    			            <div align="right">
-	    			              <h:panelGrid columns="3" rendered="#{searchWorkflowBean.query.savedQueryId == 0}">
+	    			              <h:panelGrid columns="3" rendered="#{searchWorkflowBean.query.savedQueryId == 0 or searchWorkflowBean.toggleQuery}">
 	    			              <tr>
 	    			              <td>
 	    			                <ice:outputLabel for="queryName"  value="queryName" style="display:none"/> 

@@ -48,6 +48,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.log4j.Logger;
 
+import com.sun.research.ws.wadl.Application;
+
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.wadosupport.*;
 
@@ -79,6 +81,7 @@ public class V1_wado extends getData {
 			@QueryParam("windowCenter") String windowCenter,
 			@QueryParam("windowWidth") String windowWidth,
 			@QueryParam("imageQuality") String imageQuality,
+			@QueryParam("frameNumber") String frameNumber,
 			@QueryParam("presentationUID") String presentationUID,
 			@QueryParam("presentationSeriesUID") String presentationSeriesUID,
 			@QueryParam("transferSyntax") String transferSyntax) {
@@ -148,6 +151,10 @@ public class V1_wado extends getData {
 		{
 			params.setImageQuality(imageQuality);
 		}
+		if (frameNumber!=null&&frameNumber.length()>0)
+		{
+			params.setFrameNumber(frameNumber);
+		}
 		if (presentationUID!=null&&presentationUID.length()>0)
 		{
 			params.setPresentationUID(presentationUID);
@@ -162,7 +169,7 @@ public class V1_wado extends getData {
 		}
         log.info("WADO called with " + params.toString());
         String errors=params.validate();
-		Authentication authentication = SecurityContextHolder.getContext()
+		Application authentication = SecurityContextHolder.getContext()
 		.getAuthentication();
 		String userName=null;
 		if (authentication==null){

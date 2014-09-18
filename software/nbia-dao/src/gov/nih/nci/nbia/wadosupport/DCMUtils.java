@@ -13,6 +13,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+
+import org.apache.log4j.Logger;
 import org.dcm4che2.imageio.plugins.dcm.DicomImageReadParam;
 import org.dcm4che2.imageioimpl.plugins.dcm.DicomImageReader;
 import com.sun.image.codec.jpeg.JPEGCodec;
@@ -22,6 +24,7 @@ public class DCMUtils {
 private static boolean scanned =false;
 private static ImageReader reader;
 private static DicomImageReadParam param;
+static Logger log = Logger.getLogger(DCMUtils.class);
 public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 {
 	JPEGResult returnValue=new JPEGResult();
@@ -33,18 +36,18 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 	   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 	   while (iter.hasNext()){
 	     reader=(ImageReader) iter.next();
-	     System.out.println("reader is "+reader.getDefaultReadParam().getClass().getName());
+	     log.info("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
 	     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
 	     {
 	         param = (DicomImageReadParam) reader.getDefaultReadParam();
-	         System.out.println("right reader found "+reader.getClass().getName());
+	         log.info("right reader found "+reader.getClass().getName());
 	         break;
 	     }
 	   }
 	}
 	if (reader==null)
 	{
-		   System.out.println("reader was null");
+		   log.info("reader was null");
 		   ImageIO.scanForPlugins();
 		   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 		   reader=(ImageReader) iter.next();  
@@ -103,6 +106,7 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 		if (params!=null&&params.getQualityFloat()!=-1)
 		{
 			enParam.setQuality(params.getQualityFloat(), true);
+			encoder.setJPEGEncodeParam(enParam);
 		}
 		
 		encoder.encode(myJpegImage);
@@ -120,11 +124,11 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 	    
 		public static void main(String[] args) {
 	        WADOParameters params = new WADOParameters();
-	        //params.setImageQuality("50");
+	        params.setImageQuality("10");
 	        //params.setFrameNumber("16");
 	        //params.setRows("50");
-	        params.setWindowCenter("10");
-	        params.setWindowWidth("40");
+	        // params.setWindowCenter("10");
+	       //  params.setWindowWidth("40");
 	        File file = new File("/dev/test.dcm");
 	        JPEGResult result=getJPGFromFile(file,params);
 	        result.getImages().toString();
@@ -154,7 +158,7 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 		    }
 
 		    // Create a buffered image with transparency
-		    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
 
 		    // Draw the image on to the buffered image
 		    Graphics2D bGr = bimage.createGraphics();

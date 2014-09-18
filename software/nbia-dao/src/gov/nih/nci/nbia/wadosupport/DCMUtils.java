@@ -35,14 +35,21 @@ public synchronized static  JPEGResult getJPGFromFile(File file, WADOParameters 
 	   ImageIO.scanForPlugins();
 	   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 	   while (iter.hasNext()){
-	     reader=(ImageReader) iter.next();
-	     System.out.println("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
-	     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
-	     {
-	         param = (DicomImageReadParam) reader.getDefaultReadParam();
-	         System.out.println("right reader found "+reader.getClass().getName());
-	         break;
-	     }
+		 System.out.println("getting next reader");
+	     try {
+			reader=(ImageReader) iter.next();
+			 System.out.println("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
+			 if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
+			 {
+			     param = (DicomImageReadParam) reader.getDefaultReadParam();
+			     System.out.println("right reader found "+reader.getClass().getName());
+			     break;
+			 }
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("------------ Problem with reader ---------------");
+		}
 	   }
 	}
 	if (reader==null)
@@ -52,14 +59,21 @@ public synchronized static  JPEGResult getJPGFromFile(File file, WADOParameters 
 		   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 		   reader=(ImageReader) iter.next();  
 		   while (iter.hasNext()){
-			     reader=(ImageReader) iter.next();
-			     System.out.println("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
-			     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
-			     {
-			         param = (DicomImageReadParam) reader.getDefaultReadParam();
-			         System.out.println("right reader found "+reader.getClass().getName());
-			         break;
-			     }
+			   System.out.println("getting next reader");
+			     try {
+					reader=(ImageReader) iter.next();
+					 System.out.println("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
+					 if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
+					 {
+					     param = (DicomImageReadParam) reader.getDefaultReadParam();
+					     System.out.println("right reader found "+reader.getClass().getName());
+					     break;
+					 }
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					System.out.println("------------ Problem with reader ---------------");
+				}
 		   }
 	}
     

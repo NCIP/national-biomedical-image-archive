@@ -36,11 +36,11 @@ public synchronized static  JPEGResult getJPGFromFile(File file, WADOParameters 
 	   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 	   while (iter.hasNext()){
 	     reader=(ImageReader) iter.next();
-	     log.info("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
+	     System.out.println("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
 	     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
 	     {
 	         param = (DicomImageReadParam) reader.getDefaultReadParam();
-	         log.info("right reader found "+reader.getClass().getName());
+	         System.out.println("right reader found "+reader.getClass().getName());
 	         break;
 	     }
 	   }
@@ -53,11 +53,11 @@ public synchronized static  JPEGResult getJPGFromFile(File file, WADOParameters 
 		   reader=(ImageReader) iter.next();  
 		   while (iter.hasNext()){
 			     reader=(ImageReader) iter.next();
-			     log.info("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
+			     System.out.println("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
 			     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
 			     {
 			         param = (DicomImageReadParam) reader.getDefaultReadParam();
-			         log.info("right reader found "+reader.getClass().getName());
+			         System.out.println("right reader found "+reader.getClass().getName());
 			         break;
 			     }
 		   }

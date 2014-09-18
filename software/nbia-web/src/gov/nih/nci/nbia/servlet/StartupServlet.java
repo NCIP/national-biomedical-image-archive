@@ -124,17 +124,17 @@ public class StartupServlet extends HttpServlet {
                SolrUpdateJob.class);
 
        // wait an 10 min before starting workflows
-       long startTimeWorkflow = System.currentTimeMillis() + 1000L;
+       long startTimeWorkflow = System.currentTimeMillis() + 600000L;
        Long intervalWorkflow = null;
 
        try {
 		intervalWorkflow = Long.valueOf(NCIAConfig.getWorkflowUpdateInterval());
 	   } catch (Exception e1) {
-		    intervalWorkflow = Long.valueOf("1");
+		    intervalWorkflow = Long.valueOf("60");
 		    System.out.println("unable to read workflow interval, defaulting to ten minutes");
 	   }
 
-
+       System.out.println("Workflow interval:"+intervalWorkflow);
        SimpleTrigger workflowTrigger = new SimpleTrigger("wTrigger",
                null,
                new Date(startTimeWorkflow),

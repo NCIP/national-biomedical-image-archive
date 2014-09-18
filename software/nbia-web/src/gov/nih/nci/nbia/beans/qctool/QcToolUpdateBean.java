@@ -26,6 +26,7 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.ncia.dto.DicomTagDTO;
+import gov.nih.nci.ncia.search.APIURLHolder;
 import gov.nih.nci.ncia.search.ImageSearchResult;
 import gov.nih.nci.ncia.search.ImageSearchResultEx;
 
@@ -602,18 +603,12 @@ public class QcToolUpdateBean {
 
     private void createLink(ImageSearchResult imageSearchResult)
     {
-    	String start ="wado?";
-    	StringBuilder sb = new StringBuilder();
-    	sb.append(start);
-    	sb.append("requestType=").append("WADO").append("&");
-    	try {
-			sb.append("studyUID=").append(URLEncoder.encode(imageSearchResult.getStudyInstanceUid(), "UTF-8")).append("&");
-			sb.append("seriesUID=").append(URLEncoder.encode(imageSearchResult.getSeriesInstanceUid(), "UTF-8")).append("&");
-			sb.append("objectUID=").append(URLEncoder.encode(imageSearchResult.getSopInstanceUid(), "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		setImageLink(sb.toString());
+        SecurityBean secure = BeanManager.getSecurityBean();
+        String userName = secure.getUsername();
+    	String url = APIURLHolder.getUrl()+"/nbia-api/services/o/wado?contentType=application/dicom&objectUID="+
+    	imageSearchResult.getSopInstanceUid()+"&oviyamId="+APIURLHolder.addUser(userName)+
+		"&wadoUrl="+APIURLHolder.getWadoUrl();
+		setImageLink(url);
     }
 
 

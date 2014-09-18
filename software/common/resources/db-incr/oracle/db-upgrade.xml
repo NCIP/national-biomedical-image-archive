@@ -526,4 +526,52 @@ L-->
       	 </sql>
   </changeSet>
   
+  <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1Login_Name" author="prasaiyk">
+           <comment>
+             Database upgrade for CSM/UPT 5.1
+           </comment>  
+           
+           <sql>
+             UPDATE csm_user
+             SET FIRST_NAME='FsQcmjeTRwMyYjNa0oHwgA=='
+             WHERE login_name='prasaiyk';
+           </sql>
+    </changeSet>
+    
+    <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1Last_Name" author="prasaiyk">
+           <comment>
+             Database upgrade for CSM/UPT 5.1
+           </comment>  
+           
+           <sql>
+             UPDATE csm_user
+             SET LAST_NAME='qHd6B/O/6sCgHyhdRmAt7Q=='
+             WHERE login_name='prasaiyk';
+           </sql>
+    </changeSet>
+    
+     <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1Password" author="prasaiyk">
+             <comment>
+               Database upgrade for CSM/UPT 5.1
+             </comment>  
+             
+             <sql>
+               UPDATE csm_user
+               SET PASSWORD='5kJqWYBdWCphljGP2pGUGg=='
+               WHERE login_name='prasaiyk';
+             </sql>
+    </changeSet>
+    
+    <changeSet id="6.1.Upgrade.CSM.UPT.to.5.1Expiry_Date" author="prasaiyk">
+           <comment>
+             Database upgrade for CSM/UPT 5.1
+           </comment>  
+           
+           <sql>
+		UPDATE csm_user
+		SET PASSWORD_EXPIRY_DATE=sysdate + 60
+		WHERE login_name='prasaiyk'
+           </sql>
+  </changeSet>
+  
   </databaseChangeLog>

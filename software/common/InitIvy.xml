@@ -11,7 +11,7 @@ L-->
 <project name="InitIvy" xmlns:ivy="antlib:org.apache.ivy.ant">
 <property name="base.lib.dir" value="${common.dir}/target/lib" />
  <property name="ivy.file" value="ivy-2.0.0.jar" />
- <property name="ivy.src.url" value="https://ncisvn.nci.nih.gov/svn/deprecated-ivy-repo/trunk/apache/ivy/2.0.0/${ivy.file}" />
+ <property name="ivy.src.url" value="https://ncimvn.nci.nih.gov/nexus/content/repositories/public/org/apache/ivy/ivy/2.0.0/${ivy.file}" />
  <property name="ivy.dest.file" value="${base.lib.dir}/${ivy.file}" /> 
  <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
  

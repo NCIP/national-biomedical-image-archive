@@ -74,10 +74,10 @@ public class getData {
 			authorizedCollections = AuthorizationService
 					.getCollectionForPublicRole();
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new WebApplicationException(Response
-					.status(Status.UNAUTHORIZED)
-					.entity(ex.getLocalizedMessage()).build());
+			//ex.printStackTrace();
+		//	throw new WebApplicationException(Response
+			//		.status(Status.UNAUTHORIZED)
+			//		.entity(ex.getLocalizedMessage()).build());
 		}
 		return authorizedCollections;
 	}
@@ -309,14 +309,14 @@ public class getData {
 	protected WADOSupportDTO getWadoImage(WADOParameters params, String user){
 		
 		WADOSupportDAO wadoDao = (WADOSupportDAO)SpringApplicationContext.getBean("WADOSupportDAO");
-		WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(params, "internal");
+		WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(params, user);
 		return wdto;
 		
 	}
-	protected WADOSupportDTO getWadoImage(String image, String contentType){
+	protected WADOSupportDTO getWadoImage(String image, String contentType, String user){
 		
 		WADOSupportDAO wadoDao = (WADOSupportDAO)SpringApplicationContext.getBean("WADOSupportDAO");
-		WADOSupportDTO wdto = wadoDao.getWADOSupportDTO(image, contentType);
+		WADOSupportDTO wdto = wadoDao.getOviyamWADOSupportDTO(image, contentType, user);
 		return wdto;
 		
 	}

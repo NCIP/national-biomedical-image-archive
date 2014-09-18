@@ -46,6 +46,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
+import gov.nih.nci.nbia.restUtil.OviyamUtil;
 import gov.nih.nci.nbia.wadosupport.*;
 
 @Path("/o/wado")
@@ -62,32 +63,28 @@ public class O_wado extends getData {
 	 */
 	@GET
 	@Produces({"application/dicom", "image/jpeg"})
-	public Response  constructResponse(@QueryParam("requestType") String requestType,
-			@QueryParam("studyUID") String studyUID, 
-			@QueryParam("seriesUID") String seriesUID,
+	public Response  constructResponse(
 			@QueryParam("objectUID") String objectUID,
 			@QueryParam("contentType") String contentType,
-			@QueryParam("charset") String charset,
-			@QueryParam("anonymize") String anonymize,
-			@QueryParam("annotation") String annotation,
-			@QueryParam("rows") String rows,
-			@QueryParam("columns") String columns,
-			@QueryParam("region") String region,
-			@QueryParam("windowCenter") String windowCenter,
-			@QueryParam("windowWidth") String windowWidth,
-			@QueryParam("imageQuality") String imageQuality,
-			@QueryParam("presentationUID") String presentationUID,
-			@QueryParam("presentationSeriesUID") String presentationSeriesUID,
-			@QueryParam("transferSyntax") String transferSyntax) {
+			@QueryParam("oviyamId") String oviyamId, 
+			@QueryParam("wadoUrl") String wadoUrl) {
         System.out.println("Oviyam wado called: + objectUID-"+objectUID+" contentType-"+contentType);
-		WADOSupportDTO wdto = getWadoImage(objectUID, contentType);
+		String user=null;
+		if (oviyamId!=null&&oviyamId.length()>0){
+			user=OviyamUtil.getUser(oviyamId, wadoUrl);
+		}
+		WADOSupportDTO wdto = getWadoImage(objectUID, contentType, user);
 		if (wdto.getErrors()!=null){
 			log.error("WADO Error: " + wdto.getErrors());
     		return Response.status(400).type("text/plain")
 			.entity(wdto.getErrors())
 			.build();
 		}
-		
-		return Response.ok(wdto.getImage(), contentType).build();
+		if (contentType.equals("application/dicom")){
+		   return Response.ok(wdto.getImage(), contentType).header("Content-Disposition", "attachment; filename=" + objectUID + ".dcm").build();
+		} else
+		{
+		   return Response.ok(wdto.getImage(), contentType).build();
+		}
 	}
 }

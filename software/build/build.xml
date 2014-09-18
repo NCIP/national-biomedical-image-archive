@@ -844,13 +844,10 @@ $HeadURL$
   </target>
 
   <target name="dist:tools:retrieve:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
-    <get src="${jboss-bindings.src.url}" dest="${dist.exploded.dir}/${jboss-bindings.file}" />
+    <copy file="${nbia-resource.artifact.dir}/jboss-conf/ncicb-jboss-5.1.0-dac-bindings.xml" todir="${dist.exploded.dir}">
+    </copy>
   </target>
   
-  <target name="dist:tools:retrieve:grid:jboss-bindings"  description="Downloads JBOSS bindings filefrom binary repository and verifies checksum">
-      <get src="${ncia-core-grid.jboss-bindings.src.url}" dest="${dist.exploded.dir}/${ncia-core-grid.jboss-bindings.file}" />
-  </target>
-
   <target name="dist:tools:retrieve:jbosscp"
           unless="jbosscp.tools.exists"
           description="Downloads JBOSS Cumulative Patch from binary repository and verifies checksum">
@@ -895,30 +892,8 @@ $HeadURL$
     depends="
     init,
     dist:tools:retrieve:jboss,
-    dist:tools:retrieve:grid:jboss,
     dist:tools:retrieve:jai,
-    dist:tools:retrieve:ws-core,
-    dist:tools:retrieve:jboss-bindings,
-    dist:tools:retrieve:grid:jboss-bindings"/>
-
-
-  <target name="dist:tools:retrieve:ws-core" unless="ws-core.tools.exists">
-    <get src="${ws-core.src.url}"
-      dest="${ws-core.dest.file}"/>
-    <get src="${ws-core.src.url}.md5"
-      dest="${ws-core.dest.file}.MD5"/>
-    <checksum file="${ws-core.dest.file}" verifyProperty="ws-core.cksum.ok"/>
-    <if>
-      <equals arg1="${ws-core.cksum.ok}" arg2="true"/>
-      <then>
-        <echo message="Downloaded ws-core sucessfully"/>
-      </then>
-      <else>
-        <fail message="Failed to download ws-core file sucessfully."/>
-      </else>
-    </if>
-  </target>
-
+    dist:tools:retrieve:jboss-bindings"/>
 
   <target name="dist:tools:retrieve:jai">
     <get src="${jai.linux.src.url}"
@@ -946,24 +921,6 @@ $HeadURL$
     </if>
   </target>
   
-  <!-- Downloads jboss from tools repository and compares checksum, based on properties set in project.properties -->
-  <target name="dist:tools:retrieve:grid:jboss" unless="ncia-core-grid.jboss.tools.exists">
-      <get src="${ncia-core-grid.jboss.src.url}"
-           dest="${ncia-core-grid.jboss.dest.file}"/>
-      <get src="${ncia-core-grid.jboss.src.url}.md5"
-           dest="${ncia-core-grid.jboss.dest.file}.MD5"/>
-      <checksum file="${ncia-core-grid.jboss.dest.file}" verifyProperty="jboss.cksum.ok"/>
-      <if>
-        <equals arg1="${jboss.cksum.ok}" arg2="true"/>
-        <then>
-          <echo message="Downloaded jboss sucessfully"/>
-        </then>
-        <else>
-          <fail message="Failed to download jboss file sucessfully."/>
-        </else>
-      </if>
-  </target>
-
   <!-- Copies install time resources into distribution tree -->
   <target name="dist:installer:prep" depends="dist:tools:retrieve">
     <!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. -->
@@ -1743,7 +1700,11 @@ jboss.home,ctp.server.home,ctp.client.home,
    <target name="build:nbia-api" depends="init,
    	                   build:nbia-domain,
    		           build:nbia-dao">			
-   		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-api.build.target}" dir="${nbia-api.base.dir}"/>
+   		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-api.build.target}" dir="${nbia-api.base.dir}">
+							<property name="nbia.api.oauth2.client.id" value="${nbia.api.oauth2.client.id}"/>
+							<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
+							<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
+		</ant>
    </target>
 
 </project>

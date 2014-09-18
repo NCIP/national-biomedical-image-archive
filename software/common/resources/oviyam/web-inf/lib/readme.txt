@@ -1,0 +1,1 @@
+These libraries are needed for the http client calls to the nbia rest services

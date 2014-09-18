@@ -1087,8 +1087,18 @@ public class SearchWorkflowBean {
     private String numberMonths = "";
     private String seriesDescription = "";
     private String modalityAndedSearch = "any";
+    private boolean toggleQuery = false;
 
-    /**
+
+	public boolean isToggleQuery() {
+		return toggleQuery;
+	}
+
+	public void setToggleQuery(boolean toggleQuery) {
+		this.toggleQuery = toggleQuery;
+	}
+
+	/**
      * The values (v. labels) of contrast agents set by the user (from checkboxes).
      * This array can be empty, or have 1 or 2 elements with the value
      * ContrastAgentCriteria.ENHANCED or ContrastAgentCriteria.UNENHANCED
@@ -1353,6 +1363,7 @@ public class SearchWorkflowBean {
         // and ID of the query.
         if (oldQuery != null) {
             query.setQueryName(oldQuery.getQueryName());
+            
             query.setSavedQueryId(oldQuery.getSavedQueryId());
         }
         if(query.getCriteriaList().isEmpty()) {
@@ -1572,6 +1583,13 @@ public class SearchWorkflowBean {
     }
 
     public void modalityChangeListener(ValueChangeEvent event) {
+    	
+    	if(!editingSavedQuery)
+    	{
+    		setToggleQuery(true);
+    	}
+    	
+    	
     	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
     		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
     		event.queue();
@@ -1593,6 +1611,7 @@ public class SearchWorkflowBean {
 		}
 		try {
 			submitSearch();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

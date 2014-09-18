@@ -278,7 +278,7 @@ public class SavedQueryBean {
      */
     public String resubmitQuery() {
         AbstractStoredQueryDTO dto = null;
-
+        
         if (historyMode) {
             dto = (AbstractStoredQueryDTO) queryHistoryData.getRowData();
         } else {
@@ -292,7 +292,7 @@ public class SavedQueryBean {
         }
 
         SearchWorkflowBean swb = BeanManager.getSearchWorkflowBean();
-
+        swb.setToggleQuery(false);
         try {
             swb.asynchronousQuery(repopulateSearch(dto));
         } catch (Exception e) {
@@ -313,9 +313,11 @@ public class SavedQueryBean {
      */
     public String editQuery() throws Exception {
         SavedQueryDTO dto = null;
+        
         dto = (SavedQueryDTO) queryData.getRowData();
 
         SearchWorkflowBean swb = BeanManager.getSearchWorkflowBean();
+        swb.setToggleQuery(false);
 
         DICOMQuery newQuery = repopulateSearch(dto);
         swb.setEditingSavedQuery(true);

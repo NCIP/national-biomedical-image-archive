@@ -131,7 +131,7 @@ L-->
 					</ice:column>
 					<ice:column>
 						<f:facet name="header">
-							<ice:outputText value="Viewer" />
+							<ice:outputText value="Thumbnails" />
 						</f:facet>
 						<ice:commandLink id="viewerLnk" value="View"
 							onclick="window.open('qcViewSeries.jsf?seriesId=#{res.series}', 'slideshow', 'resizable=yes,scrollbars=yes,width=1350,height=1000');return false;">
@@ -139,13 +139,14 @@ L-->
 					</ice:column>
 					<ice:column>
 						<f:facet name="header">
-							<ice:outputText value="Image Viewer" />
+							<ice:outputText value="DICOM Viewer" />
 						</f:facet>
-						<ice:commandLink id="viewerLnk" value="Web DICMOM Viewer"
+						<ice:commandLink id="DICOMviewerLnk" value="View"
 							onclick="window.open('#{res.link}');return false;">
 						</ice:commandLink>
 					</ice:column>
 				</ice:dataTable>
+
 				<center>
 					<ice:panelGrid columns="1" styleClass="scrollerTable2"
 						columnClasses="standardTable_ColumnCentered" rendered="#{qcToolSearchBean.resultsPerPage le 10}">

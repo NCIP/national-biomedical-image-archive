@@ -678,6 +678,14 @@ table.contentPageII {
   background-color: #cccccc
 }
 
+.welcomeTitleMain {
+  border-top: #cccccc 1px solid;
+  font-weight: bold; 
+  font-size: 0.7em; 
+  font-family: verdana, arial, helvetica, sans-serif; 
+  background-color: #cccccc
+}
+
 .welcomeContent {
   padding-right: 1em; 
   padding-left: 1em; 

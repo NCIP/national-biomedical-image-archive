@@ -17,7 +17,7 @@ L-->
 
   <property name="common.dir" value="${basedir}/../" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml" />
-
+  <property name="dicomsupport.lib" location="${common.dir}/common/resources/dicomapi/" />
   <property name="project.lib.dir" value="${common.dir}/target/lib/${nbia-dao}" />
 
   <property name="assembly.dir" value="${basedir}/assembly" />
@@ -72,6 +72,10 @@ L-->
   </target>
 
   <target name="compile" depends="-init, ivy-compile" description="Compiles all java classes">
+    <copy todir="${project.lib.dir}/compile">
+      <fileset dir="${dicomsupport.lib}">
+    </fileset>
+    </copy>
     <echo message="**********************************" />
     <echo message="***   Compiling Java Classes   ***" />
     <echo message="**********************************" />

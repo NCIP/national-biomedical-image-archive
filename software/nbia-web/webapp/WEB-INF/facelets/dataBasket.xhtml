@@ -25,17 +25,19 @@ L-->
     <td valign="top">
     <table summary="" cellpadding="0" cellspacing="0" border="0" class="contentPage"  width="100%">
       <tr>
-        <td>
-            <h:commandButton image="images/back_to_search_results.jpg" alt="Back To Search Results"
-                             action="#{searchWorkflowBean.backToSearch}"  
-                             rendered="#{not empty searchResultBean.nodeTablesWrappers}" />                                                                
-        </td>
     	<td width="90%">
         <div class="adminToolsContainer">
         <h:outputText value="#{msg.dataBasket_myBasket}" />
         <ncia:help label="images/help_icon.png" helpId="-managedatabasket" />
         </div>
         </td>
+        </tr>
+        <tr>
+        	<td>
+	            <h:commandButton image="images/back_to_search_results.jpg" alt="Back To Search Results"
+	                             action="#{searchWorkflowBean.backToSearch}"  
+	                             rendered="#{not empty searchResultBean.nodeTablesWrappers}" />                                                                
+        	</td>
         </tr>
      </table>
       <table border="0" cellpadding="0" cellspacing="0" width="100%">

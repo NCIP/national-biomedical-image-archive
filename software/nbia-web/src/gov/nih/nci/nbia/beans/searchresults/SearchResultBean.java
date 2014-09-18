@@ -44,6 +44,7 @@ public class SearchResultBean {
 
 
 	public SearchResultBean() {
+		
 	}
 
     /**
@@ -188,7 +189,6 @@ public class SearchResultBean {
 	 */
 	public String saveQuery() {
 		logger.debug("query name is: " + queryName);
-
 		SearchWorkflowBean swb = BeanManager.getSearchWorkflowBean();
 		String queryNameText = "MAINbody:searchMenuForm:saveQueryView:queryName";
 
@@ -197,7 +197,7 @@ public class SearchResultBean {
 		// when the user wants to update the query
 		if (swb.isEditingSavedQuery()) {
 			queryNameText = "MAINbody:searchMenuForm:saveQueryView:newDataQuery";
-
+			swb.setToggleQuery(false);
 			if (updateQuery) {
 				QueryStorageManager qManager = (QueryStorageManager)SpringApplicationContext.getBean("queryStorageManager");
 				long newQueryId;
@@ -208,6 +208,7 @@ public class SearchResultBean {
 					MessageUtil.addInfoMessage(queryNameText,
 							                   "queryUpdated",
 							                   new Object[] { query.getQueryName() });
+					
 					swb.setEditingSavedQuery(false);
 					queryName = "";
 				} catch (Exception e) {
@@ -233,14 +234,13 @@ public class SearchResultBean {
 				String oldQueryName = query.getQueryName();
 				query.setQueryName(queryName);
 				query.setUserID(uName);
-
+				swb.setToggleQuery(false);
 				QueryStorageManager qManager = (QueryStorageManager)SpringApplicationContext.getBean("queryStorageManager");
 				long newQueryId;
 
 				try {
 					newQueryId = qManager.saveQuery(query);
 					query.setSavedQueryId(newQueryId);
-
 					queryBean.updateSavedQueryCount();
 					MessageUtil.addInfoMessage(queryNameText, 
 							                   "querySaved",
@@ -342,6 +342,7 @@ public class SearchResultBean {
 	
 	
 	private boolean isTextResult=false;
+	
 
 	/**
      * Each object in this collection represents the gui state for the search

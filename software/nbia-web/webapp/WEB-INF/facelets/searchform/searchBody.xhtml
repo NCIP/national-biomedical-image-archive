@@ -110,7 +110,7 @@ L-->
 								<tr>
 								<td>
 													
-														
+												<div style="margin-left:2px">		
 															<div id="modalitiesDiv" class="searchFormSelector">
 																<h:dataTable id="modalityCheckboxesTable" width="100%"
 																	border="0" cellpadding="0" cellspacing="1"  style="margin-top:3px;"
@@ -133,6 +133,7 @@ L-->
 																	</h:column>
 																</h:dataTable>
 															</div>
+													</div>
 														<f:subview id="usSearch" rendered="#{searchWorkflowBean.usSearch}">
 															<h:outputText value="#{msg.criteria_NumFrameOptionCriteria}" /> 
 															<ice:selectManyCheckbox
@@ -182,8 +183,10 @@ L-->
 											</f:subview>
 										
 									</table>
+						</td>
 						
-							
+									<tr>
+									<td style="float:left;">
 							<f:subview id="anatomicCriteria"
 									rendered="#{searchWorkflowBean.showAnatomicCriteria}">
 									
@@ -191,11 +194,12 @@ L-->
 											    <ice:outputText id="anatomicalHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_AnatomicalSiteCriteria}" />
 											   
 										
-											    
 										
 										
 										
 										
+										
+										<div style="margin-left:4px; margin-top:20px;">
 											<div id="anatomicalSitesDiv" class="searchFormSelector">
 												<h:dataTable id="anatomicalSitesCheckboxesTable"
 													width="100%" border="0" cellpadding="0"
@@ -215,27 +219,30 @@ L-->
 												</h:dataTable>
 											</div>
 										
-										
+										</div>
 
 									
 								</f:subview>
-								
+								</td>
+								</tr>
 								
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 							
-		
-		<div id="clear"  style="height: 20px;">
+		<tr>
+		<td>
+		<div id="clear" style="height: 20px; margin-top:10px; margin-bottom:20px">
 		    <ice:commandLink id="addSeriesToBasketButton" action="#{searchWorkflowBean.reset}" >                                          
 			<ice:graphicImage value="images/reset.gif" alt="reset" style="border:none;display:inline;"/>                                                                               
 		    </ice:commandLink>
 		</div>
-		
+		</td>
+		</tr>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 		<f:verbatim>&amp;nbsp;</f:verbatim>
 
 
-              </td>
+              
               
               
               
@@ -249,7 +256,7 @@ L-->
 	    			        <tr>
 	    			          <td>
 	    			            <div align="right">
-	    			              <h:panelGrid columns="3" rendered="#{searchWorkflowBean.query.savedQueryId == 0}">
+	    			              <h:panelGrid columns="3" rendered="#{searchWorkflowBean.query.savedQueryId == 0 or searchWorkflowBean.toggleQuery}">
 	    			              <tr>
 	    			              <td>
 	    			                <ice:outputLabel for="queryName"  value="queryName" style="display:none"/> 
@@ -333,10 +340,12 @@ L-->
 	    			                </h:panelGrid>
 	    			               
 	    			              </h:panelGrid>
+	    			              <div align="left">
 	    			              <h:inputHidden id="newDataQuery" value="true" />
 	    			              <h:message for="newDataQuery" errorClass="errorLabel" infoClass="infoLabel" />
-	    			              <h:message for="queryName" errorClass="errorLabel" infoClass="infoLabel" />
+	    			              <h:messages for="queryName" errorClass="errorLabel" infoClass="infoLabel" />
 	    			              <h:message for="newQueryName" errorClass="errorLabel" infoClass="infoLabel" />
+	    			              </div>
 	    			            </div>
 	    			          </td>
 	    			          

@@ -14,6 +14,7 @@ private String columns;
 private String region;
 private String windowCenter;
 private String windowWidth;
+private String frameNumber;
 private String imageQuality;
 private String presentationUID;
 private String presentationSeriesUID;
@@ -85,9 +86,9 @@ public void setRows(String rows) {
 	{
 		addError("rows not available for application/dicom");
 	}
-	if (!isNumeric(rows))
+	if (!isValidPositive(rows))
 	{
-		addError("rows is not a number");
+		addError("rows is not valid");
 	}
 	this.rows = rows;
 }
@@ -100,9 +101,9 @@ public void setColumns(String columns) {
 	{
 		addError("columns not available for application/dicom");
 	}
-	if (!isNumeric(columns))
+	if (!isValidPositive(columns))
 	{
-		addError("columns is not a number");
+		addError("columns is not valid");
 	}
 	this.columns = columns;
 }
@@ -122,9 +123,9 @@ public void setWindowCenter(String windowCenter) {
 	{
 		addError("windowCenter not available for application/dicom");
 	}	
-	if (!isNumeric(windowCenter))
+	if (!isValidPositive(windowCenter))
 	{
-		addError("windowCenter is not a number");
+		addError("windowCenter is not valid");
 	}
 	this.windowCenter = windowCenter;
 }
@@ -139,7 +140,7 @@ public void setWindowWidth(String windowWidth) {
 	}
 	if (!isNumeric(windowWidth))
 	{
-		addError("windowWidth is not a number");
+		addError("windowWidth is not valid");
 	}
 	this.windowWidth = windowWidth;
 }
@@ -152,11 +153,24 @@ public void setImageQuality(String imageQuality) {
 	{
 		addError("imageQuality not available for application/dicom");
 	}
-	if (!isNumeric(imageQuality))
+	if (!isQualityValid(imageQuality))
 	{
-		addError("imageQuality is not a number");
+		addError("imageQuality is not valid");
 	}
 	this.imageQuality = imageQuality;
+}
+
+public void setFrameNumber(String frameNumber) {
+	if (frameNumber==null) return;
+	if (contentType.equals("application/dicom"))
+	{
+		addError("imageQuality not available for application/dicom");
+	}
+	if (!isValidPositive(frameNumber))
+	{
+		addError("Frame Number is not valid");
+	}
+	this.frameNumber = frameNumber;
 }
 public String getPresentationUID() {
 	return presentationUID;
@@ -222,6 +236,10 @@ public String validate()
 	{
 		addError("Missing requestType");
 	}
+	if ((windowWidth!=null&&windowCenter==null)||(windowWidth==null&&windowCenter!=null))
+	{
+		addError("windowWidth and windowCenter must both be set to be used");
+	}
 	return errorMessage;
 }
 private static boolean isNumeric(String str)  
@@ -236,6 +254,105 @@ private static boolean isNumeric(String str)
   }  
   return true;  
 }
+private static boolean isInt(String str)  
+{  
+  try  
+  {  
+    Integer d = Integer.parseInt(str);  
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  return true;  
+}
+private boolean isQualityValid(String str)  
+{  
+	int i;
+  try  
+  {  
+    i = Integer.parseInt(str);  
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  if (i>=1&&i<=100)
+  {
+	  return true;  
+  }
+  return false;  
+}
+private static boolean isValidPositive(String str)  
+{  
+  try  
+  {  
+    Integer i = Integer.parseInt(str);  
+    if (i<0)
+    {
+    	return false;
+    }
+  }  
+  catch(NumberFormatException nfe)  
+  {  
+    return false;  
+  }  
+  return true;  
+}
+public float getQualityFloat()  
+{  
+	if (imageQuality==null)
+	{
+		return -1;
+	}
+    return Float.parseFloat(imageQuality)/100;  
+
+}
+public int getFrameNumberInt()  
+{  
+	if (frameNumber==null)
+	{
+		return 0;
+	}
+    return Integer.parseInt(frameNumber);  
+
+}
+public int getRowsInt()  
+{  
+	if (rows==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(rows);  
+
+}
+public int getColumnsInt()  
+{  
+	if (columns==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(columns);  
+
+}
+public int getWindowWidthInt()  
+{  
+	if (windowWidth==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(windowWidth);  
+
+}
+public int getWindowCenterInt()  
+{  
+	if (windowCenter==null)
+	{
+		return -1;
+	}
+    return Integer.parseInt(windowCenter);  
+
+}
 @Override
 public String toString() {
 	return "WADOParameters [requestType=" + requestType + ", studyUID="
@@ -248,6 +365,16 @@ public String toString() {
 			+ ", presentationUID=" + presentationUID
 			+ ", presentationSeriesUID=" + presentationSeriesUID
 			+ ", transferSyntax=" + transferSyntax + "]";
+}
+
+public static void main(String args[])
+{
+	WADOParameters wp=new WADOParameters();
+	System.out.println(wp.isQualityValid("100"));
+	System.out.println(wp.isQualityValid("50"));
+	wp.setImageQuality("50");
+	System.out.println(wp.getQualityFloat());
+	System.out.println(wp.isQualityValid("T"));
 }
 
 }

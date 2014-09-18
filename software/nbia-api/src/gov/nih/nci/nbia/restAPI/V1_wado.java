@@ -43,9 +43,14 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.log4j.Logger;
 
+import com.sun.research.ws.wadl.Application;
+
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.wadosupport.*;
 
 @Path("/v1/wado")
@@ -76,6 +81,7 @@ public class V1_wado extends getData {
 			@QueryParam("windowCenter") String windowCenter,
 			@QueryParam("windowWidth") String windowWidth,
 			@QueryParam("imageQuality") String imageQuality,
+			@QueryParam("frameNumber") String frameNumber,
 			@QueryParam("presentationUID") String presentationUID,
 			@QueryParam("presentationSeriesUID") String presentationSeriesUID,
 			@QueryParam("transferSyntax") String transferSyntax) {
@@ -145,6 +151,10 @@ public class V1_wado extends getData {
 		{
 			params.setImageQuality(imageQuality);
 		}
+		if (frameNumber!=null&&frameNumber.length()>0)
+		{
+			params.setFrameNumber(frameNumber);
+		}
 		if (presentationUID!=null&&presentationUID.length()>0)
 		{
 			params.setPresentationUID(presentationUID);
@@ -159,6 +169,17 @@ public class V1_wado extends getData {
 		}
         log.info("WADO called with " + params.toString());
         String errors=params.validate();
+        Authentication authentication = SecurityContextHolder.getContext()
+		.getAuthentication();
+		String userName=null;
+		if (authentication==null){
+			userName =  NCIAConfig.getGuestUsername();
+		} else {
+           userName = (String) authentication.getPrincipal();
+	    }
+		if (userName==null){
+			userName =  NCIAConfig.getGuestUsername();
+		}
         if (errors!=null)
         {
         	log.error("WADO Error: " + errors);
@@ -166,7 +187,7 @@ public class V1_wado extends getData {
 			.entity(errors).type("text/plain")
 			.build();	
         }
-		WADOSupportDTO wdto = getWadoImage(params, null);
+		WADOSupportDTO wdto = getWadoImage(params, userName);
 		if (wdto.getErrors()!=null){
 			log.error("WADO Error: " + wdto.getErrors());
     		return Response.status(400).type("text/plain")

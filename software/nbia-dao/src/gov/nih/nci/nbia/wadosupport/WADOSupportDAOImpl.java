@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.commons.io.FileUtils;
 import java.io.*;
+import java.util.*;
 import gov.nih.nci.nbia.security.*;
 import gov.nih.nci.nbia.util.*;
 
@@ -25,7 +26,7 @@ public class WADOSupportDAOImpl extends AbstractDAO
                                implements WADOSupportDAO
 {
 	static Logger log = Logger.getLogger(WADOSupportDAOImpl.class);
-    
+    private static HashMap <String, UserObject>userTable;
     private final static String WADO_QUERY="select distinct gs.project, gs.site, dicom_file_uri from general_image gi, general_series gs" +
     		" where gs.study_instance_uid = :study and gs.series_instance_uid = :series and gi.sop_instance_uid = :image " +
     		"  and gs.general_series_pk_id = gi.general_series_pk_id";
@@ -34,6 +35,12 @@ public class WADOSupportDAOImpl extends AbstractDAO
 	" where gi.sop_instance_uid = :image " +
 	"  and gs.general_series_pk_id = gi.general_series_pk_id";
     
+public WADOSupportDAOImpl()
+{
+	if (userTable==null){
+		userTable=new HashMap <String, UserObject>();
+	}
+}
 public WADOSupportDTO getWADOSupportDTO(String study, String series, String image)
 {
 	String user =  NCIAConfig.getGuestUsername();
@@ -54,10 +61,25 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 			   log.info("image not found");
 			   return null; //nothing to do
 		}
-		if (user!="internal")
+		List<SiteData> authorizedSites;
+		UserObject uo = userTable.get(user);
+		if (uo!=null)
 		{
-		AuthorizationManager manager = new AuthorizationManager(user);
-		List<SiteData> authorizedSites = manager.getAuthorizedSites();
+			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
+		} else
+		{
+		   AuthorizationManager manager = new AuthorizationManager(user);
+		   authorizedSites = manager.getAuthorizedSites();
+		   uo = new UserObject();
+		   uo.setAuthorizedSites(authorizedSites);
+		   userTable.put(user, uo);
+		}
 		returnValue.setCollection((String)images.get(0)[0]);
 		returnValue.setSite((String)images.get(0)[1]);
 		boolean isAuthorized = false;
@@ -74,9 +96,8 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 		}
 		if (!isAuthorized)
 		{
-			System.out.println("User: "+user+" noy authorized");
+			System.out.println("User: "+user+" not authorized");
 			return null; //not authorized
-		}
 		}
 		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);
@@ -95,7 +116,7 @@ public WADOSupportDTO getWADOSupportDTO(String study, String series, String imag
 	return returnValue;
 }
 @Transactional(propagation=Propagation.REQUIRED)
-public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
+public WADOSupportDTO getOviyamWADOSupportDTO(String image, String contentType, String user)
 {
 	WADOSupportDTO returnValue = new WADOSupportDTO();
 	log.info("Oviyam wado image-"+image);
@@ -105,6 +126,44 @@ public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
 		if (images.size()==0) {
 			   log.info("image not found");
 			   return null; //nothing to do
+		}
+		List<SiteData> authorizedSites;
+		UserObject uo = userTable.get(user);
+		if (uo!=null)
+		{
+			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
+		} else
+		{
+		   AuthorizationManager manager = new AuthorizationManager(user);
+		   authorizedSites = manager.getAuthorizedSites();
+		   uo = new UserObject();
+		   uo.setAuthorizedSites(authorizedSites);
+		   userTable.put(user, uo);
+		}
+		returnValue.setCollection((String)images.get(0)[0]);
+		returnValue.setSite((String)images.get(0)[1]);
+		boolean isAuthorized = false;
+		for (SiteData siteData : authorizedSites)
+		{
+			if (siteData.getCollection().equals(returnValue.getCollection()))
+			{
+				if (siteData.getSiteName().equals(returnValue.getSite()))
+				{
+					isAuthorized = true;
+					break;
+				}
+			}
+		}
+		if (!isAuthorized)
+		{
+			System.out.println("User: "+user+" not authorized");
+			return null; //not authorized
 		}
 		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);
@@ -118,7 +177,13 @@ public WADOSupportDTO getWADOSupportDTO(String image, String contentType)
 		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 		} else
 		{
-			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
+			JPEGResult result = DCMUtils.getJPGFromFile(imageFile, new WADOParameters());
+			if (result.getErrors()!=null)
+			{
+				returnValue.setErrors(result.getErrors());
+				return returnValue;
+			}
+			returnValue.setImage(result.getImages());
 		}
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
@@ -144,10 +209,26 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 			   returnValue.setErrors("image not found");
 			   return returnValue; 
 		}
-		if (user!="internal")
+		List<SiteData> authorizedSites;
+		UserObject uo = userTable.get(user);
+		if (uo!=null)
 		{
-		AuthorizationManager manager = new AuthorizationManager(user);
-		List<SiteData> authorizedSites = manager.getAuthorizedSites();
+			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
+		} else
+		{
+		   System.out.println("the user is " + user);
+		   AuthorizationManager manager = new AuthorizationManager(user);
+		   authorizedSites = manager.getAuthorizedSites();
+		   uo = new UserObject();
+		   uo.setAuthorizedSites(authorizedSites);
+		   userTable.put(user, uo);
+		}
 		returnValue.setCollection((String)images.get(0)[0]);
 		returnValue.setSite((String)images.get(0)[1]);
 		boolean isAuthorized = false;
@@ -164,9 +245,8 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 		}
 		if (!isAuthorized)
 		{
-			System.out.println("User: "+user+" noy authorized");
+			System.out.println("User: "+user+" not authorized");
 			return null; //not authorized
-		}
 		}
 		String filePath = (String)images.get(0)[2];
 		File imageFile = new File(filePath);
@@ -181,7 +261,13 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 		    returnValue.setImage(FileUtils.readFileToByteArray(imageFile));
 		} else
 		{
-			returnValue.setImage(DCMUtils.getJPGFromFile(imageFile));
+			JPEGResult result = DCMUtils.getJPGFromFile(imageFile, params);
+			if (result.getErrors()!=null)
+			{
+				returnValue.setErrors(result.getErrors());
+				return returnValue;
+			}
+			returnValue.setImage(result.getImages());
 		}
 	} catch (Exception e) {
 		// TODO Auto-generated catch block

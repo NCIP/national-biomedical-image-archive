@@ -39,9 +39,9 @@ L-->
 	      </td>
   	</tr>
            <tr>
-	                    <td width="30%">
-	  		     <div>
-	  		     	     <ice:commandLink id="addSeriesToBasketButton"  style="float:left;border: solid 1px #2A4E77;" styleClass="button" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
+	                    <td colspan="2">
+	  		     <div style="float:right; margin-right: 18px">
+	  		     	     <ice:commandLink id="addSeriesToBasketButton"  style="float:right; border: solid 1px #2A4E77;" styleClass="button" action="#{studiesSearchResultBean.addAllSeriesToBasket}">                                          
 	  		     	         <ice:outputText value="Add all found to  " style="display:inline"/>
 	  		     	  	 <ice:graphicImage value="images/cart-empty.png" style="border:none;display:inline;" alt="Add All To Basket"/>                                                                               
 	  		     	     </ice:commandLink>
@@ -49,6 +49,7 @@ L-->
 	  	                <h:message for="addSeriesToBasketButton" errorClass="errorLabel" infoClass="infoLabel" />         
 	  	              </div>                  
 	                    </td>
+	           
 		  </tr>
           <tr>
             <td colspan="3">

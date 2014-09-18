@@ -25,7 +25,7 @@ private static boolean scanned =false;
 private static ImageReader reader;
 private static DicomImageReadParam param;
 static Logger log = Logger.getLogger(DCMUtils.class);
-public static JPEGResult getJPGFromFile(File file, WADOParameters params)
+public synchronized static  JPEGResult getJPGFromFile(File file, WADOParameters params)
 {
 	JPEGResult returnValue=new JPEGResult();
 	BufferedImage myJpegImage = null;
@@ -112,9 +112,10 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
         }	
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(output);
-		JPEGEncodeParam enParam=JPEGCodec.getDefaultJPEGEncodeParam(myJpegImage);
+		
 		if (params!=null&&params.getQualityFloat()!=-1)
 		{
+			JPEGEncodeParam enParam=JPEGCodec.getDefaultJPEGEncodeParam(myJpegImage);
 			enParam.setQuality(params.getQualityFloat(), true);
 			encoder.setJPEGEncodeParam(enParam);
 		}

@@ -125,7 +125,7 @@ public void setWindowCenter(String windowCenter) {
 	}	
 	if (!isValidPositive(windowCenter))
 	{
-		addError("windowCenter is not valid");
+		addError("windowCenter is not valid, needs to be a positive integer");
 	}
 	this.windowCenter = windowCenter;
 }
@@ -140,7 +140,7 @@ public void setWindowWidth(String windowWidth) {
 	}
 	if (!isNumeric(windowWidth))
 	{
-		addError("windowWidth is not valid");
+		addError("windowWidth is not valid, needs to be a positive integer");
 	}
 	this.windowWidth = windowWidth;
 }
@@ -155,7 +155,7 @@ public void setImageQuality(String imageQuality) {
 	}
 	if (!isQualityValid(imageQuality))
 	{
-		addError("imageQuality is not valid");
+		addError("imageQuality is not valid, should be an integer between 1 and 100");
 	}
 	this.imageQuality = imageQuality;
 }
@@ -168,7 +168,7 @@ public void setFrameNumber(String frameNumber) {
 	}
 	if (!isValidPositive(frameNumber))
 	{
-		addError("Frame Number is not valid");
+		addError("Frame Number is not valid, needs to be a positive integer");
 	}
 	this.frameNumber = frameNumber;
 }

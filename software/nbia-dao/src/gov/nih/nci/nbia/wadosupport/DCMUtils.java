@@ -51,6 +51,16 @@ public static JPEGResult getJPGFromFile(File file, WADOParameters params)
 		   ImageIO.scanForPlugins();
 		   Iterator<ImageReader> iter = ImageIO.getImageReadersByFormatName("DICOM");
 		   reader=(ImageReader) iter.next();  
+		   while (iter.hasNext()){
+			     reader=(ImageReader) iter.next();
+			     log.info("The default ReadParam is "+reader.getDefaultReadParam().getClass().getName());
+			     if (reader.getDefaultReadParam() instanceof DicomImageReadParam)
+			     {
+			         param = (DicomImageReadParam) reader.getDefaultReadParam();
+			         log.info("right reader found "+reader.getClass().getName());
+			         break;
+			     }
+		   }
 	}
     
 	try {

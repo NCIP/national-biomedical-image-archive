@@ -67,9 +67,10 @@ L-->
 		<dependency org="org.springframework.security" name="spring-security-acl" rev="3.2.2.RELEASE" conf="compile->master;runtime->master"/>
 		<dependency org="org.springframework.security" name="spring-security-config" rev="3.2.2.RELEASE" conf="compile->master;runtime->master"/>
 		<dependency org="org.springframework.security" name="spring-security-core" rev="3.2.2.RELEASE" conf="compile->master;runtime->master"/>
-		<dependency org="org.springframework.security.oauth" name="spring-security-oauth" rev="2.0.0.RELEASE" conf="compile->master;runtime->master"/>
+		<!--dependency org="org.springframework.security.oauth" name="spring-security-oauth" rev="2.0.0.RELEASE" conf="compile->master;runtime->master"/-->
 		<dependency org="org.springframework.security" name="spring-security-taglibs" rev="3.2.2.RELEASE" conf="compile->master;runtime->master"/>
 		<dependency org="org.springframework.security" name="spring-security-web" rev="3.2.2.RELEASE" conf="compile->master;runtime->master"/>
+		<dependency org="org.springframework.security.oauth" name="spring-security-oauth2" rev="1.0.5.RELEASE" conf="compile->master;runtime->master"/>
 		<!-- begin of Sring security -->
 		<dependency org="javax.servlet" name="servlet-api" rev="2.4" conf="compile->master"/>
 		

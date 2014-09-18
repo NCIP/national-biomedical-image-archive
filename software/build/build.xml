@@ -1700,7 +1700,11 @@ jboss.home,ctp.server.home,ctp.client.home,
    <target name="build:nbia-api" depends="init,
    	                   build:nbia-domain,
    		           build:nbia-dao">			
-   		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-api.build.target}" dir="${nbia-api.base.dir}"/>
+   		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-api.build.target}" dir="${nbia-api.base.dir}">
+							<property name="nbia.api.oauth2.client.id" value="${nbia.api.oauth2.client.id}"/>
+							<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
+							<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
+		</ant>
    </target>
 
 </project>

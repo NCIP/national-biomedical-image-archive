@@ -112,6 +112,18 @@ L-->
 				<include name="**/*.*" />
 			</fileset>
 		</copy>
+
+		<copy todir="${webapp.dir}/WEB-INF" overwrite="true">
+			<filterset>
+				<filter token="nbia.api.oauth2.client.id" value="${nbia.api.oauth2.client.id}"/>
+				<filter token="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
+				<filter token="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
+			</filterset>
+			<fileset dir="${web.nbia.webapp.dir}/WEB-INF">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+		
 		<copy todir="${webapp.dir}/WEB-INF/lib">
 			<fileset dir="${project.lib.dir}/runtime">
 				<include name="*.*" />

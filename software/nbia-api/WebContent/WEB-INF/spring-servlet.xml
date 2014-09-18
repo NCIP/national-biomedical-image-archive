@@ -21,9 +21,9 @@ L-->
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="accessConfirmationController" class="gov.nih.nci.nbia.restMVC.AccessConfirmationController">
+	<!--bean id="accessConfirmationController" class="gov.nih.nci.nbia.restMVC.AccessConfirmationController">
 		<property name="tokenServices" ref="tokenServices" />
 		<property name="consumerDetailsService" ref="consumerDetails" />
-	</bean>
+	</bean-->
 
 </beans>

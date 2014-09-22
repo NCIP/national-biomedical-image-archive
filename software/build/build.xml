@@ -434,16 +434,9 @@ $HeadURL$
          antfile="${nbia.build.file}"
          target="${nbia-dao.build.target}"
          dir="${nbia-dao.base.dir}">
-      <property name="project.name" value="${project.name}"/>
-
-      <property name="database.type" value="${database.type}"/>
-      <property name="database.user" value="${database.user}"/>
-      <property name="database.password" value="${database.password}"/>
-      <property name="database.system.user" value="${database.system.user}"/>
-      <property name="database.system.password" value="${database.system.password}"/>
-      <property name="database.url" value="${database.url}"/>
       <property name="database.dialect" value="${database.dialect}"/>
       <property name="database.driver" value="${database.driver}"/>
+      <property name="application.context.name" value="${application.context.name}"/>
     </ant>
   </target>
 

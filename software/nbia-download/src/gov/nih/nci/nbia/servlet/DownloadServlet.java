@@ -50,7 +50,7 @@ public class DownloadServlet extends HttpServlet {
     public void doGet(HttpServletRequest request,
               HttpServletResponse response) throws ServletException,IOException {
         //first check if its download for jnlpfile at server or dicom images download
-        String serverjnlpfileloc = request.getParameter("serverjnlpfileloc"); 
+        String serverjnlpfileloc = request.getParameter("serverjnlpfileloc");
         if(StringUtils.isNotBlank(serverjnlpfileloc)) {
             downloadJNLPDataFile(serverjnlpfileloc, response);
         } else {
@@ -123,8 +123,9 @@ public class DownloadServlet extends HttpServlet {
 
             logger.info("images size: " + imageResults.size() + " anno size: " + annoResults.size());
 
-            sendImagesData(imageResults, tos);
             sendAnnotationData(annoResults, tos);
+            sendImagesData(imageResults, tos);
+
 
             logger.info("total time to send  files are " + (System.currentTimeMillis() - start)/1000 + " ms.");
         }
@@ -213,7 +214,7 @@ public class DownloadServlet extends HttpServlet {
                 List <String> readLines = IOUtils.readLines(new FileReader(fileName));
                 OutputStream os = response.getOutputStream();
                 IOUtils.writeLines(readLines, System.getProperty("line.separator"), os);
-                os.close();	
+                os.close();
             } catch (IOException e){
               e.printStackTrace();
         }

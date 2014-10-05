@@ -31,6 +31,7 @@ import org.dcm4che2.net.CommandUtils;
 import org.dcm4che2.net.DimseRSP;
 import org.dcm4che2.net.SingleDimseRSP;
 import org.dcm4che2.net.Status;
+import org.apache.log4j.Logger;
 //import pt.ua.dicoogle.DebugManager;
 /**
  *
@@ -38,7 +39,7 @@ import org.dcm4che2.net.Status;
  */
 public class CMoveService extends DicomService implements CMoveSCP
 {
-
+	static Logger log = Logger.getLogger(DicomService.class);
 
     private final Executor executor;
 
@@ -58,9 +59,9 @@ public class CMoveService extends DicomService implements CMoveSCP
     public void cmove(Association as, int pcid, DicomObject rq,
             DicomObject data) throws DicomServiceException, IOException
     {
-                //DebugManager.getInstance().debug("just cmove");
+        log.info("just cmove");
 
-        //DebugManager.getInstance().debug(CommandUtils.toString(rq, pcid, "1.2.2.2.2.2.2.0"));
+        log.info(CommandUtils.toString(rq, pcid, "1.2.2.2.2.2.2.0"));
         DicomObject cmdrsp = CommandUtils.mkRSP(rq, CommandUtils.SUCCESS);
         DimseRSP rsp = doCMove(as, pcid, rq, data, cmdrsp);
         try {

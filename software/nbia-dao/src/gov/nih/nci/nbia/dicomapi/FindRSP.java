@@ -30,8 +30,7 @@ package gov.nih.nci.nbia.dicomapi;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.dcm4che2.data.DicomElement;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
@@ -53,7 +52,7 @@ public class FindRSP implements DimseRSP
     
     private DicomObject rsp;
     private DicomObject keys;
-    
+    static Logger log = Logger.getLogger(FindRSP.class);
     
     
     /** 
@@ -67,22 +66,21 @@ public class FindRSP implements DimseRSP
     public FindRSP(DicomObject keys, DicomObject rsp)
     {
         this.rsp = rsp ; 
-        this.keys = keys ;
-        
-       // DebugManager.getInstance().debug("--> Creating FindRSP");
+        this.keys = keys ; 
+        log.info("--> Creating FindRSP");
        // IndexEngine core = IndexEngine.getInstance();
 
         
         /** Debug - show keys, rsp, index */ 
         if (keys!=null)
         {
-          //  DebugManager.getInstance().debug("keys object: ");
-          //  DebugManager.getInstance().debug(keys.toString());
+        	log.info("keys object: ");
+        	log.info(keys.toString());
         }
         if (rsp!=null)
         {
-           // DebugManager.getInstance().debug("Rsp object");
-           // DebugManager.getInstance().debug(rsp.toString());
+        	log.info("Rsp object");
+        	log.info(rsp.toString());
         }
         
         /** 
@@ -107,9 +105,13 @@ public class FindRSP implements DimseRSP
         extrafields.add("ModalitiesInStudy");
         extrafields.add("StudyInstanceUID");
         
-        String query = getQueryString(keys, rsp);
+        DICOMParameters query = getQueryString(keys, rsp);
         
-
+        if (!query.valid())
+        {
+        	log.error("query is empty");
+            return;
+        }
         /** 
          * Search results
          * TODO: 
@@ -134,18 +136,22 @@ public class FindRSP implements DimseRSP
         if (levelStr.contains("PATIENT"))
         {
             level = SearchDicomResult.QUERYLEVEL.PATIENT;
+            System.out.println("Query at patient level");
         }
         else if(levelStr.contains("STUDY"))
         {
             level = SearchDicomResult.QUERYLEVEL.STUDY;
+            log.info("Query at study level");
         }
         else if (levelStr.contains("SERIES"))
         {
             level = SearchDicomResult.QUERYLEVEL.SERIE;
+            System.out.println("Query at series level");
         }
         else if (levelStr.contains("IMAGE"))
         {
             level = SearchDicomResult.QUERYLEVEL.IMAGE;
+            log.info("Query at image level");
         }
 
         search = new SearchDicomResult(query,
@@ -155,8 +161,7 @@ public class FindRSP implements DimseRSP
 
          if (search == null)
          {
-          //  DebugManager.getInstance().debug(">> Search is null, so" +
-           //         " somethig is wrong ");
+        	 log.info(">> Search is null, something is wrong ");
          }
          
         // always return Specific Character Set
@@ -171,16 +176,16 @@ public class FindRSP implements DimseRSP
 
 
 
-    private String getQueryString(DicomObject keys, DicomObject rsp)
+    private DICOMParameters getQueryString(DicomObject keys, DicomObject rsp)
     {
-        String result = "";
+    	DICOMParameters result = null;
         try
         {
             CFindBuilder c = new CFindBuilder(keys, rsp);
             result = c.getQueryString() ;
         } catch (Exception ex)
         {
-            Logger.getLogger(FindRSP.class.getName()).log(Level.SEVERE, null, ex);
+        	ex.printStackTrace();
         }
 
         return result ;
@@ -270,7 +275,7 @@ public class FindRSP implements DimseRSP
             
         } catch (InterruptedException ex)
         {
-            Logger.getLogger(FindRSP.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 

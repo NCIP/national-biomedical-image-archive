@@ -44,7 +44,7 @@ public class QueryRetrieve extends DicomNetwork
 {
 
     /**** Class Atributes ****/
-    private static Logger logger = Logger.getLogger(QueryRetrieve.class);
+    private static Logger log = Logger.getLogger(QueryRetrieve.class);
 
     ServerSettings s  = ServerSettings.getInstance();
 
@@ -101,12 +101,12 @@ public class QueryRetrieve extends DicomNetwork
                 this.sopClass = s.getSOPClass();
 
 
-       // DebugManager.getInstance().debug("SOP Class: ");
-       // DebugManager.getInstance().debug(s.getSOPClass());
+        log.info("SOP Class: ");
+        log.info((s.getSOPClass());
 
         for (String s : transfCap)
         {
-            //DebugManager.getInstance().debug("TransCap : " + s );
+        	log.info("TransCap : " + s );
         }
 
         tc[0] = new TransferCapability(
@@ -153,6 +153,7 @@ public class QueryRetrieve extends DicomNetwork
         this.localAE.register(new VerificationService());
 
         this.localConn.setPort(s.getWlsPort());
+        log.info("listening port is "+s.getWlsPort());
         this.localConn.setMaxScpAssociations(s.getMaxClientAssoc());
         this.localConn.setAcceptTimeout(s.getAcceptTimeout());
         this.localConn.setConnectTimeout(s.getConnectionTimeout());
@@ -167,10 +168,10 @@ public class QueryRetrieve extends DicomNetwork
 
     @Override
     public boolean doStartService() {
-    	System.out.println("starting DICOM service");
+    	log.info("starting DICOM service");
     	//this.device = new Device(MODULE_NAME);
         if (this.device != null) {
-        	System.out.println("Device is not null");
+        	log.info("Device is not null");
             this.verifService = new EchoReplyService();
             CommandUtils.setIncludeUIDinRSP(true);
            
@@ -178,19 +179,27 @@ public class QueryRetrieve extends DicomNetwork
                 this.device.startListening(QueryRetrieve.executor);
                 this.verifService.start();
             } catch (Exception ex) {
-            	System.out.println("Exception!");
+            	 log.info("Exception!");
                  ex.printStackTrace();
                  //MainWindow.getMw().add2ServerLogln(ex.getMessage(), LOG_MODES.ERROR);
                  return false;
             }
             this.started = true;
-            // DebugManager.getInstance().debug("Starting server " +
-            //        "- cmove server was started right now .. ");
-                this.startedAsService = true;
-                System.out.println("DICOM listening");
+            this.startedAsService = true;
+            NetworkApplicationEntity[] entities=this.device.getNetworkApplicationEntity();
+            if (entities==null){
+            	log.info("Entities is null");
+            } else
+            {
+            	for (int i=0; i<entities.length; i++)
+            	{
+            		log.info("Entity is "+entities[i].getAETitle());
+            	}
+            }
+            log.info("DICOM listening");
             return true;
         }
-        System.out.println("Device is null no DICOM service");
+        log.info("Device is null no DICOM service");
         return false ;
     }
 

@@ -143,9 +143,7 @@ public abstract class DicomNetwork
         boolean result = false;
 
         result = doStartService();
-       // if (this.eventService!=null)
-       //     this.eventService.startService(this.deviceName +  " was started " +
-            //        "QueryRetrieve");
+        System.out.println(this.deviceName +  " was started " + "QueryRetrieve");
         return result ; 
           
     }
@@ -156,9 +154,7 @@ public abstract class DicomNetwork
         boolean result = false;
 
         result = doStopService();
-      //  if (this.eventService!=null)
-       //     this.eventService.stopService(this.deviceName +  " was stoppped" +
-        //            " QueryRetrieve");
+        System.out.println(this.deviceName +  " was stoppped" + " QueryRetrieve");
         return result ;
     }
 

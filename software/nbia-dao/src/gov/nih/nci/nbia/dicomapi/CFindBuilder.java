@@ -24,6 +24,8 @@ package gov.nih.nci.nbia.dicomapi;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
 import org.dcm4che2.data.DicomElement;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
@@ -50,9 +52,9 @@ public class CFindBuilder
     private boolean patientRoot = false ;
     private boolean studyRoot = false ;
 
-    private String query = "";
+    private DICOMParameters query = null;
     
-
+    static Logger log = Logger.getLogger(CFindBuilder.class);
     public CFindBuilder(DicomObject key, DicomObject rsp) throws Exception
     {
 
@@ -86,7 +88,7 @@ public class CFindBuilder
         // Get Affected SOP Classs UID
         DicomElement elem = rsp.get(Integer.parseInt("00000002", 16));
         String affectedSOP = new String(elem.getBytes());
-
+        log.info("affectedSOP:"+affectedSOP);
 
 
         //TagsStruct.getInstance().toStringNew();
@@ -96,116 +98,71 @@ public class CFindBuilder
 
         boolean all=false ;
         String append = "" ;
+        DICOMParameters params = new DICOMParameters();
         while(itKeys.hasNext())
         {
             /** Verify if this tags exists
             */
             int k = itKeys.next() ;
             DicomElement e = key.get(k);
-           // DebugManager.getInstance().debug("get key::"+ k );
+            log.info("get key::"+ k );
             if (e!=null)
             {
                 String value = new String(e.getBytes());
-               // DebugManager.getInstance().debug("Value getted in CFIND RP:<"+t.get(k).getAlias() + "> "+ value );
+                log.info("Value getted in CFIND RP:<"+t.get(k).getAlias() + "> "+ value );
                 if (value.equals(""))
                 {
+                	log.info("no value for"+t.get(k).getAlias());
                     continue ;
-
                 }
-                else
+                else if (t.get(k).getAlias().equals("PatientID"))
                 {
-                    boolean modified = false ;
-                    // TODO :: Study Date need to be rewritted
-                    // and others weird tags like // should be mapped to lucene!
-                    if (k == Tag.ModalitiesInStudy)
-                    {
-                        String [] modality = value.split("\\\\");
-                        int i = 0 ;
-                        String modalityQuery = "";
-                        for (String mod : modality )
-                        {
-
-                            //DebugManager.getInstance().debug(mod);
-
-                            if (modified)
-                            {
-                                // There is already exist a modality
-                                modalityQuery += " OR ";
-                            }
-
-                            i++ ; 
-                            modified = true ;
-                            modalityQuery += "Modality" + ":" + mod;
-                        }
-                        if (!modalityQuery.equals(""))
-                        {
-                            System.err.println(modalityQuery);
-                            query = query + append +  " (" + modalityQuery + ")" ;
-                        }
-                        
-                    }
-
-                    else if(k == Tag.StudyDate)
-                    {
-                        String [] date = value.split("-");
-                        int i = 0 ;
-                        if (date.length==1)
-                        {
-                            query = query + t.get(k).getAlias() + ":[" + date[0] + " TO " +
-                                date[0] + "]" ;
-                        }
-                        else if(date.length==2)
-                        {
-                            query = query + t.get(k).getAlias() + ":[" + date[0] + " TO " +
-                                date[1] + "]" ;
-                        }
-                        modified = true ;
-                    }
-                    
-                    
-                    else if(k == Tag.StudyTime)
-                    {
-                        String [] date = value.split("-");
-                        int i = 0 ;
-                        if (date.length==1)
-                        {
-                            query = query + t.get(k).getAlias() + ":[" + date[0] + " TO " +
-                                date[0] + "]" ;
-                        }
-                        else if(date.length==2)
-                        {
-                            query = query + t.get(k).getAlias() + ":[" + date[0] + " TO " +
-                                date[1] + "]" ;
-                        }
-                        modified = true ;
-                    }
-                    
-                    
-
-                    else
-                    {
-                        modified = true ; 
-                        query += append + t.get(k).getAlias() + ":" + value;
-                    }
-
-                    if (modified && itKeys.hasNext())
-                    {
-                        append = " AND ";
-                    }
-
+                	params.setPatientID(value);
                 }
+                else if (t.get(k).getAlias().equals("PatientName"))
+                {
+                	params.setPatientName(value);
+                }
+                else if (t.get(k).getAlias().equals("InstitutionName"))
+                {
+                	params.setInstitutionName(value);
+                }
+                else if (t.get(k).getAlias().equals("AccessionNumber"))
+                {
+                	params.setAccessionNumber(value);
+                }
+                else if (t.get(k).getAlias().equals("StudyDate"))
+                {
+                	params.setStudyDate(value);
+                }
+                else if (t.get(k).getAlias().equals("PatientAge"))
+                {
+                	params.setPatientAge(value);
+                }
+                else if (t.get(k).getAlias().equals("StudyID"))
+                {
+                	params.setStudyID(value);
+                }
+                else if (t.get(k).getAlias().equals("StudyInstanceUID"))
+                {
+                	params.setStudyInstanceUID(value);
+                }
+                else if (t.get(k).getAlias().equals("StudyDescription"))
+                {
+                	params.setStudyDescription(value);
+                }
+
 
             }
         }
         
-        if (query.equals(""))
-            query="*:*"; 
-        //DebugManager.getInstance().debug(">> Query String DICOM: "+ query);
 
+        log.info(">> Query DICOM: "+ params.toString());
+        query=params;
 
     }
 
-    public String getQueryString()
+    public DICOMParameters getQueryString()
             {
         return this.query;
     }
@@ -297,7 +254,7 @@ public class CFindBuilder
     /**
      * @return the query
      */
-    public String getQuery()
+    public DICOMParameters getQuery()
     {
         return query;
     }
@@ -305,7 +262,7 @@ public class CFindBuilder
     /**
      * @param query the query to set
      */
-    public void setQuery(String query)
+    public void setQuery(DICOMParameters query)
     {
         this.query = query;
     }

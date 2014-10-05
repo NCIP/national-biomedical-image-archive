@@ -34,26 +34,22 @@ public class EchoReplyService extends Thread
 
     @Override
     public void run() {
-        /* 
-         * ////
-        try {
-            this.mw.add2ServerLogln("Starting Verification Service...", MainWindow.LOG_MODES.WARNING);
-            
-            if (this.echoReply.startListening()) {
-                this.mw.add2ServerLogln("Verification Service start listening on port "+ this.echoReply.getLocalPort() + ".",
-                                        MainWindow.LOG_MODES.NORMAL);
 
-                this.mw.add2ServerLogln("Verification Service started!",MainWindow.LOG_MODES.WARNING);
+        try {
+            System.out.println("Starting Verification Service...");
+            if (this.echoReply.startListening()) {
+                System.out.println("Verification Service start listening on port "+ this.echoReply.getLocalPort());
+
+                System.out.println("Verification Service started!");
             } else {
-                this.mw.add2ServerLogln("Error Starting Verification Service on port " + this.echoReply.getLocalPort() + "...",
-                                        MainWindow.LOG_MODES.ERROR);
+            	System.out.println("Error Starting Verification Service on port " + this.echoReply.getLocalPort());
             }
         }
         catch (Exception ex) {
-            this.mw.add2ServerLogln(ex.getMessage(), MainWindow.LOG_MODES.ERROR);
+        	ex.printStackTrace();
         }
         
-        */
+
     }
 
     public void  stopService() {

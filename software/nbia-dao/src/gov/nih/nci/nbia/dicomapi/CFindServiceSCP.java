@@ -22,7 +22,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Executor;
-import java.util.logging.Level;
+import org.apache.log4j.Logger;
 
 import javax.xml.transform.TransformerConfigurationException;
 import org.dcm4che2.data.DicomElement;
@@ -52,7 +52,7 @@ import org.dcm4che2.net.service.CFindService;
  * @author Luís A. Bastião Silva <bastiao@ua.pt>
  */
 public class CFindServiceSCP extends CFindService {
-
+	static Logger log = Logger.getLogger(CFindServiceSCP.class);
     private ServerSettings s = ServerSettings.getInstance();
     private int rspdelay = ServerSettings.getInstance().getRspDelay();
  //   private IndexEngine core = IndexEngine.getInstance();
@@ -69,7 +69,7 @@ public class CFindServiceSCP extends CFindService {
             DicomObject cmd, DicomObject keys, DicomObject rsp)
             throws DicomServiceException {
 
-       // DebugManager.getInstance().debug("doCFind? -- > working on it");
+    	log.info("I am in CFIND! -- > working on it");
 
 
         DimseRSP replay = null;
@@ -83,10 +83,11 @@ public class CFindServiceSCP extends CFindService {
         /**
          * Verify Permited AETs
          */
-        //DebugManager.getInstance().debug(":: Verify Permited AETs @ C-FIND Action ");
+        log.info(":: Verify Permited AETs @ C-FIND Action ");
         boolean permited = false;
 
         if (s.getPermitAllAETitles()) {
+        	log.info("All AETs Permitted for Public ");
             permited = true;
         } else {
             String permitedAETs[] = s.getCAET();
@@ -101,12 +102,12 @@ public class CFindServiceSCP extends CFindService {
 
 
         if (!permited) {
-           // DebugManager.getInstance().debug("Client association NOT permited: " + as.getCallingAET() + "!");
+        	log.info("Client association NOT permited: " + as.getCallingAET() + "!");
             //as.abort();
 
             //return new FindRSP(keys, rsp, null);
         } else {
-           // DebugManager.getInstance().debug("Client association permited: " + as.getCallingAET() + "!");
+        	log.info("Client association permited: " + as.getCallingAET() + "!");
         }
 
 
@@ -137,8 +138,7 @@ public class CFindServiceSCP extends CFindService {
         try {
             l.printXML();
         } catch (TransformerConfigurationException ex) {
-            java.util.logging.Logger.getLogger(
-                    QueryRetrieve.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
        // Logs.getInstance().addLog(ll);
 

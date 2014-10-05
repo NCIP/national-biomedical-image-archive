@@ -24,8 +24,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -52,7 +52,7 @@ public class DIMGeneric
      */
     private ArrayList<Patient> patients = new ArrayList<Patient>();
     private Hashtable<String, Patient> patientsHash  = new Hashtable<String, Patient>();
-    
+    static Logger log = Logger.getLogger(SearchDicomResult.class);
     /**
      * it is allow to handle a ArrayList of Strings or SearchResults
      * @param arr
@@ -63,7 +63,7 @@ public class DIMGeneric
 
             int size = arr.size();
             for (int i = 0 ; i<size ; i++ ){
-                //DebugManager.getInstance().debug("Adding new Image ");
+                log.info("Adding new Image ");
             
                 /**
                  * Looking for SeachResults and put it in right side :) 
@@ -83,7 +83,7 @@ public class DIMGeneric
                  * Get data to Serie
                  */
                 String serieUID = (String) extra.get("SeriesInstanceUID");
-                System.out.println("serieUID"+serieUID);
+                log.info("serieUID"+serieUID);
                 String serieNumber = (String) extra.get("SeriesNumber");
                 String serieDescription = (String) extra.get("SeriesDescription");
                 String modality = (String) extra.get("Modality");
@@ -114,7 +114,7 @@ public class DIMGeneric
 
 
                 /** Verify if Patient already exists */
-
+                log.info("patientName:"+patientName);
                 if (this.patientsHash.containsKey(patientName))
                 {
                     /**
@@ -191,7 +191,7 @@ public class DIMGeneric
         try {
             hd = tf.newTransformerHandler();
         } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(DIMGeneric.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         Transformer serializer = hd.getTransformer();
         serializer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -248,7 +248,7 @@ public class DIMGeneric
             hd.endElement("", "", "DIM");
 
         } catch (SAXException ex) {
-            Logger.getLogger(DIMGeneric.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
         return writer.toString() ;

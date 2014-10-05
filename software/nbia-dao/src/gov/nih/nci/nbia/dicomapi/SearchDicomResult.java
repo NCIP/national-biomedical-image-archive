@@ -34,15 +34,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.dcm4che2.data.BasicDicomObject;
 import org.dcm4che2.data.DicomObject;
 import org.dcm4che2.data.Tag;
 import org.dcm4che2.data.VR;
 import org.dcm4che2.io.DicomInputStream;
-
-
+import gov.nih.nci.nbia.util.SpringApplicationContext;
+import gov.nih.nci.nbia.wadosupport.WADOSupportDAO;
+import gov.nih.nci.nbia.wadosupport.WADOSupportDAOImpl;
 /**
  *
  * @author Luís A. Bastião Silva <bastiao@ua.pt>
@@ -55,7 +55,7 @@ public class SearchDicomResult implements Iterator<DicomObject>
 
     private final QUERYLEVEL queryLevel; 
 
-
+    static Logger log = Logger.getLogger(SearchDicomResult.class);
     /**
     * Get IndexCore
     */
@@ -69,7 +69,7 @@ public class SearchDicomResult implements Iterator<DicomObject>
     String currentFile ;
 
     
-    public SearchDicomResult(String searchQuery, boolean isNetwork, 
+    public SearchDicomResult(DICOMParameters searchQuery, boolean isNetwork, 
             ArrayList<String> extrafields, QUERYLEVEL level)
     {
 
@@ -79,24 +79,31 @@ public class SearchDicomResult implements Iterator<DicomObject>
          * Get the array list of resulst match searchQuery
          */
 
-        System.out.println("QUERY: " + searchQuery);
-        System.out.println("QUERYLEVEL: " + queryLevel);
-        // TO DO: Fix the search to use database
-        /**  DebugManager.getInstance().debug(searchQuery);
-        list = core.searchSync(searchQuery, extrafields);
+        log.info("QUERY: " + searchQuery);
+        log.info("QUERYLEVEL: " + queryLevel);
+        log.info(searchQuery);
+        list=new ArrayList<SearchResult>();
+		WADOSupportDAO dDao = (WADOSupportDAO)SpringApplicationContext.getBean("WADOSupportDAO");
+		List <DICOMSupportDTO> ddtos = dDao.getDICOMSupportDTO(searchQuery, extrafields);
+        //list = core.searchSync(searchQuery, extrafields);
+		for (DICOMSupportDTO ddto:ddtos){
+			SearchResult item = new SearchResult(null, ddto.getFileName(),ddto.getFilePath(), ddto.getFileSize(), ddto.getFieldMap(), null);
+		    list.add(item);
+			
+		}
 
-        
+        /*
          * Get iterator
          */
         
         if (list!=null)
         {
           it = list.iterator();
-          //DebugManager.getInstance().debug(">> We have a list of items found");
+          log.info(">> We have a list of items found");
         }
         else
         {
-          //DebugManager.getInstance().debug(">> No list, no results, no iterator. ");
+          log.info(">> No list, no results, no iterator. ");
           it = null;
         }
 
@@ -106,6 +113,7 @@ public class SearchDicomResult implements Iterator<DicomObject>
             DIMGeneric dimModel = null;
             try
             {
+            	log.info("Makeing new dimgeneric");
                 dimModel = new DIMGeneric(list);
             } catch (Exception ex)
             {
@@ -207,8 +215,7 @@ public class SearchDicomResult implements Iterator<DicomObject>
                     // DebugManager.getInstance().debug("Imagem: "+path+"..."+next);
                 } catch (IOException ex)
                 {
-                    Logger.getLogger(SearchDicomResult.class.getName()).log(
-                            Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
                 try
                 {
@@ -227,8 +234,7 @@ public class SearchDicomResult implements Iterator<DicomObject>
                     return din.readDicomObject();
                 } catch (IOException ex)
                 {
-                    Logger.getLogger(SearchDicomResult.class.getName()).log(
-                            Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 }
             }
             else if (queryLevel == QUERYLEVEL.STUDY||queryLevel == QUERYLEVEL.PATIENT)
@@ -258,7 +264,7 @@ public class SearchDicomResult implements Iterator<DicomObject>
                 
                 Serie serieTmp = (Serie)next;
                 BasicDicomObject result = new BasicDicomObject();
-                System.out.println("Serie : "+ serieTmp);
+                log.info("Serie : "+ serieTmp);
                 
                 result.putString(Tag.StudyInstanceUID, VR.UI, serieTmp.getParent().getStudyInstanceUID());
                 result.putString(Tag.SeriesInstanceUID, VR.UI, serieTmp.getSerieInstanceUID());

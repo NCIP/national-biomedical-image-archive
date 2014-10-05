@@ -10,6 +10,12 @@ private String patientName;
 private String studyID;
 private String studyInstanceUID;
 private String studyDescription;
+public static String starRemove(String input)
+{
+	if (input==null) return null;
+	return input.replace("*", "");
+}
+
 public String getPatientID() {
 	return patientID;
 }
@@ -41,25 +47,25 @@ public void setPatientAge(String patientAge) {
 	this.patientAge = patientAge;
 }
 public String getStudyID() {
-	return studyID;
+	return starRemove(studyID);
 }
 public void setStudyID(String studyID) {
 	this.studyID = studyID;
 }
 public String getStudyInstanceUID() {
-	return studyInstanceUID;
+	return starRemove(studyInstanceUID);
 }
 public void setStudyInstanceUID(String studyInstanceUID) {
 	this.studyInstanceUID = studyInstanceUID;
 }
 public String getStudyDescription() {
-	return studyDescription;
+	return starRemove(studyDescription);
 }
 public void setStudyDescription(String studyDescription) {
 	this.studyDescription = studyDescription;
 }
 public String getPatientName() {
-	return patientName;
+	return starRemove(patientName);
 }
 public void setPatientName(String patientName) {
 	this.patientName = patientName;
@@ -81,6 +87,11 @@ public boolean valid()
 		return false;
 	}
 	return true;
+}
+
+public static void main(String[] args)
+{
+	System.out.println(starRemove("hello*"));
 }
 
 }

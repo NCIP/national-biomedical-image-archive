@@ -102,7 +102,7 @@ public class QueryRetrieve extends DicomNetwork
 
 
         log.info("SOP Class: ");
-        log.info((s.getSOPClass());
+        log.info(s.getSOPClass());
 
         for (String s : transfCap)
         {

@@ -207,12 +207,12 @@ public class SearchDicomResult implements Iterator<DicomObject>
                 SearchResult sR = (SearchResult)next;
                 path = sR.getOrigin();
                 currentFile = path ;
-                // DebugManager.getInstance().debug("-> Next::: " + next.toString());
+                log.info("-> Next::: " + next.toString());
                     DicomInputStream din = null;
                 try
                 {
                     din = new DicomInputStream(new File(path));
-                    // DebugManager.getInstance().debug("Imagem: "+path+"..."+next);
+                    log.info("Imagem: "+path+"..."+next);
                 } catch (IOException ex)
                 {
                     ex.printStackTrace();

@@ -422,7 +422,7 @@ public class ServerSettings
         this.localAETName  = "NBIA Service";
         this.permitedLocalInterfaces = "any";
         this.permitedRemoteHostnames = "any";
-        this.wlsPort = 104 ;  // default: 104
+        this.wlsPort = 1040 ;  // default: 104
         this.idleTimeout = 60 ;
         this.acceptTimeout = 60 ;
         this.rspDelay = 0 ;        

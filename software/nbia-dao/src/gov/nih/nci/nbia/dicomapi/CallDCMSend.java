@@ -36,12 +36,15 @@ public class CallDCMSend
 
              DcmSnd dcmsnd = new DcmSnd();
              
-
+            System.out.println("hostname:"+hostname);
             dcmsnd.setRemoteHost(hostname);
-            dcmsnd.setRemotePort(port);
+            dcmsnd.setRemotePort(104);
             
-            for (File fx : files)
+            for (File fx : files){
+            	    System.out.println("exists:"+fx.exists());
+            	    System.out.println("can read:"+fx.canRead());
                     dcmsnd.addFile(fx);
+            }
             dcmsnd.setCalledAET(AETitle);
      
         dcmsnd.configureTransferCapability();

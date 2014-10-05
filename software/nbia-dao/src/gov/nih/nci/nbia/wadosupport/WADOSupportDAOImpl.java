@@ -9,11 +9,15 @@
 package gov.nih.nci.nbia.wadosupport;
 
 import gov.nih.nci.nbia.dao.AbstractDAO;
+import gov.nih.nci.nbia.dicomapi.DICOMParameters;
+import gov.nih.nci.nbia.dicomapi.DICOMSupportDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.commons.io.FileUtils;
@@ -34,6 +38,17 @@ public class WADOSupportDAOImpl extends AbstractDAO
     private final static String WADO_OVIYAM_QUERY="select distinct gs.project, gs.site, dicom_file_uri from general_image gi, general_series gs" +
 	" where gi.sop_instance_uid = :image " +
 	"  and gs.general_series_pk_id = gi.general_series_pk_id";
+    
+    private final static String DICOM_QUERY="select distinct gs.project, gs.site, dicom_file_uri," +
+    		" p.patient_name, p.patient_id, gs.modality, " +
+    		" s.study_date, s.study_time,  gi.acquisition_number," +
+    		" s.study_id, s.study_desc, gs.series_number, " +
+    		" gs.series_instance_uid, gs.series_desc, p.patient_birth_date, " +
+    		" gs.modality, s.study_instance_uid, gi.sop_instance_uid " +
+    		" from general_image gi, general_series gs, patient p, study s " +
+	" where gs.general_series_pk_id = gi.general_series_pk_id"+
+	" and gs.patient_pk_id=p.patient_pk_id"+
+	" and gs.study_pk_id=s.study_pk_id";
     
 public WADOSupportDAOImpl()
 {
@@ -277,5 +292,194 @@ public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user)
 	}
 	
 	return returnValue;
+}
+
+
+@Transactional(propagation=Propagation.REQUIRED)
+public List <DICOMSupportDTO> getDICOMSupportDTO(DICOMParameters params, List<String> extraFields)
+{
+	List <DICOMSupportDTO>returnValues = new ArrayList<DICOMSupportDTO>();
+
+	try {
+		String user =  NCIAConfig.getGuestUsername();
+		
+	
+		String queryString = DICOM_QUERY;
+		List <ParameterList>parameterList = new ArrayList<ParameterList>();
+		if (params.getPatientName()!=null)
+		{
+			queryString=queryString+" and p.patient_name = :patient_name";
+			parameterList.add(new ParameterList(params.getPatientName(), "patient_name"));
+			log.info("added patient name to query : "+params.getPatientName());
+		} 
+		if (params.getPatientID()!=null)
+		{
+			queryString=queryString+" and p.patient_id = :patient_id";
+			parameterList.add(new ParameterList(params.getPatientID(), "patient_id"));
+			log.info("added patient id to query : "+params.getPatientID());
+		}
+		if (params.getStudyInstanceUID()!=null)
+		{
+			queryString=queryString+" and gs.study_instance_uid = :study_instance_uid";
+			parameterList.add(new ParameterList(params.getStudyInstanceUID(), "study_instance_uid"));
+			log.info("added study instance uid to query : "+params.getStudyInstanceUID());
+		}
+		if (params.getStudyDescription()!=null)
+		{
+			queryString=queryString+" and s.study_description = :study_description";
+			parameterList.add(new ParameterList(params.getStudyDescription(), "study_description"));
+			log.info("added study description to query : "+params.getStudyDescription());
+		}
+		SQLQuery query= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(queryString);
+		for (ParameterList param:parameterList)
+		{
+			query.setParameter(param.paramName, param.param);
+		}
+		List <Object[]>images=query.list();
+		if (images.size()==0) {
+			   log.error("images not found");
+			  // returnValue.setErrors("images not found");
+			   return returnValues;
+		}
+		List<SiteData> authorizedSites;
+		UserObject uo = userTable.get(user);
+		if (uo!=null)
+		{
+			authorizedSites = uo.getAuthorizedSites();
+			if (authorizedSites==null)
+			{
+				   AuthorizationManager manager = new AuthorizationManager(user);
+				   authorizedSites = manager.getAuthorizedSites();
+				   uo.setAuthorizedSites(authorizedSites);
+			}
+		} else
+		{
+		   System.out.println("the user is " + user);
+		   AuthorizationManager manager = new AuthorizationManager(user);
+		   authorizedSites = manager.getAuthorizedSites();
+		   uo = new UserObject();
+		   uo.setAuthorizedSites(authorizedSites);
+		   userTable.put(user, uo);
+		}
+		for (int i=0; i<images.size(); i++){
+		   String collection=(String)images.get(0)[0];
+		   String site=(String)images.get(0)[1];
+		   boolean isAuthorized = false;
+		   for (SiteData siteData : authorizedSites)
+		   {
+		   	   if (siteData.getCollection().equals(collection))
+			   {
+				   if (siteData.getSiteName().equals(site))
+				   {
+					   isAuthorized = true;
+					   break;
+				   }
+			   }
+		   }
+		   if (!isAuthorized)
+		   {
+			System.out.println("User: "+user+" not authorized");
+			continue; //not authorized
+		   }
+		   String filePath = (String)images.get(0)[2];
+		   String patientName = (String)images.get(0)[3];
+		   String patientID = (String)images.get(0)[4];
+		   String modality = (String)images.get(0)[5];
+		   String studyDate = null;
+		   try {
+			studyDate = ((Date) images.get(0)[6]).toString();
+		   } catch (Exception e) {
+			// its null
+		   }
+		   String studyTime = null;
+		   try {
+			studyTime = ((java.math.BigDecimal) images.get(0)[7]).toString();
+		   } catch (Exception e) {
+			// its null
+		   }
+		   String accessionNumber = null;
+		   try {
+			accessionNumber = ((java.math.BigDecimal) images.get(0)[8])
+					.toString();
+	 	    } catch (Exception e) {
+			// its null
+		    }
+		   String studyID = (String)images.get(0)[9];
+		   String studyDescription = (String)images.get(0)[10];
+		   String seriesNumber = ((Object)images.get(0)[11]).toString();
+		   String seriesInstanceUID = (String)images.get(0)[12];
+		   String seriesDescription = (String)images.get(0)[13];
+		   String referringPhysicianName = "not implemented";
+		   String patientBirthDate = null;
+		   try {
+			patientBirthDate = ((Date)images.get(0)[14]).toString();
+		   } catch (Exception e) {
+			// its null
+		   }
+		   String modalitiesInStudy = (String)images.get(0)[15];
+		   String studyInstanceUID = (String)images.get(0)[16];
+		   String sOPInstanceUID = (String)images.get(0)[17];
+		   File imageFile = new File(filePath);
+		   if (!imageFile.exists())
+		   {
+			   log.error("File " + filePath + " does not exist");
+			   // returnValue.setErrors("File does not exist");
+			   // return returnValue; 
+		   } else
+		   {
+			   DICOMSupportDTO returnItem = new DICOMSupportDTO();
+			   returnItem.setFilePath(imageFile.getPath());
+			   returnItem.setFileName(imageFile.getName());
+			   returnItem.setFileSize(new Long(imageFile.length()).toString());
+			   Hashtable <String, String>extraFieldMap = new Hashtable<String, String>();
+			   extraFieldMap.put("PatientName", stringForNull(patientName));
+			   extraFieldMap.put("PatientID", stringForNull(patientID));
+			   extraFieldMap.put("Modality", stringForNull(modality));
+			   extraFieldMap.put("StudyDate", stringForNull(studyDate));
+			   extraFieldMap.put("StudyTime", stringForNull(studyTime));
+			   extraFieldMap.put("AccessionNumber", stringForNull(accessionNumber));
+			   extraFieldMap.put("StudyID", stringForNull(studyID));
+			   extraFieldMap.put("StudyDescription", stringForNull(studyDescription));
+			   extraFieldMap.put("SeriesNumber", stringForNull(seriesNumber));
+			   extraFieldMap.put("SeriesInstanceUID", stringForNull(seriesInstanceUID));
+			   extraFieldMap.put("SeriesDescription", stringForNull(seriesDescription));
+			   extraFieldMap.put("ReferringPhysicianName", stringForNull(referringPhysicianName));
+			   extraFieldMap.put("PatientBirthDate", stringForNull(patientBirthDate));
+			   extraFieldMap.put("ModalitiesInStudy", stringForNull(modalitiesInStudy));
+			   extraFieldMap.put("StudyInstanceUID", stringForNull(studyInstanceUID));
+			   extraFieldMap.put("SOPInstanceUID", stringForNull(sOPInstanceUID));
+			   returnItem.setFieldMap(extraFieldMap);
+			   returnValues.add(returnItem);
+			   log.info("added dicom dto "+returnItem.toString());
+		   }
+		}
+
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		//returnValue.setErrors("unable to process request");
+		return returnValues; 
+	}
+	
+	return returnValues;
+}
+private class ParameterList
+{
+	public ParameterList(String paramIn, String paramNameIn)
+	{
+		//log.info("new parameter "+paramIn+":"+paramNameIn);
+		this.param=paramIn;
+		this.paramName=paramNameIn;
+	}
+	public String param;
+	public String paramName;
+}
+private String stringForNull(String input)
+{
+	if (input==null){
+		return "";
+	} else {
+		return input;
+	}
 }
 }

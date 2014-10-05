@@ -8,6 +8,9 @@
 
 package gov.nih.nci.nbia.wadosupport;
 
+import gov.nih.nci.nbia.dicomapi.DICOMParameters;
+import gov.nih.nci.nbia.dicomapi.DICOMSupportDTO;
+
 import java.util.*;
 
 import org.hibernate.SessionFactory;
@@ -20,5 +23,5 @@ public interface WADOSupportDAO  {
   public WADOSupportDTO getWADOSupportDTO(String study, String series, String image);
   public WADOSupportDTO getWADOSupportDTO(WADOParameters params, String user);
   public WADOSupportDTO getOviyamWADOSupportDTO(String image, String contentType, String user);
-  
+  public List <DICOMSupportDTO> getDICOMSupportDTO(DICOMParameters params, List<String> extraFields);
 }

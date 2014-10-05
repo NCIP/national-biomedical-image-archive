@@ -54,7 +54,7 @@ public class DynamicJNLPGenerator {
                 String seriesInstanceUid =seriesItem.getSeriesId();
                 String annotation = seriesItem.getAnnotated();
                 Integer numberImages = seriesItem.getTotalImagesInSeries();
-                Long imagesSize = seriesItem.getExactSize();
+                Long imagesSize = seriesItem.getTotalSizeForAllImagesInSeries();
                 Long annoSize = seriesItem.getAnnotationsSize();
                 String url = seriesItem.getSeriesSearchResult().associatedLocation().getURL();
                 String displayName = seriesItem.getSeriesSearchResult().associatedLocation().getDisplayName();

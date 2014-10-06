@@ -151,6 +151,10 @@ public class CFindBuilder
                 {
                 	params.setStudyDescription(value);
                 }
+                else if (t.get(k).getAlias().equals("SeriesInstanceUID"))
+                {
+                	params.setSeriesInstanceUID(value);
+                }
 
 
             }

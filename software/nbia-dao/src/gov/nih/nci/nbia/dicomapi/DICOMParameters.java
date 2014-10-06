@@ -10,10 +10,11 @@ private String patientName;
 private String studyID;
 private String studyInstanceUID;
 private String studyDescription;
+private String seriesInstanceUID;
 public static String starRemove(String input)
 {
 	if (input==null) return null;
-	return input.replace("*", "");
+	return input.replaceAll("\\*", "%");
 }
 
 public String getPatientID() {
@@ -70,6 +71,18 @@ public String getPatientName() {
 public void setPatientName(String patientName) {
 	this.patientName = patientName;
 }
+
+
+public String getSeriesInstanceUID() {
+	return starRemove(seriesInstanceUID);
+}
+
+public void setSeriesInstanceUID(String seriesInstanceUID) {
+	this.seriesInstanceUID = seriesInstanceUID;
+}
+
+
+
 @Override
 public String toString() {
 	return "DICOMParameters [patientID=" + patientID + ", institutionName="
@@ -77,7 +90,8 @@ public String toString() {
 			+ ", studyDate=" + studyDate + ", patientAge=" + patientAge
 			+ ", patientName=" + patientName + ", studyID=" + studyID
 			+ ", studyInstanceUID=" + studyInstanceUID + ", studyDescription="
-			+ studyDescription + "]";
+			+ studyDescription + ", seriesInstanceUID=" + seriesInstanceUID
+			+ "]";
 }
 
 public boolean valid()
@@ -91,7 +105,7 @@ public boolean valid()
 
 public static void main(String[] args)
 {
-	System.out.println(starRemove("hello*"));
+	System.out.println(starRemove("he%llo*"));
 }
 
 }

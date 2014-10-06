@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.springframework.transaction.annotation.Propagation;
@@ -305,35 +306,43 @@ public List <DICOMSupportDTO> getDICOMSupportDTO(DICOMParameters params, List<St
 		
 	
 		String queryString = DICOM_QUERY;
-		List <ParameterList>parameterList = new ArrayList<ParameterList>();
+		List <String>parameterList = new ArrayList<String>();
 		if (params.getPatientName()!=null)
 		{
-			queryString=queryString+" and p.patient_name = :patient_name";
-			parameterList.add(new ParameterList(params.getPatientName(), "patient_name"));
+			queryString=queryString+" and p.patient_name like ?";
+			parameterList.add(params.getPatientName());
 			log.info("added patient name to query : "+params.getPatientName());
 		} 
 		if (params.getPatientID()!=null)
 		{
-			queryString=queryString+" and p.patient_id = :patient_id";
-			parameterList.add(new ParameterList(params.getPatientID(), "patient_id"));
+			queryString=queryString+" and p.patient_id like ?";
+			parameterList.add(params.getPatientID());
 			log.info("added patient id to query : "+params.getPatientID());
 		}
 		if (params.getStudyInstanceUID()!=null)
 		{
-			queryString=queryString+" and gs.study_instance_uid = :study_instance_uid";
-			parameterList.add(new ParameterList(params.getStudyInstanceUID(), "study_instance_uid"));
+			queryString=queryString+" and gs.study_instance_uid like ?";
+			parameterList.add(params.getStudyInstanceUID());
 			log.info("added study instance uid to query : "+params.getStudyInstanceUID());
+		}
+		if (params.getSeriesInstanceUID()!=null)
+		{
+			queryString=queryString+" and gs.series_instance_uid like ?";
+			parameterList.add(params.getSeriesInstanceUID());
+			log.info("added series instance uid to query : "+params.getSeriesInstanceUID());
 		}
 		if (params.getStudyDescription()!=null)
 		{
-			queryString=queryString+" and s.study_description = :study_description";
-			parameterList.add(new ParameterList(params.getStudyDescription(), "study_description"));
+			queryString=queryString+" and s.study_description like ?";
+			parameterList.add(params.getStudyDescription());
 			log.info("added study description to query : "+params.getStudyDescription());
 		}
 		SQLQuery query= this.getHibernateTemplate().getSessionFactory().getCurrentSession().createSQLQuery(queryString);
-		for (ParameterList param:parameterList)
+		int p=0;
+		for (String param:parameterList)
 		{
-			query.setParameter(param.paramName, param.param);
+			query.setString(p, param.trim());
+			p++;
 		}
 		List <Object[]>images=query.list();
 		if (images.size()==0) {

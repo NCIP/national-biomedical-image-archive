@@ -31,14 +31,15 @@ L-->
                 <ice:outputLabel for="name" value="Shared List Name: "/>
               </td>
               <td colspan="5">
-                <ice:inputText id="name" 
+                <ice:inputText id="cname" 
                                required="true" 
                                immediate="true"
+                               label="value"
                                value="#{searchCustomSeriesListBean.name}"
                                size="110"
                                styleClass="formField"/>
                 <br/>
-                <h:message id="nameError" for="name" infoClass="infoLabel"/>
+                <h:message id="nameError" for="cname" infoClass="infoLabel" style="color:#FF0000;"/>
               </td>
             </tr>
               

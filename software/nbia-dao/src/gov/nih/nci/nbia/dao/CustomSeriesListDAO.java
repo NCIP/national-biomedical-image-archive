@@ -60,8 +60,8 @@ public interface CustomSeriesListDAO  {
 	 */
 	public List<QcCustomSeriesListDTO> findSharedListBySeriesInstanceUids(List<String> seriesUids) throws DataAccessException;
 	
-	public String findEmailByUserName(String uName)throws DataAccessException;
-
+	//public String findEmailByUserName(String uName)throws DataAccessException;
+	public String findEmailByUserName(String uName);
 	/**
 	 * update database with data in the dto
 	 * 

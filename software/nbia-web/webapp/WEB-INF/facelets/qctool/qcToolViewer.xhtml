@@ -109,28 +109,42 @@ L-->
 							</ice:selectOneRadio>
 						</ice:panelGroup>
 					</f:subview>
-					<ice:inputTextarea id="chngCmt"
-						value="#{qcToolUpdateBean.comments}" cols="140" rows="3"
-						partialSubmit="false" style="overflow: auto;">
-					</ice:inputTextarea>
+
 					<f:subview id="qcToolDeleteView" rendered="#{qcToolBean.superRole}">
 						<ice:outputText id="emptyLine" value="" />
 					</f:subview>
+					<br/>
 					<ice:panelGroup id="noNewImagesPanel">
-
-						<ice:commandButton id="updateBtn"
-							value="#{qcToolUpdateBean.buttonLabel}" partialSubmit="true"
-							action="#{qcToolUpdateBean.updateSingle}" />
-						<ice:commandButton id="nextBtn" value="Skip" partialSubmit="true"
-							action="#{qcToolUpdateBean.skipToNext}"
-							rendered="#{not qcToolUpdateBean.lastRecord}" />
-
-						<input type="button" name="closeWindowBtn" value="Close Window"
-							onClick="javascript:self.close();" />
-						<br />
-						<ice:messages id="qcToolErrorField" showDetail="false"
-							layout="table" errorClass="errorLabel" infoClass="infoLabel" />
-					</ice:panelGroup>
+						<table>
+							<tr>
+								<td>
+								<ice:commandButton id="updateBtn"
+									value="#{qcToolUpdateBean.buttonLabel}" partialSubmit="true"
+									action="#{qcToolUpdateBean.updateSingle}" />
+								</td>
+								<td>
+									<ice:commandButton id="nextBtn" value="Skip" partialSubmit="true"
+									action="#{qcToolUpdateBean.skipToNext}"
+									rendered="#{not qcToolUpdateBean.lastRecord}" />
+								</td>
+								<td>
+									<input type="button" name="closeWindowBtn" value="Close Window"
+									onClick="javascript:self.close();" />
+								</td>
+								<td>
+												<ice:inputTextarea id="chngCmt"
+													value="#{qcToolUpdateBean.comments}" cols="140" rows="3"
+													partialSubmit="false" style="overflow: auto;">
+						
+										</ice:inputTextarea>
+								</td>
+								<td>
+								<ice:messages id="qcToolErrorField" showDetail="false"
+									layout="table" errorClass="errorLabel" infoClass="infoLabel" />
+								</td>
+								</tr>
+							</table>
+						</ice:panelGroup>
 				</ice:panelGrid>
 
 			</ice:panelCollapsible>

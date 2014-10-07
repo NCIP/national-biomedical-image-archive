@@ -9,6 +9,7 @@
 package gov.nih.nci.nbia.dynamicsearch.criteria;
 
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 public class LikeCriteriaFactory implements CriteriaFactory {
@@ -19,6 +20,12 @@ public class LikeCriteriaFactory implements CriteriaFactory {
 		if (value.equalsIgnoreCase("Not Populated (NULL)"))
 		{
 			value = "null";
+		}
+		if ((fieldName.indexOf("SOPInstanceUID")>1)||
+		   (fieldName.indexOf("acquisitionDatetime")>1)||
+		   (fieldName.indexOf("SOPClassUID")>1))
+		{
+			return Restrictions.like(fieldName, value);
 		}
 		return Restrictions.ilike(fieldName, value);
 	}

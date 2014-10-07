@@ -22,6 +22,12 @@ public class EqCriteriaFactory implements CriteriaFactory {
 			{
 				return Restrictions.isNull(fieldName);
 			}
+			if ((fieldName.indexOf("SOPInstanceUID")>1)||
+				(fieldName.indexOf("acquisitionDatetime")>1)||
+				(fieldName.indexOf("SOPClassUID")>1))
+			{
+				return Restrictions.eq(fieldName, value);
+			}
 			return Restrictions.eq(fieldName, value).ignoreCase();
 		}
 		else

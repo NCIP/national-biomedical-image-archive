@@ -16,9 +16,16 @@ public class StartWithCriteriaFactory implements CriteriaFactory {
 
 	public Criterion constructCriteria(String fieldName, String value, String fieldType)
 	throws Exception{
+		
 		if (value.equalsIgnoreCase("Not Populated (NULL)"))
 		{
 			value="null";
+		}
+		if ((fieldName.indexOf("SOPInstanceUID")>1)||
+		   (fieldName.indexOf("acquisitionDatetime")>1)||
+		   (fieldName.indexOf("SOPClassUID")>1))
+		{
+			return Restrictions.like(fieldName, value, MatchMode.START);
 		}
 		return Restrictions.ilike(fieldName, value, MatchMode.START);
 	}

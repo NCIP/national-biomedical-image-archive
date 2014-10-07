@@ -20,6 +20,12 @@ public class EndWithCriteriaFactory implements CriteriaFactory {
 		{
 			value="null";
 		}
+		if ((fieldName.indexOf("SOPInstanceUID")>1)||
+		   (fieldName.indexOf("acquisitionDatetime")>1)||
+		   (fieldName.indexOf("SOPClassUID")>1))
+		{
+			return Restrictions.like(fieldName, value, MatchMode.END);
+		}
 		return Restrictions.ilike(fieldName, value, MatchMode.END);
 	}
 

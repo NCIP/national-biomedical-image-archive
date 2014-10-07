@@ -15,8 +15,10 @@ import gov.nih.nci.nbia.dto.QcCustomSeriesListDTO;
 import gov.nih.nci.nbia.internaldomain.CustomSeriesList;
 import gov.nih.nci.nbia.internaldomain.CustomSeriesListAttribute;
 import gov.nih.nci.nbia.internaldomain.GeneralSeries;
+import gov.nih.nci.nbia.security.NCIASecurityManager;
 import gov.nih.nci.nbia.security.NCIAUser;
 import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.Util;
 
 import java.util.ArrayList;
@@ -179,7 +181,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		}
 
 
-	@Transactional(propagation=Propagation.REQUIRED)
+/*	@Transactional(propagation=Propagation.REQUIRED)
 	public String findEmailByUserName(String uName) throws DataAccessException {
         DetachedCriteria criteria = DetachedCriteria.forClass(NCIAUser.class);
 		criteria.setProjection(Projections.property("email"));
@@ -194,7 +196,17 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		{
 			return null;
 		}
+	}*/
+
+	//Since after CSM5.1 has been implemented, the Email_ID field in csm_user table has been encrypted.
+	//So instead of using database pull, we use NCIASecurityManager
+
+	public String findEmailByUserName(String uName){
+		NCIASecurityManager nciaSecurityManager = (NCIASecurityManager)SpringApplicationContext.getBean("nciaSecurityManager");
+        String email = nciaSecurityManager.getUserEmail(uName);
+        return email;
 	}
+
 
 	/**
 	 * update database with data in the dto
@@ -482,7 +494,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 		return results;
 	}
-		 /** 
+		 /**
 		 * @param toRemove
 		 * @return
 		 * @throws DataAccessException
@@ -503,6 +515,6 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			results = getHibernateTemplate().findByCriteria(criteria);
 			return results;
 		}
-			 
-	
+
+
 }

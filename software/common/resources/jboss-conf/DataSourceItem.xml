@@ -262,7 +262,7 @@ L-->
 			<itemType>java.lang.String</itemType>
 			<itemPrimaryValue>true</itemPrimaryValue>
 		</sourceItem>
-		<!--sourceItem>
+		<!--sourceItem items comment out because of possible timeout issue>
         <itemLabel>SOP Class UID</itemLabel>
         <itemName>SOPClassUID</itemName>
         <itemType>java.lang.String</itemType>

@@ -248,11 +248,11 @@ L-->
         <itemName>sliceThickness</itemName>
         <itemType>java.lang.Double</itemType>
       </sourceItem>
-          <sourceItem>
+          <!--sourceItem>
         <itemLabel>Slice Location</itemLabel>
         <itemName>sliceLocation</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>
+      </sourceItem-->
           <sourceItem>
         <itemLabel>Contrast Bolus Agent</itemLabel>
         <itemName>contrastBolusAgent</itemName>
@@ -264,11 +264,11 @@ L-->
         <itemType>java.lang.String</itemType>
         <itemPrimaryValue>true</itemPrimaryValue>
       </sourceItem>
-          <sourceItem>
+          <!--sourceItem>
         <itemLabel>SOP Class UID</itemLabel>
         <itemName>SOPClassUID</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>
+      </sourceItem-->
           <sourceItem>
         <itemLabel>SOP Instance UID</itemLabel>
         <itemName>SOPInstanceUID</itemName>
@@ -285,11 +285,11 @@ L-->
         <itemName>sourceToDetectorDistance</itemName>
         <itemType>java.lang.Double</itemType>
       </sourceItem>
-          <sourceItem>
+          <!--sourceItem>
         <itemLabel>Source Subject Distance</itemLabel>
         <itemName>sourceSubjectDistance</itemName>
         <itemType>java.lang.Double</itemType>
-      </sourceItem>
+      </sourceItem-->
           <sourceItem>
         <itemLabel>Focal Spot Size</itemLabel>
         <itemName>focalSpotSize</itemName>
@@ -300,11 +300,11 @@ L-->
         <itemName>storageMediaFileSetUID</itemName>
         <itemType>java.lang.String</itemType>
       </sourceItem>
-          <sourceItem>
+          <!--sourceItem>
         <itemLabel>Acquisition Date Time</itemLabel>
         <itemName>acquisitionDatetime</itemName>
         <itemType>java.lang.String</itemType>
-      </sourceItem>
+      </sourceItem-->
           <sourceItem>
         <itemLabel>Image Comments</itemLabel>
         <itemName>imageComments</itemName>
@@ -327,10 +327,10 @@ L-->
         <itemType>java.lang.Integer</itemType>
       </sourceItem>
           <sourceItem>
-        <itemLabel>Row Count</itemLabel>
+        <!--itemLabel>Row Count</itemLabel>
         <itemName>rows</itemName>
         <itemType>java.lang.Integer</itemType>
-      </sourceItem>
+      </sourceItem-->
       <sourceItem>
         <itemLabel>Number of Frame(s)</itemLabel>
         <itemName>usFrameNum</itemName>

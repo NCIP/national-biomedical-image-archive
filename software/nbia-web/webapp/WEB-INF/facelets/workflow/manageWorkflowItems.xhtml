@@ -32,27 +32,30 @@
              border="1" 
              cellpadding="0" 
              cellspacing="0" 
-             styleClass="dataTable" 
+             styleClass="dataTable"
+             sortColumn="#{mngWorkFlowBean.sortColumnName}"
+        	 sortAscending="#{mngWorkFlowBean.ascending}"
              headerClass="dataTableHeader" 
-             value="#{mngWorkFlowBean.tempDTOs}"
+             value="#{mngWorkFlowBean.dtoManageList}"
+             binding="#{mngWorkFlowBean.table}"
              rowClasses="dataRowLight, dataRowDark" 
              var="item"
              rows="100">
-             <ice:column id="name">
+             <ice:column id="nameWorkflow">
                   <f:facet name="header">
             		<h:panelGroup>
-    					<ice:commandSortHeader columnName="Name" arrow="true" >
-                            <ice:outputText value="Name" /> 
+    					<ice:commandSortHeader columnName="#{mngWorkFlowBean.nameHeader}" arrow="true" >
+                            <ice:outputText value="#{mngWorkFlowBean.nameHeader}" /> 
                     	</ice:commandSortHeader>         
             		</h:panelGroup>             
                   </f:facet>
                           <ice:outputText value="#{item.name}" />
              </ice:column>
-             <ice:column id="collectionSite">
+             <ice:column id="collectionSiteWorkflow">
                     <f:facet name="header">  
                       <h:panelGroup>
-    					<ice:commandSortHeader columnName="Collection-Site" arrow="true" >
-                            <ice:outputText value="Collection-Site" /> 
+    					<ice:commandSortHeader columnName="#{mngWorkFlowBean.collectionSiteHeader}" arrow="true" >
+                            <ice:outputText value="#{mngWorkFlowBean.collectionSiteHeader}" /> 
                         </ice:commandSortHeader>         
             		  </h:panelGroup>
                     </f:facet>
@@ -61,37 +64,32 @@
              <ice:column>
                     <f:facet name="header">
                      <h:panelGroup>
-    				   <ice:commandSortHeader columnName="Edit" arrow="true" >
-    					<ice:outputText value="Edit" /> 
-    				   </ice:commandSortHeader>         
+    					<ice:outputText value="Edit" />        
             		 </h:panelGroup>    
     				</f:facet>
                            <div align="center">
-                            <h:commandButton image="images/edit-icon.png"
-                                             alt="Edit" title="Edit"
-                                             action="#{mngWorkFlowBean.performEdit}" >
-                                  <f:setPropertyActionListener target="#{addWorkFlowItemBean.load}"
-                                                      value="#{item.id}"/>
-                             </h:commandButton>
+										 <h:commandButton image="images/edit-icon.png"
+												alt="Edit" title="Edit"
+												action="#{addWorkFlowItemBean.editWorkflow}"
+												onclick="editWorkflow('#{item.id}');">	
+										</h:commandButton>
+										<input type="hidden" name="hiddenName" id="hiddenName"/>
                            </div>
  
              </ice:column>
              <ice:column>
                     <f:facet name="header">
                       <h:panelGroup>
-    					<ice:commandSortHeader columnName="Delete" arrow="true" >
-    					<ice:outputText value="Delete" /> 
-    					</ice:commandSortHeader>         
+    					<ice:outputText value="Delete" />    
             		  </h:panelGroup>  
             		</f:facet>
-                            <div align="center">
+        					<div align="center">
                                 <h:commandButton image="images/cancel.png"
                                              alt="Delete" title="Delete"
-                                             action="#{mngWorkFlowBean.performDelete}" 
-		                                     onclick='if (!confirm("Are you sure you want to delete workflow &#39;#{item.name}&#39;?")) return false;'>
-                                      <f:setPropertyActionListener target="#{mngWorkFlowBean.toDelete}"
-                                                      value="#{item.id}"/>
+                                             action="#{mngWorkFlowBean.deleteWorkflow}"
+                                            onclick="delWorkflow('#{item.id}', '#{item.name}');">
                                 </h:commandButton>
+                                	<input type="hidden" name="hiddenDel" id="hiddenDel"/>
                             </div>
  
              </ice:column>
@@ -100,5 +98,6 @@
           </td>
         </tr>
 </table>
+<br/>
 </ice:form>
 </ui:composition>

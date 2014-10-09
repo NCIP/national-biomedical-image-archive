@@ -18,7 +18,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+
 import org.apache.log4j.Logger;
+
+
 
 public class AddWorkFlowItemBean implements Serializable{
 
@@ -227,18 +230,37 @@ public class AddWorkFlowItemBean implements Serializable{
     	refreshValues();
     	MngWorkflowBean manageWorkflowBean = (MngWorkflowBean) FacesContext.getCurrentInstance().
 		getExternalContext().getSessionMap().get("mngWorkFlowBean");
+    	manageWorkflowBean.setToggleSort(true);
     	manageWorkflowBean.refreshValues();
     	return "manageWorkflowItems";
     }
+	
+	public String editWorkflow(){
+		newWorkflow();
+		int idIt = 0;
+		int idI=0;
+		int val =0;
+		String value=null;
+		
+		value = (String)FacesContext.getCurrentInstance().
+				getExternalContext().getRequestParameterMap().get(String.valueOf("hiddenName"));
+		idIt = Integer.parseInt(value);
+		value = null;		
+		setLoad(idIt);
+		return "createWorkflow";
+	}
+	
 	public void setLoad(int idIn)
-    {
+    {	
+		load = 0;
+		ManageWorkFlowDTO mngD = new ManageWorkFlowDTO();
 		errorMessage=null;
 		errorMessageCollection=null;
 	    errorMessageSite=null;
 		load=idIn;
     	WorkflowDTO dto = new WorkflowDTO();
     	WorkflowDAO workflowDao = (WorkflowDAO)SpringApplicationContext.getBean("workflowDAO");
-        dto=workflowDao.getWorkflowById(new Integer(idIn));
+        dto=workflowDao.getWorkflowById(new Integer(load));
         id=dto.getId();
         name=dto.getName();
         collection=dto.getCollection();
@@ -282,6 +304,9 @@ public class AddWorkFlowItemBean implements Serializable{
 	}
 	public String cancel()
 	{
+    	MngWorkflowBean manageWorkflowBean = (MngWorkflowBean) FacesContext.getCurrentInstance().
+		getExternalContext().getSessionMap().get("mngWorkFlowBean");
+    	manageWorkflowBean.setToggleSort(true);
 		newWorkflow();
 		return "manageWorkflowItems";
 	}
@@ -339,4 +364,6 @@ public class AddWorkFlowItemBean implements Serializable{
             return s1.getValue().toString().toLowerCase().compareTo(s2.getValue().toString().toLowerCase());
         }
     }
+
+
 }

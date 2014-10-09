@@ -20,6 +20,7 @@ import gov.nih.nci.ncia.search.PatientSearchResult;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 import gov.nih.nci.ncia.search.StudySearchResult;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -141,6 +142,8 @@ public class NodeTableWrapper {
 		try {
 			DrillDown drillDown = DrillDownFactory.getDrillDown();
 			SimpleDateFormat sdf =  new SimpleDateFormat("MM-dd-yyyy");
+			java.util.Date date2= new java.util.Date();
+			System.out.println("Before adding to Basket, Current Time" + new Timestamp(date2.getTime()));
 			for(PatientSearchResult selectedPatient : selectedPatients) {
 				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient);
 				for(StudySearchResult studySearchResult : studyResults) {
@@ -156,6 +159,8 @@ public class NodeTableWrapper {
 					}
 				}
 			}
+			java.util.Date date3= new java.util.Date();
+			System.out.println("After Adding to Basket, Current Time" + new Timestamp(date3.getTime()));
 			uncheckAllPatients();
 			BeanManager.getBasketBean().getBasket().addSeries(selectedSeries);
 		}

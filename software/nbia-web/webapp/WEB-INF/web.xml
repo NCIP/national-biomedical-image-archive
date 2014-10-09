@@ -60,10 +60,16 @@ L-->
     <param-name>com.icesoft.faces.synchronousUpdate</param-name>
     <param-value>false</param-value>
   </context-param>
+
+<context-param>
+      <param-name>com.icesoft.faces.heartbeatRetries</param-name>
+      <param-value>33</param-value>
+  </context-param>
   <context-param>
     <param-name>com.icesoft.faces.connectionTimeout</param-name>
-    <param-value>1000000</param-value>
+    <param-value>1800000</param-value>
   </context-param>
+
   <!--  required or else popup windows will make icefaces unresponsive -->
   <context-param>
     <param-name>com.icesoft.faces.concurrentDOMViews</param-name>
@@ -103,6 +109,7 @@ L-->
 		<param-name>Owasp.CsrfGuard.Config.Print</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	
 
   <filter>
     <filter-name>Security Page Filter</filter-name>

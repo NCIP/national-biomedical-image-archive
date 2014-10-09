@@ -322,6 +322,30 @@ function selectAllInContainingTable(containerTableName) {
 
 }
 
+/**************************Editing Workflow Item ***************************************/
+function editWorkflow(val){
+	
+	var val;
+	
+	document.getElementById("hiddenName").value=val;
+
+}
+
+/**************************Deleting Workflow Item ***************************************/
+function delWorkflow(delVal, delName, event){
+	var delVal;
+	var delName;
+	
+    if (confirm("Are you sure you want to delete workflow '"+ delName +"' ?")) {
+    	document.getElementById("hiddenDel").value=delVal;
+        return true;
+    } else {
+        return event.preventDefault();
+    }
+	
+
+}
+
 /***************************WORKFLOW RELATED JAVASCRIPT*****************************/
 function cancelValidation()
 {

@@ -34,6 +34,7 @@ L-->
           <td colspan="5">
             <ice:inputText id="name"
                            partialSubmit="true"
+                           label="value"
                            value="#{customSeriesListBean.name}"
                            validator="#{customSeriesListBean.validateName}"
                            required="true"
@@ -41,7 +42,7 @@ L-->
                            styleClass="formField"
                            title="Name your list. The length cannot be longer than 200 characters."/> 
             <br/>
-            <h:message id="nameError" for="name" infoClass="errorLabel"/>
+            <h:message id="nameError" for="name" infoClass="errorLabel" style="color:#FF0000;"/>
           </td>
         </tr>
         <tr>

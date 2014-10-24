@@ -10,6 +10,7 @@ package gov.nih.nci.nbia.security;
 
 
 import gov.nih.nci.nbia.beans.security.SecurityBean;
+import gov.nih.nci.nbia.util.NCIAConfig;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -62,7 +63,7 @@ public class SecurityCheckFilter implements Filter {
         // added to know the current address
         // and current user for Oviyam
         	try {
-				APIURLHolder.setUrl(hreq.getRequestURL().toString());
+				APIURLHolder.setUrl(NCIAConfig.getImageServerUrl());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

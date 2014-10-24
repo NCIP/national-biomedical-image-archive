@@ -30,10 +30,7 @@ public class APIURLHolder {
 		return userMap.get(key);
 	}
 	public static void setUrl(String urlIn){
-		wadoUrl=urlIn.substring(0, urlIn.lastIndexOf("/")+1)+"wado";
-		String temp = urlIn.substring(0, urlIn.lastIndexOf("/")-1);
-		temp = temp.substring(0, temp.lastIndexOf("/"));
-		url=temp;
+		url=urlIn;
 		System.out.println("-------> api url is "+url);
 	}
 	public static String getWadoUrl()

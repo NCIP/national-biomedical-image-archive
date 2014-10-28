@@ -31,6 +31,7 @@ public class APIURLHolder {
 	}
 	public static void setUrl(String urlIn){
 		url=urlIn;
+		wadoUrl=urlIn+"/ncia/wado";
 		System.out.println("-------> api url is "+url);
 	}
 	public static String getWadoUrl()

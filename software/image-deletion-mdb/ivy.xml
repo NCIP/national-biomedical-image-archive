@@ -35,6 +35,11 @@ L-->
                 name="log4j"
                 rev="1.2.15"
                 conf="compile->master"/>
+    
+    <dependency org="cglib" 
+    		name="cglib" 
+    		rev="2.2" 
+    		conf="compile->master;runtime"/>            
 
     <dependency org="ncicb"
                 name="nbia-util"

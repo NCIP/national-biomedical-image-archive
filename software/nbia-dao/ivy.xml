@@ -68,6 +68,11 @@ L-->
                 name="log4j"
                 rev="1.2.15"
                 conf="compile,runtime->master"/>
+                
+    <dependency org="cglib" 
+    		name="cglib" 
+    		rev="2.2" 
+    		conf="compile->master;runtime"/>                           
 
     <dependency org="gov.nih.nci.csm"
                 name="csmapi"
@@ -318,7 +323,7 @@ L-->
                 
      <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="compile->master;runtime->default"/>
      
          <dependency org="rsna"

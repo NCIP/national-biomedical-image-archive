@@ -25,7 +25,7 @@ L-->
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property-->
     <property name="dialect">${database.dialect}</property> 
     <property name="hibernate.show_sql">true</property>
-    <property name="connection.datasource">java:/ncia</property>
+    <property name="connection.datasource">java:jboss/ncia</property>
     
       
         

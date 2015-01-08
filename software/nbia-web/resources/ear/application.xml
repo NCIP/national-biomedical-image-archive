@@ -29,12 +29,12 @@ L-->
       <context-root>nbia-download</context-root>
     </web>
   </module>
-     <module>
+     <!--module>
     <web>
       <web-uri>oviyam2.war</web-uri>
       <context-root>oviyam2</context-root>
     </web>
-  </module>
+  </module-->
   <library-directory>lib</library-directory>
 </application>
 

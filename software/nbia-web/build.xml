@@ -143,8 +143,7 @@ L-->
         <!-- avoid org.jboss.tm.TxManager class cast exception -->
         <exclude name="jta*.jar" />
         <exclude name="commons-logging*.jar" />
-      	<exclude name="bouncycastle-jdk1.3_1.25.jar"/> 
-      	<exclude name="cglib-2.1_3.jar" />
+      	<exclude name="bouncycastle-jdk1.3_1.25.jar"/>
 	    <exclude name="spring-asm*.jar" />
 	    <exclude name="spring-jsm*.jar" />
 	    <exclude name="xml-apis*.jar" />
@@ -251,7 +250,7 @@ L-->
       <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
       <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />
       <fileset dir="${download.webapp.target.dir}" includes="*.war" />
-      <fileset dir="${oviyam.dir}" includes="*.war" />
+      <!--fileset dir="${oviyam.dir}" includes="*.war" /-->
     </ear>
     <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  
     <!--antcall target="jboss-config.files"/-->

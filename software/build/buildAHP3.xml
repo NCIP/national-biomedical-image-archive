@@ -121,7 +121,7 @@ L-->
 	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="common.lib.classpath" />
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
 		<classpath>
-			<pathelement path="${common.lib.dir}/xmltask-1.15.1.jar" />
+			<pathelement path="${common.lib.dir}/xmltask-1.16.1.jar" />
 		</classpath>
 	</taskdef>
 	<taskdef name="svn" classpathref="common.lib.classpath" classname="org.tigris.subversion.svnant.SvnTask" />

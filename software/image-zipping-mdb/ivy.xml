@@ -35,6 +35,11 @@ L-->
                 name="log4j"
                 rev="1.2.15"
                 conf="compile->master"/>
+                
+    <dependency org="cglib" 
+    		name="cglib" 
+    		rev="2.2" 
+    		conf="compile->master;runtime"/>                           
 
     <dependency org="ncicb"
                 name="nbia-util"
@@ -64,7 +69,7 @@ L-->
 
     <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="runtime->default"/>
   <!-- Added for jboss5.1.0GA-->                
   <dependency org="org.codehaus.xfire"

@@ -53,6 +53,17 @@ L-->
                 name="servlet-api"
                 rev="2.4"
                 conf="compile->master"/>
+                
+ <!-- nbia-download.war actualyl digs into jsf-api, jsf-impl to use some com.sun.* objects. New to JBoss EAP 6.2 -->
+    <dependency org="javax.faces"
+                name="jsf-api"
+                rev="1.2_12"
+                conf="runtime->master"/>
+
+    <dependency org="javax.faces"
+                name="jsf-impl"
+                rev="1.2_12"
+                conf="runtime->master"/>               
 
     <dependency org="org.apache.commons"
                 name="commons-compress"
@@ -82,7 +93,12 @@ L-->
     <dependency org="org.springframework"
                    name="spring-tx"
                    rev="3.2.8.RELEASE"
-                   conf="compile->master;runtime->master"/>  
+                   conf="compile->master;runtime->master"/> 
+    
+    <dependency org="asm" 
+    		name="asm" 
+    		rev="3.1" 
+    		conf="compile->master;runtime->master"/>               
                     
     <dependency org="gov.nih.nci.csm"
                 name="csmapi"
@@ -111,9 +127,9 @@ L-->
                 rev="5.1.5"
                 conf="test->master"/>
 
-    <!-- jsf stuff confuses app with EL that is missing.  all for @#$%@#$@'ing SelectItem  just drop it -->
+    <!-- jsf stuff confuses app with EL that is missing.  all for @#$%@#$@'ing SelectItem  just drop it.  New for JBoss EAP 6.2: this is needed
     <exclude org="javax.faces"
-             module="jsf-api"/>
+             module="jsf-api"/-->
 
     <!-- garbage from log4j as second order dependency -->
     <exclude org="javax.jms" module="jms"/>

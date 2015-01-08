@@ -306,7 +306,18 @@ L-->
    		name="aopalliance"
    		rev="1.0"
                 conf="compile->master;runtime->master"/>
-<!-- end of Spring 3.2.8.-->                
+<!-- end of Spring 3.2.8.--> 
+
+	<dependency org="asm" 
+	    	    name="asm" 
+	    	    rev="3.1" 
+    		    conf="compile->master;runtime->master"/> 
+    
+    	<dependency org="cglib" 
+    		name="cglib" 
+    		rev="2.2" 
+    		conf="compile->master;runtime"/>            
+    		    
 
 <!-- solr --> 
 

@@ -74,7 +74,7 @@ L-->
 
     <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="compile->master;test->master"/>
     <!-- end of removing lib -->
 

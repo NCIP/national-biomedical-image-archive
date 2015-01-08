@@ -98,16 +98,7 @@ L-->
       </td>
     </tr>
     </f:subview>
-    <f:subview id="refImageView" rendered="#{ispyBean.isQueryFromUrl}">
-      <tr>
-        <td colspan="2" class="subMenuPrimaryItems">
-          <img src="images/subMenuArrow.gif" width="5" height="5" alt="" />
-          <h:commandLink action="#{ispyBean.viewRefImage}"
-                         value="#{msg.menu_queryRefImages}"
-                         styleClass="subMenuPrimary" />
-        </td>
-      </tr>
-    </f:subview>
+
   
 
     <f:subview id="toolsView" rendered="#{securityBean.loggedIn}">

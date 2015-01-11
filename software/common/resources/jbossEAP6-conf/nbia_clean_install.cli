@@ -1,0 +1,217 @@
+# NBIA CLI script
+connect localhost:9999
+
+##############################################################
+#             System Properties                      
+##############################################################
+
+#if (outcome == success) of /system-property=gov.nih.nci.rembrandt.properties:read-resource
+#/system-property=gov.nih.nci.rembrandt.properties:remove
+
+#if (outcome == success) of /system-property=gov.nih.nci.rembrandtData.properties:read-resource
+#/system-property=gov.nih.nci.rembrandtData.properties:remove
+
+#if (outcome == success) of /system-property=gov.nih.nci.security.configFile:read-resource
+#/system-property=gov.nih.nci.security.configFile:remove
+
+#if (outcome == success) of /system-property=rembrandt.application.releaseNotes:read-resource
+#/system-property=rembrandt.application.releaseNotes:remove
+
+#if (outcome == success) of /system-property=gov.nih.nci.rembrandt.wikihelpProperties:read-resource
+#/system-property=gov.nih.nci.rembrandt.wikihelpProperties:remove
+
+/system-property=usergroup.list.email:add(value=LISTSERV@LIST.NIH.GOV)
+/system-property=usergroup.list.name:add(value=NBIA_USER-L)
+/system-property=gov.nih.nci.ncia.imaging.server.url:add(value=http://localhost:45210)
+/system-property=gov.nih.nci.ncia.mapped.image.path.head:add(value="\\\\cbiofs502.nci.nih.gov\\nciaimages\\,\\\\cbiofs502.nci.nih.gov\\nciaproddataset\\dataset_p01\\,\\\\nfs-ncia-d.nci.nih.gov\\nciadevdataset\\dataset_d01\\")
+/system-property=gov.nih.nci.ncia.image.path.pattern:add(value="NCICBIMAGE/documents/,data/dataset_p01/,data/dataset_d01/")
+/system-property=gov.nih.nci.ncia.irw.address:add(value=http://localhost:8889)
+/system-property=gov.nih.nci.ncia.irw.port:add(value=8889)
+/system-property=gov.nih.nci.ncia.frontier.http.port:add(value=8080)
+/system-property=gov.nih.nci.ncia.frontier.http.address:add(value=cbvwapp-d1008.nci.nih.gov)
+/system-property=gov.nih.nci.ncia.jboss.mq.url:add(value=localhost:45200)
+/system-property=gov.nih.nci.ncia.zip.location:add(value=/data/nbia_data/nbia_ftp)
+/system-property=gov.nih.nci.ncia.ftp.location:add(value=/data/nbia_data/nbia_ftp)
+/system-property=gov.nih.nci.ncia.grid.local.node.name:add(value=NCI-1)
+/system-property=gov.nih.nci.ncia.ui.uid.display.length:add(value=100)
+/system-property=gov.nih.nci.ncia.ftp.url:add(value=localhost)
+/system-property=gov.nih.nci.ncia.mapped.IRW.link:add(value=http://localhost:8889/ping)
+/system-property=gov.nih.nci.ncia.mapped.IRW.version:add(value=http://localhost:8889/version/2.1.0.0)
+/system-property=gov.nih.nci.ncia.JBoss.publicUrl:add(value=http://localhost:45210/ncia/)
+/system-property=gov.nih.nci.ncia.admin.email:add(value=ncicbmb@mail.nih.gov)
+/system-property=gov.nih.nci.ncia.mail.server.host:add(value=localhost)
+/system-property=gov.nih.nci.ncia.installationSite:add(value=other)
+/system-property=gov.nih.nci.ncia.fileRetentionPeriodInDays:add(value=10)
+/system-property=enabled_guest_account:add(value=yes)
+/system-property=guest_username:add(value=nbia_guest)
+/system-property=gov.nih.nci.ncia.download.server.url:add(value=http://localhost:45210/nbia-download/servlet/DownloadServlet)
+/system-property=enable_classic_download:add(value=yes)
+/system-property=registration.email.subject:add(value=User registration to LDAP to access the National Biomedical Imaging Archive (NBIA))
+/system-property=gov.nih.nci.ncia.solr.home:add(value=c:/apps/nbia/solr-home/)
+/system-property=gov.nih.nci.ncia.solr.updateinterval:add(value=60)
+/system-property=gov.nih.nci.ncia.workflow.updateinterval:add(value=60)
+/system-property=grid.index.url:add(value=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService)
+/system-property=local.grid.uri:add(value=http://localhost:21080/wsrf/services/cagrid/NCIACoreService)
+/system-property=discover.remote.nodes:add(value=false)
+/system-property=discover.period.in.hrs:add(value=4)
+/system-property=lookupManager.className:add(value=gov.nih.nci.nbia.lookup.LookupManagerImpl)
+/system-property=patientSearcherService.className:add(value=gov.nih.nci.nbia.search.LocalPatientSearcherService)
+/system-property=drilldown.className:add(value=gov.nih.nci.nbia.search.LocalDrillDown)
+/system-property=thumbnailResolver.className:add(value=gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver)
+/system-property=dicomTagViewer.className:add(value=gov.nih.nci.nbia.dicomtags.LocalDicomTagViewer)
+/system-property=seriesFileRetriever.className:add(value=gov.nih.nci.nbia.zip.LocalSeriesFileRetriever)
+/system-property=collection.description.maxlength:add(value=4000)
+/system-property=ftp_threshold:add(value=3000.0)
+/system-property=runNewDataFlagUpdate:add(value=true)
+/system-property=hourToRunNewDataFlagUpdate:add(value=4)
+/system-property=numberOfQueriesOnHistoryPage:add(value=20)
+/system-property=protection_element_prefix:add(value=NCIA.)
+/system-property=csm_application_name:add(value=NCIA)
+/system-property=date_format:add(value=yyyy-MM-dd)
+/system-property=database.type:add(value=oracle)
+/system-property=qctool.search.results.per.page.option.1:add(value=10)
+/system-property=qctool.search.results.per.page.option.2:add(value=25)
+/system-property=qctool.search.results.per.page.option.3:add(value=50)
+/system-property=qctool.search.results.per.page.option.4:add(value=100)
+/system-property=qctool.search.results.per.page.option.5:add(value=1000)
+/system-property=qctool.search.results.per.page.option.6:add(value=10000)
+/system-property=qctool.search.results.check.uncheck.option:add(value=1)
+/system-property=qctool.search.results.max.number.of.rows:add(value=100000)
+/system-property=show.collection.search.criteria:add(value=true)
+/system-property=show.anatomical.search.criteria:add(value=false)
+/system-property=gov.nih.nci.ncia.download.no.retry:add(value=4)
+/system-property=remote.node.caGrid.version:add(value="1.3,1.4")
+/system-property=future.task.timeout.in.min:add(value=5)
+/system-property=gov.nih.nci.ncia.encrypt.key:add(value=123CSM34567890ENCRYPTIONC3PR4KEY5678901234567890DEV)
+/system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:add(value=https://wiki.nci.nih.gov/x/twOYCg#NBIA60HelpTopics)
+ 
+##############################################################
+#             datasource configuration                      
+##############################################################
+
+#module com.oracle should be added first using nbia_module.cli
+
+# Add oracle JDBC driver
+#/subsystem=datasources/jdbc-driver=oracle:remove {allow-resource-service-restart=true}
+/subsystem=datasources/jdbc-driver=oracle:add( \
+    driver-name=oracle, \
+    driver-module-name=com.oracle, \
+    driver-class-name=oracle.jdbc.driver.OracleDriver \
+) {allow-resource-service-restart=true}
+
+reload
+ 
+# Add datasources: ncia
+#data-source remove --name=ncia
+data-source add \
+    --name=ncia \
+    --driver-name=oracle \
+    --connection-url=jdbc:oracle:thin:@ncidb-nci-d.nci.nih.gov:1564:NCIDEV \
+    --jndi-name=java:jboss/ncia \
+    --user-name=nbia \
+    --password=3nc1au5er \
+    --use-ccm=false \
+    --max-pool-size=100 \
+    --blocking-timeout-wait-millis=5000 
+data-source enable --name=ncia
+
+################### Adding MySQL driver, login module ###################################
+# Add mysql JDBC driver
+if (outcome == success) of /subsystem=datasources/data-source=ncia:read-resource
+data-source remove --name=ncia
+end-if
+
+if (outcome == success) of /subsystem=datasources/jdbc-driver=mysql:read-resource
+/subsystem=datasources/jdbc-driver=mysql:remove
+end-if
+
+/subsystem=datasources/jdbc-driver=mysql:add( \
+    driver-name=mysql, \
+    driver-module-name=mysql, \
+    driver-class-name=org.gjt.mm.mysql.Driver \
+) {allow-resource-service-restart=true}
+
+#reload
+ 
+# Add datasource: ncia
+data-source add \
+    --name=ncia \
+    --driver-name=mysql \
+    --connection-url=jdbc:mysql://localhost:3306/uptdb \
+    --jndi-name=java:jboss/ncia \
+    --user-name=upt \
+    --password=upt00 \
+    --use-ccm=false \
+    --max-pool-size=100 \
+    --blocking-timeout-wait-millis=5000 
+data-source enable --name=ncia
+
+
+##############################################################
+#               CSM Login Module                             
+##############################################################
+if (outcome == success) of /subsystem=security/security-domain=NCIA:read-resource
+	/subsystem=security/security-domain=NCIA:remove
+end-if
+
+if (outcome == success) of /subsystem=security/security-domain=NCIA/authentication=classic:read-resource 
+   /subsystem=security/security-domain=NCIA/authentication=classic:remove()
+end-if
+
+if (outcome != success) of /subsystem=security/security-domain=NCIA:read-resource
+/subsystem=security/security-domain=NCIA/:add(cache-type=default)
+end-if
+###need work on MySQL
+if (outcome != success) of /subsystem=security/security-domain=NCIA/authentication=classic:read-resource 
+/subsystem=security/security-domain=csmupt/authentication=classic:add( \
+    login-modules=[ \   
+        { \
+            "code" => "gov.nih.nci.security.authentication.loginmodules.LDAPLoginModule", \
+            "flag" => "required", \
+            "module" => "gov.nih.nci.security", \
+            "module-options" => [("ldapHost"=>"ldaps://nci-ldap-stage.nci.nih.gov:636"), ("ldapSearchableBase"=>"ou=nci,o=nih"), ("ldapUserIdLabel"=>"cn")] \
+        } \     
+    ] \
+) {allow-resource-service-restart=true}
+end-if
+
+
+################################################################
+
+
+reload
+
+##############################################################
+#               CSM configuration                             
+##############################################################
+#module gov.nih.nci.security should be added first using nbia_module.cli
+
+#/subsystem=security/security-domain=ncia/:remove {allow-resource-service-restart=true}
+/subsystem=security/security-domain=ncia/:add(cache-type=default)
+
+/subsystem=ee:write-attribute(name="global-modules",value=[{"name" => "org.bouncycastle","slot" => "main"}])
+
+#/subsystem=security/security-domain=ncia/authentication=classic:remove() {allow-resource-service-restart=true}
+/subsystem=security/security-domain=ncia/authentication=classic:add( \
+    login-modules=[ \   
+        { \
+            "code" => "gov.nih.nci.security.authentication.loginmodules.LDAPLoginModule", \
+            "flag" => "required", \
+            "module" => "gov.nih.nci.security", \
+            "module-options" => [("ldapHost"=>"ldaps://ncids4a.nci.nih.gov:636"), ("ldapSearchableBase"=>"ou=nci,o=nih"), ("ldapUserIdLabel"=>"cn")] \
+        } \     
+    ] \
+) {allow-resource-service-restart=true}
+
+
+##############################################################
+#               JMS configuration                             
+##############################################################
+#jms-queue remove --name=imageQueue
+jms-queue add --queue-address=imageQueue --entries=queue/imageQueue,java:jboss/queue/imageQueue
+
+#jms-queue remove --name=deletionQueue
+jms-queue add --queue-address=deletionQueue --entries=queue/deletionQueue,java:jboss/queue/deletionQueue
+ 
+# Execute and reload
+:reload

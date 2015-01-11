@@ -93,8 +93,8 @@ public class NCIASecurityManagerImpl extends AbstractDAO
     public void init() throws DataAccessException {
     	try {
 	        this.applicationName = NCIAConfig.getCsmApplicationName();
-	        //logger.info("application name is " + name);
-	        upm = (UserProvisioningManager)SecurityServiceProvider.getAuthorizationManager(this.applicationName);
+	        logger.info("CSM application name is " + this.applicationName);
+		    upm = (UserProvisioningManager)SecurityServiceProvider.getAuthorizationManager(this.applicationName);
 
 	        am = SecurityServiceProvider.getAuthenticationManager(this.applicationName);
 	        //logger.info("UserProvisioningManager: " + upm + " AuthenticationManager is " + am);

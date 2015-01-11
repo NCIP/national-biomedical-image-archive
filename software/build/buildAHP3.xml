@@ -173,7 +173,7 @@ L-->
 	
 		<delete dir="${common.dist.dir}" />
 		
-		<copy file="${common.resources.dir}/jboss-conf/ncia-ds.xml" todir="${common.dist.dir}">
+		<!--copy file="${common.resources.dir}/jboss-conf/ncia-ds.xml" todir="${common.dist.dir}">
 			<filterset>
 				<filter token="database.user" value="${database.user}" />
 				<filter token="database.password" value="${database.password}" />
@@ -216,22 +216,22 @@ L-->
 				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
 				<filter token="application.context.name" value="${application.context.name}"/>
 			</filterset>
-		</copy>
+		</copy-->
 		
-	 <copy file="${common.resources.dir}/jboss-conf/server.xml" tofile="${common.dist.dir}/server.xml">
+	 <!--copy file="${common.resources.dir}/jboss-conf/server.xml" tofile="${common.dist.dir}/server.xml">
 			<filterset>
 				<filter token="nbia.portal.jboss.home" value="${nbia.portal.jboss.home}" />
 				<filter token="jboss.server.name" value="${nbia.portal.jboss.server.name}" />
 			</filterset>
-		</copy>
+		</copy-->
 		
-		<copy file="${common.resources.dir}/jboss-conf/login-config.xml" todir="${common.dist.dir}">
-		</copy>
-		<replaceregexp match="\&lt;/policy\&gt;" replace="" flags="gm">
+		<!--copy file="${common.resources.dir}/jboss-conf/login-config.xml" todir="${common.dist.dir}">
+		</copy-->
+		<!--replaceregexp match="\&lt;/policy\&gt;" replace="" flags="gm">
 			<fileset file="${common.dist.dir}/login-conf.xml" includes="*" />
-		</replaceregexp>
+		</replaceregexp-->
 		<!-- switch for db or ldap -->
-		<if>
+		<!--if>
 				<equals arg1="${authentication.type}" arg2="ldap"/>
 				<then>
 					<copy file="${common.resources.dir}/jboss-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
@@ -253,16 +253,16 @@ L-->
 						</filterset>
 					</copy>
 				</else>
-			</if>
-		<concat destfile="${common.dist.dir}/login-config.xml" append="true">
+			</if-->
+		<!--concat destfile="${common.dist.dir}/login-config.xml" append="true">
 			<filelist dir="${common.dist.dir}" files="login-config.block.xml" />
 		</concat>
-		<delete file="${common.dist.dir}/login-config.block.xml" />
+		<delete file="${common.dist.dir}/login-config.block.xml" /-->
 		<!--  switch for db or ldap -->
 		<concat destfile="${common.dist.dir}/login-config.xml" append="true">&lt;/policy&gt;</concat>
 
 		<!--- customize jboss-log4j.xml -->
-		<copy file="${common.resources.dir}/jboss-conf/jboss-log4j.xml.nci" tofile="${common.dist.dir}/jboss-log4j.xml" />
+		<!--copy file="${common.resources.dir}/jboss-conf/jboss-log4j.xml.nci" tofile="${common.dist.dir}/jboss-log4j.xml" />
 		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^(&lt;!DOCTYPE.*)" replace="&lt;!\-\-\1\-\-&gt;" />
 		<xmltask preservetype="true" failWithoutMatch="true" source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
 			<remove path="/log4j:configuration/appender[@class='org.jboss.logging.appender.DailyRollingFileAppender']" />
@@ -270,8 +270,8 @@ L-->
 		<xmltask preservetype="true" failWithoutMatch="true" source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
 			<insert path="log4j:configuration/appender[@class='org.apache.log4j.ConsoleAppender']" position="before">
 				<![CDATA[
-							<!-- NCI Additions -->
-				<!-- A size based file rolling appender -->
+				-->			<!-- NCI Additions --> 
+				<!-- A size based file rolling appender --> <!--
 				<appender name="FILE" class="org.jboss.logging.appender.RollingFileAppender">
 					<errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
 					<param name="File" value="${jboss.server.log.dir}/server.log"/>
@@ -284,16 +284,16 @@ L-->
 				</appender>
 							]]>
 						</insert>
-		</xmltask>
-		<xmltask source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
+		</xmltask-->
+		<!--xmltask source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
 			<insert path="/log4j:configuration/root" position="before" file="${common.resources.dir}/jboss-conf/log4j.block.xml" />
-		</xmltask>
-		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;" replace="\1" />
+		</xmltask-->
+		<!--replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;" replace="\1" /-->
 		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^(&lt;log4j:configuration.*)" replace="\1${line.separator}&lt;!-- NCI Additions --&gt;" />
-
+		
 
 		<!-- need to replace the ports-->
-		<copy file="${common.resources.dir}/jboss-conf/bindings-jboss-beans.xml" todir="${common.dist.dir}">
+		<!--copy file="${common.resources.dir}/jboss-conf/bindings-jboss-beans.xml" todir="${common.dist.dir}">
 		<filterset>
 							<filter token="jboss.server.jndi.port" value="${jboss.server.jndi.port}" />
 							<filter token="jboss.server.rmi.port" value="${jboss.server.rmi.port}" />
@@ -311,9 +311,9 @@ L-->
 							<filter token="jboss.server.port" value="${jboss.server.port}" />
 							<filter token="jboss.jms.port" value="${jboss.jms.port}" />
 			</filterset>
-		</copy>
+		</copy-->
 		
-		<copy file="${common.resources.dir}/jboss-conf/destinations-service.xml" todir="${common.dist.dir}">
+		<!--copy file="${common.resources.dir}/jboss-conf/destinations-service.xml" todir="${common.dist.dir}">
 		</copy>
 	
 		<copy file="${common.resources.dir}/jboss-conf/ejb3-connectors-jboss-beans.xml" todir="${common.dist.dir}">
@@ -331,14 +331,14 @@ L-->
 		<copy file="${common.resources.dir}/lib/ojdbc14-10.2.0.3.0.jar" todir="${common.dist.dir}" />
 		<copy file="${common.resources.dir}/lib/puretls.jar" todir="${common.dist.dir}" />
 		<copy file="${common.resources.dir}/lib/bcprov-ext-jdk15on-1.47.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/bcprov-jdk15on-1.47.jar" todir="${common.dist.dir}" />
+		<copy file="${common.resources.dir}/lib/bcprov-jdk15on-1.47.jar" todir="${common.dist.dir}" /-->
 	</target>
 	
 	
 	<target name="build:all" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 		clean,
 		init,
-		build:nbia:portal:config, compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
+		build:jboss:config, compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
 	</target>
 	
 	<target name="build:all:niams" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
@@ -1050,6 +1050,32 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 					<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
 					<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
 		</ant>
-   </target>   
+   </target>
+   
+   <target name="build:jboss:config" depends="init">
+   	<delete dir="${common.dist.dir}" />
+ 	
+ 	<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}"></copy>
+	<copy file="${common.resources.dir}/jbossEAP6-conf/relationship.xml" todir="${common.dist.dir}"></copy>
+	
+   	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_modules.cli" tofile="${common.dist.dir}/nbia_modules.cli">
+		<filterset>
+			<filter token="database.type" value="${database.type}" />
+			<filter token="jboss.modules.lib" value="${jboss.modules.lib}" />
+			<filter token="database.driver.jar" value="${database.driver.jar}" />
+			<filter token="csm.api.jar" value="${csm.api.jar}" />
+			<filter token="jbossall.client.jar" value="${jbossall.client.jar}" />
+			<filter token="bouncy.castle.jar" value="${bouncy.castle.jar}" />
+		</filterset>
+	</copy>
+
+   	<get src="${csm.api.jar.src.url}" dest="${common.dist.dir}/${csm.api.jar}" />
+	<get src="${bouncy.castle.jar.src.url}" dest="${common.dist.dir}/${bouncy.castle.jar}" />
+   	<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/${jbossall.client.jar}" />
+	<get src="${database.driver.jar.src.url}" dest="${common.dist.dir}/${database.driver.jar}" />
+	
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_clean_install.cli" tofile="${common.dist.dir}/nbia_clean_install.cli">
+	</copy>
+   </target>
 
 </project>

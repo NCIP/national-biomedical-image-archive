@@ -532,7 +532,7 @@ L-->
       <value>#{searchWorkflowBean}</value>   
     </managed-property>     
   </managed-bean-->   
-  <managed-bean>
+  <!--managed-bean>
     <description>for Cedara UI</description>
     <managed-bean-name>cedaraBean</managed-bean-name>
     <managed-bean-class>gov.nih.nci.nbia.beans.searchresults.CedaraBean</managed-bean-class>
@@ -546,7 +546,7 @@ L-->
       <property-name>basketBean</property-name>   
       <value>#{basketBean}</value>   
     </managed-property>      
-  </managed-bean>   
+  </managed-bean-->   
   
   <managed-bean>
     <managed-bean-name>seriesSearchResultBean</managed-bean-name>

@@ -1,0 +1,541 @@
+<?xml version="1.0"?>
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+<dataGroup>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>Collection</sourceLabel>
+		<sourceName>TrialDataProvenance</sourceName>
+		<sourceItem>
+			<itemLabel>Collection Name</itemLabel>
+			<itemName>project</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+	</dataSource>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>Patient</sourceLabel>
+		<sourceName>Patient</sourceName>
+		<sourceItem>
+			<itemLabel>Patient ID</itemLabel>
+			<itemName>patientId</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Name</itemLabel>
+			<itemName>patientName</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Gender</itemLabel>
+			<itemName>patientSex</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Ethnic Group</itemLabel>
+			<itemName>ethnicGroup</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Birthday</itemLabel>
+			<itemName>patientBirthDate</itemName>
+			<itemType>java.util.Date</itemType>
+		</sourceItem>
+	</dataSource>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>Study</sourceLabel>
+		<sourceName>Study</sourceName>
+		<sourceItem>
+			<itemLabel>Study Instance UID</itemLabel>
+			<itemName>studyInstanceUID</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Study Date</itemLabel>
+			<itemName>studyDate</itemName>
+			<itemType>java.util.Date</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Study Time</itemLabel>
+			<itemName>studyTime</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Study Description</itemLabel>
+			<itemName>studyDesc</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Admitting Diagnoses Description</itemLabel>
+			<itemName>admittingDiagnosesDesc</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Admitting Diagnoses Code Sequence</itemLabel>
+			<itemName>admittingDiagnosesCodeSeq</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Study ID</itemLabel>
+			<itemName>studyId</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Trial Time Point ID</itemLabel>
+			<itemName>timePointId</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Trial Time Point Description</itemLabel>
+			<itemName>timePointDesc</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Age</itemLabel>
+			<itemName>patientAge</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Height</itemLabel>
+			<itemName>patientSize</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Weight</itemLabel>
+			<itemName>patientWeight</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Occupation</itemLabel>
+			<itemName>occupation</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient History</itemLabel>
+			<itemName>additionalPatientHistory</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+	</dataSource>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>Series</sourceLabel>
+		<sourceName>GeneralSeries</sourceName>
+		<sourceItem>
+			<itemLabel>Modality</itemLabel>
+			<itemName>modality</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Series Instance UID</itemLabel>
+			<itemName>seriesInstanceUID</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Series Description</itemLabel>
+			<itemName>seriesDesc</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Series Laterality</itemLabel>
+			<itemName>laterality</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Series Date</itemLabel>
+			<itemName>seriesDate</itemName>
+			<itemType>java.util.Date</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Protocol Name</itemLabel>
+			<itemName>protocolName</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Anatomical Site</itemLabel>
+			<itemName>bodyPartExamined</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Series Number</itemLabel>
+			<itemName>seriesNumber</itemName>
+			<itemType>java.lang.Integer</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Synchronization Frame Of Reference UID</itemLabel>
+			<itemName>syncFrameOfRefUID</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Frame of Reference UID</itemLabel>
+			<itemName>frameOfReferenceUID</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+	</dataSource>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>Image</sourceLabel>
+		<sourceName>GeneralImage</sourceName>
+		<sourceItem>
+			<itemLabel>Instance Number</itemLabel>
+			<itemName>instanceNumber</itemName>
+			<itemType>java.lang.Integer</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Content Date</itemLabel>
+			<itemName>contentDate</itemName>
+			<itemType>java.util.Date</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Content Time</itemLabel>
+			<itemName>contentTime</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Image Type</itemLabel>
+			<itemName>imageType</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Acquisition Date</itemLabel>
+			<itemName>acquisitionDate</itemName>
+			<itemType>java.util.Date</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Acquisition Time</itemLabel>
+			<itemName>acquisitionTime</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Acquisition Number</itemLabel>
+			<itemName>acquisitionNumber</itemName>
+			<itemType>java.lang.Integer</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Lossy Image Compression</itemLabel>
+			<itemName>lossyImageCompression</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Image Orientation Patient</itemLabel>
+			<itemName>imageOrientationPatient</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Pixel Spacing</itemLabel>
+			<itemName>pixelSpacing</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Image Position Patient</itemLabel>
+			<itemName>imagePositionPatient</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Slice Thickness</itemLabel>
+			<itemName>sliceThickness</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<!--sourceItem>
+        <itemLabel>Slice Location</itemLabel>
+        <itemName>sliceLocation</itemName>
+        <itemType>java.lang.Double</itemType>
+      </sourceItem-->
+		<sourceItem>
+			<itemLabel>Contrast Bolus Agent</itemLabel>
+			<itemName>contrastBolusAgent</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Contrast Bolus Route</itemLabel>
+			<itemName>contrastBolusRoute</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<!--sourceItem items comment out because of possible timeout issue>
+        <itemLabel>SOP Class UID</itemLabel>
+        <itemName>SOPClassUID</itemName>
+        <itemType>java.lang.String</itemType>
+      </sourceItem-->
+		<sourceItem>
+			<itemLabel>SOP Instance UID</itemLabel>
+			<itemName>SOPInstanceUID</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Patient Position</itemLabel>
+			<itemName>patientPosition</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Source To Detector Distance</itemLabel>
+			<itemName>sourceToDetectorDistance</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<!--sourceItem>
+        <itemLabel>Source Subject Distance</itemLabel>
+        <itemName>sourceSubjectDistance</itemName>
+        <itemType>java.lang.Double</itemType>
+      </sourceItem-->
+		<sourceItem>
+			<itemLabel>Focal Spot Size</itemLabel>
+			<itemName>focalSpotSize</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Storage Media File Set UID</itemLabel>
+			<itemName>storageMediaFileSetUID</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<!--sourceItem>
+        <itemLabel>Acquisition Date Time</itemLabel>
+        <itemName>acquisitionDatetime</itemName>
+        <itemType>java.lang.String</itemType>
+      </sourceItem-->
+		<sourceItem>
+			<itemLabel>Image Comments</itemLabel>
+			<itemName>imageComments</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Image Laterality</itemLabel>
+			<itemName>imageLaterality</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Acquisition Matrix</itemLabel>
+			<itemName>acquisitionMatrix</itemName>
+			<itemType>java.lang.Double</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Column Count</itemLabel>
+			<itemName>columns</itemName>
+			<itemType>java.lang.Integer</itemType>
+		</sourceItem>
+		<!--sourceItem>
+        <itemLabel>Row Count</itemLabel>
+        <itemName>rows</itemName>
+        <itemType>java.lang.Integer</itemType>
+      </sourceItem-->
+		<sourceItem>
+			<itemLabel>Number of Frame(s)</itemLabel>
+			<itemName>usFrameNum</itemName>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Ultrasound Color Data Present</itemLabel>
+			<itemName>usColorDataPresent</itemName>
+			<itemPrimaryValue>true</itemPrimaryValue>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Ultrasound Image Mode</itemLabel>
+			<itemName>usMultiModality</itemName>
+			<itemPrimaryValue>true</itemPrimaryValue>
+			<itemType>java.lang.String</itemType>
+		</sourceItem>
+	</dataSource>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>CT Image</sourceLabel>
+		<sourceName>modalityCT</sourceName>
+		<sourceItem>
+			<itemLabel>KVP</itemLabel>
+			<itemName>KVP</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Scan Option</itemLabel>
+			<itemName>scanOptions</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Data Collection Diameter (CT)</itemLabel>
+			<itemName>dataCollectionDiameter</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Reconstruction Diameter</itemLabel>
+			<itemName>reconstructionDiameter</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Gantry Detector Tilt</itemLabel>
+			<itemName>gantryDetectorTilt</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Exposure Time</itemLabel>
+			<itemName>exposureTime</itemName>
+			<itemType>java.lang.Integer</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>X Ray Tube Current</itemLabel>
+			<itemName>XRayTubeCurrent</itemName>
+			<itemType>java.lang.Integer</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Exposure</itemLabel>
+			<itemName>exposure</itemName>
+			<itemType>java.lang.Integer</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Exposure In Micro As</itemLabel>
+			<itemName>exposureInMicroAs</itemName>
+			<itemType>java.lang.Integer</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Convolution Kernel</itemLabel>
+			<itemName>convolutionKernel</itemName>
+			<itemType>java.lang.String</itemType>
+			<itemPrimaryValue>true</itemPrimaryValue>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Revolution Time</itemLabel>
+			<itemName>revolutionTime</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Single Collimation Width</itemLabel>
+			<itemName>singleCollimationWidth</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Total Collimation Width</itemLabel>
+			<itemName>totalCollimationWidth</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Table Speed</itemLabel>
+			<itemName>tableSpeed</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Table Feed Per Rotation</itemLabel>
+			<itemName>tableFeedPerRotation</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>CT Pitch Factor</itemLabel>
+			<itemName>CTPitchFactor</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Anatomic Region Sequence</itemLabel>
+			<itemName>anatomicRegionSeq</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>CTImage</actualSource>
+		</sourceItem>
+	</dataSource>
+	<dataSource>
+		<sourcePackageName>gov.nih.nci.nbia.internaldomain</sourcePackageName>
+		<sourceLabel>MR Image</sourceLabel>
+		<sourceName>modalityMR</sourceName>
+		<sourceItem>
+			<itemLabel>ImageType</itemLabel>
+			<itemName>imageTypeValue3</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Scanning Sequence</itemLabel>
+			<itemName>scanningSequence</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Sequence Variant</itemLabel>
+			<itemName>sequenceVariant</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Repetition Time</itemLabel>
+			<itemName>repetitionTime</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Echo Time</itemLabel>
+			<itemName>echoTime</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Inversion Time</itemLabel>
+			<itemName>inversionTime</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Sequence Name</itemLabel>
+			<itemName>sequenceName</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Imaged Nucleus</itemLabel>
+			<itemName>imagedNucleus</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Magnetic Field Strength</itemLabel>
+			<itemName>magneticFieldStrength</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>SAR</itemLabel>
+			<itemName>sar</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>dB/dt</itemLabel>
+			<itemName>dbDt</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Trigger Time</itemLabel>
+			<itemName>triggerTime</itemName>
+			<itemType>java.lang.Double</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+		<sourceItem>
+			<itemLabel>Angio Flag</itemLabel>
+			<itemName>angioFlag</itemName>
+			<itemType>java.lang.String</itemType>
+			<actualSource>MRImage</actualSource>
+		</sourceItem>
+	</dataSource>
+</dataGroup>

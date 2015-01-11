@@ -1,0 +1,16 @@
+################# NBIA CLI script to install modules  ###############
+connect localhost:9999
+
+### database driver module
+module add --name=@database.type@ --resources=@jboss.modules.lib@/@database.driver.jar@ --dependencies=javax.api,javax.transaction.api
+
+### CSM security module
+module add --name=gov.nih.nci.security --resources=@jboss.modules.lib@/@csm.api.jar@ --dependencies=org.apache.log4j,org.hibernate,org.jdom,org.slf4j.jcl-over-slf4j
+
+###  org.jboss.jboss-4-client for jms
+module add --name=org.jboss.jboss-4-client --resources=@jboss.modules.lib@/@jbossall.client.jar@ --dependencies=javax.api,javax.jms.api,javax.transaction.api,org.apache.log4j,org.jboss.remote-naming,org.hornetq
+
+###  BounyCastle
+module add --name=org.bouncycastle --resources=@jboss.modules.lib@/@bouncy.castle.jar@ --dependencies=javax.api
+
+reload

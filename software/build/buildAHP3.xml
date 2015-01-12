@@ -211,7 +211,7 @@ L-->
 				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
 				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
 				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
-				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" />
 				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
 				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
 				<filter token="application.context.name" value="${application.context.name}"/>
@@ -1075,6 +1075,39 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	<get src="${database.driver.jar.src.url}" dest="${common.dist.dir}/${database.driver.jar}" />
 	
 	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_clean_install.cli" tofile="${common.dist.dir}/nbia_clean_install.cli">
+	</copy>
+	
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/nbia_system_properties.cli">
+		<filterset>
+			<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}" />
+			<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}" /> 
+			<filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}" />
+			<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}" />
+			<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}" />
+			<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}" />
+			<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}" />
+			<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}" />
+			<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}" />
+			<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}" />
+			<filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}" />
+			<filter token="enabled_guest_account" value="${enabled_guest_account}" />
+			<filter token="guest_username" value="${guest_username}" />
+			<filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}" />
+			<filter token="enable_classic_download" value="${enable_classic_download}" />
+			<filter token="registration.email.subject" value="${registration.email.subject}" />
+			<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}" />
+			<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}" />
+			<filter token="gov.nih.nci.ncia.workflow.updateinterval" value="${gov.nih.nci.ncia.workflow.updateinterval}" />
+			<filter token="discover.remote.nodes" value="${discover.remote.nodes}" />
+			<filter token="protection_element_prefix" value="${protection_element_prefix}" />
+			<filter token="csm_application_name" value="${csm_application_name}" />
+			<filter token="database.type" value="${database.type}" />
+			<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}" />
+			<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
+			<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
+			<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
+			<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" /> 
+		</filterset>		
 	</copy>
    </target>
 

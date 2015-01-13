@@ -254,6 +254,9 @@ L-->
     </ear>
     <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  
     <!--antcall target="jboss-config.files"/-->
+    	
+    <copy file="${oviyam.dir}/oviyam2.war" tofile="${target.dir}/oviyam2.war">
+    </copy>
   </target>
 
  <target name="jboss-config.files">

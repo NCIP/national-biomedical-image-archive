@@ -1,6 +1,11 @@
 ################# NBIA CLI script to install modules  ###############
 connect localhost:9999
 
+module remove --name=@database.type@
+module remove --name=gov.nih.nci.security
+module remove --name=org.jboss.jboss-4-client
+module remove --name=org.bouncycastle
+
 ### database driver module
 module add --name=@database.type@ --resources=@jboss.modules.lib@/@database.driver.jar@ --dependencies=javax.api,javax.transaction.api
 

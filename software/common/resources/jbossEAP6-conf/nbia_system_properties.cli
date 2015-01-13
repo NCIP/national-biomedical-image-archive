@@ -256,7 +256,8 @@ end-if
 /system-property=show.anatomical.search.criteria:add(value=@show.anatomical.search.criteria@)
 /system-property=gov.nih.nci.ncia.download.no.retry:add(value=@gov.nih.nci.ncia.download.no.retry@)
 /system-property=gov.nih.nci.ncia.encrypt.key:add(value=@gov.nih.nci.ncia.encrypt.key@)
-/system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:add(value=@gov.nih.nci.ncia.wiki.context.sensitive.help.url@) 
+/system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:add(value=@gov.nih.nci.ncia.wiki.context.sensitive.help.url@)
+/system-property=local.grid.uri:add(value=@local.grid.uri@) 
 
 ## The following properties are not defined in properties file and cannot be changed in build time.
 ## However, these properties are still changable in the standalone*.xml file.

@@ -1074,8 +1074,44 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
    	<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/${jbossall.client.jar}" />
 	<get src="${database.driver.jar.src.url}" dest="${common.dist.dir}/${database.driver.jar}" />
 	
-	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_clean_install.cli" tofile="${common.dist.dir}/nbia_clean_install.cli">
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_config.cli" tofile="${common.dist.dir}/nbia_config.cli">
+		<filterset>
+			<filter token="database.type" value="${database.type}" />
+			<filter token="database.driver" value="${database.driver}" />
+			<filter token="database.url" value="${database.url}" />
+			<filter token="database.driver" value="${database.user}" />
+			<filter token="database.url" value="${database.password}" />
+		</filterset>	
 	</copy>
+	
+	<!-- switch for db or ldap -->
+	<if>
+		<equals arg1="${authentication.type}" arg2="ldap"/>
+		<then>
+			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
+				<filterset>
+					<filter token="application.context.name" value="${application.context.name}" />
+					<filter token="ldap.url" value="${ldap.url}" />
+					<filter token="ldap.basedn" value="${ldap.basedn}" />
+				</filterset>
+			</copy>
+		</then>
+		<else>
+			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.db-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
+				<filterset>
+					<filter token="application.context.name" value="${application.context.name}" />
+					<filter token="database.user" value="${database.user}" />
+					<filter token="database.password" value="${database.password}" />
+					<filter token="database.url" value="${database.url}" />
+					<filter token="database.driver" value="${database.driver}" />
+				</filterset>
+			</copy>
+		</else>
+	</if>
+	<concat destfile="${common.dist.dir}/nbia_config.cli" append="true">
+		<filelist dir="${common.dist.dir}" files="login-config.block.xml" />
+	</concat>
+	<delete file="${common.dist.dir}/login-config.block.xml" />
 	
 	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/nbia_system_properties.cli">
 		<filterset>

@@ -1,0 +1,17 @@
+if (outcome != success) of /subsystem=security/security-domain=@application.context.name@/authentication=classic:read-resource 
+/subsystem=security/security-domain=@application.context.name@/authentication=classic:add( \
+    login-modules=[ \   
+        { \
+            "code" => "gov.nih.nci.security.authentication.loginmodules.LDAPLoginModule", \
+            "flag" => "required", \
+            "module" => "gov.nih.nci.security", \
+            "module-options" => [("ldapHost"=>"@ldap.url@"), ("ldapSearchableBase"=>"@ldap.basedn@"), ("ldapUserIdLabel"=>"cn")] \
+        } \     
+    ] \
+) {allow-resource-service-restart=true}
+end-if
+ 
+# Execute and reload
+:reload
+
+

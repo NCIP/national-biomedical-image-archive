@@ -1,10 +1,13 @@
 ################# NBIA CLI script to install modules  ###############
-connect localhost:9999
+## Comment out the next line for giving the flexibilty to use different port
+## To run without next line, using "jboss-cli.sh -c controller=127.0.0.1:<port number> --file=nbia_modules.cli"
+#connect localhost:9999
 
-module remove --name=@database.type@
-module remove --name=gov.nih.nci.security
-module remove --name=org.jboss.jboss-4-client
-module remove --name=org.bouncycastle
+# For first time installation, remove is not needed.
+#module remove --name=@database.type@
+#module remove --name=gov.nih.nci.security
+#module remove --name=org.jboss.jboss-4-client
+#module remove --name=org.bouncycastle
 
 ### database driver module
 module add --name=@database.type@ --resources=@jboss.modules.lib@/@database.driver.jar@ --dependencies=javax.api,javax.transaction.api

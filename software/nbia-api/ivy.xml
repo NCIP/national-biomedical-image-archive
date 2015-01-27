@@ -25,7 +25,7 @@ L-->
 		<dependency org="org.owasp.esapi" name="esapi" rev="2.1.0" conf="compile->master;runtime->master"/>
 		<dependency org="asm" name="asm" rev="3.1" conf="compile->master;runtime->master"/>
 		<dependency org="cglib" name="cglib" rev="2.2" conf="compile->master;runtime->master"/>
-		<dependency org="gov.nih.nci.csm" name="csmapi" rev="5.1" conf="compile->master;runtime->default">
+		<dependency org="gov.nih.nci.csm" name="csmapi" rev="5.2" conf="compile->master;runtime->default">
 			<exclude module="jdom"/>
 		</dependency>
 		<dependency org="org.codehaus.jackson" name="jackson-core-asl" rev="1.9.2" conf="compile->master;runtime->master"/>

@@ -4,6 +4,20 @@
 #connect localhost:9999
 
 ##############################################################
+#    undeploy wara and ear if they are deployed already                     
+##############################################################
+
+if (outcome ==success) of /deployment=oviyam2.war:read-resource
+undeploy oviyam2.war
+end-if
+if (outcome ==success) of /deployment=nbia-api.war:read-resource
+undeploy nbia-api.war
+end-if
+if (outcome ==success) of /deployment=nbia.ear:read-resource
+undeploy nbia.ear
+end-if
+
+##############################################################
 #             datasource configuration                      
 ##############################################################
 

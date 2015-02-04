@@ -45,7 +45,7 @@ L-->
 
     <dependency org="mysql"
                 name="mysql-connector-java"
-                rev="5.1.5"
+                rev="5.1.34"
                 conf="runtime->master"/>
 
     <!-- this runtime dep can be pushed down to jsf? -->

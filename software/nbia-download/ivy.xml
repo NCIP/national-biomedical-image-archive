@@ -124,7 +124,7 @@ L-->
                 
     <dependency org="mysql"
                 name="mysql-connector-java"
-                rev="5.1.5"
+                rev="5.1.34"
                 conf="test->master"/>
 
     <!-- jsf stuff confuses app with EL that is missing.  all for @#$%@#$@'ing SelectItem  just drop it.  New for JBoss EAP 6.2: this is needed

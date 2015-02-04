@@ -177,7 +177,7 @@ L-->
 
     <dependency org="mysql"
                 name="mysql-connector-java"
-                rev="5.1.5"
+                rev="5.1.34"
                 conf="test->master"/>
  
     <dependency org="oracle"

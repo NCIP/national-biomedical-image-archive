@@ -52,7 +52,8 @@ L-->
 	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 	<property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}" />
 	<property name="db-install.dist.dir" value="${dist.exploded.dir}/db/db-install/" />
-	<property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" />
+	<property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/db/db-upgrade/" />
+	<!--property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" /-->
 	<property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
 	<property name="ncia-core-grid.dist.relative.dir" value="ncia-core-grid-transfer" />
 	<property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}" />
@@ -428,10 +429,10 @@ L-->
 		<copy todir="${nbia-ctp.dist.dir}/FileSender">
 			<fileset dir="${nbia-ctp.base.dir}/FileSender" />
 		</copy>
-		<copy todir="${nbia-ctp.dist.dir}">
+		<!--copy todir="${nbia-ctp.dist.dir}">
 			<fileset file="${nbia-ctp.base.dir}/target/nbiaDatabaseUpdator.jar" />
 		</copy>
-		<copy file="${nbia-ctp.base.dir}/target/dbupdator.sh" todir="${nbia-ctp.dist.dir}"/>
+		<copy file="${nbia-ctp.base.dir}/target/dbupdator.sh" todir="${nbia-ctp.dist.dir}"/-->
 		<delete dir="../nbia-ctp-working" />
 	</target>
 
@@ -1055,10 +1056,10 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
    <target name="build:jboss:config" depends="init">
    	<delete dir="${common.dist.dir}" />
  	
- 	<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}"></copy>
-	<copy file="${common.resources.dir}/jbossEAP6-conf/relationship.xml" todir="${common.dist.dir}"></copy>
+ 	<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}/jbossEAP6"></copy>
+	<copy file="${common.resources.dir}/jbossEAP6-conf/relationship.xml" todir="${common.dist.dir}/jbossEAP6"></copy>
 	
-   	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_modules.cli" tofile="${common.dist.dir}/nbia_modules.cli">
+   	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_modules.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_modules.cli">
 		<filterset>
 			<filter token="database.type" value="${database.type}" />
 			<filter token="jboss.modules.lib" value="${jboss.modules.lib}" />
@@ -1069,12 +1070,13 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</filterset>
 	</copy>
 
-   	<get src="${csm.api.jar.src.url}" dest="${common.dist.dir}/${csm.api.jar}" />
-	<get src="${bouncy.castle.jar.src.url}" dest="${common.dist.dir}/${bouncy.castle.jar}" />
-   	<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/${jbossall.client.jar}" />
-	<get src="${database.driver.jar.src.url}" dest="${common.dist.dir}/${database.driver.jar}" />
+   	<get src="${csm.api.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${csm.api.jar}" />
+	<get src="${bouncy.castle.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${bouncy.castle.jar}" />
+   	<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${jbossall.client.jar}" />
+	<get src="${mysql.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${mysql.driver.jar}" />
+	<get src="${oracle.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${oracle.driver.jar}" />
 	
-	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_config.cli" tofile="${common.dist.dir}/nbia_config.cli">
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_config.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_config.cli">
 		<filterset>
 			<filter token="database.type" value="${database.type}" />
 			<filter token="database.driver" value="${database.driver}" />
@@ -1088,7 +1090,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	<if>
 		<equals arg1="${authentication.type}" arg2="ldap"/>
 		<then>
-			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
+			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
 				<filterset>
 					<filter token="application.context.name" value="${application.context.name}" />
 					<filter token="ldap.url" value="${ldap.url}" />
@@ -1097,7 +1099,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			</copy>
 		</then>
 		<else>
-			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.db-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
+			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.db-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
 				<filterset>
 					<filter token="application.context.name" value="${application.context.name}" />
 					<filter token="database.user" value="${database.user}" />
@@ -1108,12 +1110,12 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			</copy>
 		</else>
 	</if>
-	<concat destfile="${common.dist.dir}/nbia_config.cli" append="true">
-		<filelist dir="${common.dist.dir}" files="login-config.block.xml" />
+	<concat destfile="${common.dist.dir}/jbossEAP6/nbia_config.cli" append="true">
+		<filelist dir="${common.dist.dir}/jbossEAP6" files="login-config.block.xml" />
 	</concat>
-	<delete file="${common.dist.dir}/login-config.block.xml" />
+	<delete file="${common.dist.dir}/jbossEAP6/login-config.block.xml" />
 	
-	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/nbia_system_properties.cli">
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_system_properties.cli">
 		<filterset>
 			<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}" />
 			<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}" /> 
@@ -1146,5 +1148,142 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</filterset>		
 	</copy>
    </target>
+   
+    <target name="dist" description="Makes all distributions and installer" 
+        depends="
+        build:all,
+        dist:installer,
+        dist:solr"/>
+        
+  <!-- Copies install time resources into distribution tree -->
+  <target name="dist:installer:prep" depends="dist:tools:retrieve:jai">
+    <!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. -->
+    <copy todir="${db-install.dist.dir}" overwrite="true">
+      <fileset dir="${db-install.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <copy todir="${db-upgrade.dist.dir}" overwrite="true">
+      <fileset dir="${db-upgrade.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <copy todir="${nbia-ctp.dist.dir}/FileSender">
+    	<fileset dir="${software.dir}/nbia-ctp/FileSender" />
+    </copy>
+	<sequential>
+		<!-- Do some cleanup -->
+		<delete>
+			<fileset dir="${dist.exploded.dir}">
+				<include name="build.xml" />
+				<include name="*properties*" />
+			</fileset>
+		</delete>
 
+		<!-- Copy install related xml and properties files -->
+		<echo message="Copying build and property files"/>
+		<copy todir="${dist.exploded.dir}" overwrite="true">
+			<fileset dir="${build.dir}">
+				<include name="install.xml" />
+				<include name="install.properties" />
+				<include name="properties.template" />
+				<include name="project.properties" />
+			</fileset>
+		</copy>
+
+		<!-- Set default target and properyties.file to install and install.properties -->
+		<basename file="${dist.exploded.dir}/install.properties" property="properties.file.name"/>
+		<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.project.*default=.)\w+(.\s+.*)" replace="\1install\2" />
+		<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.*)install.properties(.*)" replace="\1${properties.file.name}\2" />
+
+		<!-- Rename install.xml to build.xml so manual installs will not need to include the -f optoin on ant, simplifying the install proces. -->
+		<move file="${dist.exploded.dir}/install.xml" tofile="${dist.exploded.dir}/build.xml" />
+
+		<!-- Copy over BDA macrodefs and librarires -->
+
+		<!--echo message="Copying bda-utils dir"/>
+		<copy todir="${dist.exploded.dir}/bda-utils" overwrite="true">
+			<fileset dir="bda-utils.dir">
+				<include name="**/*" />
+			</fileset>
+		</copy-->
+
+		<!-- This  copies common files over, common files are currently resource files like jboss configuration files and database scripts -->
+		<echo message="Copying common dir"/>
+		<copy todir="${dist.exploded.dir}/common" overwrite="true">
+			<fileset dir="${common.dir}">
+				<include name="resources/**/*" />
+			</fileset>
+		</copy>
+
+
+		<echo message="Copying tools dir"/>
+		<!-- Copy over binary distributions downloaded earlier -->
+		<copy todir="${dist.exploded.dir}/tools" overwrite="true">
+			<fileset dir="${download.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+		<echo message="Copying JBoss EAP Module libraries"/>
+				<!-- Copy over binary distributions downloaded earlier -->
+				<copy todir="${dist.exploded.dir}/jboss-module-lib" overwrite="true">
+					<fileset dir="${common.dist.dir}/jbossEAP6">
+						<include name="${csm.api.jar}" />
+						<include name="${bouncy.castle.jar}" />
+						<include name="${jbossall.client.jar}" />
+						<include name="${mysql.driver.jar}" />
+						<include name="${oracle.driver.jar}" />
+					</fileset>
+				</copy>
+	</sequential>
+    <copy todir="${dist.exploded.dir}" overwrite="true">
+      <fileset dir=".">
+        <include name="ctp.xml" />
+        <include name="ctp-macrodefs.xml" />
+        <!--include name="jboss.xml" />
+        <include name="database.xml" /-->
+        <include name="macrodefs.xml" />
+      </fileset>
+    </copy>
+  </target>
+        
+        
+  <!-- Creates the installer distribution used by installations -->
+  <target name="dist:installer" depends="dist:installer:prep">
+    <delete file="${dist.dir}/nbia-install_${nbia.version}"/>
+    <!-- Set environment name to external -->
+    <replaceregexp file="${dist.exploded.dir}/build.xml" byline="true" match="(&lt;property name=&quot;env.name&quot; value=&quot;)\w+(&quot;/&gt;)" replace="\1external\2" />
+   
+    <for list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri,gov.nih.nci.ncia.encrypt.key" 
+    param="property.name" delimiter=",">
+	<sequential>
+		<replaceregexp file="${dist.exploded.dir}/install.properties"
+			match="^(@{property.name})=.*"
+			replace="\1=REPLACE_VALUE"
+			flags="g" byline="true"/>
+	</sequential>
+</for>
+<for list="ldap.url,ldap.basedn" param="property.name" delimiter=",">
+	<sequential>
+		<replaceregexp file="${dist.exploded.dir}/install.properties"
+			match="^(@{property.name})=.*"
+			replace="\1=replace_value"
+			flags="g" byline="true"/>
+	</sequential>
+</for>
+    
+    
+    
+    
+    
+    <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true"
+      match="^(grid.index.url)=.*"
+      replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"
+      />
+
+    <zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip"
+         basedir="${dist.exploded.dir}"
+         excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+  </target>   
 </project>

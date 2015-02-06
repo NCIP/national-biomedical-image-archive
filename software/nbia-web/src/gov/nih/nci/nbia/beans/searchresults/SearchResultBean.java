@@ -44,7 +44,7 @@ public class SearchResultBean {
 
 
 	public SearchResultBean() {
-		
+
 	}
 
     /**
@@ -53,11 +53,11 @@ public class SearchResultBean {
      */
 	public void viewPatient(PatientResultWrapper wrapper) throws Exception {
 		patient = wrapper.getPatient();
-		
-		studiesSearchResultBean.viewPatient(patient);			
+
+		studiesSearchResultBean.viewPatient(patient);
 	}
 
-	
+
 	/**
 	 * Each element in this list in a result from a node.  For example,
 	 * local node, remote node1, remote node2, etc.  So each
@@ -76,17 +76,17 @@ public class SearchResultBean {
 			return nodeTableWrappers;
 		}
 	}
-		
-	
+
+
 	/**
 	 * Return jsut the first set of results.... this is only used by
 	 * ISPY.  Everything else should iterate over the node table wrappers.
 	 */
 	public List<PatientResultWrapper> getPatientResults() {
-		return nodeTableWrappers.get(0).getPatients(); 		
+		return nodeTableWrappers.get(0).getPatients();
 	}
 
-	
+
     /**
      * For an asynchronous query, this method is really "setting the results".
      * The completion service is used to retrieve results for display once
@@ -95,23 +95,23 @@ public class SearchResultBean {
     public void setPatientSearchResultsCompletionService(PatientSearchCompletionService results) {
     	//setup the tables
     	int numNodes = results.getNodesToSearch().size();
-    	
+
     	nodeTableWrappers = new ArrayList<NodeTableWrapper>(numNodes);
     	List<NBIANode> nodes = results.getNodesToSearch();
     	for(NBIANode node : nodes) {
     		NodeTableWrapper wrapper = new NodeTableWrapper(node, this);
     		nodeTableWrappers.add(wrapper);
     	}
-    	    	    	   
+
     	this.waitForSearchResults(results);
     }
-    
-    
+
+
 	/**
 	 * Sets the patient results. This is really an important method....
 	 * it is called by the bean that initiates the search.... it is
 	 * set here so the results can ultimately be displayed.
-	 * 
+	 *
 	 * <P>This is only for synchronous searches (ispy and dynamic search)
 	 */
 	public void setPatientResults(List<PatientSearchResult> results) {
@@ -129,12 +129,12 @@ public class SearchResultBean {
 					                                            results.toArray(new PatientSearchResult[]{}));
 			nodeTableWrapper.setPatientSearchResults(psr);
 			nodeTableWrappers.add(nodeTableWrapper);
-		} 
+		}
 		else {
 			nodeTableWrappers = null;
 		}
 	}
-	
+
 
 	/**
 	 * The currently selected patient as a result of executing
@@ -144,28 +144,18 @@ public class SearchResultBean {
 		return patient;
 	}
 
-	
+
 	/**
 	 * After a patient is selected..... this tells whether the patient is
 	 * on the local box.  Don't invoke this before viewPatient(xxx).
 	 */
 	public boolean isLocal() {
-		boolean showCedara = patient.associatedLocation().isLocal();
-		String installationSite = NCIAConfig.getInstallationSite();
-		if (installationSite.equalsIgnoreCase(NCIAConstants.INSTALLATION_SITE) &&
-				showCedara == true)
-		{
-			showCedara = true;
-		}
-		else
-		{
-			showCedara = false;
-		}
-	
+		//Cedara is not supported since 6.0.  So it is always false.
+		boolean showCedara = false;
 		return showCedara;
 	}
 
-	
+
 	/**
 	 * The query from "classic search" that is responsible for the current
 	 * results.
@@ -174,7 +164,7 @@ public class SearchResultBean {
 		return query;
 	}
 
-	
+
 	/**
 	 * Sets the query from "classic search" that is responsible for the current
 	 * results.
@@ -208,7 +198,7 @@ public class SearchResultBean {
 					MessageUtil.addInfoMessage(queryNameText,
 							                   "queryUpdated",
 							                   new Object[] { query.getQueryName() });
-					
+
 					swb.setEditingSavedQuery(false);
 					queryName = "";
 				} catch (Exception e) {
@@ -242,7 +232,7 @@ public class SearchResultBean {
 					newQueryId = qManager.saveQuery(query);
 					query.setSavedQueryId(newQueryId);
 					queryBean.updateSavedQueryCount();
-					MessageUtil.addInfoMessage(queryNameText, 
+					MessageUtil.addInfoMessage(queryNameText,
 							                   "querySaved",
 							                   new Object[] { query.getQueryName() });
 					swb.setEditingSavedQuery(false);
@@ -285,7 +275,7 @@ public class SearchResultBean {
 		this.updateQuery = Boolean.parseBoolean(updateQuery);
 	}
 
-	
+
 	public Integer getResultsPerPage() {
 		return resultsPerPage;
 	}
@@ -303,15 +293,15 @@ public class SearchResultBean {
 	public void setStudiesSearchResultBean(StudiesSearchResultBean studiesSearchResultBean) {
 		this.studiesSearchResultBean = studiesSearchResultBean;
 	}
-	
+
 
 	//////////////////////////////////////////PRIVATE//////////////////////////////////////////
 
 
-    private Integer resultsPerPage=10;	
+    private Integer resultsPerPage=10;
 
 	private StudiesSearchResultBean studiesSearchResultBean;
-	
+
 	/**
 	 * Logger for the class.
 	 */
@@ -339,23 +329,23 @@ public class SearchResultBean {
 	 */
 	private Boolean updateQuery = true;
 
-	
-	
+
+
 	private boolean isTextResult=false;
-	
+
 
 	/**
      * Each object in this collection represents the gui state for the search
      * results from a given node.  so two nodes search means two elements in this colleciton.
      */
 	private List<NodeTableWrapper> nodeTableWrappers = new ArrayList<NodeTableWrapper>();
-	
-	
+
+
 	private void addNodeResult(PatientSearchResults patientSearchResults) {
 
 		NodeTableWrapper foundWrapper = null;
-		
-		for(NodeTableWrapper wrapperIter : nodeTableWrappers) {	
+
+		for(NodeTableWrapper wrapperIter : nodeTableWrappers) {
 			if(wrapperIter.getNBIANode().getURL().equals(patientSearchResults.getNode().getURL())) {
 				foundWrapper = wrapperIter;
 				break;
@@ -363,16 +353,16 @@ public class SearchResultBean {
 		}
 
 		foundWrapper.setPatientSearchResults(patientSearchResults);
-		
+
 	}
-    
+
 	/**
 	 * All the search requests are sent out in parallel.... wait for all of them
 	 * to be done.  This method can be called as-is from a waiter thread with push
 	 * ...that is if the push can work more reliably.
 	 */
 	private void waitForSearchResults(PatientSearchCompletionService completionService) {
-		try {    
+		try {
 			System.out.println("#################"+completionService.getNodesToSearch().size());
 			List<NBIANode> noResponseNode = new ArrayList<NBIANode>();
 			for (NBIANode node : completionService.getNodesToSearch()) {
@@ -390,10 +380,10 @@ public class SearchResultBean {
 						noResponseNode.remove(result.getNode()); // got response so remove it
 						logResult(result);
 						addNodeResult(result);
-					} 
-				} catch (CancellationException e) { 
-	                e.printStackTrace(); 
-	            } 
+					}
+				} catch (CancellationException e) {
+	                e.printStackTrace();
+	            }
 
 				//pushToBrowser();
 			}
@@ -406,8 +396,8 @@ public class SearchResultBean {
 					logResult(result);
 					addNodeResult(result);
 				}
-			}			
-			
+			}
+
 			System.out.println("done waiting for results");
 		}
 //		catch(InterruptedException ie) {
@@ -418,17 +408,17 @@ public class SearchResultBean {
 			//any exceptions and results a search result that indicates
 			//there was an error
 			ex.printStackTrace();
-		}		
+		}
 	}
-	
- 
+
+
     private static void logResult(PatientSearchResults result) {
 		if(result.getResults()!=null) {
 			System.out.println("PatientSearchResults num results:"+result.getResults().length + " - Node " + result.getNode().getDisplayName());
-		}   
+		}
 		if(result.getSearchError()!=null) {
 			System.out.println("PatientSearchResults error:"+result.getSearchError() + " - Node " + result.getNode().getDisplayName());
-		}   
+		}
     }
     //for sorting
     private static final String collectionNameHeader = "Collection ID";

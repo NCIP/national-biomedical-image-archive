@@ -1,0 +1,906 @@
+<properties>
+	<property  name="tomcat.application.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>tomcat.application.url-syntax</name>
+				<description>Checks tomcat.application.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.application.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.application.url ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.application.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.application.url == null </condition>
+						<condition>tomcat.application.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.application.url did not pass validation. tomcat.application.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://localhost.nci.nih.gov:port".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.application.url-url</name>
+				<description>Checks tomcat.application.url has proper value.</description>
+				<conditions>
+					<condition>tomcat.application.url ==~ /^http.*:\/\/.*/</condition>
+				</conditions>
+				<fail-message>tomcat.application.url did not pass validation. tomcat.application.url must be http(s)://* Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/bda-ivy-build.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.tomcat" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>exclude.tomcat-syntax</name>
+				<description>Checks exclude.tomcat is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.tomcat ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.tomcat ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.tomcat ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.tomcat ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.tomcat == null </condition>
+						<condition>exclude.tomcat == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat did not pass validation. exclude.tomcat must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.tomcat-tf</name>
+				<description>Checks exclude.tomcat has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.tomcat == "true"</condition>
+						<condition>exclude.tomcat == "false"</condition>
+						<condition>exclude.tomcat == ""</condition>
+						<condition>exclude.tomcat == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat did not pass validation. exclude.tomcat must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.tomcat.backup" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>exclude.tomcat.backup-syntax</name>
+				<description>Checks exclude.tomcat.backup is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.tomcat.backup ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.tomcat.backup ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.tomcat.backup ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.tomcat.backup ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.tomcat.backup == null </condition>
+						<condition>exclude.tomcat.backup == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat.backup did not pass validation. exclude.tomcat.backup must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.tomcat.backup-tf</name>
+				<description>Checks exclude.tomcat.backup has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.tomcat.backup == "true"</condition>
+						<condition>exclude.tomcat.backup == "false"</condition>
+						<condition>exclude.tomcat.backup == ""</condition>
+						<condition>exclude.tomcat.backup == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat.backup did not pass validation. exclude.tomcat.backup must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.tomcat-config" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>exclude.tomcat-config-syntax</name>
+				<description>Checks exclude.tomcat-config is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.tomcat-config ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.tomcat-config ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.tomcat-config ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.tomcat-config ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.tomcat-config == null </condition>
+						<condition>exclude.tomcat-config == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat-config did not pass validation. exclude.tomcat-config must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.tomcat-config-tf</name>
+				<description>Checks exclude.tomcat-config has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.tomcat-config == "true"</condition>
+						<condition>exclude.tomcat-config == "false"</condition>
+						<condition>exclude.tomcat-config == ""</condition>
+						<condition>exclude.tomcat-config == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat-config did not pass validation. exclude.tomcat-config must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.tomcat.grid" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>exclude.tomcat.grid-syntax</name>
+				<description>Checks exclude.tomcat.grid is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.tomcat.grid ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.tomcat.grid ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.tomcat.grid ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.tomcat.grid ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.tomcat.grid == null </condition>
+						<condition>exclude.tomcat.grid == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat.grid did not pass validation. exclude.tomcat.grid must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.tomcat.grid-tf</name>
+				<description>Checks exclude.tomcat.grid has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.tomcat.grid == "true"</condition>
+						<condition>exclude.tomcat.grid == "false"</condition>
+						<condition>exclude.tomcat.grid == ""</condition>
+						<condition>exclude.tomcat.grid == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.tomcat.grid did not pass validation. exclude.tomcat.grid must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.binaries.file" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.binaries.file-syntax</name>
+				<description>Checks tomcat.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.binaries.file == null </condition>
+						<condition>tomcat.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.binaries.file did not pass validation. tomcat.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "apache-tomcat-6.0.20.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.binaries.relative.dir" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.binaries.relative.dir-syntax</name>
+				<description>Checks tomcat.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.binaries.relative.dir == null </condition>
+						<condition>tomcat.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.binaries.relative.dir did not pass validation. tomcat.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "apache-tomcat-6.0.20".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.external.grid.secure.host" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.external.grid.secure.host-syntax</name>
+				<description>Checks tomcat.external.grid.secure.host is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.grid.secure.host ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.external.grid.secure.host ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.external.grid.secure.host ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.external.grid.secure.host ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.external.grid.secure.host == null </condition>
+						<condition>tomcat.external.grid.secure.host == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.grid.secure.host did not pass validation. tomcat.external.grid.secure.host must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.external.grid.secure.port" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.external.grid.secure.port-syntax</name>
+				<description>Checks tomcat.external.grid.secure.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.grid.secure.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.external.grid.secure.port ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.external.grid.secure.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.external.grid.secure.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.external.grid.secure.port == null </condition>
+						<condition>tomcat.external.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.grid.secure.port did not pass validation. tomcat.external.grid.secure.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.external.grid.secure.port-port</name>
+				<description>Checks tomcat.external.grid.secure.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.grid.secure.port ==~ /\d+/</condition>
+							<condition>tomcat.external.grid.secure.port &gt;= 0</condition>
+							<condition>tomcat.external.grid.secure.port &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.external.grid.secure.port == null </condition>
+						<condition>tomcat.external.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.grid.secure.port did not pass validation. tomcat.external.grid.secure.port must be empty or between 0 and 65535. Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.external.http.host" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.external.http.host-syntax</name>
+				<description>Checks tomcat.external.http.host is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.http.host ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.external.http.host ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.external.http.host ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.external.http.host ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.external.http.host == null </condition>
+						<condition>tomcat.external.http.host == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.http.host did not pass validation. tomcat.external.http.host must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.external.http.port" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.external.http.port-syntax</name>
+				<description>Checks tomcat.external.http.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.http.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.external.http.port ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.external.http.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.external.http.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.external.http.port == null </condition>
+						<condition>tomcat.external.http.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.http.port did not pass validation. tomcat.external.http.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.external.http.port-port</name>
+				<description>Checks tomcat.external.http.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.http.port ==~ /\d+/</condition>
+							<condition>tomcat.external.http.port &gt;= 0</condition>
+							<condition>tomcat.external.http.port &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.external.http.port == null </condition>
+						<condition>tomcat.external.http.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.http.port did not pass validation. tomcat.external.http.port must be empty or between 0 and 65535. Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.external.ssl.host" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.external.ssl.host-syntax</name>
+				<description>Checks tomcat.external.ssl.host is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.ssl.host ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.external.ssl.host ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.external.ssl.host ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.external.ssl.host ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.external.ssl.host == null </condition>
+						<condition>tomcat.external.ssl.host == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.ssl.host did not pass validation. tomcat.external.ssl.host must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.external.ssl.port" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.external.ssl.port-syntax</name>
+				<description>Checks tomcat.external.ssl.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.ssl.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.external.ssl.port ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.external.ssl.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.external.ssl.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.external.ssl.port == null </condition>
+						<condition>tomcat.external.ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.ssl.port did not pass validation. tomcat.external.ssl.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.external.ssl.port-port</name>
+				<description>Checks tomcat.external.ssl.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.external.ssl.port ==~ /\d+/</condition>
+							<condition>tomcat.external.ssl.port &gt;= 0</condition>
+							<condition>tomcat.external.ssl.port &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.external.ssl.port == null </condition>
+						<condition>tomcat.external.ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.external.ssl.port did not pass validation. tomcat.external.ssl.port must be empty or between 0 and 65535. Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.grid.secure.cert.location" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.grid.secure.cert.location-syntax</name>
+				<description>Checks tomcat.grid.secure.cert.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.grid.secure.cert.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.grid.secure.cert.location ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.grid.secure.cert.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.grid.secure.cert.location == null </condition>
+						<condition>tomcat.grid.secure.cert.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.cert.location did not pass validation. tomcat.grid.secure.cert.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/165.112.132.171-cert.pem".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.grid.secure.enable" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.grid.secure.enable-syntax</name>
+				<description>Checks tomcat.grid.secure.enable is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.grid.secure.enable ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.grid.secure.enable ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.grid.secure.enable ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.grid.secure.enable ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.grid.secure.enable == null </condition>
+						<condition>tomcat.grid.secure.enable == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.enable did not pass validation. tomcat.grid.secure.enable must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "false".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.grid.secure.enable-tf</name>
+				<description>Checks tomcat.grid.secure.enable has proper value.</description>
+				<conditions>
+					<or>
+						<condition> tomcat.grid.secure.enable == "true"</condition>
+						<condition> tomcat.grid.secure.enable == "false"</condition>
+						<condition> tomcat.grid.secure.enable == ""</condition>
+						<condition> tomcat.grid.secure.enable == null</condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.enable did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.grid.secure.enable-relationship</name>
+				<description>Checks tomcat.grid.secure.enable has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> tomcat.grid.secure.enable == "true"</condition>
+							<condition> tomcat.grid.secure.cert.location ==~ /.*\S+.*/</condition>
+							<condition> tomcat.grid.secure.key.location ==~ /.*\S+.*/</condition>
+							<condition> tomcat.grid.secure.port ==~ /.*\S+.*/</condition>
+						</and>
+						<condition> tomcat.grid.secure.enable != "true"</condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.enable did not pass validation. If true then jboss.grid.secure.cert.location, jboss.grid.secure.enable, jboss.grid.secure.key.location, jboss.grid.secure.port must have values.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.grid.secure.key.location" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.grid.secure.key.location-syntax</name>
+				<description>Checks tomcat.grid.secure.key.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.grid.secure.key.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.grid.secure.key.location ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.grid.secure.key.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.grid.secure.key.location == null </condition>
+						<condition>tomcat.grid.secure.key.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.key.location did not pass validation. tomcat.grid.secure.key.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/165.112.132.171-key.pem".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.grid.secure.port" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.grid.secure.port-syntax</name>
+				<description>Checks tomcat.grid.secure.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.grid.secure.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.grid.secure.port ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.grid.secure.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.grid.secure.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.grid.secure.port == null </condition>
+						<condition>tomcat.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.port did not pass validation. tomcat.grid.secure.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "21444".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.grid.secure.port-port</name>
+				<description>Checks tomcat.grid.secure.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.grid.secure.port ==~ /\d+/</condition>
+							<condition>tomcat.grid.secure.port &gt;= 0</condition>
+							<condition>tomcat.grid.secure.port &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.grid.secure.port == null </condition>
+						<condition>tomcat.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.grid.secure.port did not pass validation. tomcat.grid.secure.port must be empty or between 0 and 65535. Sample valid value - "21444".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.relative.dir" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.relative.dir-syntax</name>
+				<description>Checks tomcat.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.relative.dir == null </condition>
+						<condition>tomcat.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.relative.dir did not pass validation. tomcat.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "apache-tomcat-6.0.20".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.hostname" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.hostname-syntax</name>
+				<description>Checks tomcat.hostname is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.hostname ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.hostname ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.hostname ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.hostname ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.hostname == null </condition>
+						<condition>tomcat.hostname == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.hostname did not pass validation. tomcat.hostname must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "localhost".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.http-connector.remove" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.http-connector.remove-syntax</name>
+				<description>Checks tomcat.http-connector.remove is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.http-connector.remove ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.http-connector.remove ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.http-connector.remove ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.http-connector.remove ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.http-connector.remove == null </condition>
+						<condition>tomcat.http-connector.remove == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.http-connector.remove did not pass validation. tomcat.http-connector.remove must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.http-connector.remove-tf</name>
+				<description>Checks tomcat.http-connector.remove has proper value.</description>
+				<conditions>
+					<or>
+						<condition> tomcat.http-connector.remove == "true"</condition>
+						<condition> tomcat.http-connector.remove == "false"</condition>
+						<condition> tomcat.http-connector.remove == ""</condition>
+						<condition> tomcat.http-connector.remove == null</condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.http-connector.remove did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.http-connector.remove-relationship</name>
+				<description>Checks tomcat.http-connector.remove has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> tomcat.http-connector.remove == "true"</condition>
+							<condition> tomcat.grid.secure.enable == "true"</condition>
+						</and>
+						<condition> tomcat.http-connector.remove != "true"</condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.http-connector.remove did not pass validation. If true then tomcat.grid.secure.enable must also be true.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.port.ajp" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.port.ajp-syntax</name>
+				<description>Checks tomcat.port.ajp is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.ajp ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.port.ajp ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.port.ajp ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.port.ajp ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.port.ajp == null </condition>
+						<condition>tomcat.port.ajp == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.ajp did not pass validation. tomcat.port.ajp must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "21009".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.port.ajp-value</name>
+				<description>Checks tomcat.port.ajp has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.ajp ==~ /\d+/</condition>
+							<condition>tomcat.port.ajp &gt;= 0</condition>
+							<condition>tomcat.port.ajp &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.port.ajp == null </condition>
+						<condition>tomcat.port.ajp == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.ajp did not pass validation. tomcat.port.ajp must be empty or between 0 and 65535. Sample valid value - "21009".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.port.http" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.port.http-syntax</name>
+				<description>Checks tomcat.port.http is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.http ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.port.http ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.port.http ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.port.http ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.port.http == null </condition>
+						<condition>tomcat.port.http == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.http did not pass validation. tomcat.port.http must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "21080".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.port.http-value</name>
+				<description>Checks tomcat.port.http has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.http ==~ /\d+/</condition>
+							<condition>tomcat.port.http &gt;= 0</condition>
+							<condition>tomcat.port.http &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.port.http == null </condition>
+						<condition>tomcat.port.http == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.http did not pass validation. tomcat.port.http must be empty or between 0 and 65535. Sample valid value - "21080".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.port.shutdown" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.port.shutdown-syntax</name>
+				<description>Checks tomcat.port.shutdown is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.shutdown ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.port.shutdown ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.port.shutdown ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.port.shutdown ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.port.shutdown == null </condition>
+						<condition>tomcat.port.shutdown == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.shutdown did not pass validation. tomcat.port.shutdown must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "21005".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.port.shutdown-value</name>
+				<description>Checks tomcat.port.shutdown has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.shutdown ==~ /\d+/</condition>
+							<condition>tomcat.port.shutdown &gt;= 0</condition>
+							<condition>tomcat.port.shutdown &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.port.shutdown == null </condition>
+						<condition>tomcat.port.shutdown == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.shutdown did not pass validation. tomcat.port.shutdown must be empty or between 0 and 65535. Sample valid value - "21005".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.port.ssl" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.port.ssl-syntax</name>
+				<description>Checks tomcat.port.ssl is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.ssl ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.port.ssl ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.port.ssl ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.port.ssl ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.port.ssl == null </condition>
+						<condition>tomcat.port.ssl == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.ssl did not pass validation. tomcat.port.ssl must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "21443".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.port.ssl-value</name>
+				<description>Checks tomcat.port.ssl has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.port.ssl ==~ /\d+/</condition>
+							<condition>tomcat.port.ssl &gt;= 0</condition>
+							<condition>tomcat.port.ssl &lt;= 65535</condition>
+						</and>
+						<condition>tomcat.port.ssl == null </condition>
+						<condition>tomcat.port.ssl == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.port.ssl did not pass validation. tomcat.port.ssl must be empty or between 0 and 65535. Sample valid value - "21443".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.src.url" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.src.url-syntax</name>
+				<description>Checks tomcat.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.src.url == null </condition>
+						<condition>tomcat.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.src.url did not pass validation. tomcat.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2009/os-independent/apache-tomcat-6.0.20.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.src.url-url</name>
+				<description>Checks tomcat.src.url has proper value.</description>
+				<conditions>
+					<condition>tomcat.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>tomcat.src.url did not pass validation. tomcat.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2009/os-independent/apache-tomcat-6.0.20.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.ssl.enable" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.ssl.enable-syntax</name>
+				<description>Checks tomcat.ssl.enable is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.ssl.enable ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.ssl.enable ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.ssl.enable ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.ssl.enable ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.ssl.enable == null </condition>
+						<condition>tomcat.ssl.enable == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.enable did not pass validation. tomcat.ssl.enable must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "false".</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.ssl.enable-tf</name>
+				<description>Checks tomcat.ssl.enable has proper value.</description>
+				<conditions>
+					<or>
+						<condition> tomcat.ssl.enable == "true"</condition>
+						<condition> tomcat.ssl.enable == "false"</condition>
+						<condition> tomcat.ssl.enable == ""</condition>
+						<condition> tomcat.ssl.enable == null</condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.enable did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+			<rule>
+				<name>tomcat.ssl.enable-relationship</name>
+				<description>Checks tomcat.ssl.enable has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> tomcat.ssl.enable == "true"</condition>
+							<condition> tomcat.ssl.keystore.location ==~ /.*\S+.*/</condition>
+							<condition> tomcat.ssl.keystore.pass ==~ /.*\S+.*/</condition>
+							<condition> tomcat.ssl.keystore.alias ==~ /.*\S+.*/</condition>
+							<condition> tomcat.ssl.fullyqualified.hostname ==~ /.*\S+.*/</condition>
+						</and>
+						<condition> tomcat.ssl.enable != "true"</condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.enable did not pass validation. If true then tomcat.ssl.keystore.location, tomcat.ssl.keystore.pass, tomcat.ssl.keystore.alias, tomcat.ssl.fullyqualified.hostname.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.ssl.fullyqualified.hostname" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.ssl.fullyqualified.hostname-syntax</name>
+				<description>Checks tomcat.ssl.fullyqualified.hostname is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.ssl.fullyqualified.hostname ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.ssl.fullyqualified.hostname ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.ssl.fullyqualified.hostname ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.ssl.fullyqualified.hostname ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.ssl.fullyqualified.hostname == null </condition>
+						<condition>tomcat.ssl.fullyqualified.hostname == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.fullyqualified.hostname did not pass validation. tomcat.ssl.fullyqualified.hostname must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "localhost.nci.nih.gov".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.ssl.keystore.alias" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.ssl.keystore.alias-syntax</name>
+				<description>Checks tomcat.ssl.keystore.alias is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.ssl.keystore.alias ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.alias ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.alias ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.alias ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.ssl.keystore.alias == null </condition>
+						<condition>tomcat.ssl.keystore.alias == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.keystore.alias did not pass validation. tomcat.ssl.keystore.alias must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "ncicb-test-ssl-key".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.ssl.keystore.location" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.ssl.keystore.location-syntax</name>
+				<description>Checks tomcat.ssl.keystore.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.ssl.keystore.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.location ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>tomcat.ssl.keystore.location == null </condition>
+						<condition>tomcat.ssl.keystore.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.keystore.location did not pass validation. tomcat.ssl.keystore.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/ncicb-test-ssl.keystore".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="tomcat.ssl.keystore.pass" description="" skip-property="exclude.validate.tomcat">
+		<rules>
+			<rule>
+				<name>tomcat.ssl.keystore.pass-syntax</name>
+				<description>Checks tomcat.ssl.keystore.pass is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>tomcat.ssl.keystore.pass ==~ /.*\S+.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.pass ==~ /.*\s.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.pass ==~ /.*\x5c.*/</condition>
+							<condition negate="true">tomcat.ssl.keystore.pass ==~ /.*\/.*/</condition>
+						</and>
+						<condition>tomcat.ssl.keystore.pass == null </condition>
+						<condition>tomcat.ssl.keystore.pass == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>tomcat.ssl.keystore.pass did not pass validation. tomcat.ssl.keystore.pass must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "ncicb1!".</fail-message>
+			</rule>
+		</rules>
+	</property>
+</properties>

@@ -126,7 +126,6 @@ gov.nih.nci.ncia.grid.local.node.name=
 gov.nih.nci.ncia.ui.uid.display.length=
 gov.nih.nci.ncia.ftp.url=
 gov.nih.nci.ncia.jboss.mq.url=
-gov.nih.nci.ncia.frontier.http.address=
 gov.nih.nci.ncia.installationSite=
 gov.nih.nci.ncia.admin.email=
 gov.nih.nci.ncia.jboss.public.url=

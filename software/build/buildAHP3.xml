@@ -749,7 +749,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="nbia.version" value="${nbia.version}" />
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
 			<property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
-			<property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" />
+			<!--property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" /-->
 		</ant>
 	</target>
 	
@@ -1241,8 +1241,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
       <fileset dir=".">
         <include name="ctp.xml" />
         <include name="ctp-macrodefs.xml" />
-        <!--include name="jboss.xml" />
-        <include name="database.xml" /-->
+	<include name="install-macros.xml" />
         <include name="macrodefs.xml" />
       </fileset>
     </copy>
@@ -1273,10 +1272,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	</sequential>
 </for>
     
-    
-    
-    
-    
+ 
     <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true"
       match="^(grid.index.url)=.*"
       replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"
@@ -1285,5 +1281,11 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
     <zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip"
          basedir="${dist.exploded.dir}"
          excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+    
+    <copy todir="${dist.dir}" overwrite="true">
+    			<fileset dir="${nbia-ctp.dist.dir}">
+    				<include name="CTP_Client.zip" />
+    			</fileset>
+    </copy>
   </target>   
 </project>

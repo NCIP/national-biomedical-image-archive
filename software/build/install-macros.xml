@@ -232,7 +232,7 @@ L-->
 					database.version=@{database.version}
 					database.name=@{database.name}
 					"/>
-			<!--validate-database
+			<validate-database
 					database.driver="@{database.driver}"
 					database.system.url="@{database.system.url}"
 					database.system.user="@{database.system.user}"
@@ -245,7 +245,7 @@ L-->
 					database.type="@{database.type}"
 					database.drop-schema="@{database.drop-schema}"
 					database.re-create="@{database.re-create}"
-					/-->
+					/>
 			<!-- Make sure system and app user are different -->
 			<if>
 				<equals arg1="@{database.system.user}" arg2="@{database.user}"/>

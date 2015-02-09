@@ -393,16 +393,16 @@ L-->
 	<target name="install:database" description="Runs datbase creation scripts then calls uprade database." unless="exclude.database" depends="common:common:init,
                       install:database:prep,
                        install:database:validation:pre-install">
-		<!-- Drop all schema objects or re-create the db -->
-		<database-clean/>
-		<!-- Run baseline scripts stored in db.install.create.${database.type}.file.list variable -->
-		<switch value="${database.type}">
-			<case value="oracle">
-				<database-install db.install.create.file.list="${db.install.create.oracle.file.list}" sql.delimiter=";" sql.delimitertype="row"/>
-			</case>
-			<case value="mysql">
-				<database-install db.install.create.file.list="${db.install.create.mysql.file.list}"/>
-			</case>
+		  <!-- Drop all schema objects or re-create the db -->
+			<database-clean/>
+			<!-- Run baseline scripts stored in db.install.create.${database.type}.file.list variable -->
+			<switch value="${database.type}">
+			    <case value="oracle">
+				<database-install db.install.create.file.list="${db.install.create.oracle.file.list}" sql.delimiter=";" sql.delimitertype="row" database.driver.file="${basedir}/jboss-module-lib/${database.driver.jar}"/>
+			    </case>
+			    <case value="mysql">
+				<database-install db.install.create.file.list="${db.install.create.mysql.file.list}" database.driver.file="${basedir}/jboss-module-lib/${database.driver.jar}"/>
+			    </case>
 		</switch>
 		<database-upgrade database.changelog.file="${os.temp.dir}/nbia/db-upgrade.xml"/>
 		<database-tag/>
@@ -410,15 +410,15 @@ L-->
 	</target>
 	<target name="install:database:prep" description="Copies db files with filtering" unless="exclude.database" depends="common:common:init">
 		<echoproperties prefix="database"/>
-		<copy todir="${db-install.dir.dest}" filtering="true">
-			<fileset dir="${db.dir.src}">
-				<include name="**/*"/>
-			</fileset>
-			<filterset refid="embedded.filterset"/>
-			<filterset>
-				<filtersfile file="${properties.file}"/>
-				<filtersfile file="project.properties"/>
-			</filterset>
+	    	<copy todir="${working.dir}/db" filtering="true">
+		    <fileset dir="${db.dir.src}">
+			<include name="**/*"/>
+		    </fileset>
+		    <filterset refid="embedded.filterset"/>
+		    <filterset>
+			<filtersfile file="${properties.file}"/>
+			<filtersfile file="project.properties"/>
+		    </filterset>
 		</copy>
 		<copy todir="${db-upgrade.dir.dest}" filtering="true" flatten="true" overwrite="true">
 			<fileset dir="${db.dir.src}/db-upgrade/${database.type}">

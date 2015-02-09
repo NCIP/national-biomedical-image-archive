@@ -277,14 +277,14 @@ L-->
 					<echo message="This function for the value @{database.type} of property database.type is not defined"/>
 				</default>
 			</switch>
-			<!--check-database-exists
+			<check-database-exists
 					database.driver="@{database.driver}"
 					database.url="@{database.url}"
 					database.user="@{database.user}"
 					database.password="@{database.password}"
 					database.name="@{database.name}"
 					database.type="@{database.type}"
-					/-->
+					/>
 			<!-- allow for checks for different types of db, right now only mysql-->
 			<switch value="@{database.type}">
 				<case value="mysql">
@@ -837,5 +837,144 @@ L-->
                 </if>
             </sequential>
         </macrodef>
-
+	<macrodef name="database-upgrade">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.driver.file" default="${database.driver.file}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.schema" default="${database.schema}" />
+		<attribute name="database.changelog.file" default="${os.temp.dir}/${project.name}/db-upgrade.xml" />
+		<sequential>
+			<database-upgrade-fix
+				database.driver="@{database.driver}"
+				database.url="@{database.url}"
+				database.user="@{database.user}"
+				database.password="@{database.password}"
+				database.driver.file="@{database.driver.file}"
+				database.changelog.file="@{database.changelog.file}"
+				/>
+			<updateDatabase
+				driver="@{database.driver}"
+				url="@{database.url}"
+				username="@{database.user}"
+				password="@{database.password}"
+				classpathref="jdbc.driver.classpath"
+				defaultSchemaName="@{database.schema}"
+				changeLogFile="@{database.changelog.file}"
+				/>
+		</sequential>
+	</macrodef>
+	<macrodef name="database-upgrade-fix" description="Diagnose the host system before the installation">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.driver.file" default="${database.driver.file}" />
+		<attribute name="database.changelog.file" default="${os.temp.dir}/${project.name}/db-upgrade.xml" />
+		<sequential>
+			<basename property="changelog.file" file="@{database.changelog.file}"/>
+			<echo message="Updateing liquibase metadata file name to @{database.changelog.file}  where filename includes ${changelog.file}"/>
+			<sql
+				driver="@{database.driver}"
+				url="@{database.url}"
+				userid="@{database.user}"
+				password="@{database.password}"
+				expandproperties="true"
+				onerror="continue"
+				autocommit="true"
+				>
+				<classpath>
+					<pathelement location="@{database.driver.file}" />
+				</classpath>
+				update databasechangelog set filename='@{database.changelog.file}' where filename like '%${changelog.file}';
+			</sql>
+		</sequential>
+	</macrodef>
+	<macrodef name="database-tag">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.schema" default="${database.schema}" />
+		<sequential>
+			<if>
+				<isset property="database.release.version"/>
+				<then>
+					<tagDatabase
+						driver="@{database.driver}"
+						url="@{database.url}"
+						username="@{database.user}"
+						password="@{database.password}"
+						classpathref="jdbc.driver.classpath"
+						defaultSchemaName="@{database.schema}"
+						tag="${database.release.version}"
+						>
+					</tagDatabase>
+				</then>
+				<else>
+					<fail message="Variable database.release.version must be set to call upgrade:database:tag target."/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<!--
+	check-database-exists macro checks if the database exists. The root user name and password should be provided
+	usage: <check-database-exists database.driver="${database.driver}" database.system.url="${database.system.url}" database.system.user="${database.system.user}" database.system.password="${database.system.password} database.name="${database.name}" />
+		database.driver is the jdbc driver to connect to database
+		database.url is the installed host of the database
+		database.user is the user for the database
+		database.password is the password for the database
+		database.name is the name of the database
+	-->
+	<macrodef name="check-database-exists" description="Checks if the database exists">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.name" default="${database.name}" />
+		<attribute name="database.type" default="${database.type}" />
+		<sequential>
+			<switch value="@{database.type}">
+				<case value="mysql">
+					<dbconfig property="database.exists"
+						driver="@{database.driver}" url="@{database.url}"  user="@{database.user}" password="@{database.password}">
+						<validate />
+					</dbconfig>
+					<echo message="Does @{database.name} exist = ${database.exists} "/>
+					<if>
+						<and>
+							<equals arg1="${database.exists}" arg2="true"/>
+							<not>
+								<isset property="force.reinstall"/>
+							</not>
+						</and>
+						<then>
+							<input message="The database @{database.name} already exists.  Please be sure you have a recent backup of this database.  This process will alter the database if you need to return your database to the current state you need a good backup.  Please ensure you have a good backup before proceeding.  Do you want to proceed?"
+								validargs="y,n"
+								addproperty="accept.database.update" />
+							<if>
+								<equals arg1="${accept.database.update}" arg2="n"/>
+								<then>
+									<fail message="User tereminated the build."/>
+								</then>
+								<else>
+									<var name="force.reinstall" value="true"/>
+								</else>
+							</if>
+						</then>
+						<else>
+							<echo message="Database @{database.name} does not exist or the force.reinstall property is set."/>
+							<var name="force.reinstall" value="true"/>
+						</else>
+					</if>
+				</case>
+				<default>
+					<echo message="Database is @{database.type}, warning prompt not displayed."/>
+					<var name="force.reinstall" value="true"/>
+				</default>
+			</switch>
+		</sequential>
+	</macrodef>
+	
 </project>

@@ -399,7 +399,7 @@ L-->
                       install:database:prep,
                        install:database:validation:pre-install">
 		  <!-- Drop all schema objects or re-create the db -->
-			<database-clean/>
+			<database-clean database.driver.file="${basedir}/jboss-module-lib/${database.driver.jar}"/>
 			<!-- Run baseline scripts stored in db.install.create.${database.type}.file.list variable -->
 			<switch value="${database.type}">
 			    <case value="oracle">

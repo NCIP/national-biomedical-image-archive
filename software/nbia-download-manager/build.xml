@@ -111,7 +111,7 @@ L-->
           depends="compile, ivy-runtime"
           description="generate the distribution">
 
-    <filter token="NBIA_WIKI_CSH_URL" value="${nbia.wiki.context.sensitive.help.url}"/>
+    <filter token="NBIA_WIKI_CSH_URL" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
     <copy todir="${build}" filtering="true">
     	 <fileset dir="${resources.dir}" includes="**/*.properties" />
     </copy>

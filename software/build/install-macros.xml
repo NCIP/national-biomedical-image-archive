@@ -71,7 +71,7 @@ L-->
 					<echo message="Java version check: PASSED"/>
 				</then>
 				<else>
-					<echo message="Java version check: WARNING, version is not 1.5.0_10"/>
+					<echo message="Java version check: WARNING, version is not 1.7."/>
 				</else>
 			</if>
 			<echo message="Java version check: PASSED"/>
@@ -312,7 +312,7 @@ L-->
 		<attribute name="database.url" default="${database.url}"/>
 		<attribute name="database.user" default="${database.user}"/>
 		<attribute name="database.password" default="${database.password}"/>
-		<attribute name="database.version" default="5.0.27"/>
+		<attribute name="database.version" default="5.5.41"/>
 		<attribute name="database.name" default="${database.name}"/>
 		<attribute name="database.type" default="${database.type}"/>
 		<attribute name="database.re-create" default="${database.re-create}"/>

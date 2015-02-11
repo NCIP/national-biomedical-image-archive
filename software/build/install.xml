@@ -38,7 +38,7 @@ L-->
 	<property name="jboss-conf.dir.dest" location="${working.dir}/common/resources/jbossEAP6-conf"/>
 	<property name="jboss.relative.path" value="${jboss.binaries.relative.dir}"/>
 	<!-- bda process stuff -->
-	<property name="bda-utils.dir" location="${basedir}/bda-utils"/>
+	<!--property name="bda-utils.dir" location="${basedir}/bda-utils"/-->
 	<property name="tools.dir" location="${basedir}/${tools.dist.relative.dir}"/>
 	<property name="common.dir.src" location="${basedir}/${common.dist.relative.dir}"/>
 	<property name="common.dir.dest" location="${working.dir}/${common.dist.relative.dir}"/>
@@ -127,8 +127,7 @@ L-->
 	<target name="install" description="Installs and configures JBOSS, creates database, and deploys application" depends="
     common:common:init,
     install:common:validation:pre-install,
-    install:database:validation:pre-install,
-    install:database,
+    build:db:new,
     install:ctp,
     install:jboss:config,
     install:all:post,
@@ -324,13 +323,13 @@ L-->
 		<switch value="${database.type}">
 			<case value="oracle">
 				<property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
-				<property name="database.driver.file" value="${bda-utils.dir}/ojdbc14-10.2.0.3.0.jar"/>
+				<property name="database.driver.file" value="${basedir}/jboss-module-lib/${database.driver.jar}"/>
 				<property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
 				<property name="database.schema" value="${database.name}"/>
 			</case>
 			<case value="mysql">
 				<property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-				<property name="database.driver.file" value="${bda-utils.dir}/mysql-connector-java-5.1.13.jar"/>
+				<property name="database.driver.file" value="${basedir}/jboss-module-lib/${database.driver.jar}"/>
 				<property name="database.driver" value="com.mysql.jdbc.Driver"/>
 				<property name="database.schema" value="${database.name}"/>
 			</case>
@@ -431,4 +430,85 @@ L-->
 			</fileset>
 		</copy>
 	</target>
+		<target name="build:db:new" description="Create new database " unless="exclude.database">
+			<echoproperties prefix="database" />
+			<path id="liquibase_stuff">
+				<pathelement location="${common.lib.dir}/nbia-liquibase.jar" />
+				<pathelement location="${common.lib.dir}/liquibase-core-1.9.3.jar" />
+				<pathelement location="${database.driver.file}" />
+			</path>
+			<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${common.lib.dir}/ant-classloadertask-1.0-RC2.jar" />
+			<classloader loader="project" classpathref="liquibase_stuff" />
+			<taskdef resource="liquibasetasks.properties">
+				<classpath refid="liquibase_stuff" />
+			</taskdef>
+			<copy todir="${db.dir.dest}" overwrite="true">
+				<fileset dir="${db.dir.src}/${database.type}">
+					<include name="**/*.sql" />
+				</fileset>
+			</copy>
+			<echo message="Dropping database objects" />
+			<dropAllDatabaseObjects driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" classpathref="liquibase_stuff" defaultSchemaName="${database.schema}" />
+			<switch value="${database.type}">
+				<case value="oracle">
+					<for list="${db.install.create.oracle.file.list}" param="db.install.file">
+						<sequential>
+							<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db-install.dist.dir}/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="row" keepformat="true">
+								<classpath>
+									<pathelement location="${database.driver.file}" />
+								</classpath>
+							</sql>
+						</sequential>
+					</for>
+				</case>
+				<case value="mysql">
+					<for list="${db.install.create.mysql.file.list}" param="db.install.file">
+						<sequential>
+							<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db-install.dist.dir}/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="normal" keepformat="true">
+								<classpath>
+									<pathelement location="${database.driver.file}" />
+								</classpath>
+							</sql>
+						</sequential>
+					</for>
+				</case>
+			</switch>
+			<antcall target="build:db:update" />
+			<if>
+				<isset property="database.release.version" />
+				<then>
+					<tagDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" defaultSchemaName="${database.schema}" tag="${database.release.version}">
+					</tagDatabase>
+				</then>
+				<else>
+					<fail message="Variable database.release.version must be set for possible future rolllback." />
+				</else>
+			</if>
+			<!-- should be part of the new database creation script TBD -->
+			<!--antcall target="create-guest-account"/-->
+		</target>
+		
+		<target name="build:db:update" description="Update database">
+			<echoproperties prefix="database" />
+			<path id="liquibase_stuff">
+				<pathelement location="${common.lib.dir}/nbia-liquibase.jar" />
+				<pathelement location="${common.lib.dir}/liquibase-core-1.9.3.jar" />
+				<pathelement location="${database.driver.file}" />
+			</path>
+			<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${common.lib.dir}/ant-classloadertask-1.0-RC2.jar" />
+			<classloader loader="project" classpathref="liquibase_stuff" />
+			<taskdef resource="liquibasetasks.properties">
+				<classpath refid="liquibase_stuff" />
+			</taskdef>
+			<copy todir="${db-upgrade.dir.dest}" overwrite="true">
+				<fileset dir="${db.dir.src}/${database.type}">
+					<include name="**/**/db-upgrade.xml" />
+				</fileset>
+			</copy>
+			<property name="database.changelog.file" value="${db-upgrade.dist.dir}/db-upgrade.xml" />
+			<!--basename property="changelog.file" file="${database.changelog.file}"/>
+	<echo message="changelog.file=${changelog.file} database.changelog.file=${database.changelog.file}"/-->
+			<updateDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" defaultSchemaName="${database.schema}" dropFirst="false" changeLogFile="${database.changelog.file}" />
+		</target>
+	
 </project>

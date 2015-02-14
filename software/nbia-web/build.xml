@@ -195,6 +195,8 @@ L-->
                    flags="g" />
     <!-- end: Insert release/build info into footer and to quick links-->
   	 <!-- start: Insert wiki link into login Failure -->
+  	 
+  	<echo>*************** Insert wiki link into login Failure: ${gov.nih.nci.ncia.wiki.context.sensitive.help.url} </echo>
   	<replaceregexp file="${webapp.dir}/HTML/LoginFailure.html"
   	                   match="\{NBIA_WIKI_CSH_URL}"
   	                   replace="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" flags="g" />

@@ -69,6 +69,12 @@ L-->
                 rev="latest.integration"
                 conf="compile;runtime->master"/>
 
+    <dependency org="ncicb"
+                name="nbia-services-grid"
+                rev="latest.integration"
+                conf="compile;runtime->master"/>
+
+
     <!-- hmmmmm.... this could be up in ear.... and no mention here, but
          convenient to mention the runtime dependency and copy to dependency directory.
          theoretically, with the right factory, this isn't a necessary dependency -->

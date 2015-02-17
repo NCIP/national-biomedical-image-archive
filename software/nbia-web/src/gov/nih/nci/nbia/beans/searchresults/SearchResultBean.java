@@ -343,7 +343,10 @@ public class SearchResultBean {
 	
 	private boolean isTextResult=false;
 	
-
+    boolean isFirstTime = true;
+    boolean isFirstTimeAdvanced = true;
+    boolean isFirstTimeText = true;
+    
 	/**
      * Each object in this collection represents the gui state for the search
      * results from a given node.  so two nodes search means two elements in this colleciton.
@@ -561,7 +564,32 @@ public class SearchResultBean {
 	}
 
 
+	public boolean isFirstTime() {
+		return isFirstTime;
+	}
+
+	public void setFirstTime(boolean isFirstTime) {
+		this.isFirstTime = isFirstTime;
+	}
+
+	public boolean isFirstTimeAdvanced() {
+		return isFirstTimeAdvanced;
+	}
+
+	public void setFirstTimeAdvanced(boolean isFirstTimeAdvanced) {
+		this.isFirstTimeAdvanced = isFirstTimeAdvanced;
+	}
+
+	public boolean isFirstTimeText() {
+		return isFirstTimeText;
+	}
+
+	public void setFirstTimeText(boolean isFirstTimeText) {
+		this.isFirstTimeText = isFirstTimeText;
+	}
+
 	public String getHitHeader() {
 		return hitHeader;
 	}
+	
 }

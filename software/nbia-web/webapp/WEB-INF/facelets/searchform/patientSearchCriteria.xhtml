@@ -17,12 +17,12 @@ L-->
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
                  
-<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box" >           
+<h:panelGrid id="patientidpanel" columns="2" border="0" cellspacing="0" frame="box" >           
 <h:inputTextarea id="patientInput" 
                                          value="#{searchWorkflowBean.patientInput}" 
                                          cols="22" 
-                                         rows="12"
-                                         title="Enter comma separated Subject ID(s) here." />
+                                         rows="10"
+                                         title="Enter comma separated Subject ID(s) here." /><h:outputText value=" " />
   <h:outputLabel for="addPatientCriteria"  value="Add Criteria" />  
   
   	<ice:selectBooleanCheckbox id="addPatientCriteria"

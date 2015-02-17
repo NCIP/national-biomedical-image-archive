@@ -52,7 +52,8 @@ L-->
 	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
 	<property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}" />
 	<property name="db-install.dist.dir" value="${dist.exploded.dir}/db/db-install/" />
-	<property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" />
+	<property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/db/db-upgrade/" />
+	<!--property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" /-->
 	<property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
 	<property name="ncia-core-grid.dist.relative.dir" value="ncia-core-grid-transfer" />
 	<property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}" />
@@ -121,7 +122,7 @@ L-->
 	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="common.lib.classpath" />
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
 		<classpath>
-			<pathelement path="${common.lib.dir}/xmltask-1.15.1.jar" />
+			<pathelement path="${common.lib.dir}/xmltask-1.16.1.jar" />
 		</classpath>
 	</taskdef>
 	<taskdef name="svn" classpathref="common.lib.classpath" classname="org.tigris.subversion.svnant.SvnTask" />
@@ -173,7 +174,7 @@ L-->
 	
 		<delete dir="${common.dist.dir}" />
 		
-		<copy file="${common.resources.dir}/jboss-conf/ncia-ds.xml" todir="${common.dist.dir}">
+		<!--copy file="${common.resources.dir}/jboss-conf/ncia-ds.xml" todir="${common.dist.dir}">
 			<filterset>
 				<filter token="database.user" value="${database.user}" />
 				<filter token="database.password" value="${database.password}" />
@@ -211,27 +212,27 @@ L-->
 				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
 				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
 				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
-				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
+				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" />
 				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
 				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
 				<filter token="application.context.name" value="${application.context.name}"/>
 			</filterset>
-		</copy>
+		</copy-->
 		
-	 <copy file="${common.resources.dir}/jboss-conf/server.xml" tofile="${common.dist.dir}/server.xml">
+	 <!--copy file="${common.resources.dir}/jboss-conf/server.xml" tofile="${common.dist.dir}/server.xml">
 			<filterset>
 				<filter token="nbia.portal.jboss.home" value="${nbia.portal.jboss.home}" />
 				<filter token="jboss.server.name" value="${nbia.portal.jboss.server.name}" />
 			</filterset>
-		</copy>
+		</copy-->
 		
-		<copy file="${common.resources.dir}/jboss-conf/login-config.xml" todir="${common.dist.dir}">
-		</copy>
-		<replaceregexp match="\&lt;/policy\&gt;" replace="" flags="gm">
+		<!--copy file="${common.resources.dir}/jboss-conf/login-config.xml" todir="${common.dist.dir}">
+		</copy-->
+		<!--replaceregexp match="\&lt;/policy\&gt;" replace="" flags="gm">
 			<fileset file="${common.dist.dir}/login-conf.xml" includes="*" />
-		</replaceregexp>
+		</replaceregexp-->
 		<!-- switch for db or ldap -->
-		<if>
+		<!--if>
 				<equals arg1="${authentication.type}" arg2="ldap"/>
 				<then>
 					<copy file="${common.resources.dir}/jboss-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
@@ -253,16 +254,16 @@ L-->
 						</filterset>
 					</copy>
 				</else>
-			</if>
-		<concat destfile="${common.dist.dir}/login-config.xml" append="true">
+			</if-->
+		<!--concat destfile="${common.dist.dir}/login-config.xml" append="true">
 			<filelist dir="${common.dist.dir}" files="login-config.block.xml" />
 		</concat>
-		<delete file="${common.dist.dir}/login-config.block.xml" />
+		<delete file="${common.dist.dir}/login-config.block.xml" /-->
 		<!--  switch for db or ldap -->
 		<concat destfile="${common.dist.dir}/login-config.xml" append="true">&lt;/policy&gt;</concat>
 
 		<!--- customize jboss-log4j.xml -->
-		<copy file="${common.resources.dir}/jboss-conf/jboss-log4j.xml.nci" tofile="${common.dist.dir}/jboss-log4j.xml" />
+		<!--copy file="${common.resources.dir}/jboss-conf/jboss-log4j.xml.nci" tofile="${common.dist.dir}/jboss-log4j.xml" />
 		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^(&lt;!DOCTYPE.*)" replace="&lt;!\-\-\1\-\-&gt;" />
 		<xmltask preservetype="true" failWithoutMatch="true" source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
 			<remove path="/log4j:configuration/appender[@class='org.jboss.logging.appender.DailyRollingFileAppender']" />
@@ -270,8 +271,8 @@ L-->
 		<xmltask preservetype="true" failWithoutMatch="true" source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
 			<insert path="log4j:configuration/appender[@class='org.apache.log4j.ConsoleAppender']" position="before">
 				<![CDATA[
-							<!-- NCI Additions -->
-				<!-- A size based file rolling appender -->
+				-->			<!-- NCI Additions --> 
+				<!-- A size based file rolling appender --> <!--
 				<appender name="FILE" class="org.jboss.logging.appender.RollingFileAppender">
 					<errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
 					<param name="File" value="${jboss.server.log.dir}/server.log"/>
@@ -284,16 +285,16 @@ L-->
 				</appender>
 							]]>
 						</insert>
-		</xmltask>
-		<xmltask source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
+		</xmltask-->
+		<!--xmltask source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
 			<insert path="/log4j:configuration/root" position="before" file="${common.resources.dir}/jboss-conf/log4j.block.xml" />
-		</xmltask>
-		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;" replace="\1" />
+		</xmltask-->
+		<!--replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;" replace="\1" /-->
 		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^(&lt;log4j:configuration.*)" replace="\1${line.separator}&lt;!-- NCI Additions --&gt;" />
-
+		
 
 		<!-- need to replace the ports-->
-		<copy file="${common.resources.dir}/jboss-conf/bindings-jboss-beans.xml" todir="${common.dist.dir}">
+		<!--copy file="${common.resources.dir}/jboss-conf/bindings-jboss-beans.xml" todir="${common.dist.dir}">
 		<filterset>
 							<filter token="jboss.server.jndi.port" value="${jboss.server.jndi.port}" />
 							<filter token="jboss.server.rmi.port" value="${jboss.server.rmi.port}" />
@@ -311,9 +312,9 @@ L-->
 							<filter token="jboss.server.port" value="${jboss.server.port}" />
 							<filter token="jboss.jms.port" value="${jboss.jms.port}" />
 			</filterset>
-		</copy>
+		</copy-->
 		
-		<copy file="${common.resources.dir}/jboss-conf/destinations-service.xml" todir="${common.dist.dir}">
+		<!--copy file="${common.resources.dir}/jboss-conf/destinations-service.xml" todir="${common.dist.dir}">
 		</copy>
 	
 		<copy file="${common.resources.dir}/jboss-conf/ejb3-connectors-jboss-beans.xml" todir="${common.dist.dir}">
@@ -331,14 +332,14 @@ L-->
 		<copy file="${common.resources.dir}/lib/ojdbc14-10.2.0.3.0.jar" todir="${common.dist.dir}" />
 		<copy file="${common.resources.dir}/lib/puretls.jar" todir="${common.dist.dir}" />
 		<copy file="${common.resources.dir}/lib/bcprov-ext-jdk15on-1.47.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/bcprov-jdk15on-1.47.jar" todir="${common.dist.dir}" />
+		<copy file="${common.resources.dir}/lib/bcprov-jdk15on-1.47.jar" todir="${common.dist.dir}" /-->
 	</target>
 	
 	
 	<target name="build:all" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 		clean,
 		init,
-		build:nbia:portal:config, compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
+		build:jboss:config, compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
 	</target>
 	
 	<target name="build:all:niams" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
@@ -428,10 +429,10 @@ L-->
 		<copy todir="${nbia-ctp.dist.dir}/FileSender">
 			<fileset dir="${nbia-ctp.base.dir}/FileSender" />
 		</copy>
-		<copy todir="${nbia-ctp.dist.dir}">
+		<!--copy todir="${nbia-ctp.dist.dir}">
 			<fileset file="${nbia-ctp.base.dir}/target/nbiaDatabaseUpdator.jar" />
 		</copy>
-		<copy file="${nbia-ctp.base.dir}/target/dbupdator.sh" todir="${nbia-ctp.dist.dir}"/>
+		<copy file="${nbia-ctp.base.dir}/target/dbupdator.sh" todir="${nbia-ctp.dist.dir}"/-->
 		<delete dir="../nbia-ctp-working" />
 	</target>
 
@@ -747,8 +748,8 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="project.name" value="${project.name}" />
 			<property name="nbia.version" value="${nbia.version}" />
 			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
-			<property name="nbia.wiki.context.sensitive.help.url" value="${nbia.wiki.context.sensitive.help.url}" />
-			<property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" />
+			<property name="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" />
+			<!--property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" /-->
 		</ant>
 	</target>
 	
@@ -1050,6 +1051,241 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 					<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
 					<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
 		</ant>
-   </target>   
+   </target>
+   
+   <target name="build:jboss:config" depends="init">
+   	<delete dir="${common.dist.dir}" />
+ 	
+ 	<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}/jbossEAP6"></copy>
+	<copy file="${common.resources.dir}/jbossEAP6-conf/relationship.xml" todir="${common.dist.dir}/jbossEAP6"></copy>
+	
+   	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_modules.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_modules.cli">
+		<filterset>
+			<filter token="database.type" value="${database.type}" />
+			<filter token="jboss.modules.lib" value="${jboss.modules.lib}" />
+			<filter token="database.driver.jar" value="${database.driver.jar}" />
+			<filter token="csm.api.jar" value="${csm.api.jar}" />
+			<filter token="jbossall.client.jar" value="${jbossall.client.jar}" />
+			<filter token="bouncy.castle.jar" value="${bouncy.castle.jar}" />
+		</filterset>
+	</copy>
 
+   	<get src="${csm.api.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${csm.api.jar}" />
+	<get src="${bouncy.castle.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${bouncy.castle.jar}" />
+   	<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${jbossall.client.jar}" />
+	<get src="${mysql.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${mysql.driver.jar}" />
+	<get src="${oracle.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${oracle.driver.jar}" />
+	
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_config.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_config.cli">
+		<filterset>
+			<filter token="database.type" value="${database.type}" />
+			<filter token="database.driver" value="${database.driver}" />
+			<filter token="database.url" value="${database.url}" />
+			<filter token="database.user" value="${database.user}" />
+			<filter token="database.password" value="${database.password}" />
+		</filterset>	
+	</copy>
+	
+	<!-- switch for db or ldap -->
+	<if>
+		<equals arg1="${authentication.type}" arg2="ldap"/>
+		<then>
+			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
+				<filterset>
+					<filter token="application.context.name" value="${application.context.name}" />
+					<filter token="ldap.url" value="${ldap.url}" />
+					<filter token="ldap.basedn" value="${ldap.basedn}" />
+				</filterset>
+			</copy>
+		</then>
+		<else>
+			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.db-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
+				<filterset>
+					<filter token="application.context.name" value="${application.context.name}" />
+					<filter token="database.user" value="${database.user}" />
+					<filter token="database.password" value="${database.password}" />
+					<filter token="database.url" value="${database.url}" />
+					<filter token="database.driver" value="${database.driver}" />
+				</filterset>
+			</copy>
+		</else>
+	</if>
+	<concat destfile="${common.dist.dir}/jbossEAP6/nbia_config.cli" append="true">
+		<filelist dir="${common.dist.dir}/jbossEAP6" files="login-config.block.xml" />
+	</concat>
+	<delete file="${common.dist.dir}/jbossEAP6/login-config.block.xml" />
+	
+	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_system_properties.cli">
+		<filterset>
+			<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}" />
+			<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}" /> 
+			<filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}" />
+			<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}" />
+			<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}" />
+			<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}" />
+			<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}" />
+			<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}" />
+			<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}" />
+			<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}" />
+			<filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}" />
+			<filter token="enabled_guest_account" value="${enabled_guest_account}" />
+			<filter token="guest_username" value="${guest_username}" />
+			<filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}" />
+			<filter token="enable_classic_download" value="${enable_classic_download}" />
+			<filter token="registration.email.subject" value="${registration.email.subject}" />
+			<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}" />
+			<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}" />
+			<filter token="gov.nih.nci.ncia.workflow.updateinterval" value="${gov.nih.nci.ncia.workflow.updateinterval}" />
+			<filter token="discover.remote.nodes" value="${discover.remote.nodes}" />
+			<filter token="protection_element_prefix" value="${protection_element_prefix}" />
+			<filter token="csm_application_name" value="${csm_application_name}" />
+			<filter token="database.type" value="${database.type}" />
+			<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}" />
+			<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
+			<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
+			<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
+			<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" /> 
+		</filterset>		
+	</copy>
+   </target>
+   
+    <target name="dist" description="Makes all distributions and installer" 
+        depends="
+        build:all,
+        dist:installer,
+        dist:solr"/>
+        
+  <!-- Copies install time resources into distribution tree -->
+  <target name="dist:installer:prep" depends="dist:tools:retrieve:jai">
+    <!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. -->
+    <copy todir="${db-install.dist.dir}" overwrite="true">
+      <fileset dir="${db-install.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <copy todir="${db-upgrade.dist.dir}" overwrite="true">
+      <fileset dir="${db-upgrade.src.dir}">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+    <copy todir="${nbia-ctp.dist.dir}/FileSender">
+    	<fileset dir="${software.dir}/nbia-ctp/FileSender" />
+    </copy>
+	<sequential>
+		<!-- Do some cleanup -->
+		<delete>
+			<fileset dir="${dist.exploded.dir}">
+				<include name="build.xml" />
+				<include name="*properties*" />
+			</fileset>
+		</delete>
+
+		<!-- Copy install related xml and properties files -->
+		<echo message="Copying build and property files"/>
+		<copy todir="${dist.exploded.dir}" overwrite="true">
+			<fileset dir="${build.dir}">
+				<include name="install.xml" />
+				<include name="install.properties" />
+				<include name="properties.template" />
+				<include name="project.properties" />
+			</fileset>
+		</copy>
+
+		<!-- Set default target and properyties.file to install and install.properties -->
+		<basename file="${dist.exploded.dir}/install.properties" property="properties.file.name"/>
+		<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.project.*default=.)\w+(.\s+.*)" replace="\1install\2" />
+		<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.*)install.properties(.*)" replace="\1${properties.file.name}\2" />
+
+		<!-- Rename install.xml to build.xml so manual installs will not need to include the -f optoin on ant, simplifying the install proces. -->
+		<move file="${dist.exploded.dir}/install.xml" tofile="${dist.exploded.dir}/build.xml" />
+
+		<!-- Copy over BDA macrodefs and librarires -->
+
+		<!--echo message="Copying bda-utils dir"/>
+		<copy todir="${dist.exploded.dir}/bda-utils" overwrite="true">
+			<fileset dir="bda-utils.dir">
+				<include name="**/*" />
+			</fileset>
+		</copy-->
+
+		<!-- This  copies common files over, common files are currently resource files like jboss configuration files and database scripts -->
+		<echo message="Copying common dir"/>
+		<copy todir="${dist.exploded.dir}/common" overwrite="true">
+			<fileset dir="${common.dir}">
+				<include name="resources/**/*" />
+			</fileset>
+		</copy>
+
+
+		<echo message="Copying tools dir"/>
+		<!-- Copy over binary distributions downloaded earlier -->
+		<copy todir="${dist.exploded.dir}/tools" overwrite="true">
+			<fileset dir="${download.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		
+		<echo message="Copying JBoss EAP Module libraries"/>
+				<!-- Copy over binary distributions downloaded earlier -->
+				<copy todir="${dist.exploded.dir}/jboss-module-lib" overwrite="true">
+					<fileset dir="${common.dist.dir}/jbossEAP6">
+						<include name="${csm.api.jar}" />
+						<include name="${bouncy.castle.jar}" />
+						<include name="${jbossall.client.jar}" />
+						<include name="${mysql.driver.jar}" />
+						<include name="${oracle.driver.jar}" />
+					</fileset>
+				</copy>
+	</sequential>
+    <copy todir="${dist.exploded.dir}" overwrite="true">
+      <fileset dir=".">
+        <include name="ctp.xml" />
+        <include name="ctp-macrodefs.xml" />
+	<include name="install-macros.xml" />
+        <include name="macrodefs.xml" />
+      </fileset>
+    </copy>
+  </target>
+        
+        
+  <!-- Creates the installer distribution used by installations -->
+  <target name="dist:installer" depends="dist:installer:prep">
+    <delete file="${dist.dir}/nbia-install_${nbia.version}"/>
+    <!-- Set environment name to external -->
+    <replaceregexp file="${dist.exploded.dir}/build.xml" byline="true" match="(&lt;property name=&quot;env.name&quot; value=&quot;)\w+(&quot;/&gt;)" replace="\1external\2" />
+   
+    <for list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri,gov.nih.nci.ncia.encrypt.key" 
+    param="property.name" delimiter=",">
+	<sequential>
+		<replaceregexp file="${dist.exploded.dir}/install.properties"
+			match="^(@{property.name})=.*"
+			replace="\1=REPLACE_VALUE"
+			flags="g" byline="true"/>
+	</sequential>
+</for>
+<for list="ldap.url,ldap.basedn" param="property.name" delimiter=",">
+	<sequential>
+		<replaceregexp file="${dist.exploded.dir}/install.properties"
+			match="^(@{property.name})=.*"
+			replace="\1=replace_value"
+			flags="g" byline="true"/>
+	</sequential>
+</for>
+    
+ 
+    <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true"
+      match="^(grid.index.url)=.*"
+      replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"
+      />
+
+    <zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip"
+         basedir="${dist.exploded.dir}"
+         excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+    
+    <copy todir="${dist.dir}" overwrite="true">
+    			<fileset dir="${nbia-ctp.dist.dir}">
+    				<include name="CTP_Client.zip" />
+    			</fileset>
+    </copy>
+  </target>   
 </project>

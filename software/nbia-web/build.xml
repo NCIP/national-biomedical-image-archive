@@ -143,8 +143,7 @@ L-->
         <!-- avoid org.jboss.tm.TxManager class cast exception -->
         <exclude name="jta*.jar" />
         <exclude name="commons-logging*.jar" />
-      	<exclude name="bouncycastle-jdk1.3_1.25.jar"/> 
-      	<exclude name="cglib-2.1_3.jar" />
+      	<exclude name="bouncycastle-jdk1.3_1.25.jar"/>
 	    <exclude name="spring-asm*.jar" />
 	    <exclude name="spring-jsm*.jar" />
 	    <exclude name="xml-apis*.jar" />
@@ -196,21 +195,23 @@ L-->
                    flags="g" />
     <!-- end: Insert release/build info into footer and to quick links-->
   	 <!-- start: Insert wiki link into login Failure -->
+  	 
+  	<echo>*************** Insert wiki link into login Failure: ${gov.nih.nci.ncia.wiki.context.sensitive.help.url} </echo>
   	<replaceregexp file="${webapp.dir}/HTML/LoginFailure.html"
   	                   match="\{NBIA_WIKI_CSH_URL}"
-  	                   replace="${nbia.wiki.context.sensitive.help.url}" flags="g" />
+  	                   replace="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" flags="g" />
   	                   
   	<replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/quickLinks.xhtml"
   	                   match="\{NBIA_WIKI_UG_URL}"
-  	                   replace="${nbia.wiki.user.guide.url}" flags="g" />     
+  	                   replace="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" flags="g" />     
   	 
   	<replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/mainMenu.xhtml"
 	   	           match="\{NBIA_WIKI_UG_URL}"
-  	                   replace="${nbia.wiki.user.guide.url}" flags="g" />    
+  	                   replace="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" flags="g" />    
   	                   
   	<replaceregexp file="${webapp.dir}/WEB-INF/facelets/layout/siteMap.xhtml"
 	  		   	           match="\{NBIA_WIKI_UG_URL}"
-  	  	                   replace="${nbia.wiki.user.guide.url}" flags="g" /> 
+  	  	                   replace="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" flags="g" /> 
   	  	                   
   	<!-- end: Insert wiki link into login Failure and to quick links-->
   </target>
@@ -251,10 +252,13 @@ L-->
       <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
       <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />
       <fileset dir="${download.webapp.target.dir}" includes="*.war" />
-      <fileset dir="${oviyam.dir}" includes="*.war" />
+      <!--fileset dir="${oviyam.dir}" includes="*.war" /-->
     </ear>
     <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  
     <!--antcall target="jboss-config.files"/-->
+    	
+    <copy file="${oviyam.dir}/oviyam2.war" tofile="${target.dir}/oviyam2.war">
+    </copy>
   </target>
 
  <target name="jboss-config.files">

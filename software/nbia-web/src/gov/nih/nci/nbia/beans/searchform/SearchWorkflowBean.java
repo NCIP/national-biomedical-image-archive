@@ -605,14 +605,37 @@ public class SearchWorkflowBean {
 	public void setSimpleSearch(boolean simpleSearch) {
 		this.simpleSearch = simpleSearch;
 	}
+	
+	
 
-    /**
+    public boolean isPatientCriteria() {
+		return patientCriteria;
+	}
+    
+	public void setPatientCriteria(boolean patientCriteria) {
+		this.patientCriteria = patientCriteria;
+	}
+
+		
+	
+	public boolean isDateCriteria() {
+		return dateCriteria;
+	}
+
+	public void setDateCriteria(boolean dateCriteria) {
+		this.dateCriteria = dateCriteria;
+	}
+
+	/**
      * This action is performed when the search button is clicked.
      *
      * @throws Exception
      */
     public String submitSearch() throws Exception {
         String result = validateBeforeSearch();
+    	SearchResultBean srb = BeanManager.getSearchResultBean();
+    	logger.debug("***** setting false for simple search *********");
+    	srb.setFirstTime(false);
         if(result!=null) {
             return null;
         }
@@ -621,14 +644,14 @@ public class SearchWorkflowBean {
         if (!buildQuery()) {
             // If there is a validation error, stay on the
             // same page
-        	SearchResultBean srb = BeanManager.getSearchResultBean();
+        	srb = BeanManager.getSearchResultBean();
         	srb.setPatientResults(null);        	
             return null;
         }
         try {
             asynchronousQuery(query);
             if (this.resultPerPageOption != null) {
-            	SearchResultBean srb = BeanManager.getSearchResultBean();
+            	srb = BeanManager.getSearchResultBean();
             	srb.setResultsPerPage(new Integer(resultPerPageOption));
             }
         }
@@ -1006,6 +1029,7 @@ public class SearchWorkflowBean {
 	public String newDynamicSearch()
 	{
 		dynamicSearch = true;
+		simpleSearch = false;
 		freeTextSearch = false;
 		SearchResultBean srb = BeanManager.getSearchResultBean();
 		srb.setPatientResults(null);
@@ -1144,7 +1168,8 @@ public class SearchWorkflowBean {
     private boolean freeTextSearch = false;
     private boolean simpleSearch = false;
 
-
+    private boolean patientCriteria = false;
+    private boolean dateCriteria = false;
 
 	/**
      * Holds the values for manufacturer, model and software version in the tree
@@ -1618,6 +1643,50 @@ public class SearchWorkflowBean {
 		}
 	}
 
+    public void patientSelectChangeListener(ValueChangeEvent event) {
+    	
+    	if(!editingSavedQuery)
+    	{
+    		setToggleQuery(true);
+    	}
+    	
+    	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    		event.queue();
+            return;
+        }
+		try {
+			System.out.println("patientSearch invoked");
+			submitSearch();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
+    public void dateSelectChangeListener(ValueChangeEvent event) {
+    	
+    	if(!editingSavedQuery)
+    	{
+    		setToggleQuery(true);
+    	}
+    	
+    	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    		event.queue();
+            return;
+        }
+		try {
+			System.out.println("dateSearch invoked");
+			submitSearch();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    
     private void populateModalityDescMap() {
     	ModalityDescProcessor processor = new ModalityDescProcessor();
         List<ModalityDescDTO> dtoList = processor.findAllModalityDesc();

@@ -95,7 +95,7 @@ L-->
 
 
         <exec dir="${ctp.server.home}/CTP"
-              executable="${bda-utils.dir}/resource/psexec.exe"
+              executable="${common.lib.dir}/psexec.exe"
               failonerror="false"
               spawn="true"
               osfamily="windows">

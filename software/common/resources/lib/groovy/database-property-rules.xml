@@ -1,0 +1,939 @@
+<properties>
+	<property  name="database.driver" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.driver-syntax</name>
+				<description>Checks database.driver is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.driver ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.driver ==~ /.*\s.*/</condition>
+							<condition negate="true">database.driver ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.driver ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.driver == null </condition>
+						<condition>database.driver == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver did not pass validation. database.driver must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "com.mysql.jdbc.Driver".</fail-message>
+			</rule>
+			<rule>
+				<name>database.driver-value-mysql</name>
+				<description>Checks database.driver has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql" </condition>
+							<condition>database.driver ==~ /.*(?i)mysql.*/ </condition>
+						</and>
+						<condition>database.type != "mysql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver did not pass validation. With database type of mysql this variable must include "mysql".</fail-message>
+			</rule>
+			<rule>
+				<name>database.driver-value-oracle</name>
+				<description>Checks database.driver has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "oracle" </condition>
+							<condition>database.driver ==~ /.*(?i)oracle.*/ </condition>
+						</and>
+						<condition>database.type != "oracle" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver did not pass validation. With database type of oracle this variable must include "oracle".</fail-message>
+			</rule>
+			<rule>
+				<name>database.driver-value-postgres</name>
+				<description>Checks database.driver has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "postgresql" </condition>
+							<condition>database.driver ==~ /.*(?i)postgres.*/ </condition>
+						</and>
+						<condition>database.type != "postgresql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver did not pass validation. With database type of postgres this variable must include "postgres".</fail-message>
+			</rule>
+
+
+
+		</rules>
+	</property>
+	<property  name="database.driver.file" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.driver.file-syntax</name>
+				<description>Checks database.driver.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.driver.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.driver.file ==~ /.*\s.*/</condition>
+							<condition negate="true">database.driver.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>database.driver.file == null </condition>
+						<condition>database.driver.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver.file did not pass validation. database.driver.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/mysql-connector-java-5.0.8.jar".</fail-message>
+			</rule>
+			<rule>
+				<name>database.driver.file-value-mysql</name>
+				<description>Checks database.driver.file has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql" </condition>
+							<condition>database.driver.file ==~ /.*(?i)mysql.*/ </condition>
+						</and>
+						<condition>database.type != "mysql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver.file did not pass validation. With database type of mysql this variable must include "mysql".</fail-message>
+			</rule>
+			<rule>
+				<name>database.driver.file-value-oracle</name>
+				<description>Checks database.driver.file has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "oracle" </condition>
+							<condition>database.driver.file ==~ /.*(?i)oracle.*/ </condition>
+						</and>
+						<condition>database.type != "oracle" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver.file did not pass validation. With database type of oracle this variable must include "oracle".</fail-message>
+			</rule>
+			<rule>
+				<name>database.driver.file-value-postgres</name>
+				<description>Checks database.driver.file has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "postgresql" </condition>
+							<condition>database.driver.file ==~ /.*(?i)postgres.*/ </condition>
+						</and>
+						<condition>database.type != "postgresql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.driver.file did not pass validation. With database type of postgres this variable must include "postgres".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.drop-schema" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.drop-schema-syntax</name>
+				<description>Checks database.drop-schema is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.drop-schema ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.drop-schema ==~ /.*\s.*/</condition>
+							<condition negate="true">database.drop-schema ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.drop-schema ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.drop-schema == null </condition>
+						<condition>database.drop-schema == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.drop-schema did not pass validation. database.drop-schema must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>database.drop-schema-tf</name>
+				<description>Checks database.drop-schema has proper value.</description>
+				<conditions>
+					<or>
+						<condition>database.drop-schema == "true"</condition>
+						<condition>database.drop-schema == "false"</condition>
+						<condition>database.drop-schema == ""</condition>
+						<condition>database.drop-schema == null</condition>
+					</or>
+				</conditions>
+				<fail-message>database.drop-schema did not pass validation. database.drop-schema must be empty, true or false. Sample valid value "true".</fail-message>
+			</rule>
+			<rule>
+				<name>database.drop-schema-relationship</name>
+				<description>Checks database.drop-schema has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.drop-schema == "true" </condition>
+							<condition>database.re-create != "true"</condition>
+						</and>
+						<condition>database.drop-schema != "true" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.drop-schema did not pass validation. If database.drop-schema then database.re-create cannot be true. </fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.re-create" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.re-create-syntax</name>
+				<description>Checks database.re-create is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.re-create ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.re-create ==~ /.*\s.*/</condition>
+							<condition negate="true">database.re-create ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.re-create ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.re-create == null </condition>
+						<condition>database.re-create == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.re-create did not pass validation. database.re-create must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>database.re-create-tf</name>
+				<description>Checks database.re-create has proper value.</description>
+				<conditions>
+					<or>
+						<condition>database.re-create == "true"</condition>
+						<condition>database.re-create == "false"</condition>
+						<condition>database.re-create == ""</condition>
+						<condition>database.re-create == null</condition>
+					</or>
+				</conditions>
+				<fail-message>database.re-create did not pass validation. database.re-create must be empty, true or false. Sample valid value "true".</fail-message>
+			</rule>
+			<rule>
+				<name>database.re-create-relationship</name>
+				<description>Checks database.re-create has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.re-create == "true" </condition>
+							<condition negate="true">database.drop-schema == null</condition>
+							<condition>database.drop-schema != "true"</condition>
+						</and>
+						<condition>database.re-create != "true" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.re-create did not pass validation. If database.re-create is true then database.drop-schema cannot be true. </fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.jndi.datasource.name" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.jndi.datasource.name-syntax</name>
+				<description>Checks database.jndi.datasource.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.jndi.datasource.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.jndi.datasource.name ==~ /.*\s.*/</condition>
+							<condition negate="true">database.jndi.datasource.name ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>database.jndi.datasource.name == null </condition>
+						<condition>database.jndi.datasource.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.jndi.datasource.name did not pass validation. database.jndi.datasource.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "jdbc/bdaDS".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.name" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.name-syntax</name>
+				<description>Checks database.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.name ==~ /.*\s.*/</condition>
+							<condition negate="true">database.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.name == null </condition>
+						<condition>database.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.name did not pass validation. database.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda".</fail-message>
+			</rule>
+			<rule>
+				<name>database.name-value-mysql</name>
+				<description>Checks database.name is has valid value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql"</condition>
+							<condition negate="true">database.name == "mysql"</condition>
+							<condition negate="true">database.name == "information_schema"</condition>
+							<condition negate="true">database.name == "test"</condition>
+						</and>
+						<condition>database.type != "mysql"</condition>
+					</or>
+				</conditions>
+				<fail-message>database.name did not pass validation. When database.type=mysql, database.name cannot be mysql, information_schema or test.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.password" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.password-syntax</name>
+				<description>Checks database.password is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.password ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.password ==~ /.*\s.*/</condition>
+							<condition negate="true">database.password ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.password ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.password == null </condition>
+						<condition>database.password == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.password did not pass validation. database.password must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bdauser".</fail-message>
+			</rule>
+			<rule>
+				<name>database.password-value</name>
+				<description>Checks database.password is the valid syntax. </description>
+				<conditions>
+					<and>
+						<condition negate="true">database.password ==~ /.*\$.*/</condition>
+						<condition negate="true">database.password ==~ /.*&amp;.*/</condition>
+						<condition negate="true">database.password ==~ /.*&lt;.*/</condition>
+						<condition negate="true">database.password ==~ /.*&gt;.*/</condition>
+						<condition negate="true">database.password ==~ /.*&quot;.*/</condition>
+						<condition negate="true">database.password ==~ /.*&apos;.*/</condition>
+					</and>
+				</conditions>
+				<fail-message>database.password did not pass validation. It cannot contain xml special characters, check this list for link http://www.hdfgroup.org/HDF5/XML/xml_escape_chars.htm.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.port" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.port-syntax</name>
+				<description>Checks database.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.port ==~ /.*\s.*/</condition>
+							<condition negate="true">database.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.port == null </condition>
+						<condition>database.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.port did not pass validation. database.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "3306".</fail-message>
+			</rule>
+			<rule>
+				<name>database.port-port</name>
+				<description>Checks database.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.port ==~ /\d+/</condition>
+							<condition>database.port &gt;= 0</condition>
+							<condition>database.port &lt;= 65535</condition>
+						</and>
+						<condition>database.port == null </condition>
+						<condition>database.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.port did not pass validation. database.port must be empty or between 0 and 65535. Sample valid value - "3306".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.schema" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.schema-syntax</name>
+				<description>Checks database.schema is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.schema ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.schema ==~ /.*\s.*/</condition>
+							<condition negate="true">database.schema ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.schema ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.schema == null </condition>
+						<condition>database.schema == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.schema did not pass validation. database.schema must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "schemaname".</fail-message>
+			</rule>
+			<rule>
+				<name>database.schema-value-mysql</name>
+				<description>Checks database.schema has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql" </condition>
+							<condition>database.schema == database.name </condition>
+						</and>
+						<condition>database.type != "mysql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.schema did not pass validation. With database.type of mysql database.schema must be same as database.name".</fail-message>
+			</rule>
+			<rule>
+				<name>database.schema-value-oracle</name>
+				<description>Checks database.schema has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "oracle" </condition>
+							<condition>database.schema == database.user </condition>
+						</and>
+						<condition>database.type != "oracle" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.schema did not pass validation. With database.type of oracle database.schema must be same as database.user".</fail-message>
+			</rule>
+			<rule>
+				<name>database.schema-value-postgres</name>
+				<description>Checks database.schema has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "postgresql" </condition>
+							<condition>database.schema == "public" </condition>
+						</and>
+						<condition>database.type != "postgresql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.schema did not pass validation. With database.type of postgres database.schema must be same as database.name".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.server" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.server-syntax</name>
+				<description>Checks database.server is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.server ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.server ==~ /.*\s.*/</condition>
+							<condition negate="true">database.server ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.server ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.server == null </condition>
+						<condition>database.server == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.server did not pass validation. database.server must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "localhost".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.system.password" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.system.password-syntax</name>
+				<description>Checks database.system.password is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.system.password ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.system.password ==~ /.*\s.*/</condition>
+							<condition negate="true">database.system.password ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.system.password ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.system.password == null </condition>
+						<condition>database.system.password == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.password did not pass validation. database.system.password must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "mysql".</fail-message>
+			</rule>
+			<rule>
+				<name>database.system.password-value</name>
+				<description>Checks database.system.password is the valid syntax. </description>
+				<conditions>
+					<and>
+						<condition negate="true">database.system.password ==~ /.*\$.*/</condition>
+						<condition negate="true">database.system.password ==~ /.*&amp;.*/</condition>
+						<condition negate="true">database.system.password ==~ /.*&lt;.*/</condition>
+						<condition negate="true">database.system.password ==~ /.*&gt;.*/</condition>
+						<condition negate="true">database.system.password ==~ /.*&quot;.*/</condition>
+						<condition negate="true">database.system.password ==~ /.*&apos;.*/</condition>
+					</and>
+				</conditions>
+				<fail-message>database.system.password did not pass validation. It cannot contain xml special characters, check this list for link http://www.hdfgroup.org/HDF5/XML/xml_escape_chars.htm.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.system.url" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.system.url-syntax</name>
+				<description>Checks database.system.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.system.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.system.url ==~ /.*\s.*/</condition>
+							<condition negate="true">database.system.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>database.system.url == null </condition>
+						<condition>database.system.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.url did not pass validation. database.system.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "jdbc:mysql://localhost:3306/".</fail-message>
+			</rule>
+			<rule>
+				<name>database.system.url-value-mysql</name>
+				<description>Checks database.system.url has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql" </condition>
+							<condition>database.system.url ==~ /jdbc:mysql.*/ </condition>
+						</and>
+						<condition>database.type != "mysql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.url did not pass validation. With database.type of mysql database.system.url must begin with "jdbc:mysql".</fail-message>
+			</rule>
+			<rule>
+				<name>database.system.url-value-oracle</name>
+				<description>Checks database.system.url has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "oracle" </condition>
+							<condition>database.system.url ==~ /jdbc:oracle.*/ </condition>
+						</and>
+						<condition>database.type != "oracle" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.url did not pass validation. With database.type of oracle database.system.url must begin with "jdbc:oracle".</fail-message>
+			</rule>
+			<rule>
+				<name>database.system.url-value-postgres</name>
+				<description>Checks database.system.url has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "postgresql" </condition>
+							<condition>database.system.url ==~ /jdbc:postgres.*/ </condition>
+						</and>
+						<condition>database.type != "postgresql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.url did not pass validation. With database.type of postgres database.system.url must begin with "jdbc:postgres".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.system.user" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.system.user-syntax</name>
+				<description>Checks database.system.user is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.system.user ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.system.user ==~ /.*\s.*/</condition>
+							<condition negate="true">database.system.user ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.system.user ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.system.user == null </condition>
+						<condition>database.system.user == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.user did not pass validation. database.system.user must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "mysql".</fail-message>
+			</rule>
+			<rule>
+				<name>database.system.user-relationship</name>
+				<description>Checks database.system.user has proper value.</description>
+				<conditions>
+					<or>
+						<condition>database.system.user != database.user</condition>
+						<condition>database.system.user == "" </condition>
+						<condition>database.system.user == null </condition>
+					</or>
+				</conditions>
+				<fail-message>database.system.user did not pass validation. If database.system.user must not be the same as database.user. </fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property  name="database.type" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.type-syntax</name>
+				<description>Checks database.type is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.type ==~ /.*\s.*/</condition>
+							<condition negate="true">database.type ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.type ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.type == null </condition>
+						<condition>database.type == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.type did not pass validation. database.type must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "mysql".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.url" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.url-syntax</name>
+				<description>Checks database.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.url ==~ /.*\s.*/</condition>
+							<condition negate="true">database.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>database.url == null </condition>
+						<condition>database.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.url did not pass validation. database.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "jdbc:mysql://localhost:3306/bda".</fail-message>
+			</rule>
+			<rule>
+				<name>database.url-value-mysql</name>
+				<description>Checks database.url has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql" </condition>
+							<condition>database.url ==~ /jdbc:mysql.*/ </condition>
+						</and>
+						<condition>database.type != "mysql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.url did not pass validation. With database.type of mysql database.url must begin with "jdbc:mysql".</fail-message>
+			</rule>
+			<rule>
+				<name>database.url-value-oracle</name>
+				<description>Checks database.url has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "oracle" </condition>
+							<condition>database.url ==~ /jdbc:oracle.*/ </condition>
+						</and>
+						<condition>database.type != "oracle" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.url did not pass validation. With database.type of oracle database.url must begin with "jdbc:oracle".</fail-message>
+			</rule>
+			<rule>
+				<name>database.url-value-postgres</name>
+				<description>Checks database.url has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "postgresql" </condition>
+							<condition>database.url ==~ /jdbc:postgres.*/ </condition>
+						</and>
+						<condition>database.type != "postgresql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.url did not pass validation. With database.type of postgres database.url must begin with "jdbc:postgres".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.user" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.user-syntax</name>
+				<description>Checks database.user is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.user ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.user ==~ /.*\s.*/</condition>
+							<condition negate="true">database.user ==~ /.*\x5c.*/</condition>
+							<condition negate="true">database.user ==~ /.*\/.*/</condition>
+						</and>
+						<condition>database.user == null </condition>
+						<condition>database.user == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.user did not pass validation. database.user must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bdauser".</fail-message>
+			</rule>
+			<rule>
+				<name>database.user-value-mysql</name>
+				<description>Checks database.user has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "mysql" </condition>
+							<condition>database.user != "root" </condition>
+						</and>
+						<condition>database.type != "mysql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.user did not pass validation. With database.type of mysql database.user can't be root.</fail-message>
+			</rule>
+			<rule>
+				<name>database.user-value-oracle</name>
+				<description>Checks database.user has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "oracle" </condition>
+							<condition>database.user != "system" </condition>
+							<condition>database.user != "sys" </condition>
+						</and>
+						<condition>database.type != "oracle" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.user did not pass validation. With database.type of oracle database.user can't be sys or system.</fail-message>
+			</rule>
+			<rule>
+				<name>database.user-value-postgres</name>
+				<description>Checks database.user has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.type == "postgresql" </condition>
+							<condition>database.user != "postgres" </condition>
+						</and>
+						<condition>database.type != "postgresql" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.user did not pass validation. With database.type of postgres database.user can't be postgres.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="db.install.create.mysql.file.list" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>db.install.create.mysql.file.list-syntax</name>
+				<description>Checks db.install.create.mysql.file.list is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>db.install.create.mysql.file.list ==~ /.*\S+.*/</condition>
+							<condition negate="true">db.install.create.mysql.file.list ==~ /.*\s.*/</condition>
+							<condition negate="true">db.install.create.mysql.file.list ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>db.install.create.mysql.file.list == null </condition>
+						<condition>db.install.create.mysql.file.list == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>db.install.create.mysql.file.list did not pass validation. db.install.create.mysql.file.list must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "create-tables.sql,insert-data.sql".</fail-message>
+			</rule>
+			<rule>
+				<name>db.install.create.mysql.file.list-list</name>
+				<description>Checks db.install.create.mysql.file.list has proper value.</description>
+				<conditions>
+					<and>
+						<condition negate="true">db.install.create.mysql.file.list ==~ /^,.*/</condition>
+						<condition negate="true">db.install.create.mysql.file.list ==~ /.*,$/</condition>
+					</and>
+				</conditions>
+				<fail-message>db.install.create.mysql.file.list did not pass validation. Lists cannot begin or end with a ",".</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property  name="db.install.create.oracle.file.list" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>db.install.create.oracle.file.list-syntax</name>
+				<description>Checks db.install.create.oracle.file.list is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>db.install.create.oracle.file.list ==~ /.*\S+.*/</condition>
+							<condition negate="true">db.install.create.oracle.file.list ==~ /.*\s.*/</condition>
+							<condition negate="true">db.install.create.oracle.file.list ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>db.install.create.oracle.file.list == null </condition>
+						<condition>db.install.create.oracle.file.list == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>db.install.create.oracle.file.list did not pass validation. db.install.create.oracle.file.list must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>db.install.create.oracle.file.list-list</name>
+				<description>Checks db.install.create.oracle.file.list has proper value.</description>
+				<conditions>
+					<and>
+						<condition negate="true">db.install.create.oracle.file.list ==~ /^,.*/</condition>
+						<condition negate="true">db.install.create.oracle.file.list ==~ /.*,$/</condition>
+					</and>
+				</conditions>
+				<fail-message>db.install.create.oracle.file.list did not pass validation. Lists cannot begin or end with a ",".</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property  name="db.install.create.postgresql.file.list" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>db.install.create.postgresql.file.list-syntax</name>
+				<description>Checks db.install.create.postgresql.file.list is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>db.install.create.postgresql.file.list ==~ /.*\S+.*/</condition>
+							<condition negate="true">db.install.create.postgresql.file.list ==~ /.*\s.*/</condition>
+							<condition negate="true">db.install.create.postgresql.file.list ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>db.install.create.postgresql.file.list == null </condition>
+						<condition>db.install.create.postgresql.file.list == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>db.install.create.postgresql.file.list did not pass validation. db.install.create.postgresql.file.list must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "create-tables.sql,insert-data.sql".</fail-message>
+			</rule>
+			<rule>
+				<name>db.install.create.postgresql.file.list-list</name>
+				<description>Checks db.install.create.postgresql.file.list has proper value.</description>
+				<conditions>
+					<and>
+						<condition negate="true">db.install.create.postgresql.file.list ==~ /^,.*/</condition>
+						<condition negate="true">db.install.create.postgresql.file.list ==~ /.*,$/</condition>
+					</and>
+				</conditions>
+				<fail-message>db.install.create.postgresql.file.list did not pass validation. Lists cannot begin or end with a ",".</fail-message>
+			</rule>
+		</rules>
+		<property  name="exclude.check.database" description="" skip-property="exclude.validate.database">
+			<rules>
+				<rule>
+					<name>exclude.check.database-syntax</name>
+					<description>Checks exclude.check.database is the valid syntax.</description>
+					<conditions>
+						<or>
+							<and>
+								<condition>exclude.check.database ==~ /.*\S+.*/</condition>
+								<condition negate="true">exclude.check.database ==~ /.*\s.*/</condition>
+								<condition negate="true">exclude.check.database ==~ /.*\x5c.*/</condition>
+								<condition negate="true">exclude.check.database ==~ /.*\/.*/</condition>
+							</and>
+							<condition>exclude.check.database == null </condition>
+							<condition>exclude.check.database == "" </condition>
+						</or>
+					</conditions>
+					<fail-message>exclude.check.database did not pass validation. exclude.check.database must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+				</rule>
+				<rule>
+					<name>exclude.check.database-tf</name>
+					<description>Checks exclude.check.database has proper value.</description>
+					<conditions>
+						<or>
+							<condition>exclude.check.database == "true"</condition>
+							<condition>exclude.check.database == "false"</condition>
+							<condition>exclude.check.database == ""</condition>
+							<condition>exclude.check.database == null</condition>
+						</or>
+					</conditions>
+					<fail-message>exclude.check.database did not pass validation. exclude.check.database must be true, false or empty. Sample valid value - "true".</fail-message>
+				</rule>
+			</rules>
+		</property>
+		<property  name="exclude.database" description="" skip-property="exclude.validate.database">
+			<rules>
+				<rule>
+					<name>exclude.database-syntax</name>
+					<description>Checks exclude.database is the valid syntax.</description>
+					<conditions>
+						<or>
+							<and>
+								<condition>exclude.database ==~ /.*\S+.*/</condition>
+								<condition negate="true">exclude.database ==~ /.*\s.*/</condition>
+								<condition negate="true">exclude.database ==~ /.*\x5c.*/</condition>
+								<condition negate="true">exclude.database ==~ /.*\/.*/</condition>
+							</and>
+							<condition>exclude.database == null </condition>
+							<condition>exclude.database == "" </condition>
+						</or>
+					</conditions>
+					<fail-message>exclude.database did not pass validation. exclude.database must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+				</rule>
+				<rule>
+					<name>exclude.database-tf</name>
+					<description>Checks exclude.database has proper value.</description>
+					<conditions>
+						<or>
+							<condition>exclude.database == "true"</condition>
+							<condition>exclude.database == "false"</condition>
+							<condition>exclude.database == ""</condition>
+							<condition>exclude.database == null</condition>
+						</or>
+					</conditions>
+					<fail-message>exclude.database did not pass validation. exclude.database must be true, false or empty. Sample valid value - "true".</fail-message>
+				</rule>
+			</rules>
+		</property>
+	</property>
+	<property  name="mysql.lowercasetablenames" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>mysql.lowercasetablenames-syntax</name>
+				<description>Checks mysql.lowercasetablenames is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>mysql.lowercasetablenames ==~ /.*\S+.*/</condition>
+							<condition negate="true">mysql.lowercasetablenames ==~ /.*\s.*/</condition>
+							<condition negate="true">mysql.lowercasetablenames ==~ /.*\x5c.*/</condition>
+							<condition negate="true">mysql.lowercasetablenames ==~ /.*\/.*/</condition>
+						</and>
+						<condition>mysql.lowercasetablenames == null </condition>
+						<condition>mysql.lowercasetablenames == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>mysql.lowercasetablenames did not pass validation. mysql.lowercasetablenames must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>mysql.lowercasetablenames-tf</name>
+				<description>Checks mysql.lowercasetablenames has proper value.</description>
+				<conditions>
+					<or>
+						<condition> mysql.lowercasetablenames == "true"</condition>
+						<condition> mysql.lowercasetablenames == "false"</condition>
+						<condition> mysql.lowercasetablenames == ""</condition>
+						<condition> mysql.lowercasetablenames == null</condition>
+					</or>
+				</conditions>
+				<fail-message>mysql.lowercasetablenames did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property  name="mysql.minimum.version" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>mysql.minimum.version-syntax</name>
+				<description>Checks mysql.minimum.version is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>mysql.minimum.version ==~ /.*\S+.*/</condition>
+							<condition negate="true">mysql.minimum.version ==~ /.*\s.*/</condition>
+							<condition negate="true">mysql.minimum.version ==~ /.*\x5c.*/</condition>
+							<condition negate="true">mysql.minimum.version ==~ /.*\/.*/</condition>
+						</and>
+						<condition>mysql.minimum.version == null </condition>
+						<condition>mysql.minimum.version == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>mysql.minimum.version did not pass validation. mysql.minimum.version must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "5.0.27".</fail-message>
+			</rule>
+		</rules>
+	</property>
+</properties>

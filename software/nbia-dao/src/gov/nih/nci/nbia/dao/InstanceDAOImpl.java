@@ -50,18 +50,18 @@ public class InstanceDAOImpl extends AbstractDAO
 			++i;
 		}
 		if (patientId != null&&patientId.length()>0) {
-			where = where.append(" and UPPER(i.patientId)=?");
+			where = where.append(" and i.patientId=?");
 			paramList.add(patientId.toUpperCase());
 			++i;
 		}
 		if (studyInstanceUid != null) {
-			where = where.append(" and UPPER(i.studyInstanceUID)=?");
+			where = where.append(" and i.studyInstanceUID=?");
 			paramList.add(studyInstanceUid.toUpperCase());
 			++i;
 		}
 		if (seriesInstanceUid != null) {
-			where = where.append(" and UPPER(i.seriesInstanceUid)=?");
-			paramList.add(studyInstanceUid.toUpperCase());
+			where = where.append(" and i.seriesInstanceUID=?");
+			paramList.add(seriesInstanceUid.toUpperCase());
 			++i;
 		}
 	//	where.append(addAuthorizedProjAndSites(authorizedProjAndSites));

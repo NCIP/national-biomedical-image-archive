@@ -382,6 +382,9 @@ public class DynamicSearchBean {
 
 	public void addCriteria() throws Exception
 	{
+		SearchResultBean srb = BeanManager.getSearchResultBean();
+        srb.setFirstTimeAdvanced(false);
+        System.out.println("********FirstTimeAdvanced set false**********");
 		if( selectValidate()){
 			return;
 		}
@@ -597,6 +600,9 @@ public class DynamicSearchBean {
 	}
 	public String submitTextSearch() throws Exception
 	{
+		SearchResultBean srb = BeanManager.getSearchResultBean();
+        srb.setFirstTimeText(false);
+        System.out.println("********firstTime set false text search**********");
 		String returnValue = "freeTextSearch";
 		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
 		System.out.println("Searching Solr for"+textValue);

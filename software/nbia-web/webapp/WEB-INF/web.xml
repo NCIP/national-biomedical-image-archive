@@ -115,10 +115,10 @@ L-->
     <filter-name>Security Page Filter</filter-name>
     <filter-class>gov.nih.nci.nbia.security.SecurityCheckFilter</filter-class>
   </filter>
-  <filter>
+  <!--filter>
     <filter-name>URL Parameter Filter</filter-name>
     <filter-class>gov.nih.nci.nbia.ispy.URLParameterFilter</filter-class>
-  </filter>
+  </filter-->
   <filter>
     <filter-name>Pretty Filter</filter-name>
     <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
@@ -132,10 +132,10 @@ L-->
       <url-pattern>/uploadHtml</url-pattern>
    </filter-mapping>
 
-  <filter-mapping>
+  <!--filter-mapping>
     <filter-name>URL Parameter Filter</filter-name>
     <url-pattern>*.jsf</url-pattern>
-  </filter-mapping>
+  </filter-mapping-->
   <filter-mapping>
     <filter-name>Security Page Filter</filter-name>
     <url-pattern>*.jsf</url-pattern>
@@ -151,9 +151,9 @@ L-->
   <listener>
     <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
-  <listener>
+  <!--listener>
     <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-  </listener> 
+  </listener--> 
 <listener>		
 	<listener-class>org.owasp.csrfguard.CsrfGuardServletContextListener</listener-class>	
 </listener>	

@@ -1,0 +1,1070 @@
+<properties>
+	<property name="ant.minimum.version" name-pattern="ant.minimum.version" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>ant.minimum.version-syntax</name>
+				<description>Checks ant.minimum.version is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>ant.minimum.version ==~ /.*\S+.*/</condition>
+							<condition negate="true">ant.minimum.version ==~ /.*\s.*/</condition>
+							<condition negate="true">ant.minimum.version ==~ /.*\x5c.*/</condition>
+							<condition negate="true">ant.minimum.version ==~ /.*\/.*/</condition>
+						</and>
+						<condition>ant.minimum.version == null </condition>
+						<condition>ant.minimum.version == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>ant.minimum.version did not pass validation. ant.minimum.version must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "1.7.0".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="application.base.path.linux" name-pattern="application.base.path.linux" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>application.base.path.linux-syntax</name>
+				<description>Checks application.base.path.linux is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>application.base.path.linux ==~ /.*\S+.*/</condition>
+							<condition negate="true">application.base.path.linux ==~ /.*\s.*/</condition>
+							<condition negate="true">application.base.path.linux ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>application.base.path.linux == null </condition>
+						<condition>application.base.path.linux == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>application.base.path.linux did not pass validation. application.base.path.linux must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/home/user/apps/appname".</fail-message>
+			</rule>
+			<rule>
+				<name>application.base.path.value</name>
+				<description></description>
+				<conditions>
+					<and>
+						<condition>application.base.path.linux != "/"</condition>
+						<condition>application.base.path.linux != "/usr"</condition>
+						<condition>application.base.path.linux != "/opt"</condition>
+					</and>
+				</conditions>
+				<fail-message>
+					application.base.path.linux failed value check.
+					* /
+					* /usr
+					* /opt
+					* no spaces
+					* no \
+				</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="application.base.path.windows" name-pattern="application.base.path.windows" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>application.base.path.windows-syntax</name>
+				<description>Checks application.base.path.windows is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>application.base.path.windows ==~ /.*\S+.*/</condition>
+							<condition negate="true">application.base.path.windows ==~ /.*\s.*/</condition>
+							<condition negate="true">application.base.path.windows ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>application.base.path.windows == null </condition>
+						<condition>application.base.path.windows == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>application.base.path.windows did not pass validation. application.base.path.windows must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "c:/apps/appname".</fail-message>
+			</rule>
+			<rule>
+				<name>application.base.path.windows-value</name>
+				<description></description>
+				<conditions>
+					<and>
+						<condition negate="true">application.base.path.windows ==~ /^(?i)\w:\/$/ </condition>
+						<condition negate="true">application.base.path.windows ==~ /^(?i)\w:\/win\w*$/ </condition>
+					</and>
+				</conditions>
+				<fail-message>
+					application.base.path.windows failed value check.
+					Windows
+					* x:/ (x is any char)
+					* x:/win.* (case insensitive)
+				</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="bda-blueprints-webapp.install.name" name-pattern="bda-blueprints-webapp.install.name" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>bda-blueprints-webapp.install.name-syntax</name>
+				<description>Checks bda-blueprints-webapp.install.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>bda-blueprints-webapp.install.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.install.name ==~ /.*\s.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.install.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.install.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>bda-blueprints-webapp.install.name == null </condition>
+						<condition>bda-blueprints-webapp.install.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>bda-blueprints-webapp.install.name did not pass validation. bda-blueprints-webapp.install.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda-blueprints_install".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="bda-blueprints-webapp.install.zip.file" name-pattern="bda-blueprints-webapp.install.zip.file" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>bda-blueprints-webapp.install.zip.file-syntax</name>
+				<description>Checks bda-blueprints-webapp.install.zip.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>bda-blueprints-webapp.install.zip.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.install.zip.file ==~ /.*\s.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.install.zip.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>bda-blueprints-webapp.install.zip.file == null </condition>
+						<condition>bda-blueprints-webapp.install.zip.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>bda-blueprints-webapp.install.zip.file did not pass validation. bda-blueprints-webapp.install.zip.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "bda-blueprints_install-1.7.0.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="bda-blueprints-webapp.upgrade.name" name-pattern="bda-blueprints-webapp.upgrade.name" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>bda-blueprints-webapp.upgrade.name-syntax</name>
+				<description>Checks bda-blueprints-webapp.upgrade.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>bda-blueprints-webapp.upgrade.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.upgrade.name ==~ /.*\s.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.upgrade.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.upgrade.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>bda-blueprints-webapp.upgrade.name == null </condition>
+						<condition>bda-blueprints-webapp.upgrade.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>bda-blueprints-webapp.upgrade.name did not pass validation. bda-blueprints-webapp.upgrade.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda-blueprints_upgrade".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="bda-blueprints-webapp.upgrade.zip.file" name-pattern="bda-blueprints-webapp.upgrade.zip.file" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>bda-blueprints-webapp.upgrade.zip.file-syntax</name>
+				<description>Checks bda-blueprints-webapp.upgrade.zip.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>bda-blueprints-webapp.upgrade.zip.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.upgrade.zip.file ==~ /.*\s.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.upgrade.zip.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>bda-blueprints-webapp.upgrade.zip.file == null </condition>
+						<condition>bda-blueprints-webapp.upgrade.zip.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>bda-blueprints-webapp.upgrade.zip.file did not pass validation. bda-blueprints-webapp.upgrade.zip.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "bda-blueprints_upgrade-1.7.0.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="bda-blueprints-webapp.version" name-pattern="bda-blueprints-webapp.version" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>bda-blueprints-webapp.version-syntax</name>
+				<description>Checks bda-blueprints-webapp.version is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>bda-blueprints-webapp.version ==~ /.*\S+.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.version ==~ /.*\s.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.version ==~ /.*\x5c.*/</condition>
+							<condition negate="true">bda-blueprints-webapp.version ==~ /.*\/.*/</condition>
+						</and>
+						<condition>bda-blueprints-webapp.version == null </condition>
+						<condition>bda-blueprints-webapp.version == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>bda-blueprints-webapp.version did not pass validation. bda-blueprints-webapp.version must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "1.7.0".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="bda.version" name-pattern="bda.version" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>bda.version-syntax</name>
+				<description>Checks bda.version is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>bda.version ==~ /.*\S+.*/</condition>
+							<condition negate="true">bda.version ==~ /.*\s.*/</condition>
+							<condition negate="true">bda.version ==~ /.*\x5c.*/</condition>
+							<condition negate="true">bda.version ==~ /.*\/.*/</condition>
+						</and>
+						<condition>bda.version == null </condition>
+						<condition>bda.version == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>bda.version did not pass validation. bda.version must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "1.7.0".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="build.bda.src.url" name-pattern="build.bda.src.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>build.bda.src.url-syntax</name>
+				<description>Checks build.bda.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>build.bda.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">build.bda.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">build.bda.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>build.bda.src.url == null </condition>
+						<condition>build.bda.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>build.bda.src.url did not pass validation. build.bda.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/bda-ivy-build.xml".</fail-message>
+			</rule>
+			<rule>
+				<name>build.bda.src.url-url</name>
+				<description>Checks build.bda.src.url has proper value.</description>
+				<conditions>
+					<condition>build.bda.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>build.bda.src.url did not pass validation. build.bda.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/bda-ivy-build.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="cacore-sdk.binaries.file" name-pattern="cacore-sdk.binaries.file" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>cacore-sdk.binaries.file-syntax</name>
+				<description>Checks cacore-sdk.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cacore-sdk.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">cacore-sdk.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">cacore-sdk.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cacore-sdk.binaries.file == null </condition>
+						<condition>cacore-sdk.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cacore-sdk.binaries.file did not pass validation. cacore-sdk.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "caCORE_SDK_411-src.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="cacore-sdk.binaries.relative.dir" name-pattern="cacore-sdk.binaries.relative.dir" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>cacore-sdk.binaries.relative.dir-syntax</name>
+				<description>Checks cacore-sdk.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cacore-sdk.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">cacore-sdk.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">cacore-sdk.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cacore-sdk.binaries.relative.dir == null </condition>
+						<condition>cacore-sdk.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cacore-sdk.binaries.relative.dir did not pass validation. cacore-sdk.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "codegen".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="cacore-sdk.required" name-pattern="cacore-sdk.required" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>cacore-sdk.required-syntax</name>
+				<description>Checks cacore-sdk.required is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cacore-sdk.required ==~ /.*\S+.*/</condition>
+							<condition negate="true">cacore-sdk.required ==~ /.*\s.*/</condition>
+							<condition negate="true">cacore-sdk.required ==~ /.*\x5c.*/</condition>
+							<condition negate="true">cacore-sdk.required ==~ /.*\/.*/</condition>
+						</and>
+						<condition>cacore-sdk.required == null </condition>
+						<condition>cacore-sdk.required == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cacore-sdk.required did not pass validation. cacore-sdk.required must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>cacore-sdk.required-tf</name>
+				<description>Checks cacore-sdk.required has proper value.</description>
+				<conditions>
+					<or>
+						<condition>cacore-sdk.required == "true"</condition>
+						<condition>cacore-sdk.required == "false"</condition>
+						<condition>cacore-sdk.required == ""</condition>
+						<condition>cacore-sdk.required == null</condition>
+					</or>
+				</conditions>
+				<fail-message>cacore-sdk.required did not pass validation. cacore-sdk.required must be empty, true or false. Sample valid value "true".</fail-message>
+			</rule>
+
+			<rule>
+				<name>cacore-sdk.required-relationship</name>
+				<description>Checks cacore-sdk.required has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cacore-sdk.required == "true" </condition>
+							<condition>cacore-sdk.binaries.file ==~ /.*\S+.*/</condition>
+							<condition>cacore-sdk.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition>cacore-sdk.src.url ==~ /.*\S+.*/</condition>
+						</and>
+						<condition>cacore-sdk.required != "true" </condition>
+					</or>
+				</conditions>
+				<fail-message>cacore-sdk.required did not pass validation. If cacore-sdk.required is true then (cacore-sdk.binaries.file, cacore-sdk.binaries.relative.dir, cacore-sdk.src.url) must have values. </fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property name="cacore-sdk.src.url" name-pattern="cacore-sdk.src.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>cacore-sdk.src.url-syntax</name>
+				<description>Checks cacore-sdk.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cacore-sdk.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">cacore-sdk.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">cacore-sdk.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cacore-sdk.src.url == null </condition>
+						<condition>cacore-sdk.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cacore-sdk.src.url did not pass validation. cacore-sdk.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/cacore-sdk/4.1.1/${cacore-sdk.binaries.file}".</fail-message>
+			</rule>
+			<rule>
+				<name>cacore-sdk.src.url-url</name>
+				<description>Checks cacore-sdk.src.url has proper value.</description>
+				<conditions>
+					<condition>cacore-sdk.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>cacore-sdk.src.url did not pass validation. cacore-sdk.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/cacore-sdk/4.1.1/${cacore-sdk.binaries.file}".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="env.name" name-pattern="env.name" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>env.name-syntax</name>
+				<description>Checks env.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>env.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">env.name ==~ /.*\s.*/</condition>
+							<condition negate="true">env.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">env.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>env.name == null </condition>
+						<condition>env.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>env.name did not pass validation. env.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "local".</fail-message>
+			</rule>
+			<rule>
+				<name>env.name-value</name>
+				<description>Checks env.name has proper value.</description>
+				<conditions>
+					<or>
+						<condition> env.name == "local"</condition>
+						<condition> env.name == "dev"</condition>
+						<condition> env.name == "qa"</condition>
+						<condition> env.name == "stage"</condition>
+						<condition> env.name == "prod"</condition>
+						<condition> env.name == "train"</condition>
+						<condition> env.name == "data-refresh"</condition>
+						<condition> env.name == "data-validation"</condition>
+						<condition> env.name == "external"</condition>
+						<condition> env.name == "infrastructure"</condition>
+					</or>
+				</conditions>
+				<fail-message>env.name did not pass validation. Must be one of the following ("local", "dev", "qa", "stage", "prod", "train", "data-refresh", "data-validation", "external", "infrastructure").</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property name="exclude.start.servers" name-pattern="exclude.start.servers" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>exclude.start.servers-syntax</name>
+				<description>Checks exclude.start.servers is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.start.servers ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.start.servers ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.start.servers ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.start.servers ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.start.servers == null </condition>
+						<condition>exclude.start.servers == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.start.servers did not pass validation. exclude.start.servers must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.start.servers-tf</name>
+				<description>Checks exclude.start.servers has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.start.servers == "true"</condition>
+						<condition>exclude.start.servers == "false"</condition>
+						<condition>exclude.start.servers == ""</condition>
+						<condition>exclude.start.servers == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.start.servers did not pass validation. exclude.start.servers must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="findbugs.binaries.file" name-pattern="findbugs.binaries.file" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>findbugs.binaries.file-syntax</name>
+				<description>Checks findbugs.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>findbugs.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">findbugs.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">findbugs.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>findbugs.binaries.file == null </condition>
+						<condition>findbugs.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>findbugs.binaries.file did not pass validation. findbugs.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "findbugs-1.3.4.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="findbugs.binaries.relative.dir" name-pattern="findbugs.binaries.relative.dir" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>findbugs.binaries.relative.dir-syntax</name>
+				<description>Checks findbugs.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>findbugs.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">findbugs.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">findbugs.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>findbugs.binaries.relative.dir == null </condition>
+						<condition>findbugs.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>findbugs.binaries.relative.dir did not pass validation. findbugs.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "findbugs-1.3.4".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="findbugs.src.url" name-pattern="findbugs.src.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>findbugs.src.url-syntax</name>
+				<description>Checks findbugs.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>findbugs.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">findbugs.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">findbugs.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>findbugs.src.url == null </condition>
+						<condition>findbugs.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>findbugs.src.url did not pass validation. findbugs.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/other/os-independent/findbugs-1.3.4.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>findbugs.src.url-url</name>
+				<description>Checks findbugs.src.url has proper value.</description>
+				<conditions>
+					<condition>findbugs.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>findbugs.src.url did not pass validation. findbugs.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/other/os-independent/findbugs-1.3.4.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="fs-data.base.dir" name-pattern="fs-data.base.dir" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>fs-data.base.dir-syntax</name>
+				<description>Checks fs-data.base.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>fs-data.base.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">fs-data.base.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">fs-data.base.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>fs-data.base.dir == null </condition>
+						<condition>fs-data.base.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>fs-data.base.dir did not pass validation. fs-data.base.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/local/content/files".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="ivy.bda.settings.src.url" name-pattern="ivy.bda.settings.src.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>ivy.bda.settings.src.url-syntax</name>
+				<description>Checks ivy.bda.settings.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>ivy.bda.settings.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">ivy.bda.settings.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">ivy.bda.settings.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>ivy.bda.settings.src.url == null </condition>
+						<condition>ivy.bda.settings.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>ivy.bda.settings.src.url did not pass validation. ivy.bda.settings.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/ivy-bda-settings.xml".</fail-message>
+			</rule>
+			<rule>
+				<name>ivy.bda.settings.src.url-url</name>
+				<description>Checks ivy.bda.settings.src.url has proper value.</description>
+				<conditions>
+					<condition>ivy.bda.settings.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>ivy.bda.settings.src.url did not pass validation. ivy.bda.settings.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/ivy-bda-settings.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="ivy.bda.src.url" name-pattern="ivy.bda.src.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>ivy.bda.src.url-syntax</name>
+				<description>Checks ivy.bda.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>ivy.bda.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">ivy.bda.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">ivy.bda.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>ivy.bda.src.url == null </condition>
+						<condition>ivy.bda.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>ivy.bda.src.url did not pass validation. ivy.bda.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/ivy-bda.xml".</fail-message>
+			</rule>
+			<rule>
+				<name>ivy.bda.src.url-url</name>
+				<description>Checks ivy.bda.src.url has proper value.</description>
+				<conditions>
+					<condition>ivy.bda.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>ivy.bda.src.url did not pass validation. ivy.bda.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/ivy-bda.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.execution.time" name-pattern="jar-signing.execution.time" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.execution.time-syntax</name>
+				<description>Checks jar-signing.execution.time is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.execution.time ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.execution.time ==~ /.*\s.*/</condition>
+							<condition negate="true">jar-signing.execution.time ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.execution.time ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.execution.time == null </condition>
+						<condition>jar-signing.execution.time == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.execution.time did not pass validation. jar-signing.execution.time must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "false".</fail-message>
+			</rule>
+			<rule>
+				<name>jar-signing.execution.time-value</name>
+				<description>Checks jar-signing.execution.time has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jar-signing.execution.time == "install"</condition>
+						<condition> jar-signing.execution.time == "build"</condition>
+						<condition> jar-signing.execution.time == "false"</condition>
+						<condition> jar-signing.execution.time == ""</condition>
+						<condition> jar-signing.execution.time == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.execution.time did not pass validation. Must be empty or install or build.</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property name="jar-signing.generate-selfsigned" name-pattern="jar-signing.generate-selfsigned" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.generate-selfsigned-syntax</name>
+				<description>Checks jar-signing.generate-selfsigned is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.generate-selfsigned ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.generate-selfsigned ==~ /.*\s.*/</condition>
+							<condition negate="true">jar-signing.generate-selfsigned ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.generate-selfsigned ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.generate-selfsigned == null </condition>
+						<condition>jar-signing.generate-selfsigned == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.generate-selfsigned did not pass validation. jar-signing.generate-selfsigned must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "false".</fail-message>
+			</rule>
+			<rule>
+				<name>jar-signing.generate-selfsigned-value</name>
+				<description>Checks jar-signing.generate-selfsigned has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jar-signing.generate-selfsigned == "true"</condition>
+						<condition> jar-signing.generate-selfsigned == "false"</condition>
+						<condition> jar-signing.generate-selfsigned == ""</condition>
+						<condition> jar-signing.generate-selfsigned == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.generate-selfsigned did not pass validation. Must be empty or install or build.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.jar.list" name-pattern="jar-signing.jar.list" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.jar.list-syntax</name>
+				<description>Checks jar-signing.jar.list is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.jar.list ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.jar.list ==~ /.*\s.*/</condition>
+							<condition negate="true">jar-signing.jar.list ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.jar.list ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.jar.list == null </condition>
+						<condition>jar-signing.jar.list == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.jar.list did not pass validation. jar-signing.jar.list must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "test-signing.jar".</fail-message>
+			</rule>
+			<rule>
+				<name>jar-signing.jar.list-list</name>
+				<description>Checks jar-signing.jar.list has proper value.</description>
+				<conditions>
+					<and>
+						<condition negate="true">jar-signing.jar.list ==~ /^,.*/</condition>
+						<condition negate="true">jar-signing.jar.list ==~ /.*,$/</condition>
+					</and>
+				</conditions>
+				<fail-message>jar-signing.jar.list did not pass validation. Lists cannot begin or end with a ",".</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.alias" name-pattern="jar-signing.keystore.alias" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.alias-syntax</name>
+				<description>Checks jar-signing.keystore.alias is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.alias ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.alias ==~ /.*\s.*/</condition>
+							<condition negate="true">jar-signing.keystore.alias ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.keystore.alias ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.alias == null </condition>
+						<condition>jar-signing.keystore.alias == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.alias did not pass validation. jar-signing.keystore.alias must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "nci-dev-signing".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.cert.cn" name-pattern="jar-signing.keystore.cert.cn" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.cert.cn-syntax</name>
+				<description>Checks jar-signing.keystore.cert.cn is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.cert.cn ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.cn ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.cn ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.cert.cn == null </condition>
+						<condition>jar-signing.keystore.cert.cn == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.cert.cn did not pass validation. jar-signing.keystore.cert.cn must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "BDA".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.cert.c" name-pattern="jar-signing.keystore.cert.c" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.cert.c-syntax</name>
+				<description>Checks jar-signing.keystore.cert.c is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.cert.c ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.c ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.c ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.cert.c == null </condition>
+						<condition>jar-signing.keystore.cert.c == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.cert.c did not pass validation. jar-signing.keystore.cert.c must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "US".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.cert.o" name-pattern="jar-signing.keystore.cert.o" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.cert.o-syntax</name>
+				<description>Checks jar-signing.keystore.cert.o is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.cert.o ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.o ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.o ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.cert.o == null </condition>
+						<condition>jar-signing.keystore.cert.o == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.cert.o did not pass validation. jar-signing.keystore.cert.o must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "National Cancer Institute".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.cert.ou" name-pattern="jar-signing.keystore.cert.ou" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.cert.ou-syntax</name>
+				<description>Checks jar-signing.keystore.cert.ou is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.cert.ou ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.ou ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.keystore.cert.ou ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.cert.ou == null </condition>
+						<condition>jar-signing.keystore.cert.ou == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.cert.ou did not pass validation. jar-signing.keystore.cert.ou must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "NCICB".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.location" name-pattern="jar-signing.keystore.location" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.location-syntax</name>
+				<description>Checks jar-signing.keystore.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.location ==~ /.*\s.*/</condition>
+							<condition negate="true">jar-signing.keystore.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.location == null </condition>
+						<condition>jar-signing.keystore.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.location did not pass validation. jar-signing.keystore.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "nci-dev-signing.keystore".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="jar-signing.keystore.password" name-pattern="jar-signing.keystore.password" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jar-signing.keystore.password-syntax</name>
+				<description>Checks jar-signing.keystore.password is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jar-signing.keystore.password ==~ /.*\S+.*/</condition>
+							<condition negate="true">jar-signing.keystore.password ==~ /.*\s.*/</condition>
+							<condition negate="true">jar-signing.keystore.password ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jar-signing.keystore.password ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jar-signing.keystore.password == null </condition>
+						<condition>jar-signing.keystore.password == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jar-signing.keystore.password did not pass validation. jar-signing.keystore.password must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "nci123!".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="java.major.version" name-pattern="java.major.version" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>java.major.version-syntax</name>
+				<description>Checks java.major.version is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>java.major.version ==~ /.*\S+.*/</condition>
+							<condition negate="true">java.major.version ==~ /.*\s.*/</condition>
+							<condition negate="true">java.major.version ==~ /.*\x5c.*/</condition>
+							<condition negate="true">java.major.version ==~ /.*\/.*/</condition>
+						</and>
+						<condition>java.major.version == null </condition>
+						<condition>java.major.version == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>java.major.version did not pass validation. java.major.version must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "1.5".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="java.minor.version" name-pattern="java.minor.version" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>java.minor.version-syntax</name>
+				<description>Checks java.minor.version is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>java.minor.version ==~ /.*\S+.*/</condition>
+							<condition negate="true">java.minor.version ==~ /.*\s.*/</condition>
+							<condition negate="true">java.minor.version ==~ /.*\x5c.*/</condition>
+							<condition negate="true">java.minor.version ==~ /.*\/.*/</condition>
+						</and>
+						<condition>java.minor.version == null </condition>
+						<condition>java.minor.version == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>java.minor.version did not pass validation. java.minor.version must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "1.5.0_10".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="ldap.basedn" name-pattern="ldap.basedn" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>ldap.basedn-syntax</name>
+				<description>Checks ldap.basedn is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>ldap.basedn ==~ /.*\S+.*/</condition>
+							<condition negate="true">ldap.basedn ==~ /.*\s.*/</condition>
+							<condition negate="true">ldap.basedn ==~ /.*\x5c.*/</condition>
+							<condition negate="true">ldap.basedn ==~ /.*\/.*/</condition>
+						</and>
+						<condition>ldap.basedn == null </condition>
+						<condition>ldap.basedn == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>ldap.basedn did not pass validation. ldap.basedn must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "ou=nci,o=nih".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="ldap.url" name-pattern="ldap.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>ldap.url-syntax</name>
+				<description>Checks ldap.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>ldap.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">ldap.url ==~ /.*\s.*/</condition>
+							<condition negate="true">ldap.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>ldap.url == null </condition>
+						<condition>ldap.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>ldap.url did not pass validation. ldap.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "ldaps://ncids4a.nci.nih.gov:636".</fail-message>
+			</rule>
+			<rule>
+				<name>ldap.url-ldapurl</name>
+				<description>Checks ldap.url has proper value.</description>
+				<conditions>
+					<condition>ldap.url ==~ /^ldap.*:\/\/.*/</condition>
+				</conditions>
+				<fail-message>ldap.url did not pass validation. ldap.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "ldaps://ncids4a.nci.nih.gov:636".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="mail.smtp.server" name-pattern="mail.smtp.server" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>mail.smtp.server-syntax</name>
+				<description>Checks mail.smtp.server is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>mail.smtp.server ==~ /.*\S+.*/</condition>
+							<condition negate="true">mail.smtp.server ==~ /.*\s.*/</condition>
+							<condition negate="true">mail.smtp.server ==~ /.*\x5c.*/</condition>
+							<condition negate="true">mail.smtp.server ==~ /.*\/.*/</condition>
+						</and>
+						<condition>mail.smtp.server == null </condition>
+						<condition>mail.smtp.server == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>mail.smtp.server did not pass validation. mail.smtp.server must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "mailfwd.nih.gov".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="project.name" name-pattern="project.name" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>project.name-syntax</name>
+				<description>Checks project.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>project.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">project.name ==~ /.*\s.*/</condition>
+							<condition negate="true">project.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">project.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>project.name == null </condition>
+						<condition>project.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>project.name did not pass validation. project.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda-blueprints".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="require.build.wscore" name-pattern="require.build.wscore" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>require.build.wscore-syntax</name>
+				<description>Checks require.build.wscore is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>require.build.wscore ==~ /.*\S+.*/</condition>
+							<condition negate="true">require.build.wscore ==~ /.*\s.*/</condition>
+							<condition negate="true">require.build.wscore ==~ /.*\x5c.*/</condition>
+							<condition negate="true">require.build.wscore ==~ /.*\/.*/</condition>
+						</and>
+						<condition>require.build.wscore == null </condition>
+						<condition>require.build.wscore == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>require.build.wscore did not pass validation. require.build.wscore must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>require.build.wscore-tf</name>
+				<description>Checks require.build.wscore has proper value.</description>
+				<conditions>
+					<or>
+						<condition> require.build.wscore == "true"</condition>
+						<condition> require.build.wscore == "false"</condition>
+						<condition> require.build.wscore == ""</condition>
+						<condition> require.build.wscore == null</condition>
+					</or>
+				</conditions>
+				<fail-message>require.build.wscore did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property name="sync-gts.binaries.file" name-pattern="sync-gts.binaries.file" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>sync-gts.binaries.file-syntax</name>
+				<description>Checks sync-gts.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>sync-gts.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">sync-gts.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">sync-gts.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>sync-gts.binaries.file == null </condition>
+						<condition>sync-gts.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>sync-gts.binaries.file did not pass validation. sync-gts.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "gaards-syncgts-1.3.0.1-bin.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="sync-gts.binaries.relative.dir" name-pattern="sync-gts.binaries.relative.dir" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>sync-gts.binaries.relative.dir-syntax</name>
+				<description>Checks sync-gts.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>sync-gts.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">sync-gts.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">sync-gts.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>sync-gts.binaries.relative.dir == null </condition>
+						<condition>sync-gts.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>sync-gts.binaries.relative.dir did not pass validation. sync-gts.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - ".".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property name="sync-gts.src.url" name-pattern="sync-gts.src.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>sync-gts.src.url-syntax</name>
+				<description>Checks sync-gts.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>sync-gts.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">sync-gts.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">sync-gts.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>sync-gts.src.url == null </condition>
+						<condition>sync-gts.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>sync-gts.src.url did not pass validation. sync-gts.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2009/os-independent/gaards-syncgts-1.3.0.1-bin.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>sync-gts.src.url-url</name>
+				<description>Checks sync-gts.src.url has proper value.</description>
+				<conditions>
+					<condition>sync-gts.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>sync-gts.src.url did not pass validation. sync-gts.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2009/os-independent/gaards-syncgts-1.3.0.1-bin.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+</properties>

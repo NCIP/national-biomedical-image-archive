@@ -74,7 +74,7 @@ L-->
 
     <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="compile->master;test->master"/>
     <!-- end of removing lib -->
 
@@ -85,7 +85,7 @@ L-->
 
     <dependency org="mysql"
                 name="mysql-connector-java"
-                rev="5.1.5"
+                rev="5.1.34"
                 conf="runtime->master"/>
 
     <dependency org="oracle"

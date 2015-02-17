@@ -402,10 +402,14 @@ public class PatientAccessDAOImpl extends AbstractDAO
 				      FileInputStream inputStream = new FileInputStream(filePath);
 				      try {
 				    	  text = IOUtils.toString(inputStream);
+				    	  // make sure UTF-8
+				    	  byte[] b = text.getBytes("UTF-8");
+				    	  text = new String(b, "UTF-8");
 				    	  //log.info("********* annotation text ****************");
 				    	  //log.info(text);
 				      } catch (Exception e) {
-				    	e.printStackTrace();
+				    	//e.printStackTrace();
+				    	log.warn("unable to convert "+filePath+" to UTF-8");
 				      }
 				    
 				      finally {

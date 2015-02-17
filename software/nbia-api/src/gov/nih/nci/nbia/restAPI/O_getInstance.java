@@ -59,10 +59,10 @@ public class O_getInstance extends getData {
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 	public Response  constructResponse(@QueryParam("PatientID") String patientId, @QueryParam("format") String format,
-			@QueryParam("StudyInstanceUID") String studyInstanceUid, @QueryParam("SeriesInstanceUID") String seriesInstanceUid
+			@QueryParam("StudyInstanceUID") String studyInstanceUid, @QueryParam("seriesUID") String seriesInstanceUid
 			, @QueryParam("SOPInstanceUID") String sOPInstanceUID, @QueryParam("oviyamId") String oviyamId, @QueryParam("wadoUrl") String wadoUrl) {
 		List<String> authorizedCollections = null;
-		System.out.println("patient id:"+patientId);
+		System.out.println("seriesInstanceUid:"+seriesInstanceUid);
 		try {
 			String user=null;
 			if (oviyamId!=null&&oviyamId.length()>0){

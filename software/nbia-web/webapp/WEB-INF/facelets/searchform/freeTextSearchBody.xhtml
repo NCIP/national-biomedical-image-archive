@@ -26,14 +26,14 @@ L-->
 	<tr>
 	
 	  <td valign="top" align="center">
-         		<h:commandButton action="#" image="images/text-search.png" immediate="true" title="text search" alt="Text search"/> 
+         		<h:commandButton action="#" image="images/text-search.png" immediate="true" title="free text search"/> 
          		<ncia:help label="images/help_icon.png" helpId="-performtextsearch" />
 		<div align="left" style="font-size: 1.4em">
 			<h:inputHidden id="editQueryMessage" />
 			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
 		</div>
 	</td>
-	<td width="60%">
+	<td>
 	    <ice:dataTable id="tableOfPatientResultTables1"
 	   	                            value="#{searchResultBean.nodeTablesWrappers}"
 	   	                            var="perNodeResult"
@@ -52,12 +52,9 @@ L-->
       </td>
      </tr>
      <tr>
-     <td width="7%">
-     </td>
-     
-      <td valign="top">
-        <ice:form id="iceForm" >
-        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" style="width:50%; height:60%;">
+      <td valign="top"  width="20%">
+     	<ice:form id="iceForm" >
+        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" >
         
 	    <tr>
 	        <td>
@@ -73,15 +70,11 @@ L-->
 	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
 	          </ice:selectOneMenu>            
 	        </td>
-	        <td width="10%">
-	        </td>
-	        
 	        <td>
-	        		<ice:outputLabel for="testSearchValue" value="Search Value" style="display:none"/>
 	        		<h:inputText id="testSearchValue" value="#{dynamicSearchBean.textValue}" tabindex="40"  size="55"/>
              </td>
              <td align="left">
-	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" title="Submit Search" alt="Submit Search"/>
+	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif"/>
  	        </td>
           </tr> 
          </table>       
@@ -90,9 +83,7 @@ L-->
     </tr>
 
 <tr>
-<td width="7%">
-     </td>
-      <td valign="top" >
+      <td valign="top">
         <table cellspacing="0" cellpadding="0" border="0" width="100%" >
                <tr>
                <td>

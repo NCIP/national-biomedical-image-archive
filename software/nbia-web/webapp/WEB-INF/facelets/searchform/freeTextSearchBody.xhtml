@@ -81,7 +81,7 @@ L-->
 	        		<h:inputText id="testSearchValue" value="#{dynamicSearchBean.textValue}" tabindex="40"  size="55"/>
              </td>
              <td align="left">
-	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" title="Submit Search" alt="Submit Search" onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>
+	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" title="Submit Search" alt="Submit Search"/>
  	        </td>
           </tr> 
          </table>       
@@ -106,18 +106,6 @@ L-->
 	       </tr>
 	         <tr>
 	           <td height="70%">
-	           <table border="0" width="80%" class="contentPage">
-        <tr>
-          <td>
-            <div id="notification" style="display: none;">
-              <img src="images/ajax_indicator.gif"  title="#{searchWorkflowBean.notificationHack}"
-                   alt=""/>
-              <f:verbatim>&amp;nbsp;</f:verbatim>
-              Searching...
-            </div>
-          </td>
-        </tr>
-      </table>
 	          <f:subview id="criteriaView">
 	            <ui:include src="../searchresults/searchResult.xhtml"/>
 	          </f:subview>
@@ -128,6 +116,17 @@ L-->
        </tr>
      </table>
       <div style="display:none;"> #{dynamicSearchBean.criteriaLength} </div>
-      
+      <table border="0" width="80%" class="contentPage">
+        <tr>
+          <td>
+            <div id="notification" style="display: none;">
+              <img src="images/ajax_indicator.gif" 
+                   alt=""/>
+              <f:verbatim>&amp;nbsp;</f:verbatim>
+              Searching...
+            </div>
+          </td>
+        </tr>
+      </table>
  </div>
 </ui:composition>

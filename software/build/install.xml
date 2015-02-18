@@ -135,9 +135,9 @@ L-->
     "/>
 	<target name="install:jboss:create.config:files">
 		<delete dir="${jboss-conf.dir.dest}"/>
-		<copy file="${jboss-conf.dir.src}/DataSourceItem.xml" todir="${jboss-conf.dir.dest}"/>
-		<copy file="${jboss-conf.dir.src}/relationship.xml" todir="${jboss-conf.dir.dest}"/>
-		<copy file="${jboss-conf.dir.src}/nbia_modules.cli" tofile="${jboss-conf.dir.dest}/nbia_modules.cli">
+		<copy file="${jboss-conf.dir.src}/DataSourceItem.xml" todir="${jboss-conf.dir.dest}" overwrite="true"/>
+		<copy file="${jboss-conf.dir.src}/relationship.xml" todir="${jboss-conf.dir.dest}" overwrite="true"/>
+		<copy file="${jboss-conf.dir.src}/nbia_modules.cli" tofile="${jboss-conf.dir.dest}/nbia_modules.cli" overwrite="true">
 			<filterset>
 				<filter token="database.type" value="${database.type}"/>
 				<filter token="jboss.modules.lib" value="${basedir}/jboss-module-lib"/>
@@ -147,7 +147,7 @@ L-->
 				<filter token="bouncy.castle.jar" value="${bouncy.castle.jar}"/>
 			</filterset>
 		</copy>
-		<copy file="${jboss-conf.dir.src}/nbia_config.cli" tofile="${jboss-conf.dir.dest}/nbia_config.cli">
+		<copy file="${jboss-conf.dir.src}/nbia_config.cli" tofile="${jboss-conf.dir.dest}/nbia_config.cli" overwrite="true">
 			<filterset>
 				<filter token="database.type" value="${database.type}"/>
 				<filter token="database.driver" value="${database.driver}"/>
@@ -160,7 +160,7 @@ L-->
 		<if>
 			<equals arg1="${authentication.type}" arg2="ldap"/>
 			<then>
-				<copy file="${jboss-conf.dir.src}/login-config.ldap-block.xml" tofile="${jboss-conf.dir.dest}/login-config.block.xml">
+				<copy file="${jboss-conf.dir.src}/login-config.ldap-block.xml" tofile="${jboss-conf.dir.dest}/login-config.block.xml" overwrite="true">
 					<filterset>
 						<filter token="application.context.name" value="${application.context.name}"/>
 						<filter token="ldap.url" value="${ldap.url}"/>
@@ -169,7 +169,7 @@ L-->
 				</copy>
 			</then>
 			<else>
-				<copy file="${jboss-conf.dir.src}/login-config.db-block.xml" tofile="${jboss-conf.dir.dest}/login-config.block.xml">
+				<copy file="${jboss-conf.dir.src}/login-config.db-block.xml" tofile="${jboss-conf.dir.dest}/login-config.block.xml" overwrite="true">
 					<filterset>
 						<filter token="application.context.name" value="${application.context.name}"/>
 						<filter token="database.user" value="${database.user}"/>
@@ -184,7 +184,7 @@ L-->
 			<filelist dir="${jboss-conf.dir.dest}" files="login-config.block.xml"/>
 		</concat>
 		<delete file="${jboss-conf.dir.dest}/login-config.block.xml"/>
-		<copy file="${jboss-conf.dir.src}/nbia_system_properties.cli" tofile="${jboss-conf.dir.dest}/nbia_system_properties.cli">
+		<copy file="${jboss-conf.dir.src}/nbia_system_properties.cli" tofile="${jboss-conf.dir.dest}/nbia_system_properties.cli" overwrite="true">
 			<filterset>
 				<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}"/>
 				<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}"/>
@@ -292,12 +292,29 @@ L-->
 					<include name="relationship.xml"/>
 				</fileset>
 			</copy>
-			<copy todir="${JBOSS_BASE_DIR}/deployments">
-				<fileset dir="${basedir}/nbia-ear">
-					<include name="*.ear"/>
-					<include name="*.war"/>
-				</fileset>
-			</copy>
+			<if>
+				<not>
+					<isset property="exclude.nbia-api"/>
+				</not>
+				<then>
+					<echo message="!!!!!copying all ear and wars including nbia-api.war"/>
+					<copy todir="${JBOSS_BASE_DIR}/deployments">
+						<fileset dir="${basedir}/nbia-ear">
+							<include name="*.ear"/>
+							<include name="*.war"/>
+						</fileset>
+					</copy>
+				</then>
+				<else>
+					<echo message="!!!!!exclude nbia-api.war"/>
+					<copy todir="${JBOSS_BASE_DIR}/deployments">
+						<fileset dir="${basedir}/nbia-ear">
+							<include name="nbia.ear"/>
+							<include name="oviyam2.war"/>
+						</fileset>
+					</copy>
+				</else>
+			</if>
 			<start-jbossEAP/>
 		</sequential>
 	</target>
@@ -437,13 +454,13 @@ L-->
 				<pathelement location="${common.lib.dir}/liquibase-core-1.9.3.jar" />
 				<pathelement location="${database.driver.file}" />
 			</path>
-			<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${common.lib.dir}/ant-classloadertask-1.0-RC2.jar" />
+			<!--taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${common.lib.dir}/ant-classloadertask-1.0-RC2.jar" /-->
 			<classloader loader="project" classpathref="liquibase_stuff" />
 			<taskdef resource="liquibasetasks.properties">
 				<classpath refid="liquibase_stuff" />
 			</taskdef>
-			<copy todir="${db.dir.dest}" overwrite="true">
-				<fileset dir="${db.dir.src}/${database.type}">
+			<copy todir="${db.dir.dest}/db-install" overwrite="true">
+				<fileset dir="${db.dir.src}/db-install/${database.type}">
 					<include name="**/*.sql" />
 				</fileset>
 			</copy>
@@ -453,7 +470,7 @@ L-->
 				<case value="oracle">
 					<for list="${db.install.create.oracle.file.list}" param="db.install.file">
 						<sequential>
-							<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db-install.dist.dir}/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="row" keepformat="true">
+							<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db.dir.dest}/db-install/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="row" keepformat="true">
 								<classpath>
 									<pathelement location="${database.driver.file}" />
 								</classpath>
@@ -464,7 +481,7 @@ L-->
 				<case value="mysql">
 					<for list="${db.install.create.mysql.file.list}" param="db.install.file">
 						<sequential>
-							<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db-install.dist.dir}/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="normal" keepformat="true">
+							<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db.dir.dest}/db-install/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="normal" keepformat="true">
 								<classpath>
 									<pathelement location="${database.driver.file}" />
 								</classpath>
@@ -495,17 +512,17 @@ L-->
 				<pathelement location="${common.lib.dir}/liquibase-core-1.9.3.jar" />
 				<pathelement location="${database.driver.file}" />
 			</path>
-			<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${common.lib.dir}/ant-classloadertask-1.0-RC2.jar" />
+			<!--taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${common.lib.dir}/ant-classloadertask-1.0-RC2.jar" /-->
 			<classloader loader="project" classpathref="liquibase_stuff" />
 			<taskdef resource="liquibasetasks.properties">
 				<classpath refid="liquibase_stuff" />
 			</taskdef>
-			<copy todir="${db-upgrade.dir.dest}" overwrite="true">
-				<fileset dir="${db.dir.src}/${database.type}">
+			<copy todir="${db-upgrade.dir.dest}/" overwrite="true">
+				<fileset dir="${db.dir.src}/db-upgrade/${database.type}">
 					<include name="**/**/db-upgrade.xml" />
 				</fileset>
 			</copy>
-			<property name="database.changelog.file" value="${db-upgrade.dist.dir}/db-upgrade.xml" />
+			<property name="database.changelog.file" value="${db-upgrade.dir.dest}/db-upgrade.xml" />
 			<!--basename property="changelog.file" file="${database.changelog.file}"/>
 	<echo message="changelog.file=${changelog.file} database.changelog.file=${database.changelog.file}"/-->
 			<updateDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" defaultSchemaName="${database.schema}" dropFirst="false" changeLogFile="${database.changelog.file}" />

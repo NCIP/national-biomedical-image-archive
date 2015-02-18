@@ -318,7 +318,6 @@ L-->
 		<attribute name="database.re-create" default="${database.re-create}"/>
 		<attribute name="database.drop-schema" default="${database.drop-schema}"/>
 		<sequential>
-			<!-- Only validates connection for oracle -->
 			<if>
 				<and>
 					<not>

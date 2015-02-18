@@ -16,7 +16,7 @@ L-->
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
-<h:panelGrid id="patientidpanel" border="0" cellspacing="2" frame="box"> 
+<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box"> 
                               <h:outputText id="dateFrom" value="#{msg.date_from}"></h:outputText>
                               <ice:selectInputDate id="fromDate"
                                                    value="#{searchWorkflowBean.dateFrom}" 
@@ -27,7 +27,7 @@ L-->
                                 <f:convertDateTime pattern="MM/dd/yyyy"
                                                    timeZone="#{submissionReportsBean.defaultTimeZone}"/>
                               </ice:selectInputDate> 
-                              <h:outputText id="dateTo" value="#{msg.date_to}"/>                                                              
+                              <h:outputText id="dateTo" value="#{msg.date_to}"/> <h:outputText value=" " />                                                             
                               <ice:selectInputDate id="toDate"
                                                    value="#{searchWorkflowBean.dateTo}" 
                                                    popupDateFormat="MM/dd/yyyy"
@@ -36,7 +36,7 @@ L-->
                                                    style="display:inline">
                                 <f:convertDateTime pattern="MM/dd/yyyy"
                                                    timeZone="#{submissionReportsBean.defaultTimeZone}"/>
-                              </ice:selectInputDate>   
+                              </ice:selectInputDate>  
                               <h:outputLabel for="addDateCriteria"  value="Add Criteria" />      
                               <ice:selectBooleanCheckbox id="addDateCriteria"
 		                       value="#{searchWorkflowBean.dateCriteria}"

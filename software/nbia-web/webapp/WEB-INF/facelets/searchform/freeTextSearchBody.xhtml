@@ -18,49 +18,52 @@ L-->
                 xmlns:ice="http://www.icesoft.com/icefaces/component"
                 xmlns:ncia="http://imaging.nci.nih.gov/ncia">
 <div id="searchFormPanel">
-  <table width="100%" border="0"   cellspacing="0" cellpadding="0" summary="" valign="top" align="center"> 
+  <table width="100%" border="0"   cellspacing="0" cellpadding="0" summary="" valign="top"> 
    <tr>
-    <td align="center" colspan ="4" valign="top">
-    
-    <h:form id="searchMenuForm">
-	<table style="table-layout:fixed" cellspacing="0" cellpadding="0" width="87%" summary="" border="0" valign="top">
-	 <tr>
+     <td align="left" colspan ="2" valign="top">
+     <h:form id="searchMenuForm">
+	<table cellspacing="0" cellpadding="0" width="100%" summary=""	border="0" valign="top">
+	<tr>
 	
-	  <td valign="top" align="left">
-	  	 <div class="adminToolsContainer">
-	  	 	<div style="text-align:center">
-         		<h:outputText value="Text Search "/> 
-         		<ncia:help label="images/help_icon.png" helpId="-PerformingaTextSearch" />
-         	</div>
-         </div>
-		 <div align="left" style="font-size: 1.4em">
+	  <td valign="top" align="center">
+         		<h:commandButton action="#" image="images/text-search.png" immediate="true" title="text search" alt="Text search"/> 
+         		<ncia:help label="images/help_icon.png" helpId="-performtextsearch" />
+		<div align="left" style="font-size: 1.4em">
 			<h:inputHidden id="editQueryMessage" />
 			<h:message for="editQueryMessage" errorClass="errorLabel" infoClass="infoLabel" />
-		 </div>
-		
-	  </td> 
-	 </tr>
+		</div>
+	</td>
+	<td width="60%">
+	    <ice:dataTable id="tableOfPatientResultTables1"
+	   	                            value="#{searchResultBean.nodeTablesWrappers}"
+	   	                            var="perNodeResult"
+	   	                            style="border:none; padding-top: 0px; margin: 0px 0 0 0;">
+	      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0; ">
+	   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
+	   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
+	   	 </ui:include>     
+	   	</ice:column>
+      </ice:dataTable>
+  	</td>
+  	
+	</tr>
 	</table>
 	</h:form> 
-    
-    </td>
-    
+      </td>
      </tr>
      <tr>
      <td width="7%">
      </td>
      
-     
-      <td valign="top" >
+      <td valign="top">
         <ice:form id="iceForm" >
-        <table cellspacing="0" cellpadding="0" border="0">
+        <table cellspacing="0" cellpadding="0" border="0" class="contentPage searchFormSelector" style="width:50%; height:60%;">
         
 	    <tr>
-	    	
 	        <td>
 	          <ice:outputLabel for="perPage"
 	                           value="Results Per Page"/> 
-		
+	
 	          <ice:selectOneMenu id="perPage" 
 	                             tabindex="40"
 	                             partialSubmit="true"
@@ -70,8 +73,8 @@ L-->
 	            <f:selectItems value="#{dynamicSearchBean.resultPerPageItems}"/>                
 	          </ice:selectOneMenu>            
 	        </td>
-	    	<td width="5%">
-	    	</td>
+	        <td width="10%">
+	        </td>
 	        
 	        <td>
 	        		<ice:outputLabel for="testSearchValue" value="Search Value" style="display:none"/>
@@ -80,24 +83,10 @@ L-->
              <td align="left">
 	           <h:commandButton id="submitTextSearchButton" action="#{dynamicSearchBean.submitTextSearch}" image="images/submit.gif" title="Submit Search" alt="Submit Search" onclick="Effect.Appear('notification',{duration: 0.25, queue: 'end'});"/>
  	        </td>
- 	        
- 	     <td align="right" >
-	     		   <h:dataTable id="tableOfPatientResultTables1"
-	     		   	                            value="#{searchResultBean.nodeTablesWrappers}"
-	     		   	                            var="perNodeResult"
-	     		   	                            style="border:none; padding-top: 0px; margin: 0 0 0 170px; ">
-	     		      <ice:column style="border:none; background-color:#F8F8F8;padding-top: 0px; margin: 0px 0 0 0;">
-	     		   	 <ui:include src="../searchresults/searchResultButtons.xhtml">
-	     		   		<ui:param name="perNodeResult" value="#{perNodeResult}"/>
-	     		   	 </ui:include>     
-	     		   	</ice:column>
-	     	      </h:dataTable>
-  	     </td>
           </tr> 
          </table>       
       </ice:form>
      </td>
-     
     </tr>
 
 <tr>
@@ -119,7 +108,6 @@ L-->
 	           <td height="70%">
 	           <table border="0" width="80%" class="contentPage">
         <tr>
-        
           <td>
             <div id="notification" style="display: none;">
               <img src="images/ajax_indicator.gif"  title="#{searchWorkflowBean.notificationHack}"
@@ -128,7 +116,6 @@ L-->
               Searching...
             </div>
           </td>
-          
         </tr>
       </table>
 	          <f:subview id="criteriaView">
@@ -138,7 +125,6 @@ L-->
                </tr>
          </table>
         </td>
-        
        </tr>
      </table>
       <div style="display:none;"> #{dynamicSearchBean.criteriaLength} </div>

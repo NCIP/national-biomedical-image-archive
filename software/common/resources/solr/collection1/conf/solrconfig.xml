@@ -255,7 +255,7 @@
          This is not needed if lock type is 'single'
      -->
 
-    <unlockOnStartup>false</unlockOnStartup>
+    <unlockOnStartup>true</unlockOnStartup>
 
     
     <!-- Expert: Controls how often Lucene loads terms into memory

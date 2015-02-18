@@ -243,7 +243,7 @@
          More details on the nuances of each LockFactory...
          http://wiki.apache.org/lucene-java/AvailableLockFactories
     -->
-    <lockType>${solr.lock.type:native}</lockType>
+    <lockType>simple</lockType>
 
     <!-- Unlock On Startup
 

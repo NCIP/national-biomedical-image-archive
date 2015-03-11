@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--L
    Copyright SAIC, Ellumen and RSNA (CTP)
 
@@ -7,334 +6,164 @@
    Distributed under the OSI-approved BSD 3-Clause License.
    See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
 L-->
-
 <!--need to define GLOBUS_LOCATION -->
 <project name="nbia" default="build:all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	<description>
 		This is the master build file for the NBIA project.  NBIA web application, NBIA grid service and CTP
 </description>
-	<property name="project.name" value="nbia" />
-	<property name="nbia.build.file" value="build.xml" />
-	<property name="properties.file" value="defaultAHP3.properties" />
-	<property file="${properties.file}" />
-	<property name="build.dir" location="." />
-	<property name="software.dir" location=".." />
-	<property name="common.dir" location="${software.dir}/common" />
-	<property name="common.dist.relative.dir" value="common" />
-	<property name="common.lib.dir" location="${software.dir}/common/resources/lib" />
-	<property name="target.dir" location="${software.dir}/target" />
-	<property name="ivy.settings.dir" location="${common.dir}/ivy" />
-	<property name="lib.dir" location="${target.dir}/lib" />
-	<property name="temp.dir" location="${target.dir}/temp" />
-	<property name="dist.dir" location="${target.dir}/dist" />
-	<property name="common.resources.dir" location="${common.dir}/resources" />
-	<property name="nbia-dao.base.dir" value="${software.dir}/nbia-dao" />
-	<property name="ncia-core-grid.base.dir" value="${software.dir}/ncia-core-grid-transfer" />
-	<property name="nbia-grid.base.dir" value="${software.dir}/nbia-service" />
-	<property name="nbia-ctp.base.dir" value="${software.dir}/nbia-ctp-working" />
-	<property name="nbia-services-commons.base.dir" value="${software.dir}/nbia-services-commons" />
-	<property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb" />
-	<property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb" />
-	<property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid" />
-	<property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain" />
-	<property name="nbia-util.base.dir" value="${software.dir}/nbia-util" />
-	<property name="nbia-web.base.dir" value="${software.dir}/nbia-web" />
-	<property name="nbia-api.base.dir" value="${software.dir}/nbia-api" />
-	<property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager" />
-	<property name="nbia-download.base.dir" value="${software.dir}/nbia-download" />
-	<property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search" />
-	<property name="global.ivy.settings.file" location="${software.dir}/common/ivysettings.xml" />
-	<property name="db-install.src.dir" value="${common.dir}/resources/db/" />
-	<property name="db-upgrade.src.dir" value="${common.dir}/resources/db-incr/" />
-	<property name="nbia-resource.artifact.dir" value="${software.dir}/common/resources" />
-	<property name="dist.exploded.dir" value="${dist.dir}/exploded" />
-	<property name="tools.dist.relative.dir" value="tools" />
-	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}" />
-	<property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}" />
-	<property name="db-install.dist.dir" value="${dist.exploded.dir}/db/db-install/" />
-	<property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/db/db-upgrade/" />
+	<property name="project.name" value="nbia"/>
+	<property name="nbia.build.file" value="build.xml"/>
+	<property name="properties.file" value="defaultAHP3.properties"/>
+	<property file="${properties.file}"/>
+	<property name="build.dir" location="."/>
+	<property name="software.dir" location=".."/>
+	<property name="common.dir" location="${software.dir}/common"/>
+	<property name="common.dist.relative.dir" value="common"/>
+	<property name="common.lib.dir" location="${software.dir}/common/resources/lib"/>
+	<property name="target.dir" location="${software.dir}/target"/>
+	<property name="ivy.settings.dir" location="${common.dir}/ivy"/>
+	<property name="lib.dir" location="${target.dir}/lib"/>
+	<property name="temp.dir" location="${target.dir}/temp"/>
+	<property name="dist.dir" location="${target.dir}/dist"/>
+	<property name="common.resources.dir" location="${common.dir}/resources"/>
+	<property name="nbia-dao.base.dir" value="${software.dir}/nbia-dao"/>
+	<property name="ncia-core-grid.base.dir" value="${software.dir}/ncia-core-grid-transfer"/>
+	<property name="nbia-grid.base.dir" value="${software.dir}/nbia-service"/>
+	<property name="nbia-ctp.base.dir" value="${software.dir}/nbia-ctp-working"/>
+	<property name="nbia-services-commons.base.dir" value="${software.dir}/nbia-services-commons"/>
+	<property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
+	<property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
+	<property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
+	<property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain"/>
+	<property name="nbia-util.base.dir" value="${software.dir}/nbia-util"/>
+	<property name="nbia-web.base.dir" value="${software.dir}/nbia-web"/>
+	<property name="nbia-api.base.dir" value="${software.dir}/nbia-api"/>
+	<property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
+	<property name="nbia-download.base.dir" value="${software.dir}/nbia-download"/>
+	<property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search"/>
+	<property name="global.ivy.settings.file" location="${software.dir}/common/ivysettings.xml"/>
+	<property name="db-install.src.dir" value="${common.dir}/resources/db/"/>
+	<property name="db-upgrade.src.dir" value="${common.dir}/resources/db-incr/"/>
+	<property name="nbia-resource.artifact.dir" value="${software.dir}/common/resources"/>
+	<property name="dist.exploded.dir" value="${dist.dir}/exploded"/>
+	<property name="tools.dist.relative.dir" value="tools"/>
+	<property name="tools.dist.dir" value="${dist.exploded.dir}/${tools.dist.relative.dir}"/>
+	<property name="common.dist.dir" value="${dist.exploded.dir}/${common.dist.relative.dir}"/>
+	<property name="db-install.dist.dir" value="${dist.exploded.dir}/db/db-install/"/>
+	<property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/db/db-upgrade/"/>
 	<!--property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" /-->
-	<property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}" />
-	<property name="ncia-core-grid.dist.relative.dir" value="ncia-core-grid-transfer" />
-	<property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}" />
-	<property name="nbia-grid.dist.relative.dir" value="nbia-service" />
-	<property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}" />
-	<property name="nbia-ctp.dist.relative.dir" value="nbia-ctp" />
-	<property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}" />
-	<property name="nbia-web.dist.relative.dir" value="nbia-ear" />
-	<property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}" />
-	<property name="jai.linux.dest.file" value="${tools.dist.dir}/${jai.linux.binaries.file}" />
-	<property name="jai.windows.dest.file" value="${tools.dist.dir}/${jai.windows.binaries.file}" />
-	<property name="nbia-grid.artifact.file" value="NBIAService.zip" />
-	<property name="ncia-core-grid.artifact.file" value="NciaCoreService.zip" />
-	<property name="working.dir" location="${target.dir}/working" />
-	<property name="db.dir.src" location="${basedir}/db" />
-	<property name="db.dir.dest" location="${working.dir}/db" />
-	<property name="download.dir" location="${target.dir}/download" />
-	<property name="cagrid.target.co.dir" location="${target.dir}/cagrid-target" />
+	<property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}"/>
+	<property name="ncia-core-grid.dist.relative.dir" value="ncia-core-grid-transfer"/>
+	<property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}"/>
+	<property name="nbia-grid.dist.relative.dir" value="nbia-service"/>
+	<property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}"/>
+	<property name="nbia-ctp.dist.relative.dir" value="nbia-ctp"/>
+	<property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
+	<property name="nbia-web.dist.relative.dir" value="nbia-ear"/>
+	<property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
+	<property name="jai.linux.dest.file" value="${tools.dist.dir}/${jai.linux.binaries.file}"/>
+	<property name="jai.windows.dest.file" value="${tools.dist.dir}/${jai.windows.binaries.file}"/>
+	<property name="nbia-grid.artifact.file" value="NBIAService.zip"/>
+	<property name="ncia-core-grid.artifact.file" value="NciaCoreService.zip"/>
+	<property name="working.dir" location="${target.dir}/working"/>
+	<property name="db.dir.src" location="${basedir}/db"/>
+	<property name="db.dir.dest" location="${working.dir}/db"/>
+	<property name="download.dir" location="${target.dir}/download"/>
+	<property name="cagrid.target.co.dir" location="${target.dir}/cagrid-target"/>
 	<!--These properties are the list of files used by the install of the database for each type -->
-	<property name="db.install.create.mysql.file.list" value="ncia_mysql_nodata.sql,nciaDbInit.sql" />
-	<property name="db.install.create.oracle.file.list" value="ddl.sql,dml_populate.sql,fk.sql" />
+	<property name="db.install.create.mysql.file.list" value="ncia_mysql_nodata.sql,nciaDbInit.sql"/>
+	<property name="db.install.create.oracle.file.list" value="ddl.sql,dml_populate.sql,fk.sql"/>
 	<!-- targets -->
-	<property name="nbia-ctp.build.target" value="all" />
-	<property name="nbia-services-commons.build.target" value="run" />
-	<property name="nbia-dao.build.target" value="run" />
-	<property name="nbia-services-grid.build.target" value="run" />
-	<property name="nbia-domain.build.target" value="all" />
-	<property name="nbia-web.build.target" value="run" />
-	<property name="nbia-api.build.target" value="run" />
-	<property name="nbia-download-manager.build.target" value="run" />
-	<property name="nbia-download.build.target" value="run" />
+	<property name="nbia-ctp.build.target" value="all"/>
+	<property name="nbia-services-commons.build.target" value="run"/>
+	<property name="nbia-dao.build.target" value="run"/>
+	<property name="nbia-services-grid.build.target" value="run"/>
+	<property name="nbia-domain.build.target" value="all"/>
+	<property name="nbia-web.build.target" value="run"/>
+	<property name="nbia-api.build.target" value="run"/>
+	<property name="nbia-download-manager.build.target" value="run"/>
+	<property name="nbia-download.build.target" value="run"/>
 	<!-- Default install time targets passed by deploy targets to the installer, can be overridden by being set on the command line if different target is desitred.  -->
-	<property name="install.target" value="install" />
-	<property name="upgrade.target" value="upgrade" />
-	<property name="upgrade.jboss.target" value="upgrade:jboss" />
-	<property name="upgrade.ncia-core-grid.target" value="upgrade:ncia-core-grid" />
-	<property name="upgrade.ncia-core-grid-unsecured.target" value="upgrade:ncia-core-grid-unsecured" />
-	<property name="upgrade.nbia-grid.target" value="upgrade:nbia-grid" />
-	<property name="install.jboss.target" value="install:jboss" />
-	<property name="install.ncia-core-grid.target" value="install:ncia-core-grid" />
-	<property name="install.ncia-core-grid-unsecured.target" value="install:ncia-core-grid-unsecured" />
-	<property name="install.nbia-grid.target" value="install:nbia-grid" />
-	<property name="ctp.install.target" value="install:ctp:server" />
-	<property name="ctp.upgrade.target" value="upgrade:ctp:server" />
+	<property name="install.target" value="install"/>
+	<property name="upgrade.target" value="upgrade"/>
+	<property name="upgrade.jboss.target" value="upgrade:jboss"/>
+	<property name="upgrade.ncia-core-grid.target" value="upgrade:ncia-core-grid"/>
+	<property name="upgrade.ncia-core-grid-unsecured.target" value="upgrade:ncia-core-grid-unsecured"/>
+	<property name="upgrade.nbia-grid.target" value="upgrade:nbia-grid"/>
+	<property name="install.jboss.target" value="install:jboss"/>
+	<property name="install.ncia-core-grid.target" value="install:ncia-core-grid"/>
+	<property name="install.ncia-core-grid-unsecured.target" value="install:ncia-core-grid-unsecured"/>
+	<property name="install.nbia-grid.target" value="install:nbia-grid"/>
+	<property name="ctp.install.target" value="install:ctp:server"/>
+	<property name="ctp.upgrade.target" value="upgrade:ctp:server"/>
 	<!-- output directory properties -->
-	<property name="ncia-core-grid.artifact.dir" value="${ncia-core-grid.base.dir}/target" />
-	<property name="nbia-grid.artifact.dir" value="${nbia-grid.base.dir}/target" />
-	<property name="nbia-ctp.artifact.dir" value="${nbia-ctp.base.dir}/target" />
+	<property name="ncia-core-grid.artifact.dir" value="${ncia-core-grid.base.dir}/target"/>
+	<property name="nbia-grid.artifact.dir" value="${nbia-grid.base.dir}/target"/>
+	<property name="nbia-ctp.artifact.dir" value="${nbia-ctp.base.dir}/target"/>
 	<!-- solr -->
-	<property name="solr.dist.dir" value="${dist.exploded.dir}/${solr.dist.relative.dir}" />
-	
+	<property name="solr.dist.dir" value="${dist.exploded.dir}/${solr.dist.relative.dir}"/>
 	<!-- Paths -->
 	<path id="project.classpath">
 		<fileset dir="${lib.dir}">
-			<include name="ivy-*.jar" />
+			<include name="ivy-*.jar"/>
 		</fileset>
 	</path>
 	<path id="common.lib.classpath">
 		<fileset dir="${common.lib.dir}">
-			<include name="**/*.jar" />
+			<include name="**/*.jar"/>
 		</fileset>
 	</path>
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
-		<classpath refid="common.lib.classpath" />
+		<classpath refid="common.lib.classpath"/>
 	</taskdef>
-	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="common.lib.classpath" />
+	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" classpathref="common.lib.classpath"/>
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
 		<classpath>
-			<pathelement path="${common.lib.dir}/xmltask-1.16.1.jar" />
+			<pathelement path="${common.lib.dir}/xmltask-1.16.1.jar"/>
 		</classpath>
 	</taskdef>
-	<taskdef name="svn" classpathref="common.lib.classpath" classname="org.tigris.subversion.svnant.SvnTask" />
+	<taskdef name="svn" classpathref="common.lib.classpath" classname="org.tigris.subversion.svnant.SvnTask"/>
 	<switch value="${database.type}">
 		<case value="oracle">
-			<property name="database.dialect" value="org.hibernate.dialect.OracleDialect" />
-			<property name="database.driver.file" value="${common.resources.dir}/lib/ojdbc14-10.2.0.3.0.jar" />
-			<property name="database.driver" value="oracle.jdbc.driver.OracleDriver" />
-			<property name="database.schema" value="${database.name}" />
+			<property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<property name="database.driver.file" value="${common.resources.dir}/lib/ojdbc14-10.2.0.3.0.jar"/>
+			<property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="database.schema" value="${database.name}"/>
 		</case>
 		<case value="mysql">
-			<property name="database.dialect" value="org.hibernate.dialect.MySQLDialect" />
-			<property name="database.driver.file" value="${common.resources.dir}/lib/mysql-connector-java-5.1.13.jar" />
-			<property name="database.driver" value="com.mysql.jdbc.Driver" />
-			<property name="database.schema" value="${database.name}" />
+			<property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+			<property name="database.driver.file" value="${common.resources.dir}/lib/mysql-connector-java-5.1.13.jar"/>
+			<property name="database.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="database.schema" value="${database.name}"/>
 		</case>
 		<default>
 		</default>
 	</switch>
 	
-	<!-- target starts here -->
+<!-- target starts here -->
 	<target name="clean">
-		<delete dir="${dist.dir}" />
-		<delete dir="${temp.dir}" />
-		<delete dir="${lib.dir}" />
-		<delete dir="${download.dir}" />
-		<delete dir="${target.dir}" />
+		<delete dir="${dist.dir}"/>
+		<delete dir="${temp.dir}"/>
+		<delete dir="${lib.dir}"/>
+		<delete dir="${download.dir}"/>
+		<delete dir="${target.dir}"/>
 	</target>
 	
 	<target name="ivy:clean">
-		<echo message="Deleting ${user.home}/.ivy2-${ant.project.name}-nbia5" />
-		<delete dir="${user.home}/.ivy2-${ant.project.name}5" />
+		<echo message="Deleting ${user.home}/.ivy2-${ant.project.name}-nbia5"/>
+		<delete dir="${user.home}/.ivy2-${ant.project.name}5"/>
 	</target>
 	
 	<target name="init">
-		<mkdir dir="${dist.dir}" />
-		<mkdir dir="${dist.exploded.dir}" />
-		<mkdir dir="${nbia-web.dist.dir}" />
-		<mkdir dir="${db-install.dist.dir}" />
-		<mkdir dir="${db-upgrade.dist.dir}" />
-		<mkdir dir="${tools.dist.dir}" />
-		<mkdir dir="${download.dir}" />
-		<mkdir dir="${lib.dir}" />
+		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${dist.exploded.dir}"/>
+		<mkdir dir="${nbia-web.dist.dir}"/>
+		<mkdir dir="${db-install.dist.dir}"/>
+		<mkdir dir="${db-upgrade.dist.dir}"/>
+		<mkdir dir="${tools.dist.dir}"/>
+		<mkdir dir="${download.dir}"/>
+		<mkdir dir="${lib.dir}"/>
 	</target>
-	
-	
-	<target name="build:nbia:portal:config" description="Builds jboss configuration files for NBIA portal" depends="
-		init">
-	
-		<delete dir="${common.dist.dir}" />
-		
-		<!--copy file="${common.resources.dir}/jboss-conf/ncia-ds.xml" todir="${common.dist.dir}">
-			<filterset>
-				<filter token="database.user" value="${database.user}" />
-				<filter token="database.password" value="${database.password}" />
-				<filter token="database.url" value="${database.url}" />
-				<filter token="database.driver" value="${database.driver}" />
-			</filterset>
-		</copy>
-		
-		<copy file="${common.resources.dir}/jboss-conf/properties-service.xml" todir="${common.dist.dir}" overwrite="true">
-			<filterset>
-				<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}" />
-				<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}" />
-				<filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}" />
-				<filter token="gov.nih.nci.ncia.frontier.http.address" value="${gov.nih.nci.ncia.frontier.http.address}" />
-				<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}" />
-				<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}" />
-				<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}" />
-				<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}" />
-				<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}" />
-				<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}" />
-				<filter token="gov.nih.nci.ncia.jboss.public.url" value="${gov.nih.nci.ncia.jboss.public.url}" />
-				<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}" />
-				<filter token="mail.smtp.server" value="${mail.smtp.server}" />
-				<filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}" />
-				<filter token="enabled_guest_account" value="${enabled_guest_account}" />
-				<filter token="guest_username" value="${guest_username}" />
-				<filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}" />
-				<filter token="enable_classic_download" value="${enable_classic_download}" />
-				<filter token="registration.email.subject" value="${registration.email.subject}" />
-				<filter token="grid.index.url" value="${grid.index.url}" />
-				<filter token="local.grid.uri" value="${local.grid.uri}" />
-				<filter token="discover.remote.nodes" value="${discover.remote.nodes}" />
-				<filter token="database.type" value="${database.type}" />
-				<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}" />
-				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
-				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
-				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
-				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" />
-				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
-				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
-				<filter token="application.context.name" value="${application.context.name}"/>
-			</filterset>
-		</copy-->
-		
-	 <!--copy file="${common.resources.dir}/jboss-conf/server.xml" tofile="${common.dist.dir}/server.xml">
-			<filterset>
-				<filter token="nbia.portal.jboss.home" value="${nbia.portal.jboss.home}" />
-				<filter token="jboss.server.name" value="${nbia.portal.jboss.server.name}" />
-			</filterset>
-		</copy-->
-		
-		<!--copy file="${common.resources.dir}/jboss-conf/login-config.xml" todir="${common.dist.dir}">
-		</copy-->
-		<!--replaceregexp match="\&lt;/policy\&gt;" replace="" flags="gm">
-			<fileset file="${common.dist.dir}/login-conf.xml" includes="*" />
-		</replaceregexp-->
-		<!-- switch for db or ldap -->
-		<!--if>
-				<equals arg1="${authentication.type}" arg2="ldap"/>
-				<then>
-					<copy file="${common.resources.dir}/jboss-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
-						<filterset>
-							<filter token="application.context.name" value="${application.context.name}" />
-							<filter token="ldap.url" value="${ldap.url}" />
-							<filter token="ldap.basedn" value="${ldap.basedn}" />
-						</filterset>
-					</copy>
-				</then>
-				<else>
-					<copy file="${common.resources.dir}/jboss-conf/login-config.db-block.xml" tofile="${common.dist.dir}/login-config.block.xml">
-						<filterset>
-							<filter token="application.context.name" value="${application.context.name}" />
-							<filter token="database.user" value="${database.user}" />
-							<filter token="database.password" value="${database.password}" />
-							<filter token="database.url" value="${database.url}" />
-							<filter token="database.driver" value="${database.driver}" />
-						</filterset>
-					</copy>
-				</else>
-			</if-->
-		<!--concat destfile="${common.dist.dir}/login-config.xml" append="true">
-			<filelist dir="${common.dist.dir}" files="login-config.block.xml" />
-		</concat>
-		<delete file="${common.dist.dir}/login-config.block.xml" /-->
-		<!--  switch for db or ldap -->
-		<concat destfile="${common.dist.dir}/login-config.xml" append="true">&lt;/policy&gt;</concat>
-
-		<!--- customize jboss-log4j.xml -->
-		<!--copy file="${common.resources.dir}/jboss-conf/jboss-log4j.xml.nci" tofile="${common.dist.dir}/jboss-log4j.xml" />
-		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^(&lt;!DOCTYPE.*)" replace="&lt;!\-\-\1\-\-&gt;" />
-		<xmltask preservetype="true" failWithoutMatch="true" source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
-			<remove path="/log4j:configuration/appender[@class='org.jboss.logging.appender.DailyRollingFileAppender']" />
-		</xmltask>
-		<xmltask preservetype="true" failWithoutMatch="true" source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
-			<insert path="log4j:configuration/appender[@class='org.apache.log4j.ConsoleAppender']" position="before">
-				<![CDATA[
-				-->			<!-- NCI Additions --> 
-				<!-- A size based file rolling appender --> <!--
-				<appender name="FILE" class="org.jboss.logging.appender.RollingFileAppender">
-					<errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/>
-					<param name="File" value="${jboss.server.log.dir}/server.log"/>
-					<param name="Append" value="True"/>
-					<param name="MaxFileSize" value="${log4j.maxFileSize}"/>
-					<param name="MaxBackupIndex" value="${log4j.maxDays}"/>
-					<layout class="org.apache.log4j.PatternLayout">
-						<param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
-					</layout>
-				</appender>
-							]]>
-						</insert>
-		</xmltask-->
-		<!--xmltask source="${common.dist.dir}/jboss-log4j.xml" dest="${common.dist.dir}/jboss-log4j.xml">
-			<insert path="/log4j:configuration/root" position="before" file="${common.resources.dir}/jboss-conf/log4j.block.xml" />
-		</xmltask-->
-		<!--replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^&lt;!\-\-(&lt;!DOCTYPE.*)\-\-&gt;" replace="\1" /-->
-		<replaceregexp file="${common.dist.dir}/jboss-log4j.xml" byline="true" match="^(&lt;log4j:configuration.*)" replace="\1${line.separator}&lt;!-- NCI Additions --&gt;" />
-		
-
-		<!-- need to replace the ports-->
-		<!--copy file="${common.resources.dir}/jboss-conf/bindings-jboss-beans.xml" todir="${common.dist.dir}">
-		<filterset>
-							<filter token="jboss.server.jndi.port" value="${jboss.server.jndi.port}" />
-							<filter token="jboss.server.rmi.port" value="${jboss.server.rmi.port}" />
-							<filter token="jboss.web.service.port" value="${jboss.web.service.port}" />
-							<filter token="jboss.service.rmiobject.port" value="${jboss.service.rmiobject.port}" />
-							<filter token="jboss.server.bind.port" value="${jboss.server.bind.port}" />
-							<filter token="jboss.hajndi.port" value="${jboss.hajndi.port}" />
-							<filter token="jboss.hajrmi.port" value="${jboss.hajrmi.port}" />
-							<filter token="jboss.service.rmiobject.port" value="${jboss.service.rmiobject.port}" />
-							<filter token="jboss.pooledha.port" value="${jboss.pooledha.port}" />
-							<filter token="jboss.cobraorb.port" value="${jboss.cobraorb.port}" />
-							<filter token="jboss.snmp-trapd.port" value="${jboss.snmp-trapd.port}" />
-							<filter token="jboss.snmp.port" value="${jboss.snmp.port}" />
-							<filter token="jboss.jmx-rmi.port" value="${jboss.jmx-rmi.port}" />
-							<filter token="jboss.server.port" value="${jboss.server.port}" />
-							<filter token="jboss.jms.port" value="${jboss.jms.port}" />
-			</filterset>
-		</copy-->
-		
-		<!--copy file="${common.resources.dir}/jboss-conf/destinations-service.xml" todir="${common.dist.dir}">
-		</copy>
-	
-		<copy file="${common.resources.dir}/jboss-conf/ejb3-connectors-jboss-beans.xml" todir="${common.dist.dir}">
-		<filterset>
-				<filter token="jboss.ejbinvoker.port" value="${jboss.ejbinvoker.port}" />
-		</filterset>
-		</copy>
-		<copy file="${common.resources.dir}/jboss-conf/jboss-web.xml" todir="${common.dist.dir}">
-		</copy>
-		<copy file="${common.resources.dir}/jboss-conf/DataSourceItem.xml" todir="${common.dist.dir}">
-		</copy>
-		<copy file="${common.resources.dir}/jboss-conf/relationship.xml" todir="${common.dist.dir}">
-		</copy>
-		<copy file="${common.resources.dir}/lib/mysql-connector-java-5.1.13.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/ojdbc14-10.2.0.3.0.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/puretls.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/bcprov-ext-jdk15on-1.47.jar" todir="${common.dist.dir}" />
-		<copy file="${common.resources.dir}/lib/bcprov-jdk15on-1.47.jar" todir="${common.dist.dir}" /-->
-	</target>
-	
 	
 	<target name="build:all" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 		clean,
@@ -348,25 +177,26 @@ L-->
 	
 	<target name="build:nbia-domain" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-domain.build.target}" dir="${nbia-domain.base.dir}">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
+	
 	<target name="build:nbia-util" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="run" dir="${nbia-util.base.dir}">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
 	
 	<target name="build:nbia-services-grid" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-services-grid.build.target}" dir="${nbia-services-grid.base.dir}">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
 	
 	<target name="build:nbia-dao" depends="init,
                                                build:nbia-util,
                                                build:nbia-services-grid,
-                                               build:nbia-domain">                             
+                                               build:nbia-domain">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-dao.build.target}" dir="${nbia-dao.base.dir}">
 			<property name="database.driver" value="${database.driver}"/>
 			<property name="database.dialect" value="${database.dialect}"/>
@@ -376,26 +206,28 @@ L-->
 	
 	<!-- rewrite the code since github does not support $headURL$ so whenever to display tag in home page build with '-Dnbia_prod_build_tag=value' to diplay on home page -->
 	<target name="compute-tag-properties">
-	   <if>
-             <and>
-               <isset property="nbia_prod_build_tag" />
-               <not> <equals arg1="${nbia_prod_build_tag}" arg2="master"/></not> 
-             </and>              
-	     <then>
-		  <property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
-		  <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-	      </then>
-	      <else>
-		 <property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
-		 <echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
-	     </else>
-	   </if>    
-	   <echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+		<if>
+			<and>
+				<isset property="nbia_prod_build_tag"/>
+				<not>
+					<equals arg1="${nbia_prod_build_tag}" arg2="master"/>
+				</not>
+			</and>
+			<then>
+				<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag}"/>
+				<echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+			</then>
+			<else>
+				<property name="nbia_prod_build_tag.final" value="dev-snapshot ${DSTAMP} ${TSTAMP}"/>
+				<echo message="!!!  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
+			</else>
+		</if>
+		<echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
 	</target>
 	
 	<target name="dist:tools:retrieve:jai">
-		<get src="${jai.linux.src.url}" dest="${jai.linux.dest.file}" />
-		<get src="${jai.windows.src.url}" dest="${jai.windows.dest.file}" />
+		<get src="${jai.linux.src.url}" dest="${jai.linux.dest.file}"/>
+		<get src="${jai.windows.src.url}" dest="${jai.windows.dest.file}"/>
 	</target>
 	
 	<target name="build:nbia-ctp" depends="init,
@@ -403,143 +235,143 @@ L-->
                                          build:nbia-domain,
                                          compute-tag-properties">
 		<!-- so we don't modify ncia-ctp directory and leave little pieces of poo that can be committed later by unsuspecting or uncaring people -->
-		<mkdir dir="../nbia-ctp-working" />
+		<mkdir dir="../nbia-ctp-working"/>
 		<copy todir="../nbia-ctp-working">
-			<fileset dir="../nbia-ctp" />
+			<fileset dir="../nbia-ctp"/>
 		</copy>
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-ctp.build.target}" dir="${nbia-ctp.base.dir}">
-			<property name="project.name" value="${project.name}" />
-			<property name="nbia.version" value="${nbia.version}" />
-			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
-			<property name="database.user" value="${database.user}" />
-			<property name="database.password" value="${database.password}" />
-			<property name="database.system.user" value="${database.system.user}" />
-			<property name="database.system.password" value="${database.system.password}" />
-			<property name="database.url" value="${database.url}" />
-			<property name="database.driver" value="${database.driver}" />
-			<property name="database.dialect" value="${database.dialect}" />
-			<property name="database.type" value="${database.type}" />
+			<property name="project.name" value="${project.name}"/>
+			<property name="nbia.version" value="${nbia.version}"/>
+			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
+			<property name="database.user" value="${database.user}"/>
+			<property name="database.password" value="${database.password}"/>
+			<property name="database.system.user" value="${database.system.user}"/>
+			<property name="database.system.password" value="${database.system.password}"/>
+			<property name="database.url" value="${database.url}"/>
+			<property name="database.driver" value="${database.driver}"/>
+			<property name="database.dialect" value="${database.dialect}"/>
+			<property name="database.type" value="${database.type}"/>
 		</ant>
-		<mkdir dir="${nbia-ctp.dist.dir}" />
+		<mkdir dir="${nbia-ctp.dist.dir}"/>
 		<copy todir="${nbia-ctp.dist.dir}">
 			<fileset dir="${nbia-ctp.artifact.dir}">
-				<include name="CTP-installer.jar" />
+				<include name="CTP-installer.jar"/>
 			</fileset>
 		</copy>
 		<copy todir="${nbia-ctp.dist.dir}/FileSender">
-			<fileset dir="${nbia-ctp.base.dir}/FileSender" />
+			<fileset dir="${nbia-ctp.base.dir}/FileSender"/>
 		</copy>
 		<!--copy todir="${nbia-ctp.dist.dir}">
 			<fileset file="${nbia-ctp.base.dir}/target/nbiaDatabaseUpdator.jar" />
 		</copy>
 		<copy file="${nbia-ctp.base.dir}/target/dbupdator.sh" todir="${nbia-ctp.dist.dir}"/-->
-		<delete dir="../nbia-ctp-working" />
+		<delete dir="../nbia-ctp-working"/>
 	</target>
-
+	
 	<target name="dist:ctp-client" description="build and configure ctp client" depends="build:nbia-ctp">
-		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Client" />
-		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Client/CTP/logs" />
-		<unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar" dest="${nbia-ctp.dist.dir}/CTP_Client" />
+		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Client"/>
+		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Client/CTP/logs"/>
+		<unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar" dest="${nbia-ctp.dist.dir}/CTP_Client"/>
 		<!-- copy common files to the client -->
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Client/CTP">
 			<fileset dir="${common.dir}/resources/ctp/client">
-				<include name="ctp.*" />
+				<include name="ctp.*"/>
 			</fileset>
 		</copy>
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Client/CTP/examples" overwrite="true">
 			<fileset dir="${common.dir}/resources/ctp/client">
-				<include name="example*" />
+				<include name="example*"/>
 			</fileset>
 		</copy>
 		<copy file="${common.dir}/resources/ctp/client/users.xml" todir="${nbia-ctp.dist.dir}/CTP_Client/CTP">
 			<filterset>
-				<filter token="ctp.client.admin.username" value="${ctp.client.admin.username}" />
-				<filter token="ctp.client.admin.password" value="${ctp.client.admin.password}" />
-				<filter token="ctp.client.king.username" value="${ctp.client.king.username}" />
-				<filter token="ctp.client.king.password" value="${ctp.client.king.password}" />
+				<filter token="ctp.client.admin.username" value="${ctp.client.admin.username}"/>
+				<filter token="ctp.client.admin.password" value="${ctp.client.admin.password}"/>
+				<filter token="ctp.client.king.username" value="${ctp.client.king.username}"/>
+				<filter token="ctp.client.king.password" value="${ctp.client.king.password}"/>
 			</filterset>
 		</copy>
 		<copy file="${common.dir}/resources/ctp/client/config-block.xml" tofile="${nbia-ctp.dist.dir}/CTP_Client/CTP/config.xml">
 			<filterset>
-				<filter token="ctp.client.port" value="${ctp.client.port}" />
-				<filter token="ctp.client.http_import_service.port" value="${ctp.client.http_import_service.port}" />
-				<filter token="ctp.server.verifier.port" value="${ctp.server.verifier.port}" />
-				<filter token="ctp.server.http_import_service.port" value="${ctp.server.http_import_service.port}" />
-				<filter token="ctp.client.dicom_import_service.port" value="${ctp.client.dicom_import_service.port}" />
-				<filter token="ctp.client.exportService.username" value="${ctp.client.exportService.username}" />
-				<filter token="ctp.client.exportService.password" value="${ctp.client.exportService.password}" />
+				<filter token="ctp.client.port" value="${ctp.client.port}"/>
+				<filter token="ctp.client.http_import_service.port" value="${ctp.client.http_import_service.port}"/>
+				<filter token="ctp.server.verifier.port" value="${ctp.server.verifier.port}"/>
+				<filter token="ctp.server.http_import_service.port" value="${ctp.server.http_import_service.port}"/>
+				<filter token="ctp.client.dicom_import_service.port" value="${ctp.client.dicom_import_service.port}"/>
+				<filter token="ctp.client.exportService.username" value="${ctp.client.exportService.username}"/>
+				<filter token="ctp.client.exportService.password" value="${ctp.client.exportService.password}"/>
 			</filterset>
 		</copy>
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/org" />
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/META-INF" />
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/config" />
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/org"/>
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/META-INF"/>
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/config"/>
 		<!-- copy and configure FileSender files -->
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Client/FileSender">
-			<fileset dir="${nbia-ctp.dist.dir}/FileSender" />
+			<fileset dir="${nbia-ctp.dist.dir}/FileSender"/>
 		</copy>
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Client/FileSender">
 			<fileset dir="${common.dir}/resources/ctp/client">
-				<include name="filesender.*" />
+				<include name="filesender.*"/>
 			</fileset>
 		</copy>
 		<copy file="${common.dir}/resources/ctp/client/FileSender.properties" todir="${nbia-ctp.dist.dir}/CTP_Client/FileSender" overwrite="Yes">
 			<filterset>
-				<filter token="ctp.client.http_import_service.port" value="${ctp.client.http_import_service.port}" />
+				<filter token="ctp.client.http_import_service.port" value="${ctp.client.http_import_service.port}"/>
 			</filterset>
 		</copy>
 		<!-- zip up -->
 		<zip update="false" destfile="${nbia-ctp.dist.dir}/CTP_Client.zip">
-			<zipfileset dir="${nbia-ctp.dist.dir}/CTP_Client/" />
+			<zipfileset dir="${nbia-ctp.dist.dir}/CTP_Client/"/>
 		</zip>
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/" />
-		<delete dir="${nbia-ctp.dist.dir}/FileSender" />
-		<delete dir="${nbia-ctp.dist.dir}/CTP-installer.jar" />
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/"/>
+		<delete dir="${nbia-ctp.dist.dir}/FileSender"/>
+		<delete dir="${nbia-ctp.dist.dir}/CTP-installer.jar"/>
 	</target>
 	
 	<target name="dist:ctp-server" description="build and configure ctp server" depends="build:nbia-ctp, dist:tools:retrieve:jai">
-		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server" />
-		<unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar" dest="${nbia-ctp.dist.dir}/CTP_Server" />
+		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server"/>
+		<unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar" dest="${nbia-ctp.dist.dir}/CTP_Server"/>
 		<!-- after unzipping CTP, move the users.xml back on top -->
 		<copy file="${common.dir}/resources/ctp/server/users.xml" todir="${nbia-ctp.dist.dir}/CTP_Server/CTP">
 			<filterset>
-				<filter token="ctp.server.admin.username" value="${ctp.server.admin.username}" />
-				<filter token="ctp.server.admin.password" value="${ctp.server.admin.password}" />
-				<filter token="ctp.server.king.username" value="${ctp.server.king.username}" />
-				<filter token="ctp.server.king.password" value="${ctp.server.king.password}" />
+				<filter token="ctp.server.admin.username" value="${ctp.server.admin.username}"/>
+				<filter token="ctp.server.admin.password" value="${ctp.server.admin.password}"/>
+				<filter token="ctp.server.king.username" value="${ctp.server.king.username}"/>
+				<filter token="ctp.server.king.password" value="${ctp.server.king.password}"/>
 			</filterset>
 		</copy>
 		<copy file="${common.dir}/resources/ctp/server/Launcher.properties" todir="${nbia-ctp.dist.dir}/CTP_Server/CTP"/>
 		<copy file="${common.dir}/resources/ctp/server/config-block.xml" tofile="${nbia-ctp.dist.dir}/CTP_Server/CTP/config.xml">
 			<filterset>
-				<filter token="ctp.server.port" value="${ctp.server.port}" />
-				<filter token="ctp.server.http_import_service.port" value="${ctp.server.http_import_service.port}" />
-				<filter token="ctp.server.require_authentication" value="${ctp.server.require_authentication}" />
-				<filter token="ctp.server.storage_service.root" value="${ctp.server.storage_service.root}" />
-				<filter token="ctp.server.storage_service.index" value="${ctp.server.storage_service.index}" />
-				<filter token="ctp.server.verifier.port" value="${ctp.server.verifier.port}" />
+				<filter token="ctp.server.port" value="${ctp.server.port}"/>
+				<filter token="ctp.server.http_import_service.port" value="${ctp.server.http_import_service.port}"/>
+				<filter token="ctp.server.require_authentication" value="${ctp.server.require_authentication}"/>
+				<filter token="ctp.server.storage_service.root" value="${ctp.server.storage_service.root}"/>
+				<filter token="ctp.server.storage_service.index" value="${ctp.server.storage_service.index}"/>
+				<filter token="ctp.server.verifier.port" value="${ctp.server.verifier.port}"/>
 			</filterset>
 		</copy>
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Server/CTP">
 			<fileset dir="${common.dir}/resources/ctp/server">
-				<include name="ctp.*" />
+				<include name="ctp.*"/>
 			</fileset>
 		</copy>
 		<copy todir="${nbia-ctp.dist.dir}/CTP_Server/CTP/examples" overwrite="true">
 			<fileset dir="${common.dir}/resources/ctp/server">
-				<include name="example*" />
+				<include name="example*"/>
 			</fileset>
 		</copy>
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/org" />
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/META-INF" />
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/config" />
-		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/logs" />
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/org"/>
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/META-INF"/>
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/config"/>
+		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/logs"/>
 		<!-- for default index dir -->
-		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/index" />
-		<osfamily property="os.type" />
+		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/index"/>
+		<osfamily property="os.type"/>
 		<switch value="${os.type}">
 			<case value="unix">
-				<property name="jai.classpath" value="${jai.linux.binaries.relative.dir}/lib/" />
-				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.linux.binaries.file}" />
+				<property name="jai.classpath" value="${jai.linux.binaries.relative.dir}/lib/"/>
+				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.linux.binaries.file}"/>
 				<!--echo file="${ctp.server.home}/CTP/ctp.sh">
         <![CDATA[
 #!/bin/sh
@@ -548,8 +380,8 @@ nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$
         </echo-->
 			</case>
 			<case value="windows">
-				<property name="jai.classpath" value="${jai.windows.binaries.relative.dir}/lib/" />
-				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.windows.binaries.file}" />
+				<property name="jai.classpath" value="${jai.windows.binaries.relative.dir}/lib/"/>
+				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.windows.binaries.file}"/>
 				<!--property name="jai.classpath"
                   value="${ctp.server.home}/${jai.windows.binaries.relative.dir}/lib/"/>
 
@@ -561,134 +393,115 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
         </echo-->
 			</case>
 			<default>
-				<echo message="${os.type} has no match." />
+				<echo message="${os.type} has no match."/>
 			</default>
 		</switch>
 		<zip update="false" destfile="${nbia-ctp.dist.dir}/CTP_Server.zip">
-			<zipfileset dir="${nbia-ctp.dist.dir}/CTP_Server/" />
+			<zipfileset dir="${nbia-ctp.dist.dir}/CTP_Server/"/>
 		</zip>
-		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/" />
-		<delete dir="${nbia-ctp.dist.dir}/FileSender" />
-		<delete dir="${nbia-ctp.dist.dir}/CTP-installer.jar" />
+		<delete dir="${nbia-ctp.dist.dir}/CTP_Server/"/>
+		<delete dir="${nbia-ctp.dist.dir}/FileSender"/>
+		<delete dir="${nbia-ctp.dist.dir}/CTP-installer.jar"/>
 	</target>
+	
 	<target name="build:nbia-services-commons" depends="init,
                                                       build:nbia-util,
                                                       build:nbia-services-grid,
                                                       build:nbia-dao">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-services-commons.build.target}" dir="${nbia-services-commons.base.dir}">
-			<property name="project.name" value="${project.name}" />
-			<!--property name="database.type" value="${database.type}"/>
-      <property name="database.user" value="${database.user}"/>
-      <property name="database.password" value="${database.password}"/>
-      <property name="database.system.user" value="${database.system.user}"/>
-      <property name="database.system.password" value="${database.system.password}"/>
-      <property name="database.url" value="${database.url}"/>
-      <property name="database.dialect" value="${database.dialect}"/>
-      <property name="database.driver" value="${database.driver}"/-->
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
+	
 	<target name="build:nbia-download" depends="init,
                    build:nbia-dao, build:nbia-services-commons">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-download.build.target}" dir="${nbia-download.base.dir}">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
+	
 	<target name="build:nbia-download-manager" depends="init,
                    build:nbia-services-commons">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-download-manager.build.target}" dir="${nbia-download-manager.base.dir}">
-			<property name="project.name" value="${project.name}" />
-			<property name="jar-signing.keystore.location" value="${jar-signing.keystore.location}" />
-			<property name="jar-signing.keystore.password" value="${jar-signing.keystore.password}" />
-			<property name="jar-signing.keystore.alias" value="${jar-signing.keystore.alias}" />
-			<property name="jar-signing.execution.time" value="${jar-signing.execution.time}" />
+			<property name="project.name" value="${project.name}"/>
+			<property name="jar-signing.keystore.location" value="${jar-signing.keystore.location}"/>
+			<property name="jar-signing.keystore.password" value="${jar-signing.keystore.password}"/>
+			<property name="jar-signing.keystore.alias" value="${jar-signing.keystore.alias}"/>
+			<property name="jar-signing.execution.time" value="${jar-signing.execution.time}"/>
 			<!-- Need absolution location, relative path would fail in sub-project since file would not exist -->
-			<property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}" />
-			<property name="nbia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" />
+			<property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}"/>
+			<property name="nbia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
 		</ant>
 	</target>
+	
 	<!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
 	<target name="-build:imagezipping-mdb" depends="init,
                    build:nbia-services-commons">
 		<ant inheritAll="false" inheritRefs="false" antfile="build.xml" target="run" dir="${image-zipping-mdb.base.dir}">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
+	
 	<target name="keygen">
 		<sequential>
 			<tstamp>
-				<format property="install.time" pattern="yyyy-MM-dd-HH-mm-ss" />
+				<format property="install.time" pattern="yyyy-MM-dd-HH-mm-ss"/>
 			</tstamp>
 			<if>
-				<equals arg1="${jar-signing.generate-selfsigned}" arg2="true" />
+				<equals arg1="${jar-signing.generate-selfsigned}" arg2="true"/>
 				<then>
-					<echo message="Generating self-signed certificate for use with jar signing." />
+					<echo message="Generating self-signed certificate for use with jar signing."/>
 					<if>
-						<available file="${jar-signing.keystore.location}" />
+						<available file="${jar-signing.keystore.location}"/>
 						<then>
-							<move file="${jar-signing.keystore.location}" tofile="${jar-signing.keystore.location}-${install.time}" />
+							<move file="${jar-signing.keystore.location}" tofile="${jar-signing.keystore.location}-${install.time}"/>
 						</then>
 					</if>
 					<genkey alias="${jar-signing.keystore.alias}" storepass="${jar-signing.keystore.password}" keystore="${jar-signing.keystore.location}" validity="1825">
 						<dname>
-							<param name="CN" value="${jar-signing.keystore.cert.cn}" />
-							<param name="OU" value="${jar-signing.keystore.cert.ou}" />
-							<param name="O" value="${jar-signing.keystore.cert.o}" />
-							<param name="C" value="${jar-signing.keystore.cert.c}" />
+							<param name="CN" value="${jar-signing.keystore.cert.cn}"/>
+							<param name="OU" value="${jar-signing.keystore.cert.ou}"/>
+							<param name="O" value="${jar-signing.keystore.cert.o}"/>
+							<param name="C" value="${jar-signing.keystore.cert.c}"/>
 						</dname>
 					</genkey>
 				</then>
 				<else>
-					<echo message="Using existing certificate for jar signing." />
+					<echo message="Using existing certificate for jar signing."/>
 				</else>
 			</if>
-			<!--verify-jar-signing-keystore
-				jar-signing.keystore.abs-location="${jar-signing.keystore.location}"
-				jar-signing.keystore.password="${jar-signing.keystore.password}"
-				jar-signing.keystore.alias="${jar-signing.keystore.alias}"
-				jar-signing.keystore.cert.cn="$jar-signing.keystore.cert.cn}"
-				jar-signing.keystore.cert.ou="$jar-signing.keystore.cert.ou}"
-				jar-signing.keystore.cert.o="$jar-signing.keystore.cert.o}"
-				jar-signing.keystore.cert.c="$jar-signing.keystore.cert.c}"
-				/-->
 			<sequential>
 				<if>
-					<available file="${jar-signing.keystore.location}" />
+					<available file="${jar-signing.keystore.location}"/>
 					<then>
-						<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-						<echo message="Found signing jar file at ${jar-signing.keystore.location}, validating." />
-						<basename file="${jar-signing.keystore.location}" property="jar-signing.keystore.file" />
-						<dirname file="${jar-signing.keystore.location}" property="jar-signing.keystore.dir" />
-						<!--verify-keystore
-						appserver.ssl.enable="true"
-						appserver.ssl.keystore.file="${jar-signing.keystore.file}"
-						appserver.ssl.keystore.dir="${jar-signing.keystore.dir}"
-						appserver.ssl.keystore.pass="${jar-signing.keystore.password}"
-						appserver.ssl.keystore.alias="${jar-signing.keystore.alias}"
-						appserver.ssl.fullyqualified.hostname=""
-						verify.url="false"
-						/-->
+						<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"/>
+						<echo message="Found signing jar file at ${jar-signing.keystore.location}, validating."/>
+						<basename file="${jar-signing.keystore.location}" property="jar-signing.keystore.file"/>
+						<dirname file="${jar-signing.keystore.location}" property="jar-signing.keystore.dir"/>
 					</then>
 					<else>
-						<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" />
-						<echo message="Signing jar file at${jar-signing.keystore.location} not found, skipping validation." />
+						<echo message="$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"/>
+						<echo message="Signing jar file at${jar-signing.keystore.location} not found, skipping validation."/>
 					</else>
 				</if>
 			</sequential>
 		</sequential>
 	</target>
+	
 	<!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
 	<target name="-build:image-deletion-mdb" depends="init,
                    build:nbia-services-commons">
 		<ant inheritAll="false" inheritRefs="false" antfile="build.xml" target="run" dir="${image-deletion-mdb.base.dir}">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
 	
 	<target name="build:nbia-liquibase" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="run" dir="../nbia-liquibase">
-			<property name="project.name" value="${project.name}" />
+			<property name="project.name" value="${project.name}"/>
 		</ant>
 	</target>
+	
 	<target name="build:nbia-web" depends="init,
                    build:nbia-services-commons,
 		   build:nbia-download-manager,
@@ -698,42 +511,41 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
                    -build:imagezipping-mdb">
 		<copy todir="${target.dir}/dist/exploded/nbia-download-manager">
 			<fileset dir="${lib.dir}/nbia-download-manager/runtime">
-				<include name="*.jar" />
+				<include name="*.jar"/>
 			</fileset>
 		</copy>
-		<echoproperties prefix="jar-signing" />
+		<echoproperties prefix="jar-signing"/>
 		<if>
-			<equals arg1="${jar-signing.execution.time}" arg2="build" />
+			<equals arg1="${jar-signing.execution.time}" arg2="build"/>
 			<then>
 				<!--unsignjar jar="${target.dir}/dist/exploded/nbia-download-manager/bouncycastle-jdk1.3_1.25.jar"/-->
-				<echo message="jar-signing.execution.time set to build, signing jars" />
-		
+				<echo message="jar-signing.execution.time set to build, signing jars"/>
 				<!--comma-separated-file-list directory.to.list="${target.dir}/dist/exploded/nbia-download-manager"
                                    property.name.to.set="jar-signing.jar.list"/-->
 				<for param="jar">
 					<path>
-						<fileset dir="${target.dir}/dist/exploded/nbia-download-manager" includes="*" />
+						<fileset dir="${target.dir}/dist/exploded/nbia-download-manager" includes="*"/>
 					</path>
 					<sequential>
-						<var name="just.jar.filename" unset="true" />
-						<basename property="just.jar.filename" file="@{jar}" />
-						<echo message="---------------------------------------------------------------------------------------------------------------------------" />
-						<echo message="${just.jar.filename}" />
+						<var name="just.jar.filename" unset="true"/>
+						<basename property="just.jar.filename" file="@{jar}"/>
+						<echo message="---------------------------------------------------------------------------------------------------------------------------"/>
+						<echo message="${just.jar.filename}"/>
 						<echo message="modifying manifest first because of Java 7 changes"/>
 						<jar file="${target.dir}/dist/exploded/nbia-download-manager/${just.jar.filename}" update="true">
-						            <manifest>
-						            	<attribute name="Application-Name" value="NBIA Download Manager"/>
-						                <attribute name="Codebase" value="${jar.manifest.secure.attribute.Codebase}"/>
-						                <attribute name="Permissions" value="${jar.manifest.secure.attribute.Permissions}"/>
-						                <attribute name="Application-Library-Allowable-Codebase" value="${jar.manifest.secure.attribute.Application-Library-Allowable-Codebase}"/>
-						                <attribute name="Caller-Allowable-Codebase" value="${jar.manifest.secure.attribute.Caller-Allowable-Codebase}"/>
-						                <attribute name="Trusted-Only" value="${jar.manifest.secure.attribute.Trusted-Only}"/>
-						                <attribute name="Trusted-Library" value="${jar.manifest.secure.attribute.Trusted-Library}"/>
-						            </manifest>
-        					</jar>						
+							<manifest>
+								<attribute name="Application-Name" value="NBIA Download Manager"/>
+								<attribute name="Codebase" value="${jar.manifest.secure.attribute.Codebase}"/>
+								<attribute name="Permissions" value="${jar.manifest.secure.attribute.Permissions}"/>
+								<attribute name="Application-Library-Allowable-Codebase" value="${jar.manifest.secure.attribute.Application-Library-Allowable-Codebase}"/>
+								<attribute name="Caller-Allowable-Codebase" value="${jar.manifest.secure.attribute.Caller-Allowable-Codebase}"/>
+								<attribute name="Trusted-Only" value="${jar.manifest.secure.attribute.Trusted-Only}"/>
+								<attribute name="Trusted-Library" value="${jar.manifest.secure.attribute.Trusted-Library}"/>
+							</manifest>
+						</jar>
 						<signjar destDir="${target.dir}/dist/exploded/nbia-download-manager" alias="${jar-signing.keystore.alias}" keystore="${jar-signing.keystore.location}" storepass="${jar-signing.keystore.password}" keypass="${jar-signing.keystore.password}" lazy="true">
 							<path>
-								<fileset dir="${target.dir}/dist/exploded/nbia-download-manager" includes="${just.jar.filename}" />
+								<fileset dir="${target.dir}/dist/exploded/nbia-download-manager" includes="${just.jar.filename}"/>
 							</path>
 						</signjar>
 					</sequential>
@@ -741,19 +553,19 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<!--sign-jars jars.dir="${target.dir}/dist/exploded/nbia-download-manager"/-->
 			</then>
 			<else>
-				<echo message="jar-signing.execution.time not set to build, not signing jars" />
+				<echo message="jar-signing.execution.time not set to build, not signing jars"/>
 			</else>
 		</if>
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-web.build.target}" dir="${nbia-web.base.dir}">
-			<property name="project.name" value="${project.name}" />
-			<property name="nbia.version" value="${nbia.version}" />
-			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}" />
-			<property name="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" />
+			<property name="project.name" value="${project.name}"/>
+			<property name="nbia.version" value="${nbia.version}"/>
+			<property name="nbia_prod_build_tag.final" value="${nbia_prod_build_tag.final}"/>
+			<property name="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
 			<!--property name="nbia.wiki.user.guide.url" value="${nbia.wiki.user.guide.url}" /-->
 		</ant>
 	</target>
 	
-<target name="-branding">
+	<target name="-branding">
 		<!-- Clean up working area -->
 		<delete dir="${target.dir}/temp/nbia-ear"/>
 		<delete dir="${target.dir}/temp/nbia-war"/>
@@ -920,31 +732,31 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	</target>
 	
 	<target name="build:db:new" depends="build:nbia-liquibase" description="Create new database ">
-		<echoproperties prefix="database" />
+		<echoproperties prefix="database"/>
 		<path id="liquibase_stuff">
-			<pathelement location="${dist.exploded.dir}/nbia-liquibase/nbia-liquibase.jar" />
-			<pathelement location="${target.dir}/lib/nbia-liquibase/compile/liquibase-core-1.9.3.jar" />
-			<pathelement location="${database.driver.file}" />
+			<pathelement location="${dist.exploded.dir}/nbia-liquibase/nbia-liquibase.jar"/>
+			<pathelement location="${target.dir}/lib/nbia-liquibase/compile/liquibase-core-1.9.3.jar"/>
+			<pathelement location="${database.driver.file}"/>
 		</path>
-		<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${dist.exploded.dir}/nbia-liquibase/ant-classloadertask-1.0-RC2.jar" />
-		<classloader loader="project" classpathref="liquibase_stuff" />
+		<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${dist.exploded.dir}/nbia-liquibase/ant-classloadertask-1.0-RC2.jar"/>
+		<classloader loader="project" classpathref="liquibase_stuff"/>
 		<taskdef resource="liquibasetasks.properties">
-			<classpath refid="liquibase_stuff" />
+			<classpath refid="liquibase_stuff"/>
 		</taskdef>
 		<copy todir="${db-install.dist.dir}" overwrite="true">
 			<fileset dir="${db-install.src.dir}/${database.type}">
-				<include name="**/*.sql" />
+				<include name="**/*.sql"/>
 			</fileset>
 		</copy>
-		<echo message="Dropping database objects" />
-		<dropAllDatabaseObjects driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" classpathref="liquibase_stuff" defaultSchemaName="${database.schema}" />
+		<echo message="Dropping database objects"/>
+		<dropAllDatabaseObjects driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" classpathref="liquibase_stuff" defaultSchemaName="${database.schema}"/>
 		<switch value="${database.type}">
 			<case value="oracle">
 				<for list="${db.install.create.oracle.file.list}" param="db.install.file">
 					<sequential>
 						<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db-install.dist.dir}/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="row" keepformat="true">
 							<classpath>
-								<pathelement location="${database.driver.file}" />
+								<pathelement location="${database.driver.file}"/>
 							</classpath>
 						</sql>
 					</sequential>
@@ -955,22 +767,22 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 					<sequential>
 						<sql driver="${database.driver}" url="${database.url}" userid="${database.user}" password="${database.password}" src="${db-install.dist.dir}/@{db.install.file}" onerror="abort" autocommit="true" delimiter=";" delimitertype="normal" keepformat="true">
 							<classpath>
-								<pathelement location="${database.driver.file}" />
+								<pathelement location="${database.driver.file}"/>
 							</classpath>
 						</sql>
 					</sequential>
 				</for>
 			</case>
 		</switch>
-		<antcall target="build:db:update" />
+		<antcall target="build:db:update"/>
 		<if>
-			<isset property="database.release.version" />
+			<isset property="database.release.version"/>
 			<then>
 				<tagDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" defaultSchemaName="${database.schema}" tag="${database.release.version}">
 				</tagDatabase>
 			</then>
 			<else>
-				<fail message="Variable database.release.version must be set for possible future rolllback." />
+				<fail message="Variable database.release.version must be set for possible future rolllback."/>
 			</else>
 		</if>
 		<!-- should be part of the new database creation script TBD -->
@@ -978,314 +790,270 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	</target>
 	
 	<target name="build:db:update" description="Update database">
-		<echoproperties prefix="database" />
+		<echoproperties prefix="database"/>
 		<if>
-			<available file="${dist.exploded.dir}/nbia-liquibase/nbia-liquibase.jar" />
+			<available file="${dist.exploded.dir}/nbia-liquibase/nbia-liquibase.jar"/>
 			<then>
-				<echo message="Liquibase lib is created already" />
+				<echo message="Liquibase lib is created already"/>
 			</then>
 			<else>
-				<antcall target="build:nbia-liquibase" />
+				<antcall target="build:nbia-liquibase"/>
 			</else>
 		</if>
 		<path id="liquibase_stuff">
-			<pathelement location="${dist.exploded.dir}/nbia-liquibase/nbia-liquibase.jar" />
-			<pathelement location="${target.dir}/lib/nbia-liquibase/compile/liquibase-core-1.9.3.jar" />
-			<pathelement location="${database.driver.file}" />
+			<pathelement location="${dist.exploded.dir}/nbia-liquibase/nbia-liquibase.jar"/>
+			<pathelement location="${target.dir}/lib/nbia-liquibase/compile/liquibase-core-1.9.3.jar"/>
+			<pathelement location="${database.driver.file}"/>
 		</path>
-		<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${dist.exploded.dir}/nbia-liquibase/ant-classloadertask-1.0-RC2.jar" />
-		<classloader loader="project" classpathref="liquibase_stuff" />
+		<taskdef resource="net/jtools/classloadertask/antlib.xml" classpath="${dist.exploded.dir}/nbia-liquibase/ant-classloadertask-1.0-RC2.jar"/>
+		<classloader loader="project" classpathref="liquibase_stuff"/>
 		<taskdef resource="liquibasetasks.properties">
-			<classpath refid="liquibase_stuff" />
+			<classpath refid="liquibase_stuff"/>
 		</taskdef>
 		<copy todir="${db-upgrade.dist.dir}" overwrite="true">
 			<fileset dir="${db-upgrade.src.dir}/${database.type}">
-				<include name="**/**/db-upgrade.xml" />
+				<include name="**/**/db-upgrade.xml"/>
 			</fileset>
 		</copy>
-		<property name="database.changelog.file" value="${db-upgrade.dist.dir}/db-upgrade.xml" />
+		<property name="database.changelog.file" value="${db-upgrade.dist.dir}/db-upgrade.xml"/>
 		<!--basename property="changelog.file" file="${database.changelog.file}"/>
 <echo message="changelog.file=${changelog.file} database.changelog.file=${database.changelog.file}"/-->
-		<updateDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" defaultSchemaName="${database.schema}" dropFirst="false" changeLogFile="${database.changelog.file}" />
+		<updateDatabase driver="${database.driver}" url="${database.url}" username="${database.user}" password="${database.password}" classpathref="liquibase_stuff" promptOnNonLocalDatabase="${prompt.user.if.not.local.database}" defaultSchemaName="${database.schema}" dropFirst="false" changeLogFile="${database.changelog.file}"/>
 	</target>
 	
 	<target name="install:ctp" description="install ctp to application base path" depends="dist:ctp-client, dist:ctp-server">
-	<!-- Set application.base.path based on platform -->
-  <condition property="application.base.path" value="${application.base.path.linux}">
-    <or>
-      <os family="unix" />
-      <os family="mac" />
-    </or>
-  </condition>
-
-  <condition property="application.base.path" value="${application.base.path.windows}">
-    <os family="windows" />
-   </condition>
-   
-   <echo message= "Installed CTP Client in ${application.base.path}"/>
-   <delete dir="${application.base.path}/CTP-Client" />
-   <unzip dest="${application.base.path}/CTP-Client" src="${nbia-ctp.dist.dir}/CTP_Client.zip" />
-   
-   <echo message= "Installed CTP Server in ${application.base.path}"/>
-   <delete dir="${application.base.path}/CTP-Server" />
-   <unzip dest="${application.base.path}/CTP-Server" src="${nbia-ctp.dist.dir}/CTP_Server.zip" />
+		<!-- Set application.base.path based on platform -->
+		<condition property="application.base.path" value="${application.base.path.linux}">
+			<or>
+				<os family="unix"/>
+				<os family="mac"/>
+			</or>
+		</condition>
+		<condition property="application.base.path" value="${application.base.path.windows}">
+			<os family="windows"/>
+		</condition>
+		<echo message="Installed CTP Client in ${application.base.path}"/>
+		<delete dir="${application.base.path}/CTP-Client"/>
+		<unzip dest="${application.base.path}/CTP-Client" src="${nbia-ctp.dist.dir}/CTP_Client.zip"/>
+		<echo message="Installed CTP Server in ${application.base.path}"/>
+		<delete dir="${application.base.path}/CTP-Server"/>
+		<unzip dest="${application.base.path}/CTP-Server" src="${nbia-ctp.dist.dir}/CTP_Server.zip"/>
 	</target>
 	
-   <target name="nbia:runUtility" description="run the utility to correct db" depends="build:nbia-ctp">	
-	 <java jar="${nbia-ctp.dist.dir}/nbiaDatabaseUpdator.jar" fork="true"/>
-   </target>
-   
-   <target name="dist:solr">
-       <copy todir="${solr.dist.dir}">
-         <fileset dir="${common.dir}/resources/solr/">
-           <include name="**/*"/>
-         </fileset>
-       </copy>
-   </target>
-      
-   <target name="build:nbia-api" depends="init,
+	<target name="nbia:runUtility" description="run the utility to correct db" depends="build:nbia-ctp">
+		<java jar="${nbia-ctp.dist.dir}/nbiaDatabaseUpdator.jar" fork="true"/>
+	</target>
+	
+	<target name="dist:solr">
+		<copy todir="${solr.dist.dir}">
+			<fileset dir="${common.dir}/resources/solr/">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="build:nbia-api" depends="init,
 	                   build:nbia-domain,
-		           build:nbia-dao">			
+		           build:nbia-dao">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-api.build.target}" dir="${nbia-api.base.dir}">
-					<property name="nbia.api.oauth2.client.id" value="${nbia.api.oauth2.client.id}"/>
-					<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
-					<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
+			<property name="nbia.api.oauth2.client.id" value="${nbia.api.oauth2.client.id}"/>
+			<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
+			<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
 		</ant>
-   </target>
-   
-   <target name="build:jboss:config" depends="init">
-   	<delete dir="${common.dist.dir}" />
- 	
- 	<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}/jbossEAP6"></copy>
-	<copy file="${common.resources.dir}/jbossEAP6-conf/relationship.xml" todir="${common.dist.dir}/jbossEAP6"></copy>
+	</target>
 	
-   	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_modules.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_modules.cli">
-		<filterset>
-			<filter token="database.type" value="${database.type}" />
-			<filter token="jboss.modules.lib" value="${jboss.modules.lib}" />
-			<filter token="database.driver.jar" value="${database.driver.jar}" />
-			<filter token="csm.api.jar" value="${csm.api.jar}" />
-			<filter token="jbossall.client.jar" value="${jbossall.client.jar}" />
-			<filter token="bouncy.castle.jar" value="${bouncy.castle.jar}" />
-		</filterset>
-	</copy>
-
-   	<get src="${csm.api.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${csm.api.jar}" />
-	<get src="${bouncy.castle.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${bouncy.castle.jar}" />
-   	<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${jbossall.client.jar}" />
-	<get src="${mysql.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${mysql.driver.jar}" />
-	<get src="${oracle.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${oracle.driver.jar}" />
+	<target name="build:jboss:config" depends="init">
+		<delete dir="${common.dist.dir}"/>
+		<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}/jbossEAP6"/>
+		<copy file="${common.resources.dir}/jbossEAP6-conf/relationship.xml" todir="${common.dist.dir}/jbossEAP6"/>
+		<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_modules.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_modules.cli">
+			<filterset>
+				<filter token="database.type" value="${database.type}"/>
+				<filter token="jboss.modules.lib" value="${jboss.modules.lib}"/>
+				<filter token="database.driver.jar" value="${database.driver.jar}"/>
+				<filter token="csm.api.jar" value="${csm.api.jar}"/>
+				<filter token="jbossall.client.jar" value="${jbossall.client.jar}"/>
+				<filter token="bouncy.castle.jar" value="${bouncy.castle.jar}"/>
+			</filterset>
+		</copy>
+		<get src="${csm.api.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${csm.api.jar}"/>
+		<get src="${bouncy.castle.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${bouncy.castle.jar}"/>
+		<get src="${jbossall.client.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${jbossall.client.jar}"/>
+		<get src="${mysql.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${mysql.driver.jar}"/>
+		<get src="${oracle.driver.jar.src.url}" dest="${common.dist.dir}/jbossEAP6/${oracle.driver.jar}"/>
+		<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_config.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_config.cli">
+			<filterset>
+				<filter token="database.type" value="${database.type}"/>
+				<filter token="database.driver" value="${database.driver}"/>
+				<filter token="database.url" value="${database.url}"/>
+				<filter token="database.user" value="${database.user}"/>
+				<filter token="database.password" value="${database.password}"/>
+			</filterset>
+		</copy>
+		<!-- switch for db or ldap -->
+		<if>
+			<equals arg1="${authentication.type}" arg2="ldap"/>
+			<then>
+				<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
+					<filterset>
+						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="ldap.url" value="${ldap.url}"/>
+						<filter token="ldap.basedn" value="${ldap.basedn}"/>
+					</filterset>
+				</copy>
+			</then>
+			<else>
+				<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.db-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
+					<filterset>
+						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="database.user" value="${database.user}"/>
+						<filter token="database.password" value="${database.password}"/>
+						<filter token="database.url" value="${database.url}"/>
+						<filter token="database.driver" value="${database.driver}"/>
+					</filterset>
+				</copy>
+			</else>
+		</if>
+		<concat destfile="${common.dist.dir}/jbossEAP6/nbia_config.cli" append="true">
+			<filelist dir="${common.dist.dir}/jbossEAP6" files="login-config.block.xml"/>
+		</concat>
+		<delete file="${common.dist.dir}/jbossEAP6/login-config.block.xml"/>
+		<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_system_properties.cli">
+			<filterset>
+				<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}"/>
+				<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}"/>
+				<filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}"/>
+				<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
+				<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
+				<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
+				<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
+				<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
+				<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
+				<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}"/>
+				<filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}"/>
+				<filter token="enabled_guest_account" value="${enabled_guest_account}"/>
+				<filter token="guest_username" value="${guest_username}"/>
+				<filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}"/>
+				<filter token="enable_classic_download" value="${enable_classic_download}"/>
+				<filter token="registration.email.subject" value="${registration.email.subject}"/>
+				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
+				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
+				<filter token="gov.nih.nci.ncia.workflow.updateinterval" value="${gov.nih.nci.ncia.workflow.updateinterval}"/>
+				<filter token="discover.remote.nodes" value="${discover.remote.nodes}"/>
+				<filter token="protection_element_prefix" value="${protection_element_prefix}"/>
+				<filter token="csm_application_name" value="${csm_application_name}"/>
+				<filter token="database.type" value="${database.type}"/>
+				<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
+				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
+				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}"/>
+				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}"/>
+				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
+			</filterset>
+		</copy>
+	</target>
 	
-	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_config.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_config.cli">
-		<filterset>
-			<filter token="database.type" value="${database.type}" />
-			<filter token="database.driver" value="${database.driver}" />
-			<filter token="database.url" value="${database.url}" />
-			<filter token="database.user" value="${database.user}" />
-			<filter token="database.password" value="${database.password}" />
-		</filterset>	
-	</copy>
-	
-	<!-- switch for db or ldap -->
-	<if>
-		<equals arg1="${authentication.type}" arg2="ldap"/>
-		<then>
-			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.ldap-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
-				<filterset>
-					<filter token="application.context.name" value="${application.context.name}" />
-					<filter token="ldap.url" value="${ldap.url}" />
-					<filter token="ldap.basedn" value="${ldap.basedn}" />
-				</filterset>
-			</copy>
-		</then>
-		<else>
-			<copy file="${common.resources.dir}/jbossEAP6-conf/login-config.db-block.xml" tofile="${common.dist.dir}/jbossEAP6/login-config.block.xml">
-				<filterset>
-					<filter token="application.context.name" value="${application.context.name}" />
-					<filter token="database.user" value="${database.user}" />
-					<filter token="database.password" value="${database.password}" />
-					<filter token="database.url" value="${database.url}" />
-					<filter token="database.driver" value="${database.driver}" />
-				</filterset>
-			</copy>
-		</else>
-	</if>
-	<concat destfile="${common.dist.dir}/jbossEAP6/nbia_config.cli" append="true">
-		<filelist dir="${common.dist.dir}/jbossEAP6" files="login-config.block.xml" />
-	</concat>
-	<delete file="${common.dist.dir}/jbossEAP6/login-config.block.xml" />
-	
-	<copy file="${common.resources.dir}/jbossEAP6-conf/nbia_system_properties.cli" tofile="${common.dist.dir}/jbossEAP6/nbia_system_properties.cli">
-		<filterset>
-			<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}" />
-			<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}" /> 
-			<filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}" />
-			<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}" />
-			<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}" />
-			<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}" />
-			<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}" />
-			<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}" />
-			<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}" />
-			<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}" />
-			<filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}" />
-			<filter token="enabled_guest_account" value="${enabled_guest_account}" />
-			<filter token="guest_username" value="${guest_username}" />
-			<filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}" />
-			<filter token="enable_classic_download" value="${enable_classic_download}" />
-			<filter token="registration.email.subject" value="${registration.email.subject}" />
-			<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}" />
-			<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}" />
-			<filter token="gov.nih.nci.ncia.workflow.updateinterval" value="${gov.nih.nci.ncia.workflow.updateinterval}" />
-			<filter token="discover.remote.nodes" value="${discover.remote.nodes}" />
-			<filter token="protection_element_prefix" value="${protection_element_prefix}" />
-			<filter token="csm_application_name" value="${csm_application_name}" />
-			<filter token="database.type" value="${database.type}" />
-			<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}" />
-			<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}" />
-			<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}" />
-			<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}" />
-			<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}" /> 
-		</filterset>		
-	</copy>
-   </target>
-   
-    <target name="dist" description="Makes all distributions and installer" 
-        depends="
+	<target name="dist" description="Makes all distributions and installer" depends="
         build:all,
         dist:installer,
         dist:solr"/>
-        
-  <!-- Copies install time resources into distribution tree -->
-  <target name="dist:installer:prep" depends="dist:tools:retrieve:jai">
-    <!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. -->
-    <copy todir="${db-install.dist.dir}" overwrite="true">
-      <fileset dir="${db-install.src.dir}">
-        <include name="**/*" />
-      </fileset>
-    </copy>
-    <copy todir="${db-upgrade.dist.dir}" overwrite="true">
-      <fileset dir="${db-upgrade.src.dir}">
-        <include name="**/*" />
-      </fileset>
-    </copy>
-    <copy todir="${nbia-ctp.dist.dir}/FileSender">
-    	<fileset dir="${software.dir}/nbia-ctp/FileSender" />
-    </copy>
-	<sequential>
-		<!-- Do some cleanup -->
-		<delete>
-			<fileset dir="${dist.exploded.dir}">
-				<include name="build.xml" />
-				<include name="*properties*" />
+	<!-- Copies install time resources into distribution tree -->
+	<target name="dist:installer:prep" depends="dist:tools:retrieve:jai">
+		<!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. -->
+		<copy todir="${db-install.dist.dir}" overwrite="true">
+			<fileset dir="${db-install.src.dir}">
+				<include name="**/*"/>
 			</fileset>
-		</delete>
-
-		<!-- Copy install related xml and properties files -->
-		<echo message="Copying build and property files"/>
+		</copy>
+		<copy todir="${db-upgrade.dist.dir}" overwrite="true">
+			<fileset dir="${db-upgrade.src.dir}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${nbia-ctp.dist.dir}/FileSender">
+			<fileset dir="${software.dir}/nbia-ctp/FileSender"/>
+		</copy>
+		<sequential>
+			<!-- Do some cleanup -->
+			<delete>
+				<fileset dir="${dist.exploded.dir}">
+					<include name="build.xml"/>
+					<include name="*properties*"/>
+				</fileset>
+			</delete>
+			<!-- Copy install related xml and properties files -->
+			<echo message="Copying build and property files"/>
+			<copy todir="${dist.exploded.dir}" overwrite="true">
+				<fileset dir="${build.dir}">
+					<include name="install.xml"/>
+					<include name="install.properties"/>
+					<include name="properties.template"/>
+					<include name="project.properties"/>
+				</fileset>
+			</copy>
+			<!-- Set default target and properyties.file to install and install.properties -->
+			<basename file="${dist.exploded.dir}/install.properties" property="properties.file.name"/>
+			<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.project.*default=.)\w+(.\s+.*)" replace="\1install\2"/>
+			<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.*)install.properties(.*)" replace="\1${properties.file.name}\2"/>
+			<!-- Rename install.xml to build.xml so manual installs will not need to include the -f optoin on ant, simplifying the install proces. -->
+			<move file="${dist.exploded.dir}/install.xml" tofile="${dist.exploded.dir}/build.xml"/>
+			<!-- This  copies common files over, common files are currently resource files like jboss configuration files and database scripts -->
+			<echo message="Copying common dir"/>
+			<copy todir="${dist.exploded.dir}/common" overwrite="true">
+				<fileset dir="${common.dir}">
+					<include name="resources/**/*"/>
+				</fileset>
+			</copy>
+			<echo message="Copying tools dir"/>
+			<!-- Copy over binary distributions downloaded earlier -->
+			<copy todir="${dist.exploded.dir}/tools" overwrite="true">
+				<fileset dir="${download.dir}">
+					<include name="**/*"/>
+				</fileset>
+			</copy>
+			<echo message="Copying JBoss EAP Module libraries"/>
+			<!-- Copy over binary distributions downloaded earlier -->
+			<copy todir="${dist.exploded.dir}/jboss-module-lib" overwrite="true">
+				<fileset dir="${common.dist.dir}/jbossEAP6">
+					<include name="${csm.api.jar}"/>
+					<include name="${bouncy.castle.jar}"/>
+					<include name="${jbossall.client.jar}"/>
+					<include name="${mysql.driver.jar}"/>
+					<include name="${oracle.driver.jar}"/>
+				</fileset>
+			</copy>
+		</sequential>
 		<copy todir="${dist.exploded.dir}" overwrite="true">
-			<fileset dir="${build.dir}">
-				<include name="install.xml" />
-				<include name="install.properties" />
-				<include name="properties.template" />
-				<include name="project.properties" />
+			<fileset dir=".">
+				<include name="ctp.xml"/>
+				<include name="ctp-macrodefs.xml"/>
+				<include name="install-macros.xml"/>
+				<include name="macrodefs.xml"/>
 			</fileset>
 		</copy>
-
-		<!-- Set default target and properyties.file to install and install.properties -->
-		<basename file="${dist.exploded.dir}/install.properties" property="properties.file.name"/>
-		<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.project.*default=.)\w+(.\s+.*)" replace="\1install\2" />
-		<replaceregexp file="${dist.exploded.dir}/install.xml" byline="true" match="(.*)install.properties(.*)" replace="\1${properties.file.name}\2" />
-
-		<!-- Rename install.xml to build.xml so manual installs will not need to include the -f optoin on ant, simplifying the install proces. -->
-		<move file="${dist.exploded.dir}/install.xml" tofile="${dist.exploded.dir}/build.xml" />
-
-		<!-- Copy over BDA macrodefs and librarires -->
-
-		<!--echo message="Copying bda-utils dir"/>
-		<copy todir="${dist.exploded.dir}/bda-utils" overwrite="true">
-			<fileset dir="bda-utils.dir">
-				<include name="**/*" />
-			</fileset>
-		</copy-->
-
-		<!-- This  copies common files over, common files are currently resource files like jboss configuration files and database scripts -->
-		<echo message="Copying common dir"/>
-		<copy todir="${dist.exploded.dir}/common" overwrite="true">
-			<fileset dir="${common.dir}">
-				<include name="resources/**/*" />
-			</fileset>
-		</copy>
-
-
-		<echo message="Copying tools dir"/>
-		<!-- Copy over binary distributions downloaded earlier -->
-		<copy todir="${dist.exploded.dir}/tools" overwrite="true">
-			<fileset dir="${download.dir}">
-				<include name="**/*" />
+	</target>
+	
+	<!-- Creates the installer distribution used by installations -->
+	<target name="dist:installer" depends="dist:installer:prep">
+		<delete file="${dist.dir}/nbia-install_${nbia.version}"/>
+		<!-- Set environment name to external -->
+		<replaceregexp file="${dist.exploded.dir}/build.xml" byline="true" match="(&lt;property name=&quot;env.name&quot; value=&quot;)\w+(&quot;/&gt;)" replace="\1external\2"/>
+		<for list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,gov.nih.nci.ncia.encrypt.key" param="property.name" delimiter=",">
+			<sequential>
+				<replaceregexp file="${dist.exploded.dir}/install.properties" match="^(@{property.name})=.*" replace="\1=REPLACE_VALUE" flags="g" byline="true"/>
+			</sequential>
+		</for>
+		<for list="ldap.url,ldap.basedn" param="property.name" delimiter=",">
+			<sequential>
+				<replaceregexp file="${dist.exploded.dir}/install.properties" match="^(@{property.name})=.*" replace="\1=replace_value" flags="g" byline="true"/>
+			</sequential>
+		</for>
+		<replaceregexp file="${dist.exploded.dir}/install.properties" byline="true" match="^(grid.index.url)=.*" replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
+		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+		<copy todir="${dist.dir}" overwrite="true">
+			<fileset dir="${nbia-ctp.dist.dir}">
+				<include name="CTP_Client.zip"/>
 			</fileset>
 		</copy>
-		
-		<echo message="Copying JBoss EAP Module libraries"/>
-				<!-- Copy over binary distributions downloaded earlier -->
-				<copy todir="${dist.exploded.dir}/jboss-module-lib" overwrite="true">
-					<fileset dir="${common.dist.dir}/jbossEAP6">
-						<include name="${csm.api.jar}" />
-						<include name="${bouncy.castle.jar}" />
-						<include name="${jbossall.client.jar}" />
-						<include name="${mysql.driver.jar}" />
-						<include name="${oracle.driver.jar}" />
-					</fileset>
-				</copy>
-	</sequential>
-    <copy todir="${dist.exploded.dir}" overwrite="true">
-      <fileset dir=".">
-        <include name="ctp.xml" />
-        <include name="ctp-macrodefs.xml" />
-	<include name="install-macros.xml" />
-        <include name="macrodefs.xml" />
-      </fileset>
-    </copy>
-  </target>
-        
-        
-  <!-- Creates the installer distribution used by installations -->
-  <target name="dist:installer" depends="dist:installer:prep">
-    <delete file="${dist.dir}/nbia-install_${nbia.version}"/>
-    <!-- Set environment name to external -->
-    <replaceregexp file="${dist.exploded.dir}/build.xml" byline="true" match="(&lt;property name=&quot;env.name&quot; value=&quot;)\w+(&quot;/&gt;)" replace="\1external\2" />
-   
-    <for list="application.base.path.linux,application.base.path.windows,database.system.user,database.system.password,database.server,database.port,database.name,database.user,database.password,mail.smtp.host,jboss.server.hostname,jar-signing.generate-selfsigned,jar-signing.keystore.alias,jar-signing.keystore.password,jar-signing.keystore.location,local.grid.uri,gov.nih.nci.ncia.encrypt.key" 
-    param="property.name" delimiter=",">
-	<sequential>
-		<replaceregexp file="${dist.exploded.dir}/install.properties"
-			match="^(@{property.name})=.*"
-			replace="\1=REPLACE_VALUE"
-			flags="g" byline="true"/>
-	</sequential>
-</for>
-<for list="ldap.url,ldap.basedn" param="property.name" delimiter=",">
-	<sequential>
-		<replaceregexp file="${dist.exploded.dir}/install.properties"
-			match="^(@{property.name})=.*"
-			replace="\1=replace_value"
-			flags="g" byline="true"/>
-	</sequential>
-</for>
-    
- 
-    <replaceregexp file="${dist.exploded.dir}/install.properties" byline="true"
-      match="^(grid.index.url)=.*"
-      replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"
-      />
-
-    <zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip"
-         basedir="${dist.exploded.dir}"
-         excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
-    
-    <copy todir="${dist.dir}" overwrite="true">
-    			<fileset dir="${nbia-ctp.dist.dir}">
-    				<include name="CTP_Client.zip" />
-    			</fileset>
-    </copy>
-  </target>   
+	</target>
+	
 </project>

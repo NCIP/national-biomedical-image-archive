@@ -9,9 +9,9 @@ L-->
 <project name="install_macros" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:antunit="antlib:org.apache.ant.antunit">
 
 	<macrodef name="validate-pre-install-common" description="Diagnose the host system before the installation">
-		<attribute name="ant.check.version" default="1.8.0"/>
+		<attribute name="ant.check.version" default="1.8.4"/>
 		<attribute name="java.check.version.major" default="1.7"/>
-		<attribute name="java.check.version.minor" default="1.7.0_72"/>
+		<attribute name="java.check.version.minor" default="1.7.0_71"/>
 		<attribute name="property.template.file" default="${properties.template.file}"/>
 		<attribute name="envpropertyfile" default="${properties.file}"/>
 		<attribute name="property.exclude.pattern.list" default="tomcat.*,jboss.*,grid.*"/>
@@ -41,9 +41,9 @@ L-->
 		</sequential>
 	</macrodef>
 	<macrodef name="validate-environment" description="Diagnose the host system before the installation">
-		<attribute name="ant.check.version" default="1.8.0"/>
+		<attribute name="ant.check.version" default="1.8.4"/>
 		<attribute name="java.check.version.major" default="1.7"/>
-		<attribute name="java.check.version.minor" default="1.7.0_72"/>
+		<attribute name="java.check.version.minor" default="1.7.0_71"/>
 		<sequential>
 			<!-- Echo the properties for diagnostic purposes -->
 			<echoproperties>
@@ -689,9 +689,12 @@ L-->
 				<then>
 					<echo message="Linux -- Starting JBoss instance at @{jboss.home}/bin with standalone-full"/>
 					<!--exec executable="@{jboss.home}/bin/standalone.sh -c standalone-full.xml" osfamily="unix" /-->
-					<exec executable="/bin/bash" spawn="yes">
-						<arg line='-c "@{jboss.home}/bin/standalone.sh -c standalone-full.xml&amp;"'/>
-					</exec>
+					<exec executable="@{jboss.home}/bin/standalone.sh" os="Linux" spawn="yes">
+        					<arg line="-c"/>
+        					<arg line="standalone-full.xml"/>
+        					<arg line="-b"/>
+        					<arg line="0.0.0.0"/>
+    					</exec>
 				</then>
 				<else>
 					<echo message="Windows -- Starting JBoss instance at @{jboss.home}/bin with standalone-full"/>

@@ -430,7 +430,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="jar-signing.execution.time" value="${jar-signing.execution.time}"/>
 			<!-- Need absolution location, relative path would fail in sub-project since file would not exist -->
 			<property name="jar-signing.keystore.abs-location" value="${jar-signing.keystore.abs-location}"/>
-			<property name="nbia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
+			<property name="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
 		</ant>
 	</target>
 	

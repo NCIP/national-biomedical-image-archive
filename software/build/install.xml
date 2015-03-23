@@ -505,7 +505,7 @@ L-->
 			<!--antcall target="create-guest-account"/-->
 		</target>
 		
-		<target name="build:db:update" description="Update database">
+		<target name="build:db:update" description="Update database" depends="common:common:init">
 			<echoproperties prefix="database" />
 			<path id="liquibase_stuff">
 				<pathelement location="${common.lib.dir}/nbia-liquibase.jar" />

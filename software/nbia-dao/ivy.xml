@@ -321,15 +321,16 @@ L-->
                 rev="2.5"
                 conf="test->default"/>     
                 
-     <dependency org="dcm4che"
+    <dependency org="dcm4che"
                 name="dcm4che"
                 rev="1.4.23"
                 conf="compile->master;runtime->default"/>
      
-         <dependency org="rsna"
+    <dependency org="rsna"
                 name="mircutil"
                 rev="T32"
                 conf="compile->master;runtime->master"/>
+    <dependency org="commons-lang" name="commons-lang" rev="2.6" conf="compile->master;runtime->master" />           
 
     <!-- garbage from log4j as second order dependency -->
     <exclude org="javax.jms" module="jms"/>

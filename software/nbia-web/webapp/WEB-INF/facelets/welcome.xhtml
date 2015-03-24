@@ -126,27 +126,57 @@ L-->
 	  			<tr>
 	  			<td>
 	  			<f:verbatim>&amp;nbsp;</f:verbatim>
-	  			</td>
-	  			<td>
-	  			<h:messages layout="table"
-	  			styleClass="errorLabel" />
-	  			</td>
+	  			</td>	  			
 	  			</tr>
 	  			<tr>
-	  			<td>
-	  			<f:verbatim>&amp;nbsp;</f:verbatim>
+					<td>
+					<f:verbatim>&amp;nbsp;</f:verbatim>
+					</td>
+					<td>
+					<h:commandButton id="loginButton2" styleClass="actionButton" value="#{msg.home_login}" action="#{securityBean.login}" /> 
+					</td>
+				</tr> 
+				<tr>
+				<td colspan="2">
+					<h:messages layout="table"
+					styleClass="errorLabel" />
 	  			</td>
-	  			<td>
-	  			<h:commandButton id="loginButton2" styleClass="actionButton" value="#{msg.home_login}" action="#{securityBean.login}" /> 
-	  			</td>
-	  			</tr>   
+				</tr>
+
+	  			<f:subview id="passwordChangeView" rendered="#{securityBean.firstTimeLogin}">
 	  			<tr>
-	  			<td align="center" colspan="2">
-	  			<a href="#"
-	  			onclick="window.open('/ncia/accountSupport.jsf', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=550,scrollbars=yes,resizable=yes')">
-	  			<h:outputText value="#{msg.home_account_access}" />
-	  			</a>
-	  			<br/>
+					<td class="sidebarLogin" align="right">
+					<ice:outputLabel for="newPass1" value="#{msg.home_newPassword1}" />
+					</td>
+					<td class="formFieldLogin">
+					<h:inputSecret id="newPass1" value="#{securityBean.newPassword1}" autocomplete="off" size="14" maxlength="100"/>
+					</td>
+	  			</tr>
+	  			<tr>
+					<td class="sidebarLogin" align="right">
+					<ice:outputLabel for="newPass2" value="#{msg.home_newPassword2}" />
+					</td>
+					<td class="formFieldLogin">
+					<h:inputSecret id="newPass2" value="#{securityBean.newPassword2}" autocomplete="off" size="14" maxlength="100"/>
+					</td>
+	  			</tr>
+	  			<tr>
+					<td>
+					<f:verbatim>&amp;nbsp;</f:verbatim>
+					</td>
+					<td>
+					<h:commandButton id="changePasswordButton" styleClass="actionButton" value="#{msg.home_changePassword}" action="#{securityBean.changePassword}" /> 
+					</td>
+				</tr>   
+
+	  			</f:subview>
+	  		<tr>	
+			<td align="center" colspan="2">
+				<a href="#"
+				onclick="window.open('/ncia/accountSupport.jsf', 'new' ,'screenX=0,screenY=0,status=yes,toolbar=no,menubar=no,location=no,width=760,height=550,scrollbars=yes,resizable=yes')">
+				<h:outputText value="#{msg.home_account_access}" />
+				</a>
+				<br/>
 	  		</td>
 	  		</tr>         
 	  		</table>

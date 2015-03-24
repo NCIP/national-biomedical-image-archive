@@ -118,4 +118,9 @@ public interface NCIASecurityManager {
      * found then null is returned.
      */
     public String getUserEmail(String loginName);
+
+    /*
+     * Change the password for the user with loginName
+     */
+    public void modifyPasswordForNewUser(String loginName, String password) throws Exception;
 }

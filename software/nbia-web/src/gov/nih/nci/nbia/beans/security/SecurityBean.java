@@ -77,7 +77,9 @@ public class SecurityBean {
 			}
 			catch (Exception e) {
 				firstTimeLogin = true;
-				MessageUtil.addErrorMessage(PASSWORD_FIELD_JSF_ID, e.getMessage());
+				if (e.getMessage() != null)
+					MessageUtil.addErrorMessage(PASSWORD_FIELD_JSF_ID, e.getMessage()+".");
+				else e.printStackTrace();
 			}
 		}
 		else {

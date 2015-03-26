@@ -63,8 +63,8 @@ if (outcome == success) of /subsystem=messaging/hornetq-server=default/jms-queue
 jms-queue remove --queue-address=deletionQueue
 end-if
 
-jms-queue add --queue-address=imageQueue --entries=queue/imageQueue,java:jboss/queue/imageQueue
-jms-queue add --queue-address=deletionQueue --entries=queue/deletionQueue,java:jboss/queue/deletionQueue
+#jms-queue add --queue-address=imageQueue --entries=queue/imageQueue,java:jboss/queue/imageQueue
+#jms-queue add --queue-address=deletionQueue --entries=queue/deletionQueue,java:jboss/queue/deletionQueue
 
 ##############################################################
 #               CSM Login Module                             

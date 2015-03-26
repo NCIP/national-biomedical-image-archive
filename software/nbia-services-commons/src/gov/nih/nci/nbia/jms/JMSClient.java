@@ -66,7 +66,7 @@ public class JMSClient {
 
         //Get the initial context with given properties
         Context iniCtx = new InitialContext(props);
-        Object tmp = iniCtx.lookup("ConnectionFactory");
+        Object tmp = iniCtx.lookup("java:/ConnectionFactory");
         QueueConnectionFactory qcf = (QueueConnectionFactory) tmp;
         conn = qcf.createQueueConnection();
         que = (Queue) iniCtx.lookup(this.queueName);
@@ -87,8 +87,6 @@ public class JMSClient {
 
     public void close() throws JMSException {
         System.out.println("client close ... ");
-        //		conn.stop();
-        //		session.close();
         conn.close();
     }
 

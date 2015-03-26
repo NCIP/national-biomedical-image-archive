@@ -22,18 +22,18 @@ import gov.nih.nci.nbia.jms.JMSClient;
 import gov.nih.nci.nbia.util.NCIAConfig;
 
 public class SeriesDeletionBean {
-	
+
 	private List<DeletionDisplayObject> displayObject;
 	private boolean showNoSeriesMessage;
 	private boolean showNavigationBar;
-	
+
 	//private int totalSeriesAffectPerormance;
 	@Autowired
 	private ImageDeletionService imageDeletionService;
-	
+
 	@Autowired
 	private ImageFileDeletionService imageFileDeletionService;
-	
+
 	public boolean isShowNavigationBar() {
 		if (displayObject.size() > 10)
 		{
@@ -50,42 +50,42 @@ public class SeriesDeletionBean {
 	public void removeSeriesFromCron() throws Exception
 	{
 		String userName = null;
-		
+
 		Map<String, List<String>> files = imageDeletionService.removeSeries(userName);
-		//remove all annotation files and dicom files, this must be out of 
+		//remove all annotation files and dicom files, this must be out of
 		//transaction
-		if (files == null) 
+		if (files == null)
 		{
 			return;
 		}
 		imageFileDeletionService.removeImageFiles(files);
 	}
-	
+
 	public String removeSeries() throws Exception
 	{
 		SecurityBean secure = BeanManager.getSecurityBean();
 		String userName = secure.getUsername();
 		String email = secure.getEmail();
 		String mqURL = NCIAConfig.getMessagingUrl();
-		
+
 		//adding jms client here to perform deletion
 		ImageDeletionMessage izm = new ImageDeletionMessage();
 		izm.setEmailAddress(email);
 		izm.setUserName(userName);
-		
-		 JMSClient rs = new JMSClient("queue/deletionQueue", izm, mqURL);
+
+		 JMSClient rs = new JMSClient("java:/queue/deletionQueue", izm, mqURL);
 		 rs.run();
 
 		 return "confirmDeletion";
 	}
-	
 
-	
+
+
 	public boolean getShowDeletionLink()
 	{
 		SecurityBean secure = BeanManager.getSecurityBean();
 		boolean deletionRole = secure.getHasDeletionRole();
-		
+
 		return deletionRole;
 	}
 
@@ -118,5 +118,5 @@ public class SeriesDeletionBean {
 	public int getTotalSeriesAffectPerormance() {
 		return displayObject.size();
 	}
-	
+
 }

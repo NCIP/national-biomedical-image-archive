@@ -24,13 +24,6 @@ L-->
   </publications>
 
   <dependencies>
-
-
-    <dependency org="jboss.jbossas.core-libs"
-                name="jboss-j2ee"
-                rev="4.0.4.GA"
-                conf="compile->master"/>
-
     <dependency org="log4j"
                 name="log4j"
                 rev="1.2.15"
@@ -61,11 +54,18 @@ L-->
     		name="nbia-services-grid"
                 rev="latest.integration"
                 conf="runtime->master"/>
+                
+    <dependency org="org.jboss.spec.javax.ejb"
+    		name="jboss-ejb-api_3.1_spec"
+                rev="1.0.2.Final"
+                conf="compile->master;runtime"/>
+                
   <!-- Added for jboss5.1.0GA-->                
   <dependency org="org.bouncycastle"
        		name="bcprov-jdk15on"
        		rev="1.51"
                 conf="runtime->master"/>
+     
   <exclude org="xalan" module="serializer"/>
   <exclude org="xerces" module="xercesImpl" conf="runtime" /> 
   <exclude org="bouncycastle" module="bouncycastle" conf="runtime"/>

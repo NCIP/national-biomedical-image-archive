@@ -68,8 +68,13 @@ L-->
     <dependency org="org.jboss.spec.javax.ejb"
 		name="jboss-ejb-api_3.1_spec"
 		rev="1.0.2.Final"
-		conf="compile->master;runtime"/>   
-		
+		conf="compile->master;runtime"/> 
+    
+    <dependency org="commons-configuration"
+		name="commons-configuration"
+		rev="1.10"
+		conf="runtime->master"/>  		
+
     <!-- Added for jboss5.1.0GA-->
     <dependency org="org.bouncycastle"
           	name="bcprov-jdk15on"

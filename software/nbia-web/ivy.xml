@@ -446,12 +446,13 @@ L-->
                 rev="3.4.5"
                 conf="runtime->master"/> 
                 
-   <!-- Added for jboss5.1.0GA-->                
-   <dependency org="org.bouncycastle"
+   	<!-- Added for jboss5.1.0GA-->                
+   	<dependency org="org.bouncycastle"
        		name="bcprov-jdk15on"
        		rev="1.51"
                 conf="runtime->master"/>
-<!-- END Added for jboss5.1.0GA-->                                
+	<!-- END Added for jboss5.1.0GA--> 
+
     <!-- because the maven repo is filled with lots of missing crap,
          javax.jms, com.sun.jdmk, and com.sun.jmx stuff blow up if trying to retrieve default
          conf for icefaces.  pre depedency exclude doesnt appear to work on nth order
@@ -473,9 +474,7 @@ L-->
 <!-- end Added for jboss5.1.0GA-->   
 
 <!-- Exclude solr -->
-
     <exclude org="org.apache.axis2" module="axis2-saaj" conf="runtime"/>
-    
-    <!-- end Exclude solr -->                 
+<!-- end Exclude solr -->                 
   </dependencies>
 </ivy-module>

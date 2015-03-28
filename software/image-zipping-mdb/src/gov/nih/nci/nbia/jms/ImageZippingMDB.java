@@ -60,6 +60,7 @@ import java.io.IOException;
 import java.util.List;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.ejb.TransactionManagementType;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -74,6 +75,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  *
  */
+@javax.ejb.TransactionManagement(TransactionManagementType.BEAN)
 @MessageDriven(name = "ImageZippingMDB", activationConfig = {
 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/imageQueue"),

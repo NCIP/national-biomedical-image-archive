@@ -26,11 +26,13 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import javax.ejb.TransactionManagementType;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+@javax.ejb.TransactionManagement(TransactionManagementType.BEAN)
 @MessageDriven(name = "ImageDeletionMDB", activationConfig = {
 @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/deletionQueue"),
@@ -105,5 +107,4 @@ public class ImageDeletionMDB implements MessageListener {
 
 		return dateTime;
 	}
-
 }

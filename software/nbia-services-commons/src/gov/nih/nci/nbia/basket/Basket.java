@@ -195,7 +195,7 @@ public class Basket {
      */
     public double calculateSizeInMB() {
 
-        return calculateSizeInBytes() / 1048576;
+        return calculateSizeInBytes() / 1000000.0;
     }
 
     /**

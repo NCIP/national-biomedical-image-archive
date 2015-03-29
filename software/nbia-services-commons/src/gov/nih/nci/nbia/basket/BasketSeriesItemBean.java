@@ -65,7 +65,7 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
     }
 
     /**
-     * Gets the Image size in megabytes with one decimal point (used by UI)
+     * Gets the Image size in bytes/1000000 with one decimal point (used by UI)
      */
     public String getImageSize() {
         DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
@@ -76,7 +76,18 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
     }
 
     /**
-     * Gets the Annotation size in megabytes with three decimal point (used by UI)
+     * Gets the Image size in megabytes with one decimal point (used by UI)
+     */
+   public String getImageSizeInMB() {
+	    DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
+        nf.setMaximumFractionDigits(1);
+        nf.setMinimumFractionDigits(1);
+
+        return nf.format((getExactSize()- getAnnotationsSize()) / 1048576.0);
+   }
+
+    /**
+     * Gets the Annotation size in bytes/1000000 with three decimal point (used by UI)
      */
     public String getAnnotationSize3Digits() {
         if (getAnnotationsSize()== 0) {
@@ -89,6 +100,22 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
 
         return nf.format(getAnnotationsSize() / 1000000.0);
     }
+
+        /**
+	     * Gets the Annotation size in megabytes with three decimal point (used by UI)
+	     */
+	    public String getAnnotationSize3DigitsInMB() {
+	        if (getAnnotationsSize()== 0) {
+	            return "N/A";
+	        }
+
+	        DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
+	        nf.setMaximumFractionDigits(3);
+	        nf.setMinimumFractionDigits(1);
+
+	        return nf.format(getAnnotationsSize() / 1048576.0);
+	    }
+
 
 
     /**
@@ -363,11 +390,11 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
 
     // The total number of images in the series (not neccesarily the total number selected)
     private Integer totalImagesInSeries;
-    
+
     private String seriesDescription;
     private String studyDescription;
     private String studyDate;
-    
+
 	public String getStudyDescription() {
 		return studyDescription;
 	}

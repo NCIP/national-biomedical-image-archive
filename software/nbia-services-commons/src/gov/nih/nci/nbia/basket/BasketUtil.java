@@ -71,16 +71,33 @@ public class BasketUtil {
         DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
         nf.setMaximumFractionDigits(3);
 
-        double tempSize = size/1048576.0 ;
+        double tempSize = size/1000000.0;
 
         measurement = BasketUtil.measureImage(tempSize);
 
         if (tempSize > 1000) {
-            tempSize = tempSize / 1024.0;
+            tempSize = tempSize / 1000.0;
         }
 
         return nf.format(tempSize) + measurement;
     }
+
+	public static String getExecSizeString(double size) {
+		String measurement = "";
+		DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
+		nf.setMaximumFractionDigits(3);
+
+		double tempSize = size/1048576.0;
+
+		measurement = BasketUtil.measureImage(tempSize);
+
+		if (tempSize > 1000) {
+			tempSize = tempSize / 1024.0;
+		}
+
+		return nf.format(tempSize) + measurement;
+	}
+
 
     private static String measureImage(double size) {
         String measurement = "";

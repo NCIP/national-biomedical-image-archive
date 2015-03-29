@@ -398,7 +398,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
      * determine what size increment to represent (GB vs. MB).
      */
     public String getImageSize() {
-    	return BasketUtil.getSizeString(basket.calculateImageSizeInBytes());
+    	return BasketUtil.getExecSizeString(basket.calculateImageSizeInBytes());
     }
 
 
@@ -408,7 +408,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
      * determine what size increment to represent (GB vs. MB).
      */
     public String getAnnotationSize() {
-    	return BasketUtil.getSizeString(basket.calculateAnnotationSizeInBytes());
+    	return BasketUtil.getExecSizeString(basket.calculateAnnotationSizeInBytes());
     }
 
     /**

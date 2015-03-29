@@ -1078,11 +1078,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
                 	return compareObject(c1.getTotalImagesInSeries().compareTo(c2.getTotalImagesInSeries()),
                 		c2.getTotalImagesInSeries().compareTo(c1.getTotalImagesInSeries()));
                } else if (sortColumnName.equals(fileSizeHeader)) {
-                	return compareObject(c1.getImageSize().compareTo(c2.getImageSize()),
-                		c2.getImageSize().compareTo(c1.getImageSize()));
+                	return compareObject(c1.getImageSizeInMB().compareTo(c2.getImageSizeInMB()),
+                		c2.getImageSizeInMB().compareTo(c1.getImageSizeInMB()));
                }  else if (sortColumnName.equals(annotationFileSizeHeader)) {
-                	return compareObject(c1.getAnnotationsSize().compareTo(c2.getAnnotationsSize()),
-                		c2.getAnnotationsSize().compareTo(c1.getAnnotationsSize()));
+                	return compareObject(c1.getAnnotationsSizeInMB().compareTo(c2.getAnnotationsSizeInMB()),
+                		c2.getAnnotationsSizeInMB().compareTo(c1.getAnnotationsSizeInMB()));
                } else {
                 	return 0;
                 }

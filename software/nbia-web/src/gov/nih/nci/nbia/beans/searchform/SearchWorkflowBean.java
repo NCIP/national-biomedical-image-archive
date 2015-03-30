@@ -1270,7 +1270,9 @@ public class SearchWorkflowBean {
         modalityAndedSearch = "any";
         kvLeftCompare = "";
         patientInput = "";
-
+        patientCriteria=false;
+        dateCriteria=false;
+        
         setDefaultKilovoltValues();
         if(resultPerPageOption == null || StringUtil.isEmpty(resultPerPageOption)){
         	resultPerPageOption = "10";

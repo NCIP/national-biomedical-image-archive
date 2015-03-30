@@ -278,7 +278,7 @@ public class SavedQueryBean {
      */
     public String resubmitQuery() {
         AbstractStoredQueryDTO dto = null;
-        
+
         if (historyMode) {
             dto = (AbstractStoredQueryDTO) queryHistoryData.getRowData();
         } else {
@@ -293,12 +293,12 @@ public class SavedQueryBean {
 
         SearchWorkflowBean swb = BeanManager.getSearchWorkflowBean();
         swb.setToggleQuery(false);
-        try {
+   /*     try {
             swb.asynchronousQuery(repopulateSearch(dto));
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+	*/
         MessageUtil.addInfoMessage("MAINbody:searchMenuForm:saveQueryView:queryName",
             "resubmitQuery", new Object[] { swb.getQuery().getQueryName() });
 
@@ -313,7 +313,7 @@ public class SavedQueryBean {
      */
     public String editQuery() throws Exception {
         SavedQueryDTO dto = null;
-        
+
         dto = (SavedQueryDTO) queryData.getRowData();
 
         SearchWorkflowBean swb = BeanManager.getSearchWorkflowBean();

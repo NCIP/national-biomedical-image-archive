@@ -20,6 +20,7 @@ L-->
                               <h:outputText id="dateFrom" value="#{msg.date_from}"></h:outputText>
                               <ice:selectInputDate id="fromDate"
                                                    value="#{searchWorkflowBean.dateFrom}" 
+                                                   valueChangeListener="#{searchWorkflowBean.dateSelectChangeListener}"
                                                    popupDateFormat="MM/dd/yyyy"
                                                    renderAsPopup="true"
                                                    partialSubmit="false"
@@ -30,6 +31,7 @@ L-->
                               <h:outputText id="dateTo" value="#{msg.date_to}"/> <h:outputText value=" " />                                                             
                               <ice:selectInputDate id="toDate"
                                                    value="#{searchWorkflowBean.dateTo}" 
+                                                   valueChangeListener="#{searchWorkflowBean.dateSelectChangeListener}"
                                                    popupDateFormat="MM/dd/yyyy"
                                                    renderAsPopup="true"
                                                    partialSubmit="false"

@@ -82,7 +82,6 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
 	    DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
         nf.setMaximumFractionDigits(1);
         nf.setMinimumFractionDigits(1);
-System.out.println("!!!!&&&&&&&&called getImageSizeInMB="+ nf.format((getExactSize()- getAnnotationsSize()) / 1048576.0));
         return nf.format((getExactSize()- getAnnotationsSize()) / 1048576.0);
    }
 

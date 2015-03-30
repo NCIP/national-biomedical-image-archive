@@ -615,6 +615,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
         else {
         	String whereStmt = "";
+        	/* removed to make the same as dynamic search which does not have this extra restriction but bases the restriction on collection + site
             if (authCrit.getCollections() != null) {
                 // Collections will only be on auth crit if user did not include
                 // collection criteria
@@ -624,6 +625,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                 		                            IN,
                 		                            authCrit.getCollections());
             }
+            */
             return whereStmt;
         }
     }

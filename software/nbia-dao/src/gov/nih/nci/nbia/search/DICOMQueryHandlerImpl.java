@@ -200,7 +200,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 
 	        /* Process Authorization */
 	        String rc = authorizationProcess(query);
-	        logger.info("rc is: "+rc);
+
 	        if (rc == null) {
 	            return new ArrayList<PatientStudySeriesTriple>();
 	        }
@@ -656,7 +656,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                     whereStmt += OR;
                 }
 
-                whereStmt += "((";
+                whereStmt += "(";
                 whereStmt += COLLECTION_FIELD;
                 whereStmt += " = '";
                 whereStmt += siteData.getCollection();
@@ -664,7 +664,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                 whereStmt += SITE_FIELD;
                 whereStmt += " = '";
                 whereStmt += siteData.getSiteName();
-                whereStmt += "')) ";
+                whereStmt += "') ";
                 first = false;
             }
 

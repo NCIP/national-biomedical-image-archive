@@ -704,7 +704,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         	return null;
         }
         else {
-        	whereStmt += collectionsWhereStmt;
+        	//whereStmt += collectionsWhereStmt; No collections in dynamic search the current way is site + collection
         }
 
         String sitesWhereStmt = processAuthorizationSites(theQuery);
@@ -716,7 +716,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
 
         whereStmt += processAuthorizationSecurityGroups(theQuery);
-
+        System.out.println("where statement:"+whereStmt);
         return whereStmt;
     }
 

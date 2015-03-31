@@ -200,14 +200,14 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 
 	        /* Process Authorization */
 	        String rc = authorizationProcess(query);
-
+	        logger.info("rc is: "+rc);
 	        if (rc == null) {
 	            return new ArrayList<PatientStudySeriesTriple>();
 	        }
 	        else {
 	        	whereStmt += rc;
 	        }
-
+            
 	        /* Process image criteria */
 	        String imageClause = imageCriteriaProcess(this.query);
 	        String hql = selectStmt + fromStmt + whereStmt + imageClause;

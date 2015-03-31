@@ -716,7 +716,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
 
         whereStmt += processAuthorizationSecurityGroups(theQuery);
-        System.out.println("where statement:"+whereStmt);
+
         return whereStmt;
     }
 

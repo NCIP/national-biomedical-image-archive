@@ -656,7 +656,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                     whereStmt += OR;
                 }
 
-                whereStmt += "(";
+                whereStmt += "((";
                 whereStmt += COLLECTION_FIELD;
                 whereStmt += " = '";
                 whereStmt += siteData.getCollection();
@@ -664,7 +664,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                 whereStmt += SITE_FIELD;
                 whereStmt += " = '";
                 whereStmt += siteData.getSiteName();
-                whereStmt += "')";
+                whereStmt += "')) ";
                 first = false;
             }
 

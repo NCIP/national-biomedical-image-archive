@@ -87,11 +87,6 @@ L-->
 			<pathelement path="${common.lib.dir}/xalan-2.7.1.jar"/>
 		</classpath>
 	</taskdef>
-	<taskdef name="dbconfig" classname="com.dbconfig.anttask.DbConfig">
-		<classpath>
-			<pathelement location="${common.lib.dir}/dbconfig-0.1.8.jar"/>	
-		</classpath>
-	</taskdef>	
 	<trycatch>
 		<try>
 			<path id="liquibase_stuff">

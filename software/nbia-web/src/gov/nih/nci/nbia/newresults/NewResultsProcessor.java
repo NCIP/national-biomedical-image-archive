@@ -106,9 +106,8 @@ public class NewResultsProcessor implements Job {
                     am.authorizeCollections(newQuery);
                     am.authorizeSitesAndSSGs(newQuery);
 
-                    LookupManager lookupMgr = LookupManagerFactory.createLookupManager(am.getAuthorizedCollections());
-                    boolean newResults = doResultsExist(newQuery,
-                    		                            lookupMgr.getSearchableNodes().keySet());
+               //     LookupManager lookupMgr = LookupManagerFactory.createLookupManager(am.getAuthorizedCollections());
+                    boolean newResults = doResultsExist(newQuery);
 
                     if (newResults) {
                         qsm.addNewResultsForQuery(newQuery.getSavedQueryId());
@@ -123,28 +122,14 @@ public class NewResultsProcessor implements Job {
     }
 
 
-    private static boolean doResultsExist(DICOMQuery newQuery,
-    		                              Set<NBIANode> searchableNodes) {
+    private static boolean doResultsExist(DICOMQuery newQuery) {
 
         PatientSearcherService patientSeacherService =
         	PatientSearcherServiceFactory.getPatientSearcherService();
 
         List<NBIANode> selectedNodes = new ArrayList<NBIANode>();
 
-        NodeCriteria nodeCriteria = newQuery.getNodeCriteria();
-
-        if(nodeCriteria!=null) {
-	        List<String> nodeUrls = nodeCriteria.getRemoteNodes();
-	    	for(NBIANode searchableNode : searchableNodes) {
-	    		if(nodeUrls.contains(searchableNode.getURL())) {
-	    			selectedNodes.add(searchableNode);
-	    		}
-	    	}
-        }
-
-        if(selectedNodes.isEmpty()) {
-        	selectedNodes.add(LocalNode.getLocalNode());
-        }
+        selectedNodes.add(LocalNode.getLocalNode());
 
         PatientSearchCompletionService results = patientSeacherService.searchForPatients(selectedNodes,
         		                                                                         newQuery);

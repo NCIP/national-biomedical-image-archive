@@ -77,8 +77,14 @@ public class StartupServlet extends HttpServlet {
         * Create the  3 Quatz Tasks
         * see http://www.opensymphony.com/quartz/
         */
-        Trigger runNewDataFlagTrigger =
-    	   	TriggerUtils.makeDailyTrigger(NCIAConfig.getHourToRunNewDataFlagUpdate(), 0);
+        //comment out for speeding up the test
+        //Trigger runNewDataFlagTrigger =
+    	//   	TriggerUtils.makeDailyTrigger(NCIAConfig.getHourToRunNewDataFlagUpdate(), 0);
+    	//end of comment out for speeding up the test
+    	//testing code here
+    	Trigger runNewDataFlagTrigger =
+    	   	TriggerUtils.makeHourlyTrigger(2);
+    	//end of testing code
         runNewDataFlagTrigger.setName("Daily Trigger for New Results Flag Update");
        JobDetail runNewDataFlagJobDetail = new JobDetail("NewDataFlag",
 				                                         Scheduler.DEFAULT_GROUP,

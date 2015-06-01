@@ -18,8 +18,6 @@ L-->
   <property name="project.lib.dir" value="${common.dir}/target/lib/imagedeletionmdb" />
   <property name="assembly.jms.dir" value="${basedir}/jms" />
   <property name="assembly.classes.dir" value="${basedir}/classes"/>
-  <property name="resources.dir" value="${basedir}/resources" />
-  <property name="resources.conf.dir" value="${resources.dir}/conf" />
   <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-services-commons" />
   <property name="src.java.dir" value="${basedir}/src" />
 
@@ -32,7 +30,6 @@ L-->
 
   <!-- Task definitions -->
   <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="common.classpath" />
-
 
   <!-- Targets -->
   <target name="ivy-settings">
@@ -56,26 +53,6 @@ L-->
     </move>
   </target>
 
-  <!-- out of the blue jboss started acting nuts wrt class-path in manifest.
-       not sure what rustled to cause this.  just kill the class-path -->
-  <target name="strip-classpath" depends="ivy-runtime">
-    <!--set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/castor-1.0.2.jar"
-                                   temp.dir="${project.lib.dir}/runtime/tmp"
-                                   classpath.value=""/>
-
-    <set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/jcog-1.2.jar"
-                                   temp.dir="${project.lib.dir}/runtime/tmp"
-                                   classpath.value=""/>
-
-    <set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/xalan-2.6.0.jar"
-                                   temp.dir="${project.lib.dir}/runtime/tmp"
-                                   classpath.value=""/>
-
-    <set-classpath-of-jar-manifest jar.file="${project.lib.dir}/runtime/mail-1.4.jar"
-                                   temp.dir="${project.lib.dir}/runtime/tmp"
-                                   classpath.value=""/-->
-  </target>
-
   <target name="compile" depends="ivy-compile">
     <mkdir dir="${assembly.classes.dir}" />
 
@@ -95,60 +72,32 @@ L-->
 
 
   <target name="dist-jms" depends="ivy-runtime,
-                                   compile,
-                                   strip-classpath">
+                                   compile">
     <delete dir="${assembly.jms.dir}/META-INF" />
     <mkdir dir="${assembly.jms.dir}/META-INF" />
-    <copy file="${resources.conf.dir}/ejb-jar.xml" tofile="${assembly.jms.dir}/META-INF/ejb-jar.xml" />
-    <copy file="${resources.conf.dir}/jboss.xml" tofile="${assembly.jms.dir}/META-INF/jboss.xml" />
-    <!--
-    <copy file="${resources.conf.dir}/mail.properties"
-          tofile="${assembly.jms.dir}/mail.properties" />
-      -->
 
     <!-- Build the MDB JAR.  Only include the minium necessary -->
     <!-- manifest.mf pulls in ncia-client.jar and ncia.jar in the classpath -->
     <jar jarfile="${assembly.jms.dir}/imageDeletionMDB.jar" compress="false">
-      <fileset dir="${assembly.jms.dir}">
-        <include name="META-INF/ejb-jar.xml" />
-        <include name="META-INF/jboss.xml" />
-        <!--
-        <include name="mail.properties" />
-         -->
-      </fileset>
-
       <fileset dir="${assembly.classes.dir}">
         <include name="**/**" />
       </fileset>
-       <!-- ivy pulls this down -->
-      <!--fileset dir="${project.lib.dir}/runtime">
-        <include name="*.jar" />
-      </fileset-->
     </jar>
 
-  <!--  <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml"
-          tofile="${target.dir}/ncia-jbossmq-destinations-service.xml" /> -->
     <delete dir="${assembly.jms.dir}/META-INF" />
     <delete file="${assembly.jms.dir}/mail.properties" />
 
     <copy file="${assembly.jms.dir}/imageDeletionMDB.jar"
           tofile="${target.dir}/imageDeletionMDB.jar" overwrite="true" />
- <!--   <copy file="${resources.conf.dir}/ncia-jbossmq-destinations-service.xml"
-           tofile="${target.dir}/ncia-jbossmq-destinations-service.xml" overwrite="true" /> -->
-
   </target>
 
 
   <target name="run" depends="dist-jms,
                               -post-clean"/>
 
-
   <target name="-post-clean">
     <delete dir="${assembly.jms.dir}" quiet="false" />
     <delete dir="${assembly.classes.dir}" quiet="false" />
   </target>
-
-
-
 </project>
 

@@ -58,18 +58,14 @@ import gov.nih.nci.nbia.zip.ZipManager;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import javax.ejb.EJBException;
-import javax.ejb.MessageDrivenBean;
-import javax.ejb.MessageDrivenContext;
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.ejb.TransactionManagementType;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.jms.QueueConnection;
-import javax.jms.QueueConnectionFactory;
-import javax.jms.QueueSession;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -79,93 +75,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  *
  */
-public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
+@javax.ejb.TransactionManagement(TransactionManagementType.BEAN)
+@MessageDriven(name = "ImageZippingMDB", activationConfig = {
+@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+@ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/imageQueue"),
+@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge") })
+public class ImageZippingMDB implements MessageListener {
     private Logger log = Logger.getLogger(ImageZippingMDB.class);
 
-    // Queue values
-    private QueueConnection conn;
-    private QueueSession session;
-
-    // The container's context for this bean
-    private MessageDrivenContext ctx;
-
-    /**
-     * Constructor
-     *
-     */
-    public ImageZippingMDB() {
-        log.debug("ImageZippingMDB constructor");
-    }
-
-    /**
-     * Called by the container to set the context
-     *
-     * @param ctx - the context for this bean
-     */
-    public void setMessageDrivenContext(MessageDrivenContext ctx) {
-        this.ctx = ctx;
-    }
-
-    /**
-     * Called by the container when the EJB is created
-     *
-     */
-    public void ejbCreate() {
-        try {
-            setup();
-            log.debug("finish ejbCreate");
-        } catch (Exception e) {
-            throw new EJBException("Failed to init ImageZippingMDB");
-        }
-
-        //initialize spring so that nbia-dao stuff will work correctly.
-        //not sure if there is an extra-special way to do this by
-        //configuration or convention but this works
-        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext-hibernate.xml");
-        new SpringApplicationContext().setApplicationContext(appContext);
-    }
-
-    /**
-     * Called by the container when the EJB is removed
-     */
-    public void ejbRemove() {
-        log.debug("ImageZippingMDB.ejbRemove");
-
-        try {
-            if (session != null) {
-                session.close();
-            }
-
-            if (conn != null) {
-                conn.close();
-            }
-        } catch (JMSException e) {
-            log.debug("Unexception exception: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-
-    }
-
-    /**
-     * Creates a connection to the queue
-     *
-     *
-     * @throws JMSException
-     * @throws NamingException
-     * @throws IOException
-     */
-    private void setup() throws JMSException, NamingException, IOException {
-        log.debug("ImageZippingMDB.setup");
-
-        InitialContext context = new InitialContext();
-
-        QueueConnectionFactory qcf = (QueueConnectionFactory) context.lookup(
-                "java:comp/env/jms/QCF");
-        conn = qcf.createQueueConnection();
-        session = conn.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
-        conn.start();
-    }
 
     /**
      * This method gets called every time a message is pulled off
@@ -182,6 +99,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
         // There can be more than one for very large data sets
         List<String> listOfZipFiles;
 
+
         try {
             ObjectMessage om = (ObjectMessage) arg0;
             izm = (ImageZippingMessage) om.getObject();
@@ -196,20 +114,6 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
                 return;
             }
 
-            // Because a lot of data can be zipped, the EJB transaction timeout must be
-            // set appropriately
-            // To set the timeout ourselves, bean managed transactions must be used
-            //  (see ejb-jar.xml)
-//            log.debug("Setting MDB timeout to " +
-//                NCIAConfig.getImageZippingMDBTimeout() + " seconds ");
-
-            //ctx.getUserTransaction().setTransactionTimeout(NCIAConfig.getImageZippingMDBTimeout());
-
-            // Begin the transaction
-            //ctx.getUserTransaction().begin();
-
-
-
             // start zipping and wait for it to finish
             ZipManager zipper = new ZipManager();
             zipper.setName(izm.getZipFilename());
@@ -222,16 +126,6 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
         } catch (Throwable e) {
         	e.printStackTrace();
             log.error("Error zipping file " + izm.getZipFilename(), e);
-
-            // Mark download history as failed?
-            // Commit the transaction so that it won't run over and over again
-//            try {
-//                ctx.getUserTransaction().commit();
-//            }
-//            catch (Throwable ee) {
-//                log.error("While handling an exception in the MDB, could not commit the transaction",
-//                    ee);
-//            }
 
             // Return so that email doesn't get sent
             return;
@@ -255,7 +149,7 @@ public class ImageZippingMDB implements MessageDrivenBean, MessageListener {
             // Commit the transaction so that it won't run over and over again
             try {
                // ctx.getUserTransaction().commit();
-                
+
                 DownloadRecorder downloadRecorder = new DownloadRecorder();
                 downloadRecorder.recordDownload(izm.getItems(), izm.getUserName());
             }

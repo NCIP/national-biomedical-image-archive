@@ -1,0 +1,668 @@
+<properties>
+	<property  name="cagrid-base-war.binaries.file" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-base-war.binaries.file-syntax</name>
+				<description>Checks cagrid-base-war.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-base-war.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-base-war.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-base-war.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-base-war.binaries.file == null </condition>
+						<condition>cagrid-base-war.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-base-war.binaries.file did not pass validation. cagrid-base-war.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "cagrid-wscore-4.0.3-appserver-base-war.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-base-war.binaries.relative.dir" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-base-war.binaries.relative.dir-syntax</name>
+				<description>Checks cagrid-base-war.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-base-war.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-base-war.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-base-war.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-base-war.binaries.relative.dir == null </condition>
+						<condition>cagrid-base-war.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-base-war.binaries.relative.dir did not pass validation. cagrid-base-war.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - ".".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-base-war.src.url" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-base-war.src.url-syntax</name>
+				<description>Checks cagrid-base-war.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-base-war.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-base-war.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-base-war.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-base-war.src.url == null </condition>
+						<condition>cagrid-base-war.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-base-war.src.url did not pass validation. cagrid-base-war.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/cagrid-wscore-4.0.3-appserver-base-war.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>cagrid-base-war.src.url-url</name>
+				<description>Checks cagrid-base-war.src.url has proper value.</description>
+				<conditions>
+					<condition>cagrid-base-war.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>cagrid-base-war.src.url did not pass validation. cagrid-base-war.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/cagrid-wscore-4.0.3-appserver-base-war.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-console.binaries.file" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-console.binaries.file-syntax</name>
+				<description>Checks cagrid-console.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-console.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-console.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-console.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-console.binaries.file == null </condition>
+						<condition>cagrid-console.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-console.binaries.file did not pass validation. cagrid-console.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "caGrid-console_sources.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-console.binaries.relative.dir" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-console.binaries.relative.dir-syntax</name>
+				<description>Checks cagrid-console.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-console.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-console.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-console.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-console.binaries.relative.dir == null </condition>
+						<condition>cagrid-console.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-console.binaries.relative.dir did not pass validation. cagrid-console.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "caGrid-console".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-console.src.url" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-console.src.url-syntax</name>
+				<description>Checks cagrid-console.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-console.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-console.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-console.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-console.src.url == null </condition>
+						<condition>cagrid-console.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-console.src.url did not pass validation. cagrid-console.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2009/os-independent/caGrid-console_sources.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>cagrid-console.src.url-url</name>
+				<description>Checks cagrid-console.src.url has proper value.</description>
+				<conditions>
+					<condition>cagrid-console.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>cagrid-console.src.url did not pass validation. cagrid-console.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2009/os-independent/caGrid-console_sources.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-libs.binaries.file" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-libs.binaries.file-syntax</name>
+				<description>Checks cagrid-libs.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-libs.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-libs.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-libs.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-libs.binaries.file == null </condition>
+						<condition>cagrid-libs.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-libs.binaries.file did not pass validation. cagrid-libs.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "cagrid-wscore-4.0.3-appserver-libs.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-libs.binaries.relative.dir" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-libs.binaries.relative.dir-syntax</name>
+				<description>Checks cagrid-libs.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-libs.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-libs.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-libs.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-libs.binaries.relative.dir == null </condition>
+						<condition>cagrid-libs.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-libs.binaries.relative.dir did not pass validation. cagrid-libs.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - ".".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-libs.src.url" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-libs.src.url-syntax</name>
+				<description>Checks cagrid-libs.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-libs.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-libs.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-libs.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-libs.src.url == null </condition>
+						<condition>cagrid-libs.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-libs.src.url did not pass validation. cagrid-libs.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/cagrid-wscore-4.0.3-appserver-libs.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>cagrid-libs.src.url-url</name>
+				<description>Checks cagrid-libs.src.url has proper value.</description>
+				<conditions>
+					<condition>cagrid-libs.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>cagrid-libs.src.url did not pass validation. cagrid-libs.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/cagrid-wscore-4.0.3-appserver-libs.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cagrid-target.src.url" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>cagrid-target.src.url-syntax</name>
+				<description>Checks cagrid-target.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cagrid-target.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">cagrid-target.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">cagrid-target.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>cagrid-target.src.url == null </condition>
+						<condition>cagrid-target.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cagrid-target.src.url did not pass validation. cagrid-target.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "https://ncisvn.nci.nih.gov/svn/cagrid/branches/caGrid-1_3_release/cagrid-1-0/caGrid/repository/caGrid/target_grid".</fail-message>
+			</rule>
+			<rule>
+				<name>cagrid-target.src.url-url</name>
+				<description>Checks cagrid-target.src.url has proper value.</description>
+				<conditions>
+					<condition>cagrid-target.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>cagrid-target.src.url did not pass validation. cagrid-target.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "https://ncisvn.nci.nih.gov/svn/cagrid/branches/caGrid-1_3_release/cagrid-1-0/caGrid/repository/caGrid/target_grid".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.science.affiliation" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.science.affiliation-syntax</name>
+				<description>Checks grid.poc.science.affiliation is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.science.affiliation ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.science.affiliation ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.science.affiliation ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.science.affiliation == null </condition>
+						<condition>grid.poc.science.affiliation == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.science.affiliation did not pass validation. grid.poc.science.affiliation must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "Test".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.science.email" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.science.email-syntax</name>
+				<description>Checks grid.poc.science.email is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.science.email ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.science.email ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.science.email ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.science.email == null </condition>
+						<condition>grid.poc.science.email == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.science.email did not pass validation. grid.poc.science.email must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "john.smith@mail.com".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.science.name.first" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.science.name.first-syntax</name>
+				<description>Checks grid.poc.science.name.first is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.science.name.first ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.science.name.first ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.science.name.first ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.science.name.first == null </condition>
+						<condition>grid.poc.science.name.first == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.science.name.first did not pass validation. grid.poc.science.name.first must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "John".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.science.name.last" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.science.name.last-syntax</name>
+				<description>Checks grid.poc.science.name.last is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.science.name.last ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.science.name.last ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.science.name.last ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.science.name.last == null </condition>
+						<condition>grid.poc.science.name.last == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.science.name.last did not pass validation. grid.poc.science.name.last must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "Smith".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.science.phone" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.science.phone-syntax</name>
+				<description>Checks grid.poc.science.phone is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.science.phone ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.science.phone ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.science.phone ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.science.phone == null </condition>
+						<condition>grid.poc.science.phone == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.science.phone did not pass validation. grid.poc.science.phone must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "0124567890".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.science.role" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.science.role-syntax</name>
+				<description>Checks grid.poc.science.role is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.science.role ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.science.role ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.science.role ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.science.role == null </condition>
+						<condition>grid.poc.science.role == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.science.role did not pass validation. grid.poc.science.role must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "sysadmin".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.addr.country" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.addr.country-syntax</name>
+				<description>Checks grid.poc.tech.addr.country is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.addr.country ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.country ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.country ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.addr.country == null </condition>
+						<condition>grid.poc.tech.addr.country == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.addr.country did not pass validation. grid.poc.tech.addr.country must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "USA".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.addr.locality" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.addr.locality-syntax</name>
+				<description>Checks grid.poc.tech.addr.locality is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.addr.locality ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.locality ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.locality ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.addr.locality == null </condition>
+						<condition>grid.poc.tech.addr.locality == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.addr.locality did not pass validation. grid.poc.tech.addr.locality must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "Vienna".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.addr.postalCode" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.addr.postalCode-syntax</name>
+				<description>Checks grid.poc.tech.addr.postalCode is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.addr.postalCode ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.postalCode ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.postalCode ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.addr.postalCode == null </condition>
+						<condition>grid.poc.tech.addr.postalCode == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.addr.postalCode did not pass validation. grid.poc.tech.addr.postalCode must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "22180".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.addr.stateProvince" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.addr.stateProvince-syntax</name>
+				<description>Checks grid.poc.tech.addr.stateProvince is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.addr.stateProvince ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.stateProvince ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.stateProvince ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.addr.stateProvince == null </condition>
+						<condition>grid.poc.tech.addr.stateProvince == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.addr.stateProvince did not pass validation. grid.poc.tech.addr.stateProvince must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "VA".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.addr.street1" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.addr.street1-syntax</name>
+				<description>Checks grid.poc.tech.addr.street1 is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.addr.street1 ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.street1 ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.street1 ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.addr.street1 == null </condition>
+						<condition>grid.poc.tech.addr.street1 == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.addr.street1 did not pass validation. grid.poc.tech.addr.street1 must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "1234 Somplace lane".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.addr.street2" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.addr.street2-syntax</name>
+				<description>Checks grid.poc.tech.addr.street2 is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.addr.street2 ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.street2 ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.addr.street2 ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.addr.street2 == null </condition>
+						<condition>grid.poc.tech.addr.street2 == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.addr.street2 did not pass validation. grid.poc.tech.addr.street2 must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.affiliation" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.affiliation-syntax</name>
+				<description>Checks grid.poc.tech.affiliation is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.affiliation ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.affiliation ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.affiliation ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.affiliation == null </condition>
+						<condition>grid.poc.tech.affiliation == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.affiliation did not pass validation. grid.poc.tech.affiliation must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "BDA".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.email" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.email-syntax</name>
+				<description>Checks grid.poc.tech.email is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.email ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.email ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.email ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.email == null </condition>
+						<condition>grid.poc.tech.email == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.email did not pass validation. grid.poc.tech.email must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "buildanddeployment@mail.nih.gov".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.name.first" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.name.first-syntax</name>
+				<description>Checks grid.poc.tech.name.first is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.name.first ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.name.first ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.name.first ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.name.first == null </condition>
+						<condition>grid.poc.tech.name.first == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.name.first did not pass validation. grid.poc.tech.name.first must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "DeploymentAutomation".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.name.last" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.name.last-syntax</name>
+				<description>Checks grid.poc.tech.name.last is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.name.last ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.name.last ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.name.last ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.name.last == null </condition>
+						<condition>grid.poc.tech.name.last == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.name.last did not pass validation. grid.poc.tech.name.last must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "Buildand".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.phone" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.phone-syntax</name>
+				<description>Checks grid.poc.tech.phone is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.phone ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.phone ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.phone ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.phone == null </condition>
+						<condition>grid.poc.tech.phone == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.phone did not pass validation. grid.poc.tech.phone must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "0124567890".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.researchCenter.displayname" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.researchCenter.displayname-syntax</name>
+				<description>Checks grid.poc.tech.researchCenter.displayname is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.researchCenter.displayname ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.researchCenter.displayname ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.researchCenter.displayname ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.researchCenter.displayname == null </condition>
+						<condition>grid.poc.tech.researchCenter.displayname == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.researchCenter.displayname did not pass validation. grid.poc.tech.researchCenter.displayname must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bdarc".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.researchCenter.shortname" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.researchCenter.shortname-syntax</name>
+				<description>Checks grid.poc.tech.researchCenter.shortname is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.researchCenter.shortname ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.researchCenter.shortname ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.researchCenter.shortname ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.researchCenter.shortname == null </condition>
+						<condition>grid.poc.tech.researchCenter.shortname == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.researchCenter.shortname did not pass validation. grid.poc.tech.researchCenter.shortname must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.poc.tech.role" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.poc.tech.role-syntax</name>
+				<description>Checks grid.poc.tech.role is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.poc.tech.role ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.poc.tech.role ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.poc.tech.role ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.poc.tech.role == null </condition>
+						<condition>grid.poc.tech.role == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.poc.tech.role did not pass validation. grid.poc.tech.role must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "sysadmin".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="grid.target" description="" skip-property="exclude.validate.grid">
+		<rules>
+			<rule>
+				<name>grid.target-syntax</name>
+				<description>Checks grid.target is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>grid.target ==~ /.*\S+.*/</condition>
+							<condition negate="true">grid.target ==~ /.*\s.*/</condition>
+							<condition negate="true">grid.target ==~ /.*\x5c.*/</condition>
+							<condition negate="true">grid.target ==~ /.*\/.*/</condition>
+						</and>
+						<condition>grid.target == null </condition>
+						<condition>grid.target == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>grid.target did not pass validation. grid.target must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "nci_stage-1.3".</fail-message>
+			</rule>
+			<rule>
+				<name>grid.target-value</name>
+				<description>Checks grid.target has proper value.</description>
+				<conditions>
+					<or>
+						<condition> grid.target == "nci_prod-1.3"</condition>
+						<condition> grid.target == "nci_stage-1.3"</condition>
+						<condition> grid.target == "nci_qa-1.3"</condition>
+						<condition> grid.target == "training-1.3"</condition>
+					</or>
+				</conditions>
+				<fail-message>grid.target did not pass validation. Must be one of the following (nci_prod-1.3, nci_stage-1.3, nci_qa-1.3, training-1.3).</fail-message>
+			</rule>
+		</rules>
+	</property>
+</properties>

@@ -24,8 +24,8 @@ L-->
 	<dependencies>
 		<dependency org="org.owasp.esapi" name="esapi" rev="2.1.0" conf="compile->master;runtime->master"/>
 		<dependency org="asm" name="asm" rev="3.1" conf="compile->master;runtime->master"/>
-		<dependency org="cglib" name="cglib-nodep" rev="2.1_3" conf="compile->master;runtime->master"/>
-		<dependency org="gov.nih.nci.csm" name="csmapi" rev="5.1" conf="compile->master;runtime->default">
+		<dependency org="cglib" name="cglib" rev="2.2" conf="compile->master;runtime->master"/>
+		<dependency org="gov.nih.nci.csm" name="csmapi" rev="5.2" conf="compile->master;runtime->default">
 			<exclude module="jdom"/>
 		</dependency>
 		<dependency org="org.codehaus.jackson" name="jackson-core-asl" rev="1.9.2" conf="compile->master;runtime->master"/>
@@ -78,12 +78,12 @@ L-->
 		
 		     <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="compile->master;runtime->default"/>
          <!-- dicom 
              <dependency org="dcm4che"
                 name="dcm4che-imageio-rle"
-                rev="2.0.17"
+                rev="2.0.19"
                 conf="compile->master;runtime->default"/>
           -->
              <dependency org="java.net"

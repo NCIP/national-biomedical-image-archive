@@ -47,7 +47,7 @@ public class FormatOutput {
 //						obj.put(columns[i], temp);
 //					}
 //					else 	
-					System.out.println("column:"+columns[i]+"-object"+objects[i]);
+				//	System.out.println("column:"+columns[i]+"-object"+objects[i]);
 					if (objects[i]!=null)
 					{
 					    obj.put(columns[i], objects[i]);

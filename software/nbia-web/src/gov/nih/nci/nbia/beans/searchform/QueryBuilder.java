@@ -110,12 +110,14 @@ class QueryBuilder {
 
 
         DateRangeCriteria drc = buildDateCrit(searchBean);
-        if (drc != null) {
+        if (drc != null&&searchBean.isDateCriteria()) {
+        	System.out.println("Date Criteria "+drc);
         	query.setCriteria(drc);
         }
 
         PatientCriteria prc = buildPatientCrit(searchBean.getPatientInput());
-        if (prc != null) {
+        if (prc != null&&searchBean.isPatientCriteria()) {
+        	System.out.println("Patient Criteria "+prc);
         	query.setCriteria(prc);
         }
 

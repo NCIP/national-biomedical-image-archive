@@ -66,7 +66,7 @@ public class MessageUtil extends ResourceBundleUtil {
         String summary = getString(nciMessageBundle, resourceId, params, locale);
 
         if (summary == null) {
-            summary = "???" + resourceId + "???";
+            summary = resourceId;
         }
 
         /*String detail = getString(appBundle, resourceId + "_detail", locale,

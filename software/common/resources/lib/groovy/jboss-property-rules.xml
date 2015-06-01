@@ -1,0 +1,2302 @@
+<properties>
+	<property  name="jboss.application.url" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>jboss.application.url-syntax</name>
+				<description>Checks jboss.application.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.application.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.application.url ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.application.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.application.url == null </condition>
+						<condition>jboss.application.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.application.url did not pass validation. jboss.application.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://localhost.nci.nih.gov:port".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.application.url-url</name>
+				<description>Checks jboss.application.url has proper value.</description>
+				<conditions>
+					<condition>jboss.application.url ==~ /^http.*:\/\/.*/</condition>
+				</conditions>
+				<fail-message>jboss.application.url did not pass validation. jboss.application.url must be http(s)://* Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/software/bda-download/bda-ivy-build.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="application.context.name" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>application.context.name-syntax</name>
+				<description>Checks application.context.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>application.context.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">application.context.name ==~ /.*\s.*/</condition>
+							<condition negate="true">application.context.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">application.context.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>application.context.name == null </condition>
+						<condition>application.context.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>application.context.name did not pass validation. application.context.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="authentication.type" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>authentication.type-syntax</name>
+				<description>Checks authentication.type is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>authentication.type ==~ /.*\S+.*/</condition>
+							<condition negate="true">authentication.type ==~ /.*\s.*/</condition>
+							<condition negate="true">authentication.type ==~ /.*\x5c.*/</condition>
+							<condition negate="true">authentication.type ==~ /.*\/.*/</condition>
+						</and>
+						<condition>authentication.type == null </condition>
+						<condition>authentication.type == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>authentication.type did not pass validation. authentication.type must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "db".</fail-message>
+			</rule>
+			<rule>
+				<name>authentication.type-value</name>
+				<description>Checks authentication.type has proper value.</description>
+				<conditions>
+					<or>
+						<condition>authentication.type == "db"</condition>
+						<condition>authentication.type == "ldap"</condition>
+						<condition>authentication.type == ""</condition>
+						<condition>authentication.type == null</condition>
+					</or>
+				</conditions>
+				<fail-message>authentication.type did not pass validation. authentication.type must be empty, db or ldap. Sample valid value "db".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cgmm.application.context" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>cgmm.application.context-syntax</name>
+				<description>Checks cgmm.application.context is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cgmm.application.context ==~ /.*\S+.*/</condition>
+							<condition negate="true">cgmm.application.context ==~ /.*\s.*/</condition>
+							<condition negate="true">cgmm.application.context ==~ /.*\x5c.*/</condition>
+							<condition negate="true">cgmm.application.context ==~ /.*\/.*/</condition>
+						</and>
+						<condition>cgmm.application.context == null </condition>
+						<condition>cgmm.application.context == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cgmm.application.context did not pass validation. cgmm.application.context must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="cgmm.application.name" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>cgmm.application.name-syntax</name>
+				<description>Checks cgmm.application.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>cgmm.application.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">cgmm.application.name ==~ /.*\s.*/</condition>
+							<condition negate="true">cgmm.application.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">cgmm.application.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>cgmm.application.name == null </condition>
+						<condition>cgmm.application.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>cgmm.application.name did not pass validation. cgmm.application.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="database.context.path" description="" skip-property="exclude.validate.database">
+		<rules>
+			<rule>
+				<name>database.context.path-syntax</name>
+				<description>Checks database.context.path is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>database.context.path ==~ /.*\S+.*/</condition>
+							<condition negate="true">database.context.path ==~ /.*\s.*/</condition>
+							<condition negate="true">database.context.path ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>database.context.path == null </condition>
+						<condition>database.context.path == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>database.context.path did not pass validation. database.context.path must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "bda-blueprints-webapp".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.access-logs" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>exclude.access-logs-syntax</name>
+				<description>Checks exclude.access-logs is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.access-logs ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.access-logs ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.access-logs ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.access-logs ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.access-logs == null </condition>
+						<condition>exclude.access-logs == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.access-logs did not pass validation. exclude.access-logs must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.access-logs-tf</name>
+				<description>Checks exclude.access-logs has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.access-logs == "true"</condition>
+						<condition>exclude.access-logs == "false"</condition>
+						<condition>exclude.access-logs == ""</condition>
+						<condition>exclude.access-logs == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.access-logs did not pass validation. exclude.access-logs must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.jboss" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>exclude.jboss-syntax</name>
+				<description>Checks exclude.jboss is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.jboss ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.jboss ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.jboss ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.jboss ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.jboss == null </condition>
+						<condition>exclude.jboss == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss did not pass validation. exclude.jboss must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.jboss-tf</name>
+				<description>Checks exclude.jboss has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.jboss == "true"</condition>
+						<condition>exclude.jboss == "false"</condition>
+						<condition>exclude.jboss == ""</condition>
+						<condition>exclude.jboss == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss did not pass validation. exclude.jboss must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.jboss.backup" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>exclude.jboss.backup-syntax</name>
+				<description>Checks exclude.jboss.backup is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.jboss.backup ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.jboss.backup ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.jboss.backup ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.jboss.backup ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.jboss.backup == null </condition>
+						<condition>exclude.jboss.backup == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss.backup did not pass validation. exclude.jboss.backup must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.jboss.backup-tf</name>
+				<description>Checks exclude.jboss.backup has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.jboss.backup == "true"</condition>
+						<condition>exclude.jboss.backup == "false"</condition>
+						<condition>exclude.jboss.backup == ""</condition>
+						<condition>exclude.jboss.backup == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss.backup did not pass validation. exclude.jboss.backup must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.jboss-bindings" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>exclude.jboss-bindings-syntax</name>
+				<description>Checks exclude.jboss-bindings is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.jboss-bindings ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.jboss-bindings ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.jboss-bindings ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.jboss-bindings ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.jboss-bindings == null </condition>
+						<condition>exclude.jboss-bindings == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss-bindings did not pass validation. exclude.jboss-bindings must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.jboss-bindings-tf</name>
+				<description>Checks exclude.jboss-bindings has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.jboss-bindings == "true"</condition>
+						<condition>exclude.jboss-bindings == "false"</condition>
+						<condition>exclude.jboss-bindings == ""</condition>
+						<condition>exclude.jboss-bindings == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss-bindings did not pass validation. exclude.jboss-bindings must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.jboss-config" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>exclude.jboss-config-syntax</name>
+				<description>Checks exclude.jboss-config is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.jboss-config ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.jboss-config ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.jboss-config ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.jboss-config ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.jboss-config == null </condition>
+						<condition>exclude.jboss-config == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss-config did not pass validation. exclude.jboss-config must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.jboss-config-tf</name>
+				<description>Checks exclude.jboss-config has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.jboss-config == "true"</condition>
+						<condition>exclude.jboss-config == "false"</condition>
+						<condition>exclude.jboss-config == ""</condition>
+						<condition>exclude.jboss-config == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss-config did not pass validation. exclude.jboss-config must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.jboss.grid" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>exclude.jboss.grid-syntax</name>
+				<description>Checks exclude.jboss.grid is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.jboss.grid ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.jboss.grid ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.jboss.grid ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.jboss.grid ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.jboss.grid == null </condition>
+						<condition>exclude.jboss.grid == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss.grid did not pass validation. exclude.jboss.grid must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.jboss.grid-tf</name>
+				<description>Checks exclude.jboss.grid has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.jboss.grid == "true"</condition>
+						<condition>exclude.jboss.grid == "false"</condition>
+						<condition>exclude.jboss.grid == ""</condition>
+						<condition>exclude.jboss.grid == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss.grid did not pass validation. exclude.jboss.grid must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="exclude.jboss-login-config" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>exclude.jboss-login-config-syntax</name>
+				<description>Checks exclude.jboss-login-config is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>exclude.jboss-login-config ==~ /.*\S+.*/</condition>
+							<condition negate="true">exclude.jboss-login-config ==~ /.*\s.*/</condition>
+							<condition negate="true">exclude.jboss-login-config ==~ /.*\x5c.*/</condition>
+							<condition negate="true">exclude.jboss-login-config ==~ /.*\/.*/</condition>
+						</and>
+						<condition>exclude.jboss-login-config == null </condition>
+						<condition>exclude.jboss-login-config == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss-login-config did not pass validation. exclude.jboss-login-config must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>exclude.jboss-login-config-tf</name>
+				<description>Checks exclude.jboss-login-config has proper value.</description>
+				<conditions>
+					<or>
+						<condition>exclude.jboss-login-config == "true"</condition>
+						<condition>exclude.jboss-login-config == "false"</condition>
+						<condition>exclude.jboss-login-config == ""</condition>
+						<condition>exclude.jboss-login-config == null</condition>
+					</or>
+				</conditions>
+				<fail-message>exclude.jboss-login-config did not pass validation. exclude.jboss-login-config must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.binaries.file" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.binaries.file-syntax</name>
+				<description>Checks jboss.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.binaries.file == null </condition>
+						<condition>jboss.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.binaries.file did not pass validation. jboss.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "jboss-4.0.5.GA.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.binaries.relative.dir" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.binaries.relative.dir-syntax</name>
+				<description>Checks jboss.binaries.relative.dir is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.binaries.relative.dir ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.binaries.relative.dir ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.binaries.relative.dir ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.binaries.relative.dir == null </condition>
+						<condition>jboss.binaries.relative.dir == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.binaries.relative.dir did not pass validation. jboss.binaries.relative.dir must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "jboss-4.0.5.GA".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss-bindings.file" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss-bindings.file-syntax</name>
+				<description>Checks jboss-bindings.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss-bindings.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss-bindings.file ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss-bindings.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss-bindings.file == null </condition>
+						<condition>jboss-bindings.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss-bindings.file did not pass validation. jboss-bindings.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "ncicb-bindings-dac-jboss-4.0.x.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss-bindings.src.url" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss-bindings.src.url-syntax</name>
+				<description>Checks jboss-bindings.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss-bindings.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss-bindings.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss-bindings.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss-bindings.src.url == null </condition>
+						<condition>jboss-bindings.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss-bindings.src.url did not pass validation. jboss-bindings.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/resources/jboss-bindings/ncicb-bindings-dac-jboss-4.0.x.xml".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss-bindings.src.url-url</name>
+				<description>Checks jboss-bindings.src.url has proper value.</description>
+				<conditions>
+					<condition>jboss-bindings.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>jboss-bindings.src.url did not pass validation. jboss-bindings.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/automation/trunk/resources/jboss-bindings/ncicb-bindings-dac-jboss-4.0.x.xml".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.cgmm.enable" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.cgmm.enable-syntax</name>
+				<description>Checks jboss.cgmm.enable is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.cgmm.enable ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.cgmm.enable ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.cgmm.enable ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.cgmm.enable ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.cgmm.enable == null </condition>
+						<condition>jboss.cgmm.enable == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.cgmm.enable did not pass validation. jboss.cgmm.enable must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.cgmm.enable-tf</name>
+				<description>Checks jboss.cgmm.enable has proper value.</description>
+				<conditions>
+					<or>
+						<condition>jboss.cgmm.enable == "true"</condition>
+						<condition>jboss.cgmm.enable == "false"</condition>
+						<condition>jboss.cgmm.enable == ""</condition>
+						<condition>jboss.cgmm.enable == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.cgmm.enable did not pass validation. jboss.cgmm.enable must be true, false or empty. Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.cgmm.enable-relationship</name>
+				<description>Checks jboss.cgmm.enable has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> jboss.cgmm.enable == "true"</condition>
+							<condition> jboss.major.version == 4</condition>
+						</and>
+						<condition> jboss.cgmm.enable != "true" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.cgmm.enable did not pass validation. Must be empty or true with jboss.major.version=4.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.cobraorb.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.cobraorb.port-syntax</name>
+				<description>Checks jboss.cobraorb.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.cobraorb.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.cobraorb.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.cobraorb.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.cobraorb.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.cobraorb.port == null </condition>
+						<condition>jboss.cobraorb.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.cobraorb.port did not pass validation. jboss.cobraorb.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30350".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.cobraorb.port-port</name>
+				<description>Checks jboss.cobraorb.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.cobraorb.port ==~ /\d+/</condition>
+							<condition>jboss.cobraorb.port &gt;= 0</condition>
+							<condition>jboss.cobraorb.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.cobraorb.port == null </condition>
+						<condition>jboss.cobraorb.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.cobraorb.port did not pass validation. jboss.cobraorb.port must be empty or between 0 and 65535. Sample valid value - "30350".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jbosscp.binaries.file" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jbosscp.binaries.file-syntax</name>
+				<description>Checks jbosscp.binaries.file is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jbosscp.binaries.file ==~ /.*\S+.*/</condition>
+							<condition negate="true">jbosscp.binaries.file ==~ /.*\s.*/</condition>
+							<condition negate="true">jbosscp.binaries.file ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jbosscp.binaries.file == null </condition>
+						<condition>jbosscp.binaries.file == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jbosscp.binaries.file did not pass validation. jbosscp.binaries.file must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "jboss-4.0.5.GA_CP15.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jbosscp.src.url" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jbosscp.src.url-syntax</name>
+				<description>Checks jbosscp.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jbosscp.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">jbosscp.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">jbosscp.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jbosscp.src.url == null </condition>
+						<condition>jbosscp.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jbosscp.src.url did not pass validation. jbosscp.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/jboss-4.0.5.GA_CP15.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>jbosscp.src.url-url</name>
+				<description>Checks jbosscp.src.url has proper value.</description>
+				<conditions>
+					<condition>jbosscp.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>jbosscp.src.url did not pass validation. jbosscp.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/jboss-4.0.5.GA_CP15.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ejbinvoker.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ejbinvoker.port-syntax</name>
+				<description>Checks jboss.ejbinvoker.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ejbinvoker.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ejbinvoker.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ejbinvoker.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ejbinvoker.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ejbinvoker.port == null </condition>
+						<condition>jboss.ejbinvoker.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ejbinvoker.port did not pass validation. jboss.ejbinvoker.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30150".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.ejbinvoker.port-port</name>
+				<description>Checks jboss.ejbinvoker.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ejbinvoker.port ==~ /\d+/</condition>
+							<condition>jboss.ejbinvoker.port &gt;= 0</condition>
+							<condition>jboss.ejbinvoker.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.ejbinvoker.port == null </condition>
+						<condition>jboss.ejbinvoker.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ejbinvoker.port did not pass validation. jboss.ejbinvoker.port must be empty or between 0 and 65535. Sample valid value - "30150".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.external.grid.secure.host" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.external.grid.secure.host-syntax</name>
+				<description>Checks jboss.external.grid.secure.host is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.grid.secure.host ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.external.grid.secure.host ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.external.grid.secure.host ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.external.grid.secure.host ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.external.grid.secure.host == null </condition>
+						<condition>jboss.external.grid.secure.host == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.grid.secure.host did not pass validation. jboss.external.grid.secure.host must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.external.grid.secure.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.external.grid.secure.port-syntax</name>
+				<description>Checks jboss.external.grid.secure.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.grid.secure.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.external.grid.secure.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.external.grid.secure.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.external.grid.secure.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.external.grid.secure.port == null </condition>
+						<condition>jboss.external.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.grid.secure.port did not pass validation. jboss.external.grid.secure.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.external.grid.secure.port-port</name>
+				<description>Checks jboss.external.grid.secure.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.grid.secure.port ==~ /\d+/</condition>
+							<condition>jboss.external.grid.secure.port &gt;= 0</condition>
+							<condition>jboss.external.grid.secure.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.external.grid.secure.port == null </condition>
+						<condition>jboss.external.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.grid.secure.port did not pass validation. jboss.external.grid.secure.port must be empty or between 0 and 65535. Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.external.http.host" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.external.http.host-syntax</name>
+				<description>Checks jboss.external.http.host is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.http.host ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.external.http.host ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.external.http.host ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.external.http.host ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.external.http.host == null </condition>
+						<condition>jboss.external.http.host == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.http.host did not pass validation. jboss.external.http.host must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.external.http.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.external.http.port-syntax</name>
+				<description>Checks jboss.external.http.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.http.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.external.http.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.external.http.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.external.http.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.external.http.port == null </condition>
+						<condition>jboss.external.http.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.http.port did not pass validation. jboss.external.http.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.external.http.port-port</name>
+				<description>Checks jboss.external.http.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.http.port ==~ /\d+/</condition>
+							<condition>jboss.external.http.port &gt;= 0</condition>
+							<condition>jboss.external.http.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.external.http.port == null </condition>
+						<condition>jboss.external.http.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.http.port did not pass validation. jboss.external.http.port must be empty or between 0 and 65535. Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.external.ssl.host" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.external.ssl.host-syntax</name>
+				<description>Checks jboss.external.ssl.host is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.ssl.host ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.external.ssl.host ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.external.ssl.host ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.external.ssl.host ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.external.ssl.host == null </condition>
+						<condition>jboss.external.ssl.host == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.ssl.host did not pass validation. jboss.external.ssl.host must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.external.ssl.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.external.ssl.port-syntax</name>
+				<description>Checks jboss.external.ssl.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.ssl.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.external.ssl.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.external.ssl.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.external.ssl.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.external.ssl.port == null </condition>
+						<condition>jboss.external.ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.ssl.port did not pass validation. jboss.external.ssl.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.external.ssl.port-port</name>
+				<description>Checks jboss.external.ssl.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.external.ssl.port ==~ /\d+/</condition>
+							<condition>jboss.external.ssl.port &gt;= 0</condition>
+							<condition>jboss.external.ssl.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.external.ssl.port == null </condition>
+						<condition>jboss.external.ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.external.ssl.port did not pass validation. jboss.external.ssl.port must be empty or between 0 and 65535. Sample valid value - "".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.grid.secure.cert.location" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.grid.secure.cert.location-syntax</name>
+				<description>Checks jboss.grid.secure.cert.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.grid.secure.cert.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.grid.secure.cert.location ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.grid.secure.cert.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.grid.secure.cert.location == null </condition>
+						<condition>jboss.grid.secure.cert.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.cert.location did not pass validation. jboss.grid.secure.cert.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/165.112.132.171-cert.pem".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.grid.secure.enable" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.grid.secure.enable-syntax</name>
+				<description>Checks jboss.grid.secure.enable is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.grid.secure.enable ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.grid.secure.enable ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.grid.secure.enable ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.grid.secure.enable ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.grid.secure.enable == null </condition>
+						<condition>jboss.grid.secure.enable == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.enable did not pass validation. jboss.grid.secure.enable must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.grid.secure.enable-tf</name>
+				<description>Checks jboss.grid.secure.enable has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jboss.grid.secure.enable == "true"</condition>
+						<condition> jboss.grid.secure.enable == "false"</condition>
+						<condition> jboss.grid.secure.enable == ""</condition>
+						<condition> jboss.grid.secure.enable == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.enable did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.grid.secure.enable-relationship</name>
+				<description>Checks jboss.grid.secure.enable has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> jboss.grid.secure.enable == "true"</condition>
+							<condition> jboss.grid.secure.cert.location ==~ /.*\S+.*/</condition>
+							<condition> jboss.grid.secure.key.location ==~ /.*\S+.*/</condition>
+							<condition> jboss.grid.secure.port ==~ /.*\S+.*/</condition>
+						</and>
+						<condition> jboss.grid.secure.enable != "true"</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.enable did not pass validation. If true then jboss.grid.secure.cert.location, jboss.grid.secure.enable, jboss.grid.secure.key.location, jboss.grid.secure.port must have values.</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property  name="jboss.grid.secure.key.location" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.grid.secure.key.location-syntax</name>
+				<description>Checks jboss.grid.secure.key.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.grid.secure.key.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.grid.secure.key.location ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.grid.secure.key.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.grid.secure.key.location == null </condition>
+						<condition>jboss.grid.secure.key.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.key.location did not pass validation. jboss.grid.secure.key.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/165.112.132.171-key.pem".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.grid.secure.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.grid.secure.port-syntax</name>
+				<description>Checks jboss.grid.secure.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.grid.secure.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.grid.secure.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.grid.secure.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.grid.secure.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.grid.secure.port == null </condition>
+						<condition>jboss.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.port did not pass validation. jboss.grid.secure.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30500".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.grid.secure.port-port</name>
+				<description>Checks jboss.grid.secure.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.grid.secure.port ==~ /\d+/</condition>
+							<condition>jboss.grid.secure.port &gt;= 0</condition>
+							<condition>jboss.grid.secure.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.grid.secure.port == null </condition>
+						<condition>jboss.grid.secure.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.grid.secure.port did not pass validation. jboss.grid.secure.port must be empty or between 0 and 65535. Sample valid value - "30500".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.hajndi.auto.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.hajndi.auto.port-syntax</name>
+				<description>Checks jboss.hajndi.auto.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.hajndi.auto.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.hajndi.auto.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.hajndi.auto.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.hajndi.auto.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.hajndi.auto.port == null </condition>
+						<condition>jboss.hajndi.auto.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.hajndi.auto.port did not pass validation. jboss.hajndi.auto.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30370".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.hajndi.auto.port-port</name>
+				<description>Checks jboss.hajndi.auto.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.hajndi.auto.port ==~ /\d+/</condition>
+							<condition>jboss.hajndi.auto.port &gt;= 0</condition>
+							<condition>jboss.hajndi.auto.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.hajndi.auto.port == null </condition>
+						<condition>jboss.hajndi.auto.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.hajndi.auto.port did not pass validation. jboss.hajndi.auto.port must be empty or between 0 and 65535. Sample valid value - "30370".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.hajndi.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.hajndi.port-syntax</name>
+				<description>Checks jboss.hajndi.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.hajndi.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.hajndi.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.hajndi.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.hajndi.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.hajndi.port == null </condition>
+						<condition>jboss.hajndi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.hajndi.port did not pass validation. jboss.hajndi.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30160".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.hajndi.port-port</name>
+				<description>Checks jboss.hajndi.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.hajndi.port ==~ /\d+/</condition>
+							<condition>jboss.hajndi.port &gt;= 0</condition>
+							<condition>jboss.hajndi.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.hajndi.port == null </condition>
+						<condition>jboss.hajndi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.hajndi.port did not pass validation. jboss.hajndi.port must be empty or between 0 and 65535. Sample valid value - "30160".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.hajrmi.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.hajrmi.port-syntax</name>
+				<description>Checks jboss.hajrmi.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.hajrmi.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.hajrmi.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.hajrmi.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.hajrmi.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.hajrmi.port == null </condition>
+						<condition>jboss.hajrmi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.hajrmi.port did not pass validation. jboss.hajrmi.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30260".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.hajrmi.port-port</name>
+				<description>Checks jboss.hajrmi.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.hajrmi.port ==~ /\d+/</condition>
+							<condition>jboss.hajrmi.port &gt;= 0</condition>
+							<condition>jboss.hajrmi.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.hajrmi.port == null </condition>
+						<condition>jboss.hajrmi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.hajrmi.port did not pass validation. jboss.hajrmi.port must be empty or between 0 and 65535. Sample valid value - "30260".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.relative.path" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.relative.path-syntax</name>
+				<description>Checks jboss.relative.path is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.relative.path ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.relative.path ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.relative.path ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.relative.path == null </condition>
+						<condition>jboss.relative.path == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.relative.path did not pass validation. jboss.relative.path must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "jboss-4.0.5.GA".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.http-connector.remove" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.http-connector.remove-syntax</name>
+				<description>Checks jboss.http-connector.remove is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.http-connector.remove ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.http-connector.remove ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.http-connector.remove ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.http-connector.remove ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.http-connector.remove == null </condition>
+						<condition>jboss.http-connector.remove == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.http-connector.remove did not pass validation. jboss.http-connector.remove must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.http-connector.remove-tf</name>
+				<description>Checks jboss.http-connector.remove has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jboss.http-connector.remove == "true"</condition>
+						<condition> jboss.http-connector.remove == "false"</condition>
+						<condition> jboss.http-connector.remove == ""</condition>
+						<condition> jboss.http-connector.remove == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.http-connector.remove did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.http-connector.remove-relationship</name>
+				<description>Checks jboss.http-connector.remove has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> jboss.http-connector.remove == "true"</condition>
+							<condition> jboss.grid.secure.enable == "true"</condition>
+						</and>
+						<condition> jboss.http-connector.remove != "true"</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.http-connector.remove did not pass validation. If true then jboss.grid.secure.enable must also be true.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<!-- java.opts is to complex for rules -->
+	<property  name="jboss.jms2.netty.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.jms2.netty.port-syntax</name>
+				<description>Checks jboss.jms2.netty.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jms2.netty.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.jms2.netty.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.jms2.netty.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.jms2.netty.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.jms2.netty.port == null </condition>
+						<condition>jboss.jms2.netty.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jms2.netty.port did not pass validation. jboss.jms2.netty.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30390".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.jms2.netty.port-port</name>
+				<description>Checks jboss.jms2.netty.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jms2.netty.port ==~ /\d+/</condition>
+							<condition>jboss.jms2.netty.port &gt;= 0</condition>
+							<condition>jboss.jms2.netty.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.jms2.netty.port == null </condition>
+						<condition>jboss.jms2.netty.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jms2.netty.port did not pass validation. jboss.jms2.netty.port must be empty or between 0 and 65535. Sample valid value - "30390".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.jms2.netty-ssl.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.jms2.netty-ssl.port-syntax</name>
+				<description>Checks jboss.jms2.netty-ssl.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jms2.netty-ssl.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.jms2.netty-ssl.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.jms2.netty-ssl.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.jms2.netty-ssl.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.jms2.netty-ssl.port == null </condition>
+						<condition>jboss.jms2.netty-ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jms2.netty-ssl.port did not pass validation. jboss.jms2.netty-ssl.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30400".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.jms2.netty-ssl.port-port</name>
+				<description>Checks jboss.jms2.netty-ssl.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jms2.netty-ssl.port ==~ /\d+/</condition>
+							<condition>jboss.jms2.netty-ssl.port &gt;= 0</condition>
+							<condition>jboss.jms2.netty-ssl.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.jms2.netty-ssl.port == null </condition>
+						<condition>jboss.jms2.netty-ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jms2.netty-ssl.port did not pass validation. jboss.jms2.netty-ssl.port must be empty or between 0 and 65535. Sample valid value - "30400".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.jms.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.jms.port-syntax</name>
+				<description>Checks jboss.jms.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jms.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.jms.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.jms.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.jms.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.jms.port == null </condition>
+						<condition>jboss.jms.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jms.port did not pass validation. jboss.jms.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30170".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.jms.port-port</name>
+				<description>Checks jboss.jms.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jms.port ==~ /\d+/</condition>
+							<condition>jboss.jms.port &gt;= 0</condition>
+							<condition>jboss.jms.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.jms.port == null </condition>
+						<condition>jboss.jms.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jms.port did not pass validation. jboss.jms.port must be empty or between 0 and 65535. Sample valid value - "30170".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.jmx-rmi.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.jmx-rmi.port-syntax</name>
+				<description>Checks jboss.jmx-rmi.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jmx-rmi.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.jmx-rmi.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.jmx-rmi.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.jmx-rmi.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.jmx-rmi.port == null </condition>
+						<condition>jboss.jmx-rmi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jmx-rmi.port did not pass validation. jboss.jmx-rmi.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30290".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.jmx-rmi.port-port</name>
+				<description>Checks jboss.jmx-rmi.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.jmx-rmi.port ==~ /\d+/</condition>
+							<condition>jboss.jmx-rmi.port &gt;= 0</condition>
+							<condition>jboss.jmx-rmi.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.jmx-rmi.port == null </condition>
+						<condition>jboss.jmx-rmi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.jmx-rmi.port did not pass validation. jboss.jmx-rmi.port must be empty or between 0 and 65535. Sample valid value - "30290".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.messaging.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.messaging.port-syntax</name>
+				<description>Checks jboss.messaging.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.messaging.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.messaging.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.messaging.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.messaging.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.messaging.port == null </condition>
+						<condition>jboss.messaging.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.messaging.port did not pass validation. jboss.messaging.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30330".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.messaging.port-port</name>
+				<description>Checks jboss.messaging.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.messaging.port ==~ /\d+/</condition>
+							<condition>jboss.messaging.port &gt;= 0</condition>
+							<condition>jboss.messaging.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.messaging.port == null </condition>
+						<condition>jboss.messaging.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.messaging.port did not pass validation. jboss.messaging.port must be empty or between 0 and 65535. Sample valid value - "30330".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ncicb-standard.port-config" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ncicb-standard.port-config-syntax</name>
+				<description>Checks jboss.ncicb-standard.port-config is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ncicb-standard.port-config ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ncicb-standard.port-config ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ncicb-standard.port-config ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ncicb-standard.port-config ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ncicb-standard.port-config == null </condition>
+						<condition>jboss.ncicb-standard.port-config == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ncicb-standard.port-config did not pass validation. jboss.ncicb-standard.port-config must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.ncicb-standard.port-config-tf</name>
+				<description>Checks jboss.ncicb-standard.port-config has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jboss.ncicb-standard.port-config == "true"</condition>
+						<condition> jboss.ncicb-standard.port-config == "false"</condition>
+						<condition> jboss.ncicb-standard.port-config == ""</condition>
+						<condition> jboss.ncicb-standard.port-config == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ncicb-standard.port-config did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.pooledha.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.pooledha.port-syntax</name>
+				<description>Checks jboss.pooledha.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.pooledha.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.pooledha.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.pooledha.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.pooledha.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.pooledha.port == null </condition>
+						<condition>jboss.pooledha.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.pooledha.port did not pass validation. jboss.pooledha.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30270".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.pooledha.port-port</name>
+				<description>Checks jboss.pooledha.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.pooledha.port ==~ /\d+/</condition>
+							<condition>jboss.pooledha.port &gt;= 0</condition>
+							<condition>jboss.pooledha.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.pooledha.port == null </condition>
+						<condition>jboss.pooledha.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.pooledha.port did not pass validation. jboss.pooledha.port must be empty or between 0 and 65535. Sample valid value - "30270".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.remoting.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.remoting.port-syntax</name>
+				<description>Checks jboss.remoting.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.remoting.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.remoting.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.remoting.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.remoting.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.remoting.port == null </condition>
+						<condition>jboss.remoting.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.remoting.port did not pass validation. jboss.remoting.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30320".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.remoting.port-port</name>
+				<description>Checks jboss.remoting.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.remoting.port ==~ /\d+/</condition>
+							<condition>jboss.remoting.port &gt;= 0</condition>
+							<condition>jboss.remoting.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.remoting.port == null </condition>
+						<condition>jboss.remoting.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.remoting.port did not pass validation. jboss.remoting.port must be empty or between 0 and 65535. Sample valid value - "30320".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.bind.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.bind.port-syntax</name>
+				<description>Checks jboss.server.bind.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.bind.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.bind.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.bind.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.bind.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.bind.port == null </condition>
+						<condition>jboss.server.bind.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.bind.port did not pass validation. jboss.server.bind.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "0".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.server.bind.port-port</name>
+				<description>Checks jboss.server.bind.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.bind.port ==~ /\d+/</condition>
+							<condition>jboss.server.bind.port &gt;= 0</condition>
+							<condition>jboss.server.bind.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.server.bind.port == null </condition>
+						<condition>jboss.server.bind.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.bind.port did not pass validation. jboss.server.bind.port must be empty or between 0 and 65535. Sample valid value - "0".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.hostname" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.hostname-syntax</name>
+				<description>Checks jboss.server.hostname is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.hostname ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.hostname ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.hostname ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.hostname ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.hostname == null </condition>
+						<condition>jboss.server.hostname == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.hostname did not pass validation. jboss.server.hostname must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "localhost".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.jndi.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.jndi.port-syntax</name>
+				<description>Checks jboss.server.jndi.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.jndi.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.jndi.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.jndi.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.jndi.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.jndi.port == null </condition>
+						<condition>jboss.server.jndi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.jndi.port did not pass validation. jboss.server.jndi.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30200".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.server.jndi.port-port</name>
+				<description>Checks jboss.server.jndi.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.jndi.port ==~ /\d+/</condition>
+							<condition>jboss.server.jndi.port &gt;= 0</condition>
+							<condition>jboss.server.jndi.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.server.jndi.port == null </condition>
+						<condition>jboss.server.jndi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.jndi.port did not pass validation. jboss.server.jndi.port must be empty or between 0 and 65535. Sample valid value - "30200".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.name" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.name-syntax</name>
+				<description>Checks jboss.server.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.name ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.name == null </condition>
+						<condition>jboss.server.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.name did not pass validation. jboss.server.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "default".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.port-syntax</name>
+				<description>Checks jboss.server.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.port == null </condition>
+						<condition>jboss.server.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.port did not pass validation. jboss.server.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30210".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.server.port-port</name>
+				<description>Checks jboss.server.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.port ==~ /\d+/</condition>
+							<condition>jboss.server.port &gt;= 0</condition>
+							<condition>jboss.server.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.server.port == null </condition>
+						<condition>jboss.server.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.port did not pass validation. jboss.server.port must be empty or between 0 and 65535. Sample valid value - "30210".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.ports.name" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.ports.name-syntax</name>
+				<description>Checks jboss.server.ports.name is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.ports.name ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.ports.name ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.ports.name ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.ports.name ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.ports.name == null </condition>
+						<condition>jboss.server.ports.name == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.ports.name did not pass validation. jboss.server.ports.name must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "config39080".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.server.ports.name-value-jboss4</name>
+				<description>Checks jboss.server.ports.name has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jboss.ncicb-standard.port-config != "true"</condition>
+						<condition> jboss.major.version == "5"</condition>
+						<and>
+							<condition> jboss.ncicb-standard.port-config == "true"</condition>
+							<condition> jboss.major.version == "4"</condition>
+							<or>
+								<condition>jboss.server.ports.name == "config19080"</condition>
+								<condition>jboss.server.ports.name == "config19180"</condition>
+								<condition>jboss.server.ports.name == "config19280"</condition>
+								<condition>jboss.server.ports.name == "config19380"</condition>
+								<condition>jboss.server.ports.name == "config19480"</condition>
+								<condition>jboss.server.ports.name == "config19580"</condition>
+								<condition>jboss.server.ports.name == "config19680"</condition>
+								<condition>jboss.server.ports.name == "config29080"</condition>
+								<condition>jboss.server.ports.name == "config29180"</condition>
+								<condition>jboss.server.ports.name == "config39080"</condition>
+								<condition>jboss.server.ports.name == "config39080"</condition>
+								<condition>jboss.server.ports.name == "config39180"</condition>
+								<condition>jboss.server.ports.name == "config39180"</condition>
+								<condition>jboss.server.ports.name == "config39280"</condition>
+								<condition>jboss.server.ports.name == "config39380"</condition>
+								<condition>jboss.server.ports.name == "config39480"</condition>
+								<condition>jboss.server.ports.name == "config39580"</condition>
+								<condition>jboss.server.ports.name == "config39680"</condition>
+								<condition>jboss.server.ports.name == "config39780"</condition>
+								<condition>jboss.server.ports.name == "config39880"</condition>
+								<condition>jboss.server.ports.name == "config39980"</condition>
+								<condition>jboss.server.ports.name == "config49080"</condition>
+								<condition>jboss.server.ports.name == "config49180"</condition>
+								<condition>jboss.server.ports.name == "config59080"</condition>
+								<condition>jboss.server.ports.name == "config59180"</condition>
+								<condition>jboss.server.ports.name == "config59280"</condition>
+								<condition>jboss.server.ports.name == "config59380"</condition>
+								<condition>jboss.server.ports.name == "config59480"</condition>
+								<condition>jboss.server.ports.name == "config59580"</condition>
+							</or>
+						</and>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.ports.name did not pass validation. If jboss.ncicb-standard.port-config is true and jboss.major.version is 4 then jboss.server.ports must be one of the following config19080, config19180, config19280, config19380, config19480, config19580, config19680, config29080, config29180, config39080, config39080, config39180, config39180, config39280, config39380, config39480, config39580, config39680, config39780, config39880, config39980, config49080, config49180, config59080, config59180, config59280, config59380, config59480, config59580.</fail-message>
+				</rule>
+			<rule>
+				<name>jboss.server.ports.name-value-jboss5</name>
+				<description>Checks jboss.server.ports.name has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jboss.ncicb-standard.port-config != "true"</condition>
+						<condition> jboss.major.version == "4"</condition>
+						<and>
+							<condition> jboss.ncicb-standard.port-config == "true"</condition>
+							<condition> jboss.major.version == "5"</condition>
+							<or>
+								<condition>jboss.server.ports.name == "ports-29080"</condition>
+								<condition>jboss.server.ports.name == "ports-29180"</condition>
+								<condition>jboss.server.ports.name == "ports-29280"</condition>
+								<condition>jboss.server.ports.name == "ports-29380"</condition>
+								<condition>jboss.server.ports.name == "ports-29480"</condition>
+								<condition>jboss.server.ports.name == "ports-29580"</condition>
+								<condition>jboss.server.ports.name == "ports-29680"</condition>
+								<condition>jboss.server.ports.name == "ports-29780"</condition>
+								<condition>jboss.server.ports.name == "ports-29880"</condition>
+								<condition>jboss.server.ports.name == "ports-29980"</condition>
+							</or>
+						</and>
+					</or>
+				</conditions>
+				<fail-message>If jboss.ncicb-standard.port-config is true and jboss.major.version is 5 then jboss.server.ports.name must be one of the following ports-29080, ports-29180, ports-29280, ports-29380, ports-29480, ports-29580, ports-29680, ports-29780, ports-29880, ports-29980.</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.server.rmi.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.server.rmi.port-syntax</name>
+				<description>Checks jboss.server.rmi.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.rmi.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.server.rmi.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.server.rmi.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.server.rmi.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.server.rmi.port == null </condition>
+						<condition>jboss.server.rmi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.rmi.port did not pass validation. jboss.server.rmi.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30230".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.server.rmi.port-port</name>
+				<description>Checks jboss.server.rmi.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.server.rmi.port ==~ /\d+/</condition>
+							<condition>jboss.server.rmi.port &gt;= 0</condition>
+							<condition>jboss.server.rmi.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.server.rmi.port == null </condition>
+						<condition>jboss.server.rmi.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.server.rmi.port did not pass validation. jboss.server.rmi.port must be empty or between 0 and 65535. Sample valid value - "30230".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.service.rmiobject.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.service.rmiobject.port-syntax</name>
+				<description>Checks jboss.service.rmiobject.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.service.rmiobject.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.service.rmiobject.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.service.rmiobject.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.service.rmiobject.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.service.rmiobject.port == null </condition>
+						<condition>jboss.service.rmiobject.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.service.rmiobject.port did not pass validation. jboss.service.rmiobject.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30240".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.service.rmiobject.port-port</name>
+				<description>Checks jboss.service.rmiobject.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.service.rmiobject.port ==~ /\d+/</condition>
+							<condition>jboss.service.rmiobject.port &gt;= 0</condition>
+							<condition>jboss.service.rmiobject.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.service.rmiobject.port == null </condition>
+						<condition>jboss.service.rmiobject.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.service.rmiobject.port did not pass validation. jboss.service.rmiobject.port must be empty or between 0 and 65535. Sample valid value - "30240".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.snmp.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.snmp.port-syntax</name>
+				<description>Checks jboss.snmp.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.snmp.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.snmp.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.snmp.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.snmp.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.snmp.port == null </condition>
+						<condition>jboss.snmp.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.snmp.port did not pass validation. jboss.snmp.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30310".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.snmp.port-port</name>
+				<description>Checks jboss.snmp.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.snmp.port ==~ /\d+/</condition>
+							<condition>jboss.snmp.port &gt;= 0</condition>
+							<condition>jboss.snmp.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.snmp.port == null </condition>
+						<condition>jboss.snmp.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.snmp.port did not pass validation. jboss.snmp.port must be empty or between 0 and 65535. Sample valid value - "30310".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.snmp-trapd.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.snmp-trapd.port-syntax</name>
+				<description>Checks jboss.snmp-trapd.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.snmp-trapd.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.snmp-trapd.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.snmp-trapd.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.snmp-trapd.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.snmp-trapd.port == null </condition>
+						<condition>jboss.snmp-trapd.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.snmp-trapd.port did not pass validation. jboss.snmp-trapd.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30300".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.snmp-trapd.port-port</name>
+				<description>Checks jboss.snmp-trapd.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.snmp-trapd.port ==~ /\d+/</condition>
+							<condition>jboss.snmp-trapd.port &gt;= 0</condition>
+							<condition>jboss.snmp-trapd.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.snmp-trapd.port == null </condition>
+						<condition>jboss.snmp-trapd.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.snmp-trapd.port did not pass validation. jboss.snmp-trapd.port must be empty or between 0 and 65535. Sample valid value - "30300".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.src.url" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.src.url-syntax</name>
+				<description>Checks jboss.src.url is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.src.url ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.src.url ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.src.url ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.src.url == null </condition>
+						<condition>jboss.src.url == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.src.url did not pass validation. jboss.src.url must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/jboss-4.0.5.GA.zip".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.src.url-url</name>
+				<description>Checks jboss.src.url has proper value.</description>
+				<conditions>
+					<condition>jboss.src.url ==~ /^http.*:\/\/.*.nci.nih.gov.*/</condition>
+				</conditions>
+				<fail-message>jboss.src.url did not pass validation. jboss.src.url must be http(s)://*.nci.nih.gov/*. Sample valid value - "http://gforge.nci.nih.gov/svnroot/commonlibrary/trunk/techstack-2007/os-independent/jboss-4.0.5.GA.zip".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ssl.enable" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ssl.enable-syntax</name>
+				<description>Checks jboss.ssl.enable is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.enable ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ssl.enable ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ssl.enable ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ssl.enable ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ssl.enable == null </condition>
+						<condition>jboss.ssl.enable == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.enable did not pass validation. jboss.ssl.enable must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "true".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.ssl.enable-tf</name>
+				<description>Checks jboss.ssl.enable has proper value.</description>
+				<conditions>
+					<or>
+						<condition> jboss.ssl.enable == "true"</condition>
+						<condition> jboss.ssl.enable == "false"</condition>
+						<condition> jboss.ssl.enable == ""</condition>
+						<condition> jboss.ssl.enable == null</condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.enable did not pass validation. Must be empty or true or false.</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.ssl.enable-relationship</name>
+				<description>Checks jboss.ssl.enable has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition> jboss.ssl.enable == "true"</condition>
+							<condition> jboss.ssl.keystore.location ==~ /.*\S+.*/</condition>
+							<condition> jboss.ssl.keystore.pass ==~ /.*\S+.*/</condition>
+							<condition> jboss.ssl.keystore.alias ==~ /.*\S+.*/</condition>
+							<condition> jboss.ssl.fullyqualified.hostname ==~ /.*\S+.*/</condition>
+						</and>
+						<condition> jboss.ssl.enable != "true"</condition>
+					</or>
+				</conditions>                                                                               <fail-message>jboss.ssl.enable did not pass validation. If true then jboss.ssl.keystore.location, jboss.ssl.keystore.pass, jboss.ssl.keystore.alias, jboss.ssl.fullyqualified.hostname.</fail-message>
+			</rule>
+
+		</rules>
+	</property>
+	<property  name="jboss.ssl.fullyqualified.hostname" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ssl.fullyqualified.hostname-syntax</name>
+				<description>Checks jboss.ssl.fullyqualified.hostname is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.fullyqualified.hostname ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ssl.fullyqualified.hostname ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ssl.fullyqualified.hostname ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ssl.fullyqualified.hostname ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ssl.fullyqualified.hostname == null </condition>
+						<condition>jboss.ssl.fullyqualified.hostname == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.fullyqualified.hostname did not pass validation. jboss.ssl.fullyqualified.hostname must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "localhost.nci.nih.gov".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ssl.keystore.alias" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ssl.keystore.alias-syntax</name>
+				<description>Checks jboss.ssl.keystore.alias is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.keystore.alias ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.alias ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.alias ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.alias ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ssl.keystore.alias == null </condition>
+						<condition>jboss.ssl.keystore.alias == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.keystore.alias did not pass validation. jboss.ssl.keystore.alias must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "ncicb-test-ssl-key".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ssl.keystore.location" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ssl.keystore.location-syntax</name>
+				<description>Checks jboss.ssl.keystore.location is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.keystore.location ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.location ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.location ==~ /.*\x5c.*/</condition>
+						</and>
+						<condition>jboss.ssl.keystore.location == null </condition>
+						<condition>jboss.ssl.keystore.location == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.keystore.location did not pass validation. jboss.ssl.keystore.location must be null or have a value and not contain spaces or  back slashes (\). Sample valid value - "/path/ncicb-test-ssl.keystore".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ssl.keystore.pass" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ssl.keystore.pass-syntax</name>
+				<description>Checks jboss.ssl.keystore.pass is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.keystore.pass ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.pass ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.pass ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ssl.keystore.pass ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ssl.keystore.pass == null </condition>
+						<condition>jboss.ssl.keystore.pass == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.keystore.pass did not pass validation. jboss.ssl.keystore.pass must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "ncicb1!".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.ssl.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.ssl.port-syntax</name>
+				<description>Checks jboss.ssl.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.ssl.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.ssl.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.ssl.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.ssl.port == null </condition>
+						<condition>jboss.ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.port did not pass validation. jboss.ssl.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30380".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.ssl.port-port</name>
+				<description>Checks jboss.ssl.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.ssl.port ==~ /\d+/</condition>
+							<condition>jboss.ssl.port &gt;= 0</condition>
+							<condition>jboss.ssl.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.ssl.port == null </condition>
+						<condition>jboss.ssl.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.ssl.port did not pass validation. jboss.ssl.port must be empty or between 0 and 65535. Sample valid value - "30380".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.transaction.processid.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.transaction.processid.port-syntax</name>
+				<description>Checks jboss.transaction.processid.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.transaction.processid.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.transaction.processid.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.transaction.processid.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.transaction.processid.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.transaction.processid.port == null </condition>
+						<condition>jboss.transaction.processid.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.transaction.processid.port did not pass validation. jboss.transaction.processid.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30430".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.transaction.processid.port-port</name>
+				<description>Checks jboss.transaction.processid.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.transaction.processid.port ==~ /\d+/</condition>
+							<condition>jboss.transaction.processid.port &gt;= 0</condition>
+							<condition>jboss.transaction.processid.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.transaction.processid.port == null </condition>
+						<condition>jboss.transaction.processid.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.transaction.processid.port did not pass validation. jboss.transaction.processid.port must be empty or between 0 and 65535. Sample valid value - "30430".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.transaction.recovery.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.transaction.recovery.port-syntax</name>
+				<description>Checks jboss.transaction.recovery.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.transaction.recovery.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.transaction.recovery.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.transaction.recovery.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.transaction.recovery.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.transaction.recovery.port == null </condition>
+						<condition>jboss.transaction.recovery.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.transaction.recovery.port did not pass validation. jboss.transaction.recovery.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30410".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.transaction.recovery.port-port</name>
+				<description>Checks jboss.transaction.recovery.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.transaction.recovery.port ==~ /\d+/</condition>
+							<condition>jboss.transaction.recovery.port &gt;= 0</condition>
+							<condition>jboss.transaction.recovery.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.transaction.recovery.port == null </condition>
+						<condition>jboss.transaction.recovery.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.transaction.recovery.port did not pass validation. jboss.transaction.recovery.port must be empty or between 0 and 65535. Sample valid value - "30410".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.transaction.status.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.transaction.status.port-syntax</name>
+				<description>Checks jboss.transaction.status.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.transaction.status.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.transaction.status.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.transaction.status.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.transaction.status.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.transaction.status.port == null </condition>
+						<condition>jboss.transaction.status.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.transaction.status.port did not pass validation. jboss.transaction.status.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30420".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.transaction.status.port-port</name>
+				<description>Checks jboss.transaction.status.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.transaction.status.port ==~ /\d+/</condition>
+							<condition>jboss.transaction.status.port &gt;= 0</condition>
+							<condition>jboss.transaction.status.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.transaction.status.port == null </condition>
+						<condition>jboss.transaction.status.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.transaction.status.port did not pass validation. jboss.transaction.status.port must be empty or between 0 and 65535. Sample valid value - "30420".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.unifiedinvoker.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.unifiedinvoker.port-syntax</name>
+				<description>Checks jboss.unifiedinvoker.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.unifiedinvoker.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.unifiedinvoker.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.unifiedinvoker.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.unifiedinvoker.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.unifiedinvoker.port == null </condition>
+						<condition>jboss.unifiedinvoker.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.unifiedinvoker.port did not pass validation. jboss.unifiedinvoker.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30360".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.unifiedinvoker.port-port</name>
+				<description>Checks jboss.unifiedinvoker.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.unifiedinvoker.port ==~ /\d+/</condition>
+							<condition>jboss.unifiedinvoker.port &gt;= 0</condition>
+							<condition>jboss.unifiedinvoker.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.unifiedinvoker.port == null </condition>
+						<condition>jboss.unifiedinvoker.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.unifiedinvoker.port did not pass validation. jboss.unifiedinvoker.port must be empty or between 0 and 65535. Sample valid value - "30360".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.web.password" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.web.password-syntax</name>
+				<description>Checks jboss.web.password is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.web.password ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.web.password ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.web.password ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.web.password ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.web.password == null </condition>
+						<condition>jboss.web.password == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.web.password did not pass validation. jboss.web.password must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "blueprint123!".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.web.service.port" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.web.service.port-syntax</name>
+				<description>Checks jboss.web.service.port is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.web.service.port ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.web.service.port ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.web.service.port ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.web.service.port ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.web.service.port == null </condition>
+						<condition>jboss.web.service.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.web.service.port did not pass validation. jboss.web.service.port must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "30250".</fail-message>
+			</rule>
+			<rule>
+				<name>jboss.web.service.port-port</name>
+				<description>Checks jboss.web.service.port has proper value.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.web.service.port ==~ /\d+/</condition>
+							<condition>jboss.web.service.port &gt;= 0</condition>
+							<condition>jboss.web.service.port &lt;= 65535</condition>
+						</and>
+						<condition>jboss.web.service.port == null </condition>
+						<condition>jboss.web.service.port == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.web.service.port did not pass validation. jboss.web.service.port must be empty or between 0 and 65535. Sample valid value - "30250".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="jboss.web.user" description="" skip-property="exclude.validate.jboss">
+		<rules>
+			<rule>
+				<name>jboss.web.user-syntax</name>
+				<description>Checks jboss.web.user is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>jboss.web.user ==~ /.*\S+.*/</condition>
+							<condition negate="true">jboss.web.user ==~ /.*\s.*/</condition>
+							<condition negate="true">jboss.web.user ==~ /.*\x5c.*/</condition>
+							<condition negate="true">jboss.web.user ==~ /.*\/.*/</condition>
+						</and>
+						<condition>jboss.web.user == null </condition>
+						<condition>jboss.web.user == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>jboss.web.user did not pass validation. jboss.web.user must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "bda".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="log4j.level" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>log4j.level-syntax</name>
+				<description>Checks log4j.level is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>log4j.level ==~ /.*\S+.*/</condition>
+							<condition negate="true">log4j.level ==~ /.*\s.*/</condition>
+							<condition negate="true">log4j.level ==~ /.*\x5c.*/</condition>
+							<condition negate="true">log4j.level ==~ /.*\/.*/</condition>
+						</and>
+						<condition>log4j.level == null </condition>
+						<condition>log4j.level == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>log4j.level did not pass validation. log4j.level must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "WARN".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="log4j.maxDays" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>log4j.maxDays-syntax</name>
+				<description>Checks log4j.maxDays is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>log4j.maxDays ==~ /.*\S+.*/</condition>
+							<condition negate="true">log4j.maxDays ==~ /.*\s.*/</condition>
+							<condition negate="true">log4j.maxDays ==~ /.*\x5c.*/</condition>
+							<condition negate="true">log4j.maxDays ==~ /.*\/.*/</condition>
+						</and>
+						<condition>log4j.maxDays == null </condition>
+						<condition>log4j.maxDays == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>log4j.maxDays did not pass validation. log4j.maxDays must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "7".</fail-message>
+			</rule>
+		</rules>
+	</property>
+	<property  name="log4j.maxFileSize" description="" skip-property="">
+		<rules>
+			<rule>
+				<name>log4j.maxFileSize-syntax</name>
+				<description>Checks log4j.maxFileSize is the valid syntax.</description>
+				<conditions>
+					<or>
+						<and>
+							<condition>log4j.maxFileSize ==~ /.*\S+.*/</condition>
+							<condition negate="true">log4j.maxFileSize ==~ /.*\s.*/</condition>
+							<condition negate="true">log4j.maxFileSize ==~ /.*\x5c.*/</condition>
+							<condition negate="true">log4j.maxFileSize ==~ /.*\/.*/</condition>
+						</and>
+						<condition>log4j.maxFileSize == null </condition>
+						<condition>log4j.maxFileSize == "" </condition>
+					</or>
+				</conditions>
+				<fail-message>log4j.maxFileSize did not pass validation. log4j.maxFileSize must be null or have a value and not contain spaces, forward slashes (/) or back slashes (\). Sample valid value - "100MB".</fail-message>
+			</rule>
+		</rules>
+	</property>
+</properties>

@@ -31,8 +31,8 @@ public class BasketUtil {
             return minutes + MINUTES;
         }
     }
-    
-    
+
+
     public static String getT1Download(double size) {
         double time = calculateTime((size / 1000000.0), 56762.6952);
         int hours = 0;
@@ -49,7 +49,7 @@ public class BasketUtil {
             return minutes + MINUTES;
         }
     }
-    
+
     /**
      * Generates the file name based on the user's security information
      */
@@ -65,13 +65,13 @@ public class BasketUtil {
         return emailOrUserName + "_" + sevenDigitRandom +
             lastSevenOfTimeStamp + ".zip";
     }
-    
+
     public static String getSizeString(double size) {
         String measurement = "";
         DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
         nf.setMaximumFractionDigits(3);
 
-        double tempSize = size/1000000.0 ;
+        double tempSize = size/1000000.0;
 
         measurement = BasketUtil.measureImage(tempSize);
 
@@ -81,7 +81,24 @@ public class BasketUtil {
 
         return nf.format(tempSize) + measurement;
     }
-    
+
+	public static String getExecSizeString(double size) {
+		String measurement = "";
+		DecimalFormat nf = (DecimalFormat) DecimalFormat.getInstance();
+		nf.setMaximumFractionDigits(3);
+
+		double tempSize = size/1048576.0;
+
+		measurement = BasketUtil.measureImage(tempSize);
+
+		if (tempSize > 1000) {
+			tempSize = tempSize / 1024.0;
+		}
+
+		return nf.format(tempSize) + measurement;
+	}
+
+
     private static String measureImage(double size) {
         String measurement = "";
 
@@ -93,12 +110,12 @@ public class BasketUtil {
         }
 
         return measurement;
-   }      
-    
+   }
+
     /////////////////////////////////////////PRIVATE///////////////////////////////////////
 
     private static final String MINUTES = " minute(s)";
-    private static final String HOURS = " hour(s), ";    
+    private static final String HOURS = " hour(s), ";
 
     /**
      * Calculates the total time it should take to dowload based upon connection
@@ -109,5 +126,5 @@ public class BasketUtil {
      */
     private static double calculateTime(double fileSize, double speed) {
         return ((fileSize * 1024) / speed);
-    }             
+    }
 }

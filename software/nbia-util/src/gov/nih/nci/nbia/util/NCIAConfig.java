@@ -47,7 +47,6 @@
 * gov.nih.nci.ncia.irw.address
 * gov.nih.nci.ncia.irw.port
 * gov.nih.nci.ncia.frontier.http.port
-* gov.nih.nci.ncia.frontier.http.address
 * gov.nih.nci.ncia.jboss.mq.url
 * gov.nih.nci.ncia.zip.location
 * gov.nih.nci.ncia.ftp.location
@@ -310,48 +309,6 @@ public class NCIAConfig {
 
     /**
      * Externalized Property!
-     *  Property: gov.nih.nci.ncia.frontier.http.address
-     *  This property is configured via the JBoss Property Service MDB (property-service.xml)
-     */
-    public static String getCedaraIGSAddress() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.frontier.http.address");
-        checkProperty("gov.nih.nci.ncia.frontier.http.address", propertyValue);
-        return propertyValue;
-    }
-
-    /**
-     *  Externalized Property!
-     *  Property: gov.nih.nci.ncia.frontier.http.port
-     *  This property is configured via the JBoss Property Service MDB (property-service.xml)
-     */
-    public static String getCedaraIGSPort() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.frontier.http.port");
-        checkProperty("gov.nih.nci.ncia.frontier.http.port", propertyValue);
-        return propertyValue;
-    }
-
-    /**
-     * Externalized Property!
-     *  Property: gov.nih.nci.ncia.irw.address
-     *  This property is configured via the JBoss Property Service MDB (property-service.xml)
-     */
-    public static String getCedaraIRWAddress() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.irw.address");
-        checkProperty("gov.nih.nci.ncia.irw.address", propertyValue);
-        return propertyValue;
-    }
-    /**
-     * Externalized Property!
-     * Property: gov.nih.nci.ncia.irw.port
-     * This property is configured via the JBoss Property Service MDB (property-service.xml)
-     */
-    public static String getCedaraIRWPort() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.irw.port");
-        checkProperty("gov.nih.nci.ncia.irw.port", propertyValue);
-        return propertyValue;
-    }
-    /**
-     * Externalized Property!
      * Property: gov.nih.nci.ncia.image.path.pattern
      * This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
@@ -525,7 +482,7 @@ public class NCIAConfig {
         checkProperty("discover.remote.nodes", propertyValue);
         return propertyValue;
     }
-    
+
     public static String getRemoteNodeCaGridVersion() {
         String propertyValue = System.getProperty("remote.node.caGrid.version");
         checkProperty("remote.node.caGrid.version", propertyValue);
@@ -544,7 +501,7 @@ public class NCIAConfig {
         checkProperty("discover.period.in.hrs", propertyValue);
         return propertyValue;
     }
-    
+
     public static long getTimeoutInMin() {
          return getIntProperty("future.task.timeout.in.min");
     }
@@ -560,7 +517,7 @@ public class NCIAConfig {
         checkProperty("gov.nih.nci.ncia.encrypt.key", propertyValue);
         return propertyValue;
     }
-    
+
     /**
      * Externalized Property!
      *  Property: gov.nih.nci.ncia.encrypt.key
@@ -572,7 +529,7 @@ public class NCIAConfig {
         checkProperty("gov.nih.nci.ncia.wiki.context.sensitive.help.url", propertyValue);
         return propertyValue;
     }
-    
+
     /**
      * Externalized Property!
      *  Property: gov.nih.nci.ncia.encrypt.key

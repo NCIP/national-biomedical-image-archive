@@ -82,6 +82,7 @@ L-->
 
     <javac destdir="${assembly.classes.dir}" debug="true">
       <src path="${src.java.dir}" />
+       <compilerarg value="-XDignore.symbol.file" />
       <classpath>
         <fileset dir="${project.lib.dir}/compile">
           <include name="*.jar" />

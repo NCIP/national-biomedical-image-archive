@@ -207,7 +207,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 	        else {
 	        	whereStmt += rc;
 	        }
-
+            
 	        /* Process image criteria */
 	        String imageClause = imageCriteriaProcess(this.query);
 	        String hql = selectStmt + fromStmt + whereStmt + imageClause;
@@ -615,6 +615,8 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
         else {
         	String whereStmt = "";
+        	/* removed to make the same as dynamic search which does not have this extra restriction but bases the restriction on collection + site
+        	 * which is the understood way to do it
             if (authCrit.getCollections() != null) {
                 // Collections will only be on auth crit if user did not include
                 // collection criteria
@@ -624,6 +626,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                 		                            IN,
                 		                            authCrit.getCollections());
             }
+            */
             return whereStmt;
         }
     }
@@ -661,7 +664,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
                 whereStmt += SITE_FIELD;
                 whereStmt += " = '";
                 whereStmt += siteData.getSiteName();
-                whereStmt += "')";
+                whereStmt += "') ";
                 first = false;
             }
 
@@ -701,7 +704,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         	return null;
         }
         else {
-        	whereStmt += collectionsWhereStmt;
+        	//whereStmt += collectionsWhereStmt; No collections in dynamic search the current way is site + collection
         }
 
         String sitesWhereStmt = processAuthorizationSites(theQuery);

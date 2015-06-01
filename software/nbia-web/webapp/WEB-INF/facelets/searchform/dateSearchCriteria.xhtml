@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                
+<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box"> 
+                              <h:outputText id="dateFrom" value="#{msg.date_from}"></h:outputText>
+                              <ice:selectInputDate id="fromDate"
+                                                   value="#{searchWorkflowBean.dateFrom}" 
+                                                   valueChangeListener="#{searchWorkflowBean.dateSelectChangeListener}"
+                                                   popupDateFormat="MM/dd/yyyy"
+                                                   renderAsPopup="true"
+                                                   partialSubmit="false"
+                                                   style="display:inline">
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   timeZone="#{submissionReportsBean.defaultTimeZone}"/>
+                              </ice:selectInputDate> 
+                              <h:outputText id="dateTo" value="#{msg.date_to}"/> <h:outputText value=" " />                                                             
+                              <ice:selectInputDate id="toDate"
+                                                   value="#{searchWorkflowBean.dateTo}" 
+                                                   valueChangeListener="#{searchWorkflowBean.dateSelectChangeListener}"
+                                                   popupDateFormat="MM/dd/yyyy"
+                                                   renderAsPopup="true"
+                                                   partialSubmit="false"
+                                                   style="display:inline">
+                                <f:convertDateTime pattern="MM/dd/yyyy"
+                                                   timeZone="#{submissionReportsBean.defaultTimeZone}"/>
+                              </ice:selectInputDate>  
+                              <h:outputLabel for="addDateCriteria"  value="Add Criteria" />      
+                              <ice:selectBooleanCheckbox id="addDateCriteria"
+		                       value="#{searchWorkflowBean.dateCriteria}"
+		                       valueChangeListener="#{searchWorkflowBean.dateSelectChangeListener}"
+		                       partialSubmit="true" />                                
+                              <h:inputHidden id="dateValid"/>
+                              <h:message for="dateValid" errorClass="errorLabel" infoClass="infoLabel" />
+                              <h:message for="fromDate" errorClass="errorLabel" infoClass="infoLabel" />
+                              <h:message for="toDate" errorClass="errorLabel" infoClass="infoLabel" />
+                              
+                             
+                              
+</h:panelGrid>
+</ui:composition>                

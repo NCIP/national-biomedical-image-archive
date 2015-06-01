@@ -24,17 +24,15 @@ L-->
   </publications>
 
   <dependencies>
-
-
-    <dependency org="jboss.jbossas.core-libs"
-                name="jboss-j2ee"
-                rev="4.0.4.GA"
-                conf="compile->master"/>
-
     <dependency org="log4j"
                 name="log4j"
                 rev="1.2.15"
                 conf="compile->master"/>
+                
+    <dependency org="cglib" 
+    		name="cglib" 
+    		rev="2.2" 
+    		conf="compile->master;runtime"/>                           
 
     <dependency org="ncicb"
                 name="nbia-util"
@@ -64,12 +62,23 @@ L-->
 
     <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="runtime->default"/>
-  <!-- Added for jboss5.1.0GA-->                
-  <dependency org="org.codehaus.xfire"
-       		name="bcprov-jdk15"
-       		rev="133"
+                
+    <dependency org="org.jboss.spec.javax.ejb"
+		name="jboss-ejb-api_3.1_spec"
+		rev="1.0.2.Final"
+		conf="compile->master;runtime"/> 
+    
+    <dependency org="commons-configuration"
+		name="commons-configuration"
+		rev="1.10"
+		conf="runtime->master"/>  		
+
+    <!-- Added for jboss5.1.0GA-->
+    <dependency org="org.bouncycastle"
+          	name="bcprov-jdk15on"
+         	rev="1.51"
                 conf="runtime->master"/>
   <exclude org="xalan" module="serializer"/>
   <exclude org="xerces" module="xercesImpl" conf="runtime" /> 

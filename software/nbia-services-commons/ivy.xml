@@ -47,7 +47,7 @@ L-->
     
     <dependency org="cglib"
                 name="cglib"
-                rev="2.1_3"
+                rev="2.2"
                 conf="test->master,runtime"/>
     <!-- hmmmm easymock-classextensions not picking this up from how powermock dep is defined i guess?  fix when we have access -->
     <dependency org="org.objenesis"
@@ -104,7 +104,7 @@ L-->
     <!-- one unit because of way defined in maven.  fix in maven -->
     <dependency org="dcm4che"
                 name="dcm4che"
-                rev="1.4.20"
+                rev="1.4.23"
                 conf="compile->master;runtime->default"/>
    
     <dependency org="log4j"
@@ -134,13 +134,13 @@ L-->
 
     <dependency org="dcm4che"
                 name="dcm4che-imageio-rle"
-                rev="2.0.17"
+                rev="2.0.19"
                 conf="runtime->master"/>
     <!-- one unit because of way defined in maven.  fix in maven -->
 
     <dependency org="gov.nih.nci.csm"
                 name="csmapi"
-                rev="5.1"
+                rev="5.2"
                 conf="compile->master;runtime->default">
       <exclude module="jdom"/>
     </dependency>
@@ -177,7 +177,7 @@ L-->
 
     <dependency org="mysql"
                 name="mysql-connector-java"
-                rev="5.1.5"
+                rev="5.1.34"
                 conf="test->master"/>
  
     <dependency org="oracle"

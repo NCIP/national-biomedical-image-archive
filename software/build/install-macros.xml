@@ -1,0 +1,982 @@
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<project name="install_macros" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:antunit="antlib:org.apache.ant.antunit">
+
+	<macrodef name="validate-pre-install-common" description="Diagnose the host system before the installation">
+		<attribute name="ant.check.version" default="1.8.4"/>
+		<attribute name="java.check.version.major" default="1.7"/>
+		<attribute name="java.check.version.minor" default="1.7.0_71"/>
+		<attribute name="property.template.file" default="${properties.template.file}"/>
+		<attribute name="envpropertyfile" default="${properties.file}"/>
+		<attribute name="property.exclude.pattern.list" default="tomcat.*,jboss.*,grid.*"/>
+		<!-- New verification for jar-signing -->
+		<attribute name="jar-signing.keystore.abs-location" default="${jar-signing.keystore.abs-location}"/>
+		<attribute name="jar-signing.keystore.password" default="${jar-signing.keystore.password}"/>
+		<attribute name="jar-signing.keystore.alias" default="${jar-signing.keystore.alias}"/>
+		<attribute name="jar-signing.keystore.cert.cn" default="${jar-signing.keystore.cert.cn}"/>
+		<attribute name="jar-signing.keystore.cert.ou" default="${jar-signing.keystore.cert.ou}"/>
+		<attribute name="jar-signing.keystore.cert.o" default="${jar-signing.keystore.cert.o}"/>
+		<attribute name="jar-signing.keystore.cert.c" default="${jar-signing.keystore.cert.c}"/>
+		<attribute name="jar-signing.execution.time" default="${jar-signing.execution.time}"/>
+		<sequential>
+			<validate-environment ant.check.version="@{ant.check.version}" java.check.version.major="@{java.check.version.major}" java.check.version.minor="@{java.check.version.minor}"/>
+			<propertyvalidator keyFile="@{property.template.file}" compareFile="@{envpropertyfile}" readInMemory="true" match="atleast" excludePatternList="@{property.exclude.pattern.list}"/>
+			<check-absolute-directory directory.property="application.base.path"/>
+			<check-valid-directory-name directory.property="application.base.path"/>
+			<validate-env-name/>
+			<if>
+				<equals arg1="@{jar-signing.execution.time}" arg2="install"/>
+				<then>
+					<echo message="jar-signing.execution.time=install, verifying keystore"/>
+					<verify-jar-signing-keystore jar-signing.keystore.abs-location="@{jar-signing.keystore.abs-location}" jar-signing.keystore.password="@{jar-signing.keystore.password}" jar-signing.keystore.alias="@{jar-signing.keystore.alias}" jar-signing.keystore.cert.cn="@jar-signing.keystore.cert.cn}" jar-signing.keystore.cert.ou="@jar-signing.keystore.cert.ou}" jar-signing.keystore.cert.o="@jar-signing.keystore.cert.o}" jar-signing.keystore.cert.c="@jar-signing.keystore.cert.c}"/>
+				</then>
+			</if>
+			<verify-password-value/>
+		</sequential>
+	</macrodef>
+	<macrodef name="validate-environment" description="Diagnose the host system before the installation">
+		<attribute name="ant.check.version" default="1.8.4"/>
+		<attribute name="java.check.version.major" default="1.7"/>
+		<attribute name="java.check.version.minor" default="1.7.0_71"/>
+		<sequential>
+			<!-- Echo the properties for diagnostic purposes -->
+			<echoproperties>
+				<propertyset negate="yes">
+					<propertyref regex="passw"/>
+				</propertyset>
+			</echoproperties>
+			<!-- Validate Ant version is 1.7.x -->
+			<echo message="Validating Ant version..."/>
+			<condition property="ant.version.success">
+				<antversion atleast="@{ant.check.version}"/>
+			</condition>
+			<antunit:assertPropertyEquals name="ant.version.success" value="true"/>
+			<echo message="Ant Version: PASSED"/>
+			<echo message="Validating Java version..."/>
+			<condition property="java.major.version.good">
+				<equals arg1="${ant.java.version}" arg2="@{java.check.version.major}"/>
+			</condition>
+			<antunit:assertTrue message="${line.separator}${line.separator}    Your Java SDK version must be @{java.check.version.major}. The version you have installed is ${java.version}. Please install the correct version of the Java SDK and update your System PATH to point to directory where you installed it. ${line.separator}">
+				<isset property="java.major.version.good"/>
+			</antunit:assertTrue>
+			<if>
+				<equals arg1="${java.version}" arg2="@{java.check.version.minor}"/>
+				<then>
+					<echo message="Java version check: PASSED"/>
+				</then>
+				<else>
+					<echo message="Java version check: WARNING, version is not 1.7."/>
+				</else>
+			</if>
+			<echo message="Java version check: PASSED"/>
+			<!-- Checks if user running build is root, if so it fails -->
+			<if>
+				<equals arg1="${user.name}" arg2="root"/>
+				<then>
+					<fail message="Cannot run build as root."/>
+				</then>
+				<else>
+					<echo message="Not running as root."/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<macrodef name="check-absolute-directory" description="Diagnose the host system before the installation">
+		<attribute name="directory.property"/>
+		<sequential>
+			<!-- Application.base.path check for bad directory -->
+			<propertycopy name="directory.value" from="@{directory.property}" override="true"/>
+			<var name="is.absolute.dir" unset="true"/>
+			<propertyregex property="is.absolute.dir" regexp="^(\w:\/)" input="${directory.value}" select="\1"/>
+			<propertyregex property="is.absolute.dir" regexp="^(\/)" input="${directory.value}" select="\1"/>
+			<if>
+				<isset property="is.absolute.dir"/>
+				<then>
+					<echo message="@{directory.property} is an absolute path."/>
+				</then>
+				<else>
+					<fail message="@{directory.property} needs to be an absolute path, please correct this and build again."/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<macrodef name="check-valid-directory-name" description="Diagnose the host system before the installation">
+		<attribute name="directory.property"/>
+		<sequential>
+			<!-- Application.base.path check for bad directory -->
+			<propertycopy name="directory.value" from="@{directory.property}" override="true"/>
+			<var name="has.spaces" unset="true"/>
+			<propertyregex property="has.spaces" regexp="\s+" input="${directory.value}" select="\1"/>
+			<if>
+				<isset property="has.spaces"/>
+				<then>
+					<fail message="@{directory.property} is using directory that space in the name, this is not supported by our current build process.  Please chose another diretory name without a space in it."/>
+				</then>
+			</if>
+			<!-- Application.base.path check for bad directory -->
+			<var name="directory.bad" unset="true"/>
+			<propertyregex property="directory.bad" regexp="^(\w:[\/\\])$" input="${directory.value}" select="\1"/>
+			<propertyregex property="directory.bad" regexp="^(\w:[\\\/]win.*)" input="${directory.value}" select="\1"/>
+			<propertyregex property="directory.bad" regexp="^(\w:[\\\/]WIN.*)" input="${directory.value}" select="\1"/>
+			<propertyregex property="directory.bad" regexp="^(\/)$" input="${directory.value}" select="\1"/>
+			<propertyregex property="directory.bad" regexp="^(\/usr)$" input="${directory.value}" select="\1"/>
+			<!-- Relax this one for local installs
+			<propertyregex property="directory.bad"
+				regexp="^(\/usr\/local)$"
+				input="${directory.value}"
+				select="\1"
+				/>
+			-->
+			<propertyregex property="directory.bad" regexp="^(\/opt)$" input="${directory.value}" select="\1"/>
+			<if>
+				<isset property="directory.bad"/>
+				<then>
+					<fail message="@{directory.property} is set to or includes '${directory.bad}, this is not allowed.  As part of the install proces the first thing we do is delete this directory.  Deleting the directory you specified may cause system issues, please chose another directory."/>
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="validate-env-name">
+		<sequential>
+			<switch value="${env.name}">
+				<case value="local">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="dev">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="qa">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="stage">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="prod">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="train">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="data-refresh">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="data-validation">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="external">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="custom">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<case value="infrastructure">
+					<echo message="Environment name validated as ${env.name}"/>
+				</case>
+				<default>
+					<fail message="Please make sure to set the env.name property in your ${properties.file}.  Also please set it to one of the values below that best describes your target environment.  If you are not sure what to set this to send an email to ncicbiitbda@mail.nih.gov.${line.separator}
+						local - workstation or ci ${line.separator}
+						dev - dev tier at nci ${line.separator}
+						qa - qa tier at nci ${line.separator}
+						stage - stage tier at nci ${line.separator}
+						prod - prod tier at nci ${line.separator}
+						train - training tier at nci ${line.separator}
+						data-refresh - a data refresh tier at nci ${line.separator}
+						data-validation - a data validation tier at nci ${line.separator}
+						external - an install at a site other than nci  ${line.separator}
+						infrastructure - a infrastructure tier, shared service used by other projects in pre-produciton environments (like UPT) ${line.separator}
+						"/>
+				</default>
+			</switch>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="verify-password-value">
+		<sequential>
+			<copy tofile="${temp.dir}/verifyPasswordValue.groovy" file="${common.lib.dir}/groovy/verifyPasswordValue.groovy" overwrite="true"/>
+			<groovy src="${temp.dir}/verifyPasswordValue.groovy"/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="validate-pre-install-database" description="Diagnose the host system before the installation">
+		<attribute name="database.driver" default="${database.driver}"/>
+		<attribute name="database.system.url" default="${database.system.url}"/>
+		<attribute name="database.system.user" default="${database.system.user}"/>
+		<attribute name="database.system.password" default="${database.system.password}"/>
+		<attribute name="database.url" default="${database.url}"/>
+		<attribute name="database.user" default="${database.user}"/>
+		<attribute name="database.password" default="${database.password}"/>
+		<attribute name="database.version" default="5.0.27"/>
+		<attribute name="database.name" default="${database.name}"/>
+		<attribute name="database.server" default="${database.server}"/>
+		<attribute name="database.port" default="${database.port}"/>
+		<attribute name="mysql.lowercasetablenames" default="${mysql.lowercasetablenames}"/>
+		<attribute name="database.type" default="${database.type}"/>
+		<attribute name="database.re-create" default="${database.re-create}"/>
+		<attribute name="database.drop-schema" default="${database.drop-schema}"/>
+		<sequential>
+			<echo message="
+					database.driver=@{database.driver}
+					database.system.url=@{database.system.url}
+					database.system.user=@{database.system.user}
+					database.system.password=@{database.system.password}
+					database.url=@{database.url}
+					database.user=@{database.user}
+					database.password=#######
+					database.version=@{database.version}
+					database.name=@{database.name}
+					"/>
+			<!--validate-database
+					database.driver="@{database.driver}"
+					database.system.url="@{database.system.url}"
+					database.system.user="@{database.system.user}"
+					database.system.password="@{database.system.password}"
+					database.url="@{database.url}"
+					database.user="@{database.user}"
+					database.password="@{database.password}"
+					database.version="@{database.version}"
+					database.name="@{database.name}"
+					database.type="@{database.type}"
+					database.drop-schema="@{database.drop-schema}"
+					database.re-create="@{database.re-create}"
+					/-->
+			<!-- Make sure system and app user are different -->
+			<if>
+				<equals arg1="@{database.system.user}" arg2="@{database.user}"/>
+				<then>
+					<fail message="The database.system.user and database.user properties cannot be the same.  The database.system.user drops the database.user if you are using database.re-create=true, the user would in effect drop and re-create himself, which could cause build failures."/>
+				</then>
+				<else>
+					<echo message="database.system.user and database.system are not the same, passed."/>
+				</else>
+			</if>
+			<switch value="@{database.type}">
+				<case value="mysql">
+					<switch value="@{database.name}">
+						<case value="mysql">
+							<fail message="database name of mysql not allowed"/>
+						</case>
+						<case value="information_schema">
+							<fail message="database name of information_schema not allowed"/>
+						</case>
+						<case value="test">
+							<fail message="database name of test not allowed"/>
+						</case>
+						<default>
+							<echo message="database.name of @{database.name} okay"/>
+						</default>
+					</switch>
+				</case>
+				<default>
+					<echo message="This function for the value @{database.type} of property database.type is not defined"/>
+				</default>
+			</switch>
+			<check-database-exists
+					database.driver="@{database.driver}"
+					database.url="@{database.url}"
+					database.user="@{database.user}"
+					database.password="@{database.password}"
+					database.name="@{database.name}"
+					database.type="@{database.type}"
+					/>
+			<!-- allow for checks for different types of db, right now only mysql-->
+			<switch value="@{database.type}">
+				<case value="mysql">
+					<if>
+						<equals arg1="@{database.re-create}" arg2="true"/>
+						<then>
+							<validate-mysql-lower_case_table_name database.driver="@{database.driver}" database.user="@{database.system.user}" database.password="@{database.system.password}" database.server="@{database.server}" database.port="@{database.port}" mysql.lowercasetablenames="@{mysql.lowercasetablenames}"/>
+						</then>
+						<else>
+							<validate-mysql-lower_case_table_name database.driver="@{database.driver}" database.user="@{database.user}" database.password="@{database.password}" database.server="@{database.server}" database.port="@{database.port}" mysql.lowercasetablenames="@{mysql.lowercasetablenames}"/>
+						</else>
+					</if>
+				</case>
+				<default>
+					<echo message="This function for the value @{database.type} of property database.type is not defined"/>
+				</default>
+			</switch>
+		</sequential>
+	</macrodef>
+	<!--macrodef name="validate-database">
+		<attribute name="database.driver" default="${database.driver}"/>
+		<attribute name="database.system.url" default="${database.system.url}"/>
+		<attribute name="database.system.user" default="${database.system.user}"/>
+		<attribute name="database.system.password" default="${database.system.password}"/>
+		<attribute name="database.url" default="${database.url}"/>
+		<attribute name="database.user" default="${database.user}"/>
+		<attribute name="database.password" default="${database.password}"/>
+		<attribute name="database.version" default="5.5.41"/>
+		<attribute name="database.name" default="${database.name}"/>
+		<attribute name="database.type" default="${database.type}"/>
+		<attribute name="database.re-create" default="${database.re-create}"/>
+		<attribute name="database.drop-schema" default="${database.drop-schema}"/>
+		<sequential>
+			<if>
+				<and>
+					<not>
+						<isset property="ignore.check.database"/>
+					</not>
+					<not>
+						<isset property="exclude.check.database"/>
+					</not>
+					<not>
+						<isset property="exclude.database"/>
+					</not>
+				</and>
+				<then>
+					<echo message="Validating database connection..."/>
+					<switch value="@{database.type}">
+						<case value="mysql">
+							<echoproperties prefix="database">
+								<propertyset negate="yes">
+									<propertyref regex="passw"/>
+								</propertyset>
+							</echoproperties>
+							<if>
+								<equals arg1="@{database.re-create}" arg2="true"/>
+								<then>
+									<dbconfig property="db.connection.success" driver="@{database.driver}" url="@{database.system.url}" user="@{database.system.user}" password="@{database.system.password}">
+										<validate/>
+										<checkversion atleast="@{database.version}"/>
+									</dbconfig>
+									<antunit:assertPropertyEquals message="Database connection failed for @{database.url}. Verify that your database.user and database.password property values are valid in the *-install.properties file.  Your database version must be least @{database.version}" name="db.connection.success" value="true"/>
+									<echo message="Database Connection: PASSED"/>
+								</then>
+								<else>
+									<dbconfig property="db.connection.success" driver="@{database.driver}" url="@{database.url}" user="@{database.user}" password="@{database.password}">
+										<validate/>
+										<checkversion atleast="@{database.version}"/>
+									</dbconfig>
+									<antunit:assertPropertyEquals message="Database connection failed for @{database.url}. Verify that your database.user and database.password property values are valid in the *-install.properties file.  Your database version must be least @{database.version}" name="db.connection.success" value="true"/>
+									<echo message="Database Connection: PASSED"/>
+								</else>
+							</if>
+						</case>
+						<case value="postgresql">
+							<if>
+								<equals arg1="@{database.re-create}" arg2="true"/>
+								<then>
+									<dbconfig property="db.connection.success" driver="@{database.driver}" url="@{database.system.url}" user="@{database.system.user}" password="@{database.system.password}">
+										<validate/>
+									</dbconfig>
+									<antunit:assertPropertyEquals message="Database connection failed for @{database.url}. Verify that your database.user and database.password property values are valid in the *-install.properties file.  Your database version must be least @{database.version}" name="db.connection.success" value="true"/>
+									<echo message="Database Connection: PASSED"/>
+								</then>
+								<else>
+									<dbconfig property="db.connection.success" driver="@{database.driver}" url="@{database.url}" user="@{database.user}" password="@{database.password}">
+										<validate/>
+									</dbconfig>
+									<antunit:assertPropertyEquals message="Database connection failed for @{database.url}. Verify that your database.user and database.password property values are valid in the *-install.properties file.  Your database version must be least @{database.version}" name="db.connection.success" value="true"/>
+									<echo message="Database Connection: PASSED"/>
+								</else>
+							</if>
+						</case>
+						<case value="oracle">
+							<dbconfig property="oracle.connection.success" driver="@{database.driver}" url="@{database.url}" user="@{database.user}" password="@{database.password}">
+								<validate/>
+							</dbconfig>
+							<antunit:assertPropertyEquals message="Database connection failed for @{database.system.url}. Validate your database related properties in the *-install.properties file." name="oracle.connection.success" value="true"/>
+							<echo message="Database Connection: PASSED"/>
+						</case>
+					</switch>
+				</then>
+				<else>
+					<echo message="Skipped database checkes"/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef-->
+	<macrodef name="database-clean">
+		<attribute name="database.driver" default="${database.driver}"/>
+		<attribute name="database.driver.file" default="${database.driver.file}"/>
+		<attribute name="database.system.url" default="${database.system.url}"/>
+		<attribute name="database.system.user" default="${database.system.user}"/>
+		<attribute name="database.system.password" default="${database.system.password}"/>
+		<attribute name="database.version" default="5.0.27"/>
+		<attribute name="database.name" default="${database.name}"/>
+		<attribute name="database.server" default="${database.server}"/>
+		<attribute name="database.url" default="${database.url}"/>
+		<attribute name="database.user" default="${database.user}"/>
+		<attribute name="database.password" default="${database.password}"/>
+		<attribute name="database.schema" default="${database.schema}"/>
+		<attribute name="database.re-create" default="${database.re-create}"/>
+		<attribute name="database.drop-schema" default="${database.drop-schema}"/>
+		<attribute name="database.type" default="${database.type}"/>
+		<sequential>
+			<if>
+				<and>
+					<equals arg1="@{database.re-create}" arg2="true"/>
+					<equals arg1="@{database.drop-schema}" arg2="true"/>
+				</and>
+				<then>
+					<fail message="You cannot set both database.re-create and database.drop-schema at the same time.  database.re-create is used in local installs.  database.drop-schema is used in remote installs.  Either one can be set for external (Cancer Center) installs."/>
+				</then>
+			</if>
+			<if>
+				<not>
+					<or>
+						<equals arg1="@{database.re-create}" arg2="true"/>
+						<equals arg1="@{database.drop-schema}" arg2="true"/>
+					</or>
+				</not>
+				<then>
+					<fail message="Either database.re-create or database.drop-schema must be set to call the database install target.  Please set one in the properties file and build again, or if you don't want databases targets to run you can set exclude.database in the properties file."/>
+				</then>
+			</if>
+			<if>
+				<equals arg1="@{database.re-create}" arg2="true"/>
+				<then>
+					<switch value="@{database.type}">
+						<case value="postgresql">
+							<database-create database.driver="@{database.driver}" database.driver.file="@{database.driver.file}" database.system.url="@{database.system.url}" database.system.user="@{database.system.user}" database.system.password="@{database.system.password}" database.version="@{database.version}" database.name="@{database.name}" database.server="@{database.server}" database.url="@{database.url}" database.user="@{database.user}" database.password="@{database.password}"/>
+						</case>
+						<case value="mysql">
+							<database-create database.driver="@{database.driver}" database.driver.file="@{database.driver.file}" database.system.url="@{database.system.url}" database.system.user="@{database.system.user}" database.system.password="@{database.system.password}" database.version="@{database.version}" database.name="@{database.name}" database.server="@{database.server}" database.url="@{database.url}" database.user="@{database.user}" database.password="@{database.password}"/>
+						</case>
+						<default>
+							<echo message="Re-creation (drop and re-create) of @{database.type} databases is not supported, nothing done."/>
+						</default>
+					</switch>
+				</then>
+				<else>
+					<echo message="Database.recreate flag not set, database not re-created."/>
+				</else>
+			</if>
+			<if>
+				<equals arg1="@{database.drop-schema}" arg2="true"/>
+				<then>
+					<echo message="Dropping database objects"/>
+					<dropAllDatabaseObjects driver="@{database.driver}" url="@{database.url}" username="@{database.user}" password="@{database.password}" promptOnNonLocalDatabase="@{prompt.user.if.not.local.database}" classpathref="bda-utils.classpath" defaultSchemaName="@{database.schema}"/>
+					<!-- Sequences don't seem to drop in first run second run cleans them up -->
+					<dropAllDatabaseObjects driver="@{database.driver}" url="@{database.url}" username="@{database.user}" password="@{database.password}" promptOnNonLocalDatabase="@{prompt.user.if.not.local.database}" classpathref="bda-utils.classpath" defaultSchemaName="@{database.schema}"/>
+					<sleep seconds="5"/>
+				</then>
+				<else>
+					<echo message="Database.drop-schema flag not set, database schema not dropped."/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<macrodef name="backup-dir">
+		<attribute name="src.dir"/>
+		<attribute name="backup.base.dir"/>
+		<attribute name="backup.count" default="5"/>
+		<sequential>
+			<backup-roll backupDir="@{backup.base.dir}" backupCount="@{backup.count}"/>
+			<delete dir="@{backup.base.dir}/backup"/>
+			<mkdir dir="@{backup.base.dir}/backup"/>
+			<mkdir dir="@{src.dir}"/>
+			<move file="@{src.dir}" todir="@{backup.base.dir}/backup"/>
+			<delete dir="@{src.dir}" quiet="false"/>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="backup-roll">
+		<attribute name="backupDir"/>
+		<attribute name="backupCount"/>
+		<sequential>
+			<groovy>
+				<arg line="@{backupDir} @{backupCount}"/>
+	
+					String backupDir = args[0]
+					Integer backupCount = new Integer(0).valueOf(args[1])
+	
+					println "Command Line Arguments:"
+					println "\tbackupDir -\t" + backupDir
+					println "\tbackupCount -\t" + backupCount
+	
+					ant = new AntBuilder()
+					i = 1..backupCount.minus(1)
+	
+					File rmdir= new File(backupDir + "/backup" + backupCount)
+	
+					if (rmdir.exists()) {ant.delete(dir:rmdir)}
+	
+					i.reverse().each
+					{
+					File mv_src_dir= new File(backupDir + "/backup" + it)
+					File mv_dest_dir= new File(backupDir + "/backup" + (it+1))
+					if (mv_src_dir.exists())
+					{
+					println "move ${mv_src_dir} ${mv_dest_dir}"
+					ant.move(file: mv_src_dir, tofile: mv_dest_dir);
+					}
+					}
+				</groovy>
+		</sequential>
+	</macrodef>
+	<macrodef name="report-dir-diff">
+		<attribute name="dir1"/>
+		<attribute name="dir2"/>
+		<attribute name="reportFile"/>
+		<sequential>
+			<if>
+				<or>
+					<os family="unix"/>
+					<os family="mac"/>
+				</or>
+				<then>
+					<groovy>
+						<arg line="@{dir1} @{dir2} @{reportFile}"/>
+					dir1 = new File(args[0]).getAbsoluteFile()
+					if(!dir1.exists())
+					{
+					println "${dir1} does not exist, please check that you are refering to the correct directory."
+					System.exit(1)
+					}
+					dir2 = new File(args[1]).getAbsoluteFile()
+					if(!dir2.exists())
+					{
+					println "${dir2} does not exist, please check that you are refering to the correct directory."
+					System.exit(1)
+					}
+					reportFile = new File(args[2]).getAbsoluteFile()
+					Integer dir1Length = dir1.toString().length()
+					Integer dir2Length = dir2.toString().length()
+	
+					println "Command line args are "
+					println "\t dir1 -\t\t" + dir1
+					println "\t dir2 -\t\t" + dir2
+					println "\t reportFile -\t" + reportFile
+	
+					reportText = ""
+	
+					println "## Comparing files in " + dir1 + " to files in " + dir2
+					dir1.eachFileRecurse
+					{ file1 ->
+					if (file1.isFile())
+					{
+					// println file1.toString() + " is a file"
+					file1Name = file1.getName()
+					file1Path = file1.getParent()
+					file2Str = dir2.toString() + "/" + file1.toString().substring(dir1Length)
+					file2 = new File(file2Str)
+					// println file2.toString() + " debug"
+					if (!file2.isFile() &amp;&amp; !file2.isDirectory())
+					{
+					println file2.toString() + " is a new file."
+					reportText += "## " + file2.toString() + " is a new file.\n"
+					}
+					if (file2.isFile())
+					{
+					// println file2.toString() + " is a file"
+					diffCmd = "diff --ignore-all-space --ignore-blank-lines " + file1 + " " + file2
+					String diffText = diffCmd.execute().text
+					if (diffText.length() > 0)
+					{
+					println file2.toString() + " differences found"
+					reportText += "## Differences found between " + file1 + " " + file2 + "\n"
+					diffText.eachLine {reportText += it + "\n"}
+					}
+					}
+					}
+					}
+					println "## Looking for new files in " + dir2 + " ..."
+					dir2.eachFileRecurse
+					{ file2 ->
+					if (file2.isFile())
+					{
+					file1Str = dir1.toString() + "/" + file2.toString().substring(dir2Length)
+					file1 = new File(file1Str)
+					//println file2.toString() + " debug"
+					if (!file1.isFile() &amp;&amp; !file1.isDirectory())
+					{
+					println file2.toString() + " is missing in new installation."
+					reportText += "## " + file2.toString() + " is a new file.\n"
+					}
+					}
+					}
+	
+					reportFile.write(reportText)
+				</groovy>
+				</then>
+				<else>
+					<echo message="Not a Unix system, report not generated"/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<macrodef name="validate-post-common" description="Diagnose the host system after the installation">
+		<attribute name="application.base.path" default="${application.base.path}"/>
+		<attribute name="propertyfile.backup.location" default="@{application.base.path}/change-logs"/>
+		<sequential>
+			<echoproperties>
+				<propertyset negate="yes">
+					<propertyref regex="passw"/>
+				</propertyset>
+			</echoproperties>
+			<tstamp>
+				<format property="run.date" pattern="yyMMddHHmm"/>
+			</tstamp>
+			<basename file="${properties.file}" property="properties.file.name"/>
+			<var name="backup.properties.file" value="${properties.file.name}-${run.date}"/>
+			<mkdir dir="@{propertyfile.backup.location}"/>
+			<copy tofile="@{propertyfile.backup.location}/${backup.properties.file}" file="${properties.file}"/>
+		</sequential>
+	</macrodef>
+	<macrodef name="validate-mysql-lower_case_table_name" description="Diagnose the host system before the installation">
+		<attribute name="database.driver" default="${database.driver}"/>
+		<attribute name="database.user" default="${database.user}"/>
+		<attribute name="database.password" default="${database.password}"/>
+		<attribute name="database.server" default="${database.server}"/>
+		<attribute name="database.port" default="${database.port}"/>
+		<attribute name="mysql.lowercasetablenames" default="${mysql.lowercasetablenames}"/>
+		<sequential>
+			<if>
+				<equals arg1="@{mysql.lowercasetablenames}" arg2="true"/>
+				<then>
+					<echo message="Checking that lower_case_table_names=1"/>
+					<var name="out.file" unset="true"/>
+					<mkdir dir="${temp.dir}"/>
+					<property name="out.file" value="${temp.dir}/lctn.txt"/>
+					<sql driver="@{database.driver}" url="jdbc:mysql://@{database.server}:@{database.port}/information_schema" userid="@{database.user}" password="@{database.password}" onerror="abort" print="true" output="${out.file}">
+						<classpath>
+							<pathelement location="${database.driver.file}"/>
+						</classpath>
+						show variables;
+					</sql>
+					<!--
+						select * from SESSION_VARIABLES where VARIABLE_NAME='LOWER_CASE_TABLE_NAMES' order by 1;
+					-->
+					<var name="lctn.match" unset="true"/>
+					<loadfile property="lctn.match" srcFile="${out.file}">
+						<filterchain>
+							<linecontainsregexp>
+								<regexp pattern="lower_case_table_names"/>
+							</linecontainsregexp>
+						</filterchain>
+					</loadfile>
+					<trim-property trim.property.name="lctn.match"/>
+					<echo message="query returned '${lctn.match}'"/>
+					<var name="lctn.value" unset="true"/>
+					<propertyregex property="lctn.value" input="${lctn.match}" regexp="lower_case_table_names,(\d)" select="\1"/>
+					<if>
+						<equals arg1="${lctn.value}" arg2="1"/>
+						<then>
+							<echo message="lower_case_table_names=1, proceding with build"/>
+						</then>
+						<else>
+							<fail message="lower_case_table_names=${lctn.value}, must be set to one, build failing."/>
+						</else>
+					</if>
+				</then>
+				<else>
+					<echo message="Skipping mysql lower_case_table_names=1 check"/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<!--
+	start-jbossEAP  macro will start the jboss instance
+	usage: 	<start-jbossEAP jboss.home="${jboss.home}"/>
+		jboss.home is the location where Jboss is installed
+	-->
+	<macrodef name="start-jbossEAP" description="Starts a local JBoss instance">
+		<attribute name="jboss.home" default="${JBOSS_HOME}"/>
+		<sequential>
+			<if>
+				<and>
+					<available file="@{jboss.home}/bin/standalone.sh"/>
+					<os family="unix"/>
+				</and>
+				<then>
+					<echo message="Linux -- Starting JBoss instance at @{jboss.home}/bin with standalone-full"/>
+					<!--exec executable="@{jboss.home}/bin/standalone.sh -c standalone-full.xml" osfamily="unix" /-->
+					<exec executable="@{jboss.home}/bin/standalone.sh" os="Linux" spawn="yes">
+        					<arg line="-c"/>
+        					<arg line="standalone-full.xml"/>
+        					<arg line="-b"/>
+        					<arg line="0.0.0.0"/>
+    					</exec>
+				</then>
+				<else>
+					<echo message="Windows -- Starting JBoss instance at @{jboss.home}/bin with standalone-full"/>
+					<exec executable="cmd.exe" spawn="yes">
+						<arg line="/c start cmd.exe /k @{jboss.home}/bin/standalone.bat -c standalone-full.xml"/>
+					</exec>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+     <!-- run-sql-script macro executes the sql scripts for a database
+     usage: <run-sql-script database.url="${database.url}" database.user="${database.user}" database.password="${database.password}" sql.file="${sql.dir}/create_table.sql" />
+     -->
+     <macrodef name="run-sql-script" description="By default this will use the database.url, to use drop database &amp; user use the database.system.url property">
+         <attribute name="sql.file" />
+         <attribute name="sql.delimiter" default=";" />
+         <attribute name="sql.delimitertype" default="normal" />
+         <attribute name="database.url" default="${database.url}" />
+         <attribute name="database.user" default="${database.user}" />
+         <attribute name="database.password" default="${database.password}" />
+         <attribute name="onerror" default="abort" />
+         <attribute name="database.driver" default="${database.driver}"/>
+         <attribute name="database.driver.file" default="${database.driver.file}"/>
+         <sequential>
+             <sql driver="@{database.driver}" url="@{database.url}" userid="@{database.user}" password="@{database.password}" src="@{sql.file}" onerror="@{onerror}" autocommit="true" delimiter="@{sql.delimiter}" delimitertype="@{sql.delimitertype}" keepformat="true">
+                 <classpath>
+                     <pathelement location="@{database.driver.file}" />
+                 </classpath>
+             </sql>
+         </sequential>
+    </macrodef>
+    
+        <macrodef name="database-install">
+            <attribute name="database.type" default="${database.type}" />
+            <attribute name="database.driver" default="${database.driver}" />
+            <attribute name="database.driver.file" default="${database.driver.file}" />
+            <attribute name="database.url" default="${database.url}" />
+            <attribute name="database.user" default="${database.user}" />
+            <attribute name="database.password" default="${database.password}" />
+            <attribute name="sql.delimiter" default=";" />
+            <attribute name="sql.delimitertype" default="normal" />
+            <attribute name="onerror" default="abort" />
+            <attribute name="db-install.dir" default="${db-install.dir.dest}" />
+            <attribute name="db.install.create.file.list" />
+            <sequential>
+                <for list="@{db.install.create.file.list}" param="db.install.file">
+                    <sequential>
+                        <run-sql-script database.url="@{database.url}"
+                            database.user="@{database.user}"
+                            database.password="@{database.password}"
+                            database.driver="@{database.driver}"
+                            database.driver.file="@{database.driver.file}"
+                            sql.delimiter="@{sql.delimiter}"
+                            sql.delimitertype="@{sql.delimitertype}"
+                            sql.file="@{db-install.dir}/@{database.type}/@{db.install.file}"
+                            onerror="@{onerror}"/>
+                    </sequential>
+                </for>
+            </sequential>
+    </macrodef>
+    
+        <macrodef name="database-create">
+            <attribute name="database.driver" default="${database.driver}" />
+            <attribute name="database.driver.file" default="${database.driver.file}" />
+            <attribute name="database.system.url" default="${database.system.url}" />
+            <attribute name="database.system.user" default="${database.system.user}" />
+            <attribute name="database.system.password" default="${database.system.password}" />
+            <attribute name="database.version" default="5.0.27" />
+            <attribute name="database.name" default="${database.name}" />
+            <attribute name="database.server" default="${database.server}" />
+            <attribute name="database.url" default="${database.url}" />
+            <attribute name="database.user" default="${database.user}" />
+            <attribute name="database.password" default="${database.password}" />
+            <attribute name="database.type" default="${database.type}" />
+            <sequential>
+                <echo message="Entering database-create"/>
+                <if>
+                    <isset property="force.reinstall"/>
+                    <then>
+                        <echo message="Creating @{database.type} database named @{database.name}."/>
+                        <switch value="@{database.type}">
+                            <case value="mysql">
+                                <echo message="Database @{database.name} does not exist or the force.reinstall property is set."/>
+                                <var name="create.sql.dir" value="${bda-utils.resource.dir}/target" />
+                                <delete dir="${create.sql.dir}"/>
+                                <sql
+                                    driver="@{database.driver}"
+                                    url="@{database.system.url}"
+                                    userid="@{database.system.user}"
+                                    password="@{database.system.password}"
+                                    expandproperties="true"
+                                    onerror="continue"
+                                    >
+                                    <classpath>
+                                        <pathelement location="@{database.driver.file}" />
+                                    </classpath>
+                                    <transaction>
+                                        REVOKE ALL ON @{database.name}.* FROM '@{database.user}'@'@{database.server}';
+                                        REVOKE ALL ON @{database.name}.* FROM '@{database.user}'@'%';
+                                    </transaction>
+                                </sql>
+                                <sql
+                                    driver="@{database.driver}"
+                                    url="@{database.system.url}"
+                                    userid="@{database.system.user}"
+                                    password="@{database.system.password}"
+                                    expandproperties="true"
+                                    >
+                                    <classpath>
+                                        <pathelement location="@{database.driver.file}" />
+                                    </classpath>
+                                    <transaction>
+                                        DROP DATABASE IF EXISTS @{database.name};
+                                        CREATE DATABASE @{database.name} DEFAULT CHARACTER SET latin1;
+                                        GRANT ALL ON @{database.name}.* TO '@{database.user}'@'@{database.server}' IDENTIFIED BY '@{database.password}';
+                                        GRANT ALL ON @{database.name}.* TO '@{database.user}'@'%' IDENTIFIED BY '@{database.password}';
+                                    </transaction>
+                                </sql>
+                            </case>
+                            <case value="postgresql">
+                                <sql
+                                    driver="@{database.driver}"
+                                    url="@{database.system.url}"
+                                    userid="@{database.system.user}"
+                                    password="@{database.system.password}"
+                                    expandproperties="true"
+                                    onerror="continue"
+                                    autocommit="true"
+                                    >
+                                    <classpath>
+                                        <pathelement location="@{database.driver.file}" />
+                                    </classpath>
+                                        drop database if exists @{database.name};
+                                        drop user if exists @{database.user};
+                                        create database @{database.name};
+                                        create user @{database.user} with password '@{database.password}';
+                                        grant all on database @{database.name} to @{database.user};
+                                </sql>
+                            </case>
+                        </switch>
+                    </then>
+                </if>
+            </sequential>
+        </macrodef>
+	<macrodef name="database-upgrade">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.driver.file" default="${database.driver.file}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.schema" default="${database.schema}" />
+		<attribute name="database.changelog.file" default="${os.temp.dir}/${project.name}/db-upgrade.xml" />
+		<sequential>
+			<database-upgrade-fix
+				database.driver="@{database.driver}"
+				database.url="@{database.url}"
+				database.user="@{database.user}"
+				database.password="@{database.password}"
+				database.driver.file="@{database.driver.file}"
+				database.changelog.file="@{database.changelog.file}"
+				/>
+			<updateDatabase
+				driver="@{database.driver}"
+				url="@{database.url}"
+				username="@{database.user}"
+				password="@{database.password}"
+				classpathref="jdbc.driver.classpath"
+				defaultSchemaName="@{database.schema}"
+				changeLogFile="@{database.changelog.file}"
+				/>
+		</sequential>
+	</macrodef>
+	<macrodef name="database-upgrade-fix" description="Diagnose the host system before the installation">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.driver.file" default="${database.driver.file}" />
+		<attribute name="database.changelog.file" default="${os.temp.dir}/${project.name}/db-upgrade.xml" />
+		<sequential>
+			<basename property="changelog.file" file="@{database.changelog.file}"/>
+			<echo message="Updateing liquibase metadata file name to @{database.changelog.file}  where filename includes ${changelog.file}"/>
+			<sql
+				driver="@{database.driver}"
+				url="@{database.url}"
+				userid="@{database.user}"
+				password="@{database.password}"
+				expandproperties="true"
+				onerror="continue"
+				autocommit="true"
+				>
+				<classpath>
+					<pathelement location="@{database.driver.file}" />
+				</classpath>
+				update databasechangelog set filename='@{database.changelog.file}' where filename like '%${changelog.file}';
+			</sql>
+		</sequential>
+	</macrodef>
+	<macrodef name="database-tag">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.schema" default="${database.schema}" />
+		<sequential>
+			<if>
+				<isset property="database.release.version"/>
+				<then>
+					<tagDatabase
+						driver="@{database.driver}"
+						url="@{database.url}"
+						username="@{database.user}"
+						password="@{database.password}"
+						classpathref="jdbc.driver.classpath"
+						defaultSchemaName="@{database.schema}"
+						tag="${database.release.version}"
+						>
+					</tagDatabase>
+				</then>
+				<else>
+					<fail message="Variable database.release.version must be set to call upgrade:database:tag target."/>
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	<!--
+	check-database-exists macro checks if the database exists. The root user name and password should be provided
+	usage: <check-database-exists database.driver="${database.driver}" database.system.url="${database.system.url}" database.system.user="${database.system.user}" database.system.password="${database.system.password} database.name="${database.name}" />
+		database.driver is the jdbc driver to connect to database
+		database.url is the installed host of the database
+		database.user is the user for the database
+		database.password is the password for the database
+		database.name is the name of the database
+	-->
+	<macrodef name="check-database-exists" description="Checks if the database exists">
+		<attribute name="database.driver" default="${database.driver}" />
+		<attribute name="database.url" default="${database.url}" />
+		<attribute name="database.user" default="${database.user}" />
+		<attribute name="database.password" default="${database.password}" />
+		<attribute name="database.name" default="${database.name}" />
+		<attribute name="database.type" default="${database.type}" />
+		<sequential>
+			<switch value="@{database.type}">
+				<case value="mysql">
+					<dbconfig property="database.exists"
+						driver="@{database.driver}" url="@{database.url}"  user="@{database.user}" password="@{database.password}">
+						<validate />
+					</dbconfig>
+					<echo message="Does @{database.name} exist = ${database.exists} "/>
+					<if>
+						<and>
+							<equals arg1="${database.exists}" arg2="true"/>
+							<not>
+								<isset property="force.reinstall"/>
+							</not>
+						</and>
+						<then>
+							<input message="The database @{database.name} already exists.  Please be sure you have a recent backup of this database.  This process will alter the database if you need to return your database to the current state you need a good backup.  Please ensure you have a good backup before proceeding.  Do you want to proceed?"
+								validargs="y,n"
+								addproperty="accept.database.update" />
+							<if>
+								<equals arg1="${accept.database.update}" arg2="n"/>
+								<then>
+									<fail message="User tereminated the build."/>
+								</then>
+								<else>
+									<var name="force.reinstall" value="true"/>
+								</else>
+							</if>
+						</then>
+						<else>
+							<echo message="Database @{database.name} does not exist or the force.reinstall property is set."/>
+							<var name="force.reinstall" value="true"/>
+						</else>
+					</if>
+				</case>
+				<default>
+					<echo message="Database is @{database.type}, warning prompt not displayed."/>
+					<var name="force.reinstall" value="true"/>
+				</default>
+			</switch>
+		</sequential>
+	</macrodef>
+	
+</project>

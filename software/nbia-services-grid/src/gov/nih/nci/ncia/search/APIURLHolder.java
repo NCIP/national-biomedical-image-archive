@@ -19,12 +19,13 @@ public class APIURLHolder {
 		}
 		} catch (Exception e)
 		{
-			
+
 		}
 		UUID userKey = UUID.randomUUID();
 		userMap.put(userKey.toString(), user);
+		System.out.println("!!!!!!!!!!!Added user-"+user+"Key-"+userKey.toString());
 		return userKey.toString();
-		
+
 	}
 	public static String getUser(String key){
 		return userMap.get(key);
@@ -40,6 +41,6 @@ public class APIURLHolder {
 	}
     public static void main(String[] args)
     {
-    	setUrl("http://localhost:45210/nbia/home.jsf");
+    	setUrl("http://localhost:8080/nbia/home.jsf");
     }
 }

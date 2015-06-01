@@ -28,7 +28,7 @@ L-->
     	<td width="90%">
         <div class="adminToolsContainer">
         <h:outputText value="#{msg.dataBasket_myBasket}" />
-        <ncia:help label="images/help_icon.png" helpId="-managedatabasket" />
+        <ncia:help label="images/help_icon.png" helpId="-ManagingtheDataBasket" />
         </div>
         </td>
         </tr>
@@ -347,7 +347,7 @@ L-->
     			 </ice:panelGroup>
                       </f:facet>
                       <ice:panelGroup style="width:40px">
-                      <h:outputText value="#{item.imageSize}"/>
+                      <h:outputText value="#{item.imageSizeInMB}"/>
                       </ice:panelGroup>
                     </h:column>
                     <h:column id="annotationsSizeColumn" style="white-space: normal;">
@@ -359,7 +359,7 @@ L-->
     			 </ice:panelGroup>
                       </f:facet>
                       <ice:panelGroup style="width:65px">
-                      <h:outputText value="#{item.annotationSize3Digits}" escape="false"/>
+                      <h:outputText value="#{item.annotationSize3DigitsInMB}" escape="false"/>
                       </ice:panelGroup>
                     </h:column>  
                     <!-- h:column id="dataBasketDeleteColumn">

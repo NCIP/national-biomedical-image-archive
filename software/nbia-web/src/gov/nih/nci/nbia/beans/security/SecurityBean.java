@@ -41,6 +41,9 @@ public class SecurityBean {
 	private String username = "";
 	private String password = "";
 	private String email = "";
+	private boolean firstTimeLogin = false;
+	private String newPassword1="";
+	private String newPassword2="";
 	private static final String LOGIN_FAIL = "loginFail";
 	private static final String PASSWORD_FIELD_JSF_ID = null;//"MAINbody:sideBarView:loginForm:pass";
 	                                                    //MAINbody:sideBarViewAsGuest:loginFormGuestEnabled:loginGuestEnabled:pass
@@ -62,11 +65,36 @@ public class SecurityBean {
 		return login(username, password);
 	}
 
+	/**
+	 * Attempts to change the password.
+	 */
+	public void changePassword() {
+		if (newPassword1.equals(newPassword2)) {
+			try {
+				NCIASecurityManager sm = (NCIASecurityManager)SpringApplicationContext.getBean("nciaSecurityManager");
+				sm.modifyPasswordForNewUser(username, newPassword1);
+				firstTimeLogin=false;
+			}
+			catch (Exception e) {
+				firstTimeLogin = true;
+				if (e.getMessage() != null)
+					MessageUtil.addErrorMessage(PASSWORD_FIELD_JSF_ID, e.getMessage()+".");
+				else e.printStackTrace();
+			}
+		}
+		else {
+			firstTimeLogin=true;
+			MessageUtil.addErrorMessage(PASSWORD_FIELD_JSF_ID,
+					                    "passwordsMismatch");
+		}
+		loggedIn = false;
+
+	}
 
 	/**
 	 * AuthorizationManager is expensive to create.
 	 * Small optimization to expose this so other dont have to.
-	 * Wouldn't normally be keen on managed bean sharing stuff
+	 * Wouldn't normally be keen on managed bean sharing stuffvoid
 	 * but it's already rampant... so let's do it one more time! :)
 	 */
 	public AuthorizationManager getAuthorizationManager() {
@@ -186,7 +214,16 @@ public class SecurityBean {
 			if (loggedIn) {
 				email = sm.getUserEmail(uname);
 			}
-		} catch (Exception e) {
+		}
+		catch (gov.nih.nci.security.exceptions.CSFirstTimeLoginException ftle) {
+			firstTimeLogin = true;
+			loggedIn = false;
+			loginFailure = true;
+			MessageUtil.addErrorMessage(PASSWORD_FIELD_JSF_ID,
+										"firstTimeLogin");
+			return LOGIN_FAIL;
+		}
+		catch (Exception e) {
 			logger.error("CSException: " + e);
 			e.printStackTrace();
 			// User has provided incorrect information
@@ -443,4 +480,27 @@ public class SecurityBean {
 		return false;
 	}
 
+	public boolean getFirstTimeLogin() {
+		return firstTimeLogin;
+	}
+
+	public void setFirstTimeLogin(boolean firstTimeLogin) {
+		this.firstTimeLogin = firstTimeLogin;
+	}
+
+	public String getNewPassword1() {
+		return newPassword1;
+	}
+
+	public void setNewPassword1(String pass1) {
+		newPassword1 = pass1;
+	}
+
+	public String getNewPassword2() {
+		return newPassword2;
+	}
+
+	public void setNewPassword2(String pass2) {
+		newPassword2 = pass2;
+	}
 }

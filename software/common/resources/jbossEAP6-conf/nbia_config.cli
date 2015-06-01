@@ -1,0 +1,105 @@
+## NBIA CLI script
+## Comment out the next line for giving the flexibilty to use different port
+## To run without next line, using "jboss-cli.sh -c controller=127.0.0.1:<port number> --file=nbia_system_config.cli"
+#connect localhost:9999
+
+##############################################################
+#    undeploy wara and ear if they are deployed already                     
+##############################################################
+
+if (outcome ==success) of /deployment=oviyam2.war:read-resource
+undeploy oviyam2.war
+end-if
+if (outcome ==success) of /deployment=nbia-api.war:read-resource
+undeploy nbia-api.war
+end-if
+if (outcome ==success) of /deployment=nbia.ear:read-resource
+undeploy nbia.ear
+end-if
+
+##############################################################
+#             datasource configuration                      
+##############################################################
+
+## module oracle or mysql should be added first using nbia_modules.cli
+
+if (outcome == success) of /subsystem=datasources/data-source=ncia:read-resource
+data-source remove --name=ncia
+end-if
+
+if (outcome == success) of /subsystem=datasources/jdbc-driver=@database.type@:read-resource
+/subsystem=datasources/jdbc-driver=@database.type@:remove
+end-if
+
+## Add JDBC driver
+/subsystem=datasources/jdbc-driver=@database.type@:add( \
+    driver-name=@database.type@, \
+    driver-module-name=@database.type@, \
+    driver-class-name=@database.driver@ \
+) {allow-resource-service-restart=true}
+
+## Add datasources: ncia
+data-source add \
+    --name=ncia \
+    --driver-name=@database.type@ \
+    --connection-url=@database.url@ \
+    --jndi-name=java:jboss/ncia \
+    --user-name=@database.user@ \
+    --password=@database.password@ \
+    --use-ccm=false \
+    --max-pool-size=100 \
+    --blocking-timeout-wait-millis=5000 
+data-source enable --name=ncia
+
+##############################################################
+#               JMS configuration                             
+##############################################################
+
+if (outcome == success) of /subsystem=messaging/hornetq-server=default/jms-queue=imageQueue/:read-resource
+jms-queue remove --queue-address=imageQueue
+end-if
+
+if (outcome == success) of /subsystem=messaging/hornetq-server=default/jms-queue=deletionQueue/:read-resource
+jms-queue remove --queue-address=deletionQueue
+end-if
+
+#jms-queue add --queue-address=imageQueue --entries=queue/imageQueue,java:jboss/queue/imageQueue
+#jms-queue add --queue-address=deletionQueue --entries=queue/deletionQueue,java:jboss/queue/deletionQueue
+
+##############################################################
+#               CSM Login Module                             
+##############################################################
+
+/subsystem=ee:write-attribute(name="global-modules",value=[{"name" => "org.bouncycastle","slot" => "main"}])
+
+## Add dcm4chee security domain
+
+if (outcome == success) of /subsystem=security/security-domain=dcm4chee:read-resource
+	/subsystem=security/security-domain=dcm4chee:remove
+end-if
+
+/subsystem=security/security-domain=dcm4chee:add(cache-type=default)
+/subsystem=security/security-domain=dcm4chee/authentication=classic:add
+/subsystem=security/security-domain=dcm4chee/authentication=classic/login-module=Remoting:add( \
+            code=Remoting, \
+            flag=optional, \
+            module-options=[("password-stacking"=>"useFirstPass")]) 
+
+/subsystem=security/security-domain=dcm4chee/authentication=classic/login-module=RealmUsersRoles:add( \
+ 	code=RealmUsersRoles, \
+        flag=required, \
+        module-options=[("usersProperties"=>"${jboss.server.config.dir}/application-users.properties"), \
+            ("rolesProperties"=>"${jboss.server.config.dir}/application-roles.properties"), \
+            ("realm"=>"ApplicationRealm"), \
+            ("password-stacking"=>"useFirstPass")]) 
+
+## Add NCIA security domain
+
+if (outcome == success) of /subsystem=security/security-domain=NCIA:read-resource
+	/subsystem=security/security-domain=NCIA:remove
+end-if
+
+if (outcome != success) of /subsystem=security/security-domain=NCIA:read-resource
+/subsystem=security/security-domain=NCIA/:add(cache-type=default)
+end-if 
+

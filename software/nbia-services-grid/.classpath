@@ -24,5 +24,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/log4j-1.2.15.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/mail-1.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-grid/test/oro-2.0.8.jar"/>
+	<classpathentry kind="var" path="GLOBUS_LOCATION"/>
+	<classpathentry kind="var" path="NBIA_BASE"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

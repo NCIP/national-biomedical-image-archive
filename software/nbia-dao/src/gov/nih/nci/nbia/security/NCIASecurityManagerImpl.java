@@ -52,6 +52,7 @@ import gov.nih.nci.security.dao.ProtectionGroupSearchCriteria;
 import gov.nih.nci.security.dao.UserSearchCriteria;
 import gov.nih.nci.security.exceptions.CSException;
 import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
+import org.apache.commons.lang.time.DateUtils;
 
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -68,6 +69,9 @@ public class NCIASecurityManagerImpl extends AbstractDAO
                                      implements NCIASecurityManager {
 
     private static Logger logger = Logger.getLogger(NCIASecurityManager.class);
+    // Constants used in CSM API but is not provided in CSM API. So define here.
+    private static final byte ZERO = 0;
+    private static final int PASSWORD_EXPIRY_DAYS = 60;
 
     // Name of the "READ" Role
     private static final String readRoleName = RoleType.READ.toString();
@@ -93,8 +97,8 @@ public class NCIASecurityManagerImpl extends AbstractDAO
     public void init() throws DataAccessException {
     	try {
 	        this.applicationName = NCIAConfig.getCsmApplicationName();
-	        //logger.info("application name is " + name);
-	        upm = (UserProvisioningManager)SecurityServiceProvider.getAuthorizationManager(this.applicationName);
+	        logger.info("CSM application name is " + this.applicationName);
+		    upm = (UserProvisioningManager)SecurityServiceProvider.getAuthorizationManager(this.applicationName);
 
 	        am = SecurityServiceProvider.getAuthenticationManager(this.applicationName);
 	        //logger.info("UserProvisioningManager: " + upm + " AuthenticationManager is " + am);
@@ -294,4 +298,25 @@ public class NCIASecurityManagerImpl extends AbstractDAO
         	return null;
         }
     }
+
+    public void modifyPasswordForNewUser(String loginName, String password) throws Exception{
+		User user = new User();
+		user.setLoginName(loginName);
+		UserSearchCriteria usc = new UserSearchCriteria(user);
+		List<User> userList = upm.getObjects(usc);
+
+		if(userList.size()>0) {
+			user = userList.get(0);
+			user.setPassword(password);
+			user.setFirstTimeLogin(ZERO);
+			user.setPasswordExpiryDate(DateUtils.addDays(user.getPasswordExpiryDate(),PASSWORD_EXPIRY_DAYS));
+			user.setUpdateDate(new java.util.Date());
+			upm.modifyUser(user);
+		}
+		else {
+			//It should never get here
+			throw new Exception("The user cannot be found in database. " +
+			"Please re-register using the Register Now link on the login page.");
+		}
+	}
 }

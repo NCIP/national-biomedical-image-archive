@@ -1,0 +1,310 @@
+## NBIA CLI script
+## Comment out the next line for giving the flexibilty to use different port
+## To run without next line, using "jboss-cli.sh -c controller=127.0.0.1:<port number> --file=nbia_system_properties.cli"
+#connect localhost:9999
+
+##############################################################
+#    undeploy wara and ear if they are deployed already                     
+##############################################################
+
+if (outcome ==success) of /deployment=oviyam2.war:read-resource
+undeploy oviyam2.war
+end-if
+if (outcome ==success) of /deployment=nbia-api.war:read-resource
+undeploy nbia-api.war
+end-if
+if (outcome ==success) of /deployment=nbia.ear:read-resource
+undeploy nbia.ear
+end-if
+
+##############################################################
+#             System Properties                      
+##############################################################
+
+if (outcome ==success) of /system-property=usergroup.list.email:read-resource	
+/system-property=usergroup.list.email:remove
+end-if
+
+if (outcome ==success) of /system-property=usergroup.list.name:read-resource	
+/system-property=usergroup.list.name:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.imaging.server.url:read-resource	
+/system-property=gov.nih.nci.ncia.imaging.server.url:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.mapped.image.path.head:read-resource	
+/system-property=gov.nih.nci.ncia.mapped.image.path.head:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.image.path.pattern:read-resource	
+/system-property=gov.nih.nci.ncia.image.path.pattern:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.jboss.mq.url:read-resource	
+/system-property=gov.nih.nci.ncia.jboss.mq.url:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.zip.location:read-resource	
+/system-property=gov.nih.nci.ncia.zip.location:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.ftp.location:read-resource	
+/system-property=gov.nih.nci.ncia.ftp.location:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.grid.local.node.name:read-resource	
+/system-property=gov.nih.nci.ncia.grid.local.node.name:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.ui.uid.display.length:read-resource	
+/system-property=gov.nih.nci.ncia.ui.uid.display.length:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.ftp.url:read-resource	
+/system-property=gov.nih.nci.ncia.ftp.url:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.admin.email:read-resource	
+/system-property=gov.nih.nci.ncia.admin.email:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.mail.server.host:read-resource	
+/system-property=gov.nih.nci.ncia.mail.server.host:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.installationSite:read-resource	
+/system-property=gov.nih.nci.ncia.installationSite:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.fileRetentionPeriodInDays:read-resource	
+/system-property=gov.nih.nci.ncia.fileRetentionPeriodInDays:remove
+end-if
+
+if (outcome ==success) of /system-property=enabled_guest_account:read-resource	
+/system-property=enabled_guest_account:remove
+end-if
+
+if (outcome ==success) of /system-property=guest_username:read-resource	
+/system-property=guest_username:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.download.server.url:read-resource	
+/system-property=gov.nih.nci.ncia.download.server.url:remove
+end-if
+
+if (outcome ==success) of /system-property=enable_classic_download:read-resource	
+/system-property=enable_classic_download:remove
+end-if
+
+if (outcome ==success) of /system-property=registration.email.subject:read-resource	
+/system-property=registration.email.subject:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.solr.home:read-resource	
+/system-property=gov.nih.nci.ncia.solr.home:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.solr.updateinterval:read-resource	
+/system-property=gov.nih.nci.ncia.solr.updateinterval:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.workflow.updateinterval:read-resource	
+/system-property=gov.nih.nci.ncia.workflow.updateinterval:remove
+end-if
+
+if (outcome ==success) of /system-property=local.grid.uri:read-resource	
+/system-property=local.grid.uri:remove
+end-if
+
+if (outcome ==success) of /system-property=discover.remote.nodes:read-resource	
+/system-property=discover.remote.nodes:remove
+end-if
+
+if (outcome ==success) of /system-property=discover.period.in.hrs:read-resource	
+/system-property=discover.period.in.hrs:remove
+end-if
+
+if (outcome ==success) of /system-property=lookupManager.className:read-resource	
+/system-property=lookupManager.className:remove
+end-if
+
+if (outcome ==success) of /system-property=patientSearcherService.className:read-resource	
+/system-property=patientSearcherService.className:remove
+end-if
+
+if (outcome ==success) of /system-property=drilldown.className:read-resource	
+/system-property=drilldown.className:remove
+end-if
+
+if (outcome ==success) of /system-property=thumbnailResolver.className:read-resource	
+/system-property=thumbnailResolver.className:remove
+end-if
+
+if (outcome ==success) of /system-property=dicomTagViewer.className:read-resource	
+/system-property=dicomTagViewer.className:remove
+end-if
+if (outcome ==success) of /system-property=seriesFileRetriever.className:read-resource	
+/system-property=seriesFileRetriever.className:remove
+end-if
+
+if (outcome ==success) of /system-property=collection.description.maxlength:read-resource	
+/system-property=collection.description.maxlength:remove
+end-if
+
+if (outcome ==success) of /system-property=ftp_threshold:read-resource	
+/system-property=ftp_threshold:remove
+end-if
+
+if (outcome ==success) of /system-property=runNewDataFlagUpdate:read-resource	
+/system-property=runNewDataFlagUpdate:remove
+end-if
+
+if (outcome ==success) of /system-property=hourToRunNewDataFlagUpdate:read-resource	
+/system-property=hourToRunNewDataFlagUpdate:remove
+end-if
+
+if (outcome ==success) of /system-property=numberOfQueriesOnHistoryPage:read-resource	
+/system-property=numberOfQueriesOnHistoryPage:remove
+end-if
+
+if (outcome ==success) of /system-property=protection_element_prefix:read-resource	
+/system-property=protection_element_prefix:remove
+end-if
+
+if (outcome ==success) of /system-property=csm_application_name:read-resource	
+/system-property=csm_application_name:remove
+end-if
+
+if (outcome ==success) of /system-property=date_format:read-resource	
+/system-property=date_format:remove
+end-if
+
+if (outcome ==success) of /system-property=database.type:read-resource	
+/system-property=database.type:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.per.page.option.1:read-resource	
+/system-property=qctool.search.results.per.page.option.1:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.per.page.option.2:read-resource	
+/system-property=qctool.search.results.per.page.option.2:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.per.page.option.3:read-resource	
+/system-property=qctool.search.results.per.page.option.3:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.per.page.option.4:read-resource	
+/system-property=qctool.search.results.per.page.option.4:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.per.page.option.5:read-resource	
+/system-property=qctool.search.results.per.page.option.5:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.per.page.option.6:read-resource	
+/system-property=qctool.search.results.per.page.option.6:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.check.uncheck.option:read-resource	
+/system-property=qctool.search.results.check.uncheck.option:remove
+end-if
+
+if (outcome ==success) of /system-property=qctool.search.results.max.number.of.rows:read-resource	
+/system-property=qctool.search.results.max.number.of.rows:remove
+end-if
+
+if (outcome ==success) of /system-property=show.collection.search.criteria:read-resource	
+/system-property=show.collection.search.criteria:remove
+end-if
+
+if (outcome ==success) of /system-property=show.anatomical.search.criteria:read-resource	
+/system-property=show.anatomical.search.criteria:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.download.no.retry:read-resource	
+/system-property=gov.nih.nci.ncia.download.no.retry:remove
+end-if
+
+if (outcome ==success) of /system-property=remote.node.caGrid.version:read-resource	
+/system-property=remote.node.caGrid.version:remove
+end-if
+
+if (outcome ==success) of /system-property=future.task.timeout.in.min:read-resource	
+/system-property=future.task.timeout.in.min:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.encrypt.key:read-resource	
+/system-property=gov.nih.nci.ncia.encrypt.key:remove
+end-if
+
+if (outcome ==success) of /system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:read-resource	
+/system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:remove  
+end-if
+
+## The following properties are defined in properties file and pull up the values in build time.
+/system-property=gov.nih.nci.ncia.imaging.server.url:add(value=@gov.nih.nci.ncia.imaging.server.url@)
+/system-property=gov.nih.nci.ncia.mapped.image.path.head:add(value="@gov.nih.nci.ncia.mapped.image.path.head@") 
+/system-property=gov.nih.nci.ncia.image.path.pattern:add(value="@gov.nih.nci.ncia.image.path.pattern@")
+/system-property=gov.nih.nci.ncia.jboss.mq.url:add(value=@gov.nih.nci.ncia.jboss.mq.url@)
+/system-property=gov.nih.nci.ncia.zip.location:add(value=@gov.nih.nci.ncia.zip.location@)
+/system-property=gov.nih.nci.ncia.ftp.location:add(value=@gov.nih.nci.ncia.ftp.location@)
+/system-property=gov.nih.nci.ncia.grid.local.node.name:add(value=@gov.nih.nci.ncia.grid.local.node.name@)
+/system-property=gov.nih.nci.ncia.ui.uid.display.length:add(value=@gov.nih.nci.ncia.ui.uid.display.length@)
+/system-property=gov.nih.nci.ncia.ftp.url:add(value=@gov.nih.nci.ncia.ftp.url@)
+/system-property=gov.nih.nci.ncia.admin.email:add(value=@gov.nih.nci.ncia.admin.email@)
+/system-property=gov.nih.nci.ncia.installationSite:add(value=@gov.nih.nci.ncia.installationSite@)
+/system-property=enabled_guest_account:add(value=@enabled_guest_account@)
+/system-property=guest_username:add(value=@guest_username@)
+/system-property=gov.nih.nci.ncia.download.server.url:add(value=@gov.nih.nci.ncia.download.server.url@)
+/system-property=enable_classic_download:add(value=@enable_classic_download@)
+/system-property=registration.email.subject:add(value=@registration.email.subject@)
+/system-property=gov.nih.nci.ncia.solr.home:add(value=@gov.nih.nci.ncia.solr.home@)
+/system-property=gov.nih.nci.ncia.solr.updateinterval:add(value=@gov.nih.nci.ncia.solr.updateinterval@)
+/system-property=gov.nih.nci.ncia.workflow.updateinterval:add(value=@gov.nih.nci.ncia.workflow.updateinterval@)
+/system-property=discover.remote.nodes:add(value=@discover.remote.nodes@)
+/system-property=protection_element_prefix:add(value=@protection_element_prefix@)
+/system-property=csm_application_name:add(value=@csm_application_name@)
+/system-property=database.type:add(value=@database.type@)
+/system-property=show.collection.search.criteria:add(value=@show.collection.search.criteria@)
+/system-property=show.anatomical.search.criteria:add(value=@show.anatomical.search.criteria@)
+/system-property=gov.nih.nci.ncia.download.no.retry:add(value=@gov.nih.nci.ncia.download.no.retry@)
+/system-property=gov.nih.nci.ncia.encrypt.key:add(value=@gov.nih.nci.ncia.encrypt.key@)
+/system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:add(value=@gov.nih.nci.ncia.wiki.context.sensitive.help.url@)
+/system-property=local.grid.uri:add(value=@local.grid.uri@) 
+
+## The following properties are not defined in properties file and cannot be changed in build time.
+## However, these properties are still changable in the standalone*.xml file.
+/system-property=usergroup.list.email:add(value=LISTSERV@LIST.NIH.GOV)
+/system-property=usergroup.list.name:add(value=NBIA_USER-L)
+/system-property=gov.nih.nci.ncia.mail.server.host:add(value=localhost)
+/system-property=gov.nih.nci.ncia.fileRetentionPeriodInDays:add(value=10)
+/system-property=discover.period.in.hrs:add(value=4)
+/system-property=lookupManager.className:add(value=gov.nih.nci.nbia.lookup.LookupManagerImpl)
+/system-property=patientSearcherService.className:add(value=gov.nih.nci.nbia.search.LocalPatientSearcherService)
+/system-property=drilldown.className:add(value=gov.nih.nci.nbia.search.LocalDrillDown)
+/system-property=thumbnailResolver.className:add(value=gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver)
+/system-property=dicomTagViewer.className:add(value=gov.nih.nci.nbia.dicomtags.LocalDicomTagViewer)
+/system-property=seriesFileRetriever.className:add(value=gov.nih.nci.nbia.zip.LocalSeriesFileRetriever)
+/system-property=collection.description.maxlength:add(value=4000)
+/system-property=ftp_threshold:add(value=3000.0)
+/system-property=runNewDataFlagUpdate:add(value=true)
+/system-property=hourToRunNewDataFlagUpdate:add(value=4)
+/system-property=numberOfQueriesOnHistoryPage:add(value=20)
+/system-property=date_format:add(value=yyyy-MM-dd)
+/system-property=qctool.search.results.per.page.option.1:add(value=10)
+/system-property=qctool.search.results.per.page.option.2:add(value=25)
+/system-property=qctool.search.results.per.page.option.3:add(value=50)
+/system-property=qctool.search.results.per.page.option.4:add(value=100)
+/system-property=qctool.search.results.per.page.option.5:add(value=1000)
+/system-property=qctool.search.results.per.page.option.6:add(value=10000)
+/system-property=qctool.search.results.check.uncheck.option:add(value=1)
+/system-property=qctool.search.results.max.number.of.rows:add(value=100000)
+/system-property=remote.node.caGrid.version:add(value="1.3,1.4")
+/system-property=future.task.timeout.in.min:add(value=5)
+
+
+# Execute and reload
+reload

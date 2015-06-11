@@ -25,7 +25,7 @@
 */
 package gov.nih.nci.nbia.beans;
 
-import gov.nih.nci.nbia.ispy.UrlParams;
+import gov.nih.nci.nbia.externalLink.UrlParams;
 import gov.nih.nci.nbia.mail.MailManager;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.RegexUtil;
@@ -278,20 +278,20 @@ public class RegisterBean {
             // content include: first name, last name, email address, phone, organization, title, fax
             // the sender will be the user email address so that ncicb mailbox will automatically generate email to send to
             // the user.
-            MailManager.sendRegistrationEmail(firstName, 
-                                              lastName, 
-                                              email, 
-                                              phone, 
-                                              organization, 
-                                              title, 
+            MailManager.sendRegistrationEmail(firstName,
+                                              lastName,
+                                              email,
+                                              phone,
+                                              organization,
+                                              title,
                                               fax,
                                               reasonForRegistration);
-            
+
             if(this.isRegisterToUsersList()) {
             	MailManager.sendUsersListRegistration(email, firstName+" "+lastName);
             }
-            
-        } 
+
+        }
         catch (Exception e) {
             logger.error("Problem registering user ", e);
             throw new RuntimeException(e);

@@ -63,6 +63,19 @@ public class AnonymousLoginBean {
     	SearchWorkflowBean swfb = BeanManager.getSearchWorkflowBean();
     	return swfb.newSimpleSearch();
     }
+    
+    public String externalBypassLogin(String collectionName) throws Exception {
+    	SecurityBean securityBean = BeanManager.getSecurityBean();
+    	logger.info("anonymousloginbean/externalBypassLogin............ guestusername: " + guestUserName );
+    	guestLoggedIn = true;
+    	String loginStatus = securityBean.login(guestUserName, "");
+    	if(loginStatus != null && loginStatus.equals("loginFail")){
+    		guestLoggedIn = false;
+    		return loginStatus;
+    	}
+    	SearchWorkflowBean swfb = BeanManager.getSearchWorkflowBean();
+    	return swfb.externalSimpleSearch(collectionName);
+    }
 
     public boolean getGuestLoggedIn() {
     	return guestLoggedIn;

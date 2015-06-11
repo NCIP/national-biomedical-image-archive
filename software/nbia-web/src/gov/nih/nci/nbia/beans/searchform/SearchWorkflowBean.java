@@ -778,6 +778,15 @@ public class SearchWorkflowBean {
         simpleSearch = true; 
         return newSearch();
     }
+    
+    public String externalSimpleSearch(String collectionName) {
+    	dynamicSearch = false;
+        advanced = false;
+        usSearch = false;
+        freeTextSearch = false;
+        simpleSearch = true; 
+        return externalSearch(collectionName);
+    }
 
     public String repopulateSearch() {
         advanced = false;
@@ -1352,6 +1361,42 @@ public class SearchWorkflowBean {
             return "loginFail";
         }
     }
+    
+    private String externalSearch(String collectionName) {
+        logger.debug("calling external search action");
+
+        SecurityBean secure = BeanManager.getSecurityBean();
+
+        if (secure.getLoggedIn()) {
+            SearchResultBean resultBean = BeanManager.getSearchResultBean();
+            resultBean.setPatientResults(null);
+            editingSavedQuery = false;
+            setDefaultValues();
+            
+        	List<String> collectionNames = lookupMgr.getSearchCollection();
+        	//Collections.sort(collectionNames);
+            collectionItems = JsfUtil.getBooleanSelectItemsFromStrings(collectionNames);
+            SelectItem item = JsfUtil.findSelectItemByLabel(collectionItems, collectionName);
+    		if(item!=null) {
+    			item.setValue(true);
+    		}
+ 
+    		try {
+    			submitSearch();
+    			
+    		} catch (Exception e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+            return SEARCH;
+        }
+        else {
+            MessageUtil.addErrorMessage("MAINbody:loginForm:pass", "securitySearch");
+            secure.setLoginFailure(false);
+            return "loginFail";
+        }
+    }
+
 
     private void addSelectedSoftwareVersion(String ver) {
     	if (!StringUtil.isEmpty(ver) && (!this.selectedSoftwareVersions.contains(ver))) {
@@ -1729,6 +1774,22 @@ public class SearchWorkflowBean {
 		}
 
    }
-  
+   
+   public void modalityAndAnyOptionChangeListener(ValueChangeEvent event) {
+	   if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+   		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+   		event.queue();
+           return;
+       }
+	    String modalityAndedSearch = (String)event.getNewValue();
+		System.out.println("modalityAndedSearch new value" + modalityAndedSearch);
+		this.modalityAndedSearch = modalityAndedSearch;
+		try {
+			submitSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+   }
   
 }

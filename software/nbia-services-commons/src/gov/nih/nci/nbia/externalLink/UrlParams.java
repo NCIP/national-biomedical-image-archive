@@ -20,7 +20,7 @@
 * Reformated with Sun Java Code Style and added a header for holding CVS history.
 *
 */
-package gov.nih.nci.nbia.ispy;
+package gov.nih.nci.nbia.externalLink;
 
 import gov.nih.nci.nbia.util.NameValueObj;
 

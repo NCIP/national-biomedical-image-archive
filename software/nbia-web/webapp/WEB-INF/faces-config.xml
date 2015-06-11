@@ -419,13 +419,18 @@ L-->
       <managed-bean-class>gov.nih.nci.nbia.beans.populator.ViewMultiFrameSSBean </managed-bean-class>
       <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
-  
   <managed-bean>
     <description>Populates the databasket page for direct bookmarking</description>
     <managed-bean-name>dataBasketPopulatorMgBean</managed-bean-name>
     <managed-bean-class>gov.nih.nci.nbia.beans.populator.DataBasketPopulatorMgBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
+    <managed-bean>
+    <description>Populates the simple search result page for a external page load request</description>
+    <managed-bean-name>externalPubSearchPopulatorMgBean</managed-bean-name>
+    <managed-bean-class>gov.nih.nci.nbia.beans.populator.ExternalPubSearchPopulatorMgBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean> 
   <managed-bean>
     <description>Create Customized Image Series List</description>
     <managed-bean-name>customSeriesListBean</managed-bean-name>

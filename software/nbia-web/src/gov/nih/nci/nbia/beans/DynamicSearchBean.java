@@ -10,7 +10,6 @@ package gov.nih.nci.nbia.beans;
 
 import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
-import gov.nih.nci.nbia.dto.CollectionDescDTO;
 import gov.nih.nci.nbia.dynamicsearch.DataFieldParser;
 import gov.nih.nci.nbia.dynamicsearch.DataFieldTypeMap;
 import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
@@ -49,8 +48,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
-import org.apache.tools.ant.taskdefs.Sleep;
 
 public class DynamicSearchBean {
 
@@ -616,7 +613,6 @@ public class DynamicSearchBean {
 		}
 		if (patientIDs.toString().length()<2) patientIDs.append("zzz33333###"); // no patients found
 		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
-		String selectFieldType = "java.lang.String";
 		dsc.setField("patientId");
 		dsc.setDataGroup("Patient");
 		Operator op = new Operator();

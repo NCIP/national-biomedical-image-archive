@@ -100,18 +100,33 @@ L-->
 								<tr>
 								<td>
 								
-									                    <ice:outputText style="float:left;font-weight: bold;" value="#{msg.criteria_ImageModalityCriteria}"/>
+								<ice:outputText style="float:left;font-weight: bold;" value="#{msg.criteria_ImageModalityCriteria}"/>
 								</td>
 								</tr>
-								
-								
-											<f:subview id="modalityCriteria">
-								
-								<tr>
-								<td>
-													
-												<div style="margin-left:2px">		
-															<div id="modalitiesDiv" class="searchFormSelector">
+										<f:subview id="modalityCriteria">
+											<tr>
+												<td align="left"><h:outputText styleClass="formLabel"
+														value="#{msg.search_modalityAndTypeSerach}"
+														style="border:0px" />
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" align="left">
+													<ice:selectOneRadio id="andSearchModalityCheck" 
+								                                   value="#{searchWorkflowBean.modalityAndedSearch}"
+								                                   style="border:0px"
+								                                   immediate="true"
+								                                   partialSubmit="true"
+								                                   valueChangeListener="#{searchWorkflowBean.modalityAndAnyOptionChangeListener}">
+								                    	<f:selectItem itemValue="all" itemLabel="#{msg.search_modalityAndedSearchLabelAll}" />
+								                    	<f:selectItem itemValue="any" itemLabel="#{msg.search_modalityAndedSearchLabelAny}"/>
+								                  </ice:selectOneRadio>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div style="margin-left: 2px">
+														<div id="modalitiesDiv" class="searchFormSelector">
 																<h:dataTable id="modalityCheckboxesTable" width="100%"
 																	border="0" cellpadding="0" cellspacing="1"  style="margin-top:3px;"
 																	value="#{searchWorkflowBean.modalityItems}"
@@ -132,56 +147,53 @@ L-->
 																		</span>
 																	</h:column>
 																</h:dataTable>
-															</div>
-													</div>
-														<f:subview id="usSearch" rendered="#{searchWorkflowBean.usSearch}">
-															<h:outputText value="#{msg.criteria_NumFrameOptionCriteria}" /> 
-															<ice:selectManyCheckbox
-																	id="numOfFrame" style="font-size: 1em"
-																	value="#{searchWorkflowBean.numFrameOptions}"
-																	valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
-																	partialSubmit="true"
-																	layout="lineDirection">
-															<f:selectItems value="#{searchLookupBean.numFrameOptionItems}" />
-															</ice:selectManyCheckbox>
-																	
-																	
-															<h:outputText value="Ultrasound Color Data Present (US)" /> 
-																<ice:selectManyCheckbox
-																	id="colorMode" style="font-size: 1em"
-																	value="#{searchWorkflowBean.colorModeOptions}"
-																	valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
-																	partialSubmit="true"
-																	layout="lineDirection">
-																	<f:selectItems
-																		value="#{searchLookupBean.colorModeOptionItems}" />
-																	</ice:selectManyCheckbox>
-																	
-															<h:outputText value="Ultrasound Image Mode (US)" />
-																<div id="imageTypeDiv" class="searchFormSelector" align="center">
-																	<h:dataTable id="imageTypeCheckboxesTable" width="100%" border="0" cellpadding="0"
-																		cellspacing="0"
-																		value="#{searchWorkflowBean.usMultiModalityItems}"
-																		var="imageTypeItem">
-																	<h:column id="imageTypeItemsColumn">
-																		<span style="white-space: nowrap;"> 
-																		<ice:selectBooleanCheckbox value="#{imageTypeItem.value}"
-																		partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"/> 
+														</div>
+													</div> 
+													<f:subview id="usSearch"
+														rendered="#{searchWorkflowBean.usSearch}">
+														<h:outputText
+															value="#{msg.criteria_NumFrameOptionCriteria}" />
+														<ice:selectManyCheckbox id="numOfFrame"
+															style="font-size: 1em"
+															value="#{searchWorkflowBean.numFrameOptions}"
+															valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+															partialSubmit="true" layout="lineDirection">
+															<f:selectItems
+																value="#{searchLookupBean.numFrameOptionItems}" />
+														</ice:selectManyCheckbox>
+
+														<h:outputText value="Ultrasound Color Data Present (US)" />
+														<ice:selectManyCheckbox id="colorMode"
+															style="font-size: 1em"
+															value="#{searchWorkflowBean.colorModeOptions}"
+															valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+															partialSubmit="true" layout="lineDirection">
+															<f:selectItems
+																value="#{searchLookupBean.colorModeOptionItems}" />
+														</ice:selectManyCheckbox>
+
+														<h:outputText value="Ultrasound Image Mode (US)" />
+														<div id="imageTypeDiv" class="searchFormSelector"
+															align="center">
+															<h:dataTable id="imageTypeCheckboxesTable" width="100%"
+																border="0" cellpadding="0" cellspacing="0"
+																value="#{searchWorkflowBean.usMultiModalityItems}"
+																var="imageTypeItem">
+																<h:column id="imageTypeItemsColumn">
+																	<span style="white-space: nowrap;"> <ice:selectBooleanCheckbox
+																			value="#{imageTypeItem.value}" partialSubmit="true"
+																			valueChangeListener="#{searchWorkflowBean.modalityChangeListener}" />
 																		<h:outputText value="#{imageTypeItem.label}" />
-																		</span>
-																	</h:column>
-																	</h:dataTable>
-																</div>
-																	
-																
-															</f:subview>
-										</td>
-									</tr>
-									
-									
-												
-											</f:subview>
-										
+																	</span>
+																</h:column>
+															</h:dataTable>
+														</div>
+
+													</f:subview>
+												</td>
+											</tr>
+										</f:subview>
+
 									</table>
 						</td>
 						

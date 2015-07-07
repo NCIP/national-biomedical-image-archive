@@ -297,12 +297,8 @@ public class SearchWorkflowBean {
     		if(selectItem.getLabel().equalsIgnoreCase("US")){
     			usSearch=true;
     		}
-    	
-    	
-    	selectItem.setValue(true);
-    		
+    		selectItem.setValue(true);
     	}
-    	
     	return null;
     }
 
@@ -597,7 +593,7 @@ public class SearchWorkflowBean {
     public void setUsSearch(boolean usSearch) {
         this.usSearch = usSearch;
     }
-    
+
     public boolean isSimpleSearch() {
 		return simpleSearch;
 	}
@@ -605,19 +601,19 @@ public class SearchWorkflowBean {
 	public void setSimpleSearch(boolean simpleSearch) {
 		this.simpleSearch = simpleSearch;
 	}
-	
-	
+
+
 
     public boolean isPatientCriteria() {
 		return patientCriteria;
 	}
-    
+
 	public void setPatientCriteria(boolean patientCriteria) {
 		this.patientCriteria = patientCriteria;
 	}
 
-		
-	
+
+
 	public boolean isDateCriteria() {
 		return dateCriteria;
 	}
@@ -645,7 +641,7 @@ public class SearchWorkflowBean {
             // If there is a validation error, stay on the
             // same page
         	srb = BeanManager.getSearchResultBean();
-        	srb.setPatientResults(null);        	
+        	srb.setPatientResults(null);
             return null;
         }
         try {
@@ -775,16 +771,16 @@ public class SearchWorkflowBean {
         advanced = false;
         usSearch = false;
         freeTextSearch = false;
-        simpleSearch = true; 
+        simpleSearch = true;
         return newSearch();
     }
-    
+
     public String externalSimpleSearch(String collectionName) {
     	dynamicSearch = false;
         advanced = false;
         usSearch = false;
         freeTextSearch = false;
-        simpleSearch = true; 
+        simpleSearch = true;
         return externalSearch(collectionName);
     }
 
@@ -1046,7 +1042,7 @@ public class SearchWorkflowBean {
 		dySearchBean.resetAction();
 		return DYNAMIC_SEARCH;
 	}
-	
+
 	public boolean isFreeTextSearch() {
 		return freeTextSearch;
 	}
@@ -1281,7 +1277,7 @@ public class SearchWorkflowBean {
         patientInput = "";
         patientCriteria=false;
         dateCriteria=false;
-        
+
         setDefaultKilovoltValues();
         if(resultPerPageOption == null || StringUtil.isEmpty(resultPerPageOption)){
         	resultPerPageOption = "10";
@@ -1329,7 +1325,7 @@ public class SearchWorkflowBean {
 
         this.aimSearchWorkflowBean.setDefaultValues();
         SearchResultBean srb = BeanManager.getSearchResultBean();
-    	srb.setPatientResults(null);   
+    	srb.setPatientResults(null);
     }
 
     private void setDefaultKilovoltValues() {
@@ -1361,7 +1357,7 @@ public class SearchWorkflowBean {
             return "loginFail";
         }
     }
-    
+
     private String externalSearch(String collectionName) {
         logger.debug("calling external search action");
 
@@ -1372,7 +1368,7 @@ public class SearchWorkflowBean {
             resultBean.setPatientResults(null);
             editingSavedQuery = false;
             setDefaultValues();
-            
+
         	List<String> collectionNames = lookupMgr.getSearchCollection();
         	//Collections.sort(collectionNames);
             collectionItems = JsfUtil.getBooleanSelectItemsFromStrings(collectionNames);
@@ -1380,10 +1376,10 @@ public class SearchWorkflowBean {
     		if(item!=null) {
     			item.setValue(true);
     		}
- 
+
     		try {
     			submitSearch();
-    			
+
     		} catch (Exception e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
@@ -1435,7 +1431,7 @@ public class SearchWorkflowBean {
         // and ID of the query.
         if (oldQuery != null) {
             query.setQueryName(oldQuery.getQueryName());
-            
+
             query.setSavedQueryId(oldQuery.getSavedQueryId());
         }
         if(query.getCriteriaList().isEmpty()) {
@@ -1655,13 +1651,13 @@ public class SearchWorkflowBean {
     }
 
     public void modalityChangeListener(ValueChangeEvent event) {
-    	
+
     	if(!editingSavedQuery)
     	{
     		setToggleQuery(true);
     	}
-    	
-    	
+
+
     	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
     		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
     		event.queue();
@@ -1683,7 +1679,7 @@ public class SearchWorkflowBean {
 		}
 		try {
 			submitSearch();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1691,12 +1687,12 @@ public class SearchWorkflowBean {
 	}
 
     public void patientSelectChangeListener(ValueChangeEvent event) {
-    	
+
     	if(!editingSavedQuery)
     	{
     		setToggleQuery(true);
     	}
-    	
+
     	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
     		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
     		event.queue();
@@ -1705,20 +1701,20 @@ public class SearchWorkflowBean {
 		try {
 			System.out.println("patientSearch invoked");
 			submitSearch();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-    
+
     public void dateSelectChangeListener(ValueChangeEvent event) {
-    	
+
     	if(!editingSavedQuery)
     	{
     		setToggleQuery(true);
     	}
-    	
+
     	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
     		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
     		event.queue();
@@ -1727,13 +1723,13 @@ public class SearchWorkflowBean {
 		try {
 			System.out.println("dateSearch invoked");
 			submitSearch();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-    
+
     private void populateModalityDescMap() {
     	ModalityDescProcessor processor = new ModalityDescProcessor();
         List<ModalityDescDTO> dtoList = processor.findAllModalityDesc();
@@ -1743,13 +1739,13 @@ public class SearchWorkflowBean {
         	modalityDescMap.put(dto.getModalityName(), dto.getDescription());
         }
     }
-    
+
     /*
      * returns whether to show anatomic criteria or not
      */
     public boolean isShowAnatomicCriteria() {
     	String retValue = System.getProperty("show.anatomical.search.criteria");
-    	
+
     	if( retValue.equals("true")) {
     		return true;
     	}
@@ -1757,7 +1753,7 @@ public class SearchWorkflowBean {
     		return false;
     	}
     }
-    
+
    public void resultPerPageOptionChangeListener(ValueChangeEvent event) {
 	   if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -1774,7 +1770,7 @@ public class SearchWorkflowBean {
 		}
 
    }
-   
+
    public void modalityAndAnyOptionChangeListener(ValueChangeEvent event) {
 	   if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -1791,5 +1787,4 @@ public class SearchWorkflowBean {
 		}
 
    }
-  
 }

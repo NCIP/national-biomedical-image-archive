@@ -31,14 +31,14 @@ L-->
 	<td width="60%">
 	   <h:panelGroup>
 		<div class="adminToolsContainer">
-	    <f:subview id="simpleSearchHelp" rendered="#{!searchWorkflowBean.advanced}">
+	    <f:subview id="simpleSearchHelp" rendered="#{!searchWorkflowBean.freeTextSearch}">
 	    	<div style="text-align:right">
 		<h:outputText value="Simple Search " /> 
 		<ncia:help label="images/help_icon.png"	helpId="-PerformingaSimpleSearch" />
 		</div>
 		</f:subview>				 
       		  
-		<f:subview id="textSearchHelp" rendered="#{searchWorkflowBean.advanced}">
+		<f:subview id="textSearchHelp" rendered="#{searchWorkflowBean.freeTextSearch}">
 		    <h:commandLink action="#" value="Text Search"	rendered="#{searchWorkflowBean.advanced}" immediate="true"  title="Text Search"/>
 		</f:subview>
 		</div>
@@ -65,7 +65,7 @@ L-->
       	
 		</tr>
 		<tr>
-			<f:subview id="simpleView" rendered="#{!searchWorkflowBean.advanced}">
+			<f:subview id="simpleView" rendered="#{!searchWorkflowBean.freeTextSearch}">
 			<td width="1%" valign="top">
 				<h:form id="searchForm">
 					<table  class="contentPage" cellspacing="0" cellpadding="0" width="100%" summary="" border="0" valign="top">
@@ -237,7 +237,14 @@ L-->
 								</f:subview>
 								</td>
 								</tr>
-								
+		<tr>
+			<td style="float:left;">
+			
+			<f:subview id="collectionSearchCriteriaRow">
+				<ui:include src="manufacturerSearchCriteria.xhtml" />
+			</f:subview>
+			</td>
+		</tr>
 		<tr>
 		<td style="float:left;">
 		<ice:outputText id="dateHeader" style="float:left;font-weight: bold;" value="#{msg.search_visible_date}" />
@@ -277,7 +284,7 @@ L-->
             		      	<td>
 	    		      	<h:inputHidden id="unauthorizedCollections" value="true" />
 	    		  		<h:message for="unauthorizedCollections" errorClass="errorLabel" infoClass="infoLabel" />
-	    		      	      <f:subview id="saveQueryView" rendered="#{!anonymousLoginBean.guestLoggedIn or searchWorkflowBean.dynamicSearch}">
+	    		      	      <f:subview id="saveQueryView" rendered="#{!anonymousLoginBean.guestLoggedIn and !searchWorkflowBean.freeTextSearch and !searchWorkflowBean.dynamicSearch}">
 	    			      <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	    			        <tr>
 	    			          <td>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+<table>
+<tr>
+	<td>
+	  <ice:panelGroup>
+	    <ice:outputText id="modalityHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_ImageModalityCriteria}" />
+	  </ice:panelGroup>
+  	</td>
+ </tr>
+ <tr>
+ <td>  
+          <div id="modalitiesDiv" class="searchFormSelector">
+          <table>
+          <tr>
+		<td align="left"><h:outputText styleClass="formLabel"
+				value="#{msg.search_modalityAndTypeSerach}"
+				style="border:0px" />
+		</td>
+	 </tr>
+	 <tr>
+		<td colspan="2" align="left">
+			<ice:selectOneRadio id="andSearchModalityCheck" 
+				   value="#{searchWorkflowBean.modalityAndedSearch}"
+				   style="border:0px"
+				   immediate="true"
+				   partialSubmit="true"
+				   valueChangeListener="#{searchWorkflowBean.modalityAndAnyOptionChangeListener}">
+				<f:selectItem itemValue="all" itemLabel="#{msg.search_modalityAndedSearchLabelAll}" />
+				<f:selectItem itemValue="any" itemLabel="#{msg.search_modalityAndedSearchLabelAny}"/>
+  			</ice:selectOneRadio>
+		</td>
+	</tr>
+	<tr>
+		<td>
+            		<h:dataTable id="modalityCheckboxesTable" width="100%"
+			border="0" cellpadding="0" cellspacing="1"  style="margin-top:3px;"
+			value="#{searchWorkflowBean.modalityItems}"
+			var="modalityItem">
+			<h:column id="modalityItemsColumn">
+				<span style="white-space: nowrap;"> 
+				<ice:outputLabel for="selectModality"  value="select Modality" style="display:none"/> 
+				<ice:selectBooleanCheckbox id="selectModality"
+						value="#{modalityItem.value}"
+						valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+						partialSubmit="true" />
+				<f:attribute
+						name="selectedItemLabel"
+						value="#{modalityItem.label}" /> <span
+					title="#{modalityItem.description}"> <h:outputText
+							value="#{modalityItem.label}" />
+				</span>
+				</span>
+			</h:column>
+		</h:dataTable>
+		</td>
+	</tr>
+
+	</table>	
+		
+</div>
+		<f:subview id="usSearch"
+			rendered="#{searchWorkflowBean.usSearch}">
+		<tr>
+			<td>		
+			<h:outputText 
+				value="#{msg.criteria_NumFrameOptionCriteria}" style="float:left;font-weight: bold;"/>
+			<ice:selectManyCheckbox id="numOfFrame"
+				style="font-size: 1em"
+				value="#{searchWorkflowBean.numFrameOptions}"
+				valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+				partialSubmit="true" layout="lineDirection">
+				<f:selectItems
+					value="#{searchLookupBean.numFrameOptionItems}" />
+			</ice:selectManyCheckbox>
+
+			<h:outputText value="Ultrasound Color Data Present (US)" style="float:left;font-weight: bold;"/>
+			<ice:selectManyCheckbox id="colorMode"
+				style="font-size: 1em"
+				value="#{searchWorkflowBean.colorModeOptions}"
+				valueChangeListener="#{searchWorkflowBean.modalityChangeListener}"
+				partialSubmit="true" layout="lineDirection">
+				<f:selectItems
+					value="#{searchLookupBean.colorModeOptionItems}" />
+			</ice:selectManyCheckbox>
+
+			<h:outputText value="Ultrasound Image Mode (US)" style="float:left;font-weight: bold;" />
+			<div id="imageTypeDiv" class="searchFormSelector"
+				align="center">
+				<h:dataTable id="imageTypeCheckboxesTable" width="100%"
+					border="0" cellpadding="0" cellspacing="0"
+					value="#{searchWorkflowBean.usMultiModalityItems}"
+					var="imageTypeItem">
+					<h:column id="imageTypeItemsColumn">
+						<span style="white-space: nowrap;"> <ice:selectBooleanCheckbox
+								value="#{imageTypeItem.value}" partialSubmit="true"
+								valueChangeListener="#{searchWorkflowBean.modalityChangeListener}" />
+							<h:outputText value="#{imageTypeItem.label}" />
+						</span>
+					</h:column>
+				</h:dataTable>
+			</div>
+		</td>
+	</tr>	
+		</f:subview>
+                 
+   </td>
+   </tr>
+   </table>
+   
+   
+
+</ui:composition>                

@@ -264,7 +264,9 @@ L-->
     			</ice:panelGroup> 
                       </f:facet>
                       <ice:panelGroup style="width:145px">
+                      <div>
                       <h:outputText value="#{item.patientId}" />
+                      </div>
                       </ice:panelGroup>
                     </h:column>
                     <h:column id="studyIdColumn">
@@ -276,8 +278,9 @@ L-->
 			</ice:panelGroup>   
                       </f:facet>
                       <ice:panelGroup style="width:70px" onmouseover="return overlib('#{item.studyId}');" onmouseout="return nd();">
+                      <div>
                       <h:outputText value="...."/><h:outputText value="#{fn:substring(item.studyId,fn:length(item.studyId)-8,fn:length(item.studyId))}" />
-                      
+                      </div>
                       </ice:panelGroup>
                     </h:column>
                     <h:column id="studyDateColumn">
@@ -299,7 +302,9 @@ L-->
 			</ice:panelGroup>
                       </f:facet>
                       <ice:panelGroup style="width:180px">
+                      <div>
                       <h:outputText value="#{item.studyDescription}" />
+                      </div>
                       </ice:panelGroup>
                     </h:column>
                     <h:column id="seriesIdColumn">

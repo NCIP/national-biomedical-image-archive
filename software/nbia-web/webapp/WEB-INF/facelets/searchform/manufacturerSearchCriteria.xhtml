@@ -16,16 +16,23 @@ L-->
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
-                
+<ice:panelCollapsible id="manufacturerCritPanel" expanded="false">
+	<f:facet name="header">
+		<ice:panelGroup>
+			<ice:outputText id="formHeader"
+				value="#{msg.criteria_ManufacturerCriteria} #{msg.criteria_ModelCriteria}" />
+		</ice:panelGroup>
+	</f:facet>
+
 
 <table>
-<tr>
+<!--tr>
 	<td>
 	  <ice:panelGroup>
 	    <ice:outputText id="collectionHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_ManufacturerCriteria} #{msg.criteria_ModelCriteria}" />
 	  </ice:panelGroup>
 	</td>
- </tr>
+ </tr-->
  <tr>
  	<td>  
           <div id="collectionsDiv" class="searchFormSelector">
@@ -69,4 +76,5 @@ L-->
    	</td>
    </tr>
    </table>
+ 	</ice:panelCollapsible>   
 </ui:composition>                

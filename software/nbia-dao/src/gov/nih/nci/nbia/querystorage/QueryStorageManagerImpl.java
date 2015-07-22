@@ -303,7 +303,7 @@ public class QueryStorageManagerImpl extends AbstractDAO
         // for a user
         SavedQuery sq = new SavedQuery();
         sq.setActive(true);
-        sq.setUserId(getUser(username).getUserId());
+       	sq.setUserId(getUser(username).getUserId());
 
         DetachedCriteria crit = DetachedCriteria.forClass(SavedQuery.class);
         crit.add(Example.create(sq));
@@ -317,6 +317,37 @@ public class QueryStorageManagerImpl extends AbstractDAO
         crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
         return this.populateSavedQueryDTOs(getHibernateTemplate().findByCriteria(crit));
+    }
+
+        /**
+	     * Retrieves a list of active saved queries for a user
+	     *
+	     * @param username - login id of the user
+	     * @return list of active saved queries for the user
+	     * @throws Exception
+	     */
+		@Transactional(propagation=Propagation.REQUIRED)
+	    public List<SavedQueryDTO> retrieveAllSavedQueries() throws DataAccessException {
+
+	        // Create criteria to get all active saved queries
+	        // for a user
+	        SavedQuery sq = new SavedQuery();
+	        sq.setActive(true);
+
+	        DetachedCriteria crit = DetachedCriteria.forClass(SavedQuery.class);
+	        crit.add(Example.create(sq));
+
+	        // Set fetch modes so that these will be included in the same query
+	        crit.setFetchMode("savedQueryAttributes", FetchMode.JOIN);
+	        crit.setFetchMode("lastExecuteDate", FetchMode.JOIN);
+	        //crit.setFetchMode("user", FetchMode.JOIN);
+
+
+	        // Need to do distinct because query will actually return
+	        // one row for each query criterion, resulting in duplicate rows
+	        crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+	        return this.populateSavedQueryDTOs(getHibernateTemplate().findByCriteria(crit));
     }
 
     /**
@@ -557,7 +588,7 @@ public class QueryStorageManagerImpl extends AbstractDAO
 	        dto.setQueryName(savedQuery.getQueryName());
 	        dto.setCriteriaList(getCriteriaFromStoredAttributes(savedQuery.getSavedQueryAttributes()));
 	        dto.setUserId(savedQuery.getUserId());
-
+	        dto.setUser(savedQuery.getUser());
 	        savedQueries.add(dto);
 	    }
 

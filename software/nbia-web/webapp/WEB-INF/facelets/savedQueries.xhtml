@@ -24,14 +24,14 @@ L-->
     <td>
       <h:panelGrid columns="2">
         <h:commandButton image="images/savedquery_01.gif" alt="Saved Query" tile="Saved Query"
-                         rendered="#{savedQueryBean.historyMode}" 
+                         rendered="#{savedQueryBean.historyMode and !savedQueryBean.adminMode}" 
                          action="#{savedQueryBean.switchView}" />
         <h:commandButton image="images/queryhistory_01.gif" alt="Query History" title="Query History"
-                         rendered="#{savedQueryBean.historyMode}" />
+                         rendered="#{savedQueryBean.historyMode and !savedQueryBean.adminMode}"/>
         <h:commandButton image="images/savedquery_02.gif" alt="Saved Query" tile="Saved Query"
-                         rendered="#{!savedQueryBean.historyMode}" />
+                         rendered="#{!savedQueryBean.historyMode and !savedQueryBean.adminMode}"/>
         <h:commandButton image="images/queryhistory_02.gif" alt="Query History" title="Query History"
-                         rendered="#{!savedQueryBean.historyMode}" 
+                         rendered="#{!savedQueryBean.historyMode and !savedQueryBean.adminMode}" 
                          action="#{savedQueryBean.switchView}" />
       </h:panelGrid>
     </td>
@@ -39,10 +39,12 @@ L-->
   <tr>
     <td colspan="2">
       <div class="adminToolsContainer">
-        <h:outputText value="#{msg.queries_saved}"
-                      rendered="#{!savedQueryBean.historyMode}" />                
+      <h:outputText value="#{msg.queries_saved}"
+                      rendered="#{!savedQueryBean.historyMode and !savedQueryBean.adminMode}" />                
         <h:outputText value="#{msg.queries_history} " 
-                      rendered="#{savedQueryBean.historyMode}" />   
+                      rendered="#{savedQueryBean.historyMode and !savedQueryBean.adminMode}" />
+        <h:outputText value="#{msg.queries_saved_manage} " 
+                      rendered="#{savedQueryBean.adminMode}" />                
                         
 	    <f:subview id="savedQuery" rendered="#{!savedQueryBean.historyMode}">
 	      <ncia:help label="images/help_icon.png" helpId="-WorkingwithSavedQueries" />
@@ -53,7 +55,7 @@ L-->
        </div>
        
       <h:outputText value="#{msg.queries_savedContent}" 
-                    rendered="#{!savedQueryBean.historyMode}" />
+                    rendered="#{!savedQueryBean.historyMode and !savedQueryBean.adminMode}" />
       <h:outputText value="#{msg.queries_historyContent}" 
                     rendered="#{savedQueryBean.historyMode}" />
       <br/>
@@ -81,7 +83,8 @@ L-->
                                    width="100%" 
                                    border="1" 
                                    cellpadding="3" 
-                                   cellspacing="0" 
+                                   cellspacing="0"
+                                   rows="20" 
                                    value="#{savedQueryBean.savedQueries}"
                                    var="item"
                                    binding="#{savedQueryBean.queryData}">
@@ -156,14 +159,15 @@ L-->
                                              action="#{savedQueryBean.searchNewData}" />
                           </div>
                         </h:column>
-                        <h:column id="savedQueryResubmitColumn">
+                        <h:column id="savedQueryResubmitColumn"
+                        rendered="#{!(savedQueryBean.historyMode) and !(savedQueryBean.adminMode)}">
                           <f:facet name="header">
                             <h:outputText value="#{msg.queries_resubmit}" />
                           </f:facet>
                           <h:commandButton image="images/resubmitquery.gif" alt="resubmit query" title="resubmit query"
                                            action="#{savedQueryBean.resubmitQuery}" />
                         </h:column>
-                        <h:column id="savedQueryEditColumn">
+                        <h:column id="savedQueryEditColumn" rendered="#{!(savedQueryBean.historyMode) and !(savedQueryBean.adminMode)}">
                           <f:facet name="header">
                             <h:outputText value="#{msg.queries_edit}" />
                           </f:facet>
@@ -171,6 +175,17 @@ L-->
                                            image="images/editquery.gif" 
                                            action="#{savedQueryBean.editQuery}" />
                         </h:column>
+                        <h:column id="savedQueryUserIDColumn" rendered="#{savedQueryBean.adminMode}">
+			  <f:facet name="header">
+			    <h:panelGrid columns="2">
+			      <h:outputText value="#{msg.queries_creatorId}" 
+					    styleClass="queryHeader" />
+			      <h:commandButton image="images/sort.gif" alt="sort" title="sort"
+					       action="#{savedQueryBean.savedQueries.sortByQueryCreatorID}" />
+			    </h:panelGrid>
+			  </f:facet>
+			  <h:outputText value="#{item.user.loginName}" />
+			</h:column>
                         <h:column id="savedQueryCheckAllColumn">
                           <f:facet name="header">
                             <span class="formFieldWhite"> 
@@ -184,7 +199,61 @@ L-->
                           </div>                                               
                         </h:column>
                       </ice:dataTable>
-                                                                                          
+                      <ice:panelGroup style="text-align: center" >
+                      <ice:dataPaginator  id="dataScroll_1"
+		                                 for="savedQueryModeDataTable"
+		                                 rowsCountVar="rowsCount"
+		                                 pageCountVar="pageCount"
+		                                 pageIndexVar="pageIndex">
+		                <ice:outputFormat styleClass="standard"
+		                                  value="{0} records found, displaying Page {1} / {2}.">
+		                  <f:param value="#{rowsCount}"/>
+		                  <f:param value="#{pageIndex}"/>
+		                  <f:param value="#{pageCount}"/>
+		                </ice:outputFormat>
+    		      </ice:dataPaginator>
+    		          <ice:dataPaginator id="dataScroll_2" 
+		                             for="savedQueryModeDataTable"
+		                             fastStep="2"
+		                             paginator="true"
+		                             paginatorMaxPages="5"
+		                             renderFacetsIfSinglePage="false"
+		                             rowsCountVar="rowsCount"
+		                             pageCountVar="pageCount"
+		                             pageIndexVar="pageIndex"
+		                             style="margin-left:auto;margin-right:auto">
+		            <f:facet name="first">
+		              <ice:graphicImage  alt="first"
+		                                url="/xmlhttp/css/rime/css-images/arrow-first.gif"
+		                                style="border:none;"/>
+		            </f:facet>
+		            <f:facet name="last">
+		              <ice:graphicImage alt="last"
+		                                url="/xmlhttp/css/rime/css-images/arrow-last.gif"
+		                                style="border:none;"/>
+		            </f:facet>
+		            <f:facet name="previous">
+		              <ice:graphicImage alt="previous"
+		                                url="/xmlhttp/css/rime/css-images/arrow-previous.gif"
+		                                style="border:none;"/>
+		            </f:facet>
+		            <f:facet name="next">
+		              <ice:graphicImage alt="next"
+		                                url="/xmlhttp/css/rime/css-images/arrow-next.gif"
+		                                style="border:none;"/>
+		            </f:facet>
+		            <!--f:facet name="fastforward">
+		              <ice:graphicImage 
+		                                url="/xmlhttp/css/rime/css-images/arrow-ff.gif"
+		                                style="border:none;"/>
+		            </f:facet>
+		            <f:facet name="fastrewind">
+		              <ice:graphicImage 
+		                                url="/xmlhttp/css/rime/css-images/arrow-fr.gif"
+		                                style="border:none;"/>
+		            </f:facet-->
+    			</ice:dataPaginator>
+                      </ice:panelGroup>                                                                      
                       <f:subview id="emptyQueryView" 
                                  rendered="#{savedQueryBean.savedQueryCount == 0}">
                         <table width="100%" border="1" cellpadding="3" cellspacing="0" class="dataTable">

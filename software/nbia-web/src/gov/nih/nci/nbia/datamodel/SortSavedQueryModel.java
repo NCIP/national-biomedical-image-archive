@@ -43,6 +43,17 @@ public class SortSavedQueryModel extends DataModel {
             }
         };
 
+	private static Comparator<Row> byCreatorID = new Comparator<Row>() {
+		public int compare(Row o1, Row o2) {
+			Row r1 = o1;
+			Row r2 = o2;
+			SavedQueryDTO p1 = (SavedQueryDTO) r1.getData();
+			SavedQueryDTO p2 = (SavedQueryDTO) r2.getData();
+
+			return p1.getUser().getLoginName().compareTo(p2.getUser().getLoginName());
+		}
+	};
+
     private static Comparator<Row> byLastExecute = new Comparator<Row>() {
             public int compare(Row o1, Row o2) {
                 Row r1 = o1;
@@ -73,6 +84,12 @@ public class SortSavedQueryModel extends DataModel {
 
     public String sortByQueryName() {
         Arrays.sort(rows, byQueryName);
+
+        return null;
+    }
+
+    public String sortByQueryCreatorID() {
+        Arrays.sort(rows, byCreatorID);
 
         return null;
     }

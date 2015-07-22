@@ -320,9 +320,16 @@ L-->
                        action="manageWorkflowItems"
                        value="Manage Workflow Items" />
                       
-           		</li>
+           	</li>
            </f:subview>
-
+           <f:subview id="ManageSavedQueryView" rendered="#{securityBean.hasSuperCuratorRole}">
+           	<li>
+	   	        <h:commandLink id="manageSavedQueriesLink"
+	   	                       action="#{savedQueryBean.manageSavedQueries}"
+	   	                       value="#{msg.menu_manageSavedQueries}"/>
+	   	        
+	      </li>
+	</f:subview>
     
     </ul>
     </td>

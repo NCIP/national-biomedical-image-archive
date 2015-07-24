@@ -6,42 +6,40 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-domain"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/csm-4.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/csmapi-5.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/hibernate-3.2.0.ga.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jsf-api-1.2_12.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/log4j-1.2.15.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-aop-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-asm-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-beans-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-context-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-context-support-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-core-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-expression-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-jdbc-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-jms-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-orm-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-tx-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-web-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-aop-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-beans-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-context-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-context-support-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-core-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-expression-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-jdbc-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-jms-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-orm-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-tx-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-web-3.2.8.RELEASE.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/xstream-1.3.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/activation-1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/antlr-2.7.6.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/asm-1.5.3.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/asm-3.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/asm-attrs-1.5.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/asm-hack-3.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/asm-tree-hack-3.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/c3p0-0.9.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/c3p0-0.9.1.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/ccl-29.50.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/cglib-2.1_3.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/cglib-2.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/checkstyle-4.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/checkstyle-optional-4.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/clm-4.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/clm-4.1.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/cobertura-1.9.3-asmhack.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-beanutils-core-1.7.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-cli-1.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-collections-2.1.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-lang-1.0.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-logging-1.0.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/csm-4.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-lang-2.6.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/commons-logging-1.1.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/dbunit-2.4.8.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/ehcache-1.2.jar"/>
@@ -51,17 +49,17 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/jhbasic-29.50.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/jsf-api-1.2_12.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/jta-1.0.1B.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/junit-4.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/junit-4.7.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/log4j-1.2.15.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/mail-1.4.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/mysql-connector-java-5.1.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/mysql-connector-java-5.1.34.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/nbia-util.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/nbia-services-grid.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/oro-2.0.8.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/slf4j-api-1.4.3.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/slf4j-nop-1.4.3.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/spring-core-3.1.1.RELEASE.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/spring-test-3.1.1.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/slf4j-nop-1.6.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/spring-core-3.2.8.RELEASE.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/spring-test-3.2.8.RELEASE.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/xstream-1.3.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/nbia-domain.jar"/>
@@ -69,7 +67,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/commons-codec-1.7.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/commons-io-2.1.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/dcm4che-1.4.20.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/dcm4che-1.4.23.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/guava-14.0.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/httpclient-4.2.6.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/httpcore-4.2.5.jar"/>

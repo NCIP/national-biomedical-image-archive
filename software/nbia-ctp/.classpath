@@ -38,9 +38,9 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/slf4j-nop-1.6.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/c3p0-0.9.1.2.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-installer-X63.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-X63.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/util-X63.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-installer-X64.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/ctp-X64.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/test/util-X64.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="lib" path="lib/cedaraAIMMapping.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-ctp/compile/spring-core-3.2.8.RELEASE.jar"/>

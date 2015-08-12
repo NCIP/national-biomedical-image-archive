@@ -107,7 +107,13 @@ class QueryBuilder {
 
     private static void addSimpleCriteria(SearchWorkflowBean searchBean,DICOMQuery query) {
     	buildNodeCriteria(searchBean, query);
-
+        
+    	// Setup number of previous studies criteria here
+        if (!StringUtil.isEmpty(searchBean.getNumberStudies())) {
+            MinNumberOfStudiesCriteria nsc = new MinNumberOfStudiesCriteria();
+            nsc.setMinNumberOfStudiesValue(Integer.parseInt(searchBean.getNumberStudies()));
+            query.setCriteria(nsc);
+        }
 
         DateRangeCriteria drc = buildDateCrit(searchBean);
         if (drc != null&&searchBean.isDateCriteria()) {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                
+<ice:panelCollapsible id="baselineCritPanel" expanded="false">
+	<f:facet name="header">
+		<ice:panelGroup>
+			<ice:outputText id="formHeader"
+				value="#{msg.criteria_MinNumberOfStudiesCriteria}" />
+		</ice:panelGroup>
+	</f:facet>
+                 
+<h:panelGrid id="baselinepanel" border="0" cellspacing="0" frame="box" >           
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <h:outputText value="#{msg.search_baseline}" />
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <f:verbatim>&amp;nbsp;</f:verbatim>
+                          <h:selectOneMenu value="#{searchWorkflowBean.numberStudies}">
+                            <f:selectItems id="zzzz" value="#{searchLookupBean.minimumStudiesItems}" />
+                          </h:selectOneMenu>
+  <h:outputLabel for="addPatientCriteria"  value="Add Criteria" />  
+  
+  	<ice:selectBooleanCheckbox id="addPatientCriteria"
+		value="#{searchWorkflowBean.patientCriteria}"
+		valueChangeListener="#{searchWorkflowBean.patientSelectChangeListener}"
+		partialSubmit="true" />
+  
+</h:panelGrid>
+</ice:panelCollapsible> 
+
+</ui:composition>                

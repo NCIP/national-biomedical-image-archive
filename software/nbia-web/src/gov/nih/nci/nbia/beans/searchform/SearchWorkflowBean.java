@@ -1699,7 +1699,7 @@ public class SearchWorkflowBean {
             return;
         }
 		try {
-			System.out.println("patientSearch invoked");
+			logger.debug("patientSearch invoked");
 			submitSearch();
 
 		} catch (Exception e) {
@@ -1720,7 +1720,7 @@ public class SearchWorkflowBean {
             return;
         }
 		try {
-			System.out.println("baselineSearch invoked");
+			logger.debug("baselineSearch invoked");
 			submitSearch();
 
 		} catch (Exception e) {
@@ -1741,7 +1741,7 @@ public class SearchWorkflowBean {
             return;
         }
 		try {
-			System.out.println("dateSearch invoked");
+			logger.debug("dateSearch invoked");
 			submitSearch();
 
 		} catch (Exception e) {

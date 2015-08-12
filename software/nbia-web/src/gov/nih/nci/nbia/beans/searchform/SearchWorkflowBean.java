@@ -1707,7 +1707,27 @@ public class SearchWorkflowBean {
 			e.printStackTrace();
 		}
 	}
+    public void baselineSelectChangeListener(ValueChangeEvent event) {
 
+    	if(!editingSavedQuery)
+    	{
+    		setToggleQuery(true);
+    	}
+
+    	if (!event.getPhaseId().equals(PhaseId.INVOKE_APPLICATION)) {
+    		event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+    		event.queue();
+            return;
+        }
+		try {
+			System.out.println("baselineSearch invoked");
+			submitSearch();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     public void dateSelectChangeListener(ValueChangeEvent event) {
 
     	if(!editingSavedQuery)

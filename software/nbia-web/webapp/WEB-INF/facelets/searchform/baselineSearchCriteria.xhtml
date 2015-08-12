@@ -25,15 +25,11 @@ L-->
 	</f:facet>
                  
 <h:panelGrid id="baselinepanel" border="0" cellspacing="0" frame="box" >           
-                          <f:verbatim>&amp;nbsp;</f:verbatim>
-                          <f:verbatim>&amp;nbsp;</f:verbatim>
                           <h:outputText value="#{msg.criteria_MinNumberOfStudiesCriteria}" />
-                          <f:verbatim>&amp;nbsp;</f:verbatim>
-                          <f:verbatim>&amp;nbsp;</f:verbatim>
-                          <h:selectOneMenu value="#{searchWorkflowBean.numberStudies}"
-                             partialSubmit="true" valueChangeListener="#{searchWorkflowBean.modalityChangeListener}">
+                          <ice:selectOneMenu value="#{searchWorkflowBean.numberStudies}"
+                             partialSubmit="true" valueChangeListener="#{searchWorkflowBean.baselineSelectChangeListener}">
                             <f:selectItems id="zzzz" value="#{searchLookupBean.minimumStudiesItems}" />
-                          </h:selectOneMenu>
+                          </ice:selectOneMenu>
 </h:panelGrid>
 </ice:panelCollapsible> 
 

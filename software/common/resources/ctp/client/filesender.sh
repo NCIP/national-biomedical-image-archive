@@ -1,6 +1,4 @@
-
-        
-  #!/bin/sh
-  java -Xmx512m -jar FileSender.jar
+#!/bin/sh
+java -Xmx2048m -jar FileSender.jar
           
       

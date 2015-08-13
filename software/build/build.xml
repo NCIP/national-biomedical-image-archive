@@ -169,6 +169,11 @@ L-->
 		clean,
 		init,
 		build:jboss:config, compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
+	<!--copy todir="D:\apps\nbia-6_3-oracle-ldap\jboss-eap-6.2\standalone\deployments">
+				<fileset dir="D:\workspace_6-3\software\target\dist\exploded\nbia-ear">
+				<exclude name="nbia.war"/>
+				</fileset>
+		</copy-->
 	</target>
 	
 	<target name="build:all:niams" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
@@ -302,6 +307,7 @@ L-->
 				<filter token="ctp.client.exportService.password" value="${ctp.client.exportService.password}"/>
 			</filterset>
 		</copy>
+		<copy file="${common.dir}/resources/ctp/client/Launcher.properties" tofile="${nbia-ctp.dist.dir}/CTP_Client/CTP/Launcher.properties"/>	
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/org"/>
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/META-INF"/>
 		<delete dir="${nbia-ctp.dist.dir}/CTP_Client/config"/>

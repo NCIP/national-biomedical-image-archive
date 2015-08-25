@@ -24,7 +24,8 @@ L-->
 		</ice:panelGroup>
 	</f:facet>
                  
-<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box" >           
+<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box" >   
+<h:outputLabel for="patientInput"  value="Enter comma separated Subject ID(s)" />          
 <h:inputTextarea id="patientInput" 
                                          value="#{searchWorkflowBean.patientInput}" 
                                          cols="22" 

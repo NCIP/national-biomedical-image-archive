@@ -1,1 +1,1 @@
-java -Xmx512m -jar FileSender.jar
+java -Xmx2048m -jar FileSender.jar

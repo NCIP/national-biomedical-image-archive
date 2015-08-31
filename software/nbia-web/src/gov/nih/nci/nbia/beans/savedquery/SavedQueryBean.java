@@ -506,8 +506,10 @@ public class SavedQueryBean {
         } else {
             MessageUtil.addErrorMessage("MAINbody:searchMenuForm:saveQueryView:queryMessage","noQueriesDeleted");
         }
-
-        loadSavedQueries();
+		if (adminMode)
+			loadAllSavedQueries();
+	    else
+        	loadSavedQueries();
     }
 
     public boolean isHistoryMode() {

@@ -157,7 +157,7 @@ public class ImageStorage extends HibernateDaoSupport{
             return Status.FAIL;
         }
 
-        if (numbers.get(DicomConstants.MODALITY).equals("MR")) {        
+        if (numbers.get(DicomConstants.SOP_CLASS_UID).toString().startsWith("1.2.840.10008.5.1.4.1.1.4")) {        
 	        try {
 				mrio.setGeneralImage(gi);
 				MRImage mr = (MRImage)mrio.validate(numbers);

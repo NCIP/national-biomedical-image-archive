@@ -1293,6 +1293,8 @@ public class SearchWorkflowBean {
         selectedModels.clear();
         selectedSoftwareVersions.clear();
 
+        resetManufacturerTree();
+
         if (query != null) {
             query.setQueryFromUrl(false);
         }
@@ -1482,6 +1484,44 @@ public class SearchWorkflowBean {
         	}
         }
     }
+
+	private void resetManufacturerTree() {
+        DefaultTreeModel manufacturerTree = lookupBean.getManufacturerTree();
+        Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
+		EquipmentTreeUserObject parentObj = (EquipmentTreeUserObject)((DefaultMutableTreeNode)manufacturerTree.getRoot()).getUserObject();
+		parentObj.setExpanded(false);
+		parentObj.setSelected(false);
+
+		while (manufacturers.hasMoreElements()) {
+			DefaultMutableTreeNode currMan = (DefaultMutableTreeNode) manufacturers.nextElement();
+			EquipmentTreeUserObject currObj = (EquipmentTreeUserObject)currMan.getUserObject();
+			if (currObj.isSelected())
+				currObj.setSelected(false);
+
+			if (currObj.isExpanded())
+				currObj.setExpanded(false);
+
+			Enumeration currModels = currMan.children();
+			while (currModels.hasMoreElements()) {
+				DefaultMutableTreeNode currModel = (DefaultMutableTreeNode) currModels.nextElement();
+				EquipmentTreeUserObject currModelObj = (EquipmentTreeUserObject)currModel.getUserObject();
+				if (currModelObj.isSelected())
+					currModelObj.setSelected(false);
+
+				if (currModelObj.isExpanded())
+					currModelObj.setExpanded(false);
+
+				Enumeration currentVersions = currModel.children();
+				while (currentVersions.hasMoreElements()) {
+					DefaultMutableTreeNode currVer = (DefaultMutableTreeNode) currentVersions.nextElement();
+					EquipmentTreeUserObject verObj = (EquipmentTreeUserObject)currVer.getUserObject();
+
+					if (verObj.isSelected())
+						verObj.setSelected(false);
+				}
+			}
+		}
+	}
 
     //saved query
     private void updateManufacturerLevelOfTree() {

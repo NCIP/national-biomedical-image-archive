@@ -46,6 +46,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
@@ -497,6 +498,12 @@ public class QueryStorageManagerImpl extends AbstractDAO
 
             // Get the attribute wrapper for each criteria and add to the query history
             for (QueryAttributeWrapper attr : criteria.getQueryAttributes()) {
+            	if (attr.getCriteriaClassName().equals("gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria")&&
+            			criteriaCount!=1)
+            	{
+            		System.out.println("only one min studies allowed");
+            		return;
+            	}
                 persistentQuery.addQueryAttribute(attr, criteriaCount);
             }
         }

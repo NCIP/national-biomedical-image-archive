@@ -163,7 +163,7 @@ public class QcSearchResultDTO {
 
 	public String getLink() {
 		return APIURLHolder.getUrl()+"/oviyam2/oviyam?serverName="+APIURLHolder.getUrl()+
-		"/nbia-api/services/o&studyUID="+study+"&oviyamId="+APIURLHolder.addUser(user)+
+		"/nbia-api/services/o&studyUID="+study+"&seriesUid="+series+"&oviyamId="+APIURLHolder.addUser(user)+
 		"&wadoUrl="+APIURLHolder.getWadoUrl();
 	}
 

@@ -46,18 +46,22 @@ L-->
         <h:outputText value="#{msg.queries_saved_manage} " 
                       rendered="#{savedQueryBean.adminMode}" />                
                         
-	    <f:subview id="savedQuery" rendered="#{!savedQueryBean.historyMode}">
+	    <f:subview id="savedQuery" rendered="#{!savedQueryBean.historyMode and !savedQueryBean.adminMode}">
 	      <ncia:help label="images/help_icon.png" helpId="-WorkingwithSavedQueries" />
 	    </f:subview>
 	    <f:subview id="queryHistory" rendered="#{savedQueryBean.historyMode}"> 
 	      <ncia:help label="images/help_icon.png" helpId="-ViewingQueryHistory" />
 	    </f:subview>
+	    <f:subview id="queryHistory" rendered="#{savedQueryBean.adminMode}"> 
+	    	      <ncia:help label="images/help_icon.png" helpId="-ManagingSavedQueries" />
+	    </f:subview>
+	    
        </div>
        
       <h:outputText value="#{msg.queries_savedContent}" 
                     rendered="#{!savedQueryBean.historyMode and !savedQueryBean.adminMode}" />
       <h:outputText value="#{msg.queries_historyContent}" 
-                    rendered="#{savedQueryBean.historyMode}" />
+                    rendered="#{savedQueryBean.historyMode}" />            
       <br/>
       <br/>
       <br/>

@@ -65,6 +65,7 @@ public class O_getSeries extends getData {
 			@QueryParam("PatientID") String patientId, @QueryParam("StudyInstanceUID") String studyInstanceUid
 			, @QueryParam("oviyamId") String oviyamId, @QueryParam("wadoUrl") String wadoUrl, @QueryParam("seriesUid") String seriesUid) {
 		List<String> authorizedCollections = null;
+		System.out.println("SeriesId in getSeries:"+seriesUid);
 		try {
 			String user=null;
 			if (oviyamId!=null&&oviyamId.length()>0){

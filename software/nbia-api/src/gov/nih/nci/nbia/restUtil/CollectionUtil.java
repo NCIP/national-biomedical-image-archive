@@ -1,5 +1,4 @@
 package gov.nih.nci.nbia.restUtil;
-import gov.nih.nci.nbia.restAPI.String;
 
 import java.util.List;
 public class CollectionUtil {

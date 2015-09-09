@@ -68,7 +68,7 @@ public class O_wado extends getData {
 			@QueryParam("contentType") String contentType,
 			@QueryParam("oviyamId") String oviyamId, 
 			@QueryParam("wadoUrl") String wadoUrl) {
-        System.out.println("Oviyam wado called: + objectUID-"+objectUID+" contentType-"+contentType);
+ //       System.out.println("Oviyam wado called: + objectUID-"+objectUID+" contentType-"+contentType+" oviyamId:"+oviyamId+" wadoUrl");
 		String user=null;
 		if (oviyamId!=null&&oviyamId.length()>0){
 			user=OviyamUtil.getUser(oviyamId, wadoUrl);

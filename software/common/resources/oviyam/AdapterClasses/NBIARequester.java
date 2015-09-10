@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 public class NBIARequester {
-
+private static String lastSeries;
 public static ArrayList<StudyModel> getStudyModels	(String patientID, String studyUID, String rstUrl, String oviyamId, String wadoUrl)
 {
 	ArrayList<StudyModel> studyList = new ArrayList<StudyModel>();
@@ -77,8 +77,15 @@ public static ArrayList<SeriesModel> getSeriesModels	(String patientID, String s
 		if (studyUID!=null&&studyUID.length()>1){
 			fullURL =fullURL+"&StudyInstanceUID="+studyUID;
 		}
+		// Oviyam sometime calls this method twice, the second time without the series uid
+		if (seriesInstanceUIDIn!=null&&seriesInstanceUIDIn.length()>1){
+			fullURL =fullURL+"&seriesUid="+seriesInstanceUIDIn;
+			lastSeries=seriesInstanceUIDIn;
+		} else {
+			fullURL =fullURL+"&seriesUid="+lastSeries;
+		}
 		fullURL =fullURL+"&oviyamId="+oviyamId+"&wadoUrl="+wadoUrl;
-		//System.out.println(fullURL);
+		System.out.println("Series Call: "+fullURL);
 		HttpGet httpGet = new HttpGet(fullURL);
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 		String bodyAsString = EntityUtils.toString(response1.getEntity());

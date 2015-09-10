@@ -77,7 +77,7 @@ public class DcmImage extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String imageURL = "";
-
+        System.out.println("In DcmImage");
         // Reads the parameters from the request object which is sent by user.
         String serverURL = request.getParameter("serverURL");
         String study = request.getParameter("study");

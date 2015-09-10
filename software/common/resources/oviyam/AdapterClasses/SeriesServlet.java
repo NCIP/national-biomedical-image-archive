@@ -84,12 +84,14 @@ public class SeriesServlet extends HttpServlet {
         HttpSession session = request.getSession();
 		String oviyamId = (String)session.getAttribute("oviyamId");
 		String wadoUrl = (String)session.getAttribute("wadoUrl");
-		Object seriesOUid = session.getAttribute("seriesUid");
+		Object seriesOUid = session.getAttribute("seriesUidIn");
 		String seriesUid = null;
 		if (seriesOUid!=null){
 			seriesUid=seriesOUid.toString();
 		}
-		System.out.println("In seriesinfoservlet patID:"+patID+"-studyUID:"+studyUID+"-serverName:"+dcmURL
+		System.out.println("The latest build");
+		System.out.println("In seriesinfoservlet patID:"+patID+"-studyUID:"+studyUID+
+				"-seriesUid:"+seriesUid+"-serverName:"+dcmURL
 				+"-oviyamId:"+oviyamId+"-wadoUrl:"+wadoUrl);
         SeriesInfo series = new SeriesInfo();
         series.callFindWithQuery(patID, studyUID, dcmURL, oviyamId, wadoUrl, seriesUid);

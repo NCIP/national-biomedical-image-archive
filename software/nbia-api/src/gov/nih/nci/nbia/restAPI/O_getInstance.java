@@ -71,7 +71,11 @@ public class O_getInstance extends getData {
 			if (user==null){
 				authorizedCollections = getPublicCollections();
 			} else {
-				authorizedCollections = getAuthorizedCollections(user);
+				authorizedCollections = OviyamUtil.getUserCollections(user);
+				if (authorizedCollections==null) {
+				   authorizedCollections = getAuthorizedCollections(user);
+				   OviyamUtil.setUserCollections(user, authorizedCollections);
+				}
 			}
 			
 		} catch (Exception e) {

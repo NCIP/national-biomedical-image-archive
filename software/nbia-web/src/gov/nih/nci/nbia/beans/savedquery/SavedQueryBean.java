@@ -70,6 +70,11 @@ public class SavedQueryBean {
      */
     private boolean historyMode;
 
+	/**
+	 * Flag to tell the UI if it is invoked as an admin tool.
+	 */
+    private boolean adminMode = false;
+
     /**
      * Binding to the saved query table
      */
@@ -147,6 +152,7 @@ public class SavedQueryBean {
      */
     public String viewSavedQueries() {
         historyMode = false;
+        adminMode = false;
 
         SecurityBean secure = BeanManager.getSecurityBean();
 
@@ -169,11 +175,33 @@ public class SavedQueryBean {
      */
     public String viewQueryHistory() {
         historyMode = true;
+        adminMode=false;
 
         SecurityBean secure = BeanManager.getSecurityBean();
 
         if (secure.getLoggedIn()) {
             loadQueryHistory();
+
+            return "displaySavedQueries";
+        } else {
+            MessageUtil.addErrorMessage("MAINbody:loginForm:pass",
+                "securitySavedQuery");
+
+            return "loginFail";
+        }
+    }
+    /**
+     * Action to perform when an admin wants to manage the saved query history. It calls
+     * the QueryStorageManager to load the saved query list
+     */
+    public String manageSavedQueries() {
+        adminMode = true;
+        historyMode = false;
+
+        SecurityBean secure = BeanManager.getSecurityBean();
+
+        if (secure.getLoggedIn() && secure.getHasSuperCuratorRole()) {
+            loadAllSavedQueries();
 
             return "displaySavedQueries";
         } else {
@@ -204,6 +232,26 @@ public class SavedQueryBean {
             // TODO: Add Error message to JSF page
         }
     }
+
+        /**
+	     * Reloads all saved queries. Is public so that when a query is stored, the
+	     * count can be updated from another bean.
+	     *
+	     */
+	    private void loadAllSavedQueries() {
+	        QueryStorageManager qManager = (QueryStorageManager)SpringApplicationContext.getBean(QUERY_STORAGE_MANAGER);
+
+	        try {
+	            setSavedQueries(qManager.retrieveAllSavedQueries());
+	            Collections.sort((List) savedQueries.getWrappedData(),
+	                new SavedQueryComparator());
+	        } catch (Exception e) {
+	            logger.error("Problem storing the query", e);
+
+	            // TODO: Add Error message to JSF page
+	        }
+	    }
+
 
     /**
      * Reloads the query history.
@@ -458,8 +506,10 @@ public class SavedQueryBean {
         } else {
             MessageUtil.addErrorMessage("MAINbody:searchMenuForm:saveQueryView:queryMessage","noQueriesDeleted");
         }
-
-        loadSavedQueries();
+		if (adminMode)
+			loadAllSavedQueries();
+	    else
+        	loadSavedQueries();
     }
 
     public boolean isHistoryMode() {
@@ -468,6 +518,14 @@ public class SavedQueryBean {
 
     public void setHistoryMode(boolean historyMode) {
         this.historyMode = historyMode;
+    }
+
+	public boolean isAdminMode() {
+		return adminMode;
+	}
+
+	public void setAdminMode(boolean adminMode) {
+		this.adminMode = adminMode;
     }
 
     public ListDataModel getQueryHistory() {

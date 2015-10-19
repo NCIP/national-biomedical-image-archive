@@ -31,29 +31,19 @@
 */
 package gov.nih.nci.nbia.newresults;
 
-import gov.nih.nci.ncia.criteria.Criteria;
-import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
-import gov.nih.nci.ncia.criteria.NodeCriteria;
-import gov.nih.nci.ncia.criteria.PersistentCriteria;
 import gov.nih.nci.nbia.dto.SavedQueryDTO;
-import gov.nih.nci.nbia.lookup.LookupManager;
-import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.querystorage.QueryStorageManager;
-import gov.nih.nci.nbia.search.LocalNode;
-import gov.nih.nci.nbia.search.PatientSearchCompletionService;
-import gov.nih.nci.nbia.search.PatientSearchResults;
-import gov.nih.nci.nbia.search.PatientSearcherService;
-import gov.nih.nci.nbia.search.PatientSearcherServiceFactory;
+import gov.nih.nci.nbia.search.PatientSearcher;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.SavedQueryReconstructor;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.ncia.criteria.Criteria;
+import gov.nih.nci.ncia.criteria.CurationStatusDateCriteria;
+import gov.nih.nci.ncia.criteria.PersistentCriteria;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Future;
+
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
@@ -105,10 +95,7 @@ public class NewResultsProcessor implements Job {
                     AuthorizationManager am = new AuthorizationManager(dto.getUserId());
                     am.authorizeCollections(newQuery);
                     am.authorizeSitesAndSSGs(newQuery);
-
-                    LookupManager lookupMgr = LookupManagerFactory.createLookupManager(am.getAuthorizedCollections());
-                    boolean newResults = doResultsExist(newQuery,
-                    		                            lookupMgr.getSearchableNodes().keySet());
+                    boolean newResults = doResultsExist(newQuery);
 
                     if (newResults) {
                         qsm.addNewResultsForQuery(newQuery.getSavedQueryId());
@@ -123,49 +110,18 @@ public class NewResultsProcessor implements Job {
     }
 
 
-    private static boolean doResultsExist(DICOMQuery newQuery,
-    		                              Set<NBIANode> searchableNodes) {
+    private static boolean doResultsExist(DICOMQuery newQuery) {
 
-        PatientSearcherService patientSeacherService =
-        	PatientSearcherServiceFactory.getPatientSearcherService();
 
-        List<NBIANode> selectedNodes = new ArrayList<NBIANode>();
+       	PatientSearcher patientSearcher = new PatientSearcher();
+    	try {
+           List results = patientSearcher.searchForPatients(newQuery);
 
-        NodeCriteria nodeCriteria = newQuery.getNodeCriteria();
-
-        if(nodeCriteria!=null) {
-	        List<String> nodeUrls = nodeCriteria.getRemoteNodes();
-	    	for(NBIANode searchableNode : searchableNodes) {
-	    		if(nodeUrls.contains(searchableNode.getURL())) {
-	    			selectedNodes.add(searchableNode);
-	    		}
-	    	}
-        }
-
-        if(selectedNodes.isEmpty()) {
-        	selectedNodes.add(LocalNode.getLocalNode());
-        }
-
-        PatientSearchCompletionService results = patientSeacherService.searchForPatients(selectedNodes,
-        		                                                                         newQuery);
-
-		try {
-			for(int i=0;i<results.getNodesToSearch().size();i++) {
-				//this is a blocking call
-				Future<PatientSearchResults> future = results.getCompletionService().take();
-				//this is a blocking call
-
-				PatientSearchResults result = future.get();
-				//result.getResults will be null if there was an error in issuing query
-				if(result.getResults()!=null && result.getResults().length>0) {
+ 		   if(results!=null && results.size()>0) {
 					return true;
 				}
-			}
 		}
 		catch(Exception ex) {
-			//shouldnt get here, the search result service should capture
-			//any exceptions and results a search result that indicates
-			//there was an error
 			ex.printStackTrace();
 		}
 		return false;

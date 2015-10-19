@@ -65,6 +65,7 @@ public class O_getSeries extends getData {
 			@QueryParam("PatientID") String patientId, @QueryParam("StudyInstanceUID") String studyInstanceUid
 			, @QueryParam("oviyamId") String oviyamId, @QueryParam("wadoUrl") String wadoUrl, @QueryParam("seriesUid") String seriesUid) {
 		List<String> authorizedCollections = null;
+		System.out.println("SeriesId in getSeries:"+seriesUid);
 		try {
 			String user=null;
 			if (oviyamId!=null&&oviyamId.length()>0){
@@ -73,7 +74,11 @@ public class O_getSeries extends getData {
 			if (user==null){
 				authorizedCollections = getPublicCollections();
 			} else {
-				authorizedCollections = getAuthorizedCollections(user);
+				authorizedCollections = OviyamUtil.getUserCollections(user);
+				if (authorizedCollections==null) {
+				   authorizedCollections = getAuthorizedCollections(user);
+				   OviyamUtil.setUserCollections(user, authorizedCollections);
+				}
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

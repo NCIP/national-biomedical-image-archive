@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                
+<ice:panelCollapsible id="baselineCritPanel" expanded="false">
+	<f:facet name="header">
+		<ice:panelGroup>
+			<ice:outputText id="formHeader"
+				value="#{msg.search_baseline}" />
+		</ice:panelGroup>
+	</f:facet>
+                 
+<h:panelGrid id="baselinepanel" border="0" cellspacing="0" frame="box" >           
+                          <h:outputText value="#{msg.criteria_MinNumberOfStudiesCriteria}" />
+                          <ice:selectOneMenu value="#{searchWorkflowBean.numberStudies}"
+                             partialSubmit="true" valueChangeListener="#{searchWorkflowBean.baselineSelectChangeListener}">
+                            <f:selectItems id="zzzz" value="#{searchLookupBean.minimumStudiesItems}" />
+                          </ice:selectOneMenu>
+</h:panelGrid>
+</ice:panelCollapsible> 
+
+</ui:composition>                

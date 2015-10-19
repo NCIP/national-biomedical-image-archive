@@ -74,7 +74,7 @@ public class DicomRetrieve extends HttpServlet {
 	imageURL=imageURL.concat("&oviyamId="+oviyamId);
 	String wado2Url = (String)session.getAttribute("wadoUrl");
 	imageURL=imageURL.concat("&wadoUrl="+wado2Url);
-	System.out.println(imageURL);
+	System.out.println("in DicomRetrieve"+imageURL);
 	InputStream resultInStream = null;
 	OutputStream out = response.getOutputStream();
 	try {

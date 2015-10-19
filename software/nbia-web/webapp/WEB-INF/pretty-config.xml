@@ -73,5 +73,12 @@ L-->
 	    <view-id> /slideShowViewSeries.jsf </view-id>
     <action>#{viewSeriesPopulatorMgBean.populateImages}</action>
   </url-mapping> 
+  
+  <url-mapping id="externalPubSearch">
+    <pattern> /externalLinks.jsf</pattern>
+	<query-param name="collectionName">#{externalPubSearchPopulatorMgBean.collectionName}</query-param>
+    <view-id> /searchMain.jsf </view-id>
+    <action>#{externalPubSearchPopulatorMgBean.populate}</action>
+  </url-mapping> 
        
 </pretty-config>

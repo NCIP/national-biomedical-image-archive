@@ -1,4 +1,4 @@
 #!/bin/sh
-nohup java -Xmx512m -jar Runner.jar &
+nohup java -Xmx2048m -jar Runner.jar &
       
       

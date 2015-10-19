@@ -151,6 +151,7 @@ public class InstanceServlet extends HttpServlet {
                         is = new FileInputStream(new File(UrlTmp));
                     } else {
                         UrlTmp = wadoURL + "&objectUID=" + objectUID;
+                        System.out.println("Instance servlet getting:"+UrlTmp);
                         URL url = new URL(UrlTmp);
                         is = url.openStream();
                     }
@@ -184,13 +185,19 @@ public class InstanceServlet extends HttpServlet {
                     DicomElement refImageSeq = dcmObj.get(Tag.ReferencedImageSequence);
                     DicomElement refSOPInsUID = null;
                     String referSopInsUid = "";
-                    if(refImageSeq != null) {
-                        if(refImageSeq.hasItems()) {
-                            DicomObject dcmObj1 = refImageSeq.getDicomObject();
-                            refSOPInsUID = dcmObj1.get(Tag.ReferencedSOPInstanceUID);
-                            referSopInsUid = refSOPInsUID != null ? new String(refSOPInsUID.getBytes()) : "";
-                        }
-                    }
+                    try {
+						if(refImageSeq != null) {
+						    if(refImageSeq.hasItems()) {
+						        DicomObject dcmObj1 = refImageSeq.getDicomObject();
+						        refSOPInsUID = dcmObj1.get(Tag.ReferencedSOPInstanceUID);
+						        referSopInsUid = refSOPInsUID != null ? new String(refSOPInsUID.getBytes()) : "";
+						    }
+						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+						System.out.println("expected dicom values not found");
+					}
 
                     String windowCenter = wcDcmElement != null ? new String(wcDcmElement.getBytes()) : "";
                     String windowWidth = wwDcmElement != null ? new String(wwDcmElement.getBytes()) : "";

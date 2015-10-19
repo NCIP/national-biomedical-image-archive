@@ -26,6 +26,7 @@
 package gov.nih.nci.nbia.dto;
 
 import gov.nih.nci.ncia.criteria.Criteria;
+import gov.nih.nci.nbia.security.NCIAUser;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 public class SavedQueryDTO extends AbstractStoredQueryDTO {
     private boolean newResults = false;
     private boolean delete;
+    private NCIAUser user;
 
     public SavedQueryDTO() {
         criteriaList = new ArrayList<Criteria>();
@@ -64,5 +66,13 @@ public class SavedQueryDTO extends AbstractStoredQueryDTO {
     @Override
     public String getQueryName() {
         return queryName;
+    }
+
+	public NCIAUser getUser() {
+		return user;
+	}
+
+	public void setUser(NCIAUser user) {
+		this.user = user;
     }
 }

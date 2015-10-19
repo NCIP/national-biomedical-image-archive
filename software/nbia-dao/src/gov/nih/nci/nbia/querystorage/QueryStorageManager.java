@@ -129,6 +129,16 @@ public interface QueryStorageManager {
      */
     public List<SavedQueryDTO> retrieveSavedQueries(String username) throws DataAccessException;
 
+	/**
+	 * Retrieves a list of active saved queries for a user
+	 *
+	 * @param username - login id of the user
+	 * @return list of active saved queries for the user
+	 * @throws Exception
+	 */
+	public List<SavedQueryDTO> retrieveAllSavedQueries() throws DataAccessException;
+
+
 
     /**
      * Retrieves a list of all saved queries for all user that are both

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+   Copyright SAIC, Ellumen and RSNA (CTP)
+
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
+L-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+                
+<ice:panelCollapsible id="manufacturerCritPanel" expanded="false">
+	<f:facet name="header">
+		<ice:panelGroup>
+			<ice:outputText id="formHeader"
+				value="#{msg.criteria_ManufacturerCriteria} #{msg.criteria_ModelCriteria}" />
+		</ice:panelGroup>
+	</f:facet>
+
+
+<table>
+<!--tr>
+	<td>
+	  <ice:panelGroup>
+	    <ice:outputText id="collectionHeader" style="float:left;font-weight: bold;" value="#{msg.criteria_ManufacturerCriteria} #{msg.criteria_ModelCriteria}" />
+	  </ice:panelGroup>
+	</td>
+ </tr-->
+ <tr>
+ 	<td>  
+          <div id="collectionsDiv" class="searchFormSelector">
+            <h:panelGroup id="treeDiv">
+			                  <ice:tree id="equipmentTree"
+			                            value="#{searchLookupBean.manufacturerTree}"
+			                            var="node"
+			                            hideRootNode="false"
+			                            hideNavigation="false"
+			                            imageDir="./xmlhttp/css/xp/css-images/" >
+			                    <ice:treeNode style="border:0px">
+			                      <f:facet name="content">
+			                        <ice:panelGroup style="display:inline;border:0px">
+			                          <!--  otherwise other checkboxes wont update -->              
+			                          <ice:setEventPhase events="ValueChangeEvent"
+			                                             phase="INVOKE_APPLICATION"> 
+			                          <!--ice:setEventPhase disabled="false" events="FacesEvent" phase="UPDATE_MODEL_VALUES" -->
+			                            <ice:selectBooleanCheckbox id="equipmentTreeNode"
+			                                                       styleClass="formLabel"
+			                                                       style="border:0px"    
+			                                                       partialSubmit="true"                                                           
+			                                                       value="#{node.userObject.selected}"
+			                                                       valueChangeListener="#{node.userObject.select}"/> 
+			                          </ice:setEventPhase>
+			                          <h:outputText styleClass="formLabel" 
+			                                        style="border:0px" 
+			                                        value="#{node.userObject.text} (#{node.childCount})"
+			                                        rendered="#{not node.userObject.leaf}"/>  
+			                          <h:outputText styleClass="formLabel" 
+			                                        style="border:0px" 
+			                                        value="#{node.userObject.text}"
+			                                        rendered="#{node.userObject.leaf}"/>                                                     
+			                                                                                          
+			                        </ice:panelGroup>
+			                      </f:facet>
+			                    </ice:treeNode>                             
+			                  </ice:tree>
+			                </h:panelGroup>          
+          </div>
+                 
+   	</td>
+   </tr>
+   </table>
+ 	</ice:panelCollapsible>   
+</ui:composition>                

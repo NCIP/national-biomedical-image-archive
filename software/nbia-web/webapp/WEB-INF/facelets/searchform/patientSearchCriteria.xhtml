@@ -16,8 +16,16 @@ L-->
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
+<ice:panelCollapsible id="patientIdCritPanel" expanded="false">
+	<f:facet name="header">
+		<ice:panelGroup>
+			<ice:outputText id="formHeader"
+				value="#{msg.patient_id}" />
+		</ice:panelGroup>
+	</f:facet>
                  
-<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box" >           
+<h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box" >   
+<h:outputLabel for="patientInput"  value="Enter comma separated ID(s)" />          
 <h:inputTextarea id="patientInput" 
                                          value="#{searchWorkflowBean.patientInput}" 
                                          cols="22" 
@@ -31,5 +39,6 @@ L-->
 		partialSubmit="true" />
   
 </h:panelGrid>
+</ice:panelCollapsible> 
 
 </ui:composition>                

@@ -82,10 +82,26 @@ public class DirectUrlLaunch extends HttpServlet {
     	String patId = request.getParameter("patientID");
 		String studyId = request.getParameter("studyUID");
 		String serverName = request.getParameter("serverName");		
-		String oviyamId = request.getParameter("oviyamId");
 		String wadoUrl = request.getParameter("wadoUrl");	
 		String seriesUid = request.getParameter("seriesUid");
-		System.out.println("In DirectURL patID:"+patId+"-studyUID:"+studyId+"-serverName:"+serverName
+		HttpSession session = request.getSession();
+		String oviyamId = null;
+		Object oviyamCheck=session.getAttribute("oviyamId");
+		if (oviyamCheck!=null&&oviyamCheck.toString().length()>0)
+		{
+			System.out.println("existing id:"+oviyamCheck.toString());
+			oviyamId=oviyamCheck.toString();
+		} else {
+			oviyamId=request.getParameter("oviyamId");
+			System.out.println("new id:"+oviyamId);
+			session.setAttribute("oviyamId", oviyamId);
+		}
+		if (seriesUid!=null&&seriesUid.length()>0)
+		{
+			session.setAttribute("seriesUidIn", seriesUid);
+		}
+			
+		System.out.println("In DirectURL patID:"+patId+"-studyUID:"+studyId+"-seriesId"+seriesUid+"-serverName:"+serverName
 				+"-oviyamId:"+oviyamId+"-wadoUrl:"+wadoUrl);
 
 		String forwardUrl = "";	
@@ -96,8 +112,8 @@ public class DirectUrlLaunch extends HttpServlet {
 		forwardUrl += "&serverName=" + serverName;
         forwardUrl += "&oviyamId=" + oviyamId;
 		forwardUrl += "&wadoUrl=" + wadoUrl;
-		HttpSession session = request.getSession();
-		session.setAttribute("oviyamId", oviyamId);
+		
+		
 		session.setAttribute("wadoUrl", wadoUrl);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(forwardUrl);
 	    dispatcher.forward(request,response);

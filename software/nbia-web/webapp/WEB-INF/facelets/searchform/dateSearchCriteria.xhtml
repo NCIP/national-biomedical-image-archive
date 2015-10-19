@@ -16,6 +16,13 @@ L-->
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ice="http://www.icesoft.com/icefaces/component">
                 
+<ice:panelCollapsible id="dateCritPanel" expanded="false">
+	<f:facet name="header">
+		<ice:panelGroup>
+			<ice:outputText id="formHeader"
+				value="#{msg.search_visible_date}" />
+		</ice:panelGroup>
+	</f:facet>                
 <h:panelGrid id="patientidpanel" border="0" cellspacing="0" frame="box"> 
                               <h:outputText id="dateFrom" value="#{msg.date_from}"></h:outputText>
                               <ice:selectInputDate id="fromDate"
@@ -52,4 +59,5 @@ L-->
                              
                               
 </h:panelGrid>
+</ice:panelCollapsible> 
 </ui:composition>                

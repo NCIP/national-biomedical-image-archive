@@ -93,7 +93,17 @@ L-->
     <dependency org="org.springframework"
                    name="spring-tx"
                    rev="3.2.8.RELEASE"
-                   conf="compile->master;runtime->master"/> 
+                   conf="compile->master;runtime->master"/>
+ 
+    <dependency org="org.springframework"
+                    name="spring-context"
+                    rev="3.2.8.RELEASE"
+                   conf="compile->master;runtime->master"/>
+                   
+    <dependency org="org.springframework"
+                    name="spring-beans"
+                    rev="3.2.8.RELEASE"
+                   conf="compile->master;runtime->master"/>                   
     
     <dependency org="asm" 
     		name="asm" 

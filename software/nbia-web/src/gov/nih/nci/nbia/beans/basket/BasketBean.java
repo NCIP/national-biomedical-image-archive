@@ -128,12 +128,13 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 
     public List<BasketSeriesItemBean> getSortedSeriesItems() {
     	List<BasketSeriesItemBean> toSort = basket.getSeriesItems();
-    	if (!oldSort.equals(sortColumnName) ||
-             oldAscending != ascending) {
+    	System.out.println("sortColumnName is - "+sortColumnName);
+    	// if (!oldSort.equals(sortColumnName) ||
+        //     oldAscending != ascending) {
     		 sort(toSort);
-             oldSort = sortColumnName;
-             oldAscending = ascending;
-        }
+        //     oldSort = sortColumnName;
+        //     oldAscending = ascending;
+        //}
     	return toSort;
     }
 

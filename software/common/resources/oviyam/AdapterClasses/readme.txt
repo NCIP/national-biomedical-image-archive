@@ -1,1 +1,1 @@
-These are the adapter classes that need to be integrated with any new version of Oviyam
+These are the adapter classes that need to be integrated with any new version of Oviyam, they currently work in Oviyam 2.1

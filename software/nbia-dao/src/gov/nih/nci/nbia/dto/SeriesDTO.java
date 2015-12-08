@@ -30,6 +30,7 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
     private boolean annotationsFlag;
     private Long annotationsSize = 0L;
     private String patientId;
+    private String patientPkId;
     private String studyId;
     private Integer studyPkId;
     private Long totalSizeForAllImagesInSeries;
@@ -236,6 +237,14 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
 
 	public void setMaxFrameCount(String maxFrameCount) {
 		this.maxFrameCount = maxFrameCount;
+	}
+
+	public String getPatientPkId() {
+		return patientPkId;
+	}
+
+	public void setPatientPkId(String patientPkId) {
+		this.patientPkId = patientPkId;
 	}
 	
 }

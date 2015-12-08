@@ -92,6 +92,7 @@ public class StudyDAOImpl extends AbstractDAO
             seriesDTO.setPatientId((String)row[13]);
             seriesDTO.setProject((String)row[14]);
             seriesDTO.setMaxFrameCount((String)row[16]);
+            seriesDTO.setPatientPkId((String)row[17]);
             // Try to get the study if it already exists
             StudyDTO studyDTO = studyList.get(seriesDTO.getStudyPkId());
 
@@ -202,7 +203,7 @@ public class StudyDAOImpl extends AbstractDAO
 	}
 
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////
-    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount  ";
+    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount, series.patient_pk_id  ";
     private static final String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join series.generalEquipment ge ";
     private static final String SQL_QUERY_WHERE = "WHERE series.visibility = '1' ";
 
@@ -253,7 +254,7 @@ public class StudyDAOImpl extends AbstractDAO
 		if (seriesPkIds.size() == 0) {
 			return new ArrayList<StudyDTO>();
 		}
-		String selectStmt = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize , ge.manufacturerModelName, ge.softwareVersions ";
+		String selectStmt = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize , ge.manufacturerModelName, ge.softwareVersions, patient_pk_id ";
 		String fromStmt = SQL_QUERY_FROM;
 		String whereStmt = SQL_QUERY_WHERE;
 		String oderBy = " Order by study.patient.dataProvenance.project,series.patientId,study.studyDate, study.studyDesc, series.modality, series.seriesDesc,ge.manufacturer, ge.manufacturerModelName, ge.softwareVersions, series.seriesInstanceUID";
@@ -327,6 +328,7 @@ public class StudyDAOImpl extends AbstractDAO
 
 			seriesDTO.setManufacturerModelName((String) row[16]);
 			seriesDTO.setSoftwareVersion((String) row[17]);
+			seriesDTO.setPatientPkId((String) row[18]);
 			// Try to get the study if it already exists
 			StudyDTO studyDTO = new StudyDTO();
 			studyDTO.setStudyId(row[2].toString());

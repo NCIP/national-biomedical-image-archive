@@ -355,7 +355,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	            seriesDTO.setSeriesNumber(Util.nullSafeString(row[10]));
 	            seriesDTO.setDescription(Util.nullSafeString(row[11]));
 	            seriesDTO.setModality(row[12].toString());
-
+	            seriesDTO.setPatientPkId(row[13].toString());
 	            resultSets.add(seriesDTO);
 	        }
         }
@@ -524,7 +524,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 
     private static int CHUNK_SIZE = 500;
 
-    private static String SQL_QUERY_SELECT = "SELECT series.id, patient.patientId, study.studyInstanceUID, series.seriesInstanceUID, study.id, series.imageCount, series.totalSize, dp.project, series.annotationsFlag, series.annotationTotalSize, series.seriesNumber, series.seriesDesc, series.modality ";
+    private static String SQL_QUERY_SELECT = "SELECT series.id, patient.patientId, study.studyInstanceUID, series.seriesInstanceUID, study.id, series.imageCount, series.totalSize, dp.project, series.annotationsFlag, series.annotationTotalSize, series.seriesNumber, series.seriesDesc, series.modality, series.patient_pk_id ";
     private static String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join study.patient patient join patient.dataProvenance dp ";
     private static String SQL_QUERY_WHERE = "WHERE ";
 

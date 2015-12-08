@@ -23,7 +23,7 @@ public class PatientResultWrapper {
 
 	
 	public String getBasketKey() {
-		return patient.getSubjectId() + "||" + patient.associatedLocation().getURL();
+		return patient.getId() + "||" + patient.associatedLocation().getURL();
 	}
 	
     

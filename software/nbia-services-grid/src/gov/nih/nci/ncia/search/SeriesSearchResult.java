@@ -281,7 +281,7 @@ public class SeriesSearchResult implements Comparable<SeriesSearchResult>,
     private String studyDescription;
     private String studyDate;
     private String maxFrameCount;
-    
+    private String patientpk;
 	public String getStudyDescription() {
 		return studyDescription;
 	}
@@ -304,6 +304,14 @@ public class SeriesSearchResult implements Comparable<SeriesSearchResult>,
 
 	public void setMaxFrameCount(String maxFrameCount) {
 		this.maxFrameCount = maxFrameCount;
+	}
+
+	public String getPatientpk() {
+		return patientpk;
+	}
+
+	public void setPatientpk(String patientpk) {
+		this.patientpk = patientpk;
 	}
     
 }

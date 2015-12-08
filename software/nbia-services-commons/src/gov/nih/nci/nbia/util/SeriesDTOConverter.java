@@ -31,8 +31,7 @@ public class SeriesDTOConverter {
     		result.setModality(dto.getModality());
     		result.setAnnotated(dto.isAnnotationsFlag());
     		result.setProject(dto.getProject());
-
-
+            
     		result.setPatientId(dto.getPatientId());
     		result.setAnnotationsSize(dto.getAnnotationsSize());
     		result.setDescription(dto.getDescription());
@@ -40,6 +39,7 @@ public class SeriesDTOConverter {
 
     		result.associateLocation(LocalNode.getLocalNode());
     		result.setMaxFrameCount(dto.getMaxFrameCount());
+    		result.setPatientpk(dto.getPatientPkId());
     		results.add(result);
     	}
     	return results;

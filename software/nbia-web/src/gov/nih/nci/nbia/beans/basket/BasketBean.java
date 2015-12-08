@@ -167,7 +167,6 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	Map<String, BasketSeriesItemBean> seriesItemMap = basket.getSeriesItemMap();
     	for(BasketSeriesItemBean seriesItem : seriesItemMap.values()) {
     		inBasketMap.put(seriesItem.getPatientpk()+"||"+seriesItem.getGridLocation(), Boolean.TRUE);
-    		System.out.println("Patient-"+seriesItem.getPatientpk());
     	}
     	return inBasketMap;
     }

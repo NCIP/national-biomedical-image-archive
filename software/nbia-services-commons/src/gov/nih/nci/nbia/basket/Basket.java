@@ -291,6 +291,7 @@ System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
 		returnBean.setStudyDate(seriesDTO.getStudyDate());
 		returnBean.setStudyDescription(seriesDTO.getStudyDescription());
 		returnBean.setSeriesDescription(seriesDTO.getDescription());
+		returnBean.setPatientpk(seriesDTO.getPatientpk());
 		return returnBean;
 	}
 

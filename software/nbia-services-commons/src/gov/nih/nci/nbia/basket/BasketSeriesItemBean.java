@@ -383,6 +383,7 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
     private String gridLocation;
 
     private String locationDisplayName;
+    private String patientpk;
 
     // Used by the UI to indicate if this has been selected for deletion
     private boolean selected = false;
@@ -417,4 +418,13 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
 	public void setSeriesDescription(String seriesDescription) {
 		this.seriesDescription = seriesDescription;
 	}
+
+	public String getPatientpk() {
+		return patientpk;
+	}
+
+	public void setPatientpk(String patientpk) {
+		this.patientpk = patientpk;
+	}
+	
 }

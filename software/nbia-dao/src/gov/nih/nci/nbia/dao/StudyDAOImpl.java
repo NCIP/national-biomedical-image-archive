@@ -92,7 +92,7 @@ public class StudyDAOImpl extends AbstractDAO
             seriesDTO.setPatientId((String)row[13]);
             seriesDTO.setProject((String)row[14]);
             seriesDTO.setMaxFrameCount((String)row[16]);
-            seriesDTO.setPatientPkId((String)row[17]);
+            seriesDTO.setPatientPkId(row[17].toString());
             // Try to get the study if it already exists
             StudyDTO studyDTO = studyList.get(seriesDTO.getStudyPkId());
 
@@ -328,7 +328,7 @@ public class StudyDAOImpl extends AbstractDAO
 
 			seriesDTO.setManufacturerModelName((String) row[16]);
 			seriesDTO.setSoftwareVersion((String) row[17]);
-			seriesDTO.setPatientPkId((String) row[18]);
+			seriesDTO.setPatientPkId(row[18].toString());
 			// Try to get the study if it already exists
 			StudyDTO studyDTO = new StudyDTO();
 			studyDTO.setStudyId(row[2].toString());

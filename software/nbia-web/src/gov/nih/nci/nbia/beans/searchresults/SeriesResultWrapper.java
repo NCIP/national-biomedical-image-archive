@@ -16,7 +16,7 @@ public class SeriesResultWrapper {
 	}
 	
 	public String getBasketKey() {
-		return series.getId()+"||"+series.associatedLocation().getURL();
+		return series.getId().toString();
 	}
 	
 	
@@ -37,12 +37,5 @@ public class SeriesResultWrapper {
 	private SeriesSearchResult series;
 	public String getLocationDisplayName() {
 		return series.associatedLocation().getDisplayName();
-	}
-	public String getGridLocation() {
-		return series.associatedLocation().getURL();
-	}
-
-	
-	
-			
+	}			
 }

@@ -14,7 +14,6 @@ import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
 import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.List;
@@ -49,10 +48,8 @@ public class ViewSeriesPopulatorMgBean {
 		BasketBean basketBean = BeanManager.getBasketBean();
 
 		List<BasketSeriesItemBean> bsitem = basketBean.getSeriesItems();
-		NBIANode node = new NBIANode(false, getLocation(), getUrl());
 		SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
 		seriesSearchResult.setSeriesNumber(seriesId);
-		seriesSearchResult.associateLocation(node);
 		basketBean.viewSeriesData(getSeries(seriesId, location, bsitem));
 	}
 

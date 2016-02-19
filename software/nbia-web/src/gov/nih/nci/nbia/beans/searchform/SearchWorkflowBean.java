@@ -19,36 +19,25 @@ package gov.nih.nci.nbia.beans.searchform;
 import gov.nih.nci.ncia.criteria.AnnotationOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.ContrastAgentCriteria;
-import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.RangeData;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.DynamicSearchBean;
-import gov.nih.nci.nbia.beans.DynamicSearchCriteriaBean;
-import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
 import gov.nih.nci.nbia.beans.searchresults.SearchResultBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
-import gov.nih.nci.nbia.customserieslist.FileGenerator;
 import gov.nih.nci.nbia.dto.ModalityDescDTO;
-import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
 import gov.nih.nci.nbia.modalitydescription.ModalityDescProcessor;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.querystorage.QueryStorageManager;
-import gov.nih.nci.nbia.search.LocalNode;
-import gov.nih.nci.nbia.search.PatientSearchCompletionService;
 import gov.nih.nci.nbia.search.PatientSearcher;
-import gov.nih.nci.nbia.search.PatientSearcherService;
-import gov.nih.nci.nbia.search.PatientSearcherServiceFactory;
 import gov.nih.nci.nbia.util.DateValidator;
 import gov.nih.nci.nbia.util.JsfUtil;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.search.AvailableSearchTerms;
-import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
-import gov.nih.nci.ncia.search.NBIANode;
+
 import gov.nih.nci.ncia.search.PatientSearchResult;
 
 import java.util.ArrayList;
@@ -60,10 +49,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Set;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -72,9 +59,6 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 
 import org.apache.log4j.Logger;
-
-import com.icesoft.faces.context.ByteArrayResource;
-import com.icesoft.faces.context.Resource;
 
 /**
  * This is the Session scope bean that provides the search functionality on the
@@ -132,30 +116,8 @@ public class SearchWorkflowBean {
         List<String> kernels = lookupMgr.getDICOMKernelType();
         Collections.sort(kernels);
         kernelItems = JsfUtil.getBooleanSelectItemsFromStrings(kernels);
-
-        searchableNodeMap = lookupMgr.getSearchableNodes();
-        usSearchableNodeMap = lookupMgr.getSearchableNodesForUs();
-
-        searchableNodes = mergeNodeList(searchableNodeMap.keySet(), usSearchableNodeMap.keySet());
-
-        Collections.sort(searchableNodes);
-        remoteNodeItems = JsfUtil.constructNodeSelectItems(searchableNodes);
-        this.aimSearchWorkflowBean.loggedIn();
-
         setDefaultValues();
     }
-
-    private ArrayList<NBIANode> mergeNodeList(Set<NBIANode> set1, Set<NBIANode> set2) {
-    	ArrayList<NBIANode> nodeList = new ArrayList<NBIANode>(set1);
-    	for (NBIANode aNode: set2){
-    		if (!nodeList.contains(aNode)){
-    			nodeList.add(aNode);
-    		}
-    	}
-    	return nodeList;
-    }
-
-
 
     public LookupManager getLookupMgr() {
 		return lookupMgr;
@@ -172,80 +134,6 @@ public class SearchWorkflowBean {
     public void setShowThickness(boolean showThickness) {
         this.showThickness = showThickness;
     }
-
-    //////////////////////////////////BEGIN REMOTE SEARCH ITEMS//////////////////////
-    public int getNumNodes() {
-    	return remoteNodeItems.size();
-    }
-
-    public List<SelectItem> getRemoteNodeItems() {
-        return remoteNodeItems;
-    }
-
-
-    public String selectAllRemoteNodes() {
-    	for(SelectItem selectItem : remoteNodeItems) {
-    		selectItem.setValue(true);
-    	}
-    	return null;
-    }
-
-    public String unselectAllRemoteNodes() {
-    	for(SelectItem selectItem : remoteNodeItems) {
-    		selectItem.setValue(false);
-    	}
-    	return null;
-    }
-
-
-    //called by saved query
-    public void selectRemoteNodes(Collection<String> remoteNodeUrls) {
-    	for(String url : remoteNodeUrls) {
-    		if(url.equals(LocalNode.getLocalNode().getURL())) {
-    			selectLocalNode();
-    		}
-    		else {
-	    		SelectItem item = JsfUtil.findSelectItemByDescription(remoteNodeItems, url);
-	    		if(item!=null) {
-	    			item.setValue(true);
-	    		}
-    		}
-    	}
-    }
-
-    //called by saved query
-    private void selectLocalNode() {
-    	for(int i=0;i<searchableNodes.size();i++) {
-    		NBIANode node = searchableNodes.get(i);
-
-    		if(node.isLocal()) {
-    			remoteNodeItems.get(i).setValue(true);
-    		}
-    	}
-    }
-
-    public List<String> getSelectedRemoteNodes() {
-    	List<String> selectedRemoteNodes = new ArrayList<String>();
-    	for(SelectItem item : remoteNodeItems) {
-    		if(item.getValue().equals(true)) {
-    			selectedRemoteNodes.add(item.getLabel());
-    		}
-    	}
-    	return selectedRemoteNodes;
-    }
-
-
-
-    public List<NBIANode> getSelectedNodes() {
-    	List<NBIANode> selectedRemoteNodes = new ArrayList<NBIANode>();
-    	for(int i=0;i<remoteNodeItems.size();i++) {
-    		if(remoteNodeItems.get(i).getValue().equals(true)) {
-    			selectedRemoteNodes.add(this.searchableNodes.get(i));
-    		}
-    	}
-    	return selectedRemoteNodes;
-    }
-    ///////////////////////////////////END REMOTE SEARCH ITEMS////////////////////
 
     //////////////////////////////////BEGIN COLLECTION ITEMS//////////////////////
     public List<SelectItem> getCollectionItems() {
@@ -734,15 +622,10 @@ public class SearchWorkflowBean {
         srb.setQuery(query);
         saveQueryToHistory();
 
-        PatientSearcherService patientSeacherService =
-        	PatientSearcherServiceFactory.getPatientSearcherService();
+        PatientSearcher patientSearcher = new PatientSearcher();
 
-        NodeCriteria nodeCriteria = query.getNodeCriteria();
-        List<NBIANode> selectedNodes = matchupNodeCriteria(nodeCriteria);
-
-        PatientSearchCompletionService results = patientSeacherService.searchForPatients(selectedNodes,
-        		                                                                         query);
-        srb.setPatientSearchResultsCompletionService(results);
+        List<PatientSearchResult> results = patientSearcher.searchForPatients(query);
+        srb.setPatientResults(results);
     }
 
 
@@ -1082,19 +965,7 @@ public class SearchWorkflowBean {
 		return (notificationHack+=1);
 	}
 
-
-	public AimSearchWorkflowBean getAimSearchWorkflowBean() {
-		return aimSearchWorkflowBean;
-	}
-
-	public void setAimSearchWorkflowBean(AimSearchWorkflowBean aimSearchWorkflowBean) {
-		this.aimSearchWorkflowBean = aimSearchWorkflowBean;
-	}
-
 	////////////////////////////////PRIVATE/////////////////////////////////////////
-
-	private AimSearchWorkflowBean aimSearchWorkflowBean;
-
 	private int notificationHack = 0;
 
 	private LookupManager lookupMgr = null;
@@ -1235,30 +1106,14 @@ public class SearchWorkflowBean {
     private boolean fromSavedQuery= false;
 
     /**
-     * Should this go into AvailableSearchTermsBeans?
-     */
-    private Map<NBIANode, AvailableSearchTerms> searchableNodeMap;
-    private Map<NBIANode, UsAvailableSearchTerms> usSearchableNodeMap;
-
-
-    /**
      * map holds modality description
      */
     private Map<String, String> modalityDescMap = new HashMap<String, String>();
-
-
-    /**
-     * Orderd List of NBIA nodes... parallel with the SelectItem list that
-     * is actually rendered
-     */
-    private List<NBIANode> searchableNodes;
 
 	/**
      * Sets default values for all search fields.
      */
     private void setDefaultValues() {
-    	unselectAllRemoteNodes();
-
         if (!editingSavedQuery) {
             query = null;
         }
@@ -1324,8 +1179,6 @@ public class SearchWorkflowBean {
         unselectAllCollections();
         unselectAllModalities();
         unselectAllAnatomicalSites();
-
-        this.aimSearchWorkflowBean.setDefaultValues();
         SearchResultBean srb = BeanManager.getSearchResultBean();
     	srb.setPatientResults(null);
     }
@@ -1664,30 +1517,6 @@ public class SearchWorkflowBean {
 
         long queryId = qManager.addQueryToHistory(query);
         query.setQueryHistoryId(queryId);
-    }
-
-    /**
-     * This is necessary to support saved queries (instead of just calling
-     * getSelectedNodes).  Try to match up the (saved) URL with available
-     * nodes.  If not found, just blow it off.
-     **/
-    private List<NBIANode> matchupNodeCriteria(NodeCriteria nodeCriteria) {
-
-        List<NBIANode> matchedNodes = new ArrayList<NBIANode>();
-        if(nodeCriteria==null) {
-        	matchedNodes = new ArrayList<NBIANode>(1);
-        	matchedNodes.add(LocalNode.getLocalNode());
-        }
-        else {
-            List<String> nodeUrls = nodeCriteria.getRemoteNodes();
-
-        	for(NBIANode searchableNode : searchableNodes) {
-        		if(nodeUrls.contains(searchableNode.getURL())) {
-        			matchedNodes.add(searchableNode);
-        		}
-        	}
-        }
-        return matchedNodes;
     }
 
     public void modalityChangeListener(ValueChangeEvent event) {

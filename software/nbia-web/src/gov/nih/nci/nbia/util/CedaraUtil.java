@@ -86,8 +86,6 @@ public class CedaraUtil {
         List<String> pIds = new ArrayList<String>();
 
         for (BasketSeriesItemBean item : seriesItems) {
-//            if (item.getGridLocation().equalsIgnoreCase(localNodeName) && item.isSelected())
-        	//Remote nodes are already filtered out, will not check for remote node anymore.
         	if (item.isSelected())
         	{
                 String pid = item.getPatientId();
@@ -105,12 +103,10 @@ public class CedaraUtil {
     }
 
     public static String constructUidParameterString(Collection<BasketSeriesItemBean> seriesItems) {
-        String localNodeName = NCIAConfig.getLocalGridURI();
-
         int count = 0;
         String uid = null;
         for (BasketSeriesItemBean item : seriesItems) {
-            if (item.getGridLocation().equalsIgnoreCase(localNodeName) && item.isSelected()) {
+            if (item.isSelected()) {
                 if (count > 0 ) {
                     uid = uid + "&uid=" + item.getSeriesId();
                 }

@@ -14,7 +14,6 @@ import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
 import gov.nih.nci.nbia.dicomtags.DicomTagViewer;
 import gov.nih.nci.nbia.dicomtags.DicomTagViewerFactory;
 import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.List;
@@ -43,8 +42,6 @@ public class DicomTagViewerPopulatorMgBean {
         	if (seriesId !=null && !seriesId.isEmpty()) {
         		SeriesSearchResult theSeries = new SeriesSearchResult();
         		theSeries.setId(Integer.valueOf(seriesId));
-        		NBIANode location = new NBIANode(true, "", "");
-				theSeries.associateLocation(location);
         		searchResultBean.viewSeries(theSeries);
         	}
         	List<ImageResultWrapper> imageSearchResultList = searchResultBean.getImages();

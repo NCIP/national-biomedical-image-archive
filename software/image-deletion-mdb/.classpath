@@ -13,6 +13,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-commons"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
-	<classpathentry kind="var" path="NBIA_BASE"/>
+	<classpathentry exported="true" kind="var" path="NBIA_BASE"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

@@ -21,7 +21,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jsp-api-2.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/log4j-1.2.15.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-dao-working@nbia-dao-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-services-commons-working@nbia-services-commons-resolver.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-services-commons-working@nbia-services-commons-resolver.jar" sourcepath="/NBIA_BASE/nbia-services-commons"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-services-grid-working@nbia-services-grid-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-util-working@nbia-util-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/ocpsoft-pretty-faces-1.2.6.jar"/>

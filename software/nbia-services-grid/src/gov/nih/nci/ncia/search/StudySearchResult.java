@@ -60,26 +60,7 @@ public interface StudySearchResult extends Comparable<StudySearchResult> {
      * presentation figure out the proper string based upon the value.
      */
 	public String getOffSetDesc();
-	
-	    
-    /**
-     * The node that this study was found on.
-     * 
-	 * <p>This is intentionally not a property to avoid serialization.
-     */
-	public NBIANode associatedLocation();
-	
-	
-	/**
-	 * Associate a node with this result.  This should only be called once
-	 * by a result generator.
-	 * 
-	 * <p>This is intentionally not a property to avoid serialization.
-	 */
-	public void associateLocation(NBIANode nbiaNode);
-	
 	public String getLink();
-		
     public void setLink(String link);
     public String getUser();
     public void setUser(String user);

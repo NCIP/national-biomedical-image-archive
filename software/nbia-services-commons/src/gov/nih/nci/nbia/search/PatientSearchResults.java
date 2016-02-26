@@ -8,7 +8,6 @@
 
 package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.PatientSearchResult;
 
 /**
@@ -18,21 +17,16 @@ import gov.nih.nci.ncia.search.PatientSearchResult;
  * This object is immutable, keep it that way.
  */
 public class PatientSearchResults {
-	public PatientSearchResults(NBIANode node, Exception searchError) {
-		this.node = node;
+	public PatientSearchResults(Exception searchError) {
 		this.results = null;
 		this.searchError = searchError;
 	}
 	
-	public PatientSearchResults(NBIANode node, PatientSearchResult[] results) {
-		this.node = node;
+	public PatientSearchResults(PatientSearchResult[] results) {
 		this.results = results;
 		this.searchError = null;
 	}
 	
-	public NBIANode getNode() {
-		return node;
-	}
 	
 	/**
 	 * The actual results for the node.  This can be null if there was 
@@ -52,8 +46,6 @@ public class PatientSearchResults {
 	
 	
 	//////////////////////////////////////PRIVATE/////////////////////////////////////////////
-	
-	private NBIANode node;
 	
 	private Exception searchError;
 	

@@ -14,8 +14,6 @@ import java.util.*;
 public class ImageSearchResultImplTestCase extends TestCase {
 
 	public void testImageSearchResultImpl() {
-		NBIANode node = new NBIANode(true, "foo1", "foo2");
-
 		ImageSearchResultImpl imageSearchResultImpl = new ImageSearchResultImpl();
 		imageSearchResultImpl.setId(1);
 		imageSearchResultImpl.setInstanceNumber(null);
@@ -23,7 +21,6 @@ public class ImageSearchResultImplTestCase extends TestCase {
 		imageSearchResultImpl.setSeriesInstanceUid("series1");
 		imageSearchResultImpl.setSopInstanceUid("sop1");
 		imageSearchResultImpl.setThumbnailURL("thumb1");
-		imageSearchResultImpl.associateLocation(node);
 		imageSearchResultImpl.setSize(new Long(4));
 		
 		assertTrue(imageSearchResultImpl.getId()==1);
@@ -33,8 +30,6 @@ public class ImageSearchResultImplTestCase extends TestCase {
 		assertTrue(imageSearchResultImpl.getSeriesInstanceUid().equals("series1"));
 		assertTrue(imageSearchResultImpl.getSopInstanceUid().equals("sop1"));
 		assertTrue(imageSearchResultImpl.getThumbnailURL().equals("thumb1"));
-		assertTrue(imageSearchResultImpl.associatedLocation().equals(node));	
-
 	}
 	
 	public void testImageSearchResultImplSort() {

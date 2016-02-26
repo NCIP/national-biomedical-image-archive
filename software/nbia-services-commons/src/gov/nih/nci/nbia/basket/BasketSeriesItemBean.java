@@ -359,14 +359,6 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
 		return seriesSearchResult;
 	}
 
-	public String getLocationDisplayName() {
-		return locationDisplayName;
-	}
-
-	public void setLocationDisplayName(String locationDisplayName) {
-		this.locationDisplayName = locationDisplayName;
-	}
-
 	////////////////////////////////////////PRIVATE////////////////////////////////////
 
     // Data fields
@@ -382,7 +374,6 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
     private Long annotationsSize = 0L;
     private String gridLocation;
 
-    private String locationDisplayName;
     private String patientpk;
 
     // Used by the UI to indicate if this has been selected for deletion

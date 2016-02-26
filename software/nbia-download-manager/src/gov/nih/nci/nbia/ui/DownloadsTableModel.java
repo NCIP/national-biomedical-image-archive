@@ -40,7 +40,6 @@ public class DownloadsTableModel extends AbstractTableModel
 	
 //	These are the names for the table's columns.
 	private static final String[] columnNames = {
-		"Location",
 		"Collection",
 		"Patient ID", 
 		"Study Instance UID", 
@@ -52,7 +51,6 @@ public class DownloadsTableModel extends AbstractTableModel
 
 //	These are the classes for each column's values.
 	private static final Class[] columnClasses = {
-		String.class,
 		String.class,
 		String.class,
 		String.class,
@@ -114,8 +112,6 @@ public class DownloadsTableModel extends AbstractTableModel
 	public Object getValueAt(int row, int col) {
 		AbstractSeriesDownloader download = downloadList.get(row);
 		switch (col) {
-		    case LOCATION_COLUMN:
-		    	return download.getNode().getDisplayName();
 			case COLLECTION_COLUMN: 
 				return download.getCollection();
 			case PATIENT_ID_COLUMN: 

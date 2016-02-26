@@ -33,7 +33,6 @@ public class ImageSearchResultExImplTestCase extends TestCase {
 		isr.setSize(5L);
 		isr.setSopInstanceUid("6");
 		isr.setThumbnailURL("http://foo");
-		isr.associateLocation(new NBIANode(true, "disp1", "foo2"));
 		
 		ImageSearchResultExImpl out = new ImageSearchResultExImpl(isr);
 		assertEquals(out.getId(), isr.getId());
@@ -43,7 +42,6 @@ public class ImageSearchResultExImplTestCase extends TestCase {
 		assertEquals(out.getSize(), isr.getSize());
 		assertEquals(out.getSopInstanceUid(), isr.getSopInstanceUid());
 		assertEquals(out.getThumbnailURL(), isr.getThumbnailURL());
-		assertEquals(out.associatedLocation(), isr.associatedLocation());
 	}
 	
 

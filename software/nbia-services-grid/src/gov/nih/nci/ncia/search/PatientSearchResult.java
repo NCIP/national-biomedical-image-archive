@@ -87,19 +87,4 @@ public interface PatientSearchResult extends Comparable<PatientSearchResult> {
      * Returns a list of all series IDs for all studies of this patient.
      */
     public Set<Integer> computeListOfSeriesIds();
-    
-    /**
-     * The node that this patient was found on.
-     * 
-	 * <p>This is intentionally not a property to avoid serialization.
-     */
-	public NBIANode associatedLocation();
-	
-	/**
-	 * Associate a node with this result.  This should only be called once
-	 * by a result generator.
-	 * 
-	 * <p>This is intentionally not a property to avoid serialization.
-	 */
-	public void associateLocation(NBIANode nbiaNode);
 }

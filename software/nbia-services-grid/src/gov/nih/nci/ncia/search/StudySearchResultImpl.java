@@ -146,18 +146,11 @@ public class StudySearchResultImpl implements StudySearchResult {
 		this.offSetDesc = offSetDesc;
 	}
 	
-    /**
-     * {@inheritDoc}
-     */
-	public NBIANode associatedLocation() {
-		return location;
-	}
 	public String getLink(){
 		return APIURLHolder.getUrl()+"/oviyam2/oviyam?serverName="+APIURLHolder.getUrl()+
 		"/nbia-api/services/o&studyUID="+studyInstanceUid+"&oviyamId="+APIURLHolder.addUser(user)+
 		"&wadoUrl="+APIURLHolder.getWadoUrl();
 	}
-	
 	
     public void setLink(String link) {
 		//this.link = link;
@@ -171,20 +164,7 @@ public class StudySearchResultImpl implements StudySearchResult {
 		this.user = user;
 	}
 
-	/**
-     * {@inheritDoc}
-     */	
-	public void associateLocation(NBIANode location) {
-		this.location = location;
-		
-		if(seriesList!=null) {
-			for(SeriesSearchResult result : seriesList) {
-				result.associateLocation(location);
-			}
-		}
-	}
-
-	///////////////////////////////////////PRIVATE/////////////////////////////////////////
+/////////////////////////////////////PRIVATE/////////////////////////////////////////
 	
     private String studyInstanceUid;
     private Date date;
@@ -194,6 +174,5 @@ public class StudySearchResultImpl implements StudySearchResult {
     private String link=null;
     // A filtered list of series that belong to this study
     private SeriesSearchResult[] seriesList;	
-    private NBIANode location;
 	private String user;
 }

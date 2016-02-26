@@ -56,9 +56,8 @@ public class DynamicJNLPGenerator {
                 Integer numberImages = seriesItem.getTotalImagesInSeries();
                 Long imagesSize = seriesItem.getTotalSizeForAllImagesInSeries();
                 Long annoSize = seriesItem.getAnnotationsSize();
-                String url = seriesItem.getSeriesSearchResult().associatedLocation().getURL();
-                String displayName = seriesItem.getSeriesSearchResult().associatedLocation().getDisplayName();
-                boolean local = seriesItem.getSeriesSearchResult().associatedLocation().isLocal();
+                String url = "url";
+                String displayName = "displayName";
 
                 String argument = "" +
                                   collection + "|" +
@@ -71,7 +70,7 @@ public class DynamicJNLPGenerator {
                                   annoSize + "|" +
                                   url + "|" +
                                   displayName+ "|" +
-                                  local;
+                                  true;
                 seriesDownloadData.add(argument);
             }
            File dataFile = new File(System.getProperty("java.io.tmpdir"), "jnlp-data"+currentTimeMillis+".txt");

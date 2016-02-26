@@ -18,8 +18,6 @@ import junit.framework.TestCase;
 public class StudySearchResultImplTestCase extends TestCase {
 
 	public void testStudySearchResultImpl() {
-		NBIANode node = new NBIANode(true, "foo1", "foo2");
-
 		SeriesSearchResult seriesSearchResultImpl0 = new SeriesSearchResult();
 		SeriesSearchResult seriesSearchResultImpl1 = new SeriesSearchResult();
 		SeriesSearchResult seriesSearchResultImpl2 = new SeriesSearchResult();
@@ -41,10 +39,7 @@ public class StudySearchResultImplTestCase extends TestCase {
 		notherSeries.setId(4);
 		
 		studySearchResultImpl.setSeriesList(1, notherSeries);
-		
-		studySearchResultImpl.associateLocation(node);
 
-		
 		assertTrue(studySearchResultImpl.getId()==1);
 		assertTrue(studySearchResultImpl.getDate().getYear()==82);
 		assertTrue(studySearchResultImpl.getDescription().equals("d1"));
@@ -52,11 +47,6 @@ public class StudySearchResultImplTestCase extends TestCase {
 		assertTrue(studySearchResultImpl.getStudyInstanceUid().equals("suid1"));
 		assertTrue(studySearchResultImpl.getSeriesList().length==3);
 		assertTrue(studySearchResultImpl.getSeriesList(1).getId()==4);		
-		assertTrue(studySearchResultImpl.associatedLocation().equals(node));
-		
-		for(SeriesSearchResult series : studySearchResultImpl.getSeriesList()) {
-			assertTrue(series.associatedLocation().equals(node));
-		}
 	}
 	
 	public void testStudySearchResultImplSort() {
@@ -90,14 +80,4 @@ public class StudySearchResultImplTestCase extends TestCase {
 		assertTrue(list.get(3).getDate().getYear()==28);
 		assertTrue(list.get(4).getDate().getYear()==101);
 	}
-
-	
-	public void testStudySearchResultImplWithNoSeries() {
-		NBIANode node = new NBIANode(true, "foo1", "foo2");
-
-		StudySearchResultImpl studySearchResultImpl = new StudySearchResultImpl();
-		studySearchResultImpl.associateLocation(node);
-	
-		assertTrue(studySearchResultImpl.associatedLocation().equals(node));	
-	}	
 }

@@ -328,7 +328,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setSeriesId(imageDTO.getSeriesPkId());
 		result.setInstanceNumber(imageDTO.getInstanceNumber());
 		result.setSize(imageDTO.getSize());
-		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
 		return result;
 	}
@@ -342,7 +341,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setStudyInstanceUid(imageDTO.getStudyInstanceUid());
 		result.setInstanceNumber(imageDTO.getInstanceNumber());
 		result.setSize(imageDTO.getSize());
-		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
 		NameValuesPairs nvp = new NameValuesPairs();
 		nvp.setName("USFrameNum");
@@ -358,7 +356,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setDate(studyDTO.getDate());
 		result.setDescription(studyDTO.getDescription());
 
-		result.associateLocation(LocalNode.getLocalNode());
 		List<SeriesSearchResult> newSeriesList = new ArrayList<SeriesSearchResult>();
 		for(SeriesDTO seriesDto : studyDTO.getSeriesList()) {
 			newSeriesList.add(SeriesDTOConverter.convert(seriesDto));

@@ -140,21 +140,6 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
 		this.size = size;
 	}
 
-	/**
-     * {@inheritDoc}
-     */
-	public NBIANode associatedLocation() {
-		return location;
-	}
-
-
-    /**
-     * {@inheritDoc}
-     */
-	public void associateLocation(NBIANode location) {
-		this.location = location;
-	}
-
     /**
      * {@inheritDoc}
      */
@@ -188,6 +173,5 @@ public class ImageSearchResultImpl implements ImageSearchResult  {
     protected String seriesInstanceUid;
     protected String studyInstanceUid;
     protected Long size;
-    protected NBIANode location;
     protected String thumbnailURL;
 }

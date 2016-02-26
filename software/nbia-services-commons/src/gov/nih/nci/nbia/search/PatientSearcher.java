@@ -122,9 +122,6 @@ public class PatientSearcher {
                 patientDTO.setTotalNumberOfSeries(cachedPatientData.getSeriesNumber());
                 patientDTO.setSubjectId(cachedPatientData.getPatientId());
                 patientDTO.setProject(cachedPatientData.getProject());
-
-                patientDTO.associateLocation(LocalNode.getLocalNode());
-
                 patients.put(patientId, patientDTO);
             }
         }

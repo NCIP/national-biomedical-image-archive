@@ -69,13 +69,11 @@ import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 import gov.nih.nci.nbia.dao.ImageDAO;
 import gov.nih.nci.nbia.dto.EquipmentDTO;
 import gov.nih.nci.nbia.search.EquipmentUtil;
-import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.Ultrasound_Util;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.Manufacturer;
-import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -102,29 +100,6 @@ public class LookupManagerImpl implements LookupManager {
     public LookupManagerImpl(Collection<String> authorizedCollections){
     	init(authorizedCollections);    	
     }
-
-    /**
-     * {@inheritDoc}
-     * 
-     * <p>This implementation only returns one entry which is the local node.
-     */
-    public Map<NBIANode, AvailableSearchTerms> getSearchableNodes() {
-    	Map<NBIANode, AvailableSearchTerms> map =  new LinkedHashMap<NBIANode, AvailableSearchTerms>();
-    	map.put(LocalNode.getLocalNode(), getAvailableSearchTerms());
-    	return map;
-    }
-    
-    /**
-     * {@inheritDoc}
-     * 
-     * <p>This implementation only returns one entry which is the local node.
-     */
-    public Map<NBIANode, UsAvailableSearchTerms> getSearchableNodesForUs() {
-    	Map<NBIANode, UsAvailableSearchTerms> map =  new LinkedHashMap<NBIANode, UsAvailableSearchTerms>();
-    	map.put(LocalNode.getLocalNode(), getUsAvailableSearchTerms());
-    	return map;
-    }    
-
 
 	/**
 	 * {@inheritDoc}

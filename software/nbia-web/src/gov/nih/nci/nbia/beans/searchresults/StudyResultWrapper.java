@@ -33,14 +33,6 @@ public class StudyResultWrapper {
 		}
 	}
 	
-	public String getLocation() {
-		return study.associatedLocation().getDisplayName();
-	}
-	
-	public boolean isLocal() {
-		return study.associatedLocation().isLocal();
-	}
-	
 	public String getDateString() {
 		Date date = study.getDate();
 	    if (date == null) {

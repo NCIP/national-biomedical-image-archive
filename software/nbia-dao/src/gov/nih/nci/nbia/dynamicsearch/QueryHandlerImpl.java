@@ -16,7 +16,6 @@ import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaForAuthorizedSiteData;
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
-import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.xmlobject.Element;
 import gov.nih.nci.ncia.search.PatientSearchResult;
@@ -538,7 +537,6 @@ public class QueryHandlerImpl extends AbstractDAO
 		pDto.setProject((String)row[3]);
 		pDto.setSubjectId((String)row[4]);
 		pDto.addSeriesForStudy((Integer)row[1], (Integer)row[2]);
-		pDto.associateLocation(LocalNode.getLocalNode());
 		return pDto;
 	}
 

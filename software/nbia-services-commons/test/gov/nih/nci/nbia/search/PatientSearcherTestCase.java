@@ -34,11 +34,9 @@ import org.powermock.core.classloader.annotations.SuppressStaticInitializationFo
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@SuppressStaticInitializationFor({"gov.nih.nci.nbia.search.LocalNode"})
 @PrepareForTest({PatientSearcher.class,  
                  SpringApplicationContext.class,
                  ApplicationFactory.class,
-                 LocalNode.class,
                  DICOMQueryHandler.class}) 
 public class PatientSearcherTestCase {
 

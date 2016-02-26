@@ -10,7 +10,6 @@ package gov.nih.nci.ncia.search;
 
 import org.apache.log4j.Logger;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Represents a series search result (drill down from a patient search result)
@@ -239,28 +238,7 @@ public class SeriesSearchResult implements Comparable<SeriesSearchResult>,
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
-    /**
-     * The node that this series was found on.
-     * 
-	 * <p>This is intentionally not a property to avoid serialization.
-     */
-	public NBIANode associatedLocation() {
-		return location;
-	}
 
-	
-	/**
-	 * Associate a node with this result.  This should only be called once
-	 * by a result generator.
-	 * 
-	 * <p>This is intentionally not a property to avoid serialization.
-	 */
-	public void associateLocation(NBIANode location) {
-		this.location = location;
-	}    
-    
     ////////////////////////////////////PRIVATE//////////////////////////////////////
     private String seriesNumber;
     private String seriesUID;
@@ -277,7 +255,6 @@ public class SeriesSearchResult implements Comparable<SeriesSearchResult>,
     private String project;
     private String description;
     private static Logger logger = Logger.getLogger(SeriesSearchResult.class);
-    private NBIANode location;
     private String studyDescription;
     private String studyDate;
     private String maxFrameCount;

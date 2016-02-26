@@ -62,10 +62,7 @@ public class ViewSeriesPopulatorMgBean {
 		if (seriesItems != null) {
 			for (BasketSeriesItemBean item : seriesItems) {
 				if (item.getSeriesId() != null
-						&& item.getSeriesId().equalsIgnoreCase(seriesId)
-						&& item.getLocationDisplayName() != null
-						&& item.getLocationDisplayName().equalsIgnoreCase(
-								location)) {
+						&& item.getSeriesId().equalsIgnoreCase(seriesId)) {
 					seriesItem = item.getSeriesSearchResult();
 					break;
 				}
@@ -75,7 +72,7 @@ public class ViewSeriesPopulatorMgBean {
 		}
 		if (seriesItem != null) {
 			System.out.println("leaving getSeries info "
-					+ seriesItem.associatedLocation().getDisplayName());
+					+ seriesItem.getSeriesInstanceUid());
 		} else {
 			System.out.println("seriesItem is NULLL");
 		}

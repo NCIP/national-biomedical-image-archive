@@ -56,7 +56,7 @@ public class ImageResultWrapper {
     }  
 	
     public String getBasketKey() {
-    	return imageSearchResultEx.getSeriesId()+"||"+imageSearchResultEx.associatedLocation().getURL();
+    	return imageSearchResultEx.getSeriesId().toString();
     }
 
     public String getLink()

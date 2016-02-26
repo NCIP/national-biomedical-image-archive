@@ -25,7 +25,6 @@ public class ImageSearchResultExImpl extends ImageSearchResultImpl
 		this.setSopInstanceUid(isr.getSopInstanceUid());
 		this.setThumbnailURL(isr.getThumbnailURL());
 		this.setStudyInstanceUid(isr.getStudyInstanceUid());
-		this.associateLocation(isr.associatedLocation());
 		this.nvPair = null;
 	}
 	

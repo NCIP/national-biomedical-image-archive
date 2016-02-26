@@ -34,8 +34,5 @@ public class SeriesResultWrapper {
 	
 	private boolean checked;
 	
-	private SeriesSearchResult series;
-	public String getLocationDisplayName() {
-		return series.associatedLocation().getDisplayName();
-	}			
+	private SeriesSearchResult series;	
 }

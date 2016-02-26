@@ -8,7 +8,6 @@
 
 package gov.nih.nci.nbia.basket;
 
-import gov.nih.nci.ncia.search.NBIANode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class BasketTestCase extends TestCase {
 		
 		SeriesSearchResult result = new SeriesSearchResult();
 		result.setAnnotationsSize(100L);
-		result.associateLocation(new NBIANode(true, "foo", "foo"));
 		seriesItems.add(result);
 		
 		return seriesItems;

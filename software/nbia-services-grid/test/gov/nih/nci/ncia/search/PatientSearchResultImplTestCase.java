@@ -18,21 +18,16 @@ import junit.framework.TestCase;
 public class PatientSearchResultImplTestCase extends TestCase {
 
 	public void testSetters() {
-		NBIANode node = new NBIANode(true, "foo1", "foo2");
-
 		PatientSearchResultImpl p = new PatientSearchResultImpl();
 		p.setProject("p1");
 		p.setId(2);
 		p.setTotalNumberOfSeries(44);
 		p.setTotalNumberOfStudies(66);
-		p.associateLocation(node);
 		
 		assertTrue(p.getProject().equals("p1"));
 		assertTrue(p.getId()==2);
 		assertTrue(p.getTotalNumberOfSeries()==44);
 		assertTrue(p.getTotalNumberOfStudies()==66);
-		assertTrue(p.associatedLocation().equals(node));
-
 	}
 	
 	

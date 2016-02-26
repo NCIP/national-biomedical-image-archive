@@ -77,20 +77,4 @@ public interface ImageSearchResult extends Comparable<ImageSearchResult>  {
      * The size of the DICOM image in BYTES.
      */
 	public Long getSize();
-	
-    /**
-     * The node that this image was found on.
-     * 
-	 * <p>This is intentionally not a property to avoid serialization.
-     */
-	public NBIANode associatedLocation();
-	
-	
-	/**
-	 * Associate a node with this result.  This should only be called once
-	 * by a result generator.
-	 * 
-	 * <p>This is intentionally not a property to avoid serialization.
-	 */
-	public void associateLocation(NBIANode nbiaNode);  	
 }

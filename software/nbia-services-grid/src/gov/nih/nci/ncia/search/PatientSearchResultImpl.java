@@ -223,20 +223,6 @@ public class PatientSearchResultImpl implements PatientSearchResult {
         return this.getSubjectId().compareTo(o.getSubjectId());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-	public NBIANode associatedLocation() {
-		return location;
-	}
-
-	
-    /**
-     * {@inheritDoc}
-     */	
-	public void associateLocation(NBIANode location) {
-		this.location = location;
-	}
 
 	///////////////////////////////////////////PRIVATE//////////////////////////////////////
 
@@ -247,5 +233,4 @@ public class PatientSearchResultImpl implements PatientSearchResult {
 
     private Integer totalNumberOfStudies;
     private Integer totalNumberOfSeries;
-    private NBIANode location;
 }

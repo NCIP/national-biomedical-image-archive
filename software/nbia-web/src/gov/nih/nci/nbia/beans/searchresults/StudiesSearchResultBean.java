@@ -139,7 +139,7 @@ public class StudiesSearchResultBean {
 	public String removeSeriesFromBasket() {
 		try {
 			SeriesSearchResult s = getSelectedSeries(toAdd);
-			String toDelete = s.getId() + "||" + s.associatedLocation().getURL();
+			String toDelete = s.getId().toString();
 			BeanManager.getBasketBean().getBasket().removeSelectedSeries(toDelete);
 			setSeriesCheckBox(false);		
 		} catch(Exception ex) {
@@ -264,8 +264,7 @@ public class StudiesSearchResultBean {
 		BasketBean dataBasket = BeanManager.getBasketBean();
 		long size=0;
 		for(SeriesSearchResult seriesDTO: seriesDTOs){
-    		if(!dataBasket.getBasket().isSeriesInBasket(seriesDTO.getId(),  
-    				                                    seriesDTO.associatedLocation().getURL())){
+    		if(!dataBasket.getBasket().isSeriesInBasket(seriesDTO.getId())){
     			size +=seriesDTO.computeExactSize();
 			}
     	}

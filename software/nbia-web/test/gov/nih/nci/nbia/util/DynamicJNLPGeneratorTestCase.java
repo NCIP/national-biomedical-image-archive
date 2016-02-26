@@ -10,7 +10,6 @@ package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.NBIANode;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +81,6 @@ public class DynamicJNLPGeneratorTestCase extends TestCase {
 	}
 
 	private static BasketSeriesItemBean createTestItem(int index) {
-		NBIANode node = new NBIANode(true, "display", "http://fakeurl");
     	SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
     	seriesSearchResult.associateLocation(node);
     	seriesSearchResult.setProject("project"+index);

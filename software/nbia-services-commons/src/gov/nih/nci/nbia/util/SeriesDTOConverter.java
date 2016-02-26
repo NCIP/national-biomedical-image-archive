@@ -9,7 +9,6 @@
 package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.dto.SeriesDTO;
-import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.ncia.search.SeriesSearchResult;
 
 import java.util.ArrayList;
@@ -36,8 +35,6 @@ public class SeriesDTOConverter {
     		result.setAnnotationsSize(dto.getAnnotationsSize());
     		result.setDescription(dto.getDescription());
     		result.setTotalSizeForAllImagesInSeries(dto.getTotalSizeForAllImagesInSeries());
-
-    		result.associateLocation(LocalNode.getLocalNode());
     		result.setMaxFrameCount(dto.getMaxFrameCount());
     		result.setPatientpk(dto.getPatientPkId());
     		results.add(result);

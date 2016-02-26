@@ -121,17 +121,6 @@ public class NCIAConfig {
      }
 
     /**
-     *  The Name of the Local Node
-     *  Property: local_node_name
-     *  File: ncia.properties
-     */
-    public static String getLocalNodeName() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.grid.local.node.name");
-        checkProperty("gov.nih.nci.ncia.grid.local.node.name", propertyValue);
-        return propertyValue;
-    }
-
-    /**
      *  Number of queries to display for a user on the query history page
      *  Property: numberOfQueriesOnHistoryPage
      *  File: database.properties
@@ -462,34 +451,6 @@ public class NCIAConfig {
         checkProperty("usergroup.list.name", propertyValue);
         return propertyValue;
     }
-
-
-
-    public static String getIndexServerURL() {
-        String propertyValue = System.getProperty("grid.index.url");
-        checkProperty("grid.index.url", propertyValue);
-        return propertyValue;
-    }
-
-    public static String getLocalGridURI() {
-        String propertyValue = System.getProperty("local.grid.uri");
-        checkProperty("local.grid.uri", propertyValue);
-        return propertyValue;
-    }
-
-    public static String getDiscoverRemoteNodes() {
-        String propertyValue = System.getProperty("discover.remote.nodes");
-        checkProperty("discover.remote.nodes", propertyValue);
-        return propertyValue;
-    }
-
-    public static String getRemoteNodeCaGridVersion() {
-        String propertyValue = System.getProperty("remote.node.caGrid.version");
-        checkProperty("remote.node.caGrid.version", propertyValue);
-        return propertyValue;
-    }
-
-
 
     public static int getCollectionDescriptionMaxlength() {
     	return getIntProperty("collection.description.maxlength");

@@ -62,8 +62,8 @@ public class Basket {
     /**
      * Determines if the series is in the basket.
      */
-    public boolean isSeriesInBasket(Integer seriesPkId, String location) {
-        return (seriesItems.get(seriesPkId + DELIMETER + location) != null);
+    public boolean isSeriesInBasket(Integer seriesPkId) {
+        return (seriesItems.get(seriesPkId) != null);
     }
 
 
@@ -94,9 +94,7 @@ public class Basket {
 
         Integer seriesId = dto.getSeriesId();
         // Find the series
-        BasketSeriesItemBean seriesForImage = seriesItems.get(seriesId +
-	                                                          DELIMETER +
-	                                                          dto.associatedLocation().getURL());
+        BasketSeriesItemBean seriesForImage = seriesItems.get(seriesId);
 
         // Check to see if the series is in the basket. If not, create it
         if (seriesForImage == null) {
@@ -278,11 +276,9 @@ System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
 
 		returnBean.setAnnotationsFlag(seriesDTO.isAnnotated());
 		returnBean.setAnnotationsSize(seriesDTO.getAnnotationsSize());
-		returnBean.setGridLocation(seriesDTO.associatedLocation().getURL());
 		returnBean.setPatientId(seriesDTO.getPatientId());
 		returnBean.setProject(seriesDTO.getProject());
 		returnBean.setSeriesId(seriesDTO.getSeriesInstanceUid());
-		returnBean.setLocationDisplayName(seriesDTO.associatedLocation().getDisplayName());
 		returnBean.setSeriesPkId(seriesDTO.getId());
 		returnBean.setStudyId(seriesDTO.getStudyInstanceUid());
 		returnBean.setStudyPkId(seriesDTO.getStudyId());

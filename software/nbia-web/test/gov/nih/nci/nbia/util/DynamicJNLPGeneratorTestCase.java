@@ -89,7 +89,6 @@ public class DynamicJNLPGeneratorTestCase extends TestCase {
     	seriesSearchResult.setSeriesInstanceUid("series"+index);
 
 		BasketSeriesItemBean item = new BasketSeriesItemBean(seriesSearchResult);
-		item.setGridLocation(System.getProperty("gov.nih.nci.ncia.grid.local.node.name"));
 		item.setProject("project"+index);
 		item.setPatientId("patient"+index);
 		item.setStudyId("study"+index);

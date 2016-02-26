@@ -121,9 +121,7 @@ public class Basket {
         // Build list of IDs to remove. We can't remove them yet
         // because we're iterating through the list
         for (BasketSeriesItemBean item : seriesItems.values()) {
-           seriesIdsToRemove.add(item.getSeriesSearchResult().getId() +
-                		              DELIMETER +
-                		              item.getGridLocation());
+           seriesIdsToRemove.add(item.getSeriesSearchResult().getId().toString());
         }
 
         // Actually remove the items
@@ -145,9 +143,7 @@ public class Basket {
         // because we're iterating through the list
         for (BasketSeriesItemBean item : seriesItems.values()) {
             if (item.isSelected()) {
-                seriesIdsToRemove.add(item.getSeriesSearchResult().getId() +
-                		              DELIMETER +
-                		              item.getGridLocation());
+                seriesIdsToRemove.add(item.getSeriesSearchResult().getId().toString());
             }
         }
 
@@ -244,23 +240,14 @@ public class Basket {
     private void addResults(Collection<BasketSeriesItemBean> results) {
         // Loop through each result row
         for (BasketSeriesItemBean result : results) {
-        	System.out.println("$$$ add results="+result.getSeriesId() + " "+result.getGridLocation());
+        	System.out.println("$$$ add results="+result.getSeriesId().toString());
             BasketSeriesItemBean alreadyExisting =
-            	seriesItems.get(result.getSeriesSearchResult().getId() +
-            			        DELIMETER +
-            			        result.getGridLocation());
-System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
-            			        DELIMETER +
-            			        result.getGridLocation());
+            	seriesItems.get(result.getSeriesSearchResult().getId().toString());
+System.out.println("!!!form get= "+result.getSeriesSearchResult().getId().toString());
             // If the series does not exist, add it
             if (alreadyExisting == null) {
-                seriesItems.put(result.getSeriesSearchResult().getId() +
-                		        DELIMETER +
-                		        result.getGridLocation(),
-                		        result);
-                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId() +
-    			        DELIMETER +
-    			        result.getGridLocation());
+                seriesItems.put(result.getSeriesSearchResult().getId().toString(), result);
+                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId().toString());
             }
             else {
             	System.out.println("&&&&&&&&&&alreadyExisting="+alreadyExisting.getSeriesId());

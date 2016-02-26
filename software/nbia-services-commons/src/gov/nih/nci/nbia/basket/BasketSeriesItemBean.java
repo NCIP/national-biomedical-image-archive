@@ -346,15 +346,6 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
         }
     }
 
-
-    public String getGridLocation() {
-        return gridLocation;
-    }
-
-    public void setGridLocation(String gridLocation) {
-        this.gridLocation = gridLocation;
-    }
-
 	public SeriesSearchResult getSeriesSearchResult() {
 		return seriesSearchResult;
 	}
@@ -372,8 +363,6 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
     private String project;
     private boolean annotationsFlag;
     private Long annotationsSize = 0L;
-    private String gridLocation;
-
     private String patientpk;
 
     // Used by the UI to indicate if this has been selected for deletion

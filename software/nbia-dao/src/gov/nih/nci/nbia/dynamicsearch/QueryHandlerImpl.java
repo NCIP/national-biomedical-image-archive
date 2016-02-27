@@ -18,8 +18,8 @@ import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.xmlobject.Element;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -578,6 +578,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		sb.deleteCharAt(sb.length()-1); //delete last comma
 		return sb.toString();
 	}
+
 	public List<PatientSearchResult> getPatients() {
 		return patients;
 	}

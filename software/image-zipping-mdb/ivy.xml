@@ -55,11 +55,6 @@ L-->
                 rev="T32"
                 conf="runtime->master"/>
 
-    <dependency org="ncicb"
-                name="nbia-services-grid"
-                rev="latest.integration"
-                conf="runtime->master"/>
-
     <dependency org="dcm4che"
                 name="dcm4che"
                 rev="1.4.23"

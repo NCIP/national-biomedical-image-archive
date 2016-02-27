@@ -49,11 +49,6 @@ L-->
                 name="nbia-dao"
                 rev="latest.integration"
                 conf="runtime"/>
-
-    <dependency org="ncicb"
-    		name="nbia-services-grid"
-                rev="latest.integration"
-                conf="runtime->master"/>
                 
     <dependency org="org.jboss.spec.javax.ejb"
     		name="jboss-ejb-api_3.1_spec"

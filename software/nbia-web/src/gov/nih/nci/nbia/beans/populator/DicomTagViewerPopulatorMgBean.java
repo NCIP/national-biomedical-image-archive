@@ -13,8 +13,8 @@ import gov.nih.nci.nbia.beans.searchresults.ImageResultWrapper;
 import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
 import gov.nih.nci.nbia.dicomtags.DicomTagViewer;
 import gov.nih.nci.nbia.dicomtags.DicomTagViewerFactory;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.List;
 

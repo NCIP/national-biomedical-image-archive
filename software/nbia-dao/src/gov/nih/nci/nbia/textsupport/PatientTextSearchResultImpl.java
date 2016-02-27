@@ -1,6 +1,6 @@
 package gov.nih.nci.nbia.textsupport;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.textsupport.SolrFoundDocumentMetaData;
 public class PatientTextSearchResultImpl extends PatientSearchResultImpl implements PatientTextSearchResult{
 private String hit;

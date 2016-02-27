@@ -8,10 +8,11 @@
 
 package gov.nih.nci.nbia.textsupport;
 
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-
 import java.util.Collection;
 import java.util.List;
+
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+
 import java.io.Serializable;
 	/**
 	* Defines the characteristics of a patient who is the subject of one or more medical studies that produce medical images.	**/

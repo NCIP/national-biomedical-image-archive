@@ -36,8 +36,8 @@ import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.zip.ZipManager;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.io.File;
 import java.io.Serializable;

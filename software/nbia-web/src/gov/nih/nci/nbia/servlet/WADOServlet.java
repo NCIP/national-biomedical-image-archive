@@ -14,7 +14,7 @@ package gov.nih.nci.nbia.servlet;
 
 
 
-import gov.nih.nci.ncia.search.APIURLHolder;
+import gov.nih.nci.nbia.searchresult.APIURLHolder;
 
 import java.io.IOException;
 import java.io.PrintWriter;

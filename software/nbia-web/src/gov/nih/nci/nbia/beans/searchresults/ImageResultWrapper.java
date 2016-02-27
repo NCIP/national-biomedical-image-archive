@@ -14,10 +14,10 @@ import java.net.URLEncoder;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.util.UidDisplayUtil;
-import gov.nih.nci.ncia.search.APIURLHolder;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
+import gov.nih.nci.nbia.searchresult.APIURLHolder;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultExImpl;
 
 public class ImageResultWrapper {
 

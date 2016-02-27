@@ -71,9 +71,7 @@ import gov.nih.nci.nbia.dto.EquipmentDTO;
 import gov.nih.nci.nbia.search.EquipmentUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.Ultrasound_Util;
-import gov.nih.nci.ncia.search.AvailableSearchTerms;
-import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
-import gov.nih.nci.ncia.search.Manufacturer;
+import gov.nih.nci.nbia.searchresult.Manufacturer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -176,34 +174,6 @@ public class LookupManagerImpl implements LookupManager {
         return manufacturerModelSoftwareItems;
     }
     
-
-    
-    /**
-     * This wraps up the calls to getSearchCollection, getDICOMKernelType, etc.
-     * for convenience.
-     */
-	public AvailableSearchTerms getAvailableSearchTerms() {
-		AvailableSearchTerms availableSearchTerms = new AvailableSearchTerms();
-		availableSearchTerms.setAnatomicSites(toArray(anatomicList));
-//		availableSearchTerms.setUsMultiModalities(toArray(usMultiModalityList));	
-		availableSearchTerms.setCollections(toArray(collectionList));
-		availableSearchTerms.setConvolutionKernels(toArray(convolutionKernelList));
-		availableSearchTerms.setModalities(toArray(modalityList));
-	
-		Manufacturer[] manufacturers = EquipmentUtil.convertEquipment(manufacturerModelSoftwareItems);
-		availableSearchTerms.setEquipment(manufacturers);
-		
-		return availableSearchTerms;
-	}
-	
-	public UsAvailableSearchTerms getUsAvailableSearchTerms() {
-		UsAvailableSearchTerms usAvailableSearchTerms = new UsAvailableSearchTerms();
-		usAvailableSearchTerms.setUsMultiModalities(toArray(usMultiModalityList));	
-	
-		return usAvailableSearchTerms;
-	} 
-    
-
     ///////////////////////////////////////PRIVATE///////////////////////////////////////////
 
     private static Logger logger = Logger.getLogger(LookupManagerImpl.class);
@@ -278,16 +248,7 @@ public class LookupManagerImpl implements LookupManager {
     
     private void initUsMultiModalities() throws Exception {
     	usMultiModalityList = new ArrayList<String>();
-  /*  usMultiModalityList.add("2D Imaging");
-    	usMultiModalityList.add("M-Mode");
-    	usMultiModalityList.add("CW Doppler");
-    	usMultiModalityList.add("PW Doppler");
-    	usMultiModalityList.add("Color Doppler");
-    	usMultiModalityList.add("Color M-Mode");
-    	usMultiModalityList.add("3D Rendering");
-    	usMultiModalityList.add("Color Power Mode");
-    	usMultiModalityList.add("Tissue Characterization");
-  */  	
+	
     	ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
     	ArrayList<String> rawList = new ArrayList<String>(imageDAO.findAllImageType());  	      	
  
@@ -302,9 +263,7 @@ public class LookupManagerImpl implements LookupManager {
         			usMultiModalityList.add(mmlable);
         		}
         	}
-
     	}
-
     }
     
     private void initConvolutionKernels() throws Exception {

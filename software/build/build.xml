@@ -9,7 +9,7 @@ L-->
 <!--need to define GLOBUS_LOCATION -->
 <project name="nbia" default="build:all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 	<description>
-		This is the master build file for the NBIA project.  NBIA web application, NBIA grid service and CTP
+		This is the master build file for the NBIA project.  NBIA web application, NBIA REST API and CTP
 </description>
 	<property name="project.name" value="nbia"/>
 	<property name="nbia.build.file" value="build.xml"/>
@@ -27,13 +27,10 @@ L-->
 	<property name="dist.dir" location="${target.dir}/dist"/>
 	<property name="common.resources.dir" location="${common.dir}/resources"/>
 	<property name="nbia-dao.base.dir" value="${software.dir}/nbia-dao"/>
-	<property name="ncia-core-grid.base.dir" value="${software.dir}/ncia-core-grid-transfer"/>
-	<property name="nbia-grid.base.dir" value="${software.dir}/nbia-service"/>
 	<property name="nbia-ctp.base.dir" value="${software.dir}/nbia-ctp-working"/>
 	<property name="nbia-services-commons.base.dir" value="${software.dir}/nbia-services-commons"/>
 	<property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
 	<property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
-	<property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
 	<property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain"/>
 	<property name="nbia-util.base.dir" value="${software.dir}/nbia-util"/>
 	<property name="nbia-web.base.dir" value="${software.dir}/nbia-web"/>
@@ -77,7 +74,6 @@ L-->
 	<property name="nbia-ctp.build.target" value="all"/>
 	<property name="nbia-services-commons.build.target" value="run"/>
 	<property name="nbia-dao.build.target" value="run"/>
-	<property name="nbia-services-grid.build.target" value="run"/>
 	<property name="nbia-domain.build.target" value="all"/>
 	<property name="nbia-web.build.target" value="run"/>
 	<property name="nbia-api.build.target" value="run"/>
@@ -192,15 +188,8 @@ L-->
 		</ant>
 	</target>
 	
-	<target name="build:nbia-services-grid" depends="init">
-		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-services-grid.build.target}" dir="${nbia-services-grid.base.dir}">
-			<property name="project.name" value="${project.name}"/>
-		</ant>
-	</target>
-	
 	<target name="build:nbia-dao" depends="init,
                                                build:nbia-util,
-                                               build:nbia-services-grid,
                                                build:nbia-domain">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-dao.build.target}" dir="${nbia-dao.base.dir}">
 			<property name="database.driver" value="${database.driver}"/>
@@ -412,7 +401,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	
 	<target name="build:nbia-services-commons" depends="init,
                                                       build:nbia-util,
-                                                      build:nbia-services-grid,
                                                       build:nbia-dao">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-services-commons.build.target}" dir="${nbia-services-commons.base.dir}">
 			<property name="project.name" value="${project.name}"/>

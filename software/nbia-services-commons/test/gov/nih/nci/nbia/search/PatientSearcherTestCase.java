@@ -19,7 +19,7 @@ import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;

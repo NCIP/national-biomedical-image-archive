@@ -22,8 +22,6 @@
 */
 package gov.nih.nci.nbia.textsupport;
 
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -45,6 +43,9 @@ import org.dcm4che.dict.TagDictionary;
 import org.dcm4che.dict.Tags;
 import org.dcm4che.dict.VRs;
 import org.rsna.mircsite.util.FileObject;
+
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+
 import org.apache.commons.io.IOUtils;
 
 /**

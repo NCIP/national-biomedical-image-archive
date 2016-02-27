@@ -14,7 +14,7 @@ import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
 import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.List;
 

@@ -60,11 +60,6 @@ L-->
         <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
       </filesystem>
 
-      <filesystem name="nbia-services-grid-resolver" local="true">
-        <artifact pattern="${nbia.basedir}/target/dist/exploded/[module].[ext]" />
-        <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
-      </filesystem>
-
       <filesystem name="nbia-util-resolver" local="true">
         <artifact pattern="${nbia.basedir}/target/dist/exploded/[module].[ext]" />
         <ivy pattern="${nbia.basedir}/[module]/ivy.xml" />
@@ -73,11 +68,6 @@ L-->
       <filesystem name="nbia-services-commons-resolver" local="true">
         <artifact pattern="${nbia.basedir}/target/dist/exploded/nbia-services-commons/[module].[ext]" />
         <ivy pattern="${nbia.basedir}/nbia-services-commons/ivy.xml" />
-      </filesystem>
-
-      <filesystem name="ncia-core-grid-transfer-resolver" local="true">
-        <artifact pattern="${nbia.basedir}/ncia-core-grid-transfer/build/lib/[artifact].[ext]" />
-        <ivy pattern="${nbia.basedir}/ncia-core-grid-transfer/ivy.xml" />
       </filesystem>
 
       <filesystem name="nbia-remote-search-resolver" local="true">
@@ -104,10 +94,6 @@ L-->
    <!-- begin ncia specific stuff -->
    <modules>
      <module organisation="ncicb"
-             name="nbia-services-grid"
-             resolver="nbia-services-grid-resolver"/>
-
-     <module organisation="ncicb"
              name="nbia-util"
              resolver="nbia-util-resolver"/>
 
@@ -118,15 +104,6 @@ L-->
      <module organisation="ncicb"
              name="nbia-domain"
              resolver="nbia-domain-resolver"/>
-
-     <module organisation="ncicb"
-             name="ncia-core-grid-transfer"
-             resolver="ncia-core-grid-transfer-resolver"/>
-
-
-     <module organisation="ncicb"
-             name="nbia-remote-search"
-             resolver="nbia-remote-search-resolver"/>
 
      <module organisation="ncicb"
              name="nbia-download-manager"

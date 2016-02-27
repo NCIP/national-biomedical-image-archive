@@ -38,7 +38,7 @@ import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.util.ArrayList;
 import java.util.Calendar;

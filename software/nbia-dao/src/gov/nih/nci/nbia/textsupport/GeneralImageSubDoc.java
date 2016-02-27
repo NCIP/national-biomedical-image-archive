@@ -9,10 +9,10 @@
 package gov.nih.nci.nbia.textsupport;
 
 
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-
 import java.io.Serializable;
 import java.util.List;
+
+import gov.nih.nci.nbia.dto.DicomTagDTO;
 	/**
 	* An in vivo image of a human being.  In cases where imaging modalities produce multiple slices (e.g. CT or MR scans), this represents one slice.	**/
 public class GeneralImageSubDoc  implements Serializable

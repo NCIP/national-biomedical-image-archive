@@ -20,7 +20,6 @@ L-->
   <target name="eclipse-clean">
     <delete dir="${ncia-core-grid.base.dir}/bin"/>
     <delete dir="${nbia-services-commons.base.dir}/bin"/>
-    <delete dir="${nbia-services-grid.base.dir}/bin"/>
     <delete dir="${nbia-domain.base.dir}/bin"/>
     <delete dir="${nbia-web.base.dir}/bin"/>
     <delete dir="${nbia-download-manager.base.dir}/bin"/>
@@ -32,14 +31,10 @@ L-->
   </target>
 
   <target name="eclipse-patch">
-    <patch-eclipse-classpath project.name="ncia-core-grid-transfer"/>
     <patch-eclipse-classpath project.name="nbia-services-commons"/>
-    <patch-eclipse-classpath project.name="nbia-services-grid" confs="compile"/>
-
     <patch-eclipse-classpath project.name="nbia-web" confs="compile,test,test-selenium"/>
     <patch-eclipse-classpath project.name="nbia-download-manager"/>
     <patch-eclipse-classpath project.name="nbia-download"/>
-    <patch-eclipse-classpath project.name="nbia-remote-search"/>
     <patch-eclipse-classpath project.name="nbia-util" confs="compile"/>
     <patch-eclipse-classpath project.name="ncia-ctp"/>
   </target>

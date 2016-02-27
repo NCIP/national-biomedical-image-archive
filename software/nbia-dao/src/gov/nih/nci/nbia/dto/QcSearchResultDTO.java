@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
-import gov.nih.nci.ncia.search.APIURLHolder;
+import gov.nih.nci.nbia.searchresult.APIURLHolder;
 
 public class QcSearchResultDTO {
 	private String collection;
@@ -26,7 +26,6 @@ public class QcSearchResultDTO {
 	private boolean selected;
 	private String modality;
 	private String seriesDescription;
-	private String link;
 	private String user;
 	public QcSearchResultDTO(String collection, 
 							 String site,

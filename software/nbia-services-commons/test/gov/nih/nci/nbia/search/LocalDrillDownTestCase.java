@@ -23,12 +23,12 @@ import gov.nih.nci.nbia.dto.StudyDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.PublicData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.NameValuesPairs;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.NameValuesPairs;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

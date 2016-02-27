@@ -9,8 +9,8 @@
 package gov.nih.nci.nbia.search;
 
 import junit.framework.TestCase;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
 
 public class PatientSearchResultsTestCase extends TestCase {
 

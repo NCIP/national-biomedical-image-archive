@@ -14,7 +14,7 @@ import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.util.SeriesDTOConverter;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;

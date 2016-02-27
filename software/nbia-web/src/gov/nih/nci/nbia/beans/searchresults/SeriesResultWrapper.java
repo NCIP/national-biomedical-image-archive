@@ -8,7 +8,7 @@
 
 package gov.nih.nci.nbia.beans.searchresults;
 
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 public class SeriesResultWrapper {
 	public SeriesResultWrapper(SeriesSearchResult series) {

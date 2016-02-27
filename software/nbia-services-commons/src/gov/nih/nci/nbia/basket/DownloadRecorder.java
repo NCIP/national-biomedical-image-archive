@@ -10,7 +10,7 @@ package gov.nih.nci.nbia.basket;
 
 import gov.nih.nci.nbia.dao.DownloadDataDAO;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.Map;
 

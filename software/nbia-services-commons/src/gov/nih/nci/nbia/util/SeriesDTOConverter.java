@@ -9,7 +9,7 @@
 package gov.nih.nci.nbia.util;
 
 import gov.nih.nci.nbia.dto.SeriesDTO;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;

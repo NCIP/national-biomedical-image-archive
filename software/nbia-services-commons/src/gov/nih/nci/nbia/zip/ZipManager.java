@@ -12,7 +12,7 @@ import gov.nih.nci.nbia.dto.AnnotationFileDTO;
 import gov.nih.nci.nbia.dto.DicomFileDTO;
 import gov.nih.nci.nbia.dto.ImageFileDTO;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -18,9 +18,9 @@ import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SlideShowUtil;
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.text.DecimalFormat;
 import java.util.Collections;

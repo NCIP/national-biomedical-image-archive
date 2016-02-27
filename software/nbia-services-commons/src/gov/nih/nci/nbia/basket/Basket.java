@@ -214,9 +214,6 @@ public class Basket {
     }
 
     ///////////////////////////////////////////PRIVATE////////////////////////////////
-
-    private static final String DELIMETER = "||";
-
     private List<BasketChangeListener> listeners = new ArrayList<BasketChangeListener>();
 
     /**

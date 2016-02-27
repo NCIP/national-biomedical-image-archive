@@ -187,7 +187,6 @@ L-->
 				<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
 				<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
 				<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
-				<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
 				<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
 				<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
 				<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}"/>
@@ -396,7 +395,7 @@ L-->
 		<property name="validation.post.socket.list" value="${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}"/>
 	</target>
 	<target name="install:common:validation:pre-install" description="Runs pre-install validation checks bda-utils" depends="common:common:init">
-		<validate-pre-install-common ant.check.version="${ant.minimum.version}" java.check.version.major="${java.major.version}" java.check.version.minor="${java.minor.version}" property.exclude.pattern.list="tomcat.*,jboss.*,grid.*,ctp.*,ncia-core-grid.*,ncia-core-grid-unsecured.*,nbia-grid.*"/>
+		<validate-pre-install-common ant.check.version="${ant.minimum.version}" java.check.version.major="${java.major.version}" java.check.version.minor="${java.minor.version}" property.exclude.pattern.list="tomcat.*,jboss.*,ctp.*"/>
 	</target>
 	<target name="install:common:validation:post-install" description="Run post-install checks from bda-utils" depends="
     common:common:init">

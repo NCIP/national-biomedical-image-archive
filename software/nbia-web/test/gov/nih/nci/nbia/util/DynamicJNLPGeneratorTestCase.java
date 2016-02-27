@@ -23,8 +23,6 @@ import org.jdom.xpath.XPath;
 public class DynamicJNLPGeneratorTestCase extends TestCase {
 
 	public void testGenerate() throws Exception {
-		System.setProperty("gov.nih.nci.ncia.grid.local.node.name", "local");
-
 		BasketSeriesItemBean item1 = createTestItem(1);
 		BasketSeriesItemBean item2 = createTestItem(2);
 		BasketSeriesItemBean item3 = createTestItem(3);

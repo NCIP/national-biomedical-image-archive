@@ -271,7 +271,6 @@ L-->
     <filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
     <filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
     <filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
-    <filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
     <filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
     <filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
     <filter token="gov.nih.nci.ncia.jboss.public.url" value="${gov.nih.nci.ncia.jboss.public.url}"/>
@@ -283,9 +282,6 @@ L-->
     <filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}"/>
     <filter token="enable_classic_download" value="${enable_classic_download}"/>
     <filter token="registration.email.subject" value="${registration.email.subject}"/>
-    <filter token="grid.index.url" value="${grid.index.url}"/>
-    <filter token="local.grid.uri" value="${local.grid.uri}"/>
-    <filter token="discover.remote.nodes" value="${discover.remote.nodes}"/>
     <filter token="database.type" value="${database.type}"/>
     <filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
     <filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>

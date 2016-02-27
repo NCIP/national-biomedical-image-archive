@@ -53,10 +53,6 @@ if (outcome ==success) of /system-property=gov.nih.nci.ncia.ftp.location:read-re
 /system-property=gov.nih.nci.ncia.ftp.location:remove
 end-if
 
-if (outcome ==success) of /system-property=gov.nih.nci.ncia.grid.local.node.name:read-resource	
-/system-property=gov.nih.nci.ncia.grid.local.node.name:remove
-end-if
-
 if (outcome ==success) of /system-property=gov.nih.nci.ncia.ui.uid.display.length:read-resource	
 /system-property=gov.nih.nci.ncia.ui.uid.display.length:remove
 end-if
@@ -111,14 +107,6 @@ end-if
 
 if (outcome ==success) of /system-property=gov.nih.nci.ncia.workflow.updateinterval:read-resource	
 /system-property=gov.nih.nci.ncia.workflow.updateinterval:remove
-end-if
-
-if (outcome ==success) of /system-property=local.grid.uri:read-resource	
-/system-property=local.grid.uri:remove
-end-if
-
-if (outcome ==success) of /system-property=discover.remote.nodes:read-resource	
-/system-property=discover.remote.nodes:remove
 end-if
 
 if (outcome ==success) of /system-property=discover.period.in.hrs:read-resource	
@@ -228,10 +216,6 @@ if (outcome ==success) of /system-property=gov.nih.nci.ncia.download.no.retry:re
 /system-property=gov.nih.nci.ncia.download.no.retry:remove
 end-if
 
-if (outcome ==success) of /system-property=remote.node.caGrid.version:read-resource	
-/system-property=remote.node.caGrid.version:remove
-end-if
-
 if (outcome ==success) of /system-property=future.task.timeout.in.min:read-resource	
 /system-property=future.task.timeout.in.min:remove
 end-if
@@ -251,7 +235,6 @@ end-if
 /system-property=gov.nih.nci.ncia.jboss.mq.url:add(value=@gov.nih.nci.ncia.jboss.mq.url@)
 /system-property=gov.nih.nci.ncia.zip.location:add(value=@gov.nih.nci.ncia.zip.location@)
 /system-property=gov.nih.nci.ncia.ftp.location:add(value=@gov.nih.nci.ncia.ftp.location@)
-/system-property=gov.nih.nci.ncia.grid.local.node.name:add(value=@gov.nih.nci.ncia.grid.local.node.name@)
 /system-property=gov.nih.nci.ncia.ui.uid.display.length:add(value=@gov.nih.nci.ncia.ui.uid.display.length@)
 /system-property=gov.nih.nci.ncia.ftp.url:add(value=@gov.nih.nci.ncia.ftp.url@)
 /system-property=gov.nih.nci.ncia.admin.email:add(value=@gov.nih.nci.ncia.admin.email@)
@@ -264,7 +247,6 @@ end-if
 /system-property=gov.nih.nci.ncia.solr.home:add(value=@gov.nih.nci.ncia.solr.home@)
 /system-property=gov.nih.nci.ncia.solr.updateinterval:add(value=@gov.nih.nci.ncia.solr.updateinterval@)
 /system-property=gov.nih.nci.ncia.workflow.updateinterval:add(value=@gov.nih.nci.ncia.workflow.updateinterval@)
-/system-property=discover.remote.nodes:add(value=@discover.remote.nodes@)
 /system-property=protection_element_prefix:add(value=@protection_element_prefix@)
 /system-property=csm_application_name:add(value=@csm_application_name@)
 /system-property=database.type:add(value=@database.type@)
@@ -273,7 +255,6 @@ end-if
 /system-property=gov.nih.nci.ncia.download.no.retry:add(value=@gov.nih.nci.ncia.download.no.retry@)
 /system-property=gov.nih.nci.ncia.encrypt.key:add(value=@gov.nih.nci.ncia.encrypt.key@)
 /system-property=gov.nih.nci.ncia.wiki.context.sensitive.help.url:add(value=@gov.nih.nci.ncia.wiki.context.sensitive.help.url@)
-/system-property=local.grid.uri:add(value=@local.grid.uri@) 
 
 ## The following properties are not defined in properties file and cannot be changed in build time.
 ## However, these properties are still changable in the standalone*.xml file.
@@ -302,7 +283,6 @@ end-if
 /system-property=qctool.search.results.per.page.option.6:add(value=10000)
 /system-property=qctool.search.results.check.uncheck.option:add(value=1)
 /system-property=qctool.search.results.max.number.of.rows:add(value=100000)
-/system-property=remote.node.caGrid.version:add(value="1.3,1.4")
 /system-property=future.task.timeout.in.min:add(value=5)
 
 

@@ -14,7 +14,7 @@ L-->
 		<attribute name="java.check.version.minor" default="1.7.0_71"/>
 		<attribute name="property.template.file" default="${properties.template.file}"/>
 		<attribute name="envpropertyfile" default="${properties.file}"/>
-		<attribute name="property.exclude.pattern.list" default="tomcat.*,jboss.*,grid.*"/>
+		<attribute name="property.exclude.pattern.list" default="tomcat.*,jboss.*"/>
 		<!-- New verification for jar-signing -->
 		<attribute name="jar-signing.keystore.abs-location" default="${jar-signing.keystore.abs-location}"/>
 		<attribute name="jar-signing.keystore.password" default="${jar-signing.keystore.password}"/>

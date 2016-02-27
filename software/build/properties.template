@@ -72,21 +72,6 @@ jboss.server.port=The port used to connect to the jboss instance via http.
 #jboss.external.ssl.host=Set this if you are using external hostnames for ssl, see https://wiki.nci.nih.gov/x/8hWy
 #jboss.external.ssl.port=Set this if you are using a different port with the external hostname above for ssl
 
-##############
-### TOMCAT ###
-##############
-ncia-core-grid.tempZipLocation=
-ncia-core-grid.jboss.web.user=The account name to log into the JBoss web consoles.  Example: admin
-ncia-core-grid.jboss.web.password=The password to the access the jboss web console and jmx console. Example: blueprint123!. The user is admin. 
-
-ncia-core-grid.jboss.server.port=
-ncia-core-grid.jboss.server.jndi.port=
-
-ncia-core-grid.jboss.relative.path=This is the part of the path after application.base.path which will form the jboss.home. Example: ${jboss.binaries.relative.dir}
-ncia-core-grid.jboss.server.hostname=The server name where jboss will be running. Example: localhost
-ncia-core-grid.jboss.server.name=
-
-
 #############
 ####  CTP  ###
 ##############
@@ -122,7 +107,6 @@ gov.nih.nci.ncia.mapped.image.path.head=
 gov.nih.nci.ncia.image.path.pattern=
 gov.nih.nci.ncia.zip.location=
 gov.nih.nci.ncia.ftp.location=
-gov.nih.nci.ncia.grid.local.node.name=
 gov.nih.nci.ncia.ui.uid.display.length=
 gov.nih.nci.ncia.ftp.url=
 gov.nih.nci.ncia.jboss.mq.url=
@@ -132,49 +116,6 @@ gov.nih.nci.ncia.jboss.public.url=
 enabled_guest_account=
 guest_username=
 gov.nih.nci.ncia.download.server.url=
-
-##################################
-#  Grid Service registration URL #
-##################################
-# Production Grid
-#    grid.index.url=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService
-# QA Grid
-#    grid.index.url=http://cagrid-index-qa.nci.nih.gov:8080/wsrf/services/DefaultIndexService
-# Training Grid
-grid.index.url=The url of the grid index server. Example: http://training03.cagrid.org:6080/wsrf/services/DefaultIndexService
-# The information that will display in he Grid Portal
-# The research center information, most fields are self explanitory
-grid.poc.tech.researchCenter.displayname=Example: bdarc
-grid.poc.tech.researchCenter.shortname=Example: bda
-grid.poc.tech.addr.country=Example: USA
-grid.poc.tech.addr.locality=Example: Vienna
-grid.poc.tech.addr.postalCode=Example: 22180
-grid.poc.tech.addr.stateProvince=Example=VA
-grid.poc.tech.addr.street1=Example=1234 Someplace Lane
-grid.poc.tech.addr.street2=
-# The tech contact info
-grid.poc.tech.affiliation=Example: BDA
-grid.poc.tech.name.last=Example: Buildand
-grid.poc.tech.name.first=Example=DeploymentAutomation
-grid.poc.tech.phone=Example: 0124567890
-grid.poc.tech.email=Example: buildanddeployment@mail.nih.gov
-grid.poc.tech.role=Example: sysadmin
-# The science contact info
-grid.poc.science.affiliation=Example: Test
-grid.poc.science.name.last=Example: Smith
-grid.poc.science.name.first=Example: John
-grid.poc.science.phone=Example: 0124567890
-grid.poc.science.email=Example: john.smith@mail.com
-grid.poc.science.role=Example: sysadmin
-# The external host an IP to access the grid service from the internet.  For security reasons Network Address Translation (NAT) is often used to allow traffic from the internet into the local network.  With NAT an IP address and port are configured on the seucrity device facing the internet and are mapped back to the IP and port of the server running the application.  The name in DNS for access from the intenet is often different than the server it's self.  So you would want to put the NAT IP or NAT hostname and the NAT port in the fileds below.
-#grid.secure.enable=Flag whether to deploy secure grid, see https://wiki.nci.nih.gov/x/8BWy
-#grid.secure.port=The port to be used for the secure grid listener
-#grid.secure.cert.location=Location (patt/file) of caGrid issued Cert File
-#grid.secure.key.location=Location (patt/file) of caGrid issued key File
-#tomcat.external.http.host=Set this if you are using external hostnames for http, see https://wiki.nci.nih.gov/x/8hWy
-#tomcat.external.http.port=Set this if you are using a different port with the external hostname above for http
-#grid.external.secure.host=Set this if you are using external hostnames for secure grid, see https://wiki.nci.nih.gov/x/8hWy
-#grid.external.secure.port=Set this if you are using a different port with the external hostname above for secure grid
 
 ########################
 ###  MAIL  SETTINGS  ###

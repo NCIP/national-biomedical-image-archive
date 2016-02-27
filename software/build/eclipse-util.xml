@@ -18,13 +18,11 @@ L-->
   <property name="classpath.working" value=".classpath.working"/>
 
   <target name="eclipse-clean">
-    <delete dir="${ncia-core-grid.base.dir}/bin"/>
     <delete dir="${nbia-services-commons.base.dir}/bin"/>
     <delete dir="${nbia-domain.base.dir}/bin"/>
     <delete dir="${nbia-web.base.dir}/bin"/>
     <delete dir="${nbia-download-manager.base.dir}/bin"/>
     <delete dir="${nbia-download.base.dir}/bin"/>
-    <delete dir="${nbia-remote-search.base.dir}/bin"/>
     <delete dir="../nbia-util/bin"/>
     <delete dir="../nbia-ctp/bin"/>
 

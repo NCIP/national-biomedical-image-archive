@@ -174,9 +174,6 @@ L-->
 			<case value="nbia-ctp">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
-			<case value="ncia-core-grid-transfer">
-				<var name="pmd.maxRuleViolations" value="0"/>
-			</case>
 			<case value="nbia-download-manager">
 				<var name="pmd.maxRuleViolations" value="0"/>
 			</case>
@@ -229,9 +226,6 @@ L-->
       </case>
 			<case value="nbia-ctp">
 				<var name="checkstyle.maxErrors" value="13"/>
-			</case>
-			<case value="ncia-core-grid-transfer">
-				<var name="checkstyle.maxErrors" value="1"/>
 			</case>
 			<case value="nbia-download-manager">
 				<var name="checkstyle.maxErrors" value="1"/>

@@ -50,23 +50,16 @@ L-->
 	<property name="db-upgrade.dist.dir" value="${dist.exploded.dir}/db/db-upgrade/"/>
 	<!--property name="db-upgrade.dist.dir" value="/tmp/ncia/nbia" /-->
 	<property name="jboss-conf.dist.dir" value="${dist.exploded.dir}/${jboss-conf.dist.relative.dir}"/>
-	<property name="ncia-core-grid.dist.relative.dir" value="ncia-core-grid-transfer"/>
-	<property name="ncia-core-grid.dist.dir" value="${dist.exploded.dir}/${ncia-core-grid.dist.relative.dir}"/>
-	<property name="nbia-grid.dist.relative.dir" value="nbia-service"/>
-	<property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}"/>
 	<property name="nbia-ctp.dist.relative.dir" value="nbia-ctp"/>
 	<property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
 	<property name="nbia-web.dist.relative.dir" value="nbia-ear"/>
 	<property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
 	<property name="jai.linux.dest.file" value="${tools.dist.dir}/${jai.linux.binaries.file}"/>
 	<property name="jai.windows.dest.file" value="${tools.dist.dir}/${jai.windows.binaries.file}"/>
-	<property name="nbia-grid.artifact.file" value="NBIAService.zip"/>
-	<property name="ncia-core-grid.artifact.file" value="NciaCoreService.zip"/>
 	<property name="working.dir" location="${target.dir}/working"/>
 	<property name="db.dir.src" location="${basedir}/db"/>
 	<property name="db.dir.dest" location="${working.dir}/db"/>
 	<property name="download.dir" location="${target.dir}/download"/>
-	<property name="cagrid.target.co.dir" location="${target.dir}/cagrid-target"/>
 	<!--These properties are the list of files used by the install of the database for each type -->
 	<property name="db.install.create.mysql.file.list" value="ncia_mysql_nodata.sql,nciaDbInit.sql"/>
 	<property name="db.install.create.oracle.file.list" value="ddl.sql,dml_populate.sql,fk.sql"/>
@@ -83,18 +76,10 @@ L-->
 	<property name="install.target" value="install"/>
 	<property name="upgrade.target" value="upgrade"/>
 	<property name="upgrade.jboss.target" value="upgrade:jboss"/>
-	<property name="upgrade.ncia-core-grid.target" value="upgrade:ncia-core-grid"/>
-	<property name="upgrade.ncia-core-grid-unsecured.target" value="upgrade:ncia-core-grid-unsecured"/>
-	<property name="upgrade.nbia-grid.target" value="upgrade:nbia-grid"/>
 	<property name="install.jboss.target" value="install:jboss"/>
-	<property name="install.ncia-core-grid.target" value="install:ncia-core-grid"/>
-	<property name="install.ncia-core-grid-unsecured.target" value="install:ncia-core-grid-unsecured"/>
-	<property name="install.nbia-grid.target" value="install:nbia-grid"/>
 	<property name="ctp.install.target" value="install:ctp:server"/>
 	<property name="ctp.upgrade.target" value="upgrade:ctp:server"/>
 	<!-- output directory properties -->
-	<property name="ncia-core-grid.artifact.dir" value="${ncia-core-grid.base.dir}/target"/>
-	<property name="nbia-grid.artifact.dir" value="${nbia-grid.base.dir}/target"/>
 	<property name="nbia-ctp.artifact.dir" value="${nbia-ctp.base.dir}/target"/>
 	<!-- solr -->
 	<property name="solr.dist.dir" value="${dist.exploded.dir}/${solr.dist.relative.dir}"/>
@@ -920,7 +905,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
 				<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
 				<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
-				<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
 				<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
 				<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
 				<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}"/>
@@ -1041,7 +1025,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<replaceregexp file="${dist.exploded.dir}/install.properties" match="^(@{property.name})=.*" replace="\1=replace_value" flags="g" byline="true"/>
 			</sequential>
 		</for>
-		<replaceregexp file="${dist.exploded.dir}/install.properties" byline="true" match="^(grid.index.url)=.*" replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
 		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 		<copy todir="${dist.dir}" overwrite="true">
 			<fileset dir="${nbia-ctp.dist.dir}">

@@ -8,7 +8,7 @@
 
 package gov.nih.nci.nbia.executors;
 
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.io.Serializable;
 import java.util.Map;

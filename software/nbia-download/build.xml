@@ -20,7 +20,9 @@ L-->
 
 
   <property name="common.dir" value="${basedir}/../" />
+  <property name="property.dir" value="${basedir}/../build" />
   <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-download" />
+  <property name="dist.dir" value="${common.dir}/target/dist/exploded/nbia-wars" />
   <!--property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/-->
 
   <!-- define this for unittesting.xml import -->
@@ -124,6 +126,7 @@ L-->
         <include name="**/*"/>
       </fileset>
     </copy>
+  	<copy file="${property.dir}/install.properties" tofile="tmp.webapp/WEB-INF/classes/nbia.properties"/>
 
     <copy todir="tmp.webapp/WEB-INF"
           file="config/applicationContext-service.xml"/>
@@ -131,15 +134,10 @@ L-->
       <fileset dir="${project.lib.dir}/runtime">
         <include name="*.jar" />
         <!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
-        <exclude name="log*.jar" />
         <!-- avoid org.jboss.tm.TxManager class cast exception -->
-        <exclude name="jta*.jar" />
-        <exclude name="commons-logging*.jar" />
-        <exclude name="cglib-2.1_3.jar" />
-	    <exclude name="spring-asm*.jar" />
+      	<exclude name="cglib-2*.jar" />
 	    <exclude name="spring-jsm*.jar" />
 	    <exclude name="xml-apis*.jar" />
-	    <exclude name="bcprov-*.jar" />
       </fileset>
     </copy>
 
@@ -147,6 +145,9 @@ L-->
          webxml="config/web.xml"
          basedir="tmp.webapp"
          compress="false"/>
+  	
+    <copy todir="${dist.dir}"
+          file="${target.dir}/${war.name}"/>
   </target>
 
 

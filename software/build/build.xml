@@ -836,6 +836,8 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</copy>
 		<copy file="${common.resources.dir}/tomcat/context.xml" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/context.xml" overwrite="true">
 		</copy>
+		<copy file="${common.resources.dir}/tomcat/log4j.properties" tofile="${gov.nih.nci.ncia.tomcat.home}/lib/log4j.properties" overwrite="true">
+		</copy>
 		<copy file="${common.resources.dir}/tomcat/server.xml" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/server.xml" overwrite="true">
 			<filterset>
 				<filter token="database.type" value="${database.type}"/>

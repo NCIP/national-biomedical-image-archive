@@ -46,6 +46,7 @@ import gov.nih.nci.nbia.util.JsfUtil;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.ncia.search.AvailableSearchTerms;
 import gov.nih.nci.ncia.search.UsAvailableSearchTerms;
 import gov.nih.nci.ncia.search.NBIANode;
@@ -1804,7 +1805,7 @@ public class SearchWorkflowBean {
      * returns whether to show anatomic criteria or not
      */
     public boolean isShowAnatomicCriteria() {
-    	String retValue = System.getProperty("show.anatomical.search.criteria");
+    	String retValue = NCIAConfig.getShowAnatomicalSearchCriteria();
 
     	if( retValue.equals("true")) {
     		return true;

@@ -9,9 +9,8 @@
 package gov.nih.nci.nbia.search;
 
 import gov.nih.nci.nbia.dto.EquipmentDTO;
-import gov.nih.nci.ncia.search.AvailableSearchTerms;
-import gov.nih.nci.ncia.search.Manufacturer;
-import gov.nih.nci.ncia.search.Model;
+import gov.nih.nci.nbia.searchresult.Manufacturer;
+import gov.nih.nci.nbia.searchresult.Model;
 
 import java.util.HashMap;
 import java.util.HashSet;

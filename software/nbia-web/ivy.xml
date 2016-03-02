@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--L
    Copyright SAIC, Ellumen and RSNA (CTP)
 
@@ -190,11 +191,6 @@ L-->
 
     <dependency org="ncicb"
                 name="nbia-dao"
-                rev="latest.integration"
-                conf="compile->master;runtime"/>
-
-    <dependency org="ncicb"
-                name="nbia-services-grid"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
 
@@ -482,3 +478,8 @@ L-->
 <!-- end Exclude solr -->                 
   </dependencies>
 </ivy-module>
+
+
+
+
+    

@@ -15,10 +15,9 @@ import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.PatientSearchResults;
 import gov.nih.nci.nbia.util.JsfUtil;
 import gov.nih.nci.nbia.util.MessageUtil;
-import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -41,19 +40,9 @@ import javax.faces.event.ActionEvent;
  */
 public class NodeTableWrapper {
 	
-	public NodeTableWrapper(NBIANode node, SearchResultBean srb) {
-		this.node = node;
+	public NodeTableWrapper(SearchResultBean srb) {
 		this.srb = srb;
 	}
-	
-	
-	/**
-	 * The node these results are for.
-	 */
-	public NBIANode getNBIANode() {
-		return this.node;
-	}
-
 	
 	/**
 	 * Set the results to show for the given node.
@@ -193,7 +182,7 @@ public class NodeTableWrapper {
 					selectedSeries.addAll(Arrays.asList(studySearchResult.getSeriesList()));
 				}
 				for(SeriesSearchResult s : selectedSeries) {	
-					String toDelete = s.getId() + "||" + s.associatedLocation().getURL();
+					String toDelete = s.getId().toString();
 					BeanManager.getBasketBean().getBasket().removeSelectedSeries(toDelete);
 				}
 		} catch(Exception ex) {
@@ -247,8 +236,7 @@ public class NodeTableWrapper {
     	for(PatientSearchResult patient : patients) {
     		boolean anySeriesInBasket = false;
 			for (Integer seriesId : patient.computeListOfSeriesIds()) {
-				 if (basketBean.getBasket().isSeriesInBasket(seriesId, 
-						                                     patient.associatedLocation().getURL())) {
+				 if (basketBean.getBasket().isSeriesInBasket(seriesId)) {
 	                anySeriesInBasket = true;
 	                break;
 	            }
@@ -291,9 +279,7 @@ public class NodeTableWrapper {
 	private PatientSearchResults patientSearchResults;
 	
 	private List<PatientResultWrapper> patients;
-		
-	private NBIANode node;
-	
+
 	private SearchResultBean srb;
 	
 	private Exception viewPatientException = null;;

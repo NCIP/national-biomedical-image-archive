@@ -166,22 +166,6 @@ L-->
     <servlet-name>thumbnailViewer</servlet-name>
     <servlet-class>gov.nih.nci.nbia.servlet.ThumbnailServer</servlet-class>
   </servlet>
-    <servlet>
-    <servlet-name>ImageServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.ImageServlet</servlet-class>
-  </servlet>
-    <servlet>
-    <servlet-name>MarkupQueryServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.MarkupQueryServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>MarkupReadServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.MarkupReadServlet</servlet-class>
-  </servlet>
-    <servlet>
-    <servlet-name>MarkupSaveServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.MarkupSaveServlet</servlet-class>
-  </servlet>
   <servlet>
     <servlet-name>BasketDownloadServlet</servlet-name>
     <servlet-class>gov.nih.nci.nbia.servlet.BasketDownloadServlet</servlet-class>
@@ -289,22 +273,6 @@ L-->
   <servlet-mapping>
     <servlet-name>thumbnailViewer</servlet-name>
     <url-pattern>/thumbnailViewer</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ImageServlet</servlet-name>
-    <url-pattern>/ImageList</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>MarkupQueryServlet</servlet-name>
-    <url-pattern>/MarkupQuery</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>MarkupReadServlet</servlet-name>
-    <url-pattern>/MarkupRead</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>MarkupSaveServlet</servlet-name>
-    <url-pattern>/MarkupSave</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>BasketDownloadServlet</servlet-name>

@@ -156,11 +156,6 @@ L-->
                 conf="compile->master;runtime->master"/>
 
     <dependency org="ncicb"
-                name="nbia-services-grid"
-                rev="latest.integration"
-                conf="compile->master;runtime"/>
-
-    <dependency org="ncicb"
                 name="nbia-util"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>

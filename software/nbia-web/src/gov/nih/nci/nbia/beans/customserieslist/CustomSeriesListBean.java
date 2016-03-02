@@ -136,12 +136,8 @@ public class CustomSeriesListBean {
         this.fromBasket = true;
         BasketBean bb= BeanManager.getBasketBean();
         List<BasketSeriesItemBean> tempList = bb.getSeriesItems();
-        String localNodeName = NCIAConfig.getLocalNodeName();
-        System.out.println("localNodeName: " + localNodeName);
+
         for( BasketSeriesItemBean bsib : tempList){
-            if(!bsib.getLocationDisplayName().equals(localNodeName)){
-                continue;
-            }
             seriesUidsList.add(bsib.getSeriesId());
             seriesList.add(bsib);
         }

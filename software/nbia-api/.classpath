@@ -106,11 +106,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/runtime/nbia-services-grid.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/runtime/antlr-2.7.6rc1.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
@@ -450,5 +445,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-api/compile/servlet-api-2.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

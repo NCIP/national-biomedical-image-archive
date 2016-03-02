@@ -37,9 +37,8 @@ import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.zip.ZipManager;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.io.File;
 import java.io.Serializable;
@@ -142,7 +141,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	Map<String, Boolean> inBasketMap = new HashMap<String, Boolean>();
     	Map<String, BasketSeriesItemBean> seriesItemMap = basket.getSeriesItemMap();
     	for(BasketSeriesItemBean seriesItem : seriesItemMap.values()) {
-    		inBasketMap.put(seriesItem.getSeriesPkId()+"||"+seriesItem.getGridLocation(), Boolean.TRUE);
+    		inBasketMap.put(seriesItem.getSeriesPkId().toString(), Boolean.TRUE);
     	}
     	return inBasketMap;
     }
@@ -159,7 +158,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	Map<String, Boolean> inBasketMap = new HashMap<String, Boolean>();
     	Map<String, BasketSeriesItemBean> seriesItemMap = basket.getSeriesItemMap();
     	for(BasketSeriesItemBean seriesItem : seriesItemMap.values()) {
-    		inBasketMap.put(seriesItem.getPatientpk()+"||"+seriesItem.getGridLocation(), Boolean.TRUE);
+    		inBasketMap.put(seriesItem.getPatientpk(), Boolean.TRUE);
     	}
     	return inBasketMap;
     }
@@ -269,16 +268,10 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
             for(String key: keys){
                 BasketSeriesItemBean bsib = seriesItemMap.get(key);
                 SeriesSearchResult seriesDTO = bsib.getSeriesSearchResult();
-                NBIANode node = seriesDTO.associatedLocation();
-                //if (node instanceof RemoteNode) {
-                //    RemoteNode location = RemoteNode.constructPartialRemoteNode(node.getDisplayName(),node.getURL());
-                //    seriesDTO.associateLocation(location);
-                //}
                 localSeriesDTOs.put(seriesDTO.getId().toString(),seriesDTO);
             }
             izm.setItems(localSeriesDTOs);
             izm.setIncludeAnnotation(getIncludeAnnotation());
-            izm.setNodeName(NCIAConfig.getLocalNodeName());
             fileName =  BasketUtil.generateFileName(sb.getUsername());
 
             // FTP Download
@@ -642,15 +635,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	System.out.println("EnableCreateAList...  localSeries: " + localSeries);
         return (sb.getHasLoggedInAsRegisteredUser() && localSeries);
     }
+    
     public boolean getLocalSeriesList(){
     	List<BasketSeriesItemBean> seriesItems = getBasket().getSeriesItems();
-    	String localNodeName = NCIAConfig.getLocalNodeName();
     	List<BasketSeriesItemBean> localSeriesItems = new ArrayList<BasketSeriesItemBean>();
-        //System.out.println("localNodeName: " + localNodeName);
         for( BasketSeriesItemBean bsib : seriesItems){
-            if(!bsib.getLocationDisplayName().equals(localNodeName)){
-                continue;
-            }
             localSeriesItems.add(bsib);
         }
     	return localSeriesItems.size()>0 ? true:false;

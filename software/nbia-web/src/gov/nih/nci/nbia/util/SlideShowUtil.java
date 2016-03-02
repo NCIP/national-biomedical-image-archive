@@ -8,8 +8,8 @@
 
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
 import java.util.List;
 
 public class SlideShowUtil {

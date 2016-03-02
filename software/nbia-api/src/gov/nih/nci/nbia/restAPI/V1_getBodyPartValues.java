@@ -19,13 +19,6 @@
 package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
-import org.springframework.dao.DataAccessException;
-
-import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
-import gov.nih.nci.nbia.restUtil.FormatOutput;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;

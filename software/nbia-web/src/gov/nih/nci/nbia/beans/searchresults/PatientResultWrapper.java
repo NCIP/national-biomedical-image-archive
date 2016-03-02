@@ -8,7 +8,7 @@
 
 package gov.nih.nci.nbia.beans.searchresults;
 
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResult;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
 
@@ -23,7 +23,7 @@ public class PatientResultWrapper {
 
 	
 	public String getBasketKey() {
-		return patient.getId() + "||" + patient.associatedLocation().getURL();
+		return patient.getId().toString();
 	}
 	
     

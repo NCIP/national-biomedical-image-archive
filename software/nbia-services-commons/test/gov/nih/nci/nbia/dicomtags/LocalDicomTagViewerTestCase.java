@@ -15,12 +15,12 @@ import static org.powermock.api.easymock.PowerMock.mockStatic;
 import static org.powermock.api.easymock.PowerMock.replay;
 import static org.powermock.api.easymock.PowerMock.verify;
 import gov.nih.nci.nbia.dao.ImageDAO;
+import gov.nih.nci.nbia.dto.DicomTagDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.PublicData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultImpl;
 
 import java.io.File;
 import java.net.URL;

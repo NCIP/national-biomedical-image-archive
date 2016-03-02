@@ -9,8 +9,8 @@
 package gov.nih.nci.nbia.basket;
 
 import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -62,8 +62,8 @@ public class Basket {
     /**
      * Determines if the series is in the basket.
      */
-    public boolean isSeriesInBasket(Integer seriesPkId, String location) {
-        return (seriesItems.get(seriesPkId + DELIMETER + location) != null);
+    public boolean isSeriesInBasket(Integer seriesPkId) {
+        return (seriesItems.get(seriesPkId) != null);
     }
 
 
@@ -94,9 +94,7 @@ public class Basket {
 
         Integer seriesId = dto.getSeriesId();
         // Find the series
-        BasketSeriesItemBean seriesForImage = seriesItems.get(seriesId +
-	                                                          DELIMETER +
-	                                                          dto.associatedLocation().getURL());
+        BasketSeriesItemBean seriesForImage = seriesItems.get(seriesId);
 
         // Check to see if the series is in the basket. If not, create it
         if (seriesForImage == null) {
@@ -123,9 +121,7 @@ public class Basket {
         // Build list of IDs to remove. We can't remove them yet
         // because we're iterating through the list
         for (BasketSeriesItemBean item : seriesItems.values()) {
-           seriesIdsToRemove.add(item.getSeriesSearchResult().getId() +
-                		              DELIMETER +
-                		              item.getGridLocation());
+           seriesIdsToRemove.add(item.getSeriesSearchResult().getId().toString());
         }
 
         // Actually remove the items
@@ -147,9 +143,7 @@ public class Basket {
         // because we're iterating through the list
         for (BasketSeriesItemBean item : seriesItems.values()) {
             if (item.isSelected()) {
-                seriesIdsToRemove.add(item.getSeriesSearchResult().getId() +
-                		              DELIMETER +
-                		              item.getGridLocation());
+                seriesIdsToRemove.add(item.getSeriesSearchResult().getId().toString());
             }
         }
 
@@ -220,9 +214,6 @@ public class Basket {
     }
 
     ///////////////////////////////////////////PRIVATE////////////////////////////////
-
-    private static final String DELIMETER = "||";
-
     private List<BasketChangeListener> listeners = new ArrayList<BasketChangeListener>();
 
     /**
@@ -246,23 +237,14 @@ public class Basket {
     private void addResults(Collection<BasketSeriesItemBean> results) {
         // Loop through each result row
         for (BasketSeriesItemBean result : results) {
-        	System.out.println("$$$ add results="+result.getSeriesId() + " "+result.getGridLocation());
+        	System.out.println("$$$ add results="+result.getSeriesId().toString());
             BasketSeriesItemBean alreadyExisting =
-            	seriesItems.get(result.getSeriesSearchResult().getId() +
-            			        DELIMETER +
-            			        result.getGridLocation());
-System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
-            			        DELIMETER +
-            			        result.getGridLocation());
+            	seriesItems.get(result.getSeriesSearchResult().getId().toString());
+System.out.println("!!!form get= "+result.getSeriesSearchResult().getId().toString());
             // If the series does not exist, add it
             if (alreadyExisting == null) {
-                seriesItems.put(result.getSeriesSearchResult().getId() +
-                		        DELIMETER +
-                		        result.getGridLocation(),
-                		        result);
-                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId() +
-    			        DELIMETER +
-    			        result.getGridLocation());
+                seriesItems.put(result.getSeriesSearchResult().getId().toString(), result);
+                System.out.println("****not already existing put = "+result.getSeriesSearchResult().getId().toString());
             }
             else {
             	System.out.println("&&&&&&&&&&alreadyExisting="+alreadyExisting.getSeriesId());
@@ -278,11 +260,9 @@ System.out.println("!!!form get= "+result.getSeriesSearchResult().getId() +
 
 		returnBean.setAnnotationsFlag(seriesDTO.isAnnotated());
 		returnBean.setAnnotationsSize(seriesDTO.getAnnotationsSize());
-		returnBean.setGridLocation(seriesDTO.associatedLocation().getURL());
 		returnBean.setPatientId(seriesDTO.getPatientId());
 		returnBean.setProject(seriesDTO.getProject());
 		returnBean.setSeriesId(seriesDTO.getSeriesInstanceUid());
-		returnBean.setLocationDisplayName(seriesDTO.associatedLocation().getDisplayName());
 		returnBean.setSeriesPkId(seriesDTO.getId());
 		returnBean.setStudyId(seriesDTO.getStudyInstanceUid());
 		returnBean.setStudyPkId(seriesDTO.getStudyId());

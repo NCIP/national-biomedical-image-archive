@@ -8,11 +8,11 @@
 
 package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 /**
  * This object is responsible for drilling down into a patient result to return

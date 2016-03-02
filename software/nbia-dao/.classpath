@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-domain"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/csmapi-5.2.jar"/>
@@ -54,7 +53,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/mail-1.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/mysql-connector-java-5.1.34.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/nbia-util.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/nbia-services-grid.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/oro-2.0.8.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/slf4j-api-1.6.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/test/slf4j-nop-1.6.1.jar"/>
@@ -87,7 +85,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/lucene-suggest-4.6.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/mircutil-T32.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/nbia-domain-working@nbia-domain-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/nbia-services-grid-working@nbia-services-grid-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/nbia-util-working@nbia-util-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/noggit-0.5.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/quartz-1.6.1.jar"/>

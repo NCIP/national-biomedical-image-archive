@@ -32,7 +32,7 @@ import gov.nih.nci.nbia.xmlobject.DataGroup;
 import gov.nih.nci.nbia.xmlobject.DataSource;
 import gov.nih.nci.nbia.xmlobject.Element;
 import gov.nih.nci.nbia.xmlobject.SourceItem;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -16,9 +16,9 @@ import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -139,7 +139,7 @@ public class StudiesSearchResultBean {
 	public String removeSeriesFromBasket() {
 		try {
 			SeriesSearchResult s = getSelectedSeries(toAdd);
-			String toDelete = s.getId() + "||" + s.associatedLocation().getURL();
+			String toDelete = s.getId().toString();
 			BeanManager.getBasketBean().getBasket().removeSelectedSeries(toDelete);
 			setSeriesCheckBox(false);		
 		} catch(Exception ex) {
@@ -264,8 +264,7 @@ public class StudiesSearchResultBean {
 		BasketBean dataBasket = BeanManager.getBasketBean();
 		long size=0;
 		for(SeriesSearchResult seriesDTO: seriesDTOs){
-    		if(!dataBasket.getBasket().isSeriesInBasket(seriesDTO.getId(),  
-    				                                    seriesDTO.associatedLocation().getURL())){
+    		if(!dataBasket.getBasket().isSeriesInBasket(seriesDTO.getId())){
     			size +=seriesDTO.computeExactSize();
 			}
     	}

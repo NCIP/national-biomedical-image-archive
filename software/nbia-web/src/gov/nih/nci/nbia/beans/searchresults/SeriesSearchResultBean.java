@@ -18,9 +18,9 @@ import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SlideShowUtil;
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -251,8 +251,7 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		AnonymousLoginBean anonymousLoginBean = BeanManager.getAnonymousLoginBean();
 		if(anonymousLoginBean.getGuestLoggedIn()){
 			Integer seriesId = data.get(0).getSeriesId();
-			if(!dataBasket.getBasket().isSeriesInBasket(seriesId,
-					                                    data.get(0).associatedLocation().getURL())){
+			if(!dataBasket.getBasket().isSeriesInBasket(seriesId)){
 				for(int i=0; i<data.size(); i++){
 					size +=data.get(i).getSize();
 				}
@@ -288,13 +287,13 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 	public String removeCurrentSeriesToBasket(ActionEvent event) throws Exception {
 
 		BasketBean dataBasket = BeanManager.getBasketBean();
-		String toDelete = series.getId() + "||" + series.associatedLocation().getURL();
+		String toDelete = series.getId().toString();
 
 		dataBasket.getBasket().removeSelectedSeries(toDelete);
 
 		return null;
 	}
 	 public String getBasketKey() {
-	    	return series.getId()+"||"+series.associatedLocation().getURL();
+	    	return series.getId().toString();
 	    }
 }

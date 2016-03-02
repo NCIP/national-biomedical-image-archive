@@ -60,8 +60,8 @@ import gov.nih.nci.nbia.dto.StudyNumberDTO;
 import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -122,9 +122,6 @@ public class PatientSearcher {
                 patientDTO.setTotalNumberOfSeries(cachedPatientData.getSeriesNumber());
                 patientDTO.setSubjectId(cachedPatientData.getPatientId());
                 patientDTO.setProject(cachedPatientData.getProject());
-
-                patientDTO.associateLocation(LocalNode.getLocalNode());
-
                 patients.put(patientId, patientDTO);
             }
         }

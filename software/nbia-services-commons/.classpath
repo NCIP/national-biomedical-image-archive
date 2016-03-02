@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/nbia-services-grid"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/nbia-dao"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/csmapi-5.2.jar"/>
@@ -74,7 +73,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/commons-lang-2.4.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-dao-working@nbia-dao-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-domain-working@nbia-domain-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/compile/nbia-services-grid-working@nbia-services-grid-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/test/nbia-dao.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-dao-working@nbia-dao-resolver.jar"/>
 	<classpathentry kind="output" path="bin"/>

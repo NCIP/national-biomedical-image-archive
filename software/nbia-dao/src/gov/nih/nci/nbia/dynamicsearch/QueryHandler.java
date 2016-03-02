@@ -12,7 +12,7 @@ import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.textsupport.SolrAllDocumentMetaData;
 import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.util.Date;
 import java.util.List;

@@ -14,8 +14,7 @@ import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.searchresults.SeriesSearchResultBean;
 import gov.nih.nci.nbia.beans.searchresults.DefaultThumbnailURLResolver;
 import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.util.List;
 
@@ -49,10 +48,8 @@ public class ViewSeriesPopulatorMgBean {
 		BasketBean basketBean = BeanManager.getBasketBean();
 
 		List<BasketSeriesItemBean> bsitem = basketBean.getSeriesItems();
-		NBIANode node = new NBIANode(false, getLocation(), getUrl());
 		SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
 		seriesSearchResult.setSeriesNumber(seriesId);
-		seriesSearchResult.associateLocation(node);
 		basketBean.viewSeriesData(getSeries(seriesId, location, bsitem));
 	}
 
@@ -65,10 +62,7 @@ public class ViewSeriesPopulatorMgBean {
 		if (seriesItems != null) {
 			for (BasketSeriesItemBean item : seriesItems) {
 				if (item.getSeriesId() != null
-						&& item.getSeriesId().equalsIgnoreCase(seriesId)
-						&& item.getLocationDisplayName() != null
-						&& item.getLocationDisplayName().equalsIgnoreCase(
-								location)) {
+						&& item.getSeriesId().equalsIgnoreCase(seriesId)) {
 					seriesItem = item.getSeriesSearchResult();
 					break;
 				}
@@ -78,7 +72,7 @@ public class ViewSeriesPopulatorMgBean {
 		}
 		if (seriesItem != null) {
 			System.out.println("leaving getSeries info "
-					+ seriesItem.associatedLocation().getDisplayName());
+					+ seriesItem.getSeriesInstanceUid());
 		} else {
 			System.out.println("seriesItem is NULLL");
 		}

@@ -30,17 +30,15 @@ import javax.swing.table.AbstractTableModel;
 public class DownloadsTableModel extends AbstractTableModel
                                  implements Observer
 {
-	/*pkg*/ static final int LOCATION_COLUMN = 0;
-	/*pkg*/ static final int COLLECTION_COLUMN = 1;
-	/*pkg*/ static final int PATIENT_ID_COLUMN = 2;
-	/*pkg*/ static final int STUDY_ID_COLUMN = 3;
-	/*pkg*/ static final int SERIES_ID_COLUMN = 4;
+	/*pkg*/ static final int COLLECTION_COLUMN = 0;
+	/*pkg*/ static final int PATIENT_ID_COLUMN = 1;
+	/*pkg*/ static final int STUDY_ID_COLUMN = 2;
+	/*pkg*/ static final int SERIES_ID_COLUMN = 3;
 	/*pkg*/ static final int PROGRESS_COLUMN = SERIES_ID_COLUMN+3;
 
 	
 //	These are the names for the table's columns.
 	private static final String[] columnNames = {
-		"Location",
 		"Collection",
 		"Patient ID", 
 		"Study Instance UID", 
@@ -52,7 +50,6 @@ public class DownloadsTableModel extends AbstractTableModel
 
 //	These are the classes for each column's values.
 	private static final Class[] columnClasses = {
-		String.class,
 		String.class,
 		String.class,
 		String.class,
@@ -114,8 +111,6 @@ public class DownloadsTableModel extends AbstractTableModel
 	public Object getValueAt(int row, int col) {
 		AbstractSeriesDownloader download = downloadList.get(row);
 		switch (col) {
-		    case LOCATION_COLUMN:
-		    	return download.getNode().getDisplayName();
 			case COLLECTION_COLUMN: 
 				return download.getCollection();
 			case PATIENT_ID_COLUMN: 

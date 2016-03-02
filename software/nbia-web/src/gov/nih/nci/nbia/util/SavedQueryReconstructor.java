@@ -24,7 +24,6 @@ import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
 import gov.nih.nci.ncia.criteria.ModalityAndedSearchCriteria;
 import gov.nih.nci.ncia.criteria.ModelCriteria;
-import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.NumOfMonthsCriteria;
 import gov.nih.nci.ncia.criteria.PatientCriteria;
 import gov.nih.nci.ncia.criteria.PersistentCriteria;
@@ -35,14 +34,10 @@ import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.ColorModeOptionCriteria;
 import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
-import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
-import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
-import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
 import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.nbia.query.DICOMQuery;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Logger;
 
@@ -156,28 +151,13 @@ public class SavedQueryReconstructor {
             }else if (krit instanceof ReconstructionDiameterCriteria) {
                 repopulateReconstructionDiameterCriteria(
                         (ReconstructionDiameterCriteria) krit, swb, query);
-            }else if (krit instanceof NodeCriteria) {
-                repopulateNodeCriteria(
-                        (NodeCriteria) krit,  swb, query);
             }else if (krit instanceof SeriesDescriptionCriteria) {
                 repopulateSeriesDescriptionCriteria((SeriesDescriptionCriteria) krit, swb, query);
             }else if (krit instanceof SoftwareVersionCriteria) {
                 repopulateSoftwareVersionCriteria((SoftwareVersionCriteria) krit, swb, query);
             } else if (krit instanceof DateRangeCriteria) {
                 repopulateDateRangeCriteria((DateRangeCriteria) krit, swb, query);
-            } 
-            else 
-            if (krit instanceof ImagingObservationCharacteristicCodeMeaningCriteria) {
-                repopulateImagingObservationCharacteristicCodeMeaningCriteria((ImagingObservationCharacteristicCodeMeaningCriteria) krit, swb, query);
-            }
-            else 
-            if (krit instanceof ImagingObservationCharacteristicCodeValuePairCriteria) {
-               repopulateImagingObservationCharacteristicCodeValuePairCriteria((ImagingObservationCharacteristicCodeValuePairCriteria) krit, swb, query);
-            }            
-            else 
-            if (krit instanceof ImagingObservationCharacteristicQuantificationCriteria) {
-               repopulateImagingObservationCharacteristicQuantificationCriteria((ImagingObservationCharacteristicQuantificationCriteria) krit, swb, query);
-            }             
+            }    
         }
     }
 
@@ -204,43 +184,7 @@ public class SavedQueryReconstructor {
         }
         query.setCriteria(amc);
     }
-    
-    
-    
-    private static void repopulateImagingObservationCharacteristicQuantificationCriteria(ImagingObservationCharacteristicQuantificationCriteria asc,
-                                                                                         SearchWorkflowBean swb, 
-                                                                                         DICOMQuery query) {
-    	
-    	Collection<String> quantifications = asc.getImagingObservationCharacteristicQuantifications();
-    	if(swb!=null) {
-    		swb.getAimSearchWorkflowBean().selectQuantifications(quantifications);
-    	}
-    	query.setCriteria(asc);
-    }     
-    
-    
-    private static void repopulateImagingObservationCharacteristicCodeValuePairCriteria(ImagingObservationCharacteristicCodeValuePairCriteria asc,
-                                                                                      SearchWorkflowBean swb, 
-                                                                                      DICOMQuery query) {
-    	Collection<String> codeValuePairs = asc.getImagingObservationCharacteristicCodeValuePairs();
-    	if(swb!=null) {
-    		swb.getAimSearchWorkflowBean().selectCodeValuePairs(codeValuePairs);
-    	}
-    	query.setCriteria(asc);
-    }    
-
-    private static void repopulateImagingObservationCharacteristicCodeMeaningCriteria(ImagingObservationCharacteristicCodeMeaningCriteria asc,
-                                                                                      SearchWorkflowBean swb, 
-                                                                                      DICOMQuery query) {
-    	Collection<String> codeMeaningNames = asc.getImagingObservationCharacteristicCodeMeaningNames();
-    	System.out.println("codeMeaningNames:"+codeMeaningNames);
-    	if(swb!=null) {
-    		swb.getAimSearchWorkflowBean().selectCodeMeaningNames(codeMeaningNames);
-    	}
-    	query.setCriteria(asc);
-    }
-    
-    
+       
     private static void repopulateAnatomicalSiteCriteria(AnatomicalSiteCriteria asc,
                                                           SearchWorkflowBean swb, 
                                                           DICOMQuery query) {
@@ -590,15 +534,4 @@ query.setCriteria(aoc);
             query.setCriteria(svct);
         }
     }
-
-    
-    private static void repopulateNodeCriteria(NodeCriteria rnc,
-                                               SearchWorkflowBean swb,
-                                               DICOMQuery query) {         
-        if(rnc != null  && swb != null) {
-            swb.selectRemoteNodes(rnc.getRemoteNodes());
-        }
-
-        query.setCriteria(rnc);         
-    }    
 }

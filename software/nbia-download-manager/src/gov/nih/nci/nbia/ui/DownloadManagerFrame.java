@@ -245,9 +245,6 @@ public class DownloadManagerFrame extends JFrame implements Observer {
                                    this.password,
                                    seriesData.get(i).getImagesSize(),
                                    seriesData.get(i).getAnnoSize(),
-                                   seriesDownloader.constructNode(seriesData.get(i).getUrl(),
-                                		                          seriesData.get(i).getDisplayName(),
-                                		                          seriesData.get(i).isLocal()),
                                    StringUtil.displayAsSixDigitString(seriesCnt), noOfRetry);
             tableModel.addDownload(seriesDownloader);
 

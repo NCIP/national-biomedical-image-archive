@@ -83,8 +83,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/Workflow.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimQuantification.hbm.xml</value>
       </list>
     </property>
 

@@ -19,15 +19,15 @@ import gov.nih.nci.nbia.security.PublicData;
 import gov.nih.nci.nbia.util.SeriesDTOConverter;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StudyUtil;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.ImageSearchResultExImpl;
-import gov.nih.nci.ncia.search.ImageSearchResultImpl;
-import gov.nih.nci.ncia.search.NameValuesPairs;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
-import gov.nih.nci.ncia.search.StudySearchResultImpl;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultExImpl;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.NameValuesPairs;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResultImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -328,7 +328,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setSeriesId(imageDTO.getSeriesPkId());
 		result.setInstanceNumber(imageDTO.getInstanceNumber());
 		result.setSize(imageDTO.getSize());
-		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
 		return result;
 	}
@@ -342,7 +341,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setStudyInstanceUid(imageDTO.getStudyInstanceUid());
 		result.setInstanceNumber(imageDTO.getInstanceNumber());
 		result.setSize(imageDTO.getSize());
-		result.associateLocation(LocalNode.getLocalNode());
 		result.setThumbnailURL(thumbnailURLResolver.resolveThumbnailUrl(imageDTO));
 		NameValuesPairs nvp = new NameValuesPairs();
 		nvp.setName("USFrameNum");
@@ -358,7 +356,6 @@ public class LocalDrillDown implements DrillDown {
 		result.setDate(studyDTO.getDate());
 		result.setDescription(studyDTO.getDescription());
 
-		result.associateLocation(LocalNode.getLocalNode());
 		List<SeriesSearchResult> newSeriesList = new ArrayList<SeriesSearchResult>();
 		for(SeriesDTO seriesDto : studyDTO.getSeriesList()) {
 			newSeriesList.add(SeriesDTOConverter.convert(seriesDto));

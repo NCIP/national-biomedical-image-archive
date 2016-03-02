@@ -7,8 +7,8 @@
  */
 
 package gov.nih.nci.nbia.util;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultImpl;
 
 import java.util.ArrayList;
 import java.util.List;

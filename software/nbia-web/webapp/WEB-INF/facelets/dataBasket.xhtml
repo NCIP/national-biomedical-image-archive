@@ -249,7 +249,7 @@ L-->
                       action="#{basketBean.viewSeriesData}"  -->
                       <ice:panelGroup style="width:40px">
                       <h:commandLink target="newWin"
-                                     onclick="doViewSeriesPopup('#{item.seriesId}','#{item.locationDisplayName}','#{item.gridLocation}'); return false;">
+                                     onclick="doViewSeriesPopup('#{item.seriesId}'); return false;">
                         <h:graphicImage value="images/old_new_magnifying_glass.png"
                                         style="border: none;" alt="view"/>
                       </h:commandLink> 
@@ -367,25 +367,6 @@ L-->
                       <h:outputText value="#{item.annotationSize3DigitsInMB}" escape="false"/>
                       </ice:panelGroup>
                     </h:column>  
-                    <!-- h:column id="dataBasketDeleteColumn">
-                      <f:facet name="header">
-                        <span class="formFieldWhite"> 
-                          Select
-                          <input name="checkAllBox" 
-                                 type="checkbox" 
-                                 onclick="checkUncheckAll(this);"/> 
-                        </span>
-                      </f:facet>
-                      <div align="center">
-                        <h:selectBooleanCheckbox id="selectBox" value="#{item.selected}" />
-                      </div>
-                    </h:column-->
-                    <!--h:column id="locationColumn">
-                      <f:facet name="header">
-                        <h:outputText value="Location"/>
-                      </f:facet>
-                      <h:outputText value="#{item.locationDisplayName}" />
-                    </h:column-->
 		    <h:column id="dataBasketDeleteColumn">
                      <f:facet name="header">
                      <ice:panelGroup style="width:45px">
@@ -399,7 +380,7 @@ L-->
 		                                     action="#{basketBean.removeSelectedSeries}" >
                     
                     	        <f:setPropertyActionListener target="#{basketBean.toDelete}"
-                                                      value="#{item.seriesPkId}||#{item.gridLocation}"/>
+                                                      value="#{item.seriesPkId}"/>
                                </h:commandButton>                       
                           </div>                            
                     </ice:panelGroup>

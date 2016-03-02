@@ -28,7 +28,7 @@
 */
 package gov.nih.nci.nbia.datamodel;
 
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.util.Arrays;
 import java.util.Comparator;

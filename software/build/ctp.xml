@@ -42,7 +42,7 @@ L-->
     <property name="backup.ctp.server.base.dir" location="${application.base.path}/backup/ctp-server"/>
 
     <echo>FOO ${backup.ctp.server.base.dir}</echo>
-    <ctp-backup/>
+   <!-- <ctp-backup/> -->
 
   </target>
 
@@ -116,7 +116,7 @@ L-->
 
   <target name="install:ctp:server:binaries" unless="exclude.ctp">
 
-    <unjar src="${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
+    <unjar src="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
            dest="${ctp.server.home}"/>
 
     <!-- after unzipping CTP, move the users.xml back on top -->
@@ -155,6 +155,7 @@ nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$
         </echo>
       </case>
       <case value="windows">
+      	<echo>${tools.dir.src}</echo>
         <unzip dest="${ctp.server.home}"
                src="${tools.dir.src}/${jai.windows.binaries.file}" />
         <property name="jai.classpath"
@@ -177,7 +178,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 
   <target name="install:ctp:client:binaries" unless="exclude.ctp-client">
 
-    <unjar src="${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
+    <unjar src="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
            dest="${ctp.client.home}"/>
 
     <!-- after unzipping CTP, move the users.xml back on top -->
@@ -292,7 +293,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 
   <target name="install:ctp:filesender" unless="exclude.ctp-client">
     <copy todir="${ctp.client.home}/FileSender">
-      <fileset dir="${nbia-ctp.dist.relative.dir}/FileSender"/>
+      <fileset dir="../${nbia-ctp.dist.relative.dir}/FileSender"/>
     </copy>
 
 

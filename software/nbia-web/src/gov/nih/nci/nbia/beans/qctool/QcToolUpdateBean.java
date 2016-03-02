@@ -25,13 +25,11 @@ import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.search.APIURLHolder;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+import gov.nih.nci.nbia.searchresult.APIURLHolder;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

@@ -1,6 +1,4 @@
 package gov.nih.nci.nbia.textsupport;
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-
 import java.io.*;
 import java.util.*;
 import org.apache.log4j.Logger;

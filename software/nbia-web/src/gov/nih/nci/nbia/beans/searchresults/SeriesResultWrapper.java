@@ -8,7 +8,7 @@
 
 package gov.nih.nci.nbia.beans.searchresults;
 
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 public class SeriesResultWrapper {
 	public SeriesResultWrapper(SeriesSearchResult series) {
@@ -16,7 +16,7 @@ public class SeriesResultWrapper {
 	}
 	
 	public String getBasketKey() {
-		return series.getId()+"||"+series.associatedLocation().getURL();
+		return series.getId().toString();
 	}
 	
 	
@@ -34,15 +34,5 @@ public class SeriesResultWrapper {
 	
 	private boolean checked;
 	
-	private SeriesSearchResult series;
-	public String getLocationDisplayName() {
-		return series.associatedLocation().getDisplayName();
-	}
-	public String getGridLocation() {
-		return series.associatedLocation().getURL();
-	}
-
-	
-	
-			
+	private SeriesSearchResult series;	
 }

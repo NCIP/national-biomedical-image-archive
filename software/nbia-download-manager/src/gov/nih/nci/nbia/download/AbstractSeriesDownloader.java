@@ -9,7 +9,6 @@
 package gov.nih.nci.nbia.download;
 
 import gov.nih.nci.nbia.util.NBIAIOUtils;
-import gov.nih.nci.ncia.search.NBIANode;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -116,14 +115,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
         return this.numberOfImages;
     }
 
-
-    /**
-     * The NBIA Node that this series will be downloaded from.
-     */
-    public NBIANode getNode() {
-    	return this.node;
-    }
-
     /* (non-Javadoc)
      * @see com.javadude.beans.PropertyChangeNotifier#addPropertyChangeListener(java.beans.PropertyChangeListener)
     */
@@ -137,13 +128,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         pcs.removePropertyChangeListener(listener);
     }
-
-    /**
-     * Based upon these parameters, scrape together a concrete NBIANode instance.
-     */
-    public abstract NBIANode constructNode(String url,
-    		                               String displayName,
-    		                               boolean local) throws Exception;
 
     public void setOutputDirectory(File outputDirectory) {
     	this.outputDirectory = outputDirectory;
@@ -164,7 +148,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 	                  String password,
 	                  Integer imagesSize,
 	                  Integer annoSize,
-	                  NBIANode node,
 	                  String seriesIdentifier, Integer noOfRetry){
 
 		this.serverUrl = serverUrl;
@@ -179,7 +162,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 		this.password = password;
 		this.imagesSize = imagesSize;
 		this.annoSize = annoSize;
-		this.node = node;
 		this.seriesIdentifier = seriesIdentifier;
 		this.noOfRetry = noOfRetry;
 		computeTotalSize();
@@ -245,8 +227,6 @@ public abstract class AbstractSeriesDownloader extends Observable implements Run
 
     ///////////////////////////////////////////////PROTECTED////////////////////////////////////////
     protected File outputDirectory;
-    protected NBIANode node;
-
     protected String seriesIdentifier;
     protected String collection;
     protected String patientId;

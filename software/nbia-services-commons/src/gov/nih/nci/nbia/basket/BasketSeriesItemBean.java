@@ -9,7 +9,7 @@
 package gov.nih.nci.nbia.basket;
 
 import gov.nih.nci.nbia.util.HashCodeUtil;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.text.DecimalFormat;
 
@@ -346,25 +346,8 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
         }
     }
 
-
-    public String getGridLocation() {
-        return gridLocation;
-    }
-
-    public void setGridLocation(String gridLocation) {
-        this.gridLocation = gridLocation;
-    }
-
 	public SeriesSearchResult getSeriesSearchResult() {
 		return seriesSearchResult;
-	}
-
-	public String getLocationDisplayName() {
-		return locationDisplayName;
-	}
-
-	public void setLocationDisplayName(String locationDisplayName) {
-		this.locationDisplayName = locationDisplayName;
 	}
 
 	////////////////////////////////////////PRIVATE////////////////////////////////////
@@ -380,9 +363,6 @@ public class BasketSeriesItemBean implements Comparable<BasketSeriesItemBean> {
     private String project;
     private boolean annotationsFlag;
     private Long annotationsSize = 0L;
-    private String gridLocation;
-
-    private String locationDisplayName;
     private String patientpk;
 
     // Used by the UI to indicate if this has been selected for deletion

@@ -21,7 +21,7 @@ L-->
 	<property name="resources.dir" value="resources" />
 	<property name="classes.dir" value="${basedir}/classes" />
 
-	<property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-ear" />
+	<property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-wars" />
 	<property name="war.name" value="nbia-api.war" />
 	<property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
 
@@ -34,6 +34,7 @@ L-->
 	<property name="project.lib.dir" value="${common.dir}/target/lib/nbia-api"/>
 	<property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
 	<property name="dicomsupport.lib" location="${common.dir}/common/resources/dicomapi/" />
+	<property name="property.dir" location="${common.dir}/build/" />
 
 	<!-- Paths -->
 	<path id="common.classpath">
@@ -127,16 +128,6 @@ L-->
 		<copy todir="${webapp.dir}/WEB-INF/lib">
 			<fileset dir="${project.lib.dir}/runtime">
 				<include name="*.*" />
-				<!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
-				<exclude name="log*.jar" />
-				<!-- avoid org.jboss.tm.TxManager class cast exception -->
-				<exclude name="jta*.jar" />
-				<!--exclude name="commons-logging*.jar" /-->
-				<exclude name="cglib-2.1_3.jar" />
-				<exclude name="spring-asm*.jar" />
-				<exclude name="spring-jsm*.jar" />
-				<exclude name="xml-apis*.jar" />
-				<exclude name="bcprov-*.jar" />
 			</fileset>
 
 		</copy>
@@ -147,6 +138,7 @@ L-->
 				<include name="hibernate.properties"/>
 			</fileset>
 		</copy>
+		<copy file="${property.dir}/install.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
 	</target>
 
 	<target name="compile" depends="ivy-compile">

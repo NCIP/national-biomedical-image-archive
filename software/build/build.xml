@@ -31,9 +31,7 @@ L-->
 	<property name="nbia-grid.base.dir" value="${software.dir}/nbia-service"/>
 	<property name="nbia-ctp.base.dir" value="${software.dir}/nbia-ctp-working"/>
 	<property name="nbia-services-commons.base.dir" value="${software.dir}/nbia-services-commons"/>
-	<property name="image-zipping-mdb.base.dir" value="${software.dir}/image-zipping-mdb"/>
-	<property name="image-deletion-mdb.base.dir" value="${software.dir}/image-deletion-mdb"/>
-	<property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
+    <property name="nbia-services-grid.base.dir" value="${software.dir}/nbia-services-grid"/>
 	<property name="nbia-domain.base.dir" value="${software.dir}/nbia-domain"/>
 	<property name="nbia-util.base.dir" value="${software.dir}/nbia-util"/>
 	<property name="nbia-web.base.dir" value="${software.dir}/nbia-web"/>
@@ -59,7 +57,7 @@ L-->
 	<property name="nbia-grid.dist.dir" value="${dist.exploded.dir}/${nbia-grid.dist.relative.dir}"/>
 	<property name="nbia-ctp.dist.relative.dir" value="nbia-ctp"/>
 	<property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
-	<property name="nbia-web.dist.relative.dir" value="nbia-ear"/>
+	<property name="nbia-web.dist.relative.dir" value="nbia-wars"/>
 	<property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
 	<property name="jai.linux.dest.file" value="${tools.dist.dir}/${jai.linux.binaries.file}"/>
 	<property name="jai.windows.dest.file" value="${tools.dist.dir}/${jai.windows.binaries.file}"/>
@@ -168,7 +166,7 @@ L-->
 	<target name="build:all" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 		clean,
 		init,
-		build:jboss:config, compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
+		compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
 	<!--copy todir="D:\apps\nbia-6_3-oracle-ldap\jboss-eap-6.2\standalone\deployments">
 				<fileset dir="D:\workspace_6-3\software\target\dist\exploded\nbia-ear">
 				<exclude name="nbia.war"/>
@@ -440,14 +438,6 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		</ant>
 	</target>
 	
-	<!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
-	<target name="-build:imagezipping-mdb" depends="init,
-                   build:nbia-services-commons">
-		<ant inheritAll="false" inheritRefs="false" antfile="build.xml" target="run" dir="${image-zipping-mdb.base.dir}">
-			<property name="project.name" value="${project.name}"/>
-		</ant>
-	</target>
-	
 	<target name="keygen">
 		<sequential>
 			<tstamp>
@@ -493,15 +483,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			</sequential>
 		</sequential>
 	</target>
-	
-	<!-- dont call this directly.  let the ear builder call it to ensure remote search is ready -->
-	<target name="-build:image-deletion-mdb" depends="init,
-                   build:nbia-services-commons">
-		<ant inheritAll="false" inheritRefs="false" antfile="build.xml" target="run" dir="${image-deletion-mdb.base.dir}">
-			<property name="project.name" value="${project.name}"/>
-		</ant>
-	</target>
-	
+
 	<target name="build:nbia-liquibase" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="run" dir="../nbia-liquibase">
 			<property name="project.name" value="${project.name}"/>
@@ -510,11 +492,9 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	
 	<target name="build:nbia-web" depends="init,
                    build:nbia-services-commons,
-		   build:nbia-download-manager,
+		           build:nbia-download-manager,
                    build:nbia-download,
-                   keygen,
-                   -build:image-deletion-mdb,
-                   -build:imagezipping-mdb">
+                   keygen">
 		<copy todir="${target.dir}/dist/exploded/nbia-download-manager">
 			<fileset dir="${lib.dir}/nbia-download-manager/runtime">
 				<include name="*.jar"/>
@@ -573,15 +553,15 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 	
 	<target name="-branding">
 		<!-- Clean up working area -->
-		<delete dir="${target.dir}/temp/nbia-ear"/>
-		<delete dir="${target.dir}/temp/nbia-war"/>
+		<delete dir="${target.dir}/temp/nbia-wars"/>
+		<delete dir="${target.dir}/temp/ncia-war"/>
 		<!-- Make working directories -->
-		<mkdir dir="${target.dir}/temp/nbia-ear"/>
-		<mkdir dir="${target.dir}/temp/nbia-war"/>
+		<mkdir dir="${target.dir}/temp/nbia-wars"/>
+		<mkdir dir="${target.dir}/temp/ncia-war"/>
 		<!-- Extract required archives -->
-		<unzip src="${nbia-web.dist.dir}/nbia.ear" dest="${target.dir}/temp/nbia-ear"/>
-		<unzip src="${target.dir}/temp/nbia-ear/nbia.war" dest="${target.dir}/temp/nbia-war"/>
-		<property name="webapp.dir.path" value="${target.dir}/temp/nbia-war"/>
+		<unzip src="${nbia-web.dist.dir}/nbia.ear" dest="${target.dir}/temp/nbia-wars"/>
+		<unzip src="${target.dir}/temp/nbia-wars/ncia.war" dest="${target.dir}/temp/ncia-war"/>
+		<property name="webapp.dir.path" value="${target.dir}/temp/ncia-war"/>
 		<sequential>
 			<!--   add cancer center logo header if necessary -->
 			<if>
@@ -725,16 +705,11 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				</then>
 			</if>
 		</sequential>
-		<war destfile="${target.dir}/temp/nbia-ear/nbia.war" compress="false" update="true" webxml="${target.dir}/temp/nbia-war/WEB-INF/web.xml">
-			<fileset dir="${target.dir}/temp/nbia-war">
+		<war destfile="${target.dir}/temp/nbia-wars/ncia.war" compress="false" update="true" webxml="${target.dir}/temp/ncia-war/WEB-INF/web.xml">
+			<fileset dir="${target.dir}/temp/ncia-war">
 				<include name="*/**"/>
 			</fileset>
 		</war>
-		<ear compress="false" update="true" destfile="${nbia-web.dist.dir}/nbia.ear" appxml="${target.dir}/temp/nbia-ear/META-INF/application.xml">
-			<fileset dir="${target.dir}/temp/nbia-ear">
-				<include name="*/**"/>
-			</fileset>
-		</ear>
 	</target>
 	
 	<target name="build:db:new" depends="build:nbia-liquibase" description="Create new database ">
@@ -867,7 +842,40 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
 		</ant>
 	</target>
-	
+	<target name="build:all:deploy" depends="build:all">
+		  <copy todir="${gov.nih.nci.ncia.tomcat.home}/webapps">
+		    <fileset dir="${dist.exploded.dir}/nbia-wars"/>
+		  </copy>
+	</target>
+	<target name="build:tomcat:config" depends="init">
+		<copy file="${common.resources.dir}/tomcat/jaas.config" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
+			<filterset>
+				<filter token="database.type" value="${database.type}"/>
+				<filter token="database.driver" value="${database.driver}"/>
+				<filter token="database.url" value="${database.url}"/>
+				<filter token="database.user" value="${database.user}"/>
+				<filter token="database.password" value="${database.password}"/>
+			</filterset>
+		</copy>
+		<copy file="${common.resources.dir}/tomcat/setenv.bat" tofile="${gov.nih.nci.ncia.tomcat.home}/bin/setenv.bat" overwrite="true">
+			<filterset>
+				<filter token="tomcat.home" value="${gov.nih.nci.ncia.tomcat.home}"/>
+			</filterset>
+		</copy>
+		<copy file="${common.resources.dir}/tomcat/context.xml" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/context.xml" overwrite="true">
+		</copy>
+		<copy file="${common.resources.dir}/tomcat/server.xml" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/server.xml" overwrite="true">
+			<filterset>
+				<filter token="database.type" value="${database.type}"/>
+				<filter token="database.driver" value="${database.driver}"/>
+				<filter token="database.url" value="${database.url}"/>
+				<filter token="database.user" value="${database.user}"/>
+				<filter token="database.password" value="${database.password}"/>
+			</filterset>
+		</copy>
+		<get src="${mysql.driver.jar.src.url}" dest="${gov.nih.nci.ncia.tomcat.home}/lib/${mysql.driver.jar}"/>
+		<get src="${oracle.driver.jar.src.url}" dest="${gov.nih.nci.ncia.tomcat.home}/lib/${oracle.driver.jar}"/>
+	</target>
 	<target name="build:jboss:config" depends="init">
 		<delete dir="${common.dist.dir}"/>
 		<copy file="${common.resources.dir}/jbossEAP6-conf/DataSourceItem.xml" todir="${common.dist.dir}/jbossEAP6"/>
@@ -1054,7 +1062,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 			</sequential>
 		</for>
 		<replaceregexp file="${dist.exploded.dir}/install.properties" byline="true" match="^(grid.index.url)=.*" replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
-		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-ear/nbia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-wars/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 		<copy todir="${dist.dir}" overwrite="true">
 			<fileset dir="${nbia-ctp.dist.dir}">
 				<include name="CTP_Client.zip"/>

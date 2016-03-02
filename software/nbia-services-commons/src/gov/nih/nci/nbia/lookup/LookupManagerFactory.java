@@ -10,7 +10,7 @@ package gov.nih.nci.nbia.lookup;
 
 import java.lang.reflect.Constructor;
 import java.util.Collection;
-
+import gov.nih.nci.nbia.util.*;
 public class LookupManagerFactory {
 	
 	/**
@@ -18,10 +18,10 @@ public class LookupManagerFactory {
 	 * and then cache the instance.
 	 */
 	public static LookupManager createLookupManager(Collection<String> authorizedCollections) {
-		String lookupManagerClassName = System.getProperty("lookupManager.className");
-
+		String lookupManagerClassName = NCIAConfig.getlookupManagerClassName();
+		
 		if(lookupManagerClassName==null) {
-			throw new RuntimeException("lookupManager.className must be defined in system properties");
+			throw new RuntimeException("lookupManager.className must be defined in properties");
 		}
 		else {
 			try {

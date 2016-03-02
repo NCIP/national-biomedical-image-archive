@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -50,12 +51,17 @@ public class TableRelationships {
 				                      Element.class);
 
 		//pass this in instead?
-		File relationshipConfigFile = DynamicSearchConfig.getRelationshipConfigFile();
-
-		InputStream in = new FileInputStream(relationshipConfigFile);
-		Relation o = (Relation)xstream.fromXML(new InputStreamReader(in));
-		relationTree = o.getElement();
-		in.close();
+   	    try {
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			InputStream input = classLoader.getResourceAsStream("relationship.xml");
+			Relation o = (Relation)xstream.fromXML(new InputStreamReader(input));
+			relationTree = o.getElement();
+			input.close();
+		} catch (Exception e) {
+			System.out.println("Cannot open relationship.xml file....");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**

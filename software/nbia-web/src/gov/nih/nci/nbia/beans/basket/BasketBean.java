@@ -26,7 +26,8 @@ import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.FileGenerator;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
-import gov.nih.nci.nbia.jms.ImageZippingMessage;
+import gov.nih.nci.nbia.executors.ImageZippingMessage;
+import gov.nih.nci.nbia.executors.AsynchonousServices;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.LocalDrillDown;
@@ -59,15 +60,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.servlet.http.HttpServletRequest;
 
-import javax.annotation.Resource;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Queue;
-import javax.jms.Session;
-import javax.jms.ObjectMessage;
+
 
 import org.apache.log4j.Logger;
 
@@ -86,11 +79,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     public static final String HIGHLIGHTED = "highlightedData";
     public static final String NOT_HIGHLIGHTED = "";
 
-	@Resource(mappedName = "java:/ConnectionFactory")
-	private ConnectionFactory connectionFactory;
+	//@Resource(mappedName = "java:/ConnectionFactory")
+	//private ConnectionFactory connectionFactory;
 
-	@Resource(mappedName = "java:/queue/imageQueue")
-    private Queue queue;
+	//@Resource(mappedName = "java:/queue/imageQueue")
+    //private Queue queue;
 
     /**
      *
@@ -297,32 +290,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 
             izm.setZipFilename(path + File.separator + sb.getUsername() + File.separator + fileName);
 
-			Connection connection = null;
-			try {
-				Destination destination = queue;
-
-				logger.debug("Sending messages to " + destination );
-				connection = connectionFactory.createConnection();
-				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-				MessageProducer messageProducer = session.createProducer(destination);
-				connection.start();
-				ObjectMessage message = session.createObjectMessage(izm);
-				messageProducer.send(message);
-				logger.debug("message sent out");
-
-			} catch (JMSException e) {
-				e.printStackTrace();
-				logger.debug("A problem occurred during the delivery of online deletion message");
-				logger.debug("Go your the JBoss Application Server console or Server log to see the error stack trace");
-			} finally {
-				if (connection != null) {
-					try {
-						connection.close();
-					} catch (JMSException e) {
-						e.printStackTrace();
-					}
-				}
-        }
+            AsynchonousServices.performImageZipping(izm);
 
             hasBasketChangedSinceDownload = false;
 

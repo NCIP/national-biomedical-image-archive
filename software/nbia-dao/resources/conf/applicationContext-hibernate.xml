@@ -41,7 +41,7 @@ L-->
     <property name="location" value="classpath:hibernate.properties" />
   </bean>
 
-  <jee:jndi-lookup id="dataSource" jndi-name="${hibernate.connection.datasource}"/>
+  <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ncia"/>
 
   <!-- Hibernate SessionFactory -->
   <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -287,6 +287,12 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
    <bean id="study" class="gov.nih.nci.nbia.internaldomain.Study" scope="prototype"/>
    <bean id="trialSite" class="gov.nih.nci.nbia.internaldomain.TrialSite" scope="prototype"/>
    <bean id="trialDataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" scope="prototype"/>
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
 
   <!--
     Activates various annotations to be detected in bean classes:

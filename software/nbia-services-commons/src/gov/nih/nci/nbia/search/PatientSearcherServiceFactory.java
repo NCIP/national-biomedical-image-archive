@@ -10,7 +10,7 @@ package gov.nih.nci.nbia.search;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import gov.nih.nci.nbia.util.NCIAConfig;
 public class PatientSearcherServiceFactory {
 
 	public static PatientSearcherService getPatientSearcherService() {
@@ -27,7 +27,7 @@ public class PatientSearcherServiceFactory {
 	private static ExecutorService executorService = Executors.newFixedThreadPool(10);
 	
 	private static PatientSearcherService createPatientSearcherService() {
-		String patientSearcherClassName = System.getProperty("patientSearcherService.className");
+		String patientSearcherClassName = NCIAConfig.getPatientSearcherServiceClassName();
 
 		if(patientSearcherClassName==null) {
 			throw new RuntimeException("patientSearcherService.className must be defined in system properties");

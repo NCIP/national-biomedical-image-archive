@@ -68,7 +68,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>

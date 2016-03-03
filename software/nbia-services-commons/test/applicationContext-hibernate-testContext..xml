@@ -105,18 +105,6 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
   <bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
 
 
-  <bean id="aimImgObsCharacteristicQuantificationDAO" class="gov.nih.nci.nbia.dao.AimImgObsCharacteristicQuantificationDAOImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
-
-  <bean id="aimImgObsCharacteristicDAO" class="gov.nih.nci.nbia.dao.AimImgObsCharacteristicDAOImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
-
   <bean id="imageDAO2" class="gov.nih.nci.nbia.dao.ImageDAO2Impl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>

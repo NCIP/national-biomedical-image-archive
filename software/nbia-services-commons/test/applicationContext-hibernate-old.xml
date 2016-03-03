@@ -162,11 +162,6 @@ L-->
       <ref bean="sessionFactory"/>
     </property>
   </bean>
-  <bean id="markupManager" class="gov.nih.nci.nbia.markup.MarkupManagerImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
   <bean id="queryStorageManager" class="gov.nih.nci.nbia.querystorage.QueryStorageManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>

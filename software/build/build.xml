@@ -858,6 +858,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="database.url" value="${database.url}"/>
 				<filter token="database.user" value="${database.user}"/>
 				<filter token="database.password" value="${database.password}"/>
+				<filter token="tomcat.server.port" value="${tomcat.server.port}"/>
 			</filterset>
 		</copy>
 	</target>
@@ -901,6 +902,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="database.url" value="${database.url}"/>
 				<filter token="database.user" value="${database.user}"/>
 				<filter token="database.password" value="${database.password}"/>
+				<filter token="tomcat.server.port" value="${tomcat.server.port}"/>
 			</filterset>
 		</copy>
 		<get src="${mysql.driver.jar.src.url}" dest="${gov.nih.nci.ncia.tomcat.home}/lib/${mysql.driver.jar}"/>

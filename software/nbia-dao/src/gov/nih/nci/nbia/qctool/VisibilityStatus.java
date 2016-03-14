@@ -41,7 +41,9 @@ public enum VisibilityStatus {
 	STAGE_4(8,"Stage 4"),
 	STAGE_5(9,"Stage 5"),
 	STAGE_6(10,"Stage 6"),
-	STAGE_7(11,"Stage 7");
+	STAGE_7(11,"Stage 7"),
+	RELEASED(12, "Released");
+	
 
     /**
      * Reads in an integer and creates the correct VisibilityStatus for that integer.
@@ -75,7 +77,9 @@ public enum VisibilityStatus {
             return STAGE_6;
         } else if (status == 11) {
             return STAGE_7;
-        }       
+        } else if(status == 12)  {
+        	return RELEASED;
+        }
         return null;
     }
 
@@ -109,7 +113,9 @@ public enum VisibilityStatus {
             return STAGE_6;
         } else if (status.equals(STAGE_7.getText())) {
             return STAGE_7;
-        }  
+        } else if(status.equals(RELEASED.getText())) {
+        	return RELEASED;
+        }
         
         return null;
     }

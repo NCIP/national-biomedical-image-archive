@@ -105,7 +105,7 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
      * @return array of QC Status items
      */
     public SelectItem[] getQcStatusItems() {
-    	SelectItem[] qcStatusItems = new SelectItem[11];
+    	SelectItem[] qcStatusItems = new SelectItem[12];
 		qcStatusItems[0] = new SelectItem(VisibilityStatus.NOT_YET_REVIEWED.getText() );
         qcStatusItems[1] = new SelectItem(VisibilityStatus.VISIBLE.getText());
         qcStatusItems[2] = new SelectItem(VisibilityStatus.NOT_VISIBLE.getText());
@@ -117,6 +117,7 @@ public class DynamicQCSearchBean extends DynamicSearchBean {
         qcStatusItems[8] = new SelectItem(VisibilityStatus.STAGE_5.getText());
         qcStatusItems[9] = new SelectItem(VisibilityStatus.STAGE_6.getText());
         qcStatusItems[10] = new SelectItem(VisibilityStatus.STAGE_7.getText());
+        qcStatusItems[11] = new SelectItem(VisibilityStatus.RELEASED.getText());
         return qcStatusItems;
     }
     /**

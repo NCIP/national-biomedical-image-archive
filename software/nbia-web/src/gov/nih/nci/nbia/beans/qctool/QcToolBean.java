@@ -112,7 +112,7 @@ public class QcToolBean {
      * @return array of QC Status items
      */
     public SelectItem[] getQcStatusItems() {
-    	SelectItem[] qcStatusItems = new SelectItem[11];
+    	SelectItem[] qcStatusItems = new SelectItem[12];
         //qcStatusItems[0] = new SelectItem("Not Yet Reviewed");
         //qcStatusItems[1] = new SelectItem("Visible");
         //qcStatusItems[2] = new SelectItem("Not Visible");
@@ -128,7 +128,10 @@ public class QcToolBean {
         qcStatusItems[8] = new SelectItem(VisibilityStatus.STAGE_5.getText());
         qcStatusItems[9] = new SelectItem(VisibilityStatus.STAGE_6.getText());
         qcStatusItems[10] = new SelectItem(VisibilityStatus.STAGE_7.getText());
+        qcStatusItems[11] = new SelectItem(VisibilityStatus.RELEASED.getText());
+        
         return qcStatusItems;
+        
     }
     //////////////////////////////////BEGIN COLLECTION ITEMS//////////////////////
     public List<SelectItem> getCollectionItems() {

@@ -822,6 +822,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 		<if>
 			<equals arg1="${authentication.type}" arg2="ldap"/>
 			<then>
+				<echo>copying ${common.resources.dir}/tomcat/jaas.config.ldap to ${dist.exploded.dir}/tomcat-files/jaas.config</echo>
 				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap" tofile="${dist.exploded.dir}/tomcat-files/jaas.config" overwrite="true">
 					<filterset>
 						<filter token="application.context.name" value="${application.context.name}"/>
@@ -847,6 +848,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
 				<filter token="tomcat.home" value="${gov.nih.nci.ncia.tomcat.home}"/>
 			</filterset>
 		</copy>
+		<echo>copying ${common.resources.dir}/tomcat/context.xml to ${dist.exploded.dir}/tomcat-files/context.xml</echo>
 		<copy file="${common.resources.dir}/tomcat/context.xml" tofile="${dist.exploded.dir}/tomcat-files/context.xml" overwrite="true">
 		</copy>
 		<copy file="${common.resources.dir}/tomcat/log4j.properties" tofile="${dist.exploded.dir}/tomcat-files/log4j.properties" overwrite="true">

@@ -145,7 +145,7 @@ L-->
          webxml="config/web.xml"
          basedir="tmp.webapp"
          compress="false"/>
-  	
+  	<echo>copying ${target.dir}/${war.name} to ${dist.dir}</echo>
     <copy todir="${dist.dir}"
           file="${target.dir}/${war.name}"/>
   </target>

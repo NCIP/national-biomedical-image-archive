@@ -44,6 +44,7 @@ public enum VisibilityStatus {
 	STAGE_7(11,"Stage 7"),
 	RELEASED(12, "Released");
 	
+	
 
     /**
      * Reads in an integer and creates the correct VisibilityStatus for that integer.

@@ -146,6 +146,18 @@ L-->
 		compute-tag-properties, build:nbia-web, dist:ctp-client, dist:ctp-server,dist:solr, build:nbia-api">
 	</target>
 	
+	<target name="build:local:install" description="Deply the wars to local tomcat defined in buildAHP3.properties" depends="
+		build:all">
+		<copy todir="${application.base.path.windows}/apache-tomcat-7.0.68/webapps" overwrite="true">
+			<fileset dir="${dist.exploded.dir}/nbia-wars">
+				<include name="ncia.war"/>
+				<include name="nbia-api.war"/>
+				<include name="oviyam2.war"/>
+				<include name="nbia-download.war"/>
+			</fileset>
+		</copy>
+	</target>
+	
 	<target name="build:all:niams" description="Builds all the sub projects, putting artifacts in the project level target directory, used by distribution targets to make distributions" depends="
 			build:all, -branding">
 	</target>

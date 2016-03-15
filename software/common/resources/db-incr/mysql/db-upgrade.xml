@@ -1790,19 +1790,29 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
          </sql>
   </changeSet>
   
-  <changeSet id="6.4.remove.unused talbes" author="panq">
+  <changeSet id="6.4.remove.unused.tables" author="panq">
          <comment>
            Remove tables not used in NBIA
          </comment>  
          
          <sql>
-           drop table if exists aim_img_obs_characteristic;
-		   drop table if exists aim_quantification;
+           drop table if exists aim_quantification;
+		   drop table if exists aim_img_obs_characteristic;
 		   drop table if exists group9_dicom_tags;
 		   drop table if exists image_markup;
 		   drop table if exists curation_data;
 		   drop table if exists curation_status;
 		   drop table if exists qa_status_history_old;
          </sql>
-  </changeSet>  
+  </changeSet>
+
+  <changeSet id="6.4.add.usage.count.to.shared.list" author="panq">
+         <comment>
+           Add usage count to custom_series_list table
+         </comment>  
+         
+         <sql>
+           ALTER TABLE custom_series_list ADD COLUMN usage_count INT UNSIGNED DEFAULT 0;
+         </sql>
+  </changeSet>    
 </databaseChangeLog>

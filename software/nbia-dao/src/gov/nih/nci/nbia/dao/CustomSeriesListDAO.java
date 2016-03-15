@@ -67,6 +67,7 @@ public interface CustomSeriesListDAO  {
 	 * 
 	 */
 	public long update(CustomSeriesListDTO editList, String userName, Boolean updatedSeries) throws DataAccessException;
+	public void updateUsageCount(int id) throws DataAccessException;
 
 	/**
 	 * insert a new record for the custom series list

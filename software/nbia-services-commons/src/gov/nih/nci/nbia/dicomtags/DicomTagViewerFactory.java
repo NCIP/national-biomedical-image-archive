@@ -23,21 +23,6 @@ public class DicomTagViewerFactory {
 	
 	
 	private static DicomTagViewer createDicomTagViewer() {
-		String dicomTagViewerClassName = System.getProperty("dicomTagViewer.className");
-
-		if(dicomTagViewerClassName==null) {
-			throw new RuntimeException("dicomTagViewer.className must be defined in system properties");
-		}
-		else {
-			try {
-				ClassLoader loader = Thread.currentThread().getContextClassLoader();
-				Class clazz = Class.forName(dicomTagViewerClassName, false, loader);
-				DicomTagViewer dicomTagViewer =  (DicomTagViewer)clazz.newInstance();
-				return dicomTagViewer;
-			}
-			catch(Exception ex) {
-				throw new RuntimeException(ex);
-			}
-		}			
+          return new LocalDicomTagViewer();		
 	}	
 }

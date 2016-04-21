@@ -223,6 +223,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		seriesList.setId(editList.getId());
 		seriesList.setCustomSeriesListTimestamp(new Date());
 		seriesList.setUserName(userName);
+		seriesList.setUsageCount(editList.getUsageCount());
 		List<CustomSeriesListAttributeDTO> attributeDtos = editList
 				.getSeriesInstanceUidsList();
 
@@ -241,6 +242,7 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 			existingList.setHyperlink(editList.getHyperlink());
 			existingList.setCustomSeriesListTimestamp(new Date());
 			existingList.setUserName(userName);
+			existingList.setUsageCount(editList.getUsageCount());
 
 			for (CustomSeriesListAttributeDTO dto : attributeDtos) {
 				CustomSeriesListAttribute attr = new CustomSeriesListAttribute();
@@ -257,6 +259,24 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 
 		return 1L;
 	}
+	
+	/**
+	 * update database with usageCount in the dto
+	 *
+	 */
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void updateUsageCount(int id) throws DataAccessException {
+		String hql = "select distinct csl from CustomSeriesList csl where csl.id ="
+				+ id;
+		
+		List searchResults = getHibernateTemplate().find(hql);
+		if (searchResults != null) {
+			CustomSeriesList csl = (CustomSeriesList) (searchResults.get(0));
+			csl.setUsageCount((csl.getUsageCount().intValue())+1);
+
+			getHibernateTemplate().update(csl);
+		}
+	}	
 
 	/**
 	 * insert a new record for the custom series list
@@ -272,6 +292,8 @@ public class CustomSeriesListDAOImpl extends AbstractDAO
 		seriesList.setHyperlink(customList.getHyperlink());
 		seriesList.setUserName(username);
 		seriesList.setCustomSeriesListTimestamp(new Date());
+		seriesList.setUsageCount(new Integer(0));
+		
 		List<String> seriesUids = customList.getSeriesInstanceUIDs();
 
 		for (String seriesInstanceUid : seriesUids) {

@@ -145,8 +145,6 @@ public class SearchCustomSeriesListBean {
 		reset();
 		//noPermissionSeries.clear();
 		int index = table.getRowIndex();
-		System.out.println("index: " + index);
-		
 		CustomSeriesListDTO selected = results.get(index);
 		selectedListName = selected.getName();
 		List<String> seriesList = selected.getSeriesInstanceUIDs();
@@ -164,6 +162,8 @@ public class SearchCustomSeriesListBean {
                 errorMessage=true;
                 return ;
             }
+    
+            processor.updateUsageCount(selected.getId());
             //add to data basket
             BasketBean dataBasket = (BasketBean) BeanManager.getBasketBean();
             dataBasket.setCustomListSearch(true);
@@ -314,7 +314,6 @@ public class SearchCustomSeriesListBean {
 	public void listNamedDetailsClicked(ActionEvent actionEvent) throws Exception {
 		reset();
 		int index = table.getRowIndex();
-		System.out.println("index: " + index);
 		CustomSeriesListDTO selectedSharedList = results.get(index);
 		System.out.println("name: " + selectedSharedList.getName() + " comment: " + selectedSharedList.getComment());
 		Integer customSeriesListPkId = selectedSharedList.getId();
@@ -336,7 +335,6 @@ public class SearchCustomSeriesListBean {
 	*/
 	public String performDelete() {
 		int index = table.getRowIndex();
-		System.out.println("index: " + index);
 		CustomSeriesListDTO selectedSharedList = results.get(index);
 		System.out.println("name: " + selectedSharedList.getName() + " comment: " + selectedSharedList.getComment());
 		if (seriesInstanceUidsList == null || seriesInstanceUidsList.isEmpty()) {

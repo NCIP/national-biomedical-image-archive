@@ -172,10 +172,8 @@ public class EditCustomSeriesListBean {
 		reset();
 		//noPermissionSeries.clear();
 		int index = table.getRowIndex();
-		System.out.println("index: " + index);
 		//selectedList = null;
 		selectedList = customList.get(index);
-		System.out.println("name: " + selectedList.getName() + " comment: " + selectedList.getComment());
 		Integer customSeriesListPkId = selectedList.getId();
 		seriesInstanceUidsList.clear();
 		seriesInstanceUidsList = processor
@@ -484,9 +482,7 @@ public class EditCustomSeriesListBean {
 	   		  results = null;	
 	   	}		
 		int index = table.getRowIndex();
-		System.out.println("index: " + index);
 		CustomSeriesListDTO selectedSharedList = results.get(index);
-		System.out.println("name: " + selectedSharedList.getName() + " comment: " + selectedSharedList.getComment());
 		if (seriesInstanceUidsList == null || seriesInstanceUidsList.isEmpty()) {
 			seriesInstanceUidsList = processor.getCustomseriesListAttributesById(selectedSharedList.getId());
 		}

@@ -140,7 +140,16 @@ L-->
         <include name="*.*" />
       </fileset>
     </copy>
-	<copy file="${build.dir}/install.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+  	<echo>"${build.dir}/{properties.file}"</echo>
+    <if>
+      <available file="${tomcat.dir}/ahp_nbia.properties"/>
+      <then>
+      	<copy file="${tomcat.dir}/ahp_nbia.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+      </then>
+      <else>
+      	<copy file="${build.dir}/${property.file}" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+      </else>
+    </if>
 	<copy file="${tomcat.dir}/DataSourceItem.xml" tofile="${webapp.dir}/WEB-INF/classes/DataSourceItem.xml"/>
 	<copy file="${tomcat.dir}/relationship.xml" tofile="${webapp.dir}/WEB-INF/classes/relationship.xml"/>
     <copy todir="${webapp.dir}/WEB-INF/classes">

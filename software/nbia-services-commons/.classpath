@@ -48,7 +48,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/ehcache-1.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/hibernate-3.2.0.ga.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/jai_imageio-1.2_pre-dr-b04.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/jdom-1.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/jhbasic-29.50.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-services-commons/test/jsf-api-1.2_12.jar"/>

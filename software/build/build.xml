@@ -50,8 +50,6 @@ L-->
 	<property name="nbia-ctp.dist.dir" value="${dist.exploded.dir}/${nbia-ctp.dist.relative.dir}"/>
 	<property name="nbia-web.dist.relative.dir" value="nbia-wars"/>
 	<property name="nbia-web.dist.dir" value="${dist.exploded.dir}/${nbia-web.dist.relative.dir}"/>
-	<property name="jai.linux.dest.file" value="${tools.dist.dir}/${jai.linux.binaries.file}"/>
-	<property name="jai.windows.dest.file" value="${tools.dist.dir}/${jai.windows.binaries.file}"/>
 	<property name="working.dir" location="${target.dir}/working"/>
 	<property name="db.dir.src" location="${basedir}/db"/>
 	<property name="db.dir.dest" location="${working.dir}/db"/>
@@ -205,11 +203,6 @@ L-->
 		<echo message=" !!! final  nbia_prod_build_tag =${nbia_prod_build_tag.final}"/>
 	</target>
 	
-	<target name="dist:tools:retrieve:jai">
-		<get src="${jai.linux.src.url}" dest="${jai.linux.dest.file}"/>
-		<get src="${jai.windows.src.url}" dest="${jai.windows.dest.file}"/>
-	</target>
-	
 	<target name="build:nbia-ctp" depends="init,
                                          build:nbia-util,
                                          build:nbia-domain,
@@ -309,7 +302,7 @@ L-->
 		<delete dir="${nbia-ctp.dist.dir}/CTP-installer.jar"/>
 	</target>
 	
-	<target name="dist:ctp-server" description="build and configure ctp server" depends="build:nbia-ctp, dist:tools:retrieve:jai">
+	<target name="dist:ctp-server" description="build and configure ctp server" depends="build:nbia-ctp">
 		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server"/>
 		<unjar src="${nbia-ctp.dist.dir}/CTP-installer.jar" dest="${nbia-ctp.dist.dir}/CTP_Server"/>
 		<!-- after unzipping CTP, move the users.xml back on top -->
@@ -348,35 +341,7 @@ L-->
 		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/logs"/>
 		<!-- for default index dir -->
 		<mkdir dir="${nbia-ctp.dist.dir}/CTP_Server/CTP/index"/>
-		<osfamily property="os.type"/>
-		<switch value="${os.type}">
-			<case value="unix">
-				<property name="jai.classpath" value="${jai.linux.binaries.relative.dir}/lib/"/>
-				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.linux.binaries.file}"/>
-				<!--echo file="${ctp.server.home}/CTP/ctp.sh">
-        <![CDATA[
-#!/bin/sh
-nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$JAVA_HOME/jre/lib/ext" -jar CTP.jar &
-        ]]>
-        </echo-->
-			</case>
-			<case value="windows">
-				<property name="jai.classpath" value="${jai.windows.binaries.relative.dir}/lib/"/>
-				<unzip dest="${nbia-ctp.dist.dir}/CTP_Server/" src="${tools.dist.dir}/${jai.windows.binaries.file}"/>
-				<!--property name="jai.classpath"
-                  value="${ctp.server.home}/${jai.windows.binaries.relative.dir}/lib/"/>
 
-        <echo file="${ctp.server.home}/CTP/ctp.bat">
-        <![CDATA[
-echo Starting CTP Server...
-java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_HOME%/jre/lib/ext" -jar CTP.jar
-        ]]>
-        </echo-->
-			</case>
-			<default>
-				<echo message="${os.type} has no match."/>
-			</default>
-		</switch>
 		<zip update="false" destfile="${nbia-ctp.dist.dir}/CTP_Server.zip">
 			<zipfileset dir="${nbia-ctp.dist.dir}/CTP_Server/"/>
 		</zip>
@@ -973,7 +938,7 @@ java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_H
         dist:installer,
         dist:solr"/>
 	<!-- Copies install time resources into distribution tree -->
-	<target name="dist:installer:prep" depends="dist:tools:retrieve:jai">
+	<target name="dist:installer:prep">
 		<!-- Copy db-install and db-upgrade scripts from source into distribution area. The db files need to be under db-[install/upgard]/${database.type}. -->
 		<copy todir="${db-install.dist.dir}" overwrite="true">
 			<fileset dir="${db-install.src.dir}">

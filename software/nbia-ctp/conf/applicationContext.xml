@@ -106,12 +106,6 @@ L-->
 
    <bean id="annotationRecognizer" class="gov.nih.nci.nbia.annotations.AnnotationRecognizerImpl"/>
 
-   <bean id="aimAnnotationSubmissionProcessor" class="gov.nih.nci.nbia.annotations.AimAnnotationSubmissionProcessor">
-     <property name="sessionFactory">
-       <ref bean="sessionFactory"/>
-     </property>
-   </bean>
-
    <bean id="traditionalAnnotationSubmissionProcessor" class="gov.nih.nci.nbia.annotations.TraditionalAnnotationSubmissionProcessor">
      <property name="sessionFactory">
        <ref bean="sessionFactory"/>

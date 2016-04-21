@@ -138,42 +138,6 @@ L-->
     <!-- for default index dir -->
     <mkdir dir="${ctp.server.home}/CTP/index"/>
     <mkdir dir="${ctp.server.storage_service.index}"/>
-
-    <osfamily property="os.type"/>
-    <switch value="${os.type}">
-      <case value="unix">
-        <unzip dest="${ctp.server.home}"
-               src="${tools.dir.src}/${jai.linux.binaries.file}" />
-        <property name="jai.classpath"
-                  value="${ctp.server.home}/${jai.linux.binaries.relative.dir}/lib/"/>
-
-        <echo file="${ctp.server.home}/CTP/ctp.sh">
-        <![CDATA[
-#!/bin/sh
-nohup java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath}:$JAVA_HOME/jre/lib/ext" -jar Runner.jar &
-        ]]>
-        </echo>
-      </case>
-      <case value="windows">
-      	<echo>${tools.dir.src}</echo>
-        <unzip dest="${ctp.server.home}"
-               src="${tools.dir.src}/${jai.windows.binaries.file}" />
-        <property name="jai.classpath"
-                  value="${ctp.server.home}/${jai.windows.binaries.relative.dir}/lib/"/>
-
-        <echo file="${ctp.server.home}/CTP/ctp.bat">
-        <![CDATA[
-echo Starting CTP Server...
-java -Xmx1024m -cp xml-apis-1.0.b2.jar -Djava.ext.dirs="${jai.classpath};%JAVA_HOME%/jre/lib/ext" -jar Runner.jar
-        ]]>
-        </echo>
-      </case>
-      <default>
-        <echo message="${os.type} has no match."/>
-      </default>
-    </switch>
-
-
   </target>
 
   <target name="install:ctp:client:binaries" unless="exclude.ctp-client">

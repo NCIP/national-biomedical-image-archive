@@ -86,11 +86,6 @@ L-->
                 rev="2.0.19"
                 conf="compile->master;runtime->default"/>
           -->
-             <dependency org="java.net"
-                name="jai_imageio"
-                rev="1.2_pre-dr-b04"
-                conf="runtime->master"/>
-
     <dependency org="org.slf4j"
                 name="slf4j-api"
                 rev="1.7.5"

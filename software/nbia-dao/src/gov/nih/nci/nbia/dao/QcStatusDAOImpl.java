@@ -38,29 +38,45 @@ public class QcStatusDAOImpl extends AbstractDAO
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
-			                                  List<String> collectionSites,
+			                                  List<String> collectionSites, String[] additionalQcFlagList,
 			                                  String[] patients) throws DataAccessException {
-		return findSeries(qcStatus, collectionSites, patients, null, null, 100000);
+		return findSeries(qcStatus, collectionSites, additionalQcFlagList, patients, null, null, 100000);
 	}
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
-			                                  List<String> collectionSites,
+			                                  List<String> collectionSites, String[] additionalQcFlagList, 
 			                                  String[] patients, Date fromDate, Date toDate, int maxRows) throws DataAccessException {
 
+//		String selectStmt = "SELECT gs.project," +
+//		                           "gs.site," +
+//		                           "gs.patientId,"+
+//		                           "gs.studyInstanceUID," +
+//		                           "gs.seriesInstanceUID,"+
+//		                           "gs.visibility," +
+//		                           "gs.maxSubmissionTimestamp,"+
+//		                           "gs.modality, "+
+//		                           "gs.seriesDesc ";
+		
 		String selectStmt = "SELECT gs.project," +
-		                           "gs.site," +
-		                           "gs.patientId,"+
-		                           "gs.studyInstanceUID," +
-		                           "gs.seriesInstanceUID,"+
-		                           "gs.visibility," +
-		                           "gs.maxSubmissionTimestamp,"+
-		                           "gs.modality, "+
-		                           "gs.seriesDesc ";
+                "gs.site," +
+                "gs.patientId,"+
+                "gs.studyInstanceUID," +
+                "gs.seriesInstanceUID,"+
+                "gs.visibility," +
+                "gs.maxSubmissionTimestamp,"+
+                "gs.modality, "+
+                "gs.seriesDesc, " +
+                
+                "gs.batch, " +
+                "gs.submissionType ";
+		
 		String fromStmt = "FROM GeneralSeries as gs";
+			
 		String whereStmt = " WHERE " +
 		                   computeVisibilityCriteria(qcStatus) +
 		                   computeCollectionCriteria(collectionSites) +
+		                   computeAdditionalFlags(additionalQcFlagList) +	                 
 		                   computePatientCriteria(patients) +
 		                   computeSubmissionDateCriteria(fromDate, toDate);
 
@@ -68,6 +84,11 @@ public class QcStatusDAOImpl extends AbstractDAO
 
 		String hql = selectStmt + fromStmt + whereStmt;
 
+		System.out.println("In QcStatusDAOImpl:findSeries(...) with additional qc values: " 
+	        		+ "Batch = '" + additionalQcFlagList[0] + "', submissionType = '" + additionalQcFlagList[1] + "'" );
+	    
+		System.out.println("\n In QcStatusDAOImpl:findSeries(...) with hibernate hql query = " + hql + "\n");
+		
 //		List<Object[]> searchResults = getHibernateTemplate().find(hql);
 
 		SessionFactory sf = getHibernateTemplate().getSessionFactory();
@@ -87,6 +108,10 @@ public class QcStatusDAOImpl extends AbstractDAO
 			Timestamp submissionDate = (Timestamp) row[6];
 			String modality = (String) row[7];
 			String seriesDesc = (String) row[8];
+			
+			String batch = "" + row[9];
+			String submissionType = (String) row[10];
+			
 			Date subDate = null;
 			if(submissionDate != null) {
 				subDate = new Date(submissionDate.getTime());
@@ -98,7 +123,10 @@ public class QcStatusDAOImpl extends AbstractDAO
 					                                          study,
 					                                          series,
 					                                          subDate,
-					                                          visibilitySt, modality, seriesDesc);
+					                                          visibilitySt, 
+					                                          modality, 
+					                                          seriesDesc, 
+					                                          batch, submissionType);
 			searchResultDtos.add(qcSrDTO);
 		}
 
@@ -107,10 +135,12 @@ public class QcStatusDAOImpl extends AbstractDAO
 
 	@Transactional(propagation=Propagation.REQUIRED)
 	public List<QcStatusHistoryDTO> findQcStatusHistoryInfo(List<String> seriesList) throws DataAccessException{
-
+		
 		List<QcStatusHistoryDTO> qcsList = new ArrayList<QcStatusHistoryDTO>();
 		String selectStmt = "SELECT qsh.historyTimestamp,"
-				+ "qsh.seriesInstanceUid," + "qsh.oldValue," + "qsh.newValue,"
+				+ "qsh.seriesInstanceUid," + "qsh.oldValue," + "qsh.newValue," 
+				+ "qsh.oldBatch, qsh.newBatch, " 
+				+ "qsh.oldSubmissionType, qsh.newSubmissionType,"
 				+ "qsh.comment," + "qsh.userId ";
 		String fromStmt = "FROM QCStatusHistory as qsh";
 		String whereStmt = " WHERE qsh.seriesInstanceUid in (";
@@ -162,11 +192,19 @@ public class QcStatusDAOImpl extends AbstractDAO
 			String series = (String) row[1];
 			String oldValue = (String) row[2];
 			String newValue = (String) row[3];
-			String comment = (String) row[4];
-			String userId = (String) row[5];
-			QcStatusHistoryDTO qcshDTO = new QcStatusHistoryDTO(new Date(
-					historyTimestamp.getTime()), series, newValue,
-					oldValue, comment, userId);
+			
+			String oldBatch = (String) row[4];
+			String newBatch = (String) row[5];
+			String oldSubmissionType = (String) row[6];
+			String newSubmissionType = (String) row[7];
+	 		
+			String comment = (String) row[8];
+			String userId = (String) row[9];
+			
+			QcStatusHistoryDTO qcshDTO = new QcStatusHistoryDTO(new Date(historyTimestamp.getTime()),
+					 series, newValue, oldValue, oldBatch, newBatch, oldSubmissionType, newSubmissionType,
+					 comment, userId);
+			
 			qcsList.add(qcshDTO);
 		}
 		return qcsList;
@@ -184,16 +222,36 @@ public class QcStatusDAOImpl extends AbstractDAO
 		}
 		return sb.toString();
 	}
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void updateQcStatus(List<String> seriesList,
 			                   List<String> statusList,
-			                   String newStatus,
-			                   String userName,
-			                   String comment) throws DataAccessException {
+			                   String newStatus, 
+			                   String[] additionalQcFlagList, String[] newAdditionalQcFlagList, 
+			                   String userName, String comment) throws DataAccessException {
+		
+		System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - statusList size is: " + statusList.size());
+		
+		
+		
 		for (int i = 0; i < seriesList.size(); ++i) {
 			String seriesId = seriesList.get(i);
-			updateDb(seriesId, statusList.get(i), newStatus, userName, comment);
+			
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - in forLoop B4 calling updateDb with the following params: ");
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) -  seriesId = " + seriesId);
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) -  statusList.get(" + i + ") = " + statusList.get(i));
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) -  newStatus = " + newStatus);
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - additionalQcFlagList[0] is batchNum b4 = " + additionalQcFlagList[0]);
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - newAdditionalQcFlagList[0] is batchNum after = " + newAdditionalQcFlagList[0]);
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - additionalQcFlagList[1] is submissionType b4 = " + additionalQcFlagList[1]);
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - newAdditionalQcFlagList[1] is submissionType after = " + newAdditionalQcFlagList[1]);
+			
+			updateDb(seriesId, statusList.get(i), newStatus, additionalQcFlagList, newAdditionalQcFlagList, userName, comment);
+			
 		}
+		
+		
+		
 	}
 
 	//////////////////////////////////////PRIVATE//////////////////////////////////////////
@@ -263,7 +321,29 @@ public class QcStatusDAOImpl extends AbstractDAO
 		}
 		return sb.toString();
 	}
-
+	
+	private static String computeAdditionalFlags(String[] additionalQcFlagList){
+		String retStr = "";
+		
+		if(additionalQcFlagList[0] != null && additionalQcFlagList[0].trim().length() > 0){	
+			int batchNum = Integer.parseInt(additionalQcFlagList[0]);				
+			if(batchNum > 0){
+				retStr = " and gs.batch=" + batchNum;
+			}			
+		}
+		
+		if(additionalQcFlagList[1] != null && additionalQcFlagList[1].trim().length() > 0){		
+			if(additionalQcFlagList[1].toUpperCase().contains("YES"))
+				retStr += " and gs.submissionType='Complete' ";
+	    	else if(additionalQcFlagList[1].toUpperCase().contains("NO"))
+	    		retStr += " and gs.submissionType='Ongoing' ";	
+	    }
+		
+		System.out.println("In QcStatusDAOImpl:computeAdditionalFlags(...) retStr is: " + retStr);
+		
+		return retStr;
+	}
+	
 	private static String computeVisibilityCriteria(String[] qcStatus) {
 		StringBuffer sb = new StringBuffer();
 		if (qcStatus != null && qcStatus.length > 0) {
@@ -283,9 +363,11 @@ public class QcStatusDAOImpl extends AbstractDAO
 		return sb.toString();
 	}
 
+	
 	private void updateDb(String seriesId,
 			              String oldStatus,
 			              String newStatus,
+			              String[] additionalQcFlagList, String[] newAdditionalQcFlagList, 
 			              String userName,
 			              String comment) {
 
@@ -296,18 +378,54 @@ public class QcStatusDAOImpl extends AbstractDAO
 		qsh.setSeriesInstanceUid(seriesId);
 		qsh.setUserId(userName);
 		qsh.setComment(comment);
-
+	
+	//// Additional QC Flags settings before and after changes ////
+		if(additionalQcFlagList[0] != null && additionalQcFlagList[0].trim().length() > 0){
+			qsh.setOldBatch(additionalQcFlagList[0]);
+		}
+	    if(newAdditionalQcFlagList[0] != null && newAdditionalQcFlagList[0].trim().length() > 0){	
+	    	qsh.setNewBatch(newAdditionalQcFlagList[0]);
+	    }
+		
+	    if(additionalQcFlagList[1] != null && additionalQcFlagList[1].trim().length() > 0){
+	    	if(additionalQcFlagList[1].toUpperCase().contains("YES"))
+		    	qsh.setOldSubmissionType("Complete");
+		    else if(additionalQcFlagList[1].toUpperCase().contains("NO"))
+		    	qsh.setOldSubmissionType("Ongoing");
+	    }
+	    
+	    if(newAdditionalQcFlagList[1] != null && newAdditionalQcFlagList[1].trim().length() > 0){
+		    if(newAdditionalQcFlagList[1].toUpperCase().contains("YES"))
+		    	qsh.setNewSubmissionType("Complete");
+		    else if(newAdditionalQcFlagList[1].toUpperCase().contains("NO"))
+		    	qsh.setNewSubmissionType("Ongoing");  	
+	    }
+					
 		String hql = "select distinct gs from GeneralSeries gs where gs.seriesInstanceUID ='"
 				+ seriesId + "'";
 		final String updateHql = createUpdateCurationTStatement(seriesId);
 		List searchResults = getHibernateTemplate().find(hql);
+		
 		if (searchResults != null) {
 			GeneralSeries gs = (GeneralSeries) (searchResults.get(0));
+			
 			gs.setVisibility(newStatus);
-
+			
+			if(newAdditionalQcFlagList[0] != null && newAdditionalQcFlagList[0].trim().length() > 0){
+				gs.setBatch(Integer.parseInt(newAdditionalQcFlagList[0]));
+			}
+				
+			if(newAdditionalQcFlagList[1] != null && newAdditionalQcFlagList[1].trim().length() > 0){
+			   	if(newAdditionalQcFlagList[1].toUpperCase().contains("YES"))
+			   		gs.setSubmissionType("Complete");
+			    else if(newAdditionalQcFlagList[1].toUpperCase().contains("NO"))
+			    	gs.setSubmissionType("Ongoing");
+			}
+		
 			getHibernateTemplate().update(gs);
-			getHibernateTemplate().bulkUpdate(updateHql);
+			getHibernateTemplate().bulkUpdate(updateHql);	
 			getHibernateTemplate().saveOrUpdate(qsh);
+			
 		}
 	}
 

@@ -23,12 +23,12 @@ import org.springframework.dao.DataAccessException;
 public interface QcStatusDAO {
 
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
-			                                  List<String> collectionSites, 
+			                                  List<String> collectionSites, String[] additionalQcFlagList, 
 			                                  String[] patients) throws DataAccessException;
 		
 		
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
-            List<String> collectionSites, 
+            List<String> collectionSites, String[] additionalQcFlagList, 
             String[] patients, Date fromDate, Date toDate, int maxRows) throws DataAccessException;
 
 	public List<QcStatusHistoryDTO> findQcStatusHistoryInfo(List<String> seriesList)throws DataAccessException;
@@ -36,9 +36,9 @@ public interface QcStatusDAO {
 
 	public void updateQcStatus(List<String> seriesList,
 			                   List<String> statusList, 
-			                   String newStatus, 
-			                   String userName,
+			                   String newStatus, String[] additionalQcFlagList, String[] newAdditionalQcFlagList, 
+			                   String userName, 
 			                   String comment) throws DataAccessException;
-
-
+	
+	
 }

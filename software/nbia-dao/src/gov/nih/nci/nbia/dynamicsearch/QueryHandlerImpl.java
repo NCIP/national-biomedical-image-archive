@@ -115,7 +115,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		}
 	}
 	@Transactional(propagation=Propagation.REQUIRED) 	
-	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws DataAccessException {
+	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate, String[] additionalFlagList) throws DataAccessException {
 		DetachedCriteria criteria = null;
 		List<QcSearchResultDTO> searchResultDtos = new ArrayList<QcSearchResultDTO>();
 		try
@@ -131,12 +131,20 @@ public class QueryHandlerImpl extends AbstractDAO
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".visibility"));
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".maxSubmissionTimestamp"));
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".modality"));
-            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".seriesDesc"));            
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".seriesDesc"));     
+            
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".batch"));
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".submissionType"));
+            
+            
             criteria.setProjection(Projections.distinct(projectionList));
 
 			criteria = addAllJoinKeys(criteria);
 			criteria = addAllRestriction(criteria, searchCriteria);
+			
 			computeSubmissionDateCriteria(criteria, fromDate, toDate);
+			computeAdditionalFlagListCriteria(criteria, additionalFlagList);
+		
 			//add user authorized site name and collection
 			CriteriaForAuthorizedSiteData casd = new CriteriaForAuthorizedSiteData();
 			casd.setAuthorizedSiteData(generateAlias(elementTree.get(0).getAlias()),
@@ -160,6 +168,10 @@ public class QueryHandlerImpl extends AbstractDAO
 					Timestamp submissionDate = (Timestamp) row[6];
 					String modality = (String) row[7];
 					String seriesDesc = (String) row[8];
+					
+					String batch = "" + row[9];
+					String submissionType = (String) row[10];
+					
 					Date subDate = null;
 					if(submissionDate != null) {
 						subDate = new Date(submissionDate.getTime());
@@ -170,7 +182,8 @@ public class QueryHandlerImpl extends AbstractDAO
 							                                          study,
 							                                          series,
 							                                          subDate,
-							                                          visibilitySt, modality, seriesDesc);
+							                                          visibilitySt, modality, seriesDesc,
+							                                          batch, submissionType);
 					searchResultDtos.add(qcSrDTO);
 				}
 			}
@@ -200,6 +213,24 @@ public class QueryHandlerImpl extends AbstractDAO
 		toDate = cal.getTime();
 		criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".maxSubmissionTimestamp").between(fromDate, toDate));
 	}
+	
+	private void computeAdditionalFlagListCriteria(DetachedCriteria criti, String[] additionalFlagList){
+		
+		if(additionalFlagList[0] != null && additionalFlagList[0].trim().length() > 0){
+			criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".batch").eq(Integer.parseInt(additionalFlagList[0])));
+		}
+		
+		if(additionalFlagList[1] != null && additionalFlagList[1].trim().length() > 0){
+	      if(additionalFlagList[1].toUpperCase().contains("YES"))
+	    	  criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".submissionType").eq("Complete"));
+	    		
+	      else if(additionalFlagList[1].toUpperCase().contains("NO"))
+	    	 criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".submissionType").eq("Ongoing"));
+	    }
+		
+	}
+	
+	
 	/**
 	 * This method prepares all necessary conditions for Query builder method.
 	 * This method must be called before calling buildQuery().
@@ -214,7 +245,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			createMapKeys();
 			//add visibility = 1 in generalSeries level
 			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
-	
+			
 			searchCriteria = ro.sortTableName(criteria);
 			//reset currentNode
 			originalCriteria = criteria;
@@ -223,6 +254,8 @@ public class QueryHandlerImpl extends AbstractDAO
 			this.statementRelation = stateRelation;
 			this.authorizedSiteData = aData;
 			this.seriesSecurityGroups = securityGroups;
+					
+			
 		}
 		catch(Exception ex) {
 			throw new RuntimeException(ex);
@@ -242,8 +275,8 @@ public class QueryHandlerImpl extends AbstractDAO
 			elementTree = ro.getRelationTree();
 			createMapKeys();
 			//add visibility based on user selected in generalSeries level
-			criteria.add(createSeriesVisibilityCriteria(Arrays.asList(visibiltyStatus)));
-	
+			criteria.add(createSeriesVisibilityCriteria(Arrays.asList(visibiltyStatus)));	
+
 			searchCriteria = ro.sortTableName(criteria);
 			//reset currentNode
 			originalCriteria = criteria;
@@ -252,6 +285,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			this.statementRelation = stateRelation;
 			this.authorizedSiteData = aData;
 			this.seriesSecurityGroups = securityGroups;
+			
 		}
 		catch(Exception ex) {
 			throw new RuntimeException(ex);
@@ -416,6 +450,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			throw new Exception("Statement Relationship cannot be recognized!");
 		}
 
+		System.out.println("======= In QueryHandlerImpl:addAllRestrictionc(crit,...) - criteriaToBuild is: " + criteriaToBuild.toString());
 		return criteriaToBuild;
 	}
 	
@@ -543,7 +578,7 @@ public class QueryHandlerImpl extends AbstractDAO
 
 	private static DynamicSearchCriteria createSeriesVisibilityCriteria(List<String> visibilityStatus) {
 		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
-		dsc.setDataGroup("GeneralSeries");
+		dsc.setDataGroup("GeneralSeries");		
 		dsc.setField("visibility");
 		Operator o = new Operator();
 		dsc.setValue(convertListToDelimitedString(visibilityStatus));
@@ -555,6 +590,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		dsc.setOperator(o);
 		return dsc;
 	}
+	
 
 	private void removeSeriesVisibilityCriteria()
 	{

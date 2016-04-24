@@ -38,7 +38,7 @@ public interface QueryHandler {
 	 * @return Qc series dto
 	 * @throws Exception on error
 	 */
-	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws Exception;
+	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate, String[] additionalFlagList) throws Exception;
 
 	/**
 	 * Call this before executing the query method.  This
@@ -68,6 +68,8 @@ public interface QueryHandler {
 			                     String statementRelation,
 			                     List<SiteData> aData,
 			                     List<String> sGrooups, String[] visibilityStatus) throws Exception;
+	
+	
 	/**
 	 * This is returning a Hibernate object, so this should
 	 * be changed to a DTO, or this whole thing needs to be hidden

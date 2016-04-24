@@ -115,8 +115,11 @@ public class NCIAConfig {
     	 InputStream input = classLoader.getResourceAsStream("nbia.properties");
     	 // ...
     	 properties = new Properties();
+    	     	 
     	 try {
 			properties.load(input);
+		
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -135,6 +138,18 @@ public class NCIAConfig {
          return propertyValue;
      }
 
+     public static String getQCToolPropertyValue(String key){
+    	 String propertyValue = properties.getProperty(key);
+    	 checkProperty(key, propertyValue);
+    	 return propertyValue;
+    	 
+     }
+     
+     public static Integer getQCBatchNumberSelectSize() {
+         return getIntProperty( "qctool.batchNumberSelect.size");
+     }
+     
+     
     /**
      *  The Name of the Local Node
      *  Property: local_node_name

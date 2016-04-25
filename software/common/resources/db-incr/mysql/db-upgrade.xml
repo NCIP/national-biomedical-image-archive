@@ -1815,4 +1815,30 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
            ALTER TABLE custom_series_list ADD COLUMN usage_count INT UNSIGNED DEFAULT 0;
          </sql>
   </changeSet>    
+  <changeSet id="6.4.add.newColums.for.additional.qc.tool.statusFlags" author="orakwueco" dbms="mysql">
+         <comment>
+           Add batchNum to assign a batch number to a batch of images.  
+		   Add submission_type to mark a set of submission as 'Complete' or 'Ongoing' submission.
+         </comment>          
+         <sql>          
+			ALTER TABLE general_series  
+			ADD COLUMN batchNum int(20); 
+	       
+			ALTER TABLE general_series  
+			ADD COLUMN submission_type varchar(100);    
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN oldBatch varchar(20);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN newBatch varchar(20);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN oldSubmissionType varchar(100);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN newSubmissionType varchar(100);							
+         </sql>
+  </changeSet>    
+    
 </databaseChangeLog>

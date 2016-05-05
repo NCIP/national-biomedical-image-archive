@@ -118,6 +118,44 @@ public class QCStatusHistory  implements Serializable
 	public void setOldValue(String oldValue){
 		this.oldValue = oldValue;
 	}
+	
+	private String oldBatch;
+	public String getOldBatch(){		
+		return oldBatch;
+	}
+
+	public void setOldBatch(String oldBatch){
+		this.oldBatch = oldBatch;
+	}
+	
+    private String newBatch;
+	public String getNewBatch(){		
+		return newBatch;
+	}
+
+	public void setNewBatch(String newBatch){
+		this.newBatch = newBatch;
+	}
+
+	private String oldSubmissionType;
+	public String getOldSubmissionType(){		
+		return oldSubmissionType;
+	}
+
+	public void setOldSubmissionType(String oldSubmissionType){
+		this.oldSubmissionType = oldSubmissionType;
+	}
+	
+	private String newSubmissionType;
+	public String getNewSubmissionType(){		
+		return newSubmissionType;
+	}
+
+	public void setNewSubmissionType(String newSubmissionType){
+		this.newSubmissionType = newSubmissionType;
+	}
+	
+	//----------------------------------------------------------------
 
 	/**
 	* An associated gov.nih.nci.ncia.security.NCIAUser object

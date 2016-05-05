@@ -11,12 +11,14 @@ package gov.nih.nci.nbia.dto;
 import gov.nih.nci.nbia.util.UidDisplayUtil;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * Represents a series for data transfer purposes
  *
  * @author dietrichj
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SeriesDTO implements Comparable<SeriesDTO>  {
     private static Logger logger = Logger.getLogger(SeriesDTO.class);
 
@@ -40,7 +42,7 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
     private String manufacturerModelName;
     private String softwareVersion;
     private String maxFrameCount;
-
+    
     public Integer getNumberImages() {
         return numberImages;
     }

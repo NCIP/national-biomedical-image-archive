@@ -19,6 +19,7 @@ import gov.nih.nci.nbia.dynamicsearch.TableRelationships;
 import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.textsupport.SolrAllDocumentMetaData;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
@@ -100,7 +101,7 @@ public class DynamicSearchBean {
 	protected String permissibleDataValue = "";
 
 	protected SourceItem defaultSourceItem = new SourceItem();
-
+    private String user;
 	public String getPermissibleDataValue() {
 		return permissibleDataValue;
 	}
@@ -113,6 +114,7 @@ public class DynamicSearchBean {
 	{
 		SecurityBean sb = BeanManager.getSecurityBean();
 		String userName = sb.getUsername();
+		user=userName.trim();
 		man = new AuthorizationManager(userName.trim());
 		authorizedSiteData = man.getAuthorizedSites();
 		seriesSecurityGroups = man.getAuthorizedSeriesSecurityGroups();
@@ -582,12 +584,7 @@ public class DynamicSearchBean {
 	{
 		String returnValue = "dynamicSearch";
 		if(criteria !=null && !criteria.isEmpty()) {
-			QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
-			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
-			qh.setQueryCriteria(criteria, relation, authorizedSiteData, seriesSecurityGroups);
-			qh.query();
-			List<PatientSearchResult> patients = qh.getPatients();
-
+			List<PatientSearchResult> patients = RESTUtil.getDynamicSearch(criteria, relation, user);
 			populateSearchResults(patients);
 		} else {
 			populateSearchResults(null);

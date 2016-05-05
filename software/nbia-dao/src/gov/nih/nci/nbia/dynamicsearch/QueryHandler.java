@@ -17,8 +17,6 @@ import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
-
 //this needs a different name that doesnt collide with other names in system
 //QueryGenerator?  dont have a strong opinion except not to call it what
 //its being called
@@ -34,17 +32,13 @@ public interface QueryHandler {
 	 */
 	public void query()throws Exception;
 	
-	public List<PatientSearchResult> query(List<DynamicSearchCriteria> criteria,
-            String stateRelation, List<SiteData> aData,
-            List<String> securityGroups,String[] visibiltyStatus) throws DataAccessException;
-	
 	/**
 	 * @param fromDate
 	 * @param toDate
 	 * @return Qc series dto
 	 * @throws Exception on error
 	 */
-	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws Exception;
+	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate, String[] additionalFlagList) throws Exception;
 
 	/**
 	 * Call this before executing the query method.  This

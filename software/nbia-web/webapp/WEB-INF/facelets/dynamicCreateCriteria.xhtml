@@ -26,12 +26,39 @@ L-->
                             <td class="formField" colspan="2">
                                 <ice:selectManyCheckbox id="dslctQcStatus" value="#{dynamicQcSearchBean.selectedQcStatus}" partialSubmit="false" style="white-space:nowrap; ">
                                 <f:selectItems id="slctStatisItms" value="#{dynamicQcSearchBean.qcStatusItems}" />
+                                
                                 </ice:selectManyCheckbox>
                                 <!-- ice:selectManyMenu id="dslctQcStatus" value="#{dynamicQcSearchBean.selectedQcStatus}" partialSubmit="false" style="white-space:nowrap; ">
                                 <f:selectItems id="slctStatisItms" value="#{dynamicQcSearchBean.qcStatusItems}" />
                                 </ice:selectManyMenu-->
                            </td>
                       </tr>
+                                                                 
+                      <tr>
+                                <td width="12%" class="formLabel">
+                                    <ice:outputLabel for="AdditionalFlags" value="#{msg.qctool_additionalFlags}" />
+                                    <br />
+                                </td>
+                                							
+                               <td class="formField" >                               
+                    		     <ice:outputLabel for="BatchNum" value="#{msg.qctool_batch}" />
+                                   <ice:selectOneMenu id="BatchNum"
+                                                     value="#{dynamicQcSearchBean.selectedQcBatchNum}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{dynamicQcSearchBean.qcBatchNums}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>                                                                       								                                                																
+                               
+                                <td class="formField" >                               
+                    		     <ice:outputLabel for="SubmissionType" value="#{msg.qctool_SubmissionType}" />
+                                   <ice:selectOneMenu id="SubmissionType"
+                                                     value="#{dynamicQcSearchBean.selectedQcSubmissionType}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{dynamicQcSearchBean.qcSubmissionTypes}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>
+						  </tr>		                        
+                                                                 
                       <tr>
                          <td class="formLabel">
                                #{msg.qctool_sub_date}
@@ -120,8 +147,8 @@ L-->
                           <f:verbatim>&amp;nbsp;</f:verbatim>
                           <ice:commandButton image="images/reset.gif" alt="reset"
                                              action="#{dynamicQcSearchBean.resetAction}"/>
-                            </td>
-                            </tr>
+                        </td>
+                      </tr>
                     </table>
                     <div align="center">
         <table width="80%"  border="0" 

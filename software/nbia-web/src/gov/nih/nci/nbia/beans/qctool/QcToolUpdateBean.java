@@ -57,7 +57,29 @@ public class QcToolUpdateBean {
 	public void setSelectedQcStatus(String selectedQcStatus) {
 		this.selectedQcStatus = selectedQcStatus;
 	}
+	
+   /////////////////////////////////////////////////////////////////////////////
+	//============  Getters/Setters for additional QC Status flags ============
+	
+	public String getSelectedQcBatch() {
+		return selectedQcBatch;
+	}
 
+	public void setSelectedQcBatch(String selectedQcBatch) {
+		this.selectedQcBatch = selectedQcBatch;
+	}
+
+	//---------------------------------------------
+	
+	public String getSelectedQcSubmissionType() {
+		return selectedQcSubmissionType;
+	}
+
+	public void setSelectedQcSubmissionType(String selectedQcSubmissionType) {
+		this.selectedQcSubmissionType = selectedQcSubmissionType;
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the comments
 	 */
@@ -152,6 +174,9 @@ public class QcToolUpdateBean {
 	 * This action is called when the update button is clicked.
 	 */
 	public String update() throws Exception {
+		
+		System.out.println("In QCToolUpdateBean:update() - update button clicked.... ");
+		
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		List<String> seriesCheckList = new ArrayList<String>();
 
@@ -164,28 +189,85 @@ public class QcToolUpdateBean {
 		if (!isErrorFree(BULK)){
 			return null;
 		}
+		
 		if (qsrDTOList != null) {
+			
+			System.out.println("In QCToolUpdateBean:update() - qsrDTOList is NOT NULL - and qsrDTOList size is: " + qsrDTOList.size());
+			
 			newQsrDTOList = new ArrayList<QcSearchResultDTO>();
+			
 			seriesList.clear();
 			statusList.clear();
+			additionalQcFlagList = null;
+			newAdditionalQcFlagList = null;
+			
+			additionalQcFlagList = new String[2];
+			newAdditionalQcFlagList = new String[2];
+			
 			for (int i = 0; i < qsrDTOList.size(); ++i) {
 				QcSearchResultDTO aDTO = qsrDTOList.get(i);
 				newQsrDTOList.add(i, new QcSearchResultDTO(aDTO));
 				if (aDTO.isSelected()) {
 					seriesList.add(aDTO.getSeries());
 					statusList.add(aDTO.getVisibility());
+					
+					if(aDTO.getBatch().trim().length() > 0){
+					System.out.println("In QCToolUpdateBean:update() - aDTO.getBatch().trim().length() > 0 ");
+						additionalQcFlagList[0] = aDTO.getBatch();				
+					}
+					
+					if(aDTO.getSubmissionType().trim().length() > 0){
+					System.out.println("In QCToolUpdateBean:update() - aDTO.getSubmissionType().trim().length() > 0 ");
+						additionalQcFlagList[1] = aDTO.getSubmissionType();				
+					}									
+					
+					System.out.println("In QCToolUpdateBean:update() - aDTO.getVisibility() returns = " + aDTO.getVisibility());
+					System.out.println("In QCToolUpdateBean:update() - selectedQcStatus = " + selectedQcStatus + "\n");
+					
+					System.out.println("In QCToolUpdateBean:update() - aDTO.getBatch() returns = " + aDTO.getBatch());
+					System.out.println("In QCToolUpdateBean:update() - selectedQcBatch = " + selectedQcBatch);
+					System.out.println("In QCToolUpdateBean:update() - batchNum = additionalQcFlagList[0] contains = " + additionalQcFlagList[0]);
+					
+					System.out.println("In QCToolUpdateBean:update() - aDTO.getSubmissionType returns = " + aDTO.getSubmissionType());
+					System.out.println("In QCToolUpdateBean:update() - selectedQcSubmissionType = " + selectedQcSubmissionType);
+					System.out.println("In QCToolUpdateBean:update() - submissionType = additionalQcFlagList[1] contains = " + additionalQcFlagList[1]);
+													
+					
 					if (resultAndSelectedStatusIsVisible(aDTO, selectedQcStatus)) {
 						seriesCheckList.add(aDTO.getSeries());
 					}
+					
 					newQsrDTOList.get(i).setVisibility(
 							VisibilityStatus.stringStatusFactory(
 									selectedQcStatus).getNumberValue()
 									.toString());
+					
+					if(selectedQcBatch.trim().length() > 0){
+						newQsrDTOList.get(i).setBatch(selectedQcBatch);
+					}
+					
+					if(selectedQcSubmissionType.trim().length() > 0){
+						newQsrDTOList.get(i).setSubmissionType(selectedQcSubmissionType);
+					}				
+					
 					newQsrDTOList.get(i).setSelected(false);
 					qsrDTOList.get(i).setSelected(false);
+				} // end if (aDTO.isSelected()) {
+				else{
+
+				   System.out.println("In QCToolUpdateBean:update() - aDTO.isSelected() returned false and aDTO.getBatch = " + aDTO.getBatch());
+				   System.out.println("In QCToolUpdateBean:update() - aDTO.isSelected() returned false and aDTO.getSubmissionType = " + aDTO.getSubmissionType() );
+				
 				}
-			}
+				
+			}// End forLoop
 		}
+		
+		else{
+			System.out.println("In QCToolUpdateBean:update() - qsrDTOList is NULL");
+		}
+		
+		
 		if (seriesList.size() == 0) {
 			MessageUtil.addErrorMessage("MAINbody:qcToolForm:SlctRec",
 					ERRORMSG_RPT);
@@ -201,7 +283,23 @@ public class QcToolUpdateBean {
 
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		
+		if(selectedQcBatch.trim().length() > 0){
+			newAdditionalQcFlagList[0] = selectedQcBatch;
+		}
+		
+		if(selectedQcSubmissionType.trim().length() > 0){
+			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+		}				
+		
+		
+		System.out.println("In QCToolUpdateBean:update() - B4 call to doUpdate(...), selectedQcBatch = " + selectedQcBatch);
+		System.out.println("In QCToolUpdateBean:update() - B4 call to doUpdate(...), newAdditionalQcFlagList[0] = " + newAdditionalQcFlagList[0]);
+		System.out.println("In QCToolUpdateBean:update() - B4 call to doUpdate(...), selectedQcSubmissionType = " + selectedQcSubmissionType);
+		System.out.println("In QCToolUpdateBean:update() - B4 call to doUpdate(...), newAdditionalQcFlagList[1] = " + newAdditionalQcFlagList[1]);		
+		
+		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
 		qcToolSearchBean.setQsrDTOList(newQsrDTOList);
 		newQsrDTOList = null;
 		return null;
@@ -213,17 +311,36 @@ public class QcToolUpdateBean {
 
 
 	private void doUpdate(List<String> seriesList, List<String> statusList,
-			String newStatus) {
+			String newStatus, String[] additionalQcFlagList, String[] newAdditionalQcFlagList) {
 
 		SecurityBean secure = BeanManager.getSecurityBean();
 		if (comments.equals(INITIAL_COMMENT)) {
 			comments = "";
 		}
 		QcStatusDAO qsDao = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
-		qsDao.updateQcStatus(seriesList, statusList, newStatus, secure
-				.getUsername(), comments);
+		
+		System.out.println("In QCToolUpdateBean:doUpdate() - newStatus = " + newStatus);
+		System.out.println("In QCToolUpdateBean:doUpdate() - selectedQcStatus = " + selectedQcStatus);
+		
+		System.out.println("In QCToolUpdateBean:doUpdate() - additionalQcFlagList[0] is batchNum b4 = " + additionalQcFlagList[0]);
+		System.out.println("In QCToolUpdateBean:doUpdate() - newAdditionalQcFlagList[0] is batchNum after = " + newAdditionalQcFlagList[0]);
+		System.out.println("In QCToolUpdateBean:doUpdate() - selectedQcBatch = " + selectedQcBatch);
+		
+		System.out.println("In QCToolUpdateBean:doUpdate() - additionalQcFlagList[1] is submissionType b4 = " + additionalQcFlagList[1]);
+		System.out.println("In QCToolUpdateBean:doUpdate() - newAdditionalQcFlagList[1] is submissionType after = " + newAdditionalQcFlagList[1]);
+		System.out.println("In QCToolUpdateBean:doUpdate() - selectedQcSubmissionType = " + selectedQcSubmissionType);
+		
+		qsDao.updateQcStatus(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList, 
+				secure.getUsername(), comments);
+		
+		
+		
 		comments = INITIAL_COMMENT;
 		selectedQcStatus = null;
+		
+		selectedQcBatch = null;
+		selectedQcSubmissionType = null;
+		
 	}
 
 	private List<QcCustomSeriesListDTO> findCustomerListInfo(
@@ -273,12 +390,30 @@ public class QcToolUpdateBean {
 
 		seriesList.clear();
 		statusList.clear();
+		additionalQcFlagList = null;
+		newAdditionalQcFlagList = null;
+		
+		additionalQcFlagList = new String[2];
+		newAdditionalQcFlagList = new String[2];
+		
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		String visibility = qsrDTOList.get(selectedRow).getVisibility();
+		
+		String batch = qsrDTOList.get(selectedRow).getBatch();
+		String submissionType = qsrDTOList.get(selectedRow).getSubmissionType();
+		
 		List<String> seriesCheckList = new ArrayList<String>();
 		seriesId = qsrDTOList.get(selectedRow).getSeries();
 		seriesList.add(seriesId);
 		statusList.add(visibility);
+		
+		additionalQcFlagList[0] = batch;
+	    additionalQcFlagList[1]	= submissionType;	
+	    
+	    //--------------------------------------------------------------
+	    newAdditionalQcFlagList[0] = selectedQcBatch;
+	    newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+	    				
 
 		if (visibility.equals(VISIBLENUM)
 				&& (!selectedQcStatusSingle.equals(VISIBLE))) {
@@ -289,9 +424,13 @@ public class QcToolUpdateBean {
 				return null;
 			}
 		}
+		
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatusSingle).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		
+	doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
+		
 		qsrDTOList.get(selectedRow).setVisibility(newStatus);
 		++selectedRow;
 
@@ -456,7 +595,12 @@ public class QcToolUpdateBean {
 	public void continueUpdate() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		
+		System.out.println("In QCToolUpdateBean:continueUpdate() - newStatus = " + newStatus);
+		System.out.println("In QCToolUpdateBean:continueUpdate() - additionalQcFlagList[0] = " + additionalQcFlagList[0]);
+		System.out.println("In QCToolUpdateBean:continueUpdate() - newAdditionalQcFlagList[0] = " + newAdditionalQcFlagList[0]);
+		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
 		qcToolSearchBean.setQsrDTOList(newQsrDTOList);
 		searchPgPopupRendered = false;
 		newQsrDTOList = null;
@@ -467,7 +611,13 @@ public class QcToolUpdateBean {
 	public String continueUpdateSingle() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatusSingle).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		
+		System.out.println("In QCToolUpdateBean:continueUpdateSingle() - newStatus = " + newStatus);
+		System.out.println("In QCToolUpdateBean:continueUpdateSingle() - additionalQcFlagList[0] = " + additionalQcFlagList[0]);
+		System.out.println("In QCToolUpdateBean:continueUpdateSingle() - newAdditionalQcFlagList[0] = " + newAdditionalQcFlagList[0]);
+		
+		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
 		popupRendered = false;
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		qsrDTOList.get(selectedRow).setVisibility(newStatus);
@@ -610,7 +760,7 @@ public class QcToolUpdateBean {
     }
 
 
-	// //////////////////////////PRIVATE///////////////////////////////////////
+	//////////////////////////// PRIVATE //////////////////////////////
 	private static final String DELETE = "Delete";
 	private static final String VISIBLE = VisibilityStatus.VISIBLE.getText();
 	private static final String VISIBLENUM = VisibilityStatus.VISIBLE
@@ -620,6 +770,10 @@ public class QcToolUpdateBean {
 	private static final String COMMENTS_TOO_LONG = "qcTool_logTooLong";
 	private QcToolSearchBean qcToolSearchBean;
 	private String selectedQcStatus = null;
+	
+	private String selectedQcBatch = null;
+	private String selectedQcSubmissionType = null;
+	
 	private String selectedQcStatusSingle = null;
 	private static final String INITIAL_COMMENT = "Enter change log here...";
 	private String comments = INITIAL_COMMENT;
@@ -637,8 +791,12 @@ public class QcToolUpdateBean {
 	private boolean searchPgPopupRendered = false;
 	private List<QcCustomSeriesListDTO> userNameList;
 	private List<QcSearchResultDTO> newQsrDTOList = null;
+	
 	private List<String> seriesList = new ArrayList<String>();
 	private List<String> statusList = new ArrayList<String>();
+	private String[] additionalQcFlagList;
+	private String[] newAdditionalQcFlagList;
+	
 	private static final String BULK="BulkUpdate";
 	private static final String SINGLE="SingleUpdate";
 	private boolean hasMultiFrame = false;

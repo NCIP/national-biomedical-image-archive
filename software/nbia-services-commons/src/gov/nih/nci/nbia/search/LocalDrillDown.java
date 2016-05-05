@@ -28,7 +28,7 @@ import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 import gov.nih.nci.nbia.searchresult.StudySearchResult;
 import gov.nih.nci.nbia.searchresult.StudySearchResultImpl;
-
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -57,7 +57,7 @@ public class LocalDrillDown implements DrillDown {
 	 * <p>If "patient public" is true and this search result isn't for something
 	 * that is public, return a 0 length study result array.
 	 */
-	public StudySearchResult[] retrieveStudyAndSeriesForPatient(PatientSearchResult patientSearchResult) {
+	public StudySearchResult[] retrieveStudyAndSeriesForPatient(PatientSearchResult patientSearchResult, String userName) {
 		try {
 			if (isPatientPublic) {
 				PublicData publicData = new PublicData();
@@ -67,9 +67,11 @@ public class LocalDrillDown implements DrillDown {
 				}
 
 			}
-			StudyDAO studyDAO = (StudyDAO)SpringApplicationContext.getBean("studyDAO");
-			List<StudyDTO> studies = studyDAO.findStudiesBySeriesId(patientSearchResult.computeListOfSeriesIds());
-
+			//StudyDAO studyDAO = (StudyDAO)SpringApplicationContext.getBean("studyDAO");
+			//List<StudyDTO> studies = studyDAO.findStudiesBySeriesId(patientSearchResult.computeListOfSeriesIds());
+			List<Integer> input=new ArrayList<Integer>();
+			input.addAll(patientSearchResult.computeListOfSeriesIds());
+			List<StudyDTO> studies=RESTUtil.getStudyDrillDown(input, userName);
 			List<StudySearchResultImpl> results = new ArrayList<StudySearchResultImpl>();
 			for(StudyDTO studyDTO : studies) {
 				results.add(constructResult(studyDTO));
@@ -92,7 +94,7 @@ public class LocalDrillDown implements DrillDown {
 	 * <p>If "patient public" is true and this search result isn't for something
 	 * that is public, return a 0 length image result array.
 	 */
-	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult) {
+	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult, String userName) {
         assert thumbnailURLResolver != null;
         if (isPatientPublic) {
         	PublicData publicData = new PublicData();
@@ -111,7 +113,7 @@ public class LocalDrillDown implements DrillDown {
 	 * <p>If "patient public" is true and this search result isn't for something
 	 * that is public, return a 0 length image result array.
 	 */
-	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult) {
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult, String userName) {
         assert thumbnailURLResolver != null;
         if (isPatientPublic) {
         	PublicData publicData = new PublicData();
@@ -121,11 +123,11 @@ public class LocalDrillDown implements DrillDown {
         		return new ImageSearchResultEx[]{};
         	}
         }
-		return retrieveImagesForSeriesEx(seriesSearchResult.getId());
+		return retrieveImagesForSeriesEx(seriesSearchResult.getId(), userName);
 	}
 
-	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult) {
-		return retrieveImagesForSeriesEx(seriesSearchResult);
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult, String userName) {
+		return retrieveImagesForSeriesEx(seriesSearchResult, userName);
 	}
 
 
@@ -140,8 +142,8 @@ public class LocalDrillDown implements DrillDown {
 	 * This method is only on the local drill down.  It's used by the
 	 * qc tool.
 	 */
-	public ImageSearchResultEx[] retrieveImagesForSeriesEx(int seriesPkId) {
-		return this.retrieveImagesbySeriesPkIDEx(Collections.singletonList(seriesPkId));
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(int seriesPkId, String userName) {
+		return this.retrieveImagesbySeriesPkIDEx(Collections.singletonList(seriesPkId), userName);
 	}
 
 	/**
@@ -152,6 +154,7 @@ public class LocalDrillDown implements DrillDown {
         assert thumbnailURLResolver != null;
 
 		try {
+			System.out.println("-----getting images 1---------");
 	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
 	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesInstandUid(Collections.singletonList(seriesInstanceUid));
 	        if(imageDtoList.size()>0) {
@@ -179,7 +182,7 @@ public class LocalDrillDown implements DrillDown {
 	public ImageSearchResultEx[] retrieveImagesForSeriesEx(String seriesInstanceUid) {
         assert thumbnailURLResolver != null;
 
-		try {
+		try {System.out.println("-----getting images 2---------");
 	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
 	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesInstandUid(Collections.singletonList(seriesInstanceUid));
 	        if(imageDtoList.size()>0) {
@@ -208,6 +211,7 @@ public class LocalDrillDown implements DrillDown {
         assert thumbnailURLResolver != null;
 
 		try {
+			System.out.println("-----getting images 3---------");
 	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
 	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesPkID(seriesPkIds);
 
@@ -226,16 +230,17 @@ public class LocalDrillDown implements DrillDown {
 	/**
 	 * Only necessary on the local drill-down for now (ISPY uses this)
 	 */
-	public ImageSearchResultEx[] retrieveImagesbySeriesPkIDEx(List<Integer> seriesPkIds) {
+	public ImageSearchResultEx[] retrieveImagesbySeriesPkIDEx(List<Integer> seriesPkIds, String userName) {
         assert thumbnailURLResolver != null;
 
 		try {
 			System.out.println("in retrieveImagesbySeriesPkIDEx");
-	        ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
-	        List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesPkID(seriesPkIds);
-
+	        //ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
+	        //List<ImageDTO> imageDtoList = imageDAO.findImagesbySeriesPkID(seriesPkIds);
+			List<Integer> input=new ArrayList<Integer>();
+			List<ImageDTO> images=RESTUtil.getImageDrillDown(seriesPkIds, userName);
 			List<ImageSearchResultEx> imageSearchResultList = new ArrayList<ImageSearchResultEx>();
-			for(ImageDTO imageDto : imageDtoList) {
+			for(ImageDTO imageDto : images) {
 				imageSearchResultList.add(constructResultEx(imageDto));
 			}
 

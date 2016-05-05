@@ -35,6 +35,7 @@ L-->
 	<property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
 	<property name="dicomsupport.lib" location="${common.dir}/common/resources/dicomapi/" />
 	<property name="property.dir" location="${common.dir}/build/" />
+	<property name="tomcat.dir" value="${common.dir}/common/resources/tomcat"/>
 
 	<!-- Paths -->
 	<path id="common.classpath">
@@ -139,6 +140,8 @@ L-->
 			</fileset>
 		</copy>
 		<copy file="${property.dir}/install.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+		<copy file="${tomcat.dir}/DataSourceItem.xml" tofile="${webapp.dir}/WEB-INF/classes/DataSourceItem.xml"/>
+		<copy file="${tomcat.dir}/relationship.xml" tofile="${webapp.dir}/WEB-INF/classes/relationship.xml"/>
 	</target>
 
 	<target name="compile" depends="ivy-compile">

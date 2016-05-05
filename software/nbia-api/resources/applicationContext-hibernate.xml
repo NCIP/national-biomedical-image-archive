@@ -147,6 +147,21 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
+    <bean id="queryHandler" class="gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+    <bean id="studyNumberDAO" class="gov.nih.nci.nbia.dao.StudyNumberDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+    <bean id="imageDAO" class="gov.nih.nci.nbia.dao.ImageDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
   <!--
     Activates various annotations to be detected in bean classes:
     Spring's @Required and @Autowired, as well as JSR 250's @Resource.

@@ -134,12 +134,35 @@ public class QcToolSearchBean {
     	List<String> collectionSites = new ArrayList<String>();
     	collectionSites.add(qcToolBean.getSelectedCollectionSite());
         String [] qcStatus = {"To Be Deleted"};
+        
+        String[] additionalQcFlagList = new String[2];
+        
         String patientIds = qcToolBean.getSelectedPatients();
         String [] patients = null;
         ifNotClickedSubmit = false;
+        
+        System.out.println("========= In QcToolSearchBean:submit(); - qcStatus is: " + qcToolBean.getSelectedQcStatus()[0]);
+        System.out.println("========= In QcToolSearchBean:submit(); - selectedQcBatchNum is: " + qcToolBean.getSelectedQcBatchNum());
+        System.out.println("========= In QcToolSearchBean:submit(); - selectedQcSubmissionType is: " + qcToolBean.getSelectedQcSubmissionType());
+        
+        additionalQcFlagList[0] = qcToolBean.getSelectedQcBatchNum();
+    	additionalQcFlagList[1] = qcToolBean.getSelectedQcSubmissionType();
+    	
+    	System.out.println("========= In QcToolSearchBean:submit() - Additional FlagArray values are: ");
+    	System.out.println("========= In QcToolSearchBean:submit() - additionalQcFlagList[0] = " + additionalQcFlagList[0] +
+    					   ", additionalQcFlagList[1] = " + additionalQcFlagList[1] );
+        
         if (! qcToolBean.isSuperRole()) {
-        	qcStatus = qcToolBean.getSelectedQcStatus();
+        	      	
+        	qcStatus = qcToolBean.getSelectedQcStatus();        	
+        	
+        	System.out.println("========= In QcToolSearchBean:submit() - SuperRole = FALSE");
+        	      	       	
         }
+        else{
+        	System.out.println("========= In QcToolSearchBean:submit() - SuperRole = TRUE");
+        }       
+        
         if (qcStatus == null || qcStatus.length==0){
         	MessageUtil.addErrorMessage("MAINbody:qcToolSearchCritForm:slctQcStatus",
         			REQUIRED_FIELD);
@@ -159,7 +182,17 @@ public class QcToolSearchBean {
         }
 
         QcStatusDAO qcStatusDAO = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
-        qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
+        
+        System.out.println("In QCToolSearchBean:submit() button click - Calling findSeries with additional qc values: " 
+        		+ "Batch = '" + additionalQcFlagList[0] + "', submissionType = '" + additionalQcFlagList[1] + "'" );
+        
+        for (int i = 0; i < qcStatus.length; i++){
+        
+        	 System.out.println("In QCToolSearchBean:submit() button click - qcStatus[" + i + "] = " + qcStatus[i]);
+        	
+        }
+             
+        qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, additionalQcFlagList, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
 
         // the big o
         try {

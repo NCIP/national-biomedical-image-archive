@@ -27,6 +27,11 @@ public class QcSearchResultDTO {
 	private String modality;
 	private String seriesDescription;
 	private String user;
+	
+	private String batch;
+	private String submissionType;
+	
+	
 	public QcSearchResultDTO(String collection, 
 							 String site,
 							 String patientId,
@@ -34,7 +39,11 @@ public class QcSearchResultDTO {
 							 String series,
 							 Date creationDate,
 							 String visibility,
-							 String modality, String seriesDesc) {
+							 String modality, 
+							 String seriesDesc, 
+							 
+							 String batch, 
+							 String submissionType) {
 		setCollection(collection);
 		setSite(site);
 		setPatientId(patientId);
@@ -45,6 +54,10 @@ public class QcSearchResultDTO {
 		selected = false;
 		setModality(modality);
 		setSeriesDescription(seriesDesc);
+		
+		setBatch(batch);
+		setSubmissionType(submissionType);
+			
 		
 	}
 	
@@ -59,6 +72,9 @@ public class QcSearchResultDTO {
 		selected = obj.selected;
 		setModality(obj.modality);
 		setSeriesDescription(obj.seriesDescription);
+		
+		setBatch(obj.batch);
+		setSubmissionType(obj.submissionType);		
 		
 }
 
@@ -159,6 +175,27 @@ public class QcSearchResultDTO {
 	public void setSeriesDescription(String seriesDescription) {
 		this.seriesDescription = seriesDescription;
 	}
+	
+	//////////////////////////////////////////////////
+	public String getBatch() {
+		return batch;
+	}
+
+	public void setBatch(String batch) {
+		this.batch = batch; 
+	
+	}
+	//--------------------------------
+	
+	public String getSubmissionType() {
+		return submissionType;
+	}
+
+	public void setSubmissionType(String submissionType) {
+		this.submissionType = submissionType;
+	}
+	
+	////////////////////////////////////////////////////////
 
 	public String getLink() {
 		return APIURLHolder.getUrl()+"/oviyam2/oviyam?serverName="+APIURLHolder.getUrl()+

@@ -61,6 +61,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
+
 import org.apache.log4j.Logger;
 
 import com.icesoft.faces.async.render.SessionRenderer;
@@ -487,7 +488,9 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
         try {
             this.series = theSeries;
             DrillDown drillDown = DrillDownFactory.getDrillDown();
-            thumbnailImageDto = drillDown.retrieveImagesForSeries(theSeries);
+            SecurityBean sb = BeanManager.getSecurityBean();
+			String userName = sb.getUsername();
+            thumbnailImageDto = drillDown.retrieveImagesForSeries(theSeries, userName);
             List<ImageResultWrapper> wrappers= computeWrapperList(Arrays.asList(thumbnailImageDto));
             imageList =  new ListDataModel(wrappers);
             icefacesDataModel = new IcefacesRowColumnDataModel(wrappers);

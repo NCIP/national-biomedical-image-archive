@@ -15,6 +15,7 @@ import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager.RoleType;
 import gov.nih.nci.nbia.util.DateValidator;
 import gov.nih.nci.nbia.util.JsfUtil;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SelectItemComparator;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.verifysubmission.VerifySubmissionUtil;
@@ -38,8 +39,13 @@ public class QcToolBean {
 
 
     public QcToolBean() {
+    	
+    	setUpAdditionalQCFlags();
+   	
     }
 
+////////////////////////////////////////////////////////////////
+    
     private void setCollectionBox(boolean deleteRole) {
     	 // get Site information and Handle authorization
     	SecurityBean secure = BeanManager.getSecurityBean();
@@ -80,11 +86,29 @@ public class QcToolBean {
 		return selectedQcStatus;
 	}
 
-
 	public void setSelectedQcStatus(String[] selectedQcStatus) {
 		this.selectedQcStatus = selectedQcStatus;
 	}
+	
+	//============ Getters and Setters for additional QC flags ==============
 
+	public String getSelectedQcBatchNum() {
+		return selectedQcBatchNum;
+	}
+
+	public void setSelectedQcBatchNum(String selectedQcBatchNum) {
+		this.selectedQcBatchNum = selectedQcBatchNum;
+   }
+	
+	public String getSelectedQcSubmissionType() {
+		return selectedQcSubmissionType;
+	}
+
+	public void setSelectedQcSubmissionType(String selectedQcSubmissionType) {
+		this.selectedQcSubmissionType = selectedQcSubmissionType;
+   }
+	
+	/////////////////////////////////////////////////////////////////////////
 	/**
      * This is the list of project+sites the user can see.
      */
@@ -112,7 +136,7 @@ public class QcToolBean {
      * @return array of QC Status items
      */
     public SelectItem[] getQcStatusItems() {
-    	SelectItem[] qcStatusItems = new SelectItem[11];
+    	SelectItem[] qcStatusItems = new SelectItem[13];
         //qcStatusItems[0] = new SelectItem("Not Yet Reviewed");
         //qcStatusItems[1] = new SelectItem("Visible");
         //qcStatusItems[2] = new SelectItem("Not Visible");
@@ -128,8 +152,57 @@ public class QcToolBean {
         qcStatusItems[8] = new SelectItem(VisibilityStatus.STAGE_5.getText());
         qcStatusItems[9] = new SelectItem(VisibilityStatus.STAGE_6.getText());
         qcStatusItems[10] = new SelectItem(VisibilityStatus.STAGE_7.getText());
-        return qcStatusItems;
+        qcStatusItems[11] = new SelectItem(VisibilityStatus.RELEASED.getText());
+        qcStatusItems[12] = new SelectItem(VisibilityStatus.DOWNLOADABLE.getText());
+        
+        return qcStatusItems;       
     }
+     
+    
+    /**
+     * Setup the option items for various the additional QC flags:
+     * 
+     * BatchNum - Numeric 
+     * TestVisibility - Numeric - 0 or 5 
+     * AccessType - String - Public or Limited
+     * SubmissionType - String - Complete or Ongoing   
+     * 
+     */
+    
+   public void  setUpAdditionalQCFlags(){
+    	
+    	qcBatchNums.clear();    	    	
+    	
+       int batchNumberTotal = NCIAConfig.getQCBatchNumberSelectSize();
+    	
+    	for(int i = 0; i <= batchNumberTotal; i++)
+    	{
+    		if(i == 0)
+    			qcBatchNums.add(new SelectItem("  "));
+    		else			
+    		    qcBatchNums.add(new SelectItem(""+ i));
+    	}
+    	
+    //---------------------------------------------    
+    	
+    	qcSubmissionTypes.clear();
+    	qcSubmissionTypes.add(new SelectItem("  "));
+    	qcSubmissionTypes.add(new SelectItem("NO"));
+    	qcSubmissionTypes.add(new SelectItem("YES"));   	
+    	     	    	        
+    }
+ 
+    
+    //////////  Begin Getters for Additional QC Flags ////////////////
+    public List<SelectItem> getQcBatchNums() {
+      return qcBatchNums;
+   }
+    
+    public List<SelectItem> getQcSubmissionTypes() {
+        return qcSubmissionTypes;
+     }
+    
+    
     //////////////////////////////////BEGIN COLLECTION ITEMS//////////////////////
     public List<SelectItem> getCollectionItems() {
         return collectionItems;
@@ -174,8 +247,17 @@ public class QcToolBean {
     	superRole=true;
     	setCollectionBox(true);
     	String[] defaultCheckBoxLable = { "To be Deleted" };
+    	
+    	String defaultQcBatchNum = "  "; 	
+    	String defaultQcSubmissionType = "   ";
+    	
     	buttonLabel="Delete";
         setSelectedQcStatus(defaultCheckBoxLable);
+
+        setSelectedQcBatchNum(defaultQcBatchNum);
+        setSelectedQcSubmissionType(defaultQcSubmissionType);  
+        
+        
     	return "qcTool";
     }
 
@@ -183,8 +265,16 @@ public class QcToolBean {
     	superRole=false;
     	setCollectionBox(false);
     	String[] defaultCheckBoxLable = { "Not Yet Reviewed"  };
+	   	
     	buttonLabel="Update";
         setSelectedQcStatus(defaultCheckBoxLable);
+        
+       setSelectedQcBatchNum(selectedQcBatchNum);
+       setSelectedQcSubmissionType(selectedQcSubmissionType);        
+        
+       System.out.println("========= In QcToolBean:performQC(); - selectedQcBatchNum is: " + selectedQcBatchNum);
+       System.out.println("========= In QcToolBean:performQC(); - selectedQcSubmissionType is: " + selectedQcSubmissionType);
+       
         setFromDate(null);
         setToDate(null);
     	return "qcTool";
@@ -272,8 +362,16 @@ public class QcToolBean {
     private String selectedCollectionSite;
     private Date fromDate;
     private Date toDate;
-
-
+    
+    private List<SelectItem> qcBatchNums = new ArrayList<SelectItem>();
+    private String selectedQcBatchNum; 
+      
+    private List<SelectItem> qcSubmissionTypes = new ArrayList<SelectItem>();
+    private String selectedQcSubmissionType; 
+    
+    
+  
+    
 }
 
 

@@ -41,5 +41,13 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/icefaces-comps.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/icefaces-facelets-1.8.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/icefaces.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/httpclient-4.2.6.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/httpcore-4.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jersey-client-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jersey-core-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-xc-1.9.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

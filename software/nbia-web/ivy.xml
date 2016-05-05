@@ -334,7 +334,23 @@ L-->
    	<dependency org="org.apache.httpcomponents"
                 name="httpclient"
                 rev="4.2.6"
-                conf="runtime->master"/> 
+                conf="compile->master;runtime->master"/> 
+    <dependency org="org.apache.httpcomponents"
+                name="httpcore"
+                rev="4.1"
+                conf="compile->master;runtime->master"/> 
+		<dependency org="org.codehaus.jackson" name="jackson-core-asl" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jackson" name="jackson-jaxrs" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jackson" name="jackson-mapper-asl" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jackson" name="jackson-xc" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="jdom" name="jdom" rev="1.0" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-client" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-core" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-json" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-server" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-servlet" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jettison" name="jettison" rev="1.1" conf="compile->master;runtime->master"/>
+		<dependency org="javax.ws.rs" name="jsr311-api" rev="1.1.1" conf="compile->master;runtime->master"/>
     <dependency org="commons-logging" 
                 name="commons-logging" 
                 rev="1.2"

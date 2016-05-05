@@ -92,5 +92,15 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/solr-solrj-4.6.0.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spatial4j-0.3.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/zookeeper-3.4.5.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jdom-1.0.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-client-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-core-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-json-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-server-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-servlet-1.17.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

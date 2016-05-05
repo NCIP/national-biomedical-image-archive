@@ -11,6 +11,7 @@ package gov.nih.nci.nbia.beans.searchresults;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.nbia.search.DrillDown;
@@ -49,8 +50,10 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 		this.series = theSeries;
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
+        SecurityBean sb = BeanManager.getSecurityBean();
+		String userName = sb.getUsername();
 		drillDown.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
-		imageSearchResults = drillDown.retrieveImagesForSeriesForAllVersion(theSeries);
+		imageSearchResults = drillDown.retrieveImagesForSeriesForAllVersion(theSeries, userName);
 		setImageList(Arrays.asList(imageSearchResults));
 		icefacesDataModel = new IcefacesRowColumnDataModel(computeWrapperList(Arrays.asList(imageSearchResults)));
 	}

@@ -25,19 +25,19 @@ public interface DrillDown {
 	/**
 	 * For a given patient, return all the studies for it.
 	 */
-	public StudySearchResult[] retrieveStudyAndSeriesForPatient(PatientSearchResult patientSearchResult);
+	public StudySearchResult[] retrieveStudyAndSeriesForPatient(PatientSearchResult patientSearchResult, String userName);
 
 
 	/**
 	 * For a given series id, return all the images for it.  This id is
 	 * not the DICOM series instance uid, but the unique identifier at a given node (pkid).
 	 */
-	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult);
+	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult, String userName);
 	/**
 	 * For a given series id, return all the images for it.  This id is
 	 * not the DICOM series instance uid, but the unique identifier at a given node (pkid).
 	 */
-	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult);
-	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult);
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult, String userName);
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult, String userName);
 	public void setThumbnailURLResolver(ThumbnailURLResolver thumbnailURLResolver);
 }

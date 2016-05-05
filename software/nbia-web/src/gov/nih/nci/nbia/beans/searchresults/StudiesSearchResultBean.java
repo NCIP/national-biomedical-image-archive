@@ -11,6 +11,7 @@ package gov.nih.nci.nbia.beans.searchresults;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.util.MessageUtil;
@@ -197,7 +198,10 @@ public class StudiesSearchResultBean {
 	
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
-		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult);
+		SecurityBean sb = BeanManager.getSecurityBean();
+		String userName = sb.getUsername();
+		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult, userName);
+		System.out.println("-----getting studies---------");
 			
 		this.setStudyResults(studies);		
 	}	

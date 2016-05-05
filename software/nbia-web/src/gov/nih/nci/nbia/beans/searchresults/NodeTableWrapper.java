@@ -10,6 +10,7 @@ package gov.nih.nci.nbia.beans.searchresults;
 
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.PatientSearchResults;
@@ -133,8 +134,11 @@ public class NodeTableWrapper {
 			SimpleDateFormat sdf =  new SimpleDateFormat("MM-dd-yyyy");
 			java.util.Date date2= new java.util.Date();
 			System.out.println("Before adding to Basket, Current Time" + new Timestamp(date2.getTime()));
+			SecurityBean sb = BeanManager.getSecurityBean();
+			String userName = sb.getUsername();
 			for(PatientSearchResult selectedPatient : selectedPatients) {
-				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient);
+				
+				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient, userName);
 				for(StudySearchResult studySearchResult : studyResults) {
 					for(SeriesSearchResult series: studySearchResult.getSeriesList()) {
 						Date date = studySearchResult.getDate();
@@ -177,7 +181,9 @@ public class NodeTableWrapper {
 		
 		try {
 			DrillDown drillDown = DrillDownFactory.getDrillDown();
-				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient);
+			SecurityBean sb = BeanManager.getSecurityBean();
+			String userName = sb.getUsername();
+				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient, userName);
 				for(StudySearchResult studySearchResult : studyResults) {
 					selectedSeries.addAll(Arrays.asList(studySearchResult.getSeriesList()));
 				}

@@ -114,6 +114,42 @@ public class QueryHandlerImpl extends AbstractDAO
 			removeSeriesVisibilityCriteria();
 		}
 	}
+	
+	
+	public List<PatientSearchResult> query(List<DynamicSearchCriteria> criteria,
+            String stateRelation, List<SiteData> aData,
+            List<String> securityGroups,String[] visibiltyStatus) throws DataAccessException {
+		{
+			try {
+				TableRelationships ro = new TableRelationships();
+				elementTree = ro.getRelationTree();
+				createMapKeys();
+				//add visibility based on user selected in generalSeries level
+				criteria.add(createSeriesVisibilityCriteria(Arrays.asList(visibiltyStatus)));
+		
+				searchCriteria = ro.sortTableName(criteria);
+				//reset currentNode
+				originalCriteria = criteria;
+				//what happens here if criteria is zero length?
+				currentNode = elementTree.get(1).getAlias();
+				this.statementRelation = stateRelation;
+				this.authorizedSiteData = aData;
+				this.seriesSecurityGroups = securityGroups;
+				query();
+				return getPatients();
+			}
+			catch(Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Transactional(propagation=Propagation.REQUIRED) 	
 	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws DataAccessException {
 		DetachedCriteria criteria = null;

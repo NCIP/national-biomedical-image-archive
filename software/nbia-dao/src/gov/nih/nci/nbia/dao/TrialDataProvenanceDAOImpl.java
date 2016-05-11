@@ -36,6 +36,23 @@ public class TrialDataProvenanceDAOImpl extends AbstractDAO implements
 
 	return rs;
 }
+
+	/**
+	 * Fetch set of collection (ie. project) and site values.
+	 *
+	 * This method is used in User Authorization Tool.
+	 */
+	@Transactional(propagation = Propagation.REQUIRED)
+	public List<String> getProjSiteValues() throws DataAccessException {
+	// Actually the Rest API only need project. Added second project just
+	// for using common util for format transferring.
+
+	String hql = "select distinct(CONCAT(tdp.project, '//', tdp.dpSiteName)) from TrialDataProvenance tdp ";
+	String orderBy = " order by CONCAT(tdp.project, '//', tdp.dpSiteName)";
+	List<String> rs = getHibernateTemplate().find(hql + orderBy);
+
+	return rs;
+}
 	/**
 	 * Construct the partial where clause which contains checking with authorized project and site combinations.
 	 *

@@ -4,7 +4,6 @@
 package gov.nih.nci.nbia.restAPI;
 
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.security.SecurityServiceProvider;
 import gov.nih.nci.security.UserProvisioningManager;
 import gov.nih.nci.security.authorization.domainobjects.ProtectionElement;
 import gov.nih.nci.security.authorization.domainobjects.ProtectionGroup;
@@ -25,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/v3/getAllPGsWithPEs")
 public class V3_getAllPGsWithPEs extends getData{
-	private static final String[] columns={"Data Group", "Data Set"};
+	private static final String[] columns={"dataGroup", "description", "dataSets"};
 	public final static String TEXT_CSV = "text/csv";
 
 	@Context private HttpServletRequest httpRequest;
@@ -53,7 +52,7 @@ public class V3_getAllPGsWithPEs extends getData{
 					}
 					else allPeNames.append(", "+pe.getProtectionElementName());
 				}
-				Object [] objs = {pg.getProtectionGroupName(), allPeNames.toString()};
+				Object [] objs = {pg.getProtectionGroupName(), pg.getProtectionGroupDescription(), allPeNames.toString()};
 				result.add(objs);
 			}
 			} catch (CSException e) {

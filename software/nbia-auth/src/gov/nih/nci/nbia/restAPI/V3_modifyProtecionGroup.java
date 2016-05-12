@@ -1,4 +1,4 @@
-//To Test: http://localhost:8080/nbia-auth/services/v3/createProtecionGroup?PGName=NCIA.TestAuth
+//To Test: http://localhost:8080/nbia-auth/services/v3/modifyProtecionGroup?PGName=NCIA.TestAuth&description=aTestGroup
 
 package gov.nih.nci.nbia.restAPI;
 
@@ -18,8 +18,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/v3/createProtecionGroup")
-public class V3_createProtecionGroup extends getData{
+@Path("/v3/modifyProtecionGroup")
+public class V3_modifyProtecionGroup extends getData{
 	@Context private HttpServletRequest httpRequest;
 
 	/**
@@ -33,15 +33,17 @@ public class V3_createProtecionGroup extends getData{
 	public Response  constructResponse(@QueryParam("PGName") String pgName, @QueryParam("description") String desp) {
 		try {
 			UserProvisioningManager upm = getUpm();
-			ProtectionGroup protectionGrp = new ProtectionGroup();
-			protectionGrp.setProtectionGroupName(pgName);
+			ProtectionGroup protectionGrp = getPGByPGName(pgName);
 			protectionGrp.setProtectionGroupDescription(desp);
-			protectionGrp.setLargeElementCountFlag((byte)0);
-			upm.createProtectionGroup(protectionGrp);
+
+			upm.modifyProtectionGroup(protectionGrp); 
 		} catch (CSConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	 

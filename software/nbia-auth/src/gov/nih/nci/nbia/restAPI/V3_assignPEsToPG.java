@@ -1,4 +1,4 @@
-//To Test: http://localhost:8080/nbia-auth/services/v3/assignDataSetToPG?projAndSite=TCGA//DUKE&PGName=NCIA.Test
+//To Test: http://localhost:8080/nbia-auth/services/v3/assignPEsToPG?projAndSite=TCGA//DUKE&PGName=NCIA.Test
 
 package gov.nih.nci.nbia.restAPI;
 
@@ -17,8 +17,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/v3/assignDataSetToPG")
-public class V3_assignDataSetToPG extends getData{
+@Path("/v3/assignPEsToPG")
+public class V3_assignPEsToPG extends getData{
 	@Context private HttpServletRequest httpRequest;
 
 	/**
@@ -29,16 +29,26 @@ public class V3_assignDataSetToPG extends getData{
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 
-	public Response  constructResponse(@QueryParam("projAndSite") String projAndSite, @QueryParam("PGName") String pgName) {
+	public Response  constructResponse(@QueryParam("PENames") String peNames, @QueryParam("PGName") String pgName) {
+		String [] projSites = peNames.split(",");
+		StringBuffer status = new StringBuffer();
+		for (int i = 0; i < projSites.length; ++i) {
+			status.append(assignADataSetToPG(projSites[i], pgName));
+			status.append("\n");
+		}
 		
+		return Response.ok(status.toString()).type("application/json").build();
+	}
+	
+	public String assignADataSetToPG(String projAndSite, String pgName){
 		String projName = null;
 		String [] parsedS = projAndSite.split("//");
 		if ((parsedS != null) && (parsedS.length == 2)){
 			projName = parsedS[0];
 		}
 		else {
-			return Response.ok("Please check the format of input param.  It should be <Project Name>//<Site Name>."
-					+ " Please note \"//\" is needed between project name and site name").type("application/json").build();
+			return new String("Please check the format of input param for "+projAndSite+ ". It should be <Project Name>//<Site Name>."
+					+ " Please note \"//\" is needed between project name and site name");
 		}
 		try {
 			createNewProtectionElems(projAndSite);
@@ -55,10 +65,10 @@ public class V3_assignDataSetToPG extends getData{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		 
-		
-		return Response.ok("Assigned").type("application/json").build();
+		}
+		return new String("Assigned "+ projAndSite +" to Protection Group:"+pgName);
 	}
+	
 	
 	// For UPT replacement GUI
 	public void createNewProtectionElems(String projAndSite) throws Exception{

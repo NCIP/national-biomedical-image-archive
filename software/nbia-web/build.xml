@@ -283,6 +283,14 @@ L-->
     <filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
     <filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
  	<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
+ 	<filter token="qctool.visibility.stage1" value="${qctool.visibility.stage1}"/>
+ 	<filter token="qctool.visibility.stage2" value="${qctool.visibility.stage2}"/>
+ 	<filter token="qctool.visibility.stage3" value="${qctool.visibility.stage3}"/>
+ 	<filter token="qctool.visibility.stage4" value="${qctool.visibility.stage4}"/>
+ 	<filter token="qctool.visibility.stage5" value="${qctool.visibility.stage5}"/>
+ 	<filter token="qctool.visibility.stage6" value="${qctool.visibility.stage6}"/>
+ 	<filter token="qctool.visibility.stage7" value="${qctool.visibility.stage7}"/>
+ 	<filter token="qctool.batchNumberSelect.size" value="${qctool.batchNumberSelect.size}"/>
         
     <copy file="${jboss-conf}/properties-service.xml" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
         

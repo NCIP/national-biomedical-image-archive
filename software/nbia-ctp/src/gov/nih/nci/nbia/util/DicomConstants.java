@@ -139,5 +139,7 @@ public class DicomConstants {
     public static final String ANGIO_FLAG = "126";
     public static final String INSTITUTION_ADDRESS = "127";
     public static final String DEVICE_SERIAL_NUMBER = "128";
-    public static final String STATION_NAME = "129";
+	public static final String STATION_NAME = "129";
+    public static final String BATCH_NUMBER = "130";
+    
 }

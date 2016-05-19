@@ -140,18 +140,10 @@ public class QcToolSearchBean {
         String patientIds = qcToolBean.getSelectedPatients();
         String [] patients = null;
         ifNotClickedSubmit = false;
-        
-        System.out.println("========= In QcToolSearchBean:submit(); - qcStatus is: " + qcToolBean.getSelectedQcStatus()[0]);
-        System.out.println("========= In QcToolSearchBean:submit(); - selectedQcBatchNum is: " + qcToolBean.getSelectedQcBatchNum());
-        System.out.println("========= In QcToolSearchBean:submit(); - selectedQcSubmissionType is: " + qcToolBean.getSelectedQcSubmissionType());
-        
+         
         additionalQcFlagList[0] = qcToolBean.getSelectedQcBatchNum();
     	additionalQcFlagList[1] = qcToolBean.getSelectedQcSubmissionType();
     	
-    	System.out.println("========= In QcToolSearchBean:submit() - Additional FlagArray values are: ");
-    	System.out.println("========= In QcToolSearchBean:submit() - additionalQcFlagList[0] = " + additionalQcFlagList[0] +
-    					   ", additionalQcFlagList[1] = " + additionalQcFlagList[1] );
-        
         if (! qcToolBean.isSuperRole()) {
         	      	
         	qcStatus = qcToolBean.getSelectedQcStatus();        	
@@ -182,16 +174,7 @@ public class QcToolSearchBean {
         }
 
         QcStatusDAO qcStatusDAO = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
-        
-        System.out.println("In QCToolSearchBean:submit() button click - Calling findSeries with additional qc values: " 
-        		+ "Batch = '" + additionalQcFlagList[0] + "', submissionType = '" + additionalQcFlagList[1] + "'" );
-        
-        for (int i = 0; i < qcStatus.length; i++){
-        
-        	 System.out.println("In QCToolSearchBean:submit() button click - qcStatus[" + i + "] = " + qcStatus[i]);
-        	
-        }
-             
+              
         qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, additionalQcFlagList, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
 
         // the big o
@@ -200,7 +183,7 @@ public class QcToolSearchBean {
         String userName = secure.getUsername();
 
 			for (QcSearchResultDTO dto:qsrDTOList){
-				System.out.println("-- adding user to QC DTO ---");
+				System.out.println("===== In QcToolSearchBean:submit() - adding user to QC DTO ---");
 				dto.setUser(userName);
 			}
 		} catch (Exception e) {

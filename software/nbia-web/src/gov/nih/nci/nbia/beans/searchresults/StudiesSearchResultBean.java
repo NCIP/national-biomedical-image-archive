@@ -199,8 +199,8 @@ public class StudiesSearchResultBean {
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
 		SecurityBean sb = BeanManager.getSecurityBean();
-		String userName = sb.getUsername();
-		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult, userName);
+		String token = sb.getTokenValue();
+		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult, token);
 		System.out.println("-----getting studies---------");
 			
 		this.setStudyResults(studies);		

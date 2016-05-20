@@ -51,9 +51,9 @@ public class SeriesSearchResultBean implements IcefacesRowColumnDataModelInterfa
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
         SecurityBean sb = BeanManager.getSecurityBean();
-		String userName = sb.getUsername();
+		String token = sb.getTokenValue();
 		drillDown.setThumbnailURLResolver(new DefaultThumbnailURLResolver());
-		imageSearchResults = drillDown.retrieveImagesForSeriesForAllVersion(theSeries, userName);
+		imageSearchResults = drillDown.retrieveImagesForSeriesForAllVersion(theSeries, token);
 		setImageList(Arrays.asList(imageSearchResults));
 		icefacesDataModel = new IcefacesRowColumnDataModel(computeWrapperList(Arrays.asList(imageSearchResults)));
 	}

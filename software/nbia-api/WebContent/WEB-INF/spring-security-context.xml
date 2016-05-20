@@ -25,7 +25,13 @@
         <sec:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
         <sec:access-denied-handler ref="oauthAccessDeniedHandler" />
     </sec:http>
-    
+     <sec:http pattern="/services/get**" create-session="never"
+        entry-point-ref="oauthAuthenticationEntryPoint">
+        <sec:anonymous enabled="false" />
+        <sec:intercept-url pattern="/services/get**" method="GET" access="IS_AUTHENTICATED_FULLY" />
+        <sec:custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
+        <sec:access-denied-handler ref="oauthAccessDeniedHandler" />
+    </sec:http>
     <sec:http pattern="/logout" create-session="never" 
 	entry-point-ref="oauthAuthenticationEntryPoint"
 	xmlns="http://www.springframework.org/schema/security">

@@ -21,6 +21,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
 import gov.nih.nci.nbia.dynamicsearch.Operator;
 import gov.nih.nci.nbia.dynamicsearch.QueryHandler;
@@ -49,8 +52,12 @@ public class GetStudyDrillDown extends getData{
 	public Response constructResponse(@FormParam("list") List<String> list, @FormParam("userName") String userName) {
 
 		try {	
-
-		AuthorizationManager am = new AuthorizationManager(userName);
+	   Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+	   System.out.println("!!!!!user name="
+					+ authentication.getPrincipal());
+		String user = (String) authentication.getPrincipal();
+		AuthorizationManager am = new AuthorizationManager(user);
 		List<SiteData> authorizedSiteData = am.getAuthorizedSites();
 		List<String> seriesSecurityGroups = am.getAuthorizedSeriesSecurityGroups();
 		StudyDAO studyDAO = (StudyDAO)SpringApplicationContext.getBean("studyDAO");

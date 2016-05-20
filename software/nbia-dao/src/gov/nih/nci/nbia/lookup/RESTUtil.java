@@ -7,7 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 
 
 
@@ -49,16 +49,15 @@ public class RESTUtil {
     private static Map<String, String> userMap = new HashMap<String, String>();
     private static ObjectMapper mapper = new ObjectMapper();
     private static Logger logger = Logger.getLogger(RESTUtil.class);
-    private static String token = "2dc8965f-ae26-4b8f-8bdc-affb385da3fc";
 	public static List<PatientSearchResult> getDynamicSearch(List<DynamicSearchCriteria> criteria,
                                                              String stateRelation, 
-                                                             String userName)
+                                                             String userToken)
 	{
         // Use a form because there are an unknown number of values
 	    MultivaluedMap form = new MultivaluedMapImpl(); 
 	    // stateRelation is how the criteria are logically related "AND", "OR"
 	    form.add("stateRelation", stateRelation); 
-	    form.add("userName",userName); 
+	    form.add("userName",userToken); 
 	    int i=0;
 	    // Step through all criteria given, the form fields are appended with an integer
 	    // to maintain grouping in REST call (dataGroup0, dataGroup1...)
@@ -79,7 +78,7 @@ public class RESTUtil {
 				+"/nbia-api/services/getDynamicSearch"); 
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)
 				                          .type(MediaType.APPLICATION_FORM_URLENCODED)
-				                          .header("Authorization", token)
+				                          .header("Authorization",  "Bearer "+userToken)
 				                          .post(ClientResponse.class, form);
         // check response status code
         if (response.getStatus() != 200) {
@@ -107,11 +106,11 @@ public class RESTUtil {
         return returnValue;
 		
 	}
-	public static List<StudyDTO> getStudyDrillDown(List<Integer> criteria, String userName)
+	public static List<StudyDTO> getStudyDrillDown(List<Integer> criteria, String userToken)
 	{
 
 		Form form = new Form(); 
-	    form.add("userName",userName); 
+	    form.add("userName",userToken); 
 	    // Add all selected studies to the list
 	    for (Integer dcriteria:criteria){
 	    	form.add("list",dcriteria.toString());
@@ -123,7 +122,7 @@ public class RESTUtil {
 		WebResource resource = client.resource(APIURLHolder.getUrl()
 				+"/nbia-api/services/getStudyDrillDown"); 
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).
-                                                  header("Authorization", token).
+                                                  header("Authorization",  "Bearer "+userToken).
 				                                  type(MediaType.APPLICATION_FORM_URLENCODED).
 				                                  post(ClientResponse.class, form);
         // check response status code
@@ -148,11 +147,54 @@ public class RESTUtil {
         return myObjects;
 		
 	}
-	public static List<ImageDTO> getImageDrillDown(List<Integer> criteria, String userName)
+	public static DefaultOAuth2AccessToken getToken(String userName, String password)
 	{
 
 		Form form = new Form(); 
-	    form.add("userName",userName); 
+	    form.add("username",userName); 
+	    form.add("password",password); 
+	    form.add("client_id","nbiaRestAPIClient"); 
+	    form.add("client_secret","ItsBetweenUAndMe"); 
+	    form.add("grant_type","password");
+	    
+    
+		ClientConfig cc = new DefaultClientConfig();
+		cc.getClasses().add(JacksonJsonProvider.class);
+		Client client = Client.create(); 
+		WebResource resource = client.resource(APIURLHolder.getUrl()
+				+"/nbia-api/oauth/token"); 
+		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).
+                                                  type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, form);
+        // check response status code
+        if (response.getStatus() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : "
+                    + response.getStatus());
+        }
+
+        // display response
+        String output = response.getEntity(String.class);
+        output="["+output+"]";
+        System.out.println(output);
+        List<DefaultOAuth2AccessToken> myObjects;
+        try {
+        	Object json = mapper.readValue(output, Object.class);
+            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+            logger.info("Returned JSON\n"+indented);
+			myObjects = mapper.readValue(output, new TypeReference<List<DefaultOAuth2AccessToken>>(){});
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+        return myObjects.get(0);
+		
+	}
+	
+	public static List<ImageDTO> getImageDrillDown(List<Integer> criteria, String userToken)
+	{
+
+		Form form = new Form(); 
+	    form.add("userName",userToken); 
 	    int i=0;
 	    // List of selected series
 	    for (Integer dcriteria:criteria){
@@ -165,7 +207,7 @@ public class RESTUtil {
 		WebResource resource = client.resource(APIURLHolder.getUrl()
 				+"/nbia-api/services/getImageDrillDown"); 
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON).
-                                                  header("Authorization", token).
+                                                  header("Authorization",  "Bearer "+userToken).
                                                   type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, form);
         // check response status code
         if (response.getStatus() != 200) {
@@ -189,11 +231,9 @@ public class RESTUtil {
         return myObjects;
 		
 	}
-	
-
 	public static List<PatientSearchResult> getJNLP(List<DynamicSearchCriteria> criteria,
                                                              String stateRelation, 
-                                                             String userName,
+                                                             String userToken,
                                                              List<BasketSeriesItemBean> seriesItems)
 	{
         // Use a form because there are an unknown number of values
@@ -236,7 +276,7 @@ public class RESTUtil {
 				+"/nbia-api/services/getDynamicSearch"); 
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)
 				                          .type(MediaType.APPLICATION_FORM_URLENCODED)
-				                          .header("Authorization", token)
+				                          .header("Authorization",  "Bearer "+userToken)
 				                          .post(ClientResponse.class, form);
         // check response status code
         if (response.getStatus() != 200) {

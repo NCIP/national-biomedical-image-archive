@@ -1,4 +1,8 @@
-//To Test: http://localhost:8080/nbia-auth/services/v3/assignDataSetToPG?projAndSite=TCGA//DUKE&PGName=NCIA.Test
+//To Test: http://localhost:8080/nbia-auth/services/v3/deassignDataSetFromPGG?projAndSite=TCGA//DUKE&PGName=NCIA.Test&projAndSite=IDRI//IDRI
+//This API is created for a assumption that a protection element from the user's point of view has a name constructed as project name//site name. 
+//a name constructed as project name//site name.  
+
+
 
 package gov.nih.nci.nbia.restAPI;
 
@@ -20,8 +24,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/v3/deassignDataSetToPG")
-public class V3_deassignDataSetToPG extends getData{
+@Path("/v3/deassignDataSetFromPG")
+public class V3_deassignDataSetFromPG extends getData{
 	@Context private HttpServletRequest httpRequest;
 
 	/**

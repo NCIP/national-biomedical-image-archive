@@ -28,7 +28,7 @@ import org.springframework.dao.DataAccessException;
 
 @Path("/v3/getRoleList")
 public class V3_getRoleList extends getData{
-	private static final String column="Role";
+	private static final String[] columns={"label", "value"};
 	public final static String TEXT_CSV = "text/csv";
 
 	@Context private HttpServletRequest httpRequest;
@@ -42,7 +42,7 @@ public class V3_getRoleList extends getData{
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, TEXT_CSV})
 
 	public Response  constructResponse(@QueryParam("format") String format) {
-		List<String> roleNames = null;
+		List<Object []> roleOptions= new ArrayList<Object[]>();		
 
 		try {
 			UserProvisioningManager upm = getUpm();
@@ -51,15 +51,15 @@ public class V3_getRoleList extends getData{
 			SearchCriteria searchCriteria = new RoleSearchCriteria(role);
 			List<Role> list = upm.getObjects(searchCriteria);
 
-			roleNames = new ArrayList<String>();
 			if (list != null) {
 				for(Role aRole : list) {
-		            roleNames.add(aRole.getName());
+					Object [] objs = {aRole.getName(), aRole.getName()};
+					roleOptions.add(objs);
 		        }
 			}
 			else {
-				String status = new String("Warning: No role has defined yet!");
-				roleNames.add(status);
+				Object [] objs = {"Warning: No role has defined yet!", ""};
+				roleOptions.add(objs);
 			}
 		} catch (CSConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -68,6 +68,6 @@ public class V3_getRoleList extends getData{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return formatResponse(format, roleNames, column);
+		return formatResponse(format, roleOptions, columns);
 	}
 }

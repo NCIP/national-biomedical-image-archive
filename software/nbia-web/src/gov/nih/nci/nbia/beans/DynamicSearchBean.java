@@ -102,6 +102,7 @@ public class DynamicSearchBean {
 
 	protected SourceItem defaultSourceItem = new SourceItem();
     private String user;
+    private String token;
 	public String getPermissibleDataValue() {
 		return permissibleDataValue;
 	}
@@ -115,6 +116,7 @@ public class DynamicSearchBean {
 		SecurityBean sb = BeanManager.getSecurityBean();
 		String userName = sb.getUsername();
 		user=userName.trim();
+		token=sb.getTokenValue();
 		man = new AuthorizationManager(userName.trim());
 		authorizedSiteData = man.getAuthorizedSites();
 		seriesSecurityGroups = man.getAuthorizedSeriesSecurityGroups();
@@ -584,7 +586,7 @@ public class DynamicSearchBean {
 	{
 		String returnValue = "dynamicSearch";
 		if(criteria !=null && !criteria.isEmpty()) {
-			List<PatientSearchResult> patients = RESTUtil.getDynamicSearch(criteria, relation, user);
+			List<PatientSearchResult> patients = RESTUtil.getDynamicSearch(criteria, relation, token);
 			populateSearchResults(patients);
 		} else {
 			populateSearchResults(null);

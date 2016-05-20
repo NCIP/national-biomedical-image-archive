@@ -29,6 +29,9 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.security.*;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.restUtil.JSONUtil;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 @Path("/getDynamicSearch")
 public class GetDynamicSearch extends getData{
 	private static final String column="Collection";
@@ -47,7 +50,11 @@ public class GetDynamicSearch extends getData{
 
 		try {	
 		String stateRelation=inFormParams.get("stateRelation").get(0);
-		String userName=inFormParams.get("userName").get(0);
+		Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		System.out.println("!!!!!user name="
+				+ authentication.getPrincipal());
+		String userName = (String) authentication.getPrincipal();
 		AuthorizationManager am = new AuthorizationManager(userName);
 		List<SiteData> authorizedSiteData = am.getAuthorizedSites();
 		List<String> seriesSecurityGroups = am.getAuthorizedSeriesSecurityGroups();

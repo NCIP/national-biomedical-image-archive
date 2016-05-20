@@ -135,10 +135,10 @@ public class NodeTableWrapper {
 			java.util.Date date2= new java.util.Date();
 			System.out.println("Before adding to Basket, Current Time" + new Timestamp(date2.getTime()));
 			SecurityBean sb = BeanManager.getSecurityBean();
-			String userName = sb.getUsername();
+			String token = sb.getTokenValue();
 			for(PatientSearchResult selectedPatient : selectedPatients) {
 				
-				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient, userName);
+				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient, token);
 				for(StudySearchResult studySearchResult : studyResults) {
 					for(SeriesSearchResult series: studySearchResult.getSeriesList()) {
 						Date date = studySearchResult.getDate();
@@ -182,8 +182,8 @@ public class NodeTableWrapper {
 		try {
 			DrillDown drillDown = DrillDownFactory.getDrillDown();
 			SecurityBean sb = BeanManager.getSecurityBean();
-			String userName = sb.getUsername();
-				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient, userName);
+			String token = sb.getTokenValue();
+				StudySearchResult[] studyResults = drillDown.retrieveStudyAndSeriesForPatient(selectedPatient, token);
 				for(StudySearchResult studySearchResult : studyResults) {
 					selectedSeries.addAll(Arrays.asList(studySearchResult.getSeriesList()));
 				}

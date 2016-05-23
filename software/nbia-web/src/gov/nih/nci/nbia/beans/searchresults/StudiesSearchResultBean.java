@@ -200,9 +200,9 @@ public class StudiesSearchResultBean {
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
 		SecurityBean sb = BeanManager.getSecurityBean();
 		String token = sb.getTokenValue();
+		
 		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult, token);
-		System.out.println("-----getting studies---------");
-			
+		
 		this.setStudyResults(studies);		
 	}	
 
@@ -215,6 +215,7 @@ public class StudiesSearchResultBean {
 			return viewSeries(theStudy.getStudy(), theSeries.getSeries());
 		}
 		catch(Exception ex) {
+			System.out.println("============== In nbia-web, drillDownRequestFailure, StudiesSearchResultBean:viewSeries() - catch block, exc is:  " + ex.getMessage());
 			MessageUtil.addErrorMessage("MAINbody:dataForm:studyTable",
                                         "drillDownRequestFailure",
                                         null );
@@ -323,4 +324,28 @@ public class StudiesSearchResultBean {
 		addToBasket(seriesList);
 		return null;
 	}
+	
+	public String addAstudySeriesToBasket(String thisStudyID) throws Exception {
+		List<SeriesSearchResult> seriesList = new ArrayList<SeriesSearchResult>();
+		
+	//	System.out.println("========= In nbia-web, StudiesSearchResultBean:addAstudySeriesToBasket(stUid) - input thisStudyID is: " + thisStudyID);
+		
+		for(StudyResultWrapper study : studyResults) {			
+			
+			if(thisStudyID.equalsIgnoreCase(study.getStudyId())){		
+			
+			  for(SeriesResultWrapper seriesWrapper : study.getSeriesResults()) {
+				SeriesSearchResult series = seriesWrapper.getSeries();
+				series.setStudyDate(study.getDateString());
+				series.setStudyDescription(study.getStudy().getDescription());
+				seriesList.add(series);
+				seriesWrapper.setChecked(true);
+			  } // Inner ForLoop
+			} // end if
+			
+		} // outer ForLoop
+		addToBasket(seriesList);
+		return null;
+	}
+	
 }

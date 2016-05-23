@@ -68,7 +68,7 @@ L-->
 	                                <h:outputText value="#{msg.common_studyId}" />
 	                              </div>
 	                            </td>
-				    <td valign="middle" class="formTitle" scope="col">
+				                <td valign="middle" class="formTitle" scope="col">
 	                              <div align="left">
 	                                <h:outputText value="#{msg.search_description}" />
 	                              </div>
@@ -83,13 +83,20 @@ L-->
 	                                <h:outputText value="Study Images" />
 	                              </div>
 	                            </td>
+	                            
+	                            <td class="formTitleII" scope="col">
+	                              <div align="left">
+									<h:outputText value="Add This Study To Basket" />
+	                              </div>
+	                            </td>
+	                                                  
 	                          </tr>
 	                          <tr>
 	                            <td class="formLabel" width="30%">
 	                              <h:outputText id="studyUid" value="#{study.study.studyInstanceUid}"/>
 	                            </td>
 	                            <td  class="formLabel">
-				    	<h:outputText value="#{study.study.description}" />
+				    	         <h:outputText value="#{study.study.description}" />
 	                            </td>
 	                            <td class="formLabel">
 	                              <h:outputText value="#{msg.search_study_baseline}" 
@@ -103,10 +110,19 @@ L-->
                                                     onclick="window.open('#{study.study.link}');return false;">
                                                      <h:outputText value="DICOM Web Viewer"/>
                                     </h:commandLink> 
-	                            </td>	                            
+	                            </td>	
+	                            
+								<td class="formLabel" valign="middle" width="10%">
+                                   <h:commandLink id="addSeriesToBasketButton"  style="float:right; border: solid 1px #2A4E77;" styleClass="button" action="#{studiesSearchResultBean.addAstudySeriesToBasket(study.study.studyInstanceUid)}">
+									 <h:graphicImage value="images/cart-empty.png" style="border:none;display:inline;" />                                                                               
+								   </h:commandLink> 
+	                            </td>	
+	                            
+	                                                        
 	                          </tr>
+	                          
 	                          <tr>
-				    <td colspan="4" >
+				    <td colspan="5" >
 				         <h:dataTable id="seriesTable" 
 				                                         value="#{study.seriesResults}" 
 				                                         var="series" 
@@ -166,7 +182,7 @@ L-->
 				                                  <h:outputText value="#{series.series.manufacturer}" /> 
 				                                </div>
 				                              </h:column>
-							      <h:column id="numberImagesColumn">
+											  <h:column id="numberImagesColumn">
 				                                <f:facet name="header">
 				                                  <h:outputText value="#{msg.common_images}" />
 				                                </f:facet>
@@ -210,7 +226,7 @@ L-->
 								       <h:outputText value="NA" />
 								</h:panelGroup>       
 							    </h:column>
-				                             <h:column>
+				                <h:column>
 								<f:facet name="header">
 									<h:outputText value="DICOM" />
 								 </f:facet>
@@ -219,11 +235,12 @@ L-->
 								           onclick="doDicomTagPopup('#{series.series.id}'); return false;"
 								           onmouseover="return overlib('View DICOM header for the first image in the series');" onmouseout="return nd();"/>
 								 </div>
-				                              </h:column>
-				                              <h:column id="checkAllSeriesColumn">
-				                                <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
-				                                     style="width:100%">
-				                                  <div align="center" class="formFieldWhite">
+				                 </h:column>
+				                 <h:column id="checkAllSeriesColumn" >
+								  
+				                      <div class="#{empty basketBean.inBasketMap[series.basketKey] ? '' : 'highlightedData'}"
+				                        style="width:100%">
+				                      <div align="center" class="formFieldWhite">
 				                      <h:selectBooleanCheckbox id="seriesSelectionCheckbox" value="#{series.checked}" style="display:none"/>
 								      <h:commandButton action="#{studiesSearchResultBean.addSeriesToBasket}"
 								             			 rendered ="#{empty basketBean.inBasketMap[series.basketKey]}"   
@@ -234,16 +251,16 @@ L-->
 								   <h:commandButton action="#{studiesSearchResultBean.removeSeriesFromBasket}"
 								             			      rendered ="#{basketBean.inBasketMap[series.basketKey]}"
 								                                      image="images/remove_icon.png" 
-								                                      title="Remove From Basket" alt="Remove From Basket">                                                             
+								                                      title="Remove From Basket" alt="Remove From Basket">                                                             <br/>
+																	  
 								   <f:setPropertyActionListener target="#{studiesSearchResultBean.toAdd}" value="#{series.series.id}"/>
-          							</h:commandButton>       				                                   
-				                                                                   
-				                                   
-				                                  </div>
-				                                </div>
-				                              </h:column>				                              
-				                            </h:dataTable>
-				                          </td>
+          							</h:commandButton>       				                                   				                                                                   
+				                        </div>
+				                        </div>
+				                     </h:column>	
+																		
+				                    </h:dataTable>
+				                  </td>
                       </tr>
 	                      </table>
 	                    </h:column>

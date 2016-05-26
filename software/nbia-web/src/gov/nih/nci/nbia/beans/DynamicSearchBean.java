@@ -600,13 +600,9 @@ public class DynamicSearchBean {
         srb.setFirstTimeText(false);
         System.out.println("********firstTime set false text search**********");
 		String returnValue = "freeTextSearch";
-		
-		if(criteria !=null && !criteria.isEmpty()) {
-			List<PatientSearchResult> patients = RESTUtil.getTextSearch(textValue, token);
-			populateSearchResults(patients);
-		} else {
-			populateSearchResults(null);
-		}
+		List<PatientSearchResult> patients = RESTUtil.getTextSearch(textValue, token);
+		populateSearchResults(patients);
+
 
 		return returnValue;
 	}

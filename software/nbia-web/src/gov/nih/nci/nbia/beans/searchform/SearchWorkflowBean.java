@@ -39,7 +39,7 @@ import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.searchresult.PatientSearchResult;
-
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -623,7 +623,7 @@ public class SearchWorkflowBean {
         saveQueryToHistory();
 
         PatientSearcher patientSearcher = new PatientSearcher();
-
+        RESTUtil.getSimpleSearch(query.getCriteriaList(), secure.getTokenValue());
         List<PatientSearchResult> results = patientSearcher.searchForPatients(query);
         srb.setPatientResults(results);
     }

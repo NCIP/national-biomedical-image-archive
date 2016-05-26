@@ -43,6 +43,7 @@ L-->
 		<dependency org="ncicb" name="nbia-dao" rev="latest.integration" conf="compile->master;runtime"/>
 		<dependency org="ncicb" name="nbia-domain" rev="latest.integration" conf="compile->master;runtime"/>
 		<dependency org="ncicb" name="nbia-util" rev="latest.integration" conf="compile->master;runtime"/>
+	    <dependency org="ncicb" name="nbia-services-commons" rev="latest.integration" conf="compile->master;runtime"/>
 		<dependency org="commons-codec" name="commons-codec" rev="1.3" conf="compile->master;runtime->master"/>
 		<dependency org="commons-configuration" name="commons-configuration" rev="1.8" conf="compile->master;runtime->master"/>
 		<dependency org="commons-logging" name="commons-logging" rev="1.1.3" conf="compile->master;runtime->master"/>

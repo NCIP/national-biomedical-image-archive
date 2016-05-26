@@ -157,6 +157,8 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
+     <!-- This returns the singleton used for solr server -->
+   <bean id="solrServer" class="gov.nih.nci.nbia.textsupport.NBIAEmbeddedSolrServer" scope="singleton"/>
     <bean id="studyNumberDAO" class="gov.nih.nci.nbia.dao.StudyNumberDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>

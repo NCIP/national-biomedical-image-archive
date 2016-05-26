@@ -600,51 +600,10 @@ public class DynamicSearchBean {
         srb.setFirstTimeText(false);
         System.out.println("********firstTime set false text search**********");
 		String returnValue = "freeTextSearch";
-		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
-		System.out.println("Searching Solr for"+textValue);
-		List<SolrAllDocumentMetaData> results = qh.searchSolr(textValue);
-		StringBuffer patientIDs = new StringBuffer();
-		Map<String, SolrAllDocumentMetaData> patientMap=new HashMap<String, SolrAllDocumentMetaData>();
-		for (SolrAllDocumentMetaData result : results)
-		{
-			patientIDs.append(result.getPatientId()+",");
-			patientMap.put(result.getPatientId(), result);
-		}
-		if (patientIDs.toString().length()<2) patientIDs.append("zzz33333###"); // no patients found
-		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
-		dsc.setField("patientId");
-		dsc.setDataGroup("Patient");
-		Operator op = new Operator();
-		op.setValue("contains");
-		dsc.setOperator(op);
-		dsc.setValue(patientIDs.toString());
-
-		criteria.clear();
-		criteria.add(dsc);
-
-
+		
 		if(criteria !=null && !criteria.isEmpty()) {
-
-			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
-			qh.setQueryCriteria(criteria, "AND", authorizedSiteData, seriesSecurityGroups);
-			qh.query();
-			List<PatientSearchResult> patients = qh.getPatients();
-			List<PatientSearchResult> textPatients = new ArrayList<PatientSearchResult>();
-			for (PatientSearchResult patient:patients)
-			{
-				PatientTextSearchResult textResult=new PatientTextSearchResultImpl(patient);
-				SolrAllDocumentMetaData solrResult =  patientMap.get(textResult.getSubjectId());
-				if (solrResult==null)
-				{
-					System.out.println("******* can't find id in patient map " + textResult.getSubjectId());
-				} else
-				{
-					textResult.setHit(solrResult.getFoundValue());
-				    textPatients.add(textResult);
-				}
-			}
-
-			populateSearchResults(textPatients);
+			List<PatientSearchResult> patients = RESTUtil.getTextSearch(textValue, token);
+			populateSearchResults(patients);
 		} else {
 			populateSearchResults(null);
 		}

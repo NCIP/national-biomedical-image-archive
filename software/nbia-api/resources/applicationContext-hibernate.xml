@@ -152,6 +152,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
       <ref bean="sessionFactory"/>
     </property>
   </bean>
+   <bean id="dicomQueryHandler" class="gov.nih.nci.nbia.search.DICOMQueryHandlerImpl" scope="prototype">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
     <bean id="studyNumberDAO" class="gov.nih.nci.nbia.dao.StudyNumberDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>

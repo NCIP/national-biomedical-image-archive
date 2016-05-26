@@ -224,6 +224,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
 	                //Parse out the primary keys These are concatenated into one
 	                //column to improve performance The fewer columns returned, the
 	                //better that Hibernate performs
+	            	
 
 	                String[] ids = str.split("/");
 
@@ -665,7 +666,7 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
         }
 
         if ((authCrit.getCollections() == null) && (theQuery.getCollectionCriteria() == null)) {
-            throw new RuntimeException("Collections must either be included in collection criteria or authorization criteria");
+           // throw new RuntimeException("Collections must either be included in collection criteria or authorization criteria");
         }
 
         if ((authCrit.getCollections() != null) && (theQuery.getCollectionCriteria() != null) &&

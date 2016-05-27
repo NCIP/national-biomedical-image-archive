@@ -14,6 +14,11 @@ public PatientTextSearchResultImpl(PatientSearchResult input)
 	this.setTotalNumberOfStudies(input.getTotalNumberOfStudies());
 }
 
+public PatientTextSearchResultImpl()
+{
+
+}
+
 public String getHit() {
 	return hit;
 }

@@ -97,9 +97,9 @@ public class RESTUtil {
         String output = response.getEntity(String.class);
         List<PatientSearchResultImpl> myObjects;
         try {
-        	Object json = mapper.readValue(output, Object.class);
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            logger.info("Returned JSON\n"+indented);
+        //	Object json = mapper.readValue(output, Object.class);
+         //   String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+         //   logger.info("Returned JSON\n"+indented);
             myObjects = mapper.readValue(output, new TypeReference<List<PatientSearchResultImpl>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,9 +194,9 @@ public class RESTUtil {
        String output = response.getEntity(String.class);
        List<PatientSearchResultImpl> myObjects;
        try {
-           Object json = mapper.readValue(output, Object.class);
-           String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-           logger.info("Returned JSON\n"+indented);
+       //    Object json = mapper.readValue(output, Object.class);
+        //   String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        //   logger.info("Returned JSON\n"+indented);
            myObjects = mapper.readValue(output, new TypeReference<List<PatientSearchResultImpl>>(){});
            } catch (Exception e) {
                e.printStackTrace();
@@ -239,9 +239,9 @@ public class RESTUtil {
         String output = response.getEntity(String.class);
         List<StudyDTO> myObjects;
         try {
-        	Object json = mapper.readValue(output, Object.class);
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            logger.info("Returned JSON\n"+indented);
+        //	Object json = mapper.readValue(output, Object.class);
+        //    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        //    logger.info("Returned JSON\n"+indented);
 			myObjects = mapper.readValue(output, new TypeReference<List<StudyDTO>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -281,9 +281,9 @@ public class RESTUtil {
         System.out.println(output);
         List<DefaultOAuth2AccessToken> myObjects;
         try {
-        	Object json = mapper.readValue(output, Object.class);
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            logger.info("Returned JSON\n"+indented);
+        //	Object json = mapper.readValue(output, Object.class);
+        //    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        //    logger.info("Returned JSON\n"+indented);
 			myObjects = mapper.readValue(output, new TypeReference<List<DefaultOAuth2AccessToken>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -323,9 +323,9 @@ public class RESTUtil {
         String output = response.getEntity(String.class);
         List<ImageDTO> myObjects;
         try {
-        	Object json = mapper.readValue(output, Object.class);
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            logger.info("Returned JSON\n"+indented);
+        //	Object json = mapper.readValue(output, Object.class);
+        //    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        //    logger.info("Returned JSON\n"+indented);
 			myObjects = mapper.readValue(output, new TypeReference<List<ImageDTO>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -351,26 +351,7 @@ public class RESTUtil {
 	    	form.add("seriesInstanceUid"+i,item.getSeriesId());
 	    	i++;
 	    }
-/***	    
-	    
-	                    String collection = seriesItem.getProject();
-                String patientId = seriesItem.getPatientId();
-                String studyInstanceUid = seriesItem.getStudyId();
-                String seriesInstanceUid =seriesItem.getSeriesId();
-                String annotation = seriesItem.getAnnotated();
-                Integer numberImages = seriesItem.getTotalImagesInSeries();
-                Long imagesSize = seriesItem.getTotalSizeForAllImagesInSeries();
-                Long annoSize = seriesItem.getAnnotationsSize();
-	    
-	    
-	    
-	    
-	    
-	    
-	    ***/
-	    
-	    
-	    
+   
 
 		ClientConfig cc = new DefaultClientConfig();
 		cc.getClasses().add(JacksonJsonProvider.class);
@@ -392,9 +373,9 @@ public class RESTUtil {
         String output = response.getEntity(String.class);
         List<PatientSearchResultImpl> myObjects;
         try {
-        	Object json = mapper.readValue(output, Object.class);
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            logger.info("Returned JSON\n"+indented);
+        //	Object json = mapper.readValue(output, Object.class);
+        //    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+        //    logger.info("Returned JSON\n"+indented);
             myObjects = mapper.readValue(output, new TypeReference<List<PatientSearchResultImpl>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -437,9 +418,9 @@ public class RESTUtil {
         String output = response.getEntity(String.class);
         List<PatientTextSearchResult> myObjects;
         try {
-            Object json = mapper.readValue(output, Object.class);
-            String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            logger.info("Returned JSON\n"+indented);
+            //Object json = mapper.readValue(output, Object.class);
+          //  String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+           // logger.info("Returned JSON\n"+indented);
             myObjects = mapper.readValue(output, new TypeReference<List<PatientTextSearchResultImpl>>(){});
          } catch (Exception e) {
          e.printStackTrace();

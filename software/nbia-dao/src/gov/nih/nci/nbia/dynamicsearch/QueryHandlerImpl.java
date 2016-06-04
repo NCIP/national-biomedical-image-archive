@@ -279,8 +279,10 @@ public class QueryHandlerImpl extends AbstractDAO
 			TableRelationships ro = new TableRelationships();
 			elementTree = ro.getRelationTree();
 			createMapKeys();
-			//add visibility = 1 in generalSeries level
-			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
+			//add visibility = 1 or 13 for downloadable in generalSeries level
+			
+			//criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
+			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible", "Downloadable")));
 			
 			searchCriteria = ro.sortTableName(criteria);
 			//reset currentNode
@@ -290,7 +292,8 @@ public class QueryHandlerImpl extends AbstractDAO
 			this.statementRelation = stateRelation;
 			this.authorizedSiteData = aData;
 			this.seriesSecurityGroups = securityGroups;
-					
+			
+	System.out.println("===== In nbia-dao, QueryHandlerImpl:setQueryCriteria() - downloadable visibility - AFTER criteria.add(createSeriesVisibilityCriteria(Arrays.asList(Visible', 'Downloadable'))) - criteria is: " + criteria.toString());
 			
 		}
 		catch(Exception ex) {
@@ -611,7 +614,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		return pDto;
 	}
 
-
+	
 	private static DynamicSearchCriteria createSeriesVisibilityCriteria(List<String> visibilityStatus) {
 		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
 		dsc.setDataGroup("GeneralSeries");		

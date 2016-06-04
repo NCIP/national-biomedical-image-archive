@@ -163,7 +163,7 @@ public class QcToolBean {
      * Setup the option items for various the additional QC flags:
      * 
      * BatchNum - Numeric 
-     * TestVisibility - Numeric - 0 or 5 
+     * TestVisibility - Downloadable - Numeric - 13 
      * AccessType - String - Public or Limited
      * SubmissionType - String - Complete or Ongoing   
      * 
@@ -188,8 +188,7 @@ public class QcToolBean {
     	qcSubmissionTypes.clear();
     	qcSubmissionTypes.add(new SelectItem("  "));
     	qcSubmissionTypes.add(new SelectItem("NO"));
-    	qcSubmissionTypes.add(new SelectItem("YES"));   	
-    	     	    	        
+    	qcSubmissionTypes.add(new SelectItem("YES"));   	   	     	    	        
     }
  
     
@@ -271,10 +270,7 @@ public class QcToolBean {
         
        setSelectedQcBatchNum(selectedQcBatchNum);
        setSelectedQcSubmissionType(selectedQcSubmissionType);        
-        
-       System.out.println("========= In QcToolBean:performQC(); - selectedQcBatchNum is: " + selectedQcBatchNum);
-       System.out.println("========= In QcToolBean:performQC(); - selectedQcSubmissionType is: " + selectedQcSubmissionType);
-       
+                 
         setFromDate(null);
         setToDate(null);
     	return "qcTool";
@@ -299,8 +295,7 @@ public class QcToolBean {
 	public List<String> getAuthCollectionList(){
 		return 	collectionNames;
 	}
-	
-	
+		
     public Date getFromDate() {
 		return fromDate;
 	}
@@ -346,7 +341,6 @@ public class QcToolBean {
         return result;
     }
 
-
 	/////////////////////////////////////PRIVATE////////////////////////////////
     private List<SelectItem> authorizedProjectsSitesSelectItems = new ArrayList<SelectItem>();
 
@@ -368,9 +362,6 @@ public class QcToolBean {
       
     private List<SelectItem> qcSubmissionTypes = new ArrayList<SelectItem>();
     private String selectedQcSubmissionType; 
-    
-    
-  
     
 }
 

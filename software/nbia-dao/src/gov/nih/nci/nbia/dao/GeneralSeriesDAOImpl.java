@@ -41,9 +41,11 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		String hql =
 	    	"select distinct dp.project "+
 	    	"from TrialDataProvenance dp, Patient p, GeneralSeries gs "+
-	    	"where dp.id = p.dataProvenance.id and gs.visibility = '1' and gs.patientPkId = p.id "+
+	    	"where dp.id = p.dataProvenance.id and gs.visibility in ('1', '13') and gs.patientPkId = p.id "+
 	    	"order by dp.project";
 
+		System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:findProjectsOfVisibleSeries() - downloadable hql is: ");
+		
         return (Collection<String>)getHibernateTemplate().find(hql);
 	}
 
@@ -52,10 +54,10 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		String hql =
         	"select distinct e.manufacturer, e.manufacturerModelName, e.softwareVersions "+
         	"from GeneralSeries s join s.generalEquipment e "+
-        	"where s.visibility = '1' and e.manufacturer is not null "+
+        	"where s.visibility in ('1', '13') and e.manufacturer is not null "+
         	"order by e.manufacturer";
 
-
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:findEquipmentOfVisibleSeries() - downloadable hql is: ");
 
         Collection<EquipmentDTO> equipment = new ArrayList<EquipmentDTO>();
         List<Object[]> equipmentRows = (List<Object[]>)getHibernateTemplate().find(hql);
@@ -74,10 +76,12 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		String hql =
 			"select distinct upper(bodyPartExamined) "+
 			"from GeneralSeries "+
-			"where visibility = '1' "+
+			"where visibility in ('1', '13') "+
 			"order by upper(bodyPartExamined)";
-
-        return (Collection<String>)getHibernateTemplate().find(hql);
+		
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:findDistinctBodyPartsFromVisibleSeries() - downloadable hql is: ");
+       
+	  return (Collection<String>)getHibernateTemplate().find(hql);
 	}
 
 
@@ -93,7 +97,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	{
 
 		List<String> rs = null;
-		String hql = "select distinct(modality) from GeneralSeries s where visibility = '1'";
+		String hql = "select distinct(modality) from GeneralSeries s where visibility in ('1', '13') ";
 		String order = " order by upper(modality)";
 		List<String> paramList = new ArrayList<String>();
 		int i = 0;
@@ -110,14 +114,19 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			i++;
 		}
 		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));
+		
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getModalityValues() - downloadable visibility hql is: " + hql + where.toString() + order);
+		
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString() + order,
 					values);
-			System.out.println("!!!!where.toString()=" + where.toString());
+		System.out.println("!!!!where.toString()=" + where.toString());		
+		
 		} else {
 			rs  = getHibernateTemplate().find(hql +  where.toString() +order);
-			System.out.println("!!!!where.toString()=" + where.toString());
+		System.out.println("!!!!where.toString()=" + where.toString());
+		
 		}
 
         return rs;
@@ -136,7 +145,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	{
 
 		List<String> rs = null;
-		String hql = "select distinct(bodyPartExamined) from GeneralSeries s where visibility = '1' ";
+		String hql = "select distinct(bodyPartExamined) from GeneralSeries s where visibility in ('1', '13') ";
 		String order = " order by upper(bodyPartExamined)";
 		List<String> paramList = new ArrayList<String>();
 		int i = 0;
@@ -153,12 +162,17 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		}
 
 		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));
+		
+	 System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getBodyPartValues() - downloadable visibility hql is: " + hql + where.toString() + order);	
+		
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString() + order,
 					values);
+	  				
 		} else {
 			rs  = getHibernateTemplate().find(hql  + where.toString() + order);
+				
 		}
 
         return rs;
@@ -179,7 +193,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			String modality, String bodyPart, List<String> authorizedProjAndSites) throws DataAccessException {
 		StringBuffer where = new StringBuffer();
 		List<String> rs = null;
-		String hql = "select distinct(s.generalEquipment.manufacturer) from GeneralSeries s where s.visibility ='1'";
+		String hql = "select distinct(s.generalEquipment.manufacturer) from GeneralSeries s where s.visibility in ('1', '13') ";
 		String order = " order by upper(s.generalEquipment.manufacturer)";
 		List<String> paramList = new ArrayList<String>();
 		int i = 0;
@@ -202,15 +216,17 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 
 		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));
 
+		System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getManufacturerValues() - downloadable visibility hql is: " + hql + where.toString() + order);
 
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString() + order,
-					values);
+					values);	
+			
 		} else
 			rs = getHibernateTemplate().find(hql + where.toString() + order);
-
-		return rs;
+	
+	   return rs;
 	}
 
 	/**
@@ -234,7 +250,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 	        }
 			where.append(")");
 		}
-		System.out.println("&&&&&&&&&&&&where clause for project and group=" + where.toString());
+		System.out.println("&&&&&&&&&&&& where clause for project and group=" + where.toString());
 		return where;
 	}
 
@@ -253,7 +269,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		String hql = "select s.seriesInstanceUID, s.studyInstanceUID, s.modality, s.protocolName, s.seriesDate, s.seriesDesc, " +
 		"s.bodyPartExamined, s.seriesNumber, s.annotationsFlag, s.project, s.patientId, s.generalEquipment.manufacturer, " +
 		"s.generalEquipment.manufacturerModelName, s.generalEquipment.softwareVersions, s.imageCount"+
-		" from GeneralSeries s where s.visibility ='1'";
+		" from GeneralSeries s where s.visibility in ('1', '13') ";
 
 		List<String> paramList = new ArrayList<String>();
 		int i = 0;
@@ -275,6 +291,8 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		}
 		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));
 
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getSeries() - downloadable visibility hql is: " + hql + where.toString());
+	
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString(), values);
@@ -289,9 +307,11 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		String hql =
 			"select distinct modality "+
 			"from GeneralSeries "+
-			"where visibility = '1' and modality is not null "+
+			"where visibility in ('1', '13') and modality is not null "+
 			"order by modality";
 
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:findDistinctModalitiesFromVisibleSeries() - downloadable visibility hql is: " + hql);	
+		
         return (Collection<String>)getHibernateTemplate().find(hql);
 	}
 
@@ -503,7 +523,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 				setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
 			}
 			criteria.add(Restrictions.in("seriesInstanceUID", unitList));
-			criteria.add(Restrictions.eq("visibility", "1"));
+			criteria.add(Restrictions.in("visibility", new String[] {"1","13"}));
 			criteria = criteria.createCriteria("study");
 			criteria = criteria.createCriteria("patient");
 			criteria = criteria.createCriteria("dataProvenance");
@@ -517,7 +537,10 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			}
 			seriesList.addAll(results);
 		}
-		return seriesList;
+		
+System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getSeriesFromSeriesInstanceUIDs() - downloadable visibility - criteria.add(Restrictions.in('visibility', new String[] {'1','13'})) ");
+
+return seriesList;
 	}
 
 	//////////////////////////////////////////PRIVATE/////////////////////////////////////////
@@ -538,7 +561,7 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		List<GeneralSeries> seriesList = null;
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
 		setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
-		criteria.add(Restrictions.eq("visibility", "1"));
+		criteria.add(Restrictions.in("visibility", new String[] {"1","13"}));
 		criteria = criteria.createCriteria("study");
 		criteria.add(Restrictions.in("studyInstanceUID", studyIDs));
 		criteria = criteria.createCriteria("patient");
@@ -546,10 +569,11 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		setAuthorizedSiteData(criteria, authorizedSites);
 
 		seriesList = getHibernateTemplate().findByCriteria(criteria);
-
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getSeriesFromStudys() - downloadable visibility - criteria.add(Restrictions.in('visibility', new String[] {'1','13'})) ");
 		return seriesList;
 	}
 
+	
 	private List<GeneralSeries> getSeriesFromPatients(List<String> patientIDs,
 			                                          List<SiteData> authorizedSites,
 			                                          List<String> authorizedSeriesSecurityGroups)
@@ -559,14 +583,17 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		DetachedCriteria criteria = DetachedCriteria.forClass(GeneralSeries.class);
 		setSeriesSecurityGroups(criteria, authorizedSeriesSecurityGroups);
 		criteria.add(Restrictions.in("patientId", patientIDs));
-		criteria.add(Restrictions.eq("visibility", "1"));
+		//criteria.add(Restrictions.eq("visibility", "1"));
+		criteria.add(Restrictions.in("visibility", new String[] {"1","13"}));
 		criteria = criteria.createCriteria("study");
 		criteria = criteria.createCriteria("patient");
 		criteria = criteria.createCriteria("dataProvenance");
 		setAuthorizedSiteData(criteria, authorizedSites);
 
 		seriesList = getHibernateTemplate().findByCriteria(criteria);
-
+   
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getSeriesFromPatients() - downloadable visibility - criteria.add(Restrictions.in('visibility', new String[] {'1','13'})) ");	
+		
 		return seriesList;
 	}
 
@@ -652,7 +679,8 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 		criteria.setProjection(Projections.distinct(Projections
 				.projectionList().add(Projections.property("project"))
 				.add(Projections.property("site"))));
-		criteria.add(Restrictions.eq("visibility", "1"));
+		//criteria.add(Restrictions.eq("visibility", "1"));
+		criteria.add(Restrictions.in("visibility", new String[] {"1","13"}));
 		Set<String> paramLst = queryParams.keySet();
 		for (String param : paramLst) {
 			criteria.add(Restrictions.eq(param, queryParams.get(param)));
@@ -665,6 +693,9 @@ public class GeneralSeriesDAOImpl extends AbstractDAO
 			returnList.add(new String((String) row[0] + "//"
 					+ (String) row[1]));
 		}
+		
+	System.out.println("===== In nbia-dao, GeneralSeriesDAOImpl:getRequestedProjectAndSite() - downloadable visibility - criteria.add(Restrictions.in('visibility', new String[] {'1','13'})) ");	
+		
 		return returnList;
 	}
 }

@@ -126,10 +126,10 @@ public class DICOMQueryHandlerImpl extends AbstractDAO
     private static final String SQL_QUERY_FROM_STUDY = "FROM StudyNumber sn, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
     private static final String SQL_QUERY_FROM_MONTH = "FROM NumberMonth nm, Patient p join p.dataProvenance dp join p.studyCollection study join study.generalSeriesCollection series ";
 
-    private static final String SQL_QUERY_WHERE_NEITHER = " WHERE series.visibility = '1' ";
-    private static final String SQL_QUERY_WHERE_BOTH = " WHERE series.visibility = '1' and p.id = sn.id and p.id = nm.id ";
-    private static final String SQL_QUERY_WHERE_STUDY = " WHERE series.visibility = '1' and p.id = sn.id ";
-    private static final String SQL_QUERY_WHERE_MONTH = " WHERE series.visibility = '1' and p.id = nm.id ";
+    private static final String SQL_QUERY_WHERE_NEITHER = " WHERE series.visibility in ('1', '13') ";
+    private static final String SQL_QUERY_WHERE_BOTH = " WHERE series.visibility in ('1', '13') and p.id = sn.id and p.id = nm.id ";
+    private static final String SQL_QUERY_WHERE_STUDY = " WHERE series.visibility in ('1', '13') and p.id = sn.id ";
+    private static final String SQL_QUERY_WHERE_MONTH = " WHERE series.visibility in ('1', '13') and p.id = nm.id ";
 
     /*
      * Constants for building image criteria query Use exists clause in subquery

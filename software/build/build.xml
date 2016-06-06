@@ -849,6 +849,14 @@ L-->
 				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}"/>
 				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}"/>
 				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
+			 	<filter token="qctool.visibility.stage1" value="${qctool.visibility.stage1}"/>
+			 	<filter token="qctool.visibility.stage2" value="${qctool.visibility.stage2}"/>
+			 	<filter token="qctool.visibility.stage3" value="${qctool.visibility.stage3}"/>
+			 	<filter token="qctool.visibility.stage4" value="${qctool.visibility.stage4}"/>
+			 	<filter token="qctool.visibility.stage5" value="${qctool.visibility.stage5}"/>
+			 	<filter token="qctool.visibility.stage6" value="${qctool.visibility.stage6}"/>
+			 	<filter token="qctool.visibility.stage7" value="${qctool.visibility.stage7}"/>
+			 	<filter token="qctool.batchNumberSelect.size" value="${qctool.batchNumberSelect.size}"/>
 			</filterset>
 		</copy>
 		<antcall target="build:all"/>

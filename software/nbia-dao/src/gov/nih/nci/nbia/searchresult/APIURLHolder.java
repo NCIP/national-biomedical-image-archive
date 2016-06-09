@@ -10,6 +10,7 @@ public class APIURLHolder {
 	}
 	public static String addUser(String user)
 	{
+		if (user==null) return "null user";
 		try {
 		for(Map.Entry<String, String> entry : userMap.entrySet()){
 		    System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
@@ -23,7 +24,6 @@ public class APIURLHolder {
 		}
 		UUID userKey = UUID.randomUUID();
 		userMap.put(userKey.toString(), user);
-		System.out.println("!!!!!!!!!!!Added user-"+user+"Key-"+userKey.toString());
 		return userKey.toString();
 
 	}

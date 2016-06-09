@@ -13,7 +13,7 @@ public class APIURLHolder {
 		if (user==null) return "null user";
 		try {
 		for(Map.Entry<String, String> entry : userMap.entrySet()){
-		    System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
+		    //System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
 		    if (entry.getValue().equals(user)){
 		    	return entry.getKey();
 		    }

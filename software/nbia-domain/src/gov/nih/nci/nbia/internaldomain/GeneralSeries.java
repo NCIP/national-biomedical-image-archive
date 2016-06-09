@@ -603,13 +603,13 @@ public class GeneralSeries  implements Serializable
 	/** Indicate QC Tool Number of batches for the series
 	 * 
 	 */
-	private int batch;
+	private Integer batch;
 	
-	public void setBatch(int batch){
+	public void setBatch(Integer batch){
 		this.batch = batch;
 	}
 	
-	public int getBatch(){
+	public Integer getBatch(){
 		return batch;
 	}		
     

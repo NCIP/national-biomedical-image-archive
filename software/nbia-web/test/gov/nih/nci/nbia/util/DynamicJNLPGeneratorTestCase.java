@@ -8,7 +8,7 @@
 
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.lookup.*;
 import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 import java.io.StringReader;
 import java.util.ArrayList;

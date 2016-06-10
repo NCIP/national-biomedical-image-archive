@@ -11,6 +11,7 @@ package gov.nih.nci.nbia.basket;
 import gov.nih.nci.nbia.search.LocalDrillDown;
 import gov.nih.nci.nbia.searchresult.ImageSearchResult;
 import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.lookup.*;
 
 import java.util.ArrayList;
 import java.util.Collection;

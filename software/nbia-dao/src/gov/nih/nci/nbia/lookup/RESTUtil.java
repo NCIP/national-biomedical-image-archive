@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 
 
 
+
 import gov.nih.nci.nbia.dto.StudyDTO;
 import gov.nih.nci.nbia.dto.ImageDTO;
 import gov.nih.nci.nbia.dynamicsearch.DynamicSearchCriteria;
@@ -28,6 +29,7 @@ import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResult;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
+
 import javax.ws.rs.core.MultivaluedMap;
 
 import com.sun.jersey.core.util.MultivaluedMapImpl;
@@ -64,7 +66,6 @@ public class RESTUtil {
 	    MultivaluedMap form = new MultivaluedMapImpl(); 
 	    // stateRelation is how the criteria are logically related "AND", "OR"
 	    form.add("stateRelation", stateRelation); 
-	    form.add("userName",userToken); 
 	    int i=0;
 	    // Step through all criteria given, the form fields are appended with an integer
 	    // to maintain grouping in REST call (dataGroup0, dataGroup1...)
@@ -214,7 +215,6 @@ public class RESTUtil {
 	{
 
 		Form form = new Form(); 
-	    form.add("userName",userToken); 
 	    // Add all selected studies to the list
 	    for (Integer dcriteria:criteria){
 	    	form.add("list",dcriteria.toString());
@@ -298,7 +298,6 @@ public class RESTUtil {
 	{
 
 		Form form = new Form(); 
-	    form.add("userName",userToken); 
 	    int i=0;
 	    // List of selected series
 	    for (Integer dcriteria:criteria){
@@ -335,31 +334,32 @@ public class RESTUtil {
         return myObjects;
 		
 	}
-	public static List<PatientSearchResult> getJNLP(List<DynamicSearchCriteria> criteria,
-                                                             String stateRelation, 
-                                                             String userToken,
-                                                             List<BasketSeriesItemBean> seriesItems)
+	public static String getJNLP(List<BasketSeriesItemBean> seriesItems,
+                                                             String password, 
+                                                             boolean annotation,
+                                                             String userToken)
 	{
         // Use a form because there are an unknown number of values
 	    MultivaluedMap form = new MultivaluedMapImpl(); 
-	    int i=0;
+
+	    
 	    // Step through all data in series items for display in download manager
 	    for (BasketSeriesItemBean item:seriesItems){
-	    	form.add("collection"+i,item.getProject());
-	    	form.add("patientId"+i,item.getPatientId());
-	    	form.add("annotation"+i,item.getAnnotated());
-	    	form.add("seriesInstanceUid"+i,item.getSeriesId());
-	    	i++;
+	    	form.add("list",item.getSeriesId());
 	    }
-   
-
+	    form.add("password", password); 
+	    String annotationString="false";
+	    if (annotation){
+	    	annotationString="true";
+	    }
+	    form.add("includeAnnotation", annotationString); 
 		ClientConfig cc = new DefaultClientConfig();
 		cc.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(); 
 		client.addFilter(new LoggingFilter(System.out));
 		WebResource resource = client.resource(APIURLHolder.getUrl()
-				+"/nbia-api/services/getDynamicSearch"); 
-		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)
+				+"/nbia-api/services/getJNLPText"); 
+		ClientResponse response = resource.accept(MediaType.TEXT_PLAIN)
 				                          .type(MediaType.APPLICATION_FORM_URLENCODED)
 				                          .header("Authorization",  "Bearer "+userToken)
 				                          .post(ClientResponse.class, form);
@@ -371,22 +371,7 @@ public class RESTUtil {
 
         // display response
         String output = response.getEntity(String.class);
-        List<PatientSearchResultImpl> myObjects;
-        try {
-        //	Object json = mapper.readValue(output, Object.class);
-        //    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-        //    logger.info("Returned JSON\n"+indented);
-            myObjects = mapper.readValue(output, new TypeReference<List<PatientSearchResultImpl>>(){});
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-        List<PatientSearchResult> returnValue=new ArrayList<PatientSearchResult>();
-        for (PatientSearchResultImpl result:myObjects)
-        {
-        	returnValue.add(result);
-        }
-        return returnValue;
+        return output;
 		
 	}
 	

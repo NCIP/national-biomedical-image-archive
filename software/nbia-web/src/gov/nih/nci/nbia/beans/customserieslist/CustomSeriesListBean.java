@@ -8,7 +8,8 @@
 
 package gov.nih.nci.nbia.beans.customserieslist;
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+
+import gov.nih.nci.nbia.lookup.*;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;

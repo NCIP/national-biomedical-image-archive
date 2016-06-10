@@ -8,7 +8,7 @@
 
 package gov.nih.nci.nbia.customserieslist;
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.lookup.*;
 import gov.nih.nci.nbia.dao.StudyDAO;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.StudyDTO;

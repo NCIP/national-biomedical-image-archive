@@ -14,7 +14,7 @@
 package gov.nih.nci.nbia.beans.basket;
 
 import gov.nih.nci.nbia.basket.Basket;
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.lookup.BasketSeriesItemBean;
 import gov.nih.nci.nbia.basket.BasketUtil;
 import gov.nih.nci.nbia.basket.DownloadRecorder;
 import gov.nih.nci.nbia.beans.BeanManager;
@@ -28,10 +28,11 @@ import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
 import gov.nih.nci.nbia.executors.ImageZippingMessage;
 import gov.nih.nci.nbia.executors.AsynchonousServices;
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.nbia.util.DynamicJNLPGenerator;
+import gov.nih.nci.nbia.basket.DynamicJNLPGenerator;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
@@ -58,6 +59,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.servlet.http.HttpServletRequest;
+
 
 
 
@@ -588,13 +590,10 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
             return null;
         }
 
-        DynamicJNLPGenerator djnlpg = new DynamicJNLPGenerator();
-        String jnlp = djnlpg.generate(sb.getUsername(),
-                                      sb.getPassword(),
-                                      NCIAConfig.getImageServerUrl()+"/ncia",
-                                      NCIAConfig.getDownloadServerUrl(),
-                                      getIncludeAnnotation(),
-                                      this.getSeriesItems(),currentTimeMillis, NCIAConfig.getNoOfRetry());
+
+        String jnlp = RESTUtil.getJNLP(this.getSeriesItems(), sb.getPassword(), getIncludeAnnotation(), sb.getTokenValue());
+        		
+
 
         ByteArrayResource bar = new ByteArrayResource(jnlp.getBytes());
         return bar;

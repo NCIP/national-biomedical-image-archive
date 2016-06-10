@@ -49,7 +49,7 @@ public class GetStudyDrillDown extends getData{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 
-	public Response constructResponse(@FormParam("list") List<String> list, @FormParam("userName") String userName) {
+	public Response constructResponse(@FormParam("list") List<String> list) {
 
 		try {	
 	   Authentication authentication = SecurityContextHolder.getContext()

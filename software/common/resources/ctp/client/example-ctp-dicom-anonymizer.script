@@ -8,6 +8,7 @@
  <p t="SHORTNAME">Project</p>
  <p t="SITEID">99</p>
  <p t="SITENAME">SiteName</p>
+ <p t="BATCHNUM">0</p>
  <!-- Change UIDROOT to UIDROOT.UIDROOTend --> 
  <p t="UIDROOT">88.8.</p>
  <e en="T" t="00080005" n="SpecificCharacterSet">@keep()</e>
@@ -187,6 +188,7 @@
  <e en="T" t="00131011" n="TrialName">@always()@param(@PROJECTNAME)</e>
  <e en="T" t="00131012" n="SiteName">@always()@param(@SITENAME)</e>
  <e en="T" t="00131013" n="SiteID">@always()@param(@SITEID)</e>
+ <e en="T" t="00131015" n="BatchNum">@always()@param(@BATCHNUM)</e>
  <e en="T" t="00180010" n="ContrastBolusAgent">@keep()</e>
  <e en="F" t="00180012" n="ContrastBolusAgentSeq"></e>
  <e en="F" t="00180014" n="ContrastBolusAdministrationRouteSeq"></e>

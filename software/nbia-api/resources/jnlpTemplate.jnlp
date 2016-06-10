@@ -25,7 +25,6 @@
     <j2se version="1.6+"  href="http://java.sun.com/products/autodl/j2se" java-vm-args="-Xincgc"/>
     <jar href="NBIADownloadManager.jar"/>
     <jar href="download-mgr-dependencies/nbia-util.jar"/>
-<jar href="download-mgr-dependencies/nbia-services-grid.jar"/>
 <jar href="download-mgr-dependencies/log4j-1.2.15.jar"/>
 <jar href="download-mgr-dependencies/httpcore-4.1.3.jar"/>
 <jar href="download-mgr-dependencies/httpclient-4.1.3.jar"/>

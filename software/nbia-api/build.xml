@@ -137,6 +137,7 @@ L-->
 				<include name="applicationContext-hibernate.xml"/>
 				<include name="ESAPI.properties"/>
 				<include name="hibernate.properties"/>
+		        <include name="jnlpTemplate.jnlp"/>
 			</fileset>
 		</copy>
 	    <if>

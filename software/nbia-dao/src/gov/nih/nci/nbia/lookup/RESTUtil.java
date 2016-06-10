@@ -342,7 +342,10 @@ public class RESTUtil {
         // Use a form because there are an unknown number of values
 	    MultivaluedMap form = new MultivaluedMapImpl(); 
 
-	    
+	    if ((seriesItems==null)||(seriesItems.size()==0))
+	    {
+	    	return "";
+	    }
 	    // Step through all data in series items for display in download manager
 	    for (BasketSeriesItemBean item:seriesItems){
 	    	form.add("list",item.getSeriesId());

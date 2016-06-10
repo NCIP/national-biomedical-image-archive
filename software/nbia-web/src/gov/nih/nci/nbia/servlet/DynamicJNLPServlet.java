@@ -16,7 +16,7 @@ package gov.nih.nci.nbia.servlet;
  *
  */
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.lookup.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

@@ -66,6 +66,16 @@ L-->
 						<ice:outputText value="#{res.dateTime}" />
 					</ice:column>
 
+                    <ice:column>
+						<f:facet name="header">
+							<ice:commandSortHeader 
+								columnName="#{qcToolSearchBean.trialIdHeader}" arrow="true" >
+								<ice:outputText value="#{qcToolSearchBean.trialIdHeader}" />
+					 		</ice:commandSortHeader>
+						</f:facet>
+						<ice:outputText value="#{res.trialDpPkId}" />
+					</ice:column>
+
 					<ice:column>
 						<f:facet name="header">
 							<ice:commandSortHeader 

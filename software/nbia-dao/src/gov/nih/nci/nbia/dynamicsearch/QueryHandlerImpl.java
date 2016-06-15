@@ -171,7 +171,8 @@ public class QueryHandlerImpl extends AbstractDAO
             
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".batch"));
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".submissionType"));
-            
+                 
+            projectionList.add(Projections.property(generateAlias(elementTree.get(0).getAlias())+".id"));          
             
             criteria.setProjection(Projections.distinct(projectionList));
 
@@ -207,6 +208,7 @@ public class QueryHandlerImpl extends AbstractDAO
 					
 					String batch = "" + row[9];
 					String submissionType = (String) row[10];
+					String trialDpPkId = "" + row[11];
 					
 					Date subDate = null;
 					if(submissionDate != null) {
@@ -219,7 +221,7 @@ public class QueryHandlerImpl extends AbstractDAO
 							                                          series,
 							                                          subDate,
 							                                          visibilitySt, modality, seriesDesc,
-							                                          batch, submissionType);
+							                                          batch, submissionType, trialDpPkId);
 					searchResultDtos.add(qcSrDTO);
 				}
 			}

@@ -30,6 +30,7 @@ public class QcSearchResultDTO {
 	
 	private String batch;
 	private String submissionType;
+	private String trialDpPkId;
 	
 	
 	public QcSearchResultDTO(String collection, 
@@ -43,7 +44,7 @@ public class QcSearchResultDTO {
 							 String seriesDesc, 
 							 
 							 String batch, 
-							 String submissionType) {
+							 String submissionType, String trialDpPkId) {
 		setCollection(collection);
 		setSite(site);
 		setPatientId(patientId);
@@ -57,7 +58,7 @@ public class QcSearchResultDTO {
 		
 		setBatch(batch);
 		setSubmissionType(submissionType);
-			
+		setTrialDpPkId(trialDpPkId);		
 		
 	}
 	
@@ -75,6 +76,7 @@ public class QcSearchResultDTO {
 		
 		setBatch(obj.batch);
 		setSubmissionType(obj.submissionType);		
+		setTrialDpPkId(obj.trialDpPkId);
 		
 }
 
@@ -194,6 +196,16 @@ public class QcSearchResultDTO {
 	public void setSubmissionType(String submissionType) {
 		this.submissionType = submissionType;
 	}
+	
+	//--------------------------------
+	
+	public String getTrialDpPkId() {
+		return trialDpPkId;
+	}
+
+    public void setTrialDpPkId(String trialDpPkId) {
+	    this.trialDpPkId = trialDpPkId;
+    }
 	
 	////////////////////////////////////////////////////////
 

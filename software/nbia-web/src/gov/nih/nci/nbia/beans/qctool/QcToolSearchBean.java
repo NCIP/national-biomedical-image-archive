@@ -271,7 +271,10 @@ public class QcToolSearchBean {
 	public void setSelectedHRptDispItemNum(String selectedHRptDispItemNum) {
 		this.selectedHRptDispItemNum = selectedHRptDispItemNum;
 	}
-
+	
+	public String getTrialIdHeader() {
+		return trialIdHeader;
+	}
 	public String getDateHeader() {
 		return dateHeader;
 	}
@@ -316,6 +319,7 @@ public class QcToolSearchBean {
     private int notificationHack = 0;
     private UIData dataTable;
 
+    private static final String trialIdHeader = "Trial ID";
     private static final String dateHeader = "Submission date";
     private static final String siteHeader = "Collection//Site";
     private static final String patientHeader = "Patient";
@@ -408,6 +412,12 @@ public class QcToolSearchBean {
                     return compareObject(c1.getCollectionSite().compareTo(c2.getCollectionSite()),
                             c2.getCollectionSite().compareTo(c1.getCollectionSite()));
                 }
+                               
+                else if(sortColumnName.equals(trialIdHeader)) {
+                    return compareObject(c1.getTrialDpPkId().compareTo(c2.getTrialDpPkId()),
+                            c2.getTrialDpPkId().compareTo(c1.getTrialDpPkId()));
+                }
+                
                 else if (sortColumnName.equals(patientHeader)) {
                     return compareObject(c1.getPatientId().compareTo(c2.getPatientId()),
                         c2.getPatientId().compareTo(c1.getPatientId()));

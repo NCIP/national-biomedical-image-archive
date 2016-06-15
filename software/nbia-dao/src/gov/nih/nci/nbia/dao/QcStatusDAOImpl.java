@@ -47,16 +47,6 @@ public class QcStatusDAOImpl extends AbstractDAO
 	public List<QcSearchResultDTO> findSeries(String[] qcStatus,
 			                                  List<String> collectionSites, String[] additionalQcFlagList, 
 			                                  String[] patients, Date fromDate, Date toDate, int maxRows) throws DataAccessException {
-
-//		String selectStmt = "SELECT gs.project," +
-//		                           "gs.site," +
-//		                           "gs.patientId,"+
-//		                           "gs.studyInstanceUID," +
-//		                           "gs.seriesInstanceUID,"+
-//		                           "gs.visibility," +
-//		                           "gs.maxSubmissionTimestamp,"+
-//		                           "gs.modality, "+
-//		                           "gs.seriesDesc ";
 		
 		String selectStmt = "SELECT gs.project," +
                 "gs.site," +
@@ -69,9 +59,9 @@ public class QcStatusDAOImpl extends AbstractDAO
                 "gs.seriesDesc, " +
                 
                 "gs.batch, " +
-                "gs.submissionType ";
+                "gs.submissionType, tdp.id ";
 		
-		String fromStmt = "FROM GeneralSeries as gs";
+		String fromStmt = "FROM GeneralSeries as gs, Patient as pt, TrialDataProvenance as tdp ";
 			
 		String whereStmt = " WHERE " +
 		                   computeVisibilityCriteria(qcStatus) +
@@ -111,6 +101,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 			
 			String batch = "" + row[9];
 			String submissionType = (String) row[10];
+			String trialDpPkId = "" + row[11];
 			
 			Date subDate = null;
 			if(submissionDate != null) {
@@ -126,7 +117,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 					                                          visibilitySt, 
 					                                          modality, 
 					                                          seriesDesc, 
-					                                          batch, submissionType);
+					                                          batch, submissionType, trialDpPkId);
 			searchResultDtos.add(qcSrDTO);
 		}
 
@@ -325,10 +316,12 @@ public class QcStatusDAOImpl extends AbstractDAO
 	private static String computeAdditionalFlags(String[] additionalQcFlagList){
 		String retStr = "";
 		
+		retStr = " and gs.patientPkId = pt.id and pt.dataProvenance = tdp.id ";
+		
 		if(additionalQcFlagList[0] != null && additionalQcFlagList[0].trim().length() > 0){	
 			int batchNum = Integer.parseInt(additionalQcFlagList[0]);				
 			if(batchNum > 0){
-				retStr = " and gs.batch=" + batchNum;
+				retStr += " and gs.batch=" + batchNum;
 			}			
 		}
 		

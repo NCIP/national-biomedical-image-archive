@@ -41,6 +41,9 @@ import javax.ws.rs.core.Response;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.sun.jersey.api.client.ClientResponse.Status;
 
@@ -280,5 +283,5 @@ public class getData {
 		SearchCriteria searchCriteria = new RoleSearchCriteria(role);
 		List<Role> list = upm.getObjects(searchCriteria);	
 		return list.get(0);
-	}
+	}		
 }

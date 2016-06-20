@@ -1848,11 +1848,8 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
          <sql>          
 			ALTER TABLE general_series  
 			ADD COLUMN released_status varchar(50);
-			
-
 			ALTER TABLE QC_STATUS_HISTORY  
 			ADD COLUMN oldReleasedStatus varchar(50);
-			
 			ALTER TABLE QC_STATUS_HISTORY  
 			ADD COLUMN newReleasedStatus varchar(50);						
          </sql>

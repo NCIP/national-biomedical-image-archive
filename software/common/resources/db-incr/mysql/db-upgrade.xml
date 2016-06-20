@@ -1816,6 +1816,8 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
          </sql>
   </changeSet>    
   <changeSet id="6.4.add.newColums.for.additional.qc.tool.statusFlags" author="orakwueco" dbms="mysql">
+         <validCheckSum>dfcc14d76394c52f981e26dc38e3ed92</validCheckSum> 
+         <validCheckSum>20b1c440b9726d1d1ebcfe260228e85</validCheckSum> 
          <comment>
            Add batchNum to assign a batch number to a batch of images.  
 		   Add submission_type to mark a set of submission as 'Complete' or 'Ongoing' submission.

@@ -15,7 +15,7 @@ import gov.nih.nci.nbia.download.SeriesData;
 import gov.nih.nci.nbia.util.ThreadPool;
 import gov.nih.nci.nbia.util.PropertyLoader;
 import gov.nih.nci.nbia.util.StringUtil;
-
+import gov.nih.nci.nbia.util.SeriesComparitor;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -25,6 +25,7 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,7 +95,7 @@ public class DownloadManagerFrame extends JFrame implements Observer {
         this.maxThreads = Application.getNumberOfMaxThreads();
         this.serverUrl = downloadServerUrl;
         this.password = password;
-
+        Collections.sort(series, new SeriesComparitor());
         System.out.println("max threads: " + maxThreads + " serverurl " + serverUrl );
         try{
             addDownload(series);

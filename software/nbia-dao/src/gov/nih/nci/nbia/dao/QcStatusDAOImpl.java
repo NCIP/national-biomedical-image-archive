@@ -59,7 +59,7 @@ public class QcStatusDAOImpl extends AbstractDAO
                 "gs.seriesDesc, " +
                 
                 "gs.batch, " +
-                "gs.submissionType, tdp.id ";
+                "gs.submissionType, gs.releasedStatus, tdp.id ";
 		
 		String fromStmt = "FROM GeneralSeries as gs, Patient as pt, TrialDataProvenance as tdp ";
 			
@@ -75,7 +75,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 		String hql = selectStmt + fromStmt + whereStmt;
 
 		System.out.println("In QcStatusDAOImpl:findSeries(...) with additional qc values: " 
-	        		+ "Batch = '" + additionalQcFlagList[0] + "', submissionType = '" + additionalQcFlagList[1] + "'" );
+	        		+ "Batch = '" + additionalQcFlagList[0] + "', submissionType = '" + additionalQcFlagList[1] + "', releasedStatus = '"  + additionalQcFlagList[2] + "'");
 	    
 		System.out.println("\n In QcStatusDAOImpl:findSeries(...) with hibernate hql query = " + hql + "\n");
 		
@@ -101,7 +101,8 @@ public class QcStatusDAOImpl extends AbstractDAO
 			
 			String batch = "" + row[9];
 			String submissionType = (String) row[10];
-			String trialDpPkId = "" + row[11];
+			String releasedStatus = (String) row[11];
+			String trialDpPkId = "" + row[12];
 			
 			Date subDate = null;
 			if(submissionDate != null) {
@@ -117,7 +118,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 					                                          visibilitySt, 
 					                                          modality, 
 					                                          seriesDesc, 
-					                                          batch, submissionType, trialDpPkId);
+					                                          batch, submissionType, releasedStatus, trialDpPkId);
 			searchResultDtos.add(qcSrDTO);
 		}
 
@@ -132,6 +133,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 				+ "qsh.seriesInstanceUid," + "qsh.oldValue," + "qsh.newValue," 
 				+ "qsh.oldBatch, qsh.newBatch, " 
 				+ "qsh.oldSubmissionType, qsh.newSubmissionType,"
+				+ "qsh.oldReleasedStatus, qsh.newReleasedStatus,"
 				+ "qsh.comment," + "qsh.userId ";
 		String fromStmt = "FROM QCStatusHistory as qsh";
 		String whereStmt = " WHERE qsh.seriesInstanceUid in (";
@@ -188,12 +190,15 @@ public class QcStatusDAOImpl extends AbstractDAO
 			String newBatch = (String) row[5];
 			String oldSubmissionType = (String) row[6];
 			String newSubmissionType = (String) row[7];
+			
+			String oldReleasedStatus = (String) row[8];
+			String newReleasedStatus = (String) row[9];
 	 		
-			String comment = (String) row[8];
-			String userId = (String) row[9];
+			String comment = (String) row[10];
+			String userId = (String) row[11];
 			
 			QcStatusHistoryDTO qcshDTO = new QcStatusHistoryDTO(new Date(historyTimestamp.getTime()),
-					 series, newValue, oldValue, oldBatch, newBatch, oldSubmissionType, newSubmissionType,
+					 series, newValue, oldValue, oldBatch, newBatch, oldSubmissionType, newSubmissionType, oldReleasedStatus, newReleasedStatus,
 					 comment, userId);
 			
 			qcsList.add(qcshDTO);
@@ -236,6 +241,9 @@ public class QcStatusDAOImpl extends AbstractDAO
 			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - newAdditionalQcFlagList[0] is batchNum after = " + newAdditionalQcFlagList[0]);
 			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - additionalQcFlagList[1] is submissionType b4 = " + additionalQcFlagList[1]);
 			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - newAdditionalQcFlagList[1] is submissionType after = " + newAdditionalQcFlagList[1]);
+			
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - additionalQcFlagList[2] is releasedStatus b4 = " + additionalQcFlagList[2]);
+			System.out.println("========== In QcStatusDAOImpl:updateQcStatus(...) - newAdditionalQcFlagList[2] is releasedStatus after = " + newAdditionalQcFlagList[2]);
 			
 			updateDb(seriesId, statusList.get(i), newStatus, additionalQcFlagList, newAdditionalQcFlagList, userName, comment);
 			
@@ -332,6 +340,13 @@ public class QcStatusDAOImpl extends AbstractDAO
 	    		retStr += " and gs.submissionType='Ongoing' ";	
 	    }
 		
+		if(additionalQcFlagList[2] != null && additionalQcFlagList[2].trim().length() > 0){		
+			if(additionalQcFlagList[2].toUpperCase().contains("YES"))
+				retStr += " and gs.releasedStatus='Yes' ";
+	    	else if(additionalQcFlagList[2].toUpperCase().contains("NO"))
+	    		retStr += " and gs.releasedStatus='No' ";	
+	    }
+		
 		System.out.println("In QcStatusDAOImpl:computeAdditionalFlags(...) retStr is: " + retStr);
 		
 		return retStr;
@@ -380,6 +395,7 @@ public class QcStatusDAOImpl extends AbstractDAO
 	    	qsh.setNewBatch(newAdditionalQcFlagList[0]);
 	    }
 		
+	    //-------------------------------------------------------------
 	    if(additionalQcFlagList[1] != null && additionalQcFlagList[1].trim().length() > 0){
 	    	if(additionalQcFlagList[1].toUpperCase().contains("YES"))
 		    	qsh.setOldSubmissionType("Complete");
@@ -392,8 +408,23 @@ public class QcStatusDAOImpl extends AbstractDAO
 		    	qsh.setNewSubmissionType("Complete");
 		    else if(newAdditionalQcFlagList[1].toUpperCase().contains("NO"))
 		    	qsh.setNewSubmissionType("Ongoing");  	
+	    }		
+	    //---------------------------------------------------------------------
+	    
+	    if(additionalQcFlagList[2] != null && additionalQcFlagList[2].trim().length() > 0){
+	    	if(additionalQcFlagList[2].toUpperCase().contains("YES"))
+		    	qsh.setOldReleasedStatus("Yes");
+		    else if(additionalQcFlagList[2].toUpperCase().contains("NO"))
+		    	qsh.setOldReleasedStatus("No");
 	    }
-					
+	    
+	    if(newAdditionalQcFlagList[2] != null && newAdditionalQcFlagList[2].trim().length() > 0){
+		    if(newAdditionalQcFlagList[2].toUpperCase().contains("YES"))
+		    	qsh.setNewReleasedStatus("Yes");
+		    else if(newAdditionalQcFlagList[2].toUpperCase().contains("NO"))
+		    	qsh.setNewReleasedStatus("No");  	
+	    }
+	    
 		String hql = "select distinct gs from GeneralSeries gs where gs.seriesInstanceUID ='"
 				+ seriesId + "'";
 		final String updateHql = createUpdateCurationTStatement(seriesId);
@@ -413,6 +444,13 @@ public class QcStatusDAOImpl extends AbstractDAO
 			   		gs.setSubmissionType("Complete");
 			    else if(newAdditionalQcFlagList[1].toUpperCase().contains("NO"))
 			    	gs.setSubmissionType("Ongoing");
+			}
+			
+			if(newAdditionalQcFlagList[2] != null && newAdditionalQcFlagList[2].trim().length() > 0){
+			   	if(newAdditionalQcFlagList[2].toUpperCase().contains("YES"))
+			   		gs.setReleasedStatus("Yes");
+			    else if(newAdditionalQcFlagList[2].toUpperCase().contains("NO"))
+			    	gs.setReleasedStatus("No");
 			}
 		
 			getHibernateTemplate().update(gs);

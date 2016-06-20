@@ -630,6 +630,19 @@ public class GeneralSeries  implements Serializable
 	}		
     //---------------------------------------------------
 		
+		/** Indicate the release status for the series
+		 *  Yes or No 
+		 */
+		private String releasedStatus;
+		
+		public void setReleasedStatus(String releasedStatus){
+			this.releasedStatus = releasedStatus;
+		}
+		
+		public String getReleasedStatus(){
+			return releasedStatus;
+		}		
+	
    ///////////////////////////////////////////////////		
 
 	/**

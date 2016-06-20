@@ -145,7 +145,7 @@ public class StudyDAOImpl extends AbstractDAO
 				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
 				"s.patient.ethnicGroup, s.patient.dataProvenance.project, " +
 				"(select count(*) from GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID) "  +
-				"from Study as s, GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID and gs.visibility in ('1', '13') ";
+				"from Study as s, GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID and gs.visibility in ('1', '12') ";
 		StringBuffer where = new StringBuffer();
 		List<Object[]> rs = null;
 		List<String> paramList = new ArrayList<String>();
@@ -208,7 +208,7 @@ public class StudyDAOImpl extends AbstractDAO
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////
     private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount, series.patientPkId  ";
     private static final String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join series.generalEquipment ge ";
-    private static final String SQL_QUERY_WHERE = "WHERE series.visibility in ('1', '13') ";
+    private static final String SQL_QUERY_WHERE = "WHERE series.visibility in ('1', '12') ";
 
 	private static Logger logger = Logger.getLogger(ImageDAO.class);
 

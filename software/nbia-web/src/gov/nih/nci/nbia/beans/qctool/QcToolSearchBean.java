@@ -135,7 +135,7 @@ public class QcToolSearchBean {
     	collectionSites.add(qcToolBean.getSelectedCollectionSite());
         String [] qcStatus = {"To Be Deleted"};
         
-        String[] additionalQcFlagList = new String[2];
+        String[] additionalQcFlagList = new String[3];
         
         String patientIds = qcToolBean.getSelectedPatients();
         String [] patients = null;
@@ -143,6 +143,7 @@ public class QcToolSearchBean {
          
         additionalQcFlagList[0] = qcToolBean.getSelectedQcBatchNum();
     	additionalQcFlagList[1] = qcToolBean.getSelectedQcSubmissionType();
+    	additionalQcFlagList[2] = qcToolBean.getSelectedQcReleasedStatus();
     	
         if (! qcToolBean.isSuperRole()) {
         	      	

@@ -171,6 +171,7 @@ public class QueryHandlerImpl extends AbstractDAO
             
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".batch"));
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".submissionType"));
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".releasedStatus"));
                  
             projectionList.add(Projections.property(generateAlias(elementTree.get(0).getAlias())+".id"));          
             
@@ -208,7 +209,8 @@ public class QueryHandlerImpl extends AbstractDAO
 					
 					String batch = "" + row[9];
 					String submissionType = (String) row[10];
-					String trialDpPkId = "" + row[11];
+					String releasedStatus = (String) row[11];
+					String trialDpPkId = "" + row[12];
 					
 					Date subDate = null;
 					if(submissionDate != null) {
@@ -221,7 +223,7 @@ public class QueryHandlerImpl extends AbstractDAO
 							                                          series,
 							                                          subDate,
 							                                          visibilitySt, modality, seriesDesc,
-							                                          batch, submissionType, trialDpPkId);
+							                                          batch, submissionType, releasedStatus, trialDpPkId);
 					searchResultDtos.add(qcSrDTO);
 				}
 			}
@@ -266,6 +268,14 @@ public class QueryHandlerImpl extends AbstractDAO
 	    	 criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".submissionType").eq("Ongoing"));
 	    }
 		
+		if(additionalFlagList[2] != null && additionalFlagList[2].trim().length() > 0){
+		      if(additionalFlagList[2].toUpperCase().contains("YES"))
+		    	  criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".releasedStatus").eq("Yes"));
+		    		
+		      else if(additionalFlagList[2].toUpperCase().contains("NO"))
+		    	 criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".releasedStatus").eq("No"));
+		    }
+		
 	}
 	
 	
@@ -281,7 +291,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			TableRelationships ro = new TableRelationships();
 			elementTree = ro.getRelationTree();
 			createMapKeys();
-			//add visibility = 1 or 13 for downloadable in generalSeries level
+			//add visibility = 1 or 12 for downloadable in generalSeries level
 			
 			//criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
 			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible", "Downloadable")));

@@ -40,25 +40,55 @@ L-->
                                     <br />
                                 </td>
                                 							
-                               <td class="formField" >                               
-                    		     <ice:outputLabel for="BatchNum" value="#{msg.qctool_batch}" />
-                                   <ice:selectOneMenu id="BatchNum"
+                               <td colspan="2" class="formField" >    
+								<table>    
+                                <tr>
+                                  <td>
+                                    <b>
+                                      <ice:outputLabel for="BatchNum" value="#{msg.qctool_batch}" />
+                                    </b>
+                                    <ice:selectOneMenu id="BatchNum"
                                                      value="#{dynamicQcSearchBean.selectedQcBatchNum}" 
                                                      style="font-size:1em" partialSubmit="false">
                                      <f:selectItems value="#{dynamicQcSearchBean.qcBatchNums}" />
-                                   </ice:selectOneMenu>                                                 
-                               </td>                                                                       								                                                																
-                               
-                                <td class="formField" >                               
-                    		     <ice:outputLabel for="SubmissionType" value="#{msg.qctool_SubmissionType}" />
+                                   </ice:selectOneMenu>   
+                                  </td>                                                                                                								                                                																
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>								 
+                                <td>    
+									<b>
+                                      <ice:outputLabel for="SubmissionType" value="#{msg.qctool_SubmissionType}" />
+                                    </b>								              		     
                                    <ice:selectOneMenu id="SubmissionType"
                                                      value="#{dynamicQcSearchBean.selectedQcSubmissionType}" 
                                                      style="font-size:1em" partialSubmit="false">
                                      <f:selectItems value="#{dynamicQcSearchBean.qcSubmissionTypes}" />
                                    </ice:selectOneMenu>                                                 
                                </td>
-						  </tr>		                        
-                                                                 
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>
+								 <td><p> </p></td>							   
+                               <td> 
+								   <b>
+                                      <ice:outputLabel for="ReleasedStatus" value="#{msg.qctool_ReleasedStatus}" />
+                                   </b>                 		     
+                                   <ice:selectOneMenu id="ReleasedStatus"
+                                                     value="#{dynamicQcSearchBean.selectedQcReleasedStatus}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{dynamicQcSearchBean.qcReleasedStatus}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>                              
+							</tr>		                        
+                            </table>    
+						</td>
+					  </tr>
                       <tr>
                          <td class="formLabel">
                                #{msg.qctool_sub_date}

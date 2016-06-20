@@ -79,6 +79,15 @@ public class QcToolUpdateBean {
 		this.selectedQcSubmissionType = selectedQcSubmissionType;
 	}
 	
+	//---------------------------------------------
+	
+	public String getSelectedQcReleasedStatus() {
+		return selectedQcReleasedStatus;
+	}
+		
+	public void setSelectedQcReleasedStatus(String selectedQcReleasedStatus) {
+		this.selectedQcReleasedStatus = selectedQcReleasedStatus;
+	}
 	/////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the comments
@@ -201,8 +210,8 @@ public class QcToolUpdateBean {
 			additionalQcFlagList = null;
 			newAdditionalQcFlagList = null;
 			
-			additionalQcFlagList = new String[2];
-			newAdditionalQcFlagList = new String[2];
+			additionalQcFlagList = new String[3];
+			newAdditionalQcFlagList = new String[3];
 			
 			for (int i = 0; i < qsrDTOList.size(); ++i) {
 				QcSearchResultDTO aDTO = qsrDTOList.get(i);
@@ -220,7 +229,12 @@ public class QcToolUpdateBean {
 					
 						additionalQcFlagList[1] = aDTO.getSubmissionType();				
 					}	
-																	
+						
+					if(aDTO.getReleasedStatus() != null && aDTO.getReleasedStatus().trim().length() > 0){
+						
+						additionalQcFlagList[2] = aDTO.getReleasedStatus();				
+					}
+					
 					if (resultAndSelectedStatusIsVisible(aDTO, selectedQcStatus)) {
 						seriesCheckList.add(aDTO.getSeries());
 					}
@@ -236,7 +250,11 @@ public class QcToolUpdateBean {
 					
 					if(selectedQcSubmissionType.trim().length() > 0){
 						newQsrDTOList.get(i).setSubmissionType(selectedQcSubmissionType);
-					}				
+					}
+					
+					if(selectedQcReleasedStatus.trim().length() > 0){
+						newQsrDTOList.get(i).setReleasedStatus(selectedQcReleasedStatus);
+					}
 					
 					newQsrDTOList.get(i).setSelected(false);
 					qsrDTOList.get(i).setSelected(false);
@@ -268,6 +286,10 @@ public class QcToolUpdateBean {
 		if(selectedQcSubmissionType.trim().length() > 0){
 			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
 		}				
+		
+		if(selectedQcReleasedStatus.trim().length() > 0){
+			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+		}
 		
 		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
 		
@@ -308,7 +330,8 @@ public class QcToolUpdateBean {
 		selectedQcStatus = null;
 		
 		selectedQcBatch = null;
-		selectedQcSubmissionType = null;	
+		selectedQcSubmissionType = null;
+		selectedQcReleasedStatus = null;	
 	}
 
 	private List<QcCustomSeriesListDTO> findCustomerListInfo(
@@ -361,14 +384,15 @@ public class QcToolUpdateBean {
 		additionalQcFlagList = null;
 		newAdditionalQcFlagList = null;
 		
-		additionalQcFlagList = new String[2];
-		newAdditionalQcFlagList = new String[2];
+		additionalQcFlagList = new String[3];
+		newAdditionalQcFlagList = new String[3];
 		
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		String visibility = qsrDTOList.get(selectedRow).getVisibility();
 		
 		String batch = qsrDTOList.get(selectedRow).getBatch();
 		String submissionType = qsrDTOList.get(selectedRow).getSubmissionType();
+		String releasedStatus = qsrDTOList.get(selectedRow).getReleasedStatus();
 		
 		List<String> seriesCheckList = new ArrayList<String>();
 		seriesId = qsrDTOList.get(selectedRow).getSeries();
@@ -377,10 +401,12 @@ public class QcToolUpdateBean {
 		
 		additionalQcFlagList[0] = batch;
 	    additionalQcFlagList[1]	= submissionType;	
+	    additionalQcFlagList[2]	= releasedStatus;	
 	    
 	    //--------------------------------------------------------------
 	    newAdditionalQcFlagList[0] = selectedQcBatch;
 	    newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+	    newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
 	    				
 
 		if ( (visibility.equals(VISIBLENUM) || visibility.equals(DOWNLOADABLENUM))  &&
@@ -734,6 +760,7 @@ public class QcToolUpdateBean {
 	
 	private String selectedQcBatch = null;
 	private String selectedQcSubmissionType = null;
+	private String selectedQcReleasedStatus = null;
 	
 	private String selectedQcStatusSingle = null;
 	private static final String INITIAL_COMMENT = "Enter change log here...";

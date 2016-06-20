@@ -30,6 +30,7 @@ public class QcSearchResultDTO {
 	
 	private String batch;
 	private String submissionType;
+	private String releasedStatus;
 	private String trialDpPkId;
 	
 	
@@ -44,7 +45,7 @@ public class QcSearchResultDTO {
 							 String seriesDesc, 
 							 
 							 String batch, 
-							 String submissionType, String trialDpPkId) {
+							 String submissionType, String releasedStatus, String trialDpPkId) {
 		setCollection(collection);
 		setSite(site);
 		setPatientId(patientId);
@@ -58,6 +59,7 @@ public class QcSearchResultDTO {
 		
 		setBatch(batch);
 		setSubmissionType(submissionType);
+		setReleasedStatus(releasedStatus);
 		setTrialDpPkId(trialDpPkId);		
 		
 	}
@@ -76,6 +78,7 @@ public class QcSearchResultDTO {
 		
 		setBatch(obj.batch);
 		setSubmissionType(obj.submissionType);		
+		setReleasedStatus(obj.releasedStatus);	
 		setTrialDpPkId(obj.trialDpPkId);
 		
 }
@@ -197,6 +200,15 @@ public class QcSearchResultDTO {
 		this.submissionType = submissionType;
 	}
 	
+	//--------------------------------
+	
+		public String getReleasedStatus() {
+			return releasedStatus;
+		}
+
+		public void setReleasedStatus(String releasedStatus) {
+			this.releasedStatus = releasedStatus;
+		}
 	//--------------------------------
 	
 	public String getTrialDpPkId() {

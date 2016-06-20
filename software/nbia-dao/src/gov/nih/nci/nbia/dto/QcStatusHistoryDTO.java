@@ -23,6 +23,8 @@ public class QcStatusHistoryDTO {
 	private String newBatch;
 	private String oldSubmissionType;
 	private String newSubmissionType;
+	private String oldReleasedStatus;
+	private String newReleasedStatus;
 	
 	private String comment;
 	private String userId;
@@ -35,7 +37,9 @@ public class QcStatusHistoryDTO {
 					   String oldBatch,
 					   String newBatch,
 					   String oldSubmissionType,
-					   String newSubmissionType,				   
+					   String newSubmissionType,	
+					   String oldReleasedStatus,
+					   String newReleasedStatus,
 				
 					   String comment,
 					   String userId) {
@@ -48,6 +52,9 @@ public class QcStatusHistoryDTO {
 		setNewBatch(newBatch);
 		setOldSubmissionType(oldSubmissionType);
 		setNewSubmissionType(newSubmissionType);
+		
+		setOldReleasedStatus(oldReleasedStatus);
+		setNewReleasedStatus(newReleasedStatus);
 		
 		setComment(comment);
 		setUserId(userId);
@@ -152,6 +159,23 @@ public class QcStatusHistoryDTO {
 	
 	public void setNewSubmissionType(String newSubmissionType){
 		this.newSubmissionType = newSubmissionType;
+	}
+	
+	//--------------------------------------------------------------
+	public String getOldReleasedStatus(){
+		return oldReleasedStatus;
+	}
+	
+	public void setOldReleasedStatus(String oldReleasedStatus){
+		this.oldReleasedStatus = oldReleasedStatus;
+	}
+	
+	public String getNewReleasedStatus(){
+		return newReleasedStatus;
+	}
+	
+	public void setNewReleasedStatus(String newReleasedStatus){
+		this.newReleasedStatus = newReleasedStatus;
 	}
 	
   //---------------------------------------------------------------------

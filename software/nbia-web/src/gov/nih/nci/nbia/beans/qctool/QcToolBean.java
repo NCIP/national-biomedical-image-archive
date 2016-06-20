@@ -108,6 +108,14 @@ public class QcToolBean {
 		this.selectedQcSubmissionType = selectedQcSubmissionType;
    }
 	
+	public String getSelectedQcReleasedStatus() {
+		return selectedQcReleasedStatus;
+	}
+
+	public void setSelectedQcReleasedStatus(String selectedQcReleasedStatus) {
+		this.selectedQcReleasedStatus = selectedQcReleasedStatus;
+   }	
+	
 	/////////////////////////////////////////////////////////////////////////
 	/**
      * This is the list of project+sites the user can see.
@@ -136,7 +144,7 @@ public class QcToolBean {
      * @return array of QC Status items
      */
     public SelectItem[] getQcStatusItems() {
-    	SelectItem[] qcStatusItems = new SelectItem[13];
+    	SelectItem[] qcStatusItems = new SelectItem[12];
         //qcStatusItems[0] = new SelectItem("Not Yet Reviewed");
         //qcStatusItems[1] = new SelectItem("Visible");
         //qcStatusItems[2] = new SelectItem("Not Visible");
@@ -152,8 +160,7 @@ public class QcToolBean {
         qcStatusItems[8] = new SelectItem(VisibilityStatus.STAGE_5.getText());
         qcStatusItems[9] = new SelectItem(VisibilityStatus.STAGE_6.getText());
         qcStatusItems[10] = new SelectItem(VisibilityStatus.STAGE_7.getText());
-        qcStatusItems[11] = new SelectItem(VisibilityStatus.RELEASED.getText());
-        qcStatusItems[12] = new SelectItem(VisibilityStatus.DOWNLOADABLE.getText());
+        qcStatusItems[11] = new SelectItem(VisibilityStatus.DOWNLOADABLE.getText());
         
         return qcStatusItems;       
     }
@@ -163,10 +170,9 @@ public class QcToolBean {
      * Setup the option items for various the additional QC flags:
      * 
      * BatchNum - Numeric 
-     * TestVisibility - Downloadable - Numeric - 13 
-     * AccessType - String - Public or Limited
+     * TestVisibility - Downloadable - Numeric - 12 
      * SubmissionType - String - Complete or Ongoing   
-     * 
+     * ReleasedStatus - String - Yes or No
      */
     
    public void  setUpAdditionalQCFlags(){
@@ -188,7 +194,14 @@ public class QcToolBean {
     	qcSubmissionTypes.clear();
     	qcSubmissionTypes.add(new SelectItem("  "));
     	qcSubmissionTypes.add(new SelectItem("NO"));
-    	qcSubmissionTypes.add(new SelectItem("YES"));   	   	     	    	        
+    	qcSubmissionTypes.add(new SelectItem("YES"));   	
+    	
+   //---------------------------------------------    
+    	
+    	qcReleasedStatus.clear();
+    	qcReleasedStatus.add(new SelectItem("  "));
+    	qcReleasedStatus.add(new SelectItem("NO"));
+    	qcReleasedStatus.add(new SelectItem("YES"));   	
     }
  
     
@@ -201,6 +214,9 @@ public class QcToolBean {
         return qcSubmissionTypes;
      }
     
+    public List<SelectItem> getQcReleasedStatus() {
+        return qcReleasedStatus;
+     }
     
     //////////////////////////////////BEGIN COLLECTION ITEMS//////////////////////
     public List<SelectItem> getCollectionItems() {
@@ -249,13 +265,14 @@ public class QcToolBean {
     	
     	String defaultQcBatchNum = "  "; 	
     	String defaultQcSubmissionType = "   ";
+    	String defaultQcReleasedStatus = "   ";
     	
     	buttonLabel="Delete";
         setSelectedQcStatus(defaultCheckBoxLable);
 
         setSelectedQcBatchNum(defaultQcBatchNum);
         setSelectedQcSubmissionType(defaultQcSubmissionType);  
-        
+        setSelectedQcReleasedStatus(defaultQcReleasedStatus);  
         
     	return "qcTool";
     }
@@ -270,7 +287,8 @@ public class QcToolBean {
         
        setSelectedQcBatchNum(selectedQcBatchNum);
        setSelectedQcSubmissionType(selectedQcSubmissionType);        
-                 
+       setSelectedQcReleasedStatus(selectedQcReleasedStatus);           
+       
         setFromDate(null);
         setToDate(null);
     	return "qcTool";
@@ -362,6 +380,9 @@ public class QcToolBean {
       
     private List<SelectItem> qcSubmissionTypes = new ArrayList<SelectItem>();
     private String selectedQcSubmissionType; 
+    
+    private List<SelectItem> qcReleasedStatus = new ArrayList<SelectItem>();
+    private String selectedQcReleasedStatus; 
     
 }
 

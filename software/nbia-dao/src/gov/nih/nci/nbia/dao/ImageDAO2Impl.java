@@ -94,10 +94,10 @@ public class ImageDAO2Impl extends AbstractDAO
 	public List<String> getImage(String seriesInstanceUid) throws DataAccessException {
 		String hql = "select gi.filename "
 				+ "from  GeneralImage gi "
-				+ "where gi.generalSeries.visibility in ('1', '13')"
+				+ "where gi.generalSeries.visibility in ('1', '12')"
 				+ " and UPPER(gi.seriesInstanceUID) = ? ";
 		
-		System.out.println("===== In nbia-dao, ImageDAO2Impl:getImage(..) - hql statement call with where visibility in ('1', '13'): " + hql);
+		System.out.println("===== In nbia-dao, ImageDAO2Impl:getImage(..) - hql statement call with where visibility in ('1', '12'): " + hql);
 		
 				List<String> rs = getHibernateTemplate().find(hql, seriesInstanceUid.toUpperCase()); // protect against sql injection				
 

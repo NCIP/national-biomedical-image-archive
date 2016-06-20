@@ -28,6 +28,8 @@ L-->
 		<property name="oldBatch" type="string" column="oldBatch"/>
 		<property name="newBatch" type="string" column="newBatch"/>
 		<property name="oldSubmissionType" type="string" column="oldSubmissionType"/>
-		<property name="newSubmissionType" type="string" column="newSubmissionType"/>			
+		<property name="newSubmissionType" type="string" column="newSubmissionType"/>
+		<property name="oldReleasedStatus" type="string" column="oldReleasedStatus"/>
+		<property name="newReleasedStatus" type="string" column="newReleasedStatus"/>			
 	</class>
 </hibernate-mapping>

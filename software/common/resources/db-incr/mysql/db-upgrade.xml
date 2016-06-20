@@ -1819,6 +1819,7 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
          <comment>
            Add batchNum to assign a batch number to a batch of images.  
 		   Add submission_type to mark a set of submission as 'Complete' or 'Ongoing' submission.
+		   Add released_status to mark a set of images as 'Yes' if released or 'No' if not yet released.
          </comment>          
          <sql>          
 			ALTER TABLE general_series  
@@ -1826,6 +1827,9 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
 	       
 			ALTER TABLE general_series  
 			ADD COLUMN submission_type varchar(100);    
+			
+			ALTER TABLE general_series  
+			ADD COLUMN released_status varchar(50);
 			
 			ALTER TABLE QC_STATUS_HISTORY  
 			ADD COLUMN oldBatch varchar(20);
@@ -1837,7 +1841,14 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
 			ADD COLUMN oldSubmissionType varchar(100);
 			
 			ALTER TABLE QC_STATUS_HISTORY  
-			ADD COLUMN newSubmissionType varchar(100);							
+			ADD COLUMN newSubmissionType varchar(100);	
+
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN oldReleasedStatus varchar(50);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN newReleasedStatus varchar(50);
+			
          </sql>
   </changeSet>    
     

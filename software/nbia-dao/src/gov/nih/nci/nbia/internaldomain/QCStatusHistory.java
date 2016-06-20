@@ -154,6 +154,25 @@ public class QCStatusHistory  implements Serializable
 	public void setNewSubmissionType(String newSubmissionType){
 		this.newSubmissionType = newSubmissionType;
 	}
+	//----------------------------------------------------------------
+	
+	private String oldReleasedStatus;
+	public String getOldReleasedStatus(){		
+		return oldReleasedStatus;
+	}
+
+	public void setOldReleasedStatus(String oldReleasedStatus){
+		this.oldReleasedStatus = oldReleasedStatus;
+	}
+	
+	private String newReleasedStatus;
+	public String getNewReleasedStatus(){		
+		return newReleasedStatus;
+	}
+
+	public void setNewReleasedStatus(String newReleasedStatus){
+		this.newReleasedStatus = newReleasedStatus;
+	}
 	
 	//----------------------------------------------------------------
 

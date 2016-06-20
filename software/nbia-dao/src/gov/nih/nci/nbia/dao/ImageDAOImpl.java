@@ -59,13 +59,13 @@ public class ImageDAOImpl extends AbstractDAO
                                                                      gi.getProject(),
                                                                      gi.getDataProvenance().getDpSiteName(),
                                                                      gi.getGeneralSeries().getSecurityGroup(),
-                                                                     gi.getGeneralSeries().getVisibility().equals("1") || gi.getGeneralSeries().getVisibility().equals("13"),
+                                                                     gi.getGeneralSeries().getVisibility().equals("1") || gi.getGeneralSeries().getVisibility().equals("12"),
                                                                      gi.getUsFrameNum());
             
             dtos.add(imageSecurityDTO);
         }
         
-     System.out.println("===== In nbia-dao, ImageDAOImpl:findImageSecurityBySeriesInstanceUID(..) - create ImageSecurityDTO obj with gi.getGeneralSeries().getVisibility().equals 1 OR 13");
+     System.out.println("===== In nbia-dao, ImageDAOImpl:findImageSecurityBySeriesInstanceUID(..) - create ImageSecurityDTO obj with gi.getGeneralSeries().getVisibility().equals 1 OR 12");
         
         return dtos;
     }
@@ -126,10 +126,10 @@ public class ImageDAOImpl extends AbstractDAO
         	        		                                                 project,
         	        		                                                 dpSiteName,
         	        		                                                 securityGroup,
-        	        		                                                 seriesVisibility.equals("1") || seriesVisibility.equals("13"),
+        	        		                                                 seriesVisibility.equals("1") || seriesVisibility.equals("12"),
         	        		                                                 fn);
         	   
-        	     System.out.println("===== In nbia-dao, ImageDAOImpl:findImageSecurity(..) - doInHibernate method, I passed in: seriesVisibility.equals 1 OR seriesVisibility.equals 13");	        
+        	     System.out.println("===== In nbia-dao, ImageDAOImpl:findImageSecurity(..) - doInHibernate method, I passed in: seriesVisibility.equals 1 OR seriesVisibility.equals 12");	        
         	        
         	        return imageSecurityDTO;
                 }

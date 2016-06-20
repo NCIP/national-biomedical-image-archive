@@ -48,16 +48,25 @@ L-->
                                     <ice:outputLabel for="collectionSiteMenu" value="#{msg.criteria_CollectionCriteria}" />
                                     <br />
                                 </td>
-                                <td class="formField" colspan="2" align="left">
+                                <td class="formField" align="left">
                                     <ice:selectOneMenu id="collectionSiteMenu"
                                         value="#{qcToolBean.selectedCollectionSite}"
                                         style="font-size:1em" partialSubmit="false">
                                         <f:selectItems value="#{qcToolBean.collectionItems}" />
                                     </ice:selectOneMenu>
                                 </td>
+                                
+                                 <td class="formField" >                               
+                    		     <ice:outputLabel for="releasedStatus" value="#{msg.qctool_ReleasedStatus}" />
+                                   <ice:selectOneMenu id="releasedStatus"
+                                                     value="#{qcToolBean.selectedQcReleasedStatus}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcReleasedStatus}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>
+                               
                             </tr>
-                      
-                       
+                                   
 							<tr>
                                 <td class="formLabel">
                                     <ice:outputLabel for="AdditionalFlags" value="#{msg.qctool_additionalFlags}" />
@@ -81,6 +90,7 @@ L-->
                                      <f:selectItems value="#{qcToolBean.qcSubmissionTypes}" />
                                    </ice:selectOneMenu>                                                 
                                </td>
+                               
 						  </tr>		
                                                  
                             <tr>

@@ -38,7 +38,7 @@ public class QcStatusDAOTestCase extends AbstractDbUnitTestForJunit4 {
 
 		Assert.assertTrue(qsrDTOs.get(0).getPatientId().equals("1.3.6.1.4.1.9328.50.3.0023"));
 		Assert.assertTrue(qsrDTOs.get(0).getCollectionSite().equals("LIDC//LIDC"));
-		Assert.assertTrue(qsrDTOs.get(0).getVisibility().equals("1") || qsrDTOs.get(0).getVisibility().equals("13") ); // downloadable
+		Assert.assertTrue(qsrDTOs.get(0).getVisibility().equals("1") || qsrDTOs.get(0).getVisibility().equals("12") ); // downloadable
 	}
 
 	@Test	

@@ -46,8 +46,7 @@ public enum VisibilityStatus {
 	STAGE_5(9, getPropertyValue("qctool.visibility.stage5")),
 	STAGE_6(10, getPropertyValue("qctool.visibility.stage6")),
 	STAGE_7(11, getPropertyValue("qctool.visibility.stage7")),
-	RELEASED(12, "Released"),	
-	DOWNLOADABLE(13, "Downloadable");
+	DOWNLOADABLE(12, "Downloadable");
 	
 	
 	public static String getPropertyValue(String messageVariable){
@@ -92,9 +91,7 @@ public enum VisibilityStatus {
             return STAGE_6;
         } else if (status == 11) {
             return STAGE_7;
-        } else if(status == 12)  {
-        	return RELEASED;
-        } else if (status == 13) {
+        } else if (status == 12) {
         	return DOWNLOADABLE;
         }
         return null;
@@ -130,8 +127,6 @@ public enum VisibilityStatus {
             return STAGE_6;
         } else if (status.equals(STAGE_7.getText())) {
             return STAGE_7;
-        } else if(status.equals(RELEASED.getText())) {
-        	return RELEASED;
         } else if(status.equals(DOWNLOADABLE.getText())) {
         	return DOWNLOADABLE;
         }

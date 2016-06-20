@@ -234,7 +234,17 @@ L-->
                                                      style="font-size:1em" partialSubmit="false">
                                      <f:selectItems value="#{qcToolBean.qcSubmissionTypes}" />
                                    </ice:selectOneMenu>                                                 
-                               </td>                                                           
+                               </td>    
+                               
+                               <td class="formField" >                               
+                    		     <ice:outputLabel for="ReleasedStatusUpdate" value="#{msg.qctool_ReleasedStatus}" />
+                                   <ice:selectOneMenu id="ReleasedStatusUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcReleasedStatus}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcReleasedStatus}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td> 
+                                                                                      
 						</tr>
 						</table><br/><br/>
 					 </f:subview>							

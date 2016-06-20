@@ -1816,12 +1816,9 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
          </sql>
   </changeSet>    
   <changeSet id="6.4.add.newColums.for.additional.qc.tool.statusFlags" author="orakwueco" dbms="mysql">
-         <validCheckSum>dfcc14d76394c52f981e26dc38e3ed92</validCheckSum> 
-         <validCheckSum>20b1c440b9726d1d1ebcfe260228e85</validCheckSum> 
          <comment>
            Add batchNum to assign a batch number to a batch of images.  
 		   Add submission_type to mark a set of submission as 'Complete' or 'Ongoing' submission.
-		   Add released_status to mark a set of images as 'Yes' if released or 'No' if not yet released.
          </comment>          
          <sql>          
 			ALTER TABLE general_series  
@@ -1829,9 +1826,6 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
 	       
 			ALTER TABLE general_series  
 			ADD COLUMN submission_type varchar(100);    
-			
-			ALTER TABLE general_series  
-			ADD COLUMN released_status varchar(50);
 			
 			ALTER TABLE QC_STATUS_HISTORY  
 			ADD COLUMN oldBatch varchar(20);
@@ -1843,15 +1837,26 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
 			ADD COLUMN oldSubmissionType varchar(100);
 			
 			ALTER TABLE QC_STATUS_HISTORY  
-			ADD COLUMN newSubmissionType varchar(100);	
+			ADD COLUMN newSubmissionType varchar(100);							
+         </sql>
+  </changeSet>    
+    
+  <changeSet id="6.4.add.fixColums.for.additional.qc.tool.statusFlags" author="gustafss" dbms="mysql">
+         <comment>
+           fix the previous issues with the changeset
+         </comment>          
+         <sql>          
+			ALTER TABLE general_series  
+			ADD COLUMN released_status varchar(50);
+			
 
 			ALTER TABLE QC_STATUS_HISTORY  
 			ADD COLUMN oldReleasedStatus varchar(50);
 			
 			ALTER TABLE QC_STATUS_HISTORY  
-			ADD COLUMN newReleasedStatus varchar(50);
-			
+			ADD COLUMN newReleasedStatus varchar(50);						
          </sql>
-  </changeSet>    
+  </changeSet> 
+    
     
 </databaseChangeLog>

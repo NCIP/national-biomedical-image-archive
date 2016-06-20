@@ -21,8 +21,6 @@ public class CsmAuthenticationProviderForOauth2 implements AuthenticationProvide
 	    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 	        String name = authentication.getName();
 	        String password = authentication.getCredentials().toString();
-	        System.out.println("!!user name="+name);
-	        System.out.println("!!password="+password);
 	        String guestAccount  = NCIAConfig.getEnabledGuestAccount();
 	        System.out.println("--------"+NCIAConfig.getEnabledGuestAccount());
 	        System.out.println("--------"+NCIAConfig.getGuestUsername());

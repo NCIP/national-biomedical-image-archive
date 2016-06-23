@@ -512,6 +512,10 @@ public class SecurityBean {
 	}
 	public String getTokenValue(){
 		if (token!=null){
+			if (token.isExpired())
+			{
+				token=RESTUtil.getToken(username, password);
+			}
 			return token.getValue();
 		}
 		else{

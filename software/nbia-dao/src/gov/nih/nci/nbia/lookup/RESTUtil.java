@@ -281,9 +281,6 @@ public class RESTUtil {
         System.out.println(output);
         List<DefaultOAuth2AccessToken> myObjects;
         try {
-        //	Object json = mapper.readValue(output, Object.class);
-        //    String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-        //    logger.info("Returned JSON\n"+indented);
 			myObjects = mapper.readValue(output, new TypeReference<List<DefaultOAuth2AccessToken>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();

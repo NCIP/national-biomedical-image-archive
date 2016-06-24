@@ -101,7 +101,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 
   <bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
 
-
+  <bean id="userDao" class="gov.nih.nci.nbia.csmDao.UserDaoImpl">
+	<property name="sessionFactory">
+	   <ref bean="sessionFactory"/>
+	</property>
+  </bean>
 
   <bean id="nciaSecurityManager"
         class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"

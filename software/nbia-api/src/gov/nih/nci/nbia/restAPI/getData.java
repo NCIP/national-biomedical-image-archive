@@ -9,7 +9,20 @@ import gov.nih.nci.nbia.dao.TrialDataProvenanceDAO;
 import gov.nih.nci.nbia.restSecurity.AuthorizationService;
 import gov.nih.nci.nbia.security.NCIASecurityManager;
 import gov.nih.nci.nbia.security.TableProtectionElement;
+import gov.nih.nci.security.SecurityServiceProvider;
+import gov.nih.nci.security.UserProvisioningManager;
+import gov.nih.nci.security.authorization.domainobjects.ProtectionElement;
+import gov.nih.nci.security.authorization.domainobjects.ProtectionGroup;
+import gov.nih.nci.security.authorization.domainobjects.Role;
+import gov.nih.nci.security.authorization.domainobjects.User;
+import gov.nih.nci.security.dao.ProtectionGroupSearchCriteria;
+import gov.nih.nci.security.dao.RoleSearchCriteria;
+import gov.nih.nci.security.dao.SearchCriteria;
+import gov.nih.nci.security.dao.UserSearchCriteria;
+import gov.nih.nci.security.exceptions.CSConfigurationException;
+import gov.nih.nci.security.exceptions.CSException;
 import gov.nih.nci.security.exceptions.CSObjectNotFoundException;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.wadosupport.WADOParameters;
@@ -28,10 +41,19 @@ import javax.ws.rs.core.Response;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.sun.jersey.api.client.ClientResponse.Status;
 
 public class getData {
+	String applicationName = NCIAConfig.getCsmApplicationName();
+	
+	public UserProvisioningManager getUpm() throws CSException, CSConfigurationException {
+		UserProvisioningManager upm = SecurityServiceProvider.getUserProvisioningManager(applicationName);
+		return upm;
+	}
 	
 	//Only used if the user is logged in.  Not for anonymousUser. There is a bug in SecurityContextHolder 
 	//which will return the last logged in user if the user is not logged out. For getting around the problem,
@@ -187,6 +209,39 @@ public class getData {
 
 		return AuthorizationService.isGivenUserHasAccess(userName, paramMap);
 	}
+
+	// For UPT replacement GUI
+	public User getUserByLoginName(String loginName) throws Exception {
+		UserProvisioningManager upm = getUpm();
+		User user = new User();
+
+		user.setLoginName(loginName);
+		SearchCriteria searchCriteria = new UserSearchCriteria(user);
+		List<User> list = upm.getObjects(searchCriteria);		
+		return list.get(0);
+	}
+	
+	// For UPT replacement GUI
+	public ProtectionGroup getPGByPGName(String pgName) throws Exception {
+		UserProvisioningManager upm = getUpm();
+		ProtectionGroup pg = new ProtectionGroup();
+
+		pg.setProtectionGroupName(pgName);		
+		SearchCriteria searchCriteria = new ProtectionGroupSearchCriteria(pg);
+		List<ProtectionGroup> list = upm.getObjects(searchCriteria);	
+		return list.get(0);
+	}
+
+	// For UPT replacement GUI
+	public Role getRoleByRoleName(String roleName) throws Exception {
+		UserProvisioningManager upm = getUpm();
+		Role role = new Role();
+
+		role.setName(roleName);
+		SearchCriteria searchCriteria = new RoleSearchCriteria(role);
+		List<Role> list = upm.getObjects(searchCriteria);	
+		return list.get(0);
+	}		
 	
 	protected List<String> getModalityValues(String collection, String bodyPart, List<String> authorizedCollections) {
 		List<String> results = null;

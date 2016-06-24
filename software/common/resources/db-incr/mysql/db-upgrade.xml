@@ -1854,6 +1854,19 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
 			ADD COLUMN newReleasedStatus varchar(50);						
          </sql>
   </changeSet> 
-    
+  
+  <changeSet id="6.4.fixViewforVisibility" author="gustafss" dbms="mysql">
+    <createView 
+            replaceIfExists="true"
+            viewName="study_series_number">
+            select g.patient_pk_id AS PATIENT_PK_ID,p.patient_id AS PATIENT_ID,
+                   dp.project AS PROJECT,count(distinct g.study_pk_id) AS STUDY_NUMBER,
+                   count(distinct g.general_series_pk_id) AS SERIES_NUMBER 
+              from ((general_series g join patient p) join trial_data_provenance dp) 
+             where ((g.visibility in (1, 12)) and (g.patient_pk_id = p.patient_pk_id) 
+               and (p.trial_dp_pk_id = dp.trial_dp_pk_id)) 
+          group by  g.patient_pk_id,p.patient_id,dp.project;
+    </createView>
+</changeSet>
     
 </databaseChangeLog>

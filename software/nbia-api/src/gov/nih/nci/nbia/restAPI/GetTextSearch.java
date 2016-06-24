@@ -35,6 +35,7 @@ import gov.nih.nci.nbia.textsupport.PatientTextSearchResult;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
 import gov.nih.nci.nbia.textsupport.SolrAllDocumentMetaData;
 import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.restUtil.AuthorizationUtil;
 import gov.nih.nci.nbia.restUtil.JSONUtil;
 
 import org.springframework.dao.DataAccessException;
@@ -62,9 +63,13 @@ public class GetTextSearch extends getData{
 		System.out.println("!!!!!user name="
 				+ authentication.getPrincipal());
 		String userName = (String) authentication.getPrincipal();
-		AuthorizationManager am = new AuthorizationManager(userName);
-		List<SiteData> authorizedSiteData = am.getAuthorizedSites();
-		List<String> seriesSecurityGroups = am.getAuthorizedSeriesSecurityGroups();
+		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(userName);
+		if (authorizedSiteData==null){
+		     AuthorizationManager am = new AuthorizationManager(userName);
+		     authorizedSiteData = am.getAuthorizedSites();
+		     AuthorizationUtil.setUserSites(userName, authorizedSiteData);
+		}
+		List<String> seriesSecurityGroups = new ArrayList<String>();
 		List <DynamicSearchCriteria> criteria=new ArrayList<DynamicSearchCriteria>();
 		int i=0;
 		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");

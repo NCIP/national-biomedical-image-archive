@@ -27,8 +27,10 @@ import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.security.*;
-import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.util.*;
+import gov.nih.nci.nbia.restUtil.AuthorizationUtil;
 import gov.nih.nci.nbia.restUtil.JSONUtil;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -55,9 +57,13 @@ public class GetDynamicSearch extends getData{
 		System.out.println("!!!!!user name="
 				+ authentication.getPrincipal());
 		String userName = (String) authentication.getPrincipal();
-		AuthorizationManager am = new AuthorizationManager(userName);
-		List<SiteData> authorizedSiteData = am.getAuthorizedSites();
-		List<String> seriesSecurityGroups = am.getAuthorizedSeriesSecurityGroups();
+		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(userName);
+		if (authorizedSiteData==null){
+		     AuthorizationManager am = new AuthorizationManager(userName);
+		     authorizedSiteData = am.getAuthorizedSites();
+		     AuthorizationUtil.setUserSites(userName, authorizedSiteData);
+		}
+		List<String> seriesSecurityGroups = new ArrayList<String>();
 		List <DynamicSearchCriteria> criteria=new ArrayList<DynamicSearchCriteria>();
 		int i=0;
 		while (inFormParams.get("dataGroup"+i)!=null)

@@ -32,6 +32,7 @@ import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.security.*;
 import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.restUtil.AuthorizationUtil;
 import gov.nih.nci.nbia.restUtil.JSONUtil;
 import gov.nih.nci.nbia.dto.ImageDTO;
 import gov.nih.nci.nbia.dao.ImageDAO;
@@ -59,9 +60,13 @@ public class GetImageDrillDown extends getData{
 	   System.out.println("!!!!!user name="
 					+ authentication.getPrincipal());
 		String user = (String) authentication.getPrincipal();
-		AuthorizationManager am = new AuthorizationManager(user);
-		List<SiteData> authorizedSiteData = am.getAuthorizedSites();
-		List<String> seriesSecurityGroups = am.getAuthorizedSeriesSecurityGroups();
+		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(user);
+		if (authorizedSiteData==null){
+		     AuthorizationManager am = new AuthorizationManager(user);
+		     authorizedSiteData = am.getAuthorizedSites();
+		     AuthorizationUtil.setUserSites(user, authorizedSiteData);
+		}
+		List<String> seriesSecurityGroups = new ArrayList<String>();
 		ImageDAO imageDAO = (ImageDAO)SpringApplicationContext.getBean("imageDAO");
 		List<Integer> input = new ArrayList<Integer>();
 		for (String item:list){

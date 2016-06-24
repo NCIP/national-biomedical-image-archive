@@ -35,6 +35,7 @@ import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.security.*;
 import gov.nih.nci.nbia.util.SiteData;
+import gov.nih.nci.nbia.restUtil.AuthorizationUtil;
 import gov.nih.nci.nbia.restUtil.JSONUtil;
 import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dto.StudyDTO;
@@ -64,9 +65,13 @@ public class GetJNLPText extends getData{
 	   System.out.println("!!!!!user name="
 					+ authentication.getPrincipal());
 		String user = (String) authentication.getPrincipal();
-		AuthorizationManager am = new AuthorizationManager(user);
-		List<SiteData> authorizedSiteData = am.getAuthorizedSites();
-		List<String> seriesSecurityGroups = am.getAuthorizedSeriesSecurityGroups();
+		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(user);
+		if (authorizedSiteData==null){
+		     AuthorizationManager am = new AuthorizationManager(user);
+		     authorizedSiteData = am.getAuthorizedSites();
+		     AuthorizationUtil.setUserSites(user, authorizedSiteData);
+		}
+		List<String> seriesSecurityGroups = new ArrayList<String>();
 		GeneralSeriesDAO generalSeriesDAO = (GeneralSeriesDAO)SpringApplicationContext.getBean("generalSeriesDAO");
 		List<String> input = new ArrayList<String>();
 		for (String item:list){

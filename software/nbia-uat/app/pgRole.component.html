@@ -1,0 +1,79 @@
+<!--p-dropdown [options]="userNames" [(ngModel)]="selectedUserName"  [filter]="true" style="width:100px" (onChange)="getPgRolesForUser()"></p-dropdown>
+<p>Selected User login: {{selectedUserName||'none'}}</p-->
+
+<!--    <p-dropdown [options]="cities" [(ngModel)]="selectedCity"></p-dropdown>
+    <p>Selected City: {{selectedCity||'none'}}</p-->
+
+<!--div class="ui-widget-header ui-helper-clearfix" style="padding:4px 10px;border-bottom: 0 none">
+	<i class="fa fa-search" style="float:left;margin:4px 4px 0 0"></i>
+	<input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter">
+</div-->
+<p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width=525 height=460>
+	<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="selectedUserName">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4"><label for="loginName">Login Name</label></div>
+			<div class="ui-grid-col-12"><input pInputText id="loginName" [(ngModel)]="selectedUserName" [disabled]="true"/></div>
+		</div>
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4"><label >Protection Group</label></div>
+			<div class="ui-grid-col-12" *ngIf="newPgRole">
+				<p-dropdown [options]="availablePGs" [(ngModel)]="selectedPGName" [filter]="true" style="width:350px" ></p-dropdown>
+				<p>Selected Protection Group: {{selectedPGName||'none'}}</p></div>
+			<div class="ui-grid-col-12" *ngIf="!newPgRole"><input pInputText id="selectedPGName" [(ngModel)]="selectedPGName" [disabled]="true"/></div>	
+		</div>
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4"><label>Roles</label></div>
+			<div class="ui-grid-col-12">
+				<p-multiSelect [options]="allRoles" [(ngModel)]="srs" [scrollHeight]="300"></p-multiSelect>
+				<p>Selected Role(s): <span template="ngFor #c of srs">{{c}} &nbsp;</span></p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="newPgRole">
+			<button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+		</div>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!newPgRole">
+			<button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+			<button type="button" pButton icon="fa-check" (click)="update()" label="Update"></button>			
+		</div>
+		<!--div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!newPgRole">
+			<button type="button" pButton icon="fa-check" (click)="delete()" label="delete"></button>
+		</div-->
+	</footer>
+</p-dialog>
+<!--div class="ContentSideSections Implementation"-->
+
+<p-dropdown [options]="userNames" [(ngModel)]="selectedUserName"  [filter]="true" style="width:100px" (onChange)="getPgRolesForUser()"></p-dropdown>
+<p>{{pgSize || 'No'}} protection group(s) found for selected user: {{selectedUserName||'none'}}</p>
+<div *ngIf="pgSize>0">
+	<p-dataTable [value]="pgRoles" [paginator]="true" [rows]="10" [responsive]="true">
+
+		<p-column field="pgName" header="Protection Group" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+		<p-column field="roleNames" header="Associated Access Role(s)" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>	
+		<p-column style="width:8%;text-align:center" header="Change the Access">
+			<template let-col #pgRole="rowData" >
+				<button type="button" pButton icon="fa-edit" (click)="showDialogToUpdate(pgRole)"></button>
+			</template>
+		</p-column>
+		<!--p-column style="width:8%;text-align:center" header="Remove Role(s)">
+			<template let-col #pgRole="rowData" >
+				<button type="button" pButton icon="fa-minus" (click)="showDialogToRemove(pgRole)"></button>
+			</template>
+		</p-column-->	
+		<!--footer>
+			<div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAssign()" label="Add Data Group"></button></div>
+		</footer-->
+	</p-dataTable>
+</div>
+<div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add Protection Group and Access Role"></button></div>
+
+<!--/div-->
+		<!--p-pickList [source]="allRoles" [target]="selectedRoles" sourceHeader="Available" targetHeader="Selected" [responsive]="false" [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+					<template let #role>
+						<li class="ui-picklist-item">
+							{{role.value}}
+						</li>
+					</template>
+				</p-pickList-->	
+

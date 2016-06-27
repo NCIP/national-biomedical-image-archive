@@ -32,7 +32,9 @@ L-->
 	<property name="nbia-util.base.dir" value="${software.dir}/nbia-util"/>
 	<property name="nbia-web.base.dir" value="${software.dir}/nbia-web"/>
 	<property name="nbia-api.base.dir" value="${software.dir}/nbia-api"/>
-	<property name="nbia-auth.base.dir" value="${software.dir}/nbia-auth"/>	
+	<property name="nbia-auth.base.dir" value="${software.dir}/nbia-auth"/>
+	<property name="nbia-uat.base.dir" value="${software.dir}/nbia-uat"/>
+	<property name="nbia-uat.dist.dir" value="${nbia-uat.base.dir}/dist"/>	
 	<property name="nbia-download-manager.base.dir" value="${software.dir}/nbia-download-manager"/>
 	<property name="nbia-download.base.dir" value="${software.dir}/nbia-download"/>
 	<property name="nbia-remote-search.base.dir" value="${software.dir}/nbia-remote-search"/>
@@ -965,6 +967,7 @@ L-->
 	
 	<target name="dist" description="Makes all distributions and installer" depends="
         build:all,
+		build:nbia-uat,
         dist:installer,
         dist:solr"/>
 	<!-- Copies install time resources into distribution tree -->
@@ -1048,12 +1051,50 @@ L-->
 			</sequential>
 		</for>
 		<replaceregexp file="${dist.exploded.dir}/install.properties" byline="true" match="^(grid.index.url)=.*" replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
+		<copy todir="${dist.exploded.dir}/nbia-uat" overwrite="true">
+			<fileset dir="${nbia-uat.dist.dir}"/>
+		</copy>
 		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-wars/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 		<copy todir="${dist.dir}" overwrite="true">
 			<fileset dir="${nbia-ctp.dist.dir}">
 				<include name="CTP_Client.zip"/>
 			</fileset>
 		</copy>
+
 	</target>
 	
+	<target name="build:nbia-uat" description="This target is created for AHP3 build workflow">
+		<delete dir="${nbia-uat.dist.dir}" quiet="true"/>
+
+		<if>
+			<os family="unix"/>
+		<then>
+			<sequential>
+				<echo message="Linux build environment"/>
+				<exec executable="npm" dir="${nbia-uat.base.dir}">
+					<arg value="install" />
+				</exec>
+				<exec executable="gulp" dir="${nbia-uat.base.dir}">
+					<arg value="compile" />
+				</exec>
+			</sequential>
+		</then>
+		<else>
+			<if>
+				<os family="windows"/>
+			<then>
+				<echo message="Windows build environment"/>
+				<sequential>
+					<exec dir="${nbia-uat.base.dir}" executable="cmd" >
+						<arg line="/c npm 'install'"/>
+					</exec>			
+					<exec dir="${nbia-uat.base.dir}" executable="cmd" >
+						<arg line="/c gulp 'compile'"/>
+					</exec>
+				</sequential>
+			</then>	
+			</if>
+		</else>
+		</if>			
+	</target>	
 </project>

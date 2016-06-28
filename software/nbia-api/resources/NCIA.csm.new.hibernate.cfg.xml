@@ -23,10 +23,12 @@ L-->
     <property name="hibernate.connection.password">nbia_user123</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property-->
-    <property name="dialect">${database.dialect}</property> 
+    <!--property name="dialect">org.hibernate.dialect.OracleDialect</property-->
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property> 
+    <!--property name="hibernate.show_sql">true</property-->
     <property name="hibernate.show_sql">true</property>
-    <property name="connection.datasource">java:jdbc/ncia</property>
-    
+    <!--property name="connection.datasource">java:jdbc/ncia</property-->
+    <property name="connection.datasource">java:comp/env/jdbc/csm</property>
       
         
         <mapping resource="gov/nih/nci/security/authorization/domainobjects/Privilege.hbm.xml"/>

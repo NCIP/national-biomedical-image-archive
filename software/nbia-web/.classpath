@@ -49,5 +49,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-jaxrs-1.9.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-mapper-asl-1.9.2.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/runtime/spring-security-oauth2-1.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

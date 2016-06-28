@@ -278,7 +278,6 @@ public class RESTUtil {
         // display response
         String output = response.getEntity(String.class);
         output="["+output+"]";
-        System.out.println(output);
         List<DefaultOAuth2AccessToken> myObjects;
         try {
 			myObjects = mapper.readValue(output, new TypeReference<List<DefaultOAuth2AccessToken>>(){});

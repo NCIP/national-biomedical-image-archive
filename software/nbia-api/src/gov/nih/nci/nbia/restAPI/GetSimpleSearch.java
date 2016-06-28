@@ -58,8 +58,6 @@ public class GetSimpleSearch extends getData{
 		try {	
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		System.out.println("!!!!!user name="
-				+ authentication.getPrincipal());
 		String userName = (String) authentication.getPrincipal();
 		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(userName);
 		if (authorizedSiteData==null){

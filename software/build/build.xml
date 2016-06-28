@@ -1048,7 +1048,7 @@ L-->
 			</sequential>
 		</for>
 		<replaceregexp file="${dist.exploded.dir}/install.properties" byline="true" match="^(grid.index.url)=.*" replace="\1=http://cagrid-index.nci.nih.gov:8080/wsrf/services/DefaultIndexService"/>
-		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-wars/ncia.war, nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
+		<zip destfile="${dist.dir}/nbia-install_${nbia.version}.zip" basedir="${dist.exploded.dir}" excludes="nbia-services-commons/**,/nbia-domain/*,nbia-download/*,nbia-download-manager/*"/>
 		<copy todir="${dist.dir}" overwrite="true">
 			<fileset dir="${nbia-ctp.dist.dir}">
 				<include name="CTP_Client.zip"/>

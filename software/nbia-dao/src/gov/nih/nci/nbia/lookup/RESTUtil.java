@@ -81,7 +81,6 @@ public class RESTUtil {
 		ClientConfig cc = new DefaultClientConfig();
 		cc.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(); 
-		client.addFilter(new LoggingFilter(System.out));
 		WebResource resource = client.resource(APIURLHolder.getUrl()
 				+"/nbia-api/services/getDynamicSearch"); 
 		ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)
@@ -178,7 +177,6 @@ public class RESTUtil {
        ClientConfig cc = new DefaultClientConfig();
        cc.getClasses().add(JacksonJsonProvider.class);
        Client client = Client.create(); 
-       client.addFilter(new LoggingFilter(System.out));
        WebResource resource = client.resource(APIURLHolder.getUrl()
     	       +"/nbia-api/services/getSimpleSearch"); 
        ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)
@@ -354,7 +352,6 @@ public class RESTUtil {
 		ClientConfig cc = new DefaultClientConfig();
 		cc.getClasses().add(JacksonJsonProvider.class);
 		Client client = Client.create(); 
-		client.addFilter(new LoggingFilter(System.out));
 		WebResource resource = client.resource(APIURLHolder.getUrl()
 				+"/nbia-api/services/getJNLPText"); 
 		ClientResponse response = resource.accept(MediaType.TEXT_PLAIN)
@@ -384,7 +381,6 @@ public class RESTUtil {
 	     ClientConfig cc = new DefaultClientConfig();
 	     cc.getClasses().add(JacksonJsonProvider.class);
 	     Client client = Client.create(); 
-	     client.addFilter(new LoggingFilter(System.out));
 	     WebResource resource = client.resource(APIURLHolder.getUrl()
 	    	     +"/nbia-api/services/getTextSearch"); 
 	     ClientResponse response = resource.accept(MediaType.APPLICATION_JSON)

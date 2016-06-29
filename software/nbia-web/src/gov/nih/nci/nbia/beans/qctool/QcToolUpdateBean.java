@@ -244,15 +244,15 @@ public class QcToolUpdateBean {
 									selectedQcStatus).getNumberValue()
 									.toString());
 					
-					if(selectedQcBatch.trim().length() > 0){
+					if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
 						newQsrDTOList.get(i).setBatch(selectedQcBatch);
 					}
 					
-					if(selectedQcSubmissionType.trim().length() > 0){
+					if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
 						newQsrDTOList.get(i).setSubmissionType(selectedQcSubmissionType);
 					}
 					
-					if(selectedQcReleasedStatus.trim().length() > 0){
+					if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length()) > 0){
 						newQsrDTOList.get(i).setReleasedStatus(selectedQcReleasedStatus);
 					}
 					
@@ -279,15 +279,15 @@ public class QcToolUpdateBean {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
 		
-		if(selectedQcBatch.trim().length() > 0){
+		if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
 			newAdditionalQcFlagList[0] = selectedQcBatch;
 		}
 		
-		if(selectedQcSubmissionType.trim().length() > 0){
+		if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
 			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
 		}				
 		
-		if(selectedQcReleasedStatus.trim().length() > 0){
+		if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length() > 0)){
 			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
 		}
 		
@@ -590,15 +590,15 @@ public class QcToolUpdateBean {
 	public void continueUpdate() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
-		if(selectedQcBatch.trim().length() > 0){
+		if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
 			newAdditionalQcFlagList[0] = selectedQcBatch;
 		}
 		
-		if(selectedQcSubmissionType.trim().length() > 0){
+		if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
 			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
 		}				
 		
-		if(selectedQcReleasedStatus.trim().length() > 0){
+		if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length() > 0)){
 			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
 		}
 		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
@@ -613,15 +613,15 @@ public class QcToolUpdateBean {
 	public String continueUpdateSingle() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatusSingle).getNumberValue().toString();
-		if(selectedQcBatch.trim().length() > 0){
+		if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
 			newAdditionalQcFlagList[0] = selectedQcBatch;
 		}
 		
-		if(selectedQcSubmissionType.trim().length() > 0){
+		if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
 			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
 		}				
 		
-		if(selectedQcReleasedStatus.trim().length() > 0){
+		if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length() > 0)){
 			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
 		}
 		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);

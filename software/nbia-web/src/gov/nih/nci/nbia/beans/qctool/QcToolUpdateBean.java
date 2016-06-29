@@ -590,7 +590,17 @@ public class QcToolUpdateBean {
 	public void continueUpdate() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
-
+		if(selectedQcBatch.trim().length() > 0){
+			newAdditionalQcFlagList[0] = selectedQcBatch;
+		}
+		
+		if(selectedQcSubmissionType.trim().length() > 0){
+			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+		}				
+		
+		if(selectedQcReleasedStatus.trim().length() > 0){
+			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+		}
 		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
 		
 		qcToolSearchBean.setQsrDTOList(newQsrDTOList);
@@ -603,7 +613,17 @@ public class QcToolUpdateBean {
 	public String continueUpdateSingle() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatusSingle).getNumberValue().toString();
+		if(selectedQcBatch.trim().length() > 0){
+			newAdditionalQcFlagList[0] = selectedQcBatch;
+		}
 		
+		if(selectedQcSubmissionType.trim().length() > 0){
+			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+		}				
+		
+		if(selectedQcReleasedStatus.trim().length() > 0){
+			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+		}
 		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
 		
 		popupRendered = false;

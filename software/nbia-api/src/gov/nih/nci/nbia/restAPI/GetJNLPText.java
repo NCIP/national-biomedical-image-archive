@@ -62,8 +62,6 @@ public class GetJNLPText extends getData{
 		try {	
 	   Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-	   System.out.println("!!!!!user name="
-					+ authentication.getPrincipal());
 		String user = (String) authentication.getPrincipal();
 		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(user);
 		if (authorizedSiteData==null){

@@ -54,8 +54,6 @@ public class GetDynamicSearch extends getData{
 		String stateRelation=inFormParams.get("stateRelation").get(0);
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
-		System.out.println("!!!!!user name="
-				+ authentication.getPrincipal());
 		String userName = (String) authentication.getPrincipal();
 		List<SiteData> authorizedSiteData = AuthorizationUtil.getUserSiteData(userName);
 		if (authorizedSiteData==null){

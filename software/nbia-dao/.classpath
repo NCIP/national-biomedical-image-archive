@@ -102,5 +102,6 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-json-1.17.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-server-1.17.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/jersey-servlet-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-dao/compile/spring-security-oauth2-1.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

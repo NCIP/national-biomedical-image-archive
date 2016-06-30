@@ -9,7 +9,6 @@ import myGlobals = require('../app/conf/globals');
 @Component({
     selector: 'my-app',
     template: `
-   	<!--h1>Token: {{params | json}}</h1-->
 	<table width="100%" 
        border="0" 
        cellspacing="0" 
@@ -67,9 +66,8 @@ import myGlobals = require('../app/conf/globals');
 export class AppComponent {	
   params;
   constructor() {
-  this.params = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')[0].split('=')[1]; 
-  myGlobals.accessToken=this.params;
-  //myGlobals.serviceUrl = window.location.protocol +"//"+ window.location.host+"/nbia-api/services/v3/"; 
+  myGlobals.accessToken = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')[0].split('=')[1]; 
+  myGlobals.serviceUrl = window.location.protocol +"//"+ window.location.host+"/nbia-api/services/v3/"; 
  }
 
 }

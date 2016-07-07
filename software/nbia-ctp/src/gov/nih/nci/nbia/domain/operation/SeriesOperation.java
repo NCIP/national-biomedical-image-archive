@@ -86,12 +86,13 @@ public class SeriesOperation extends DomainOperation implements SeriesOperationI
 	        //multiple images submitted to same series at "same time"?
 	        series.setMaxSubmissionTimestamp((java.util.Date)numbers.get("current_timestamp"));
 	        
-	        //enforce to set visibility to be "Not Yet Reviewed"
-	        //regardless what CTP annonymizer says.
-	        if (series.getVisibility() == null)
-	        {
-	        	series.setVisibility("0");
-	        }
+            //enforce to set visibility to be "Not Yet Reviewed"
+            //regardless what CTP annonymizer says.
+            if ((series.getVisibility() == null)||(!series.getVisibility().equals("0")))
+            {
+                 series.setVisibility("0");
+            }
+
         }catch(Exception e) {
         	//log.error("Exception in SeriesOperation " + e);
         	throw new Exception("Exception in SeriesOperation " + e);

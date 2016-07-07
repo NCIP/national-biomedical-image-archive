@@ -291,6 +291,7 @@ query.setCriteria(aoc);
         if (cc != null) {
             if (swb != null) {
                 swb.addPatientItems(cc.getPatientIdObjects());
+                swb.setPatientCriteria(true);
             }
             query.setCriteria(cc);
         }
@@ -386,6 +387,7 @@ query.setCriteria(aoc);
         if(imc != null  && swb != null) {
             swb.setDateFrom(imc.getFromDate());
             swb.setDateTo(imc.getToDate());
+            swb.setDateCriteria(true);
         }
 
         query.setCriteria(imc);

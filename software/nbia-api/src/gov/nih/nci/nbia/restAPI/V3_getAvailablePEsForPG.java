@@ -12,6 +12,8 @@ import gov.nih.nci.security.exceptions.CSConfigurationException;
 import gov.nih.nci.security.exceptions.CSException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -90,10 +92,20 @@ public class V3_getAvailablePEsForPG extends getData{
 			e.printStackTrace();
 		}	 
 		List<Object []> peOptions= new ArrayList<Object[]>();
+
+		if (!(allPENames.isEmpty())) {
 		for (String ape: allPENames) {
 			Object [] objs = {ape, ape};
 			peOptions.add(objs);
-		}		
+		}
+		
+		Collections.sort(peOptions, new Comparator<Object[]>() {
+			public int compare(Object[] s1, Object[] s2) {
+			   //ascending order
+			   return s1[0].toString().compareTo(s2[0].toString());
+		    }
+		});
+	}		
 		return formatResponse(format, peOptions, columns);
 	}
 }

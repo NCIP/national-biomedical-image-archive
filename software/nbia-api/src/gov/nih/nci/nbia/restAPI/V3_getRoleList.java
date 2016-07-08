@@ -1,9 +1,6 @@
 //To test: http://localhost:8080/nbia-auth/services/v3/getRoleList?format=html
 package gov.nih.nci.nbia.restAPI;
 
-import gov.nih.nci.nbia.dao.TrialDataProvenanceDAO;
-import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.security.SecurityServiceProvider;
 import gov.nih.nci.security.UserProvisioningManager;
 import gov.nih.nci.security.authorization.domainobjects.Role;
 import gov.nih.nci.security.dao.RoleSearchCriteria;
@@ -12,6 +9,8 @@ import gov.nih.nci.security.exceptions.CSConfigurationException;
 import gov.nih.nci.security.exceptions.CSException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +21,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.springframework.dao.DataAccessException;
-
 
 @Path("/v3/getRoleList")
 public class V3_getRoleList extends getData{
@@ -52,6 +48,13 @@ public class V3_getRoleList extends getData{
 			List<Role> list = upm.getObjects(searchCriteria);
 
 			if (list != null) {
+				Collections.sort(list, new Comparator<Role>() {
+					public int compare(Role s1, Role s2) {
+					   //ascending order
+					   return s1.getName().compareTo(s2.getName());
+				    }
+				});
+				
 				for(Role aRole : list) {
 					Object [] objs = {aRole.getName(), aRole.getName()};
 					roleOptions.add(objs);

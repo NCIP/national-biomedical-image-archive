@@ -2,6 +2,9 @@ package gov.nih.nci.nbia.csmDao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
+
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +21,13 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 		try {		
 			results = getHibernateTemplate().find(hql);
 			if (results != null && results.size() > 0) {
+				Collections.sort(results, new Comparator<Object>() {
+					public int compare(Object s1, Object s2) {
+					   //ascending order
+					   return s1.toString().compareTo(s2.toString());
+				    }
+				});
+				
 				for(Object existUser : results) {
 		            //userNames.add(existUser.getLoginName());
 		            Object [] objs = {existUser, existUser};

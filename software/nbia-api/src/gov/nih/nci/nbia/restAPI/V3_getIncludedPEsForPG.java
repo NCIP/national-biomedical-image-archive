@@ -12,6 +12,8 @@ import gov.nih.nci.security.exceptions.CSConfigurationException;
 import gov.nih.nci.security.exceptions.CSException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,11 +53,18 @@ public class V3_getIncludedPEsForPG extends getData{
 			ProtectionGroup protectionGrp = getPGByPGName(pgName);
 			Set<ProtectionElement> set = upm.getProtectionElements(protectionGrp.getProtectionGroupId().toString());
 			
-			if (set != null) {
+			if ((set != null) && (!(set.isEmpty()))){
 				for(ProtectionElement ptm : set) {
 					Object [] objs = {ptm.getProtectionElementName(), ptm.getProtectionElementName()};
 					peOptions.add(objs);					
 		        }
+				
+				Collections.sort(peOptions, new Comparator<Object[]>() {
+					public int compare(Object[] s1, Object[] s2) {
+					   //ascending order
+					   return s1[0].toString().compareTo(s2[0].toString());
+				    }
+				});					
 			}
 			else {
 					Object [] objs = {"Warning: No Data Sets Assigned Yet!", "Warning: No Data Sets Assigned Yet!"};

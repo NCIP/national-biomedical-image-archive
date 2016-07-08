@@ -10,6 +10,8 @@ import gov.nih.nci.security.exceptions.CSConfigurationException;
 import gov.nih.nci.security.exceptions.CSException;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -76,10 +78,19 @@ public class V3_getAvailablePGsForUser extends getData{
 		}	 
 
 		List<Object []> pgOptions= new ArrayList<Object[]>();
-		for (String apg: allPg) {
-			Object [] objs = {apg, apg};
-			pgOptions.add(objs);
-		}		
+		if (!(allPg.isEmpty())) {
+			for (String apg: allPg) {
+				Object [] objs = {apg, apg};
+				pgOptions.add(objs);
+			}
+			
+			Collections.sort(pgOptions, new Comparator<Object[]>() {
+				public int compare(Object[] s1, Object[] s2) {
+				   //ascending order
+				   return s1[0].toString().compareTo(s2[0].toString());
+			    }
+			});
+		}
 		return formatResponse(format, pgOptions, columns);
 	}
 }

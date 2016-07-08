@@ -5,6 +5,7 @@ import {Checkbox} from 'primeng/primeng';
 import {PgRole} from './pgRoles/pgRole';
 import {PgRoleService} from './pgRoles/pgRoleservice';
 import {SelectItem} from 'primeng/primeng';
+import myGlobals = require('./conf/globals');
 
 @Component({
 	templateUrl: 'app/pgRole.component.html',
@@ -31,28 +32,10 @@ export class PgRoleComponent {
 	newPgRole: boolean;
 	selectedPgRole: PgRole;
 	postData: string;
-//	choose: string;
-//    user: User = new PrimeUser();
- //   selectedUser: User;
-//   newUser: boolean;
- //   users: User[];
-//	postData: string;
-//    cities: SelectItem[];
-//    selectedCity: string;
-
+	wikiLink: string;
 
     constructor(private pgRoleService: PgRoleService) { 
-//		this.userNames = [];
-//		this.userNames.push({label:'Select User', value:''});	
-//		this.pgRoleService.getUserNames().
-//		then(userNames => this.userNames = <SelectItem[]>userNames, error =>  this.errorMessage = <any>error);
-//		this.selectedUserName = null;
-		
-//		this.availablePGs = [];
-//		this.availablePGs.push({label:'Choose', value:''});
-		
-//		this.allRoles = [];
-
+		this.wikiLink = myGlobals.wikiContextSensitiveHelpUrl + myGlobals.userAuthorizationWiki;
 	}
 	
 	getPgRolesForUser() {

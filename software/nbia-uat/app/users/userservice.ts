@@ -12,6 +12,7 @@ export class UserService {
 	constructor(private http: Http) {}
 
 	getUsers() {
+		//alert(myGlobals.accessToken);
 		var serviceUrl = myGlobals.serviceUrl +'getUserList?format=json';	
 		var headers = new Headers();
 		if(myGlobals.accessToken) {

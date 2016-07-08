@@ -8,6 +8,11 @@
 	<i class="fa fa-search" style="float:left;margin:4px 4px 0 0"></i>
 	<input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter">
 </div-->
+<div style="position:absolute;top: 8px;right: 30px;">
+	<a href="{{wikiLink}}">
+		<img src="app/images/help.png" alt="Help" />
+	</a>
+</div>	
 <p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width=525 height=460>
 	<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="selectedUserName">
 		<div class="ui-grid-row">

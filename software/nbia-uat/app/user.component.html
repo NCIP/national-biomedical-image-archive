@@ -2,6 +2,11 @@
 	<i class="fa fa-search" style="float:left;margin:4px 4px 0 0"></i>
 	<input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter">
 </div-->
+<div style="position:absolute;top: 8px;right: 30px;">
+	<a href="{{wikiLink}}">
+		<img src="app/images/help.png" alt="Help" />
+	</a>
+</div>		
 <div class="ContentSideSections Implementation">
 	<p-dataTable [value]="users"  [paginator]="true" [rows]="10" [responsive]="true">
 		<!--header>CRUD for Users</header-->

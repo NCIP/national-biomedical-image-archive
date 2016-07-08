@@ -31,7 +31,7 @@ export class PgRoleService {
 	private handleError (error: any) {
 		// In a real world app, we might send the error to remote logging infrastructure
 		let errMsg = error.message || 'Server error';
-		console.error(errMsg); // log to console instead
+		console.error(errMsg); 
 		return Promise.reject(errMsg);
 	}
 
@@ -77,7 +77,7 @@ export class PgRoleService {
 				.then(data => { return data; })
 				.catch(this.handleError); 	
 	}
-
+/*
 	getAvailableRoles(loginName: string, pgName:string) {
 		var serviceUrl = myGlobals.serviceUrl +'getAvailablePEsForPG';
 		var params = '?PGName='+ pgName + '&format=json';
@@ -92,6 +92,7 @@ export class PgRoleService {
 				.then(data => { return data; })
 				.catch(this.handleError); 	
 	}
+*/
 
 	addNewPgRoleForUser(loginName: string, pgName: String, roleNames: string[])	{
 		var serviceUrl = myGlobals.serviceUrl +'assignUserToPGWithRoles';

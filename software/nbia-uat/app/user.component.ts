@@ -4,6 +4,7 @@ import {InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/pr
 import {Checkbox} from 'primeng/primeng';
 import {User} from './users/user';
 import {UserService} from './users/userservice';
+import myGlobals = require('../../app/conf/globals');
 
 @Component({
 	templateUrl: 'app/user.component.html',
@@ -20,8 +21,11 @@ export class UserComponent {
     newUser: boolean;
     users: User[];
 	postData: string;
+	wikiLink: string;
 
-    constructor(private userService: UserService) { }
+    constructor(private userService: UserService) { 
+		this.wikiLink = myGlobals.wikiContextSensitiveHelpUrl + myGlobals.manageUserWiki;
+	}
 
     ngOnInit() {
         this.userService.getUsers().then(users => this.users = users);

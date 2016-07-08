@@ -30,8 +30,11 @@ export class PgComponent{
 	availablePes: SelectItem[] =[];
 	includedPes: SelectItem[] = [];
 	errorMessage: string;
-
-    constructor(private pgService: PgService) {}
+	wikiLink: string;
+	
+    constructor(private pgService: PgService) {
+		this.wikiLink = myGlobals.wikiContextSensitiveHelpUrl + myGlobals.managePGWiki;
+	}
 
     ngOnInit() {
 /**		this.headerRows = [

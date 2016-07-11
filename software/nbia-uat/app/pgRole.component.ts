@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input, ChangeDetectionStrategy} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {Dropdown,PickList,MultiSelect,InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
 import {Checkbox} from 'primeng/primeng';
@@ -10,11 +10,13 @@ import myGlobals = require('./conf/globals');
 @Component({
 	templateUrl: 'app/pgRole.component.html',
 	selector: 'pgRole',
+	changeDetection: ChangeDetectionStrategy.OnPush,
     directives: [Dropdown,PickList,MultiSelect,InputText,Checkbox,DataTable,Button,Dialog,Column,Header,Footer],
 	providers: [HTTP_PROVIDERS,PgRoleService]
 })
 
 export class PgRoleComponent {
+	@Input() addedUser: any;
 	displayDialog: boolean;
 //	displayUpdateDialog: boolean;
 	userNames: SelectItem[];
@@ -63,6 +65,10 @@ export class PgRoleComponent {
 
 		this.allRoles = [];
     }
+	
+	ngOnChanges(...args: any[]) {
+	alert("ngOnChanges called value = ");
+	}
 	
     showDialogToAdd() {
         this.newPgRole = true;
@@ -117,7 +123,6 @@ export class PgRoleComponent {
 			);
 //			PgRole pgRole = new PrimePgRole(this.selectedPGName, this.srs.join(","));
 			this.pgRoles.push(new PrimePgRole(this.selectedPGName, this.srs.join(", ")));
-//			this.users.push(this.user);
 		}
 
         this.newPgRole = null;
@@ -150,60 +155,6 @@ export class PgRoleComponent {
 		this.pgRoles[this.findSelectedPgRoleIndex()] = this.pgRole;	
         this.displayDialog = false;		
 	}	
-	
-	
-/**
-    showDialogToAdd() {
-        this.newUser = true;
-        this.user = new PrimeUser();
-        this.displayDialog = true;
-    }
-
-    save() {
-        if(this.newUser) {
-			this.userService.addNewUser(this.user)
-			.subscribe(
-				data => this.postData = JSON.stringify(data),
-				error => alert(error),
-				() => console.log("Finished")
-			);
-			this.users.push(this.user);
-		}
-        else {
-			this.userService.modifyExistingUser(this.user)
-			.subscribe(
-				data => this.postData = JSON.stringify(data),
-				error => alert(error),
-				() => console.log("Finished")
-			);
-            this.users[this.findSelectedUserIndex()] = this.user;
-		}
-        this.user = null;
-        this.displayDialog = false;
-    }
-
-    delete() {
-        this.users.splice(this.findSelectedUserIndex(), 1);
-        this.user = null;
-        this.displayDialog = false;
-    }
-
-    onRowSelect(event) {
-        this.newUser = false;
-        this.user = this.cloneUser(event.data);
-        this.displayDialog = true;
-    }
-
-    cloneUser(u: User): User {
-        let user = new PrimeUser();
-        for(let prop in u) {
-            user[prop] = u[prop];
-        }
-        return user;
-    }
-
-
-*/	
 }
 
 class PrimePgRole implements PgRole {

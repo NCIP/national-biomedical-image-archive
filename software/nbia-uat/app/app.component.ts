@@ -1,10 +1,10 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {UserComponent} from "./user.component"
 import {PgComponent} from "./pg.component"
 import {PgRoleComponent} from "./pgRole.component"
 import {TabView} from 'primeng/primeng';
 import {TabPanel} from 'primeng/primeng';
-import myGlobals = require('../app/conf/globals');
+import myGlobals = require('./conf/globals');
 
 @Component({
     selector: 'my-app',
@@ -48,7 +48,8 @@ import myGlobals = require('../app/conf/globals');
 			<span class="defaultText dispTable">This tool grants the user's access to NBIA data collection.</span>
 		</div>
 	</div-->
-	<p-tabView>
+
+	<p-tabView (onChange)="onTabChange($event)">
     <p-tabPanel header="User">
 		<user></user>
 	</p-tabPanel>
@@ -56,7 +57,7 @@ import myGlobals = require('../app/conf/globals');
         <pg></pg>
     </p-tabPanel>
     <p-tabPanel header="User Authorization">
-	   <pgRole></pgRole>
+	   <pgRole [addedUser]="addedUser"></pgRole>
     </p-tabPanel>	
 	`,
 	directives: [UserComponent,PgComponent,PgRoleComponent,TabView,TabPanel]
@@ -64,10 +65,17 @@ import myGlobals = require('../app/conf/globals');
 
 
 export class AppComponent {	
-  params;
-  constructor() {
-  myGlobals.accessToken = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')[0].split('=')[1]; 
-  myGlobals.serviceUrl = window.location.protocol +"//"+ window.location.host+"/nbia-api/services/v3/"; 
- }
+	private addedUser: any;
+	
+	constructor() {
+	  myGlobals.accessToken = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')[0].split('=')[1]; 
+	  //myGlobals.serviceUrl = window.location.protocol +"//"+ window.location.host+"/nbia-api/services/v3/"; 
 
+    }
+
+    onTabChange(event) {
+        this.addedUser = {
+            name: 'someone'
+        };
+    }
 }

@@ -330,7 +330,6 @@ L-->
 	   	        
 			</li>
             <li>
-				<!--h:outputLink value="#{request.requestURL.substring(0, request.requestURL.length() - request.requestURI.length())}/nbia-uat/index.html"-->
 				<h:outputLink value="#{NCIAConfig.getImageServerUrl()}/nbia-uat/index.html">				
 					<h:outputText value="User Authorization Tool" />
 					<f:param name="accessToken" value="#{securityBean.tokenValue}" />

@@ -11,7 +11,7 @@ import gov.nih.nci.security.exceptions.CSException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Path;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -28,7 +28,7 @@ public class V3_modifyRolesOfUserForPG extends getData{
 	 *
 	 * @return String - the status of operation 
 	 */
-	@GET
+	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 
 	public Response  constructResponse(@QueryParam("loginName") String loginName, @QueryParam("PGName") String pgName, @QueryParam("roleNames") String roleNames) {

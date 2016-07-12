@@ -25,7 +25,7 @@ export class PgRoleComponent {
 	pgRoles: PgRole[];
 	pgRole: PgRole;
 	pgSize: number;
-	tblVisisble: boolean;
+//	tblVisisble: boolean;
 	allRoles: SelectItem[] =[];
 	srs: string[] = [];
 	availablePGs: SelectItem[] =[];
@@ -43,12 +43,9 @@ export class PgRoleComponent {
 	getPgRolesForUser() {
 		this.pgRoles = [];
 		this.pgSize = 0;
-		this.tblVisisble = false;
+//		this.tblVisisble = false;
 		this.pgRoleService.getPgRolesForUser(this.selectedUserName).
-		then(pgRoles => {this.pgRoles = pgRoles; this.pgSize = this.pgRoles.length;}, error =>  this.errorMessage = <any>error);
-		//alert(this.pgRoles.length);
-		//this.pgSize = this.pgRoles.length;
-		
+		then(pgRoles => {this.pgRoles = pgRoles; this.pgSize = this.pgRoles.length;}, error =>  this.errorMessage = <any>error);	
 	}
 	
     ngOnInit() {
@@ -122,7 +119,9 @@ export class PgRoleComponent {
 				() => console.log("Finished")
 			);
 //			PgRole pgRole = new PrimePgRole(this.selectedPGName, this.srs.join(","));
+//			this.tblVisisble = true;
 			this.pgRoles.push(new PrimePgRole(this.selectedPGName, this.srs.join(", ")));
+			this.pgSize = this.pgSize +1;
 		}
 
         this.newPgRole = null;

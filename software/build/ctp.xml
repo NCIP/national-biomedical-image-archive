@@ -116,9 +116,17 @@ L-->
 
   <target name="install:ctp:server:binaries" unless="exclude.ctp">
 
-    <unjar src="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
-           dest="${ctp.server.home}"/>
-
+  	<if>
+  	  <available file="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/" type="dir" />
+  	  <then>
+  	    <unjar src="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
+  	           dest="${ctp.server.home}"/>
+  	  </then>
+  	  <else>
+  	    <unjar src="${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
+  	           dest="${ctp.server.home}"/>
+  	  </else>
+  	</if>
     <!-- after unzipping CTP, move the users.xml back on top -->
     <if>
       <isset property="ctp.server.exists"/>
@@ -142,8 +150,18 @@ L-->
 
   <target name="install:ctp:client:binaries" unless="exclude.ctp-client">
 
-    <unjar src="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
-           dest="${ctp.client.home}"/>
+  	<if>
+  	  <available file="../target/dist/exploded/" type="dir" />
+  	  <then>
+  	    <unjar src="../target/dist/exploded/${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
+  	           dest="${ctp.client.home}"/>
+  	  </then>
+  	  <else>
+  	    <unjar src="${nbia-ctp.dist.relative.dir}/CTP-installer.jar"
+  	           dest="${ctp.client.home}"/>
+  	  </else>
+  	</if>
+
 
     <!-- after unzipping CTP, move the users.xml back on top -->
     <if>
@@ -256,11 +274,21 @@ L-->
 
 
   <target name="install:ctp:filesender" unless="exclude.ctp-client">
-    <copy todir="${ctp.client.home}/FileSender">
-      <fileset dir="../${nbia-ctp.dist.relative.dir}/FileSender"/>
-    </copy>
 
 
+  	<if>
+  	  <available file="../${nbia-ctp.dist.relative.dir}/FileSender" type="dir" />
+  	  <then>
+  	    <copy todir="${ctp.client.home}/FileSender">
+  	      <fileset dir="../${nbia-ctp.dist.relative.dir}/FileSender"/>
+  	    </copy>
+  	  </then>
+  	  <else>
+  	    <copy todir="${ctp.client.home}/FileSender">
+  	      <fileset dir="${nbia-ctp.dist.relative.dir}/FileSender"/>
+  	    </copy>
+  	  </else>
+  	</if>
     <configure-filesender/>
   </target>
 

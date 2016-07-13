@@ -183,6 +183,9 @@ L-->
 		  <copy todir="${gov.nih.nci.ncia.tomcat.home}/webapps">
 		    <fileset dir="${basedir}/nbia-wars"/>
 		  </copy>
+		  <copy todir="${gov.nih.nci.ncia.tomcat.home}/webapps/nbia-uat">
+		    <fileset dir="${basedir}/nbia-uat"/>
+		  </copy>
 			<echo message="Creating solr home = ${gov.nih.nci.ncia.solr.home}"/>
 			<mkdir dir="${gov.nih.nci.ncia.solr.home}"/>
 			<copy todir="${gov.nih.nci.ncia.solr.home}">

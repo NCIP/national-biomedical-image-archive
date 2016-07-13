@@ -429,25 +429,7 @@ L-->
 		</sequential>
 	</target>
 
-	<target name="build:nbia-auth" depends="init,
-	                   build:nbia-domain,
-		           build:nbia-dao">
-		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="${nbia-auth.build.target}" dir="${nbia-auth.base.dir}">
-			<property name="nbia.api.oauth2.client.id" value="${nbia.api.oauth2.client.id}"/>
-			<property name="nbia.api.oauth2.client.secret" value="${nbia.api.oauth2.client.secret}"/>
-			<property name="nbia.api.oauth2.token.validity.in.seconds" value="${nbia.api.oauth2.token.validity.in.seconds}"/>
-			<property name="database.dialect" value="${database.dialect}"/>
-			<property name="database.driver" value="${database.driver}"/>
-		</ant>
-		<copy todir="C:\apps\nbia-6_4\apache-tomcat-7.0.68\webapps">
-						<fileset dir="C:\workspace-noGrid\software\target\dist\exploded\nbia-wars">
-						<exclude name="nbia.ear"/>
-						<exclude name="nbia.war"/>
-						<exclude name="oviyam2.war"/>
-						<exclude name="nbia-api.war"/>
-						</fileset>
-		</copy>
-	</target>		<target name="build:nbia-liquibase" depends="init">
+	<target name="build:nbia-liquibase" depends="init">
 		<ant inheritAll="false" inheritRefs="false" antfile="${nbia.build.file}" target="run" dir="../nbia-liquibase">
 			<property name="project.name" value="${project.name}"/>
 		</ant>

@@ -37,30 +37,10 @@ export class PgComponent{
 	}
 
     ngOnInit() {
-/**		this.headerRows = [
-            {
-                columns: [
-                    {header: 'Data Group', colspan: 3},
-                    {header: 'Data Set Association', colspan: 3}
-                ]
-            },
-            {
-                columns: [
-                    {header: 'Edit Data Group', sortable: 'false'},
-                    {header: 'Data Group (Start With)', sortable: 'true'},
-                    {header: 'Description (Contains)', sortable: 'true'},
-                    {header: 'Included Data Sets', sortable: 'true'},
-                    {header: 'Add Data Set(s)', sortable: 'false'},
-                    {header: 'Remove Data Set(s)', sortable: 'false'}					
-                ]
-            }
-		];			
-*/			
         this.pgService.getPgs().then(pgs => this.pgs = pgs);
     }
 
     showDialogToAdd() {
-//	alert(myGlobals.accessToken);
         this.newPg = true;
         this.pg = new PrimePg();
         this.displayDialog = true;

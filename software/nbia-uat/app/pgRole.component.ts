@@ -18,14 +18,12 @@ import myGlobals = require('./conf/globals');
 export class PgRoleComponent {
 	@Input() addedUser: any;
 	displayDialog: boolean;
-//	displayUpdateDialog: boolean;
 	userNames: SelectItem[];
 	errorMessage: string;
 	selectedUserName: string;
 	pgRoles: PgRole[];
 	pgRole: PgRole;
 	pgSize: number;
-//	tblVisisble: boolean;
 	allRoles: SelectItem[] =[];
 	srs: string[] = [];
 	availablePGs: SelectItem[] =[];
@@ -43,7 +41,6 @@ export class PgRoleComponent {
 	getPgRolesForUser() {
 		this.pgRoles = [];
 		this.pgSize = 0;
-//		this.tblVisisble = false;
 		this.pgRoleService.getPgRolesForUser(this.selectedUserName).
 		then(pgRoles => {this.pgRoles = pgRoles; this.pgSize = this.pgRoles.length;}, error =>  this.errorMessage = <any>error);	
 	}
@@ -63,8 +60,12 @@ export class PgRoleComponent {
 		this.allRoles = [];
     }
 	
-	ngOnChanges(...args: any[]) {
-	alert("ngOnChanges called value = ");
+	ngOnChanges(changes: any[]) {
+		var newLogin = changes['addedUser'].currentValue; 
+		if (newLogin) {
+			//alert("ngOnChanges called value = "+newLogin);
+			this.userNames.push({label: newLogin, value: newLogin});
+		}
 	}
 	
     showDialogToAdd() {
@@ -118,8 +119,6 @@ export class PgRoleComponent {
 				error =>  this.errorMessage = <any>error,
 				() => console.log("Finished")
 			);
-//			PgRole pgRole = new PrimePgRole(this.selectedPGName, this.srs.join(","));
-//			this.tblVisisble = true;
 			this.pgRoles.push(new PrimePgRole(this.selectedPGName, this.srs.join(", ")));
 			this.pgSize = this.pgSize +1;
 		}

@@ -94,6 +94,9 @@ export class PgComponent{
 
     save() {
         if(this.newPg) {
+			if (this.pgExists(this.pg.dataGroup, this.pgs)) {
+				alert("The Protection Group name " + this.pg.dataGroup + " is taken.  Please try a different name.");
+			}
 			this.pgService.addNewPg(this.pg)
 			.subscribe(
 				data => this.postData = JSON.stringify(data),
@@ -228,6 +231,15 @@ export class PgComponent{
             }
 		}
     }
+	
+	pgExists(nameKey, myArray): boolean{
+		for (var i=0; i < myArray.length; i++) {
+			if (myArray[i].dataGroup.toUpperCase() == nameKey.toUpperCase()) {
+				return true;
+			}
+		}
+		return false;
+	}	
 }
 
 class PrimePg implements Pg {

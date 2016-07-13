@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component,Output,EventEmitter} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
 import {Checkbox} from 'primeng/primeng';
@@ -14,7 +14,7 @@ import myGlobals = require('./conf/globals');
 })
 
 export class UserComponent {
-
+	@Output() addUser: EventEmitter<any> = new EventEmitter();
 	displayDialog: boolean;
     user: User = new PrimeUser();
     selectedUser: User;
@@ -39,13 +39,19 @@ export class UserComponent {
 
     save() {
         if(this.newUser) {
-			this.userService.addNewUser(this.user)
-			.subscribe(
-				data => this.postData = JSON.stringify(data),
-				error => alert(error),
-				() => console.log("Finished")
-			);
-			this.users.push(this.user);
+			if (this.userExists(this.user.loginName, this.users)) {
+				alert("The login name " + this.user.loginName + " is taken.  Please try a different name.");
+			}
+			else {
+				this.userService.addNewUser(this.user)
+				.subscribe(
+					data => this.postData = JSON.stringify(data),
+					error => alert(error),
+					() => console.log("Finished")
+				);
+				this.users.push(this.user);
+				this.addUser.next (this.user.loginName);
+			}
 		}
         else {
 			this.userService.modifyExistingUser(this.user)
@@ -85,6 +91,15 @@ export class UserComponent {
     findSelectedUserIndex(): number {
         return this.users.indexOf(this.selectedUser);
     }
+	
+	userExists(nameKey, myArray): boolean{
+		for (var i=0; i < myArray.length; i++) {
+			if (myArray[i].loginName.toUpperCase() == nameKey.toUpperCase()) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 class PrimeUser implements User {

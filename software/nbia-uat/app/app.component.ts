@@ -49,9 +49,9 @@ import myGlobals = require('./conf/globals');
 		</div>
 	</div-->
 
-	<p-tabView (onChange)="onTabChange($event)">
+	<p-tabView>
     <p-tabPanel header="User">
-		<user></user>
+		<user (addUser)="pushNewUser($event)"></user>
 	</p-tabPanel>
     <p-tabPanel header="Protection Group">
         <pg></pg>
@@ -72,10 +72,8 @@ export class AppComponent {
 	  myGlobals.serviceUrl = window.location.protocol +"//"+ window.location.host+"/nbia-api/services/v3/"; 
 
     }
-
-    onTabChange(event) {
-        this.addedUser = {
-            name: 'someone'
-        };
+	
+	private pushNewUser(loginName) {
+		this.addedUser = loginName;
     }
 }

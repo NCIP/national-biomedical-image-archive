@@ -66,7 +66,7 @@ public class deleteSharedList extends getData{
 		}
 
 		CustomSeriesListDAO customSeriesListDAO = (CustomSeriesListDAO)SpringApplicationContext.getBean("customSeriesListDAO");
-		CustomSeriesListDTO  csDTO=customSeriesListDAO.findCustomSeriesListByName(name)
+		CustomSeriesListDTO  csDTO=customSeriesListDAO.findCustomSeriesListByName(name);
 		if (csDTO==null){
     		return Response.status(400).type("text/plain")
 			.entity("List name not found")

@@ -52,7 +52,8 @@ public class CreateSharedList extends getData{
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 
-	public Response constructResponse(@FormParam("list") List<String> list, @FormParam("name") String name) {
+	public Response constructResponse(@FormParam("list") List<String> list, @FormParam("name") String name, 
+			@FormParam("description") String description, @FormParam("url") String url) {
 
 		try {	
 	   Authentication authentication = SecurityContextHolder.getContext()
@@ -80,6 +81,8 @@ public class CreateSharedList extends getData{
 		CustomSeriesListDTO  csDTO=new CustomSeriesListDTO();
 		csDTO.setSeriesInstanceUIDs(list);
 		csDTO.setName(name);
+		csDTO.setComment(description);
+		csDTO.setHyperlink(url);
 		customSeriesListDAO.insert(csDTO, user);
 		
 		return Response.ok().type("text/plain")

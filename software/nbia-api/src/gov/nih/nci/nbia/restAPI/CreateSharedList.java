@@ -39,7 +39,7 @@ import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dao.CustomSeriesListDAO;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 @Path("/createSharedList")
-public class createSharedList extends getData{
+public class CreateSharedList extends getData{
 	private static final String column="Collection";
 	public final static String TEXT_CSV = "text/csv";
 
@@ -82,7 +82,8 @@ public class createSharedList extends getData{
 		csDTO.setName(name);
 		customSeriesListDAO.insert(csDTO, user);
 		
-		return Response.ok()
+		return Response.ok().type("text/plain")
+				.entity("List created")
 				.build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

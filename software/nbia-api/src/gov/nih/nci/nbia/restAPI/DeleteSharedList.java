@@ -39,7 +39,7 @@ import gov.nih.nci.nbia.dto.SeriesDTO;
 import gov.nih.nci.nbia.dao.CustomSeriesListDAO;
 import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
 @Path("/deleteSharedList")
-public class deleteSharedList extends getData{
+public class DeleteSharedList extends getData{
 	private static final String column="Collection";
 	public final static String TEXT_CSV = "text/csv";
 
@@ -78,7 +78,8 @@ public class deleteSharedList extends getData{
 			.build();
 		}
 		customSeriesListDAO.delete(csDTO);
-		return Response.ok()
+		return Response.ok().type("text/plain")
+				.entity("List deleted")
 				.build();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

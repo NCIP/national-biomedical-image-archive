@@ -80,7 +80,7 @@ public class createSharedList extends getData{
 		CustomSeriesListDTO  csDTO=new CustomSeriesListDTO();
 		csDTO.setSeriesInstanceUIDs(list);
 		csDTO.setName(name);
-		customSeriesListDAO.insert(csDTO, name);
+		customSeriesListDAO.insert(csDTO, user);
 		
 		return Response.ok()
 				.build();

@@ -82,6 +82,13 @@ insert into csm_role_privilege(role_privilege_id, role_id, privilege_id, update_
 values(1,1,3,sysdate());
 
 insert into hibernate_unique_key (next_hi) values (1);
+# The following 2 insert statments are added for UAT to handle the new installation of NBIA 
+# which database only has only one default user created as the ADMIN of NBIA 
+INSERT INTO csm_user_group_role_pg (USER_ID, ROLE_ID, PROTECTION_GROUP_ID, UPDATE_DATE) 
+VALUES (1, 2, 1, sysdate());
+
+INSERT INTO csm_pg_pe (PROTECTION_GROUP_ID, PROTECTION_ELEMENT_ID, UPDATE_DATE) 
+VALUES (1, 2, sysdate());
 
 COMMIT;
 

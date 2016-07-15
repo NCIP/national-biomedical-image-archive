@@ -373,6 +373,14 @@ public class SecurityBean {
 
 		return authMgr.hasRole(RoleType.SUPER_CURATOR);
 	}
+	
+	public boolean getHasAdminRole() {
+		if (authMgr == null) {
+			return false;
+		}
+
+		return authMgr.hasRole(RoleType.ADMIN);
+	}	
 
 	public boolean getHasDeletionRole() {
 		if (authMgr == null) {

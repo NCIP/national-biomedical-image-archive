@@ -35,7 +35,7 @@
 					<p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
 					<p>Selected Cars: <span template="ngFor #c of selectedCars">{{c}} &nbsp;</span></p>
 				</div-->
-	<p-dialog header="Protection Group Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+	<p-dialog header="Protection Group Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade">
 		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4"><label for="dataGroup">Protection Group Name</label></div>
@@ -54,7 +54,7 @@
 		</footer>
 	</p-dialog>
 	<p-dialog header="Add Protection Element(s) to Protection Group" [(visible)]="displayAssignDialog" 
-			[responsive]="true" showEffect="fade" [modal]="true" width=500 height=300>
+			[responsive]="true" showEffect="fade" width=500 height=300>
 		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6"><label for="dataGroup">Protection Group Name</label></div>
@@ -80,7 +80,7 @@
 		</footer>
 	</p-dialog>
 	<p-dialog header="Remove Protection Element(s) from Protection Group" [(visible)]="displayDeassignDialog" 
-			[responsive]="true" showEffect="fade" [modal]="true" width=500 height=300>
+			[responsive]="true" showEffect="fade" width=500 height=300>
 		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6"><label for="dataGroup">Protection Group Name</label></div>

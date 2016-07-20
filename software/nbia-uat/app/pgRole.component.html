@@ -13,7 +13,7 @@
 		<img src="app/images/help.png" alt="Help" />
 	</a>
 </div>	
-<p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width=525 height=460>
+<p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" width=525 height=460>
 	<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="selectedUserName">
 		<div class="ui-grid-row">
 			<div class="ui-grid-col-4"><label for="loginName">Login Name</label></div>
@@ -47,7 +47,6 @@
 		</div-->
 	</footer>
 </p-dialog>
-<!--div class="ContentSideSections Implementation"-->
 
 <p-dropdown [options]="userNames" [(ngModel)]="selectedUserName"  [filter]="true" style="width:100px" (onChange)="getPgRolesForUser()"></p-dropdown>
 <p>{{pgSize || 'No'}} protection group(s) found for selected user: {{selectedUserName||'none'}}</p>

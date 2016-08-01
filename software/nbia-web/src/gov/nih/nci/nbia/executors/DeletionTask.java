@@ -29,12 +29,13 @@ public class DeletionTask {
 
 		try{
 			String userName = message.getUserName();
+			imageDeletionService = (ImageDeletionService)SpringApplicationContext.getBean("imageDeletionService");
 			deletionObjectLst = imageDeletionService.getDeletionDisplayObject();
             initializedDeletionTime = getCurrentTime();
 
 			Map<String, List<String>> files = imageDeletionService.removeSeries(userName);
 			
-			imageDeletionService = (ImageDeletionService)SpringApplicationContext.getBean("imageDeletionService");
+			
 			imageFileDeletionService = (ImageFileDeletionService)SpringApplicationContext.getBean("imageFileDeletionService");
 
 			//remove all annotation files and dicom files, this must be out of

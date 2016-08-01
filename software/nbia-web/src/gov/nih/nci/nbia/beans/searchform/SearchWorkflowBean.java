@@ -1379,17 +1379,22 @@ public class SearchWorkflowBean {
     //saved query
     private void updateManufacturerLevelOfTree() {
         DefaultTreeModel manufacturerTree = lookupBean.getManufacturerTree();
-        Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
-
     	for(String selectedManufacturer : this.selectedManufacturers) {
+    		Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
     		while (manufacturers.hasMoreElements()) {
+    			
     			DefaultMutableTreeNode currMan = (DefaultMutableTreeNode) manufacturers.nextElement();
     			EquipmentTreeUserObject manObj = (EquipmentTreeUserObject)currMan.getUserObject();
-
     			if(manObj.getText().equals(selectedManufacturer)) {
     				manObj.setSelected(true);
-
             		expandNode(currMan);
+    	            Enumeration currModels = currMan.children();
+    	            while (currModels.hasMoreElements()) {
+    	            	DefaultMutableTreeNode currModel = (DefaultMutableTreeNode) currModels.nextElement();
+    	            	EquipmentTreeUserObject modelObj = (EquipmentTreeUserObject)currModel.getUserObject();
+    	            		modelObj.setSelected(true);
+    	            		expandNode(currModel);
+    	            }
 
     			}
         	}
@@ -1398,9 +1403,10 @@ public class SearchWorkflowBean {
 
     private void updatedModelLevelOfTree() {
         DefaultTreeModel manufacturerTree = lookupBean.getManufacturerTree();
-        Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
+        
 
     	for(String selectedModel : this.selectedModels) {
+    		Enumeration manufacturers = ((DefaultMutableTreeNode)manufacturerTree.getRoot()).children();
     		while (manufacturers.hasMoreElements()) {
     			DefaultMutableTreeNode currMan = (DefaultMutableTreeNode) manufacturers.nextElement();
 	            Enumeration currModels = currMan.children();

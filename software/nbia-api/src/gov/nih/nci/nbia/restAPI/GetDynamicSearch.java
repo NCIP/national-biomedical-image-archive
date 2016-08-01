@@ -64,7 +64,7 @@ public class GetDynamicSearch extends getData{
 		List<String> seriesSecurityGroups = new ArrayList<String>();
 		List <DynamicSearchCriteria> criteria=new ArrayList<DynamicSearchCriteria>();
 		int i=0;
-		while (inFormParams.get("dataGroup"+i)!=null)
+		while (inFormParams.get("sourceName"+i)!=null)
 		{
 			DynamicSearchCriteria dcriteria = new DynamicSearchCriteria();
 			dcriteria.setDataGroup(inFormParams.get("sourceName"+i).get(0));

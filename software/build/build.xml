@@ -852,11 +852,13 @@ L-->
 			<equals arg1="${authentication.type}" arg2="ldap"/>
 			<then>
 				<echo>copying ${common.resources.dir}/tomcat/jaas.config.ldap to ${dist.exploded.dir}/tomcat-files/jaas.config</echo>
-				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap" tofile="${dist.exploded.dir}/tomcat-files/jaas.config" overwrite="true">
+				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap-auth" tofile="${dist.exploded.dir}/tomcat-files/jaas.config" overwrite="true">
 					<filterset>
 						<filter token="application.context.name" value="${application.context.name}"/>
 						<filter token="ldap.url" value="${ldap.url}"/>
 						<filter token="ldap.basedn" value="${ldap.basedn}"/>
+						<filter token="ldap.user" value="${ldap.user}"/>
+						<filter token="ldap.pass" value="${ldap.pass}"/>
 					</filterset>
 				</copy>
 			</then>
@@ -901,8 +903,21 @@ L-->
 	</target>
 	<target name="build:tomcat:config" depends="init">
 		<if>
-			<equals arg1="${authentication.type}" arg2="ldap"/>
+			<equals arg1="${authentication.type}" arg2="ldap-auth"/>
 			<then>
+				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap-auth" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
+					<filterset>
+						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="ldap.url" value="${ldap.url}"/>
+						<filter token="ldap.basedn" value="${ldap.basedn}"/>
+						<filter token="ldap.user" value="${ldap.user}"/>
+						<filter token="ldap.pass" value="${ldap.pass}"/>
+					</filterset>
+				</copy>
+			</then>
+			 <elseif>
+			 	<equals arg1="${authentication.type}" arg2="ldap"/>
+			  <then>
 				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
 					<filterset>
 						<filter token="application.context.name" value="${application.context.name}"/>
@@ -910,7 +925,8 @@ L-->
 						<filter token="ldap.basedn" value="${ldap.basedn}"/>
 					</filterset>
 				</copy>
-			</then>
+			  </then>
+			 </elseif>
 			<else>
 				<copy file="${common.resources.dir}/tomcat/jaas.config" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
 					<filterset>

@@ -13,7 +13,7 @@
 		<img src="app/images/help.png" alt="Help" />
 	</a>
 </div>	
-<p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" width=525 height=460>
+<p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" width=500 height=500>
 	<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="selectedUserName">
 		<div class="ui-grid-row">
 			<div class="ui-grid-col-4"><label for="loginName">Login Name</label></div>
@@ -22,14 +22,14 @@
 		<div class="ui-grid-row">
 			<div class="ui-grid-col-4"><label >Protection Group</label></div>
 			<div class="ui-grid-col-12" *ngIf="newPgRole">
-				<p-dropdown [options]="availablePGs" [(ngModel)]="selectedPGName" [filter]="true" style="width:350px" ></p-dropdown>
+				<p-dropdown [options]="availablePGs" [(ngModel)]="selectedPGName" [filter]="true" style="width:350px or width: 100%"></p-dropdown>
 				<p>Selected Protection Group: {{selectedPGName||'none'}}</p></div>
 			<div class="ui-grid-col-12" *ngIf="!newPgRole"><input pInputText id="selectedPGName" [(ngModel)]="selectedPGName" [disabled]="true"/></div>	
 		</div>
 		<div class="ui-grid-row">
-			<div class="ui-grid-col-4"><label>Roles</label></div>
+			<div class="ui-grid-col-4"><label>Role</label></div>
 			<div class="ui-grid-col-12">
-				<p-multiSelect [options]="allRoles" [(ngModel)]="srs" [scrollHeight]="300"></p-multiSelect>
+				<p-multiSelect [options]="allRoles" [(ngModel)]="srs" [scrollHeight]="300" style="width:350px or width: 100%"></p-multiSelect>
 				<p>Selected Role(s): <span template="ngFor #c of srs">{{c}} &nbsp;</span></p>
 			</div>
 		</div>

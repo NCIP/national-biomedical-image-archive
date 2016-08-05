@@ -35,7 +35,7 @@
 					<p-multiSelect [options]="cars" [(ngModel)]="selectedCars"></p-multiSelect>
 					<p>Selected Cars: <span template="ngFor #c of selectedCars">{{c}} &nbsp;</span></p>
 				</div-->
-	<p-dialog header="Protection Group Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade">
+	<p-dialog header="Protection Group Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width=600 height=300>
 		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-4"><label for="dataGroup">Protection Group Name</label></div>
@@ -54,7 +54,7 @@
 		</footer>
 	</p-dialog>
 	<p-dialog header="Add Protection Element(s) to Protection Group" [(visible)]="displayAssignDialog" 
-			[responsive]="true" showEffect="fade" width=500 height=300>
+			[responsive]="true" showEffect="fade" width=600 height=300>
 		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6"><label for="dataGroup">Protection Group Name</label></div>
@@ -63,7 +63,7 @@
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6"><label for="description">Available Protection Elements</label></div>
 				<div class="ui-grid-col-12">
-				<p-multiSelect [options]="availablePes" [(ngModel)]="selectedPes" ></p-multiSelect>
+				<p-multiSelect [options]="availablePes" [(ngModel)]="selectedPes" style="width:200px or width: 100%"></p-multiSelect>
 					<p>Selected Data Set(s): <span template="ngFor #c of selectedPes">{{c}} &nbsp;</span></p>
 				</div>
 			</div>
@@ -80,7 +80,7 @@
 		</footer>
 	</p-dialog>
 	<p-dialog header="Remove Protection Element(s) from Protection Group" [(visible)]="displayDeassignDialog" 
-			[responsive]="true" showEffect="fade" width=500 height=300>
+			[responsive]="true" showEffect="fade" width=600 height=300>
 		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6"><label for="dataGroup">Protection Group Name</label></div>
@@ -89,14 +89,10 @@
 			<div class="ui-grid-row">
 				<div class="ui-grid-col-6"><label for="description">Included Protection Elements</label></div>
 				<div class="ui-grid-col-12">
-				<p-multiSelect [options]="includedPes" [(ngModel)]="selectedPes" ></p-multiSelect>
+				<p-multiSelect [options]="includedPes" [(ngModel)]="selectedPes" style="width:200px or width: 100%"></p-multiSelect>
 					<p>Selected Protection Element(s) to Remove: <span template="ngFor #c of selectedPes">{{c}} &nbsp;</span></p>
 				</div>
 			</div>
-			<!--div class="ui-grid-row">
-				<div class="ui-grid-col-4"><label for="active">Active Status</label></div>
-				<div class="ui-grid-col-8"><p-checkbox [(ngModel)]="user.active"></p-checkbox></div>
-			</div-->
 		</div>
 		<footer>
 			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">

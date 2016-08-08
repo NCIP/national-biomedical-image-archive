@@ -7,6 +7,7 @@ package gov.nih.nci.nbia.security;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -38,13 +39,6 @@ public class BadInputFilter implements Filter
      * The set of <code>deny</code> regular expressions we will evaluate.
      */
     protected Pattern denies[] = new Pattern[0];
-
-    /**
-     * A Map of regular expressions used to filter the parameters. The key is
-     * the regular expression String to search for, and the value is the regular
-     * expression String used to modify the parameter if the search String is found.
-     */
-    protected Map<Pattern, String> parameterEscapes = new LinkedHashMap<Pattern, String>();
 
     /**
      * The ServletContext under which this Filter runs. Used for logging.
@@ -143,48 +137,63 @@ public class BadInputFilter implements Filter
     public boolean processAllowsAndDenies(ServletRequest request, ServletResponse response)
         throws IOException, ServletException
       {
-        Map paramMap = request.getParameterMap();
+//        Map paramMap = request.getParameterMap();
 
-        // Loop through the list of parameters.
-        Iterator y = paramMap.keySet().iterator();
-        while (y.hasNext())
-          {
-            String name = (String) y.next();
-            String[] values = request.getParameterValues(name);
-
-            // See if the name contains a forbidden pattern.
-            if (!checkAllowsAndDenies(name, response))
-              {
-            	System.out.println("!!!!!!!find bad input" + name);            	
-                return false;
-              }
-
-            // Check the parameter's values for the pattern.
-            if (values != null)
-              {
-                for (int i = 0; i < values.length; i++)
-                  {
-                    String value = values[i];
-                    if (!checkAllowsAndDenies(value, response))
-                      {
-                    	System.out.println("!!!!!!!find bad input" + value);                          	
-                        return false;
-                      }
-                  }
-              }
-          }
+        //only check the parameter "rand" as a patch for iceface vulnerabilities
+        String value = request.getParameter("rand");
+        if (!checkAllowsAndDenies(value, response))
+        {                       	
+          return false;
+        }
         
-        //check request header
-		Enumeration headerNames = ((HttpServletRequest)request).getHeaderNames();
-		while (headerNames.hasMoreElements()) {
-			String key = (String) headerNames.nextElement();
-			String headerValue = ((HttpServletRequest)request).getHeader(key);
-            if (!checkAllowsAndDenies(headerValue, response))
-            {
-            	System.out.println("!!!!!!!find bad value in header" + headerValue);                          	
-              return false;
-            }
-		}
+        //also check the parameter "rand" is a numerical number or not
+        if (!isNumeric(value.trim()))
+        {
+        	HttpServletResponse hres = (HttpServletResponse) response;
+            hres.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return false;
+        }        
+        
+        
+        //If it is decided to check all params and header, uncommon the code below.
+        
+//        // Loop through the list of parameters.
+//        Iterator y = paramMap.keySet().iterator();
+//        while (y.hasNext())
+//          {
+//            String name = (String) y.next();
+//            String[] values = request.getParameterValues(name);
+//
+//            // See if the name contains a forbidden pattern.
+//            if (!checkAllowsAndDenies(name, response))
+//              {           	
+//                return false;
+//              }
+//
+//            // Check the parameter's values for the pattern.
+//            if (values != null)
+//              {
+//                for (int i = 0; i < values.length; i++)
+//                  {
+//                    String value = values[i];
+//                    if (!checkAllowsAndDenies(value, response))
+//                      {                         	
+//                        return false;
+//                      }
+//                  }
+//              }
+//          }
+//        
+//        //check request header
+//		Enumeration headerNames = ((HttpServletRequest)request).getHeaderNames();
+//		while (headerNames.hasMoreElements()) {
+//			String key = (String) headerNames.nextElement();
+//			String headerValue = ((HttpServletRequest)request).getHeader(key);
+//            if (!checkAllowsAndDenies(headerValue, response))
+//            {
+//              return false;
+//            }
+//		}
 
         // No parameter caused a deny. The request should continue.
         
@@ -317,4 +326,29 @@ public class BadInputFilter implements Filter
         Pattern reArray[] = new Pattern[reList.size()];
         return ((Pattern[]) reList.toArray(reArray));
       }
+
+    public static boolean isNumeric(String str)
+    {	
+        DecimalFormatSymbols currentLocaleSymbols = DecimalFormatSymbols.getInstance();
+        char localeMinusSign = currentLocaleSymbols.getMinusSign();
+
+        if ( !Character.isDigit( str.charAt( 0 ) ) && str.charAt( 0 ) != localeMinusSign ) return false;
+
+        boolean isDecimalSeparatorFound = false;
+        char localeDecimalSeparator = currentLocaleSymbols.getDecimalSeparator();
+
+        for ( char c : str.substring( 1 ).toCharArray() )
+        {   
+            if ( !Character.isDigit( c ) )
+            {
+                if ( c == localeDecimalSeparator && !isDecimalSeparatorFound )
+                {
+                    isDecimalSeparatorFound = true;
+                    continue;
+                }
+                return false;
+            }
+        }
+        return true;    	
+    }
   }

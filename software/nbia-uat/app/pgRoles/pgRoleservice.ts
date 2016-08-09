@@ -3,6 +3,7 @@ import {Http, Response} from 'angular2/http';
 import {PgRole} from '../../app/pgRoles/pgRole';
 import myGlobals = require('../../app/conf/globals');
 import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
 import {Headers} from "angular2/http";
 import {Observable} from 'rxjs/Observable';
 import {SelectItem} from 'primeng/components/api/selectitem';
@@ -43,10 +44,15 @@ export class PgRoleService {
 			headers.append('Authorization', 'Bearer ' + myGlobals.accessToken);      
 		}
 		
-        return this.http.get(serviceUrl + params,{headers: headers})
-                    .toPromise()
-                    .then(res => <PgRole[]> res.json())
-                    .then(data => { return data; }); 	
+//        return this.http.get(serviceUrl + params,{headers: headers})
+//                    .toPromise()
+//                    .then(res => <PgRole[]> res.json())
+//                    .then(data => { return data; }); 
+		if (selectedUserName == null) 
+			return [];
+		else	
+			return this.http.get(serviceUrl + params,{headers: headers})
+			.map((res) => <PgRole[]> res.json());
 	}
 	
 	getAllRoles() {

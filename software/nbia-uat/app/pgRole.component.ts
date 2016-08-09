@@ -1,5 +1,7 @@
 import {Component, Input, ChangeDetectionStrategy} from 'angular2/core';
 import {HTTP_PROVIDERS} from 'angular2/http';
+import 'rxjs/add/operator/map';
+import {Observable} from 'rxjs/Rx';
 import {Dropdown,PickList,MultiSelect,InputText,DataTable,Button,Dialog,Column,Header,Footer} from 'primeng/primeng';
 import {Checkbox} from 'primeng/primeng';
 import {PgRole} from './pgRoles/pgRole';
@@ -33,32 +35,35 @@ export class PgRoleComponent {
 	selectedPgRole: PgRole;
 	postData: string;
 	wikiLink: string;
+	searchInProgress:boolean;
 
     constructor(private pgRoleService: PgRoleService) { 
 		this.wikiLink = myGlobals.wikiContextSensitiveHelpUrl + myGlobals.userAuthorizationWiki;
 	}
 	
 	getPgRolesForUser() {
+		this.searchInProgress = true;
 		this.pgRoles = [];
 		this.pgSize = 0;
-		this.pgRoleService.getPgRolesForUser(this.selectedUserName).
-		then(pgRoles => {this.pgRoles = pgRoles; this.pgSize = this.pgRoles.length;}, error =>  this.errorMessage = <any>error);	
+//		this.pgRoleService.getPgRolesForUser(this.selectedUserName).
+//		then(pgRoles => {this.pgRoles = pgRoles; this.pgSize = this.pgRoles.length; this.searchInProgress=false;}, error =>  this.errorMessage = <any>error);	
+		this.pgRoleService.getPgRolesForUser(this.selectedUserName).subscribe((data) => {
+		this.pgRoles = data;this.pgSize = this.pgRoles.length; this.searchInProgress=false;
+    });
 	}
 	
     ngOnInit() {
-			this.userNames = [];
+		this.userNames = [];
 		this.userNames.push({label:'Select User', value:''});	
 		this.pgRoleService.getUserNames().
 		then(userNames => this.userNames = <SelectItem[]>userNames, error =>  this.errorMessage = <any>error);
 		this.selectedUserName = null;
-
 		
 		this.availablePGs = [];
 		this.availablePGs.push({label:'Choose', value:''});
 		
-
 		this.allRoles = [];
-    }
+		}
 	
 	ngOnChanges(changes: any[]) {
 		var newLogin = changes['addedUser'].currentValue; 

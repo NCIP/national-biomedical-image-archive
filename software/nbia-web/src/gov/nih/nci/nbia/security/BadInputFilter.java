@@ -141,19 +141,21 @@ public class BadInputFilter implements Filter
 
         //only check the parameter "rand" as a patch for iceface vulnerabilities
         String value = request.getParameter("rand");
-        if (!checkAllowsAndDenies(value, response))
-        {                       	
-          return false;
-        }
-        
-        //also check the parameter "rand" is a numerical number or not
-        if (!isNumeric(value.trim()))
+        if (value!=null&&value.length()>0)
         {
-        	HttpServletResponse hres = (HttpServletResponse) response;
-            hres.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return false;
-        }        
+           if (!checkAllowsAndDenies(value, response))
+           {                       	
+             return false;
+           }
         
+           //also check the parameter "rand" is a numerical number or not
+           if (!isNumeric(value.trim()))
+           {
+        	   HttpServletResponse hres = (HttpServletResponse) response;
+               hres.sendError(HttpServletResponse.SC_FORBIDDEN);
+               return false;
+           }        
+        }
         
         //If it is decided to check all params and header, uncommon the code below.
         

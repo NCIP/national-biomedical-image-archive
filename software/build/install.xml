@@ -126,29 +126,43 @@ L-->
     "/>
 
 	<target name="install:tomcat:config" description="Configures Tomcat" depends="" unless="exclude.tomcat.config">
-			<if>
-				<equals arg1="${authentication.type}" arg2="ldap"/>
-				<then>
-					<copy file="${common.resources.dir}/tomcat/jaas.config.ldap" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
-						<filterset>
-							<filter token="application.context.name" value="${application.context.name}"/>
-							<filter token="ldap.url" value="${ldap.url}"/>
-							<filter token="ldap.basedn" value="${ldap.basedn}"/>
-						</filterset>
-					</copy>
-				</then>
-				<else>
-					<copy file="${common.resources.dir}/tomcat/jaas.config" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
-						<filterset>
-							<filter token="database.type" value="${database.type}"/>
-							<filter token="database.driver" value="${database.driver}"/>
-							<filter token="database.url" value="${database.url}"/>
-							<filter token="database.user" value="${database.user}"/>
-							<filter token="database.password" value="${database.password}"/>
-						</filterset>
-					</copy>
-				</else>
-			</if>
+		<if>
+			<equals arg1="${authentication.type}" arg2="ldap-auth"/>
+			<then>
+				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap-auth" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
+					<filterset>
+						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="ldap.url" value="${ldap.url}"/>
+						<filter token="ldap.basedn" value="${ldap.basedn}"/>
+						<filter token="ldap.user" value="${ldap.user}"/>
+						<filter token="ldap.pass" value="${ldap.pass}"/>
+					</filterset>
+				</copy>
+			</then>
+			 <elseif>
+			 	<equals arg1="${authentication.type}" arg2="ldap"/>
+			  <then>
+				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
+					<filterset>
+						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="ldap.url" value="${ldap.url}"/>
+						<filter token="ldap.basedn" value="${ldap.basedn}"/>
+					</filterset>
+				</copy>
+			  </then>
+			 </elseif>
+			<else>
+				<copy file="${common.resources.dir}/tomcat/jaas.config" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
+					<filterset>
+						<filter token="database.type" value="${database.type}"/>
+						<filter token="database.driver" value="${database.driver}"/>
+						<filter token="database.url" value="${database.url}"/>
+						<filter token="database.user" value="${database.user}"/>
+						<filter token="database.password" value="${database.password}"/>
+					</filterset>
+				</copy>
+			</else>
+		</if>
 			<copy file="${common.resources.dir}/tomcat/setenv.bat" tofile="${gov.nih.nci.ncia.tomcat.home}/bin/setenv.bat" overwrite="true">
 				<filterset>
 					<filter token="tomcat.home" value="${gov.nih.nci.ncia.tomcat.home}"/>

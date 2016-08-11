@@ -48,9 +48,9 @@ export class PgRoleService {
 //                    .toPromise()
 //                    .then(res => <PgRole[]> res.json())
 //                    .then(data => { return data; }); 
-		if (selectedUserName == null) 
-			return [];
-		else	
+//		if (selectedUserName === undefined) 
+//			return [];
+//		else	
 			return this.http.get(serviceUrl + params,{headers: headers})
 			.map((res) => <PgRole[]> res.json());
 	}

@@ -5,11 +5,9 @@
 </div>
 	
 <p-dropdown [options]="userNames" [(ngModel)]="selectedUserName"  [filter]="true" style="width:100px" (onChange)="getPgRolesForUser()"></p-dropdown>
-<div *ngIf="selectedUserName==null"><br/>Please select a user from above drop down list and click on it.<br/></div>
-<div *ngIf="searchInProgress"><br/>Searching in progress...<br/></div>
+<br/>
 
 <div *ngIf="searchInProgress===false">
-<p>{{pgSize || 'No'}} protection group(s) found for selected user: {{selectedUserName||'none'}}</p>
 	<br/>
 	<p-dataTable [value]="pgRoles" [paginator]="true" [rows]="10" [responsive]="true">
 
@@ -22,8 +20,10 @@
 		</p-column>
 	</p-dataTable>
 
-<div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add Protection Group and Access Role"></button></div>
+	<div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add Protection Group and Access Role"></button></div>
 </div>
+
+<p-messages [value]="statusMessage" [closable]="false" style="height:10px;"></p-messages>
 
 <p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" width=500 height=500>
 	<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="selectedUserName">

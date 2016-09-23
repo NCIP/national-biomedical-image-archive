@@ -55,6 +55,7 @@ public interface NCIASecurityManager {
     public enum RoleType {
 
         READ(NCIAConfig.getProtectionElementPrefix() + "READ"),
+		ADMIN(NCIAConfig.getProtectionElementPrefix() + "ADMIN"),
         MANAGE_VISIBILITY_STATUS(NCIAConfig.getProtectionElementPrefix() +
             "MANAGE_VISIBILITY_STATUS"),
         VIEW_SUBMISSION_REPORT(NCIAConfig.getProtectionElementPrefix() +

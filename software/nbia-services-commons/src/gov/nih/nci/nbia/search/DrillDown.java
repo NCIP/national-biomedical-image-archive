@@ -8,11 +8,11 @@
 
 package gov.nih.nci.nbia.search;
 
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 /**
  * This object is responsible for drilling down into a patient result to return
@@ -25,19 +25,19 @@ public interface DrillDown {
 	/**
 	 * For a given patient, return all the studies for it.
 	 */
-	public StudySearchResult[] retrieveStudyAndSeriesForPatient(PatientSearchResult patientSearchResult);
+	public StudySearchResult[] retrieveStudyAndSeriesForPatient(PatientSearchResult patientSearchResult, String userName);
 
 
 	/**
 	 * For a given series id, return all the images for it.  This id is
 	 * not the DICOM series instance uid, but the unique identifier at a given node (pkid).
 	 */
-	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult);
+	public ImageSearchResult[] retrieveImagesForSeries(SeriesSearchResult seriesSearchResult, String userName);
 	/**
 	 * For a given series id, return all the images for it.  This id is
 	 * not the DICOM series instance uid, but the unique identifier at a given node (pkid).
 	 */
-	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult);
-	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult);
+	public ImageSearchResultEx[] retrieveImagesForSeriesEx(SeriesSearchResult seriesSearchResult, String userName);
+	public ImageSearchResultEx[] retrieveImagesForSeriesForAllVersion(SeriesSearchResult seriesSearchResult, String userName);
 	public void setThumbnailURLResolver(ThumbnailURLResolver thumbnailURLResolver);
 }

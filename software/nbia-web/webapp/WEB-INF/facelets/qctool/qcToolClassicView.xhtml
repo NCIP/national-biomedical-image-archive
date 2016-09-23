@@ -33,6 +33,7 @@ L-->
                                             <f:selectItems id="slctStatisItms"
                                                 value="#{qcToolBean.qcStatusItems}" />
                                         </ice:selectManyCheckbox>
+                                        
                                         <!-- ice:selectManyMenu  id="slctQcStatus"
                                             value="#{qcToolBean.selectedQcStatus}" partialSubmit="false"
                                             style="white-space:nowrap; ">
@@ -47,15 +48,51 @@ L-->
                                     <ice:outputLabel for="collectionSiteMenu" value="#{msg.criteria_CollectionCriteria}" />
                                     <br />
                                 </td>
-                                <td class="formField" colspan="2" align="left">
+                                <td class="formField" align="left">
                                     <ice:selectOneMenu id="collectionSiteMenu"
                                         value="#{qcToolBean.selectedCollectionSite}"
                                         style="font-size:1em" partialSubmit="false">
                                         <f:selectItems value="#{qcToolBean.collectionItems}" />
                                     </ice:selectOneMenu>
                                 </td>
+                                
+                                 <td class="formField" >                               
+                    		     <ice:outputLabel for="releasedStatus" value="#{msg.qctool_ReleasedStatus}" />
+                                   <ice:selectOneMenu id="releasedStatus"
+                                                     value="#{qcToolBean.selectedQcReleasedStatus}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcReleasedStatus}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>
+                               
                             </tr>
-    
+                                   
+							<tr>
+                                <td class="formLabel">
+                                    <ice:outputLabel for="AdditionalFlags" value="#{msg.qctool_additionalFlags}" />
+                                    <br />
+                                </td>
+                                						
+                               <td class="formField" >                               
+                    		     <ice:outputLabel for="batchNum" value="#{msg.qctool_batch}:" />
+                                   <ice:selectOneMenu id="batchNum"
+                                                     value="#{qcToolBean.selectedQcBatchNum}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcBatchNums}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>                            
+                            
+                                <td class="formField" >                               
+                    		     <ice:outputLabel for="submissionType" value="#{msg.qctool_SubmissionType}" />
+                                   <ice:selectOneMenu id="submissionType"
+                                                     value="#{qcToolBean.selectedQcSubmissionType}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcSubmissionTypes}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>
+                               
+						  </tr>		
+                                                 
                             <tr>
                                 <td width="12%" class="formLabel">
                                     

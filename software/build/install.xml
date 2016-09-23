@@ -9,9 +9,9 @@ L-->
 <project name="nbia-installer" default="install" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:antunit="antlib:org.apache.ant.antunit">
 	<description>
     This ant build file is used to install the NBIA application. All targets will begin with install:.  
-    The default install target install will drop and create the database and user, configure JBOSS, 
-    deploy the application to JBOSS, configure the application. There install path include sub-paths for 
-    JBOSS, database.  The BDA Macros are in use in the project that means that the user
+    The default install target install will drop and create the database and user, configure tomcat, 
+    deploy the application to tomcat, configure the application. There install path include sub-paths for 
+    tomcat, database.  The BDA Macros are in use in the project that means that the user
     will be prompted to contiue if the application or database already exist, this can be overridden by the
     property force.reinstall.
   </description>
@@ -34,9 +34,7 @@ L-->
 	<property name="working.dir" location="${basedir}/working"/>
 	<property name="temp.dir" location="${working.dir}/temp"/>
 	<property name="common.lib.dir" location="${basedir}/common/resources/lib"/>
-	<property name="jboss-conf.dir.src" location="${basedir}/common/resources/jbossEAP6-conf"/>
-	<property name="jboss-conf.dir.dest" location="${working.dir}/common/resources/jbossEAP6-conf"/>
-	<property name="jboss.relative.path" value="${jboss.binaries.relative.dir}"/>
+	<property name="common.resources.dir" location="${basedir}/common/resources/"/>
 	<!-- bda process stuff -->
 	<!--property name="bda-utils.dir" location="${basedir}/bda-utils"/-->
 	<property name="tools.dir" location="${basedir}/${tools.dist.relative.dir}"/>
@@ -119,161 +117,89 @@ L-->
 		<generate-jar-signing-keystore/>
 	</target>
 	<!-- Wrapper target to deploy all containers to one server -->
-	<target name="install" description="Installs and configures JBOSS, creates database, and deploys application" depends="
+	<target name="install" description="Installs and configures tomcat, creates database, and deploys application" depends="
     common:common:init,
-    install:common:validation:pre-install,
     build:db:new,
     install:ctp,
-    install:jboss:config,
-    install:all:post,
-    install:common:validation:post-install
+	install:tomcat:config,
+    install:all:post
     "/>
-	<target name="install:jboss:create.config:files">
-		<delete dir="${jboss-conf.dir.dest}"/>
-		<copy file="${jboss-conf.dir.src}/DataSourceItem.xml" todir="${jboss-conf.dir.dest}" overwrite="true"/>
-		<copy file="${jboss-conf.dir.src}/relationship.xml" todir="${jboss-conf.dir.dest}" overwrite="true"/>
-		<copy file="${jboss-conf.dir.src}/nbia_modules.cli" tofile="${jboss-conf.dir.dest}/nbia_modules.cli" overwrite="true">
-			<filterset>
-				<filter token="database.type" value="${database.type}"/>
-				<filter token="jboss.modules.lib" value="${basedir}/jboss-module-lib"/>
-				<filter token="database.driver.jar" value="${database.driver.jar}"/>
-				<filter token="csm.api.jar" value="${csm.api.jar}"/>
-				<filter token="jbossall.client.jar" value="${jbossall.client.jar}"/>
-				<filter token="bouncy.castle.jar" value="${bouncy.castle.jar}"/>
-			</filterset>
-		</copy>
-		<copy file="${jboss-conf.dir.src}/nbia_config.cli" tofile="${jboss-conf.dir.dest}/nbia_config.cli" overwrite="true">
-			<filterset>
-				<filter token="database.type" value="${database.type}"/>
-				<filter token="database.driver" value="${database.driver}"/>
-				<filter token="database.url" value="${database.url}"/>
-				<filter token="database.user" value="${database.user}"/>
-				<filter token="database.password" value="${database.password}"/>
-			</filterset>
-		</copy>
-		<!-- switch for db or ldap -->
+
+	<target name="install:tomcat:config" description="Configures Tomcat" depends="" unless="exclude.tomcat.config">
 		<if>
-			<equals arg1="${authentication.type}" arg2="ldap"/>
+			<equals arg1="${authentication.type}" arg2="ldap-auth"/>
 			<then>
-				<copy file="${jboss-conf.dir.src}/login-config.ldap-block.xml" tofile="${jboss-conf.dir.dest}/login-config.block.xml" overwrite="true">
+				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap-auth" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
+					<filterset>
+						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="ldap.url" value="${ldap.url}"/>
+						<filter token="ldap.basedn" value="${ldap.basedn}"/>
+						<filter token="ldap.user" value="${ldap.user}"/>
+						<filter token="ldap.pass" value="${ldap.pass}"/>
+					</filterset>
+				</copy>
+			</then>
+			 <elseif>
+			 	<equals arg1="${authentication.type}" arg2="ldap"/>
+			  <then>
+				<copy file="${common.resources.dir}/tomcat/jaas.config.ldap" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
 					<filterset>
 						<filter token="application.context.name" value="${application.context.name}"/>
 						<filter token="ldap.url" value="${ldap.url}"/>
 						<filter token="ldap.basedn" value="${ldap.basedn}"/>
 					</filterset>
 				</copy>
-			</then>
+			  </then>
+			 </elseif>
 			<else>
-				<copy file="${jboss-conf.dir.src}/login-config.db-block.xml" tofile="${jboss-conf.dir.dest}/login-config.block.xml" overwrite="true">
+				<copy file="${common.resources.dir}/tomcat/jaas.config" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/jaas.config" overwrite="true">
 					<filterset>
-						<filter token="application.context.name" value="${application.context.name}"/>
+						<filter token="database.type" value="${database.type}"/>
+						<filter token="database.driver" value="${database.driver}"/>
+						<filter token="database.url" value="${database.url}"/>
 						<filter token="database.user" value="${database.user}"/>
 						<filter token="database.password" value="${database.password}"/>
-						<filter token="database.url" value="${database.url}"/>
-						<filter token="database.driver" value="${database.driver}"/>
 					</filterset>
 				</copy>
 			</else>
 		</if>
-		<concat destfile="${jboss-conf.dir.dest}/nbia_config.cli" append="true">
-			<filelist dir="${jboss-conf.dir.dest}" files="login-config.block.xml"/>
-		</concat>
-		<delete file="${jboss-conf.dir.dest}/login-config.block.xml"/>
-		<copy file="${jboss-conf.dir.src}/nbia_system_properties.cli" tofile="${jboss-conf.dir.dest}/nbia_system_properties.cli" overwrite="true">
-			<filterset>
-				<filter token="gov.nih.nci.ncia.imaging.server.url" value="${gov.nih.nci.ncia.imaging.server.url}"/>
-				<filter token="gov.nih.nci.ncia.mapped.image.path.head" value="${gov.nih.nci.ncia.mapped.image.path.head}"/>
-				<filter token="gov.nih.nci.ncia.image.path.pattern" value="${gov.nih.nci.ncia.image.path.pattern}"/>
-				<filter token="gov.nih.nci.ncia.jboss.mq.url" value="${gov.nih.nci.ncia.jboss.mq.url}"/>
-				<filter token="gov.nih.nci.ncia.zip.location" value="${gov.nih.nci.ncia.zip.location}"/>
-				<filter token="gov.nih.nci.ncia.ftp.location" value="${gov.nih.nci.ncia.ftp.location}"/>
-				<filter token="gov.nih.nci.ncia.grid.local.node.name" value="${gov.nih.nci.ncia.grid.local.node.name}"/>
-				<filter token="gov.nih.nci.ncia.ui.uid.display.length" value="${gov.nih.nci.ncia.ui.uid.display.length}"/>
-				<filter token="gov.nih.nci.ncia.ftp.url" value="${gov.nih.nci.ncia.ftp.url}"/>
-				<filter token="gov.nih.nci.ncia.admin.email" value="${gov.nih.nci.ncia.admin.email}"/>
-				<filter token="gov.nih.nci.ncia.installationSite" value="${gov.nih.nci.ncia.installationSite}"/>
-				<filter token="enabled_guest_account" value="${enabled_guest_account}"/>
-				<filter token="guest_username" value="${guest_username}"/>
-				<filter token="gov.nih.nci.ncia.download.server.url" value="${gov.nih.nci.ncia.download.server.url}"/>
-				<filter token="enable_classic_download" value="${enable_classic_download}"/>
-				<filter token="registration.email.subject" value="${registration.email.subject}"/>
-				<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
-				<filter token="gov.nih.nci.ncia.solr.updateinterval" value="${gov.nih.nci.ncia.solr.updateinterval}"/>
-				<filter token="gov.nih.nci.ncia.workflow.updateinterval" value="${gov.nih.nci.ncia.workflow.updateinterval}"/>
-				<filter token="discover.remote.nodes" value="${discover.remote.nodes}"/>
-				<filter token="protection_element_prefix" value="${protection_element_prefix}"/>
-				<filter token="csm_application_name" value="${csm_application_name}"/>
-				<filter token="database.type" value="${database.type}"/>
-				<filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
-				<filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
-				<filter token="gov.nih.nci.ncia.download.no.retry" value="${gov.nih.nci.ncia.download.no.retry}"/>
-				<filter token="gov.nih.nci.ncia.encrypt.key" value="${gov.nih.nci.ncia.encrypt.key}"/>
-				<filter token="gov.nih.nci.ncia.wiki.context.sensitive.help.url" value="${gov.nih.nci.ncia.wiki.context.sensitive.help.url}"/>
-			</filterset>
+			<copy file="${common.resources.dir}/tomcat/setenv.bat" tofile="${gov.nih.nci.ncia.tomcat.home}/bin/setenv.bat" overwrite="true">
+				<filterset>
+					<filter token="tomcat.home" value="${gov.nih.nci.ncia.tomcat.home}"/>
+				</filterset>
+			</copy>
+			<copy file="${common.resources.dir}/tomcat/context.xml" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/context.xml" overwrite="true">
+			</copy>
+			<copy file="${common.resources.dir}/tomcat/log4j.properties" tofile="${gov.nih.nci.ncia.tomcat.home}/lib/log4j.properties" overwrite="true">
+			</copy>
+			<copy file="${common.resources.dir}/tomcat/server.xml" tofile="${gov.nih.nci.ncia.tomcat.home}/conf/server.xml" overwrite="true">
+				<filterset>
+					<filter token="database.type" value="${database.type}"/>
+					<filter token="database.driver" value="${database.driver}"/>
+					<filter token="database.url" value="${database.url}"/>
+					<filter token="database.user" value="${database.user}"/>
+					<filter token="database.password" value="${database.password}"/>
+					<filter token="tomcat.server.port" value="${tomcat.server.port}"/>
+				</filterset>
+			</copy>
+		    <copy file="${common.lib.dir}/${database.driver.jar}" tofile="${gov.nih.nci.ncia.tomcat.home}/lib/${database.driver.jar}" overwrite="true">
 		</copy>
-	</target>
-	<target name="install:jboss:config" description="Configures JBOSS" depends="install:jboss:create.config:files" unless="exclude.jboss.config">
-		<sequential>
-			<if>
-				<and>
-					<available file="${JBOSS_HOME}/bin/standalone.sh"/>
-					<os family="unix"/>
-				</and>
-				<then>
-					<sequential>
-						<echo message="Linux -- Configuring ${JBOSS_HOME} with standalone-full"/>
-						<!--exec executable="${JBOSS_HOME}/bin/standalone.sh -c standalone-full.xml &" osfamily="unix" />
-			<sleep seconds="60" /-->
-						<start-jbossEAP/>
-						<sleep seconds="20"/>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.sh">
-							<arg value="-c"/>
-							<arg value="controller=127.0.0.1:9999"/>
-							<arg value="--file=${jboss-conf.dir.dest}/nbia_modules.cli"/>
-						</exec>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.sh">
-							<arg value="-c"/>
-							<arg value="controller=127.0.0.1:9999"/>
-							<arg value="--file=${jboss-conf.dir.dest}/nbia_config.cli"/>
-						</exec>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.sh">
-							<arg value="-c"/>
-							<arg value="controller=127.0.0.1:9999"/>
-							<arg value="--file=${jboss-conf.dir.dest}/nbia_system_properties.cli"/>
-						</exec>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.sh">
-							<arg value="--connect"/>
-							<arg value="--command=:shutdown"/>
-						</exec>
-					</sequential>
-				</then>
-				<else>
-					<sequential>
-						<echo message="Windows -- Configuring ${JBOSS_HOME} with standalone-full"/>
-						<start-jbossEAP/>
-						<sleep seconds="20"/>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.bat">
-							<arg value="-c"/>
-							<arg value="controller=127.0.0.1:9999"/>
-							<arg value="--file=${jboss-conf.dir.dest}/nbia_modules.cli"/>
-						</exec>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.bat">
-							<arg value="-c"/>
-							<arg value="controller=127.0.0.1:9999"/>
-							<arg value="--file=${jboss-conf.dir.dest}/nbia_config.cli"/>
-						</exec>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.bat">
-							<arg value="-c"/>
-							<arg value="controller=127.0.0.1:9999"/>
-							<arg value="--file=${jboss-conf.dir.dest}/nbia_system_properties.cli"/>
-						</exec>
-						<exec executable="${JBOSS_HOME}/bin/jboss-cli.bat">
-							<arg value="--connect"/>
-							<arg value="--command=:shutdown"/>
-						</exec>
-					</sequential>
-				</else>
-			</if>
+		<copy file="${basedir}/install.properties" tofile="${basedir}/nbia.properties"/>
+	    <war destfile="${basedir}/nbia-wars/ncia.war" update="true">
+	    	<zipfileset dir="${basedir}" includes="**/nbia.properties" prefix="WEB-INF/classes"/>
+	    </war>
+	    <war destfile="${basedir}/nbia-wars/nbia-api.war" update="true">
+	    	<zipfileset dir="${basedir}" includes="**/nbia.properties" prefix="WEB-INF/classes"/>
+	    </war>		
+	    <war destfile="${basedir}/nbia-wars/nbia-download.war" update="true">
+	    	<zipfileset dir="${basedir}" includes="**/nbia.properties" prefix="WEB-INF/classes"/>
+	    </war>				
+		  <copy todir="${gov.nih.nci.ncia.tomcat.home}/webapps">
+		    <fileset dir="${basedir}/nbia-wars"/>
+		  </copy>
+		  <copy todir="${gov.nih.nci.ncia.tomcat.home}/webapps/nbia-uat">
+		    <fileset dir="${basedir}/nbia-uat"/>
+		  </copy>
 			<echo message="Creating solr home = ${gov.nih.nci.ncia.solr.home}"/>
 			<mkdir dir="${gov.nih.nci.ncia.solr.home}"/>
 			<copy todir="${gov.nih.nci.ncia.solr.home}">
@@ -281,37 +207,7 @@ L-->
 					<include name="**/*"/>
 				</fileset>
 			</copy>
-			<copy todir="${JBOSS_BASE_DIR}/data">
-				<fileset dir="${basedir}/common/resources/jbossEAP6-conf">
-					<include name="DataSourceItem.xml"/>
-					<include name="relationship.xml"/>
-				</fileset>
-			</copy>
-			<if>
-				<not>
-					<isset property="exclude.nbia-api"/>
-				</not>
-				<then>
-					<echo message="!!!!!copying all ear and wars including nbia-api.war"/>
-					<copy todir="${JBOSS_BASE_DIR}/deployments">
-						<fileset dir="${basedir}/nbia-ear">
-							<include name="*.ear"/>
-							<include name="*.war"/>
-						</fileset>
-					</copy>
-				</then>
-				<else>
-					<echo message="!!!!!exclude nbia-api.war"/>
-					<copy todir="${JBOSS_BASE_DIR}/deployments">
-						<fileset dir="${basedir}/nbia-ear">
-							<include name="nbia.ear"/>
-							<include name="oviyam2.war"/>
-						</fileset>
-					</copy>
-				</else>
-			</if>
-			<start-jbossEAP/>
-		</sequential>
+
 	</target>
 	<target name="install:all:post" depends="common:common:init,
                    install:ctp:server:post"/>
@@ -327,27 +223,15 @@ L-->
 			<os family="windows"/>
 		</condition>
 		<echo message="application.base.path=${application.base.path}"/>
-		<property name="jboss.home" value="${application.base.path}/${jboss.relative.path}"/>
+		<property name="tomcat.home" value="${application.base.path}/${tomcat.relative.path}"/>
 	</target>
 	<target name="common:common:init" depends="common:common:init:pre">
 		<!-- bda-blueprints-webapp can use either Oracle or MySQL or PostgreSQL as its database platform, this is controled by the database.type property.  Based on the value of this property sent several variables for use during install -->
 		<echoproperties prefix="database"/>
-		<switch value="${database.type}">
-			<case value="oracle">
-				<property name="database.dialect" value="org.hibernate.dialect.OracleDialect"/>
-				<property name="database.driver.file" value="${basedir}/jboss-module-lib/${database.driver.jar}"/>
-				<property name="database.driver" value="oracle.jdbc.driver.OracleDriver"/>
-				<property name="database.schema" value="${database.name}"/>
-			</case>
-			<case value="mysql">
 				<property name="database.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-				<property name="database.driver.file" value="${basedir}/jboss-module-lib/${database.driver.jar}"/>
+				<property name="database.driver.file" value="${common.lib.dir}/${database.driver.jar}"/>
 				<property name="database.driver" value="com.mysql.jdbc.Driver"/>
 				<property name="database.schema" value="${database.name}"/>
-			</case>
-			<default>
-      </default>
-		</switch>
 		<path id="jdbc.driver.classpath">
 			<pathelement location="${database.driver.file}"/>
 		</path>
@@ -363,7 +247,6 @@ L-->
 			<filter token="database.driver" value="${database.driver}"/>
 			<!-- added for liquibase -->
 			<filter token="db-upgrade.run.dir" value="${db-upgrade.dir.dest}/${database.type}"/>
-			<filter token="jboss.home" value="${jboss.home}"/>
 			<filter token="database.dialect" value="${database.dialect}"/>
 			<filter token="hibernate.cfg.file.path" value="${hibernate.cfg.file.path}"/>
 			<filter token="env.LOGNAME" value="${env.LOGNAME}"/>
@@ -391,12 +274,9 @@ L-->
 				<filtersfile file="project.properties"/>
 			</filterset>
 		</copy>
-		<property name="validation.pre.port.list" value="${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.server.port},${jboss.web.service.port}"/>
-		<property name="validation.post.http.list" value="${jboss.server.port}"/>
-		<property name="validation.post.socket.list" value="${jboss.server.rmi.port},${jboss.server.jndi.port},${jboss.service.rmiobject.port},${jboss.jms.port},${jboss.web.service.port}"/>
 	</target>
 	<target name="install:common:validation:pre-install" description="Runs pre-install validation checks bda-utils" depends="common:common:init">
-		<validate-pre-install-common ant.check.version="${ant.minimum.version}" java.check.version.major="${java.major.version}" java.check.version.minor="${java.minor.version}" property.exclude.pattern.list="tomcat.*,jboss.*,grid.*,ctp.*,ncia-core-grid.*,ncia-core-grid-unsecured.*,nbia-grid.*"/>
+		<validate-pre-install-common ant.check.version="${ant.minimum.version}" java.check.version.major="${java.major.version}" java.check.version.minor="${java.minor.version}" property.exclude.pattern.list="tomcat.*,jboss.*,ctp.*"/>
 	</target>
 	<target name="install:common:validation:post-install" description="Run post-install checks from bda-utils" depends="
     common:common:init">
@@ -410,14 +290,14 @@ L-->
                       install:database:prep,
                        install:database:validation:pre-install">
 		  <!-- Drop all schema objects or re-create the db -->
-			<database-clean database.driver.file="${basedir}/jboss-module-lib/${database.driver.jar}"/>
+			<database-clean database.driver.file="${common.lib.dir}/${database.driver.jar}"/>
 			<!-- Run baseline scripts stored in db.install.create.${database.type}.file.list variable -->
 			<switch value="${database.type}">
 			    <case value="oracle">
-				<database-install db.install.create.file.list="${db.install.create.oracle.file.list}" sql.delimiter=";" sql.delimitertype="row" database.driver.file="${basedir}/jboss-module-lib/${database.driver.jar}"/>
+				<database-install db.install.create.file.list="${db.install.create.oracle.file.list}" sql.delimiter=";" sql.delimitertype="row" database.driver.file="${common.lib.dir}/${database.driver.jar}"/>
 			    </case>
 			    <case value="mysql">
-				<database-install db.install.create.file.list="${db.install.create.mysql.file.list}" database.driver.file="${basedir}/jboss-module-lib/${database.driver.jar}"/>
+				<database-install db.install.create.file.list="${db.install.create.mysql.file.list}" database.driver.file="${common.lib.dir}/${database.driver.jar}"/>
 			    </case>
 		</switch>
 		<database-upgrade database.changelog.file="${os.temp.dir}/nbia/db-upgrade.xml"/>

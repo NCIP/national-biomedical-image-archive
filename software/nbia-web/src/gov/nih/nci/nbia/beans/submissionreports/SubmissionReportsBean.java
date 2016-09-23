@@ -40,21 +40,26 @@ public class SubmissionReportsBean {
         // get Site information and Handle authorization
         SecurityBean secure = BeanManager.getSecurityBean();
         AuthorizationManager am = secure.getAuthorizationManager();
-        List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.VIEW_SUBMISSION_REPORT);
+        try {
+			List<SiteData> authorizedSites = am.getAuthorizedSites(RoleType.VIEW_SUBMISSION_REPORT);
 
-        for(int i=0; i<authorizedSites.size(); i++){
-            authorizedProjectsSitesSelectItems.add(new SelectItem(VerifySubmissionUtil.siteDataToString(authorizedSites.get(i))));
-        }
+			for(int i=0; i<authorizedSites.size(); i++){
+			    authorizedProjectsSitesSelectItems.add(new SelectItem(VerifySubmissionUtil.siteDataToString(authorizedSites.get(i))));
+			}
 
-        Collections.sort(authorizedProjectsSitesSelectItems,
-                         new SelectItemComparator());
+			Collections.sort(authorizedProjectsSitesSelectItems,
+			                 new SelectItemComparator());
 
-        if(authorizedProjectsSitesSelectItems.size()> 0){
-            selectedCollectionSite = (String)authorizedProjectsSitesSelectItems.get(0).getValue();
-        }
-        else {
-            selectedCollectionSite = null;
-        }
+			if(authorizedProjectsSitesSelectItems.size()> 0){
+			    selectedCollectionSite = (String)authorizedProjectsSitesSelectItems.get(0).getValue();
+			}
+			else {
+			    selectedCollectionSite = null;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Unable to initialize submission reports bean");
+		}
 
         //initialize date value
         initializeDates();

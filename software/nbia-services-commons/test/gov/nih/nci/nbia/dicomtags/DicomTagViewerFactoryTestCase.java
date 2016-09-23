@@ -8,8 +8,8 @@
 
 package gov.nih.nci.nbia.dicomtags;
 
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.search.ImageSearchResult;
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
 
 import java.util.List;
 

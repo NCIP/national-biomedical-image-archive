@@ -23,13 +23,12 @@ import gov.nih.nci.nbia.dto.StudyDTO;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.PublicData;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
-import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.NameValuesPairs;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
+import gov.nih.nci.nbia.searchresult.NameValuesPairs;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,11 +44,9 @@ import org.powermock.core.classloader.annotations.SuppressStaticInitializationFo
 import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
-@SuppressStaticInitializationFor({"gov.nih.nci.nbia.security.NCIASecurityManager$RoleType",
-	                              "gov.nih.nci.nbia.search.LocalNode"})
+@SuppressStaticInitializationFor({"gov.nih.nci.nbia.security.NCIASecurityManager$RoleType"})
 @PrepareForTest({LocalDrillDown.class,  
-                 SpringApplicationContext.class,
-                 LocalNode.class}) 
+                 SpringApplicationContext.class}) 
 public class LocalDrillDownTestCase {
 
 	@Test
@@ -59,11 +56,8 @@ public class LocalDrillDownTestCase {
             andReturn(imageDAOMock);
         expect(imageDAOMock.findImagesbySeriesPkID(Collections.singletonList(102236166))).
             andReturn(constructImageDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
-        
+    
         replay(SpringApplicationContext.class);
-        replay(LocalNode.class);
         replay(imageDAOMock, ImageDAO.class);
         
         ///////////////////////
@@ -137,12 +131,9 @@ public class LocalDrillDownTestCase {
             andReturn(studyDAOMock);
 	    expect(studyDAOMock.findStudiesBySeriesId(patientSearchResult.computeListOfSeriesIds())).
 	        andReturn(constructStudyDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
 
         replay(SpringApplicationContext.class);
 	    replay(StudyDAO.class, studyDAOMock);
-        replay(LocalNode.class);
     
 		LocalDrillDown localDrillDown = new LocalDrillDown();
 		localDrillDown.setPatientPublic(false);
@@ -210,11 +201,8 @@ public class LocalDrillDownTestCase {
             andReturn(imageDAOMock);
         expect(imageDAOMock.findImagesbySeriesPkID(Collections.singletonList(102236166))).
             andReturn(constructImageDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
         
         replay(SpringApplicationContext.class);
-        replay(LocalNode.class);
         replay(imageDAOMock, ImageDAO.class);
         
         /////////////////////////////////////////////////////////////////////
@@ -234,11 +222,8 @@ public class LocalDrillDownTestCase {
             andReturn(imageDAOMock);
         expect(imageDAOMock.findImagesbySeriesPkID(Collections.singletonList(102236166))).
             andReturn(constructImageDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
         
         replay(SpringApplicationContext.class);
-        replay(LocalNode.class);
         replay(imageDAOMock, ImageDAO.class);
         
         /////////////////////////////////////////////////////////////////////
@@ -262,11 +247,8 @@ public class LocalDrillDownTestCase {
             andReturn(imageDAOMock);
         expect(imageDAOMock.findImagesbySeriesInstandUid(Collections.singletonList("1.3.6.1.4.1.9328.50.99.456"))).
             andReturn(constructImageDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
         
         replay(SpringApplicationContext.class);
-        replay(LocalNode.class);
         replay(imageDAOMock, ImageDAO.class);
         
         /////////////////////////////////////////////////////////////////////
@@ -286,11 +268,8 @@ public class LocalDrillDownTestCase {
             andReturn(generalSeriesDAOMock);
         expect(generalSeriesDAOMock.findSeriesBySeriesInstanceUID(Collections.singletonList("1.3.6.1.4.1.9328.50.99.456"))).
             andReturn(constructSeriesDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
         
         replay(SpringApplicationContext.class);
-        replay(LocalNode.class);
         replay(generalSeriesDAOMock, ImageDAO.class);
         
         /////////////////////////////////////////////////////////////////////
@@ -321,11 +300,8 @@ public class LocalDrillDownTestCase {
             andReturn(generalSeriesDAOMock);
         expect(generalSeriesDAOMock.findSeriesBySeriesPkId(Collections.singletonList(8716288))).
             andReturn(constructSeriesDTOList());
-        expect(LocalNode.getLocalNode()).
-            andReturn(createLocalNode()).anyTimes();
         
         replay(SpringApplicationContext.class);
-        replay(LocalNode.class);
         replay(generalSeriesDAOMock, ImageDAO.class);
         
         /////////////////////////////////////////////////////////////////////
@@ -342,7 +318,6 @@ public class LocalDrillDownTestCase {
 	public void setUp() {
         imageDAOMock = createMock(ImageDAO.class);
 		mockStatic(SpringApplicationContext.class);
-        mockStatic(LocalNode.class);  
         
 		publicDataMock = createMock(PublicData.class);
         authorizationManagerMock = createMock(AuthorizationManager.class);
@@ -371,11 +346,6 @@ public class LocalDrillDownTestCase {
 	private StudyDAO studyDAOMock;
 	
 	private GeneralSeriesDAO generalSeriesDAOMock;
-
-    private static NBIANode createLocalNode() {
-        NBIANode node = new NBIANode(true, "displayName", "http://foo.com");
-        return node;
-    }
     
 	private List<StudyDTO> constructStudyDTOList() {
 		List<StudyDTO> list = new ArrayList<StudyDTO>();

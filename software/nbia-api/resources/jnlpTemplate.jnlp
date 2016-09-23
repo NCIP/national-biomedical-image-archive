@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JNLP File  -->
+
+<jnlp spec="1.0+"
+      codebase="$$codebase">
+ 
+  <information>
+    <title>NBIA Download Manager</title>
+    <vendor>NCICB</vendor>
+    <description>NBIA Download Manager</description>
+    <homepage href="$$codebase/welcome.jsp"/>
+    <description kind="short">NBIA Download Manager</description>
+  </information>
+ 
+  <application-desc main-class="gov.nih.nci.nbia.Application">
+    $$arguments
+  </application-desc>
+ 
+  <security>
+    <all-permissions/>
+  </security>
+  <update check="always" policy="always"/>
+ 
+  <resources>
+    <j2se version="1.6+"  href="http://java.sun.com/products/autodl/j2se" java-vm-args="-Xincgc"/>
+    <jar href="NBIADownloadManager.jar"/>
+    <jar href="download-mgr-dependencies/nbia-util.jar"/>
+<jar href="download-mgr-dependencies/log4j-1.2.15.jar"/>
+<jar href="download-mgr-dependencies/httpcore-4.1.3.jar"/>
+<jar href="download-mgr-dependencies/httpclient-4.1.3.jar"/>
+<jar href="download-mgr-dependencies/commons-logging-1.1.1.jar"/>
+<jar href="download-mgr-dependencies/commons-lang-2.4.jar"/>
+<jar href="download-mgr-dependencies/commons-io-1.4.jar"/>
+<jar href="download-mgr-dependencies/commons-compress-1.4.1.jar"/>
+<jar href="download-mgr-dependencies/commons-codec-1.3.jar"/>
+    <!-- constructed by build now
+    <jar href="download-mgr-dependencies/commons-codec-1.3.jar"/>
+    etc. etc.
+    -->
+    
+    <property name="jnlp.localSeriesDownloader.className" value="gov.nih.nci.nbia.download.LocalSeriesDownloader"/> 
+    <property name="jnlp.remoteSeriesDownloader.className" value="gov.nih.nci.nbia.download.RemoteSeriesDownloader"/> 
+
+    $$properties
+  </resources>
+</jnlp>

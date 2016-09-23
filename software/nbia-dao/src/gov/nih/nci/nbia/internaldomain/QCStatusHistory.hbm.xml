@@ -25,5 +25,11 @@ L-->
 		<property name="oldValue" type="string" column="OLD_VALUE"/>
 		<property name="userId" type="string" column="USER_ID" />
 		<property name="seriesInstanceUid" type="string" column="SERIES_INSTANCE_UID" />
+		<property name="oldBatch" type="string" column="oldBatch"/>
+		<property name="newBatch" type="string" column="newBatch"/>
+		<property name="oldSubmissionType" type="string" column="oldSubmissionType"/>
+		<property name="newSubmissionType" type="string" column="newSubmissionType"/>
+		<property name="oldReleasedStatus" type="string" column="oldReleasedStatus"/>
+		<property name="newReleasedStatus" type="string" column="newReleasedStatus"/>			
 	</class>
 </hibernate-mapping>

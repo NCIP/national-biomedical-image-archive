@@ -65,14 +65,12 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/TrialSite.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/DeletionAuditTrail.hbm.xml</value>
-
         <value>gov/nih/nci/nbia/security/NCIAUser.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CollectionDesc.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/ModalityDesc.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>
@@ -83,9 +81,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/SavedQueryAttribute.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
-
-        <value>gov/nih/nci/nbia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimQuantification.hbm.xml</value>
       </list>
     </property>
 
@@ -106,7 +101,11 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 
   <bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
 
-
+  <bean id="userDao" class="gov.nih.nci.nbia.csmDao.UserDaoImpl">
+	<property name="sessionFactory">
+	   <ref bean="sessionFactory"/>
+	</property>
+  </bean>
 
   <bean id="nciaSecurityManager"
         class="gov.nih.nci.nbia.security.NCIASecurityManagerImpl"
@@ -148,6 +147,33 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
     </property>
   </bean>
     <bean id="WADOSupportDAO" class="gov.nih.nci.nbia.wadosupport.WADOSupportDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+    <bean id="queryHandler" class="gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+   <bean id="dicomQueryHandler" class="gov.nih.nci.nbia.search.DICOMQueryHandlerImpl" scope="prototype">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+     <!-- This returns the singleton used for solr server -->
+   <bean id="solrServer" class="gov.nih.nci.nbia.textsupport.NBIAEmbeddedSolrServer" scope="singleton"/>
+    <bean id="studyNumberDAO" class="gov.nih.nci.nbia.dao.StudyNumberDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+    <bean id="imageDAO" class="gov.nih.nci.nbia.dao.ImageDAOImpl">
+    <property name="sessionFactory">
+      <ref bean="sessionFactory"/>
+    </property>
+  </bean>
+  <bean id="customSeriesListDAO" class="gov.nih.nci.nbia.dao.CustomSeriesListDAOImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>

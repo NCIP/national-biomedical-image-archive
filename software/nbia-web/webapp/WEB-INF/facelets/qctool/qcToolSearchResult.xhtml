@@ -66,6 +66,16 @@ L-->
 						<ice:outputText value="#{res.dateTime}" />
 					</ice:column>
 
+                    <ice:column>
+						<f:facet name="header">
+							<ice:commandSortHeader 
+								columnName="#{qcToolSearchBean.trialIdHeader}" arrow="true" >
+								<ice:outputText value="#{qcToolSearchBean.trialIdHeader}" />
+					 		</ice:commandSortHeader>
+						</f:facet>
+						<ice:outputText value="#{res.trialDpPkId}" />
+					</ice:column>
+
 					<ice:column>
 						<f:facet name="header">
 							<ice:commandSortHeader 
@@ -201,7 +211,43 @@ L-->
 										value="#{qcToolBean.qcStatusItems}" />
 								</ice:selectOneMenu-->
 							</ice:panelGroup>
-						</f:subview>
+						
+						<br />
+						
+						<table cellpadding="10" border="1"
+                            cellspacing="2" summary="Additional QC Flags">
+                            
+                        <tr>    
+						 <td class="formField" >                               
+                    		     <ice:outputLabel for="BatchUpdate" value="#{msg.qctool_batch}:" />
+                                   <ice:selectOneMenu id="BatchUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcBatch}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcBatchNums}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>
+                               
+                                <td class="formField" >                               
+                    		     <ice:outputLabel for="SubmissionTypeUpdate" value="#{msg.qctool_SubmissionType}" />
+                                   <ice:selectOneMenu id="SubmissionTypeUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcSubmissionType}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcSubmissionTypes}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>    
+                               
+                               <td class="formField" >                               
+                    		     <ice:outputLabel for="ReleasedStatusUpdate" value="#{msg.qctool_ReleasedStatus}" />
+                                   <ice:selectOneMenu id="ReleasedStatusUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcReleasedStatus}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcReleasedStatus}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td> 
+                                                                                      
+						</tr>
+						</table><br/><br/>
+					 </f:subview>							
 						<ice:outputLabel for="chngCmt"  value="comments" style="display:none"/> 
 						<ice:inputTextarea id="chngCmt"
 							value="#{qcToolUpdateBean.comments}" cols="100" rows="2"
@@ -250,6 +296,7 @@ L-->
 				<ice:panelGroup styleClass="popupBody">
 					<ice:outputText value="#{msg.qcTool_alertForSharedList}" />
 					<div style="height: 150px; overflow: auto;">
+					
 					<ice:dataTable id="userName" var="uname" width="100%"
 						scrollHeight="100px"
 						style="word-break: break-all"
@@ -287,8 +334,7 @@ L-->
 			</f:facet>
 		</ice:panelPopup>
 		<ice:messages for="SlctRec" showDetail="false" layout="table"
-			errorClass="errorLabel" infoClass="infoLabel" />
-			
+			errorClass="errorLabel" infoClass="infoLabel" />		
 
 	</ice:form>
 </ui:composition>

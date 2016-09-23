@@ -47,7 +47,7 @@ L-->
     <dependency org="log4j"
                 name="log4j"
                 rev="1.2.8"
-                conf="compile->master"/>
+                conf="compile->master;runtime"/>
 
     <dependency org="javax.servlet"
                 name="servlet-api"
@@ -104,6 +104,10 @@ L-->
                     name="spring-beans"
                     rev="3.2.8.RELEASE"
                    conf="compile->master;runtime->master"/>                   
+    <dependency org="cglib"
+     name="cglib-nodep" 
+     rev="3.1"
+     conf="compile->master;runtime->master"/>
     
     <dependency org="asm" 
     		name="asm" 

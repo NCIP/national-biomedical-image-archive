@@ -598,6 +598,52 @@ public class GeneralSeries  implements Serializable
 	public void setVisibility(String visibility){
 		this.visibility = visibility;
 	}
+	
+	////////////////////////////////////////////////////
+	/** Indicate QC Tool Number of batches for the series
+	 * 
+	 */
+	private Integer batch;
+	
+	public void setBatch(Integer batch){
+		this.batch = batch;
+	}
+	
+	public Integer getBatch(){
+		return batch;
+	}		
+    
+    //---------------------------------------------------
+	/** Indicate the submissionType for the series
+	 *  - Complete submission = YES 
+	 *  - Ongoing submission = NO
+	 * 
+	 */
+	private String submissionType;
+	
+	public void setSubmissionType(String submissionType){
+		this.submissionType = submissionType;
+	}
+	
+	public String getSubmissionType(){
+		return submissionType;
+	}		
+    //---------------------------------------------------
+		
+		/** Indicate the release status for the series
+		 *  Yes or No 
+		 */
+		private String releasedStatus;
+		
+		public void setReleasedStatus(String releasedStatus){
+			this.releasedStatus = releasedStatus;
+		}
+		
+		public String getReleasedStatus(){
+			return releasedStatus;
+		}		
+	
+   ///////////////////////////////////////////////////		
 
 	/**
 	* An associated gov.nih.nci.ncia.domain.Study object

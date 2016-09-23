@@ -1,0 +1,7 @@
+NCIA
+{
+gov.nih.nci.security.authentication.loginmodules.LDAPLoginModule Required
+ldapHost="@ldap.url@"
+ldapSearchableBase="@ldap.basedn@"
+ldapUserIdLabel="cn";
+};

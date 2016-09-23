@@ -69,7 +69,6 @@ import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
 import gov.nih.nci.ncia.criteria.ModalityAndedSearchCriteria;
 import gov.nih.nci.ncia.criteria.ModelCriteria;
-import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.NumOfMonthsCriteria;
 import gov.nih.nci.ncia.criteria.PatientCriteria;
@@ -121,7 +120,6 @@ public class DICOMQuery extends Query {
     private ModelCriteria modelCriteria;
     private CurationStatusDateCriteria curationStatusDateCriteria;
     private AuthorizationCriteria authorizationCriteria;
-    private NodeCriteria remoteNodeCriteria;
     private List<UrlParamCriteria> urlParamCriteria;
     private ModalityAndedSearchCriteria modalityAndedSearchCriteria;
     private DateRangeCriteria dateRangeCriteria;
@@ -183,20 +181,6 @@ public class DICOMQuery extends Query {
         if (imagingObservationCharacteristicCodeValuePairCriteria != null) {
             criteriaList.add(imagingObservationCharacteristicCodeValuePairCriteria);
             this.imagingObservationCharacteristicCodeValuePairCriteria = imagingObservationCharacteristicCodeValuePairCriteria;
-        }
-    }
-
-    public NodeCriteria getNodeCriteria() {
-    	return this.remoteNodeCriteria;
-    }
-
-
-    /**
-     */
-    public void setCriteria(NodeCriteria nodeCriteria) {
-        if (nodeCriteria != null) {
-            criteriaList.add(nodeCriteria);
-            this.remoteNodeCriteria = nodeCriteria;
         }
     }
 

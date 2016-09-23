@@ -11,14 +11,15 @@ package gov.nih.nci.nbia.beans.searchresults;
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.basket.BasketBean;
 import gov.nih.nci.nbia.beans.security.AnonymousLoginBean;
+import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class StudiesSearchResultBean {
 	public String removeSeriesFromBasket() {
 		try {
 			SeriesSearchResult s = getSelectedSeries(toAdd);
-			String toDelete = s.getId() + "||" + s.associatedLocation().getURL();
+			String toDelete = s.getId().toString();
 			BeanManager.getBasketBean().getBasket().removeSelectedSeries(toDelete);
 			setSeriesCheckBox(false);		
 		} catch(Exception ex) {
@@ -197,8 +198,11 @@ public class StudiesSearchResultBean {
 	
 
 		DrillDown drillDown = DrillDownFactory.getDrillDown();
-		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult);
-			
+		SecurityBean sb = BeanManager.getSecurityBean();
+		String token = sb.getTokenValue();
+		
+		StudySearchResult[] studies = drillDown.retrieveStudyAndSeriesForPatient(patientSearchResult, token);
+		
 		this.setStudyResults(studies);		
 	}	
 
@@ -211,6 +215,7 @@ public class StudiesSearchResultBean {
 			return viewSeries(theStudy.getStudy(), theSeries.getSeries());
 		}
 		catch(Exception ex) {
+			System.out.println("============== In nbia-web, drillDownRequestFailure, StudiesSearchResultBean:viewSeries() - catch block, exc is:  " + ex.getMessage());
 			MessageUtil.addErrorMessage("MAINbody:dataForm:studyTable",
                                         "drillDownRequestFailure",
                                         null );
@@ -264,8 +269,7 @@ public class StudiesSearchResultBean {
 		BasketBean dataBasket = BeanManager.getBasketBean();
 		long size=0;
 		for(SeriesSearchResult seriesDTO: seriesDTOs){
-    		if(!dataBasket.getBasket().isSeriesInBasket(seriesDTO.getId(),  
-    				                                    seriesDTO.associatedLocation().getURL())){
+    		if(!dataBasket.getBasket().isSeriesInBasket(seriesDTO.getId())){
     			size +=seriesDTO.computeExactSize();
 			}
     	}
@@ -320,4 +324,28 @@ public class StudiesSearchResultBean {
 		addToBasket(seriesList);
 		return null;
 	}
+	
+	public String addAstudySeriesToBasket(String thisStudyID) throws Exception {
+		List<SeriesSearchResult> seriesList = new ArrayList<SeriesSearchResult>();
+		
+	//	System.out.println("========= In nbia-web, StudiesSearchResultBean:addAstudySeriesToBasket(stUid) - input thisStudyID is: " + thisStudyID);
+		
+		for(StudyResultWrapper study : studyResults) {			
+			
+			if(thisStudyID.equalsIgnoreCase(study.getStudyId())){		
+			
+			  for(SeriesResultWrapper seriesWrapper : study.getSeriesResults()) {
+				SeriesSearchResult series = seriesWrapper.getSeries();
+				series.setStudyDate(study.getDateString());
+				series.setStudyDescription(study.getStudy().getDescription());
+				seriesList.add(series);
+				seriesWrapper.setChecked(true);
+			  } // Inner ForLoop
+			} // end if
+			
+		} // outer ForLoop
+		addToBasket(seriesList);
+		return null;
+	}
+	
 }

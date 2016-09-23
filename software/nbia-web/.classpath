@@ -21,8 +21,7 @@
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jsp-api-2.1.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/log4j-1.2.15.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-dao-working@nbia-dao-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-services-commons-working@nbia-services-commons-resolver.jar"/>
-	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-services-grid-working@nbia-services-grid-resolver.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-services-commons-working@nbia-services-commons-resolver.jar" sourcepath="/NBIA_BASE/nbia-services-commons"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/nbia-util-working@nbia-util-resolver.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/ocpsoft-pretty-faces-1.2.6.jar"/>
 	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/quartz-1.6.1.jar"/>
@@ -42,5 +41,14 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/icefaces-comps.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/icefaces-facelets-1.8.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/icefaces.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/httpclient-4.2.6.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/httpcore-4.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jersey-client-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jersey-core-1.17.1.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/compile/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="var" path="NBIA_BASE/target/lib/nbia-web/runtime/spring-security-oauth2-1.0.5.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -30,14 +30,14 @@ public class CrossDatabaseUtil {
 
 
 	public static SimpleDateFormat getDatabaseSpecificDatePattern() {
-        if(NCIAConfig.getDatabaseType().equals(MYSQL)) {
+        //if(NCIAConfig.getDatabaseType().equals(MYSQL)) {
         	return getMySqlDBFormat();
-        }
-        else
-        if(NCIAConfig.getDatabaseType().equals(ORACLE)) {
-        	return getOracleDBFormat();
-        }
-        throw new RuntimeException("bad db type:getDatabaseSpecificDatePattern");
+      //  }
+      //  else
+      //  if(NCIAConfig.getDatabaseType().equals(ORACLE)) {
+        //	return getOracleDBFormat();
+     //   }
+      //  throw new RuntimeException("bad db type:getDatabaseSpecificDatePattern");
 	}
 
 	public static SimpleDateFormat getOracleDBFormat() {
@@ -61,36 +61,22 @@ public class CrossDatabaseUtil {
 	}
 
 	public static String submissionTimeStampRange(String startDateStr, String endDateStr) {
-        if(NCIAConfig.getDatabaseType().equals("mysql")) {
+
 			return "date(submission_timestamp)"+
 			        " between '"+
 			        startDateStr+
 			        "' and '"+
 			        endDateStr+
 			        "'";
-        }
-        else
-        if(NCIAConfig.getDatabaseType().equals(ORACLE)) {
-			return "trunc(submission_timestamp, 'DDD') "+
-			        " between "+
-			        "to_date('"+startDateStr+"', 'YYYY-MM-DD') "+
-			        " and "+
-			        "to_date('"+endDateStr+"', 'YYYY-MM-DD') ";
-        }
-        throw new RuntimeException("bad db type:submissionTimeStampRange");
+
 
 	}
 
 	public static String curationTimeStampRange(String fromDateString,
 			                                    String toDateString) {
-        if(NCIAConfig.getDatabaseType().equals(MYSQL)) {
+
         	return curationTimeStampRangeMySQL(fromDateString, toDateString);
-        }
-        else
-        if(NCIAConfig.getDatabaseType().equals(ORACLE)) {
-        	return curationTimeStampRangeOracle(fromDateString, toDateString);
-        }
-        throw new RuntimeException("bad db type:curationTimeStampRange");
+
 	}
 
 	////////////////////////////////PRIVATE//////////////////////////////////////

@@ -1,0 +1,98 @@
+<div style="position:absolute;top: 8px;right: 30px;">
+	<a href="{{wikiLink}}">
+		<img src="app/images/help.png" alt="Help" />
+	</a>
+</div>	
+<div class="ui-widget-header ui-helper-clearfix" style="padding:4px 10px;border-bottom: 0 none">
+	<i class="fa fa-search" style="float:left;margin:4px 4px 0 0"></i>
+	<input #gb type="text" pInputText size="50" style="float:left" placeholder="Global Filter">
+</div>
+<div class="ContentSideSections Implementation">
+	<p-dataTable [value]="pgs" [paginator]="true" [globalFilter]="gb" [rows]="10" [responsive]="true">
+		<p-column style="width:8%;text-align:center" header="Edit Protection Group">
+			<template let-col #pg="rowData" >
+				<button type="button" pButton icon="fa-edit" (click)="onSelect(pg)"></button>
+			</template>
+		</p-column>
+		<p-column field="dataGroup" header="Protection Group" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+		<p-column field="description" header="Description" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>	
+		<p-column field="dataSets" header="Associated Protection Element" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>	
+		<p-column style="width:8%;text-align:center" header="Assign Protection Element(s)">
+			<template let-col #pg="rowData" >
+				<button type="button" pButton icon="fa-plus" (click)="showDialogToAssign(pg)"></button>
+			</template>
+		</p-column>
+		<p-column style="width:8%;text-align:center" header="Remove Protection Element(s)">
+			<template let-col #pg="rowData" >
+				<button type="button" pButton icon="fa-minus" (click)="showDialogToRemove(pg)"></button>
+			</template>
+		</p-column>	
+		<footer>
+			<div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add Protection Group"></button></div>
+		</footer>
+	</p-dataTable>
+		
+	<p-messages [value]="statusMessage" [closable]="false" style="height:10px;"></p-messages>
+
+	<p-dialog header="Protection Group Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width=600 height=300>
+		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4"><label for="dataGroup">Protection Group Name</label></div>
+				<div class="ui-grid-col-8"><input pInputText id="dataGroup" [(ngModel)]="pg.dataGroup" [disabled]="!newPg"/></div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4"><label for="description">Description</label></div>
+				<div class="ui-grid-col-8"><input pInputText id="description" [(ngModel)]="pg.description" /></div>
+			</div>
+		</div>
+		<footer>
+			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+				<button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+				<button type="button" pButton icon="fa-close" (click)="delete()" label="Delete" [disabled]="newPg"></button>	
+			</div>
+		</footer>
+	</p-dialog>
+	<p-dialog header="Add Protection Element(s) to Protection Group" [(visible)]="displayAssignDialog" 
+			[responsive]="true" showEffect="fade" width=600 height=300>
+		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6"><label for="dataGroup">Protection Group Name</label></div>
+				<div class="ui-grid-col-12"><input pInputText id="dataGroup" [(ngModel)]="pg.dataGroup" [disabled]="!newPg"/></div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6"><label for="description">Available Protection Elements</label></div>
+				<div class="ui-grid-col-12">
+				<p-multiSelect [options]="availablePes" [(ngModel)]="selectedPes" style="width:200px or width: 100%"></p-multiSelect>
+					<p>Selected Data Set(s): <span template="ngFor #c of selectedPes">{{c}} &nbsp;</span></p>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+				<button type="button" pButton icon="fa-check" (click)="addPEs()" label="Add"></button>
+			</div>
+		</footer>
+	</p-dialog>
+	<p-dialog header="Remove Protection Element(s) from Protection Group" [(visible)]="displayDeassignDialog" 
+			[responsive]="true" showEffect="fade" width=600 height=300>
+		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="pg">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6"><label for="dataGroup">Protection Group Name</label></div>
+				<div class="ui-grid-col-12"><input pInputText id="dataGroup" [(ngModel)]="pg.dataGroup" [disabled]="!newPg"/></div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6"><label for="description">Included Protection Elements</label></div>
+				<div class="ui-grid-col-12">
+				<p-multiSelect [options]="includedPes" [(ngModel)]="selectedPes" style="width:200px or width: 100%"></p-multiSelect>
+					<p>Selected Protection Element(s) to Remove: <span template="ngFor #c of selectedPes">{{c}} &nbsp;</span></p>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+				<button type="button" pButton icon="fa-check" (click)="removePEs()" label="Remove"></button>
+			</div>
+		</footer>
+	</p-dialog>	
+</div>
+

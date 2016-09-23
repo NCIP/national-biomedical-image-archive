@@ -467,13 +467,7 @@ L-->
     <managed-bean-class>gov.nih.nci.nbia.beans.searchform.SearchLookupBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-  
-  <managed-bean>
-    <managed-bean-name>aimSearchWorkflowBean</managed-bean-name>
-    <managed-bean-class>gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-  
+   
   <managed-bean>
     <description>Create Workflow Item</description>
     <managed-bean-name>addWorkFlowItemBean</managed-bean-name>
@@ -497,13 +491,7 @@ L-->
     <description>Workflow Bean for Search Page</description>
     <managed-bean-name>searchWorkflowBean</managed-bean-name>
     <managed-bean-class>gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-    
-    <managed-property>   
-      <property-name>aimSearchWorkflowBean</property-name>   
-      <value>#{aimSearchWorkflowBean}</value>   
-    </managed-property>  
-        
+    <managed-bean-scope>session</managed-bean-scope>        
   </managed-bean>
   <managed-bean>
     <description>Bean holding search results</description>

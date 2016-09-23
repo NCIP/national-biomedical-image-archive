@@ -1,0 +1,48 @@
+<div style="position:absolute;top: 8px;right: 30px;">
+	<a href="{{wikiLink}}">
+		<img src="app/images/help.png" alt="Help" />
+	</a>
+</div>		
+<div class="ContentSideSections Implementation">
+	<p-dataTable [value]="users"  [paginator]="true" [rows]="10" [responsive]="true">
+		<!--header>CRUD for Users</header-->
+		<p-column field="loginName" header="Login Name" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+		<p-column field="email" header="Email" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+		<p-column field="active" header="Active Status"  [sortable]="true" style="width:15%">
+			<template let-col #user="rowData" >
+				{{!!user.active}}
+			</template>
+		</p-column>
+		<p-column style="width:10%;text-align:center">
+			<template let-col #user="rowData" >
+				<button type="button" pButton icon="fa-edit" (click)="showDialog(user)" ></button>
+			</template>
+		</p-column>
+		<footer><div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add User"></button></div></footer>
+	</p-dataTable>
+
+	<p-messages [value]="statusMessage" [closable]="false" style="height:10px;"></p-messages>
+
+	<p-dialog header="User Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" width=600 height=300>
+		<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="user">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4"><label for="loginName">Login Name</label></div>
+				<div class="ui-grid-col-8"><input pInputText id="loginName" [(ngModel)]="user.loginName" [disabled]="!newUser"/></div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4"><label for="email">Email</label></div>
+				<div class="ui-grid-col-8"><input pInputText id="email" [(ngModel)]="user.email" /></div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-4"><label for="active">Active Status</label></div>
+				<div class="ui-grid-col-8"><p-checkbox [(ngModel)]="user.active"></p-checkbox></div>
+			</div>
+		</div>
+		<footer>
+			<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+				<button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+			</div>
+		</footer>
+	</p-dialog>
+</div>
+

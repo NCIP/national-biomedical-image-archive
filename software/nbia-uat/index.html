@@ -1,0 +1,48 @@
+<html>
+
+  <head>
+    <!-- if run without nbia-uat prefix in development settings, uncomment it out
+	<base href="/">
+	-->
+    <title>NBIA User Authorization Tool</title>
+
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/themes/delta/theme.css" />
+    <link rel="stylesheet" type="text/css" href="app/resources/icons/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="node_modules/primeui/primeui-ng-all.min.css" />
+    <link rel="stylesheet" type="text/css" href="app/resources/css/site.css"/>
+
+    <!-- 1. Load libraries -->
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/primeui/primeui-ng-all.min.js"></script>
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.config({
+            defaultJSExtensions: true,
+            packages: {
+                'app': {"defaultExtension": 'js'}
+            },
+            map: {
+                'angular2': 'node_modules/angular2',
+                'primeng': 'node_modules/primeng'
+            }
+        });
+        System.import('app/boot').then(null, console.error.bind(console));
+    </script>
+
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+
+  </head>
+
+  <!-- 3. Display the application -->
+  <body>
+    <my-app>Loading...</my-app>
+  </body>
+
+</html>

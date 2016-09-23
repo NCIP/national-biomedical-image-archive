@@ -49,6 +49,10 @@ L-->
     <property name="studyInstanceUID" type="string" column="STUDY_INSTANCE_UID"/>
     <property name="project" type="string" column="project"/>
     <property name="site" type="string" column="site"/>
+	
+	<property name="batch" type="integer" column="BATCHNUM"/>
+	<property name="submissionType" type="string" column="SUBMISSION_TYPE"/>	
+	<property name="releasedStatus" type="string" column="RELEASED_STATUS"/>
 
     <!-- Associations mapping for the GeneralSeries class -->
     <many-to-one name="study" class="gov.nih.nci.nbia.internaldomain.Study" column="STUDY_PK_ID" lazy="proxy" />

@@ -122,6 +122,22 @@ L-->
      <filter-name>CSRFGuard</filter-name>
      <filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
    </filter>
+   
+   <filter>
+     <filter-name>BadInputFilter</filter-name>
+     <filter-class>gov.nih.nci.nbia.security.BadInputFilter</filter-class>
+     <init-param>
+       <param-name>deny</param-name>
+       <param-value>\x00,\x04,\x08,\x0d,\x40,2.2250738585072011e-308,EXEC</param-value>
+     </init-param>
+   </filter>
+   
+   <filter-mapping>
+     <filter-name>BadInputFilter</filter-name>
+     <url-pattern>/block/*</url-pattern>
+   </filter-mapping>
+
+
    <filter-mapping>
       <filter-name>CSRFGuard</filter-name> 
       <url-pattern>/uploadHtml</url-pattern>
@@ -165,22 +181,6 @@ L-->
   <servlet>
     <servlet-name>thumbnailViewer</servlet-name>
     <servlet-class>gov.nih.nci.nbia.servlet.ThumbnailServer</servlet-class>
-  </servlet>
-    <servlet>
-    <servlet-name>ImageServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.ImageServlet</servlet-class>
-  </servlet>
-    <servlet>
-    <servlet-name>MarkupQueryServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.MarkupQueryServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>MarkupReadServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.MarkupReadServlet</servlet-class>
-  </servlet>
-    <servlet>
-    <servlet-name>MarkupSaveServlet</servlet-name>
-    <servlet-class>gov.nih.nci.nbia.viewer.MarkupSaveServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>BasketDownloadServlet</servlet-name>
@@ -289,22 +289,6 @@ L-->
   <servlet-mapping>
     <servlet-name>thumbnailViewer</servlet-name>
     <url-pattern>/thumbnailViewer</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ImageServlet</servlet-name>
-    <url-pattern>/ImageList</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>MarkupQueryServlet</servlet-name>
-    <url-pattern>/MarkupQuery</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>MarkupReadServlet</servlet-name>
-    <url-pattern>/MarkupRead</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>MarkupSaveServlet</servlet-name>
-    <url-pattern>/MarkupSave</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>BasketDownloadServlet</servlet-name>

@@ -134,12 +134,28 @@ public class QcToolSearchBean {
     	List<String> collectionSites = new ArrayList<String>();
     	collectionSites.add(qcToolBean.getSelectedCollectionSite());
         String [] qcStatus = {"To Be Deleted"};
+        
+        String[] additionalQcFlagList = new String[3];
+        
         String patientIds = qcToolBean.getSelectedPatients();
         String [] patients = null;
         ifNotClickedSubmit = false;
+         
+        additionalQcFlagList[0] = qcToolBean.getSelectedQcBatchNum();
+    	additionalQcFlagList[1] = qcToolBean.getSelectedQcSubmissionType();
+    	additionalQcFlagList[2] = qcToolBean.getSelectedQcReleasedStatus();
+    	
         if (! qcToolBean.isSuperRole()) {
-        	qcStatus = qcToolBean.getSelectedQcStatus();
+        	      	
+        	qcStatus = qcToolBean.getSelectedQcStatus();        	
+        	
+        	System.out.println("========= In QcToolSearchBean:submit() - SuperRole = FALSE");
+        	      	       	
         }
+        else{
+        	System.out.println("========= In QcToolSearchBean:submit() - SuperRole = TRUE");
+        }       
+        
         if (qcStatus == null || qcStatus.length==0){
         	MessageUtil.addErrorMessage("MAINbody:qcToolSearchCritForm:slctQcStatus",
         			REQUIRED_FIELD);
@@ -159,7 +175,8 @@ public class QcToolSearchBean {
         }
 
         QcStatusDAO qcStatusDAO = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
-        qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
+              
+        qsrDTOList = qcStatusDAO.findSeries(qcStatus, collectionSites, additionalQcFlagList, patients, qcToolBean.getFromDate(), qcToolBean.getToDate(), getMaxRowsToShow() );
 
         // the big o
         try {
@@ -167,7 +184,7 @@ public class QcToolSearchBean {
         String userName = secure.getUsername();
 
 			for (QcSearchResultDTO dto:qsrDTOList){
-				System.out.println("-- adding user to QC DTO ---");
+				System.out.println("===== In QcToolSearchBean:submit() - adding user to QC DTO ---");
 				dto.setUser(userName);
 			}
 		} catch (Exception e) {
@@ -255,7 +272,10 @@ public class QcToolSearchBean {
 	public void setSelectedHRptDispItemNum(String selectedHRptDispItemNum) {
 		this.selectedHRptDispItemNum = selectedHRptDispItemNum;
 	}
-
+	
+	public String getTrialIdHeader() {
+		return trialIdHeader;
+	}
 	public String getDateHeader() {
 		return dateHeader;
 	}
@@ -300,6 +320,7 @@ public class QcToolSearchBean {
     private int notificationHack = 0;
     private UIData dataTable;
 
+    private static final String trialIdHeader = "Trial ID";
     private static final String dateHeader = "Submission date";
     private static final String siteHeader = "Collection//Site";
     private static final String patientHeader = "Patient";
@@ -392,6 +413,12 @@ public class QcToolSearchBean {
                     return compareObject(c1.getCollectionSite().compareTo(c2.getCollectionSite()),
                             c2.getCollectionSite().compareTo(c1.getCollectionSite()));
                 }
+                               
+                else if(sortColumnName.equals(trialIdHeader)) {
+                    return compareObject(c1.getTrialDpPkId().compareTo(c2.getTrialDpPkId()),
+                            c2.getTrialDpPkId().compareTo(c1.getTrialDpPkId()));
+                }
+                
                 else if (sortColumnName.equals(patientHeader)) {
                     return compareObject(c1.getPatientId().compareTo(c2.getPatientId()),
                         c2.getPatientId().compareTo(c1.getPatientId()));

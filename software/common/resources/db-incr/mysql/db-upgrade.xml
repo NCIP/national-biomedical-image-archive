@@ -1790,4 +1790,83 @@ ALTER TABLE CSM_FILTER_CLAUSE ADD COLUMN GENERATED_SQL_GROUP VARCHAR (4000) NOT 
          </sql>
   </changeSet>
   
+  <changeSet id="6.4.remove.unused.tables" author="panq">
+         <comment>
+           Remove tables not used in NBIA
+         </comment>  
+         
+         <sql>
+           drop table if exists aim_quantification;
+		   drop table if exists aim_img_obs_characteristic;
+		   drop table if exists group9_dicom_tags;
+		   drop table if exists image_markup;
+		   drop table if exists curation_data;
+		   drop table if exists curation_status;
+		   drop table if exists qa_status_history_old;
+         </sql>
+  </changeSet>
+
+  <changeSet id="6.4.add.usage.count.to.shared.list" author="panq">
+         <comment>
+           Add usage count to custom_series_list table
+         </comment>  
+         
+         <sql>
+           ALTER TABLE custom_series_list ADD COLUMN usage_count INT UNSIGNED DEFAULT 0;
+         </sql>
+  </changeSet>    
+  <changeSet id="6.4.add.newColums.for.additional.qc.tool.statusFlags" author="orakwueco" dbms="mysql">
+         <comment>
+           Add batchNum to assign a batch number to a batch of images.  
+		   Add submission_type to mark a set of submission as 'Complete' or 'Ongoing' submission.
+         </comment>          
+         <sql>          
+			ALTER TABLE general_series  
+			ADD COLUMN batchNum int(20); 
+	       
+			ALTER TABLE general_series  
+			ADD COLUMN submission_type varchar(100);    
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN oldBatch varchar(20);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN newBatch varchar(20);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN oldSubmissionType varchar(100);
+			
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN newSubmissionType varchar(100);							
+         </sql>
+  </changeSet>    
+    
+  <changeSet id="6.4.add.fixColums.for.additional.qc.tool.statusFlags" author="gustafss" dbms="mysql">
+         <comment>
+           fix the previous issues with the changeset
+         </comment>          
+         <sql>          
+			ALTER TABLE general_series  
+			ADD COLUMN released_status varchar(50);
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN oldReleasedStatus varchar(50);
+			ALTER TABLE QC_STATUS_HISTORY  
+			ADD COLUMN newReleasedStatus varchar(50);						
+         </sql>
+  </changeSet> 
+  
+  <changeSet id="6.4.fixViewforVisibility" author="gustafss" dbms="mysql">
+    <createView 
+            replaceIfExists="true"
+            viewName="study_series_number">
+            select g.patient_pk_id AS PATIENT_PK_ID,p.patient_id AS PATIENT_ID,
+                   dp.project AS PROJECT,count(distinct g.study_pk_id) AS STUDY_NUMBER,
+                   count(distinct g.general_series_pk_id) AS SERIES_NUMBER 
+              from ((general_series g join patient p) join trial_data_provenance dp) 
+             where ((g.visibility in (1, 12)) and (g.patient_pk_id = p.patient_pk_id) 
+               and (p.trial_dp_pk_id = dp.trial_dp_pk_id)) 
+          group by  g.patient_pk_id,p.patient_id,dp.project;
+    </createView>
+</changeSet>
+    
 </databaseChangeLog>

@@ -18,6 +18,14 @@ public class QcStatusHistoryDTO {
 	private String series;
 	private String newStatus;
 	private String oldStatus;
+	
+	private String oldBatch;
+	private String newBatch;
+	private String oldSubmissionType;
+	private String newSubmissionType;
+	private String oldReleasedStatus;
+	private String newReleasedStatus;
+	
 	private String comment;
 	private String userId;
 	
@@ -25,12 +33,29 @@ public class QcStatusHistoryDTO {
 					   String series,
 					   String newStatus,
 					   String oldStatus,
+					   
+					   String oldBatch,
+					   String newBatch,
+					   String oldSubmissionType,
+					   String newSubmissionType,	
+					   String oldReleasedStatus,
+					   String newReleasedStatus,
+				
 					   String comment,
 					   String userId) {
 		setTimeStamp(timeStamp);
 		setSeries(series);
 		setNewStatus(newStatus);
 		setOldStatus(oldStatus);
+		
+		setOldBatch(oldBatch);
+		setNewBatch(newBatch);
+		setOldSubmissionType(oldSubmissionType);
+		setNewSubmissionType(newSubmissionType);
+		
+		setOldReleasedStatus(oldReleasedStatus);
+		setNewReleasedStatus(newReleasedStatus);
+		
 		setComment(comment);
 		setUserId(userId);
 	}
@@ -104,6 +129,57 @@ public class QcStatusHistoryDTO {
 		return dateTime;
 	}
 
+	public String getOldBatch(){
+		return oldBatch;
+	}
+	
+	public void setOldBatch(String oldBatch){
+		this.oldBatch = oldBatch;
+	}
+	
+	public String getNewBatch(){
+		return newBatch;
+	}
+	
+	public void setNewBatch(String newBatch){
+		this.newBatch = newBatch;
+	}
+	
+	public String getOldSubmissionType(){
+		return oldSubmissionType;
+	}
+	
+	public void setOldSubmissionType(String oldSubmissionType){
+		this.oldSubmissionType = oldSubmissionType;
+	}
+	
+	public String getNewSubmissionType(){
+		return newSubmissionType;
+	}
+	
+	public void setNewSubmissionType(String newSubmissionType){
+		this.newSubmissionType = newSubmissionType;
+	}
+	
+	//--------------------------------------------------------------
+	public String getOldReleasedStatus(){
+		return oldReleasedStatus;
+	}
+	
+	public void setOldReleasedStatus(String oldReleasedStatus){
+		this.oldReleasedStatus = oldReleasedStatus;
+	}
+	
+	public String getNewReleasedStatus(){
+		return newReleasedStatus;
+	}
+	
+	public void setNewReleasedStatus(String newReleasedStatus){
+		this.newReleasedStatus = newReleasedStatus;
+	}
+	
+  //---------------------------------------------------------------------
+	
 	public String getComment() {
 		return comment;
 	}

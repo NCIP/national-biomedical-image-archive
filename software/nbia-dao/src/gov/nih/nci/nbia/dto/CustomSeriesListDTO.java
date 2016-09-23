@@ -28,6 +28,7 @@ public class CustomSeriesListDTO {
 	private String userName;
 	private List<String> seriesInstanceUIDs;
 	private List<CustomSeriesListAttributeDTO> seriesInstanceUidsList;
+	private Integer usageCount;
 	
 	public String getUserName() {
 		return userName;
@@ -85,5 +86,12 @@ public class CustomSeriesListDTO {
 	        SimpleDateFormat sdf =  NCIAConfig.getDateFormat();//new SimpleDateFormat("MM/dd/yyyy");
 	        return sdf.format(date);
 	    }
-
+	 
+	public Integer getUsageCount() {
+		return usageCount;
+	}
+	
+	public void setUsageCount(Integer usageCount) {
+		this.usageCount = usageCount;
+	}
 }

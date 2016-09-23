@@ -10,8 +10,6 @@ package gov.nih.nci.nbia.download;
 
 import gov.nih.nci.nbia.util.NBIAIOUtils;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.search.NBIANode;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -83,15 +81,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		System.out.println(this.seriesInstanceUid +" -- downloading complete");
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public NBIANode constructNode(String url, String displayName, boolean local)
-			throws Exception {
-		return new NBIANode(local, displayName, url);
-	}
-
-	// /////////////////////////////////////////PRIVATE//////////////////////////////////////
+// /////////////////////////////////////////PRIVATE//////////////////////////////////////
 
 	/**
 	 * images already received... sent back to server for pause and resume so

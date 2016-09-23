@@ -8,9 +8,8 @@
 
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.NBIANode;
+import gov.nih.nci.nbia.lookup.*;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,6 @@ import org.jdom.xpath.XPath;
 public class DynamicJNLPGeneratorTestCase extends TestCase {
 
 	public void testGenerate() throws Exception {
-		System.setProperty("gov.nih.nci.ncia.grid.local.node.name", "local");
-
 		BasketSeriesItemBean item1 = createTestItem(1);
 		BasketSeriesItemBean item2 = createTestItem(2);
 		BasketSeriesItemBean item3 = createTestItem(3);
@@ -82,7 +79,6 @@ public class DynamicJNLPGeneratorTestCase extends TestCase {
 	}
 
 	private static BasketSeriesItemBean createTestItem(int index) {
-		NBIANode node = new NBIANode(true, "display", "http://fakeurl");
     	SeriesSearchResult seriesSearchResult = new SeriesSearchResult();
     	seriesSearchResult.associateLocation(node);
     	seriesSearchResult.setProject("project"+index);
@@ -91,7 +87,6 @@ public class DynamicJNLPGeneratorTestCase extends TestCase {
     	seriesSearchResult.setSeriesInstanceUid("series"+index);
 
 		BasketSeriesItemBean item = new BasketSeriesItemBean(seriesSearchResult);
-		item.setGridLocation(System.getProperty("gov.nih.nci.ncia.grid.local.node.name"));
 		item.setProject("project"+index);
 		item.setPatientId("patient"+index);
 		item.setStudyId("study"+index);

@@ -26,6 +26,8 @@ public class CustomSeriesList  implements Serializable
 	private String hyperlink;
 	private Date customSeriesListTimestamp;
 	private String userName;
+	private Integer usageCount;
+	
 	//private Collection<CustomSeriesListAttribute> customSeriesListAttributeCollection;
 	
 	public Integer getId() {
@@ -63,6 +65,12 @@ public class CustomSeriesList  implements Serializable
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public Integer getUsageCount() {
+		return usageCount;
+	}
+	public void setUsageCount(Integer usageCount) {
+		this.usageCount = usageCount;
 	}
 	/*public Collection<CustomSeriesListAttribute> getCustomSeriesListAttributeCollection() {
 		return customSeriesListAttributeCollection;

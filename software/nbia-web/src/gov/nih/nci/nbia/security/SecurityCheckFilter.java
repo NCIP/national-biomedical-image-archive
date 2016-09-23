@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import gov.nih.nci.ncia.search.APIURLHolder;
+import gov.nih.nci.nbia.searchresult.APIURLHolder;
 
 /**
  * Taken from sun software forums

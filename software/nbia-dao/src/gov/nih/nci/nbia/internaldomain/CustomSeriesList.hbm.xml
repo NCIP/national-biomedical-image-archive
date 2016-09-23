@@ -24,7 +24,8 @@ L-->
 		<property name="hyperlink" type="string" column="HYPERLINK"/>
 		<property name="userName" type="string" column="USER_NAME" />
 		<property name="customSeriesListTimestamp" type="java.util.Date" column="CUSTOM_SERIES_LIST_TIMESTAMP"/>
-
+		<property name="usageCount" type="integer" column="USAGE_COUNT" />
+		
 		<set name="customSeriesListAttributes" lazy="true"	cascade="all-delete-orphan" inverse="true"  >
 			<cache usage="read-write"/>
 			<key column="CUSTOM_SERIES_LIST_PK_ID"  />

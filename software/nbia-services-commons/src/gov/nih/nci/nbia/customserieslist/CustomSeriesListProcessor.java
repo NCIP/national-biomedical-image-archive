@@ -194,6 +194,14 @@ public class CustomSeriesListProcessor {
 	public long update(CustomSeriesListDTO editedList, Boolean updatedSeries ){
 		return customSeriesDAO.update(editedList, this.username, updatedSeries);
 	}
+	
+	/**
+	 * update the useageCount
+	 * @param id
+	 */
+	public void updateUsageCount(Integer id){
+		customSeriesDAO.updateUsageCount(id.intValue());
+	}	
 	/**
 		 * 
 		 * @param customList

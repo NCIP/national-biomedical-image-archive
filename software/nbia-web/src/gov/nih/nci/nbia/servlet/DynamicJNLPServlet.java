@@ -16,8 +16,7 @@ package gov.nih.nci.nbia.servlet;
  *
  */
 
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
-import gov.nih.nci.nbia.util.NCIAConfig;
+import gov.nih.nci.nbia.lookup.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -47,20 +46,15 @@ public class DynamicJNLPServlet extends HttpServlet
 			Boolean includeAnnotation =(Boolean)req.getSession().getAttribute("includeAnnotation");
 			//String userPassword =(String)req.getSession().getAttribute("userPassword");
 
-			System.out.println("userId: " + userId + " includeAnnotation " + includeAnnotation );
+			//System.out.println("userId: " + userId + " includeAnnotation " + includeAnnotation );
 			List<BasketSeriesItemBean> bsib = (List<BasketSeriesItemBean>)req.getSession().getAttribute("series");
 			
 			//System.out.println("request type: " + req.getMethod());
 
 			int size = bsib.size();
 			StringBuffer argsBuilder = new StringBuffer();
-			String localNodeName = NCIAConfig.getLocalNodeName();
 
 			for(int i=0; i<size; i++){
-				//make sure it's from local node
-				if (!bsib.get(i).getGridLocation().equals(localNodeName)){
-					continue;
-				}
 				String collection = bsib.get(i).getProject();
 				String patientId = bsib.get(i).getPatientId();
 				String studyInstanceUid = bsib.get(i).getStudyId();

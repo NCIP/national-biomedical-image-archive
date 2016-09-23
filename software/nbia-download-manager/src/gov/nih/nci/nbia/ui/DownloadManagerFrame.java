@@ -15,7 +15,7 @@ import gov.nih.nci.nbia.download.SeriesData;
 import gov.nih.nci.nbia.util.ThreadPool;
 import gov.nih.nci.nbia.util.PropertyLoader;
 import gov.nih.nci.nbia.util.StringUtil;
-
+import gov.nih.nci.nbia.util.SeriesComparitor;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -25,12 +25,14 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,9 +59,10 @@ public class DownloadManagerFrame extends JFrame implements Observer {
     private JTable table;
 
     /*These are the buttons for managing the download. */
-    private JButton startButton, pauseButton, resumeButton;
+    public static JButton startButton;
+    private JButton pauseButton, resumeButton;
     private JButton closeButton, deleteButton;
-    private JLabel errorLabel;
+    public static JLabel errorLabel;
 
     /*Currently selected download. */
     private AbstractSeriesDownloader selectedDownload;
@@ -92,7 +95,7 @@ public class DownloadManagerFrame extends JFrame implements Observer {
         this.maxThreads = Application.getNumberOfMaxThreads();
         this.serverUrl = downloadServerUrl;
         this.password = password;
-
+        Collections.sort(series, new SeriesComparitor());
         System.out.println("max threads: " + maxThreads + " serverurl " + serverUrl );
         try{
             addDownload(series);
@@ -114,19 +117,27 @@ public class DownloadManagerFrame extends JFrame implements Observer {
 
         /* Set up file menu.*/
         createMenuBar();
+        
         /* Set up browse panel.*/
         directoryBrowserPanel = new DirectoryBrowserPanel();
 
         /* Set up Downloads table.*/
         createTable();
+        
         /* Set up buttons panel.*/
         JPanel buttonsPanel = createButtonsPanel();
-
-        /* Add panels to display.*/
+        
+        /* Set up items for the southern part of the UI.*/
+        JPanel southPanel = new JPanel();    
+        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));       
+        southPanel.add(directoryBrowserPanel);
+        southPanel.add(buttonsPanel);
+        
+        /* Add panels to the display.*/               	         
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(directoryBrowserPanel, BorderLayout.NORTH);
+
         getContentPane().add(createDownloadsPanel(), BorderLayout.CENTER);
-        getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
+        getContentPane().add(southPanel, BorderLayout.SOUTH);
     }
 
     private JPanel createDownloadsPanel() {
@@ -174,6 +185,7 @@ public class DownloadManagerFrame extends JFrame implements Observer {
                 actionStart();
             }
         });
+        startButton.setEnabled(false);
         buttonsPanel.add(startButton);
         pauseButton = new JButton("Pause");
         pauseButton.addActionListener(new ActionListener() {
@@ -245,9 +257,7 @@ public class DownloadManagerFrame extends JFrame implements Observer {
                                    this.password,
                                    seriesData.get(i).getImagesSize(),
                                    seriesData.get(i).getAnnoSize(),
-                                   seriesDownloader.constructNode(seriesData.get(i).getUrl(),
-                                		                          seriesData.get(i).getDisplayName(),
-                                		                          seriesData.get(i).isLocal()),
+                                   
                                    StringUtil.displayAsSixDigitString(seriesCnt), noOfRetry);
             tableModel.addDownload(seriesDownloader);
 
@@ -293,8 +303,8 @@ public class DownloadManagerFrame extends JFrame implements Observer {
     }
     /* start the download. */
     private void actionStart(){
-        startButton.setEnabled(false);
-        setSeriesDownloadersOutputDirectory(this.directoryBrowserPanel.getDirectory());
+       startButton.setEnabled(false);
+       setSeriesDownloadersOutputDirectory(this.directoryBrowserPanel.getDirectory());
 
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){

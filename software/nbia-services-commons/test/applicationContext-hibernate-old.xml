@@ -68,7 +68,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>
@@ -159,11 +158,6 @@ L-->
     </property>
   </bean>
   <bean id="queryHandler" class="gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
-  <bean id="markupManager" class="gov.nih.nci.nbia.markup.MarkupManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>

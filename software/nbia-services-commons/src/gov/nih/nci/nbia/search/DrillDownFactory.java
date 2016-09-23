@@ -7,7 +7,7 @@
  */
 
 package gov.nih.nci.nbia.search;
-
+import gov.nih.nci.nbia.util.NCIAConfig;
 public class DrillDownFactory {
 
 	public static DrillDown getDrillDown() {
@@ -23,7 +23,7 @@ public class DrillDownFactory {
 
 
 	private static DrillDown createDrillDown() {
-		String drillDownClassName = System.getProperty("drilldown.className");
+		String drillDownClassName = NCIAConfig.getDrilldownClassName();
 
 		if(drillDownClassName==null) {
 			throw new RuntimeException("drilldown.className must be defined in system properties");

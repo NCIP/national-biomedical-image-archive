@@ -16,11 +16,10 @@ import gov.nih.nci.nbia.dynamicsearch.criteria.CriteriaForAuthorizedSiteData;
 import gov.nih.nci.nbia.internaldomain.Patient;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
 import gov.nih.nci.nbia.qctool.VisibilityStatus;
-import gov.nih.nci.nbia.search.LocalNode;
 import gov.nih.nci.nbia.util.SiteData;
 import gov.nih.nci.nbia.xmlobject.Element;
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.PatientSearchResultImpl;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResultImpl;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -115,8 +114,44 @@ public class QueryHandlerImpl extends AbstractDAO
 			removeSeriesVisibilityCriteria();
 		}
 	}
+	
+	
+	public List<PatientSearchResult> query(List<DynamicSearchCriteria> criteria,
+            String stateRelation, List<SiteData> aData,
+            List<String> securityGroups,String[] visibiltyStatus) throws DataAccessException {
+		{
+			try {
+				TableRelationships ro = new TableRelationships();
+				elementTree = ro.getRelationTree();
+				createMapKeys();
+				//add visibility based on user selected in generalSeries level
+				criteria.add(createSeriesVisibilityCriteria(Arrays.asList(visibiltyStatus)));
+		
+				searchCriteria = ro.sortTableName(criteria);
+				//reset currentNode
+				originalCriteria = criteria;
+				//what happens here if criteria is zero length?
+				currentNode = elementTree.get(1).getAlias();
+				this.statementRelation = stateRelation;
+				this.authorizedSiteData = aData;
+				this.seriesSecurityGroups = securityGroups;
+				query();
+				return getPatients();
+			}
+			catch(Exception ex) {
+				throw new RuntimeException(ex);
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Transactional(propagation=Propagation.REQUIRED) 	
-	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate) throws DataAccessException {
+	public List<QcSearchResultDTO> querySeries(Date fromDate, Date toDate, String[] additionalFlagList) throws DataAccessException {
 		DetachedCriteria criteria = null;
 		List<QcSearchResultDTO> searchResultDtos = new ArrayList<QcSearchResultDTO>();
 		try
@@ -132,12 +167,22 @@ public class QueryHandlerImpl extends AbstractDAO
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".visibility"));
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".maxSubmissionTimestamp"));
             projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".modality"));
-            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".seriesDesc"));            
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".seriesDesc"));     
+            
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".batch"));
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".submissionType"));
+            projectionList.add(Projections.property(generateAlias(elementTree.get(3).getAlias())+".releasedStatus"));
+                 
+            projectionList.add(Projections.property(generateAlias(elementTree.get(0).getAlias())+".id"));          
+            
             criteria.setProjection(Projections.distinct(projectionList));
 
 			criteria = addAllJoinKeys(criteria);
 			criteria = addAllRestriction(criteria, searchCriteria);
+			
 			computeSubmissionDateCriteria(criteria, fromDate, toDate);
+			computeAdditionalFlagListCriteria(criteria, additionalFlagList);
+		
 			//add user authorized site name and collection
 			CriteriaForAuthorizedSiteData casd = new CriteriaForAuthorizedSiteData();
 			casd.setAuthorizedSiteData(generateAlias(elementTree.get(0).getAlias()),
@@ -161,6 +206,12 @@ public class QueryHandlerImpl extends AbstractDAO
 					Timestamp submissionDate = (Timestamp) row[6];
 					String modality = (String) row[7];
 					String seriesDesc = (String) row[8];
+					
+					String batch = "" + row[9];
+					String submissionType = (String) row[10];
+					String releasedStatus = (String) row[11];
+					String trialDpPkId = "" + row[12];
+					
 					Date subDate = null;
 					if(submissionDate != null) {
 						subDate = new Date(submissionDate.getTime());
@@ -171,7 +222,8 @@ public class QueryHandlerImpl extends AbstractDAO
 							                                          study,
 							                                          series,
 							                                          subDate,
-							                                          visibilitySt, modality, seriesDesc);
+							                                          visibilitySt, modality, seriesDesc,
+							                                          batch, submissionType, releasedStatus, trialDpPkId);
 					searchResultDtos.add(qcSrDTO);
 				}
 			}
@@ -201,6 +253,32 @@ public class QueryHandlerImpl extends AbstractDAO
 		toDate = cal.getTime();
 		criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".maxSubmissionTimestamp").between(fromDate, toDate));
 	}
+	
+	private void computeAdditionalFlagListCriteria(DetachedCriteria criti, String[] additionalFlagList){
+		
+		if(additionalFlagList[0] != null && additionalFlagList[0].trim().length() > 0){
+			criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".batch").eq(Integer.parseInt(additionalFlagList[0])));
+		}
+		
+		if(additionalFlagList[1] != null && additionalFlagList[1].trim().length() > 0){
+	      if(additionalFlagList[1].toUpperCase().contains("YES"))
+	    	  criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".submissionType").eq("Complete"));
+	    		
+	      else if(additionalFlagList[1].toUpperCase().contains("NO"))
+	    	 criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".submissionType").eq("Ongoing"));
+	    }
+		
+		if(additionalFlagList[2] != null && additionalFlagList[2].trim().length() > 0){
+		      if(additionalFlagList[2].toUpperCase().contains("YES"))
+		    	  criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".releasedStatus").eq("Yes"));
+		    		
+		      else if(additionalFlagList[2].toUpperCase().contains("NO"))
+		    	 criti.add(Property.forName(generateAlias(elementTree.get(3).getAlias())+".releasedStatus").eq("No"));
+		    }
+		
+	}
+	
+	
 	/**
 	 * This method prepares all necessary conditions for Query builder method.
 	 * This method must be called before calling buildQuery().
@@ -213,9 +291,11 @@ public class QueryHandlerImpl extends AbstractDAO
 			TableRelationships ro = new TableRelationships();
 			elementTree = ro.getRelationTree();
 			createMapKeys();
-			//add visibility = 1 in generalSeries level
-			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
-	
+			//add visibility = 1 or 12 for downloadable in generalSeries level
+			
+			//criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible")));
+			criteria.add(createSeriesVisibilityCriteria(Arrays.asList("Visible", "Downloadable")));
+			
 			searchCriteria = ro.sortTableName(criteria);
 			//reset currentNode
 			originalCriteria = criteria;
@@ -224,6 +304,9 @@ public class QueryHandlerImpl extends AbstractDAO
 			this.statementRelation = stateRelation;
 			this.authorizedSiteData = aData;
 			this.seriesSecurityGroups = securityGroups;
+			
+	System.out.println("===== In nbia-dao, QueryHandlerImpl:setQueryCriteria() - downloadable visibility - AFTER criteria.add(createSeriesVisibilityCriteria(Arrays.asList(Visible', 'Downloadable'))) - criteria is: " + criteria.toString());
+			
 		}
 		catch(Exception ex) {
 			throw new RuntimeException(ex);
@@ -243,8 +326,8 @@ public class QueryHandlerImpl extends AbstractDAO
 			elementTree = ro.getRelationTree();
 			createMapKeys();
 			//add visibility based on user selected in generalSeries level
-			criteria.add(createSeriesVisibilityCriteria(Arrays.asList(visibiltyStatus)));
-	
+			criteria.add(createSeriesVisibilityCriteria(Arrays.asList(visibiltyStatus)));	
+
 			searchCriteria = ro.sortTableName(criteria);
 			//reset currentNode
 			originalCriteria = criteria;
@@ -253,6 +336,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			this.statementRelation = stateRelation;
 			this.authorizedSiteData = aData;
 			this.seriesSecurityGroups = securityGroups;
+			
 		}
 		catch(Exception ex) {
 			throw new RuntimeException(ex);
@@ -417,6 +501,7 @@ public class QueryHandlerImpl extends AbstractDAO
 			throw new Exception("Statement Relationship cannot be recognized!");
 		}
 
+		System.out.println("======= In QueryHandlerImpl:addAllRestrictionc(crit,...) - criteriaToBuild is: " + criteriaToBuild.toString());
 		return criteriaToBuild;
 	}
 	
@@ -538,14 +623,13 @@ public class QueryHandlerImpl extends AbstractDAO
 		pDto.setProject((String)row[3]);
 		pDto.setSubjectId((String)row[4]);
 		pDto.addSeriesForStudy((Integer)row[1], (Integer)row[2]);
-		pDto.associateLocation(LocalNode.getLocalNode());
 		return pDto;
 	}
 
-
+	
 	private static DynamicSearchCriteria createSeriesVisibilityCriteria(List<String> visibilityStatus) {
 		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
-		dsc.setDataGroup("GeneralSeries");
+		dsc.setDataGroup("GeneralSeries");		
 		dsc.setField("visibility");
 		Operator o = new Operator();
 		dsc.setValue(convertListToDelimitedString(visibilityStatus));
@@ -557,6 +641,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		dsc.setOperator(o);
 		return dsc;
 	}
+	
 
 	private void removeSeriesVisibilityCriteria()
 	{
@@ -580,6 +665,7 @@ public class QueryHandlerImpl extends AbstractDAO
 		sb.deleteCharAt(sb.length()-1); //delete last comma
 		return sb.toString();
 	}
+
 	public List<PatientSearchResult> getPatients() {
 		return patients;
 	}
@@ -606,5 +692,6 @@ public class QueryHandlerImpl extends AbstractDAO
 	
 	
 }
+
 
 

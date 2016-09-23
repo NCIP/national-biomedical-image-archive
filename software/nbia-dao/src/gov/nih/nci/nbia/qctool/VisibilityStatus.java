@@ -22,6 +22,9 @@
 */
 package gov.nih.nci.nbia.qctool;
 
+import java.util.Properties;
+import gov.nih.nci.nbia.util.*;
+
 
 /**
  * This is an enum that holds the functionality for VisibilityStatus
@@ -30,18 +33,31 @@ package gov.nih.nci.nbia.qctool;
  * @author NCIA Team
  */
 public enum VisibilityStatus {
+	
 	NOT_YET_REVIEWED(0, "Not Yet Reviewed"),
     VISIBLE(1, "Visible"),
     NOT_VISIBLE(2, "Not Visible"),
     TO_BE_DELETED(3, "To Be Deleted"),
     DELETE(4, "Delete"),
-	STAGE_1(5,"Stage 1"),
-	STAGE_2(6,"Stage 2"),
-	STAGE_3(7,"Stage 3"),
-	STAGE_4(8,"Stage 4"),
-	STAGE_5(9,"Stage 5"),
-	STAGE_6(10,"Stage 6"),
-	STAGE_7(11,"Stage 7");
+	STAGE_1(5, getPropertyValue("qctool.visibility.stage1")),
+	STAGE_2(6, getPropertyValue("qctool.visibility.stage2")),
+	STAGE_3(7, getPropertyValue("qctool.visibility.stage3")),
+	STAGE_4(8, getPropertyValue("qctool.visibility.stage4")),
+	STAGE_5(9, getPropertyValue("qctool.visibility.stage5")),
+	STAGE_6(10, getPropertyValue("qctool.visibility.stage6")),
+	STAGE_7(11, getPropertyValue("qctool.visibility.stage7")),
+	DOWNLOADABLE(12, "Downloadable");
+	
+	
+	public static String getPropertyValue(String messageVariable){
+		
+		String retStr = NCIAConfig.getQCToolPropertyValue(messageVariable);
+		
+	//	System.out.println("=========== In VisibilityStatus:getPropertyValue(..) - messageVariable is: " + messageVariable + ", retStrValue is: " + retStr);
+		
+		return retStr;	
+	}
+	
 
     /**
      * Reads in an integer and creates the correct VisibilityStatus for that integer.
@@ -75,7 +91,9 @@ public enum VisibilityStatus {
             return STAGE_6;
         } else if (status == 11) {
             return STAGE_7;
-        }       
+        } else if (status == 12) {
+        	return DOWNLOADABLE;
+        }
         return null;
     }
 
@@ -109,8 +127,9 @@ public enum VisibilityStatus {
             return STAGE_6;
         } else if (status.equals(STAGE_7.getText())) {
             return STAGE_7;
-        }  
-        
+        } else if(status.equals(DOWNLOADABLE.getText())) {
+        	return DOWNLOADABLE;
+        }
         return null;
     }
 
@@ -120,6 +139,7 @@ public enum VisibilityStatus {
     VisibilityStatus(Integer number, String text) {
         numberValue = number;
         this.text = text;
+        
     }
 
     /**

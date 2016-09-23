@@ -21,7 +21,7 @@ L-->
 	<property name="resources.dir" value="resources" />
 	<property name="classes.dir" value="${basedir}/classes" />
 
-	<property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-ear" />
+	<property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-wars" />
 	<property name="war.name" value="nbia-api.war" />
 	<property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
 
@@ -34,6 +34,8 @@ L-->
 	<property name="project.lib.dir" value="${common.dir}/target/lib/nbia-api"/>
 	<property name="common.lib.dir" location="${common.dir}/common/resources/lib" />
 	<property name="dicomsupport.lib" location="${common.dir}/common/resources/dicomapi/" />
+	<property name="property.dir" location="${common.dir}/build/" />
+	<property name="tomcat.dir" value="${common.dir}/common/resources/tomcat"/>
 
 	<!-- Paths -->
 	<path id="common.classpath">
@@ -107,6 +109,9 @@ L-->
 		<echo message="**********************************************" />
 		<echo message="***  Copying NBIA API webapp to the classes dir **" />
 		<echo message="**********************************************" />
+		<replaceregexp file="${resources.dir}/NCIA.csm.new.hibernate.cfg.xml" match="@DB_DIALECT@" replace="${database.dialect}" flags="g"/>
+		<replaceregexp file="${resources.dir}/hibernate.properties" match="@DB_DIALECT@" replace="${database.dialect}" flags="g"/>
+		<replaceregexp file="${resources.dir}/hibernate.properties" match="@DB_DRIVER@" replace="${database.driver}" flags="g"/>
 		<copy todir="${webapp.dir}/">
 			<fileset dir="${web.nbia.webapp.dir}">
 				<include name="**/*.*" />
@@ -127,16 +132,6 @@ L-->
 		<copy todir="${webapp.dir}/WEB-INF/lib">
 			<fileset dir="${project.lib.dir}/runtime">
 				<include name="*.*" />
-				<!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
-				<exclude name="log*.jar" />
-				<!-- avoid org.jboss.tm.TxManager class cast exception -->
-				<exclude name="jta*.jar" />
-				<!--exclude name="commons-logging*.jar" /-->
-				<exclude name="cglib-2.1_3.jar" />
-				<exclude name="spring-asm*.jar" />
-				<exclude name="spring-jsm*.jar" />
-				<exclude name="xml-apis*.jar" />
-				<exclude name="bcprov-*.jar" />
 			</fileset>
 
 		</copy>
@@ -145,8 +140,22 @@ L-->
 				<include name="applicationContext-hibernate.xml"/>
 				<include name="ESAPI.properties"/>
 				<include name="hibernate.properties"/>
+		        <include name="jnlpTemplate.jnlp"/>
+				<include name="NCIA.csm.new.hibernate.cfg.xml"/>
 			</fileset>
 		</copy>
+	    <if>
+	     <available file="${tomcat.dir}/ahp_nbia.properties"/>
+	      <then>
+	      	<copy file="${tomcat.dir}/ahp_nbia.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+	      </then>
+	      <else>
+	      	<copy file="${property.dir}/install.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+	      </else>
+	    </if>
+		<copy file="${property.dir}/install.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+		<copy file="${tomcat.dir}/DataSourceItem.xml" tofile="${webapp.dir}/WEB-INF/classes/DataSourceItem.xml"/>
+		<copy file="${tomcat.dir}/relationship.xml" tofile="${webapp.dir}/WEB-INF/classes/relationship.xml"/>
 	</target>
 
 	<target name="compile" depends="ivy-compile">

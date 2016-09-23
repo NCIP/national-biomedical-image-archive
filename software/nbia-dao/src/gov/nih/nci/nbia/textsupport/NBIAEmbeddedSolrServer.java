@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.core.CoreContainer;
+
 import gov.nih.nci.nbia.util.NCIAConfig;
 
 public class NBIAEmbeddedSolrServer implements SolrServerInterface{
@@ -18,10 +19,15 @@ public class NBIAEmbeddedSolrServer implements SolrServerInterface{
 	   }
 	   private void startServer()
 	   {
-		   log.warn("SolrHome is "+solrHome);
-			server = new EmbeddedSolrServer(CoreContainer.createAndLoad(
-					solrHome, new File(solrHome + "solr.xml")), null);
-			log.info("Embedded Solr Server started successfully");
+		   try {
+			log.warn("SolrHome is "+solrHome);
+				server = new EmbeddedSolrServer(CoreContainer.createAndLoad(
+						solrHome, new File(solrHome + "solr.xml")), null);
+				log.info("Embedded Solr Server started successfully");
+		} catch (Exception e) {
+			log.error("Unable to start Solr");
+			e.printStackTrace();
+		}
 	   }
 	   private void stopServer()
 	   {

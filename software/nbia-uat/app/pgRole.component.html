@@ -1,0 +1,58 @@
+<div style="position:absolute;top: 8px;right: 30px;">
+	<a href="{{wikiLink}}">
+		<img src="app/images/help.png" alt="Help" />
+	</a>
+</div>
+	
+<p-dropdown [options]="userNames" [(ngModel)]="selectedUserName"  [filter]="true" style="width:100px" (onChange)="getPgRolesForUser()"></p-dropdown>
+<br/>
+
+<div *ngIf="searchInProgress===false">
+	<br/>
+	<p-dataTable [value]="pgRoles" [paginator]="true" [rows]="10" [responsive]="true">
+
+		<p-column field="pgName" header="Protection Group" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>
+		<p-column field="roleNames" header="Associated Access Role(s)" [sortable]="true" [filter]="true" filterMatchMode="contains"></p-column>	
+		<p-column style="width:8%;text-align:center" header="Change the Access">
+			<template let-col #pgRole="rowData" >
+				<button type="button" pButton icon="fa-edit" (click)="showDialogToUpdate(pgRole)"></button>
+			</template>
+		</p-column>
+	</p-dataTable>
+
+	<div class="ui-helper-clearfix" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="showDialogToAdd()" label="Add Protection Group and Access Role"></button></div>
+</div>
+
+<p-messages [value]="statusMessage" [closable]="false" style="height:10px;"></p-messages>
+
+<p-dialog header="Grant Access to Selected User " [(visible)]="displayDialog" [responsive]="true" showEffect="fade" width=500 height=500>
+	<div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" *ngIf="selectedUserName">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4"><label for="loginName">Login Name</label></div>
+			<div class="ui-grid-col-12"><input pInputText id="loginName" [(ngModel)]="selectedUserName" [disabled]="true"/></div>
+		</div>
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4"><label >Protection Group</label></div>
+			<div class="ui-grid-col-12" *ngIf="newPgRole">
+				<p-dropdown [options]="availablePGs" [(ngModel)]="selectedPGName" [filter]="true" style="width:350px or width: 100%"></p-dropdown>
+				<p>Selected Protection Group: {{selectedPGName||'none'}}</p></div>
+			<div class="ui-grid-col-12" *ngIf="!newPgRole"><input pInputText id="selectedPGName" [(ngModel)]="selectedPGName" [disabled]="true"/></div>	
+		</div>
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4"><label>Role</label></div>
+			<div class="ui-grid-col-12">
+				<p-multiSelect [options]="allRoles" [(ngModel)]="srs" [scrollHeight]="300" style="width:350px or width: 100%"></p-multiSelect>
+				<p>Selected Role(s): <span template="ngFor #c of srs">{{c}} &nbsp;</span></p>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="newPgRole">
+			<button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+		</div>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix" *ngIf="!newPgRole">
+			<button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
+			<button type="button" pButton icon="fa-check" (click)="update()" label="Update"></button>			
+		</div>
+	</footer>
+</p-dialog>

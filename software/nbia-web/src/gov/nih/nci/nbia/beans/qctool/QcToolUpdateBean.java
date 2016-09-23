@@ -25,13 +25,11 @@ import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 import gov.nih.nci.nbia.util.StringUtil;
 import gov.nih.nci.nbia.util.Util;
-import gov.nih.nci.ncia.dto.DicomTagDTO;
-import gov.nih.nci.ncia.search.APIURLHolder;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.ImageSearchResultEx;
+import gov.nih.nci.nbia.dto.DicomTagDTO;
+import gov.nih.nci.nbia.searchresult.APIURLHolder;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResultEx;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -59,7 +57,38 @@ public class QcToolUpdateBean {
 	public void setSelectedQcStatus(String selectedQcStatus) {
 		this.selectedQcStatus = selectedQcStatus;
 	}
+	
+   /////////////////////////////////////////////////////////////////////////////
+	//============  Getters/Setters for additional QC Status flags ============
+	
+	public String getSelectedQcBatch() {
+		return selectedQcBatch;
+	}
 
+	public void setSelectedQcBatch(String selectedQcBatch) {
+		this.selectedQcBatch = selectedQcBatch;
+	}
+
+	//---------------------------------------------
+	
+	public String getSelectedQcSubmissionType() {
+		return selectedQcSubmissionType;
+	}
+
+	public void setSelectedQcSubmissionType(String selectedQcSubmissionType) {
+		this.selectedQcSubmissionType = selectedQcSubmissionType;
+	}
+	
+	//---------------------------------------------
+	
+	public String getSelectedQcReleasedStatus() {
+		return selectedQcReleasedStatus;
+	}
+		
+	public void setSelectedQcReleasedStatus(String selectedQcReleasedStatus) {
+		this.selectedQcReleasedStatus = selectedQcReleasedStatus;
+	}
+	/////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the comments
 	 */
@@ -154,6 +183,9 @@ public class QcToolUpdateBean {
 	 * This action is called when the update button is clicked.
 	 */
 	public String update() throws Exception {
+		
+		System.out.println("In QCToolUpdateBean:update() - update button clicked.... ");
+		
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		List<String> seriesCheckList = new ArrayList<String>();
 
@@ -166,28 +198,71 @@ public class QcToolUpdateBean {
 		if (!isErrorFree(BULK)){
 			return null;
 		}
+		
 		if (qsrDTOList != null) {
+			
+			System.out.println("In QCToolUpdateBean:update() - qsrDTOList is NOT NULL - and qsrDTOList size is: " + qsrDTOList.size());
+			
 			newQsrDTOList = new ArrayList<QcSearchResultDTO>();
+			
 			seriesList.clear();
 			statusList.clear();
+			additionalQcFlagList = null;
+			newAdditionalQcFlagList = null;
+			
+			additionalQcFlagList = new String[3];
+			newAdditionalQcFlagList = new String[3];
+			
 			for (int i = 0; i < qsrDTOList.size(); ++i) {
 				QcSearchResultDTO aDTO = qsrDTOList.get(i);
 				newQsrDTOList.add(i, new QcSearchResultDTO(aDTO));
 				if (aDTO.isSelected()) {
 					seriesList.add(aDTO.getSeries());
 					statusList.add(aDTO.getVisibility());
+					
+					if(aDTO.getBatch() != null && aDTO.getBatch().trim().length() > 0){
+					
+						additionalQcFlagList[0] = aDTO.getBatch();				
+					}
+					
+					if(aDTO.getSubmissionType() != null && aDTO.getSubmissionType().trim().length() > 0){
+					
+						additionalQcFlagList[1] = aDTO.getSubmissionType();				
+					}	
+						
+					if(aDTO.getReleasedStatus() != null && aDTO.getReleasedStatus().trim().length() > 0){
+						
+						additionalQcFlagList[2] = aDTO.getReleasedStatus();				
+					}
+					
 					if (resultAndSelectedStatusIsVisible(aDTO, selectedQcStatus)) {
 						seriesCheckList.add(aDTO.getSeries());
 					}
+					
 					newQsrDTOList.get(i).setVisibility(
 							VisibilityStatus.stringStatusFactory(
 									selectedQcStatus).getNumberValue()
 									.toString());
+					
+					if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
+						newQsrDTOList.get(i).setBatch(selectedQcBatch);
+					}
+					
+					if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
+						newQsrDTOList.get(i).setSubmissionType(selectedQcSubmissionType);
+					}
+					
+					if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length()) > 0){
+						newQsrDTOList.get(i).setReleasedStatus(selectedQcReleasedStatus);
+					}
+					
 					newQsrDTOList.get(i).setSelected(false);
 					qsrDTOList.get(i).setSelected(false);
-				}
-			}
-		}
+				} // end if (aDTO.isSelected()) {
+			
+			}// End forLoop
+		}		
+
 		if (seriesList.size() == 0) {
 			MessageUtil.addErrorMessage("MAINbody:qcToolForm:SlctRec",
 					ERRORMSG_RPT);
@@ -203,29 +278,60 @@ public class QcToolUpdateBean {
 
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		
+		if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
+			newAdditionalQcFlagList[0] = selectedQcBatch;
+		}
+		
+		if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
+			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+		}				
+		
+		if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length() > 0)){
+			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+		}
+		
+		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
 		qcToolSearchBean.setQsrDTOList(newQsrDTOList);
 		newQsrDTOList = null;
 		return null;
 	}
 
 	private static boolean resultAndSelectedStatusIsVisible(QcSearchResultDTO aDTO, String selectedQcStatus) {
-		return aDTO.getVisibility().equals(VISIBLENUM)&& !selectedQcStatus.equals(VISIBLE);
+		
+		// aDTO.getVisibility().equals(VISIBLENUM) && !selectedQcStatus.equals(VISIBLE);
+		boolean boolRslt = false; 
+		
+		boolRslt = ((aDTO.getVisibility().equals(VISIBLENUM) || aDTO.getVisibility().equals(DOWNLOADABLENUM)) && 
+				 (!selectedQcStatus.equals(VISIBLE) || !selectedQcStatus.equals(DOWNLOADABLE)) );
+		
+		System.out.println("===== In nbia-web, QcToolUpdateBean:resultAndSelectedStatusIsVisible() - aDTO.getVisibility() is: " + 
+				aDTO.getVisibility());
+		System.out.println("===== In nbia-web, QcToolUpdateBean:resultAndSelectedStatusIsVisible() returned " + boolRslt);
+		
+		return 	boolRslt;	
 	}
 
 
 	private void doUpdate(List<String> seriesList, List<String> statusList,
-			String newStatus) {
+			String newStatus, String[] additionalQcFlagList, String[] newAdditionalQcFlagList) {
 
 		SecurityBean secure = BeanManager.getSecurityBean();
 		if (comments.equals(INITIAL_COMMENT)) {
 			comments = "";
 		}
+		
 		QcStatusDAO qsDao = (QcStatusDAO)SpringApplicationContext.getBean("qcStatusDAO");
-		qsDao.updateQcStatus(seriesList, statusList, newStatus, secure
-				.getUsername(), comments);
+		qsDao.updateQcStatus(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList, 
+				secure.getUsername(), comments);	
+		
 		comments = INITIAL_COMMENT;
 		selectedQcStatus = null;
+		
+		selectedQcBatch = null;
+		selectedQcSubmissionType = null;
+		selectedQcReleasedStatus = null;	
 	}
 
 	private List<QcCustomSeriesListDTO> findCustomerListInfo(
@@ -275,15 +381,39 @@ public class QcToolUpdateBean {
 
 		seriesList.clear();
 		statusList.clear();
+		additionalQcFlagList = null;
+		newAdditionalQcFlagList = null;
+		
+		additionalQcFlagList = new String[3];
+		newAdditionalQcFlagList = new String[3];
+		
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		String visibility = qsrDTOList.get(selectedRow).getVisibility();
+		
+		String batch = qsrDTOList.get(selectedRow).getBatch();
+		String submissionType = qsrDTOList.get(selectedRow).getSubmissionType();
+		String releasedStatus = qsrDTOList.get(selectedRow).getReleasedStatus();
+		
 		List<String> seriesCheckList = new ArrayList<String>();
 		seriesId = qsrDTOList.get(selectedRow).getSeries();
 		seriesList.add(seriesId);
 		statusList.add(visibility);
+		
+		additionalQcFlagList[0] = batch;
+	    additionalQcFlagList[1]	= submissionType;	
+	    additionalQcFlagList[2]	= releasedStatus;	
+	    
+	    //--------------------------------------------------------------
+	    newAdditionalQcFlagList[0] = selectedQcBatch;
+	    newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+	    newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+	    				
 
-		if (visibility.equals(VISIBLENUM)
-				&& (!selectedQcStatusSingle.equals(VISIBLE))) {
+		if ( (visibility.equals(VISIBLENUM) || visibility.equals(DOWNLOADABLENUM))  &&
+			 ((!selectedQcStatusSingle.equals(VISIBLE)) || (!selectedQcStatusSingle.equals(DOWNLOADABLE))) ) {
+			
+			System.out.println("===== In nbia-web, QcToolUpdateBean:updateSingle() - Adding to seriesCheckList - Visibility is VISIBLE OR DOWNLOADABLE! " );
+			
 			seriesCheckList.add(seriesId);
 			userNameList = findCustomerListInfo(seriesCheckList);
 			if (userNameList != null && userNameList.size() > 0) {
@@ -291,9 +421,13 @@ public class QcToolUpdateBean {
 				return null;
 			}
 		}
+		
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatusSingle).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		
+	doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
+		
 		qsrDTOList.get(selectedRow).setVisibility(newStatus);
 		++selectedRow;
 
@@ -372,8 +506,7 @@ public class QcToolUpdateBean {
 				currentSeriesSize = imageList.size();
 				createLink(imageList.get(imageCount));
 			}else {
-				
-				
+							
 				List<ImageSearchResult> imageList = Arrays.asList(drillDown
 						.retrieveImagesForSeries(seriesId));
 				javaScriptbits = SlideShowUtil.getImageSeriesJavascript(imageList);
@@ -381,8 +514,7 @@ public class QcToolUpdateBean {
 				tagInfo = ldtv.viewDicomHeader(imageList.get(imageCount).getId());
 				currentSeriesSize = imageList.size();
 				createLink(imageList.get(imageCount));
-			}
-			
+			}			
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -458,7 +590,19 @@ public class QcToolUpdateBean {
 	public void continueUpdate() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatus).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
+			newAdditionalQcFlagList[0] = selectedQcBatch;
+		}
+		
+		if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
+			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+		}				
+		
+		if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length() > 0)){
+			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+		}
+		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
 		qcToolSearchBean.setQsrDTOList(newQsrDTOList);
 		searchPgPopupRendered = false;
 		newQsrDTOList = null;
@@ -469,7 +613,19 @@ public class QcToolUpdateBean {
 	public String continueUpdateSingle() {
 		String newStatus = VisibilityStatus.stringStatusFactory(
 				selectedQcStatusSingle).getNumberValue().toString();
-		doUpdate(seriesList, statusList, newStatus);
+		if((selectedQcBatch!=null)&&(selectedQcBatch.trim().length()) > 0){
+			newAdditionalQcFlagList[0] = selectedQcBatch;
+		}
+		
+		if((selectedQcSubmissionType!=null)&&(selectedQcSubmissionType.trim().length() > 0)){
+			newAdditionalQcFlagList[1] = selectedQcSubmissionType;
+		}				
+		
+		if((selectedQcReleasedStatus!=null)&&(selectedQcReleasedStatus.trim().length() > 0)){
+			newAdditionalQcFlagList[2] = selectedQcReleasedStatus;
+		}
+		doUpdate(seriesList, statusList, newStatus, additionalQcFlagList, newAdditionalQcFlagList);
+		
 		popupRendered = false;
 		List<QcSearchResultDTO> qsrDTOList = qcToolSearchBean.getQsrDTOList();
 		qsrDTOList.get(selectedRow).setVisibility(newStatus);
@@ -566,7 +722,6 @@ public class QcToolUpdateBean {
 		this.hasMultiFrame = hasMultiFrame;
 	}
 	
-	
 	public List<SelectItem> getImgNumItems() {
 		if (isHasMultiFrame()) {
 				imgNumItems = new ArrayList<SelectItem>();
@@ -583,7 +738,6 @@ public class QcToolUpdateBean {
 	public void setImgNumItems(List<SelectItem> imgNumItems) {
 		this.imgNumItems = imgNumItems;
 	}
-
 
 	public String getSelectedImgNumField() {
 		return selectedImgNumField;
@@ -610,18 +764,24 @@ public class QcToolUpdateBean {
 		"&wadoUrl="+APIURLHolder.getWadoUrl();
 		setImageLink(url);
     }
+      
 
-
-	// //////////////////////////PRIVATE///////////////////////////////////////
+	//////////////////////////// PRIVATE //////////////////////////////
 	private static final String DELETE = "Delete";
 	private static final String VISIBLE = VisibilityStatus.VISIBLE.getText();
-	private static final String VISIBLENUM = VisibilityStatus.VISIBLE
-			.getNumberValue().toString();
+	private static final String DOWNLOADABLE = VisibilityStatus.DOWNLOADABLE.getText();
+	private static final String VISIBLENUM = VisibilityStatus.VISIBLE.getNumberValue().toString();
+	private static final String DOWNLOADABLENUM = VisibilityStatus.DOWNLOADABLE.getNumberValue().toString();
 	private static final String REQUIRED_FIELD = "qcTool_requiedField_Update";
 	private static final String ERRORMSG_RPT = "qcTool_requiedSeries";
 	private static final String COMMENTS_TOO_LONG = "qcTool_logTooLong";
 	private QcToolSearchBean qcToolSearchBean;
 	private String selectedQcStatus = null;
+	
+	private String selectedQcBatch = null;
+	private String selectedQcSubmissionType = null;
+	private String selectedQcReleasedStatus = null;
+	
 	private String selectedQcStatusSingle = null;
 	private static final String INITIAL_COMMENT = "Enter change log here...";
 	private String comments = INITIAL_COMMENT;
@@ -639,12 +799,17 @@ public class QcToolUpdateBean {
 	private boolean searchPgPopupRendered = false;
 	private List<QcCustomSeriesListDTO> userNameList;
 	private List<QcSearchResultDTO> newQsrDTOList = null;
+	
 	private List<String> seriesList = new ArrayList<String>();
 	private List<String> statusList = new ArrayList<String>();
+	private String[] additionalQcFlagList;
+	private String[] newAdditionalQcFlagList;
+	
 	private static final String BULK="BulkUpdate";
 	private static final String SINGLE="SingleUpdate";
 	private boolean hasMultiFrame = false;
 	private List<SelectItem> imgNumItems;
 	private int currentSeriesSize = 0;
 	private String selectedImgNumField = "1";
+
 }

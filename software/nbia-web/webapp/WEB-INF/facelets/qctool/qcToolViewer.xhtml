@@ -83,6 +83,28 @@ L-->
 							</f:facet>
 							<ice:outputText value="#{res.visibilityStatus}" />
 						</ice:column>
+						
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Batch Number" />
+							</f:facet>
+							<ice:outputText value="#{res.batch}" />
+						</ice:column>
+												
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Submission Type" />
+							</f:facet>
+							<ice:outputText value="#{res.submissionType}" />
+						</ice:column>
+						
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Released Status" />
+							</f:facet>
+							<ice:outputText value="#{res.releasedStatus}" />
+						</ice:column>
+						
 					</ice:dataTable>
 				</ice:panelGroup>
 			</center>
@@ -109,6 +131,42 @@ L-->
 							</ice:selectOneRadio>
 						</ice:panelGroup>
 					</f:subview>
+
+					<br />
+						
+						<table cellpadding="10" border="1"
+                            cellspacing="2" summary="Additional QC Flags">
+                            
+                        <tr>    
+						 <td class="formField" >                               
+                    		     <ice:outputLabel for="BatchUpdate" value="#{msg.qctool_batch}:" />
+                                   <ice:selectOneMenu id="BatchUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcBatch}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcBatchNums}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>
+                               
+                                <td class="formField" >                               
+                    		     <ice:outputLabel for="SubmissionTypeUpdate" value="#{msg.qctool_SubmissionType}" />
+                                   <ice:selectOneMenu id="SubmissionTypeUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcSubmissionType}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcSubmissionTypes}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>     
+                               
+                                <td class="formField" >                               
+                    		     <ice:outputLabel for="ReleasedStatusUpdate" value="#{msg.qctool_ReleasedStatus}" />
+                                   <ice:selectOneMenu id="ReleasedStatusUpdate"
+                                                     value="#{qcToolUpdateBean.selectedQcReleasedStatus}" 
+                                                     style="font-size:1em" partialSubmit="false">
+                                     <f:selectItems value="#{qcToolBean.qcReleasedStatus}" />
+                                   </ice:selectOneMenu>                                                 
+                               </td>                                                                     
+						</tr>
+						</table><br/><br/>
+						
 
 					<f:subview id="qcToolDeleteView" rendered="#{qcToolBean.superRole}">
 						<ice:outputText id="emptyLine" value="" />
@@ -187,6 +245,48 @@ L-->
 								<ice:outputText value="New QC Status" />
 							</f:facet>
 							<ice:outputText value="#{res.newVisibilityStatus}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Previous QC Batch-Number" />
+							</f:facet>
+							<ice:outputText value="#{res.oldBatch}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="New QC Batch-Number" />
+							</f:facet>
+							<ice:outputText value="#{res.newBatch}" />
+						</ice:column>
+						
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Previous QC Submission-Status" />
+							</f:facet>
+							<ice:outputText value="#{res.oldSubmissionType}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="New QC Submission-Status" />
+							</f:facet>
+							<ice:outputText value="#{res.newSubmissionType}" />
+						</ice:column>
+
+					    <ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Previous QC Released-Status" />
+							</f:facet>
+							<ice:outputText value="#{res.oldReleasedStatus}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="New QC Released-Status" />
+							</f:facet>
+							<ice:outputText value="#{res.newReleasedStatus}" />
 						</ice:column>
 
 						<ice:column>

@@ -92,6 +92,7 @@ public class StudyDAOImpl extends AbstractDAO
             seriesDTO.setPatientId((String)row[13]);
             seriesDTO.setProject((String)row[14]);
             seriesDTO.setMaxFrameCount((String)row[16]);
+            seriesDTO.setPatientPkId(row[17].toString());
             // Try to get the study if it already exists
             StudyDTO studyDTO = studyList.get(seriesDTO.getStudyPkId());
 
@@ -144,7 +145,7 @@ public class StudyDAOImpl extends AbstractDAO
 				"s.patientAge, s.patient.patientId, s.patient.patientName, s.patient.patientBirthDate, s.patient.patientSex, " +
 				"s.patient.ethnicGroup, s.patient.dataProvenance.project, " +
 				"(select count(*) from GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID) "  +
-				"from Study as s, GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID and gs.visibility = '1' ";
+				"from Study as s, GeneralSeries gs where s.studyInstanceUID=gs.studyInstanceUID and gs.visibility in ('1', '12') ";
 		StringBuffer where = new StringBuffer();
 		List<Object[]> rs = null;
 		List<String> paramList = new ArrayList<String>();
@@ -167,6 +168,9 @@ public class StudyDAOImpl extends AbstractDAO
 		}
 
 		where.append(addAuthorizedProjAndSites(authorizedProjAndSites));
+		
+	System.out.println("===== In nbia-dao, StudyDAOImpl:getPatientStudy() - downloadable visibility - hql is: " + hql + where.toString());
+		
 		if (i > 0) {
 			Object[] values = paramList.toArray(new Object[paramList.size()]);
 			rs = getHibernateTemplate().find(hql + where.toString(), values);
@@ -202,9 +206,9 @@ public class StudyDAOImpl extends AbstractDAO
 	}
 
 	/////////////////////////////////////PRIVATE/////////////////////////////////////////
-    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount  ";
+    private static final String SQL_QUERY_SELECT = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize, series.maxFrameCount, series.patientPkId  ";
     private static final String SQL_QUERY_FROM = "FROM Study study join study.generalSeriesCollection series join series.generalEquipment ge ";
-    private static final String SQL_QUERY_WHERE = "WHERE series.visibility = '1' ";
+    private static final String SQL_QUERY_WHERE = "WHERE series.visibility in ('1', '12') ";
 
 	private static Logger logger = Logger.getLogger(ImageDAO.class);
 
@@ -253,14 +257,14 @@ public class StudyDAOImpl extends AbstractDAO
 		if (seriesPkIds.size() == 0) {
 			return new ArrayList<StudyDTO>();
 		}
-		String selectStmt = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize , ge.manufacturerModelName, ge.softwareVersions ";
+		String selectStmt = "SELECT distinct series.id, study.id, study.studyInstanceUID, series.seriesInstanceUID, study.studyDate, study.studyDesc, series.imageCount, series.seriesDesc, series.modality, ge.manufacturer, series.seriesNumber, series.annotationsFlag, series.totalSize, series.patientId, study.patient.dataProvenance.project, series.annotationTotalSize , ge.manufacturerModelName, ge.softwareVersions, series.patientPkId ";
 		String fromStmt = SQL_QUERY_FROM;
 		String whereStmt = SQL_QUERY_WHERE;
 		String oderBy = " Order by study.patient.dataProvenance.project,series.patientId,study.studyDate, study.studyDesc, series.modality, series.seriesDesc,ge.manufacturer, ge.manufacturerModelName, ge.softwareVersions, series.seriesInstanceUID";
 
 		StringBuffer hql = null;
 		List<Integer> partitions = null;
-		;
+		
 		int listSize = seriesPkIds.size();
 		List<StudyDTO> returnList = new ArrayList<StudyDTO>();
 		long start = System.currentTimeMillis();
@@ -284,9 +288,13 @@ public class StudyDAOImpl extends AbstractDAO
 					+ oderBy);
 			returnList.addAll(getResults(hql.toString()));
 		}
+		
+	System.out.println("===== In nbia-dao, StudyDAOImpl:findStudiesBySeriesIdDBSorted() - downloadable visibility - hql is: " + hql);
+		
 		long end = System.currentTimeMillis();
 		logger.info("total time to excute all queries: " + (end - start)
-				+ " ms");
+				+ " ms");	
+		
 		return returnList;
 	}
 
@@ -327,6 +335,7 @@ public class StudyDAOImpl extends AbstractDAO
 
 			seriesDTO.setManufacturerModelName((String) row[16]);
 			seriesDTO.setSoftwareVersion((String) row[17]);
+			seriesDTO.setPatientPkId(row[18].toString());
 			// Try to get the study if it already exists
 			StudyDTO studyDTO = new StudyDTO();
 			studyDTO.setStudyId(row[2].toString());

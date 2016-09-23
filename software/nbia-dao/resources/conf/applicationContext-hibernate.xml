@@ -8,6 +8,7 @@
    See http://ncip.github.com/national-biomedical-image-archive/LICENSE.txt for details.
 L-->
 
+
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:tx="http://www.springframework.org/schema/tx"
@@ -41,7 +42,7 @@ L-->
     <property name="location" value="classpath:hibernate.properties" />
   </bean>
 
-  <jee:jndi-lookup id="dataSource" jndi-name="${hibernate.connection.datasource}"/>
+  <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ncia"/>
 
   <!-- Hibernate SessionFactory -->
   <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -70,7 +71,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesList.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/CustomSeriesListAttribute.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/DownloadDataHistory.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/LoginHistory.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/ManufacturerModelSoftware.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/NumberMonth.hbm.xml</value>
@@ -82,8 +82,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/SavedQueryLastExec.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/Workflow.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimQuantification.hbm.xml</value>
       </list>
     </property>
 
@@ -105,17 +103,6 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
   <bean id="springApplicationContext" class="gov.nih.nci.nbia.util.SpringApplicationContext"/>
 
 
-  <bean id="aimImgObsCharacteristicQuantificationDAO" class="gov.nih.nci.nbia.dao.AimImgObsCharacteristicQuantificationDAOImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
-
-  <bean id="aimImgObsCharacteristicDAO" class="gov.nih.nci.nbia.dao.AimImgObsCharacteristicDAOImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
 
   <bean id="imageDAO2" class="gov.nih.nci.nbia.dao.ImageDAO2Impl">
     <property name="sessionFactory">
@@ -184,11 +171,6 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
     </property>
   </bean>
   <bean id="queryHandler" class="gov.nih.nci.nbia.dynamicsearch.QueryHandlerImpl">
-    <property name="sessionFactory">
-      <ref bean="sessionFactory"/>
-    </property>
-  </bean>
-  <bean id="markupManager" class="gov.nih.nci.nbia.markup.MarkupManagerImpl">
     <property name="sessionFactory">
       <ref bean="sessionFactory"/>
     </property>
@@ -287,6 +269,12 @@ class="org.springframework.orm.hibernate3.HibernateTransactionManager">
    <bean id="study" class="gov.nih.nci.nbia.internaldomain.Study" scope="prototype"/>
    <bean id="trialSite" class="gov.nih.nci.nbia.internaldomain.TrialSite" scope="prototype"/>
    <bean id="trialDataProvenance" class="gov.nih.nci.nbia.internaldomain.TrialDataProvenance" scope="prototype"/>
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
 
   <!--
     Activates various annotations to be detected in bean classes:

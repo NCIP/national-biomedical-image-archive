@@ -121,12 +121,7 @@ L-->
                 name="slf4j-log4j12"
                 rev="1.6.1"
                 conf="runtime->master"/>
-  
-    <dependency org="java.net"
-                name="jai_imageio"
-                rev="1.2_pre-dr-b04"
-                conf="runtime->master"/>
-    
+
     <dependency org="java.net"
                 name="clibwrapper_jiio"
                 rev="1.2_pre-dr-b04"
@@ -154,11 +149,6 @@ L-->
                 name="mircutil"
                 rev="T32"
                 conf="compile->master;runtime->master"/>
-
-    <dependency org="ncicb"
-                name="nbia-services-grid"
-                rev="latest.integration"
-                conf="compile->master;runtime"/>
 
     <dependency org="ncicb"
                 name="nbia-util"

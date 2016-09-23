@@ -51,15 +51,11 @@ public class DataFieldParser {
 				xstream.alias("sourceItem", SourceItem.class);
 				xstream.addImplicitCollection(DataGroup.class,"dataSource", DataSource.class);
 				xstream.addImplicitCollection(DataSource.class,"sourceItem", SourceItem.class);
-				//move this file into Jboss directory, so users can modify it.
+		    	 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		    	 InputStream input = classLoader.getResourceAsStream("DataSourceItem.xml");
+				dg = (DataGroup)xstream.fromXML(new InputStreamReader(input));
 				
-				//pass this in instead?
-				File dataSourceItemConfigFile = DynamicSearchConfig.getDataSourceItemConfigFile();				
-				InputStream in =  new FileInputStream(dataSourceItemConfigFile);
-				
-				dg = (DataGroup)xstream.fromXML(new InputStreamReader(in));
-				
-				in.close();
+				input.close();
 			}
 		}
 		catch(Exception e)

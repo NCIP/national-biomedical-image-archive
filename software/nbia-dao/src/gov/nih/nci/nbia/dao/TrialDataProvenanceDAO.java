@@ -14,7 +14,6 @@ import org.springframework.dao.DataAccessException;
  *
  */
 
-
 public interface TrialDataProvenanceDAO {
 	/**
 	 * Fetch Patient Object through project, ie. collection
@@ -23,4 +22,11 @@ public interface TrialDataProvenanceDAO {
 	 * This method is used for NBIA Rest API.
 	 */
 	public List<String> getCollectionValues(List<String> authorizedProjAndSites) throws DataAccessException;
+	
+	/**
+	 * Fetch the list of Project and Site combination
+	 * @param none
+	 * This method is used for NBIA Rest API.
+	 */
+	public List<String> getProjSiteValues() throws DataAccessException;	
 }

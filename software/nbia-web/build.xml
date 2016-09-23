@@ -22,14 +22,15 @@ L-->
   <property name="download.mgr.target.dir" value="${common.dir}/target/dist/exploded/nbia-download-manager" />
   <property name="download.webapp.target.dir" value="${common.dir}/target/dist/exploded/nbia-download"/>
   <property name="oviyam.dir" value="${common.dir}/common/resources/oviyam"/>
+  <property name="build.dir" value="${common.dir}/build"/>
+  <property name="tomcat.dir" value="${common.dir}/common/resources/tomcat"/>
   <!-- The following should not need modifying -->
   <property name="src.java.dir" value="src" />
   <property name="resources.dir" value="resources" />
   <property name="classes.dir" value="${basedir}/classes" />
 
-  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-ear" />
-  <property name="war.name" value="nbia.war" />
-  <property name="ear.name" value="nbia.ear" />
+  <property name="target.dir" value="${common.dir}/target/dist/exploded/nbia-wars" />
+  <property name="war.name" value="ncia.war" />
   <property name="global.ivy.settings.file" location="${common.dir}/common/ivysettings.xml"/>
 
   <property name="webapp.dir" value="${classes.dir}/webapp" />
@@ -37,7 +38,6 @@ L-->
   <property name="web.lib.dir" value="${classes.dir}/webapp/WEB-INF/lib" />
   <property name="web.nbia.webapp.dir" value="webapp" />
   
-  <property name="ear.lib" value="${common.dir}/target/lib/imagedeletionmdb/runtime" />
   
     <!-- define this for unittesting.xml import -->
   <property name="classes.to.test.dir" value="${web.classes.dir}"/>
@@ -138,20 +138,20 @@ L-->
     <copy todir="${webapp.dir}/WEB-INF/lib">
       <fileset dir="${project.lib.dir}/runtime">
         <include name="*.*" />
-        <!-- disagrees with jboss 4.0.x log4j DailyRollingFileAppender -->
-        <exclude name="log*.jar" />
-        <!-- avoid org.jboss.tm.TxManager class cast exception -->
-        <exclude name="jta*.jar" />
-        <exclude name="commons-logging*.jar" />
-      	<exclude name="bouncycastle-jdk1.3_1.25.jar"/>
-	    <exclude name="spring-asm*.jar" />
-	    <exclude name="spring-jsm*.jar" />
-	    <exclude name="xml-apis*.jar" />
-      	<exclude name="bcprov-*.jar" />
-            <exclude name="slf4j-log4j12-1.4.3.jar" />
-	    <exclude name="spring-*-3.11.RELEASE.jar" />
       </fileset>
     </copy>
+  	<echo>"${build.dir}/{properties.file}"</echo>
+    <if>
+      <available file="${tomcat.dir}/ahp_nbia.properties"/>
+      <then>
+      	<copy file="${tomcat.dir}/ahp_nbia.properties" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+      </then>
+      <else>
+      	<copy file="${build.dir}/${property.file}" tofile="${webapp.dir}/WEB-INF/classes/nbia.properties"/>
+      </else>
+    </if>
+	<copy file="${tomcat.dir}/DataSourceItem.xml" tofile="${webapp.dir}/WEB-INF/classes/DataSourceItem.xml"/>
+	<copy file="${tomcat.dir}/relationship.xml" tofile="${webapp.dir}/WEB-INF/classes/relationship.xml"/>
     <copy todir="${webapp.dir}/WEB-INF/classes">
       <fileset dir="${resources.dir}">
         <include name="jnlpTemplate.jnlp"/>
@@ -246,14 +246,7 @@ L-->
   </target>
 
   <target name="ear" depends="war">
-     <ear compress="false" destfile="${target.dir}/${ear.name}" appxml="${web.j2ee.resources.dir}/application.xml">
-      <zipfileset dir="${ear.lib}" prefix="lib" excludes="xalan-2.6.0.jar,xercesImpl-2.6.2.jar"/> 
-      <fileset dir="${target.dir}" includes="${war.name}" />
-      <fileset dir="${commons.target.dir}" includes="imageZippingMDB.jar" />
-      <fileset dir="${commons.target.dir}" includes="imageDeletionMDB.jar" />
-      <fileset dir="${download.webapp.target.dir}" includes="*.war" />
-      <!--fileset dir="${oviyam.dir}" includes="*.war" /-->
-    </ear>
+
     <ivy:report todir="${reports.dir}/ivy/" graph="false"/>  
     <!--antcall target="jboss-config.files"/-->
     	
@@ -290,6 +283,14 @@ L-->
     <filter token="show.collection.search.criteria" value="${show.collection.search.criteria}"/>
     <filter token="show.anatomical.search.criteria" value="${show.anatomical.search.criteria}"/>
  	<filter token="gov.nih.nci.ncia.solr.home" value="${gov.nih.nci.ncia.solr.home}"/>
+ 	<filter token="qctool.visibility.stage1" value="${qctool.visibility.stage1}"/>
+ 	<filter token="qctool.visibility.stage2" value="${qctool.visibility.stage2}"/>
+ 	<filter token="qctool.visibility.stage3" value="${qctool.visibility.stage3}"/>
+ 	<filter token="qctool.visibility.stage4" value="${qctool.visibility.stage4}"/>
+ 	<filter token="qctool.visibility.stage5" value="${qctool.visibility.stage5}"/>
+ 	<filter token="qctool.visibility.stage6" value="${qctool.visibility.stage6}"/>
+ 	<filter token="qctool.visibility.stage7" value="${qctool.visibility.stage7}"/>
+ 	<filter token="qctool.batchNumberSelect.size" value="${qctool.batchNumberSelect.size}"/>
         
     <copy file="${jboss-conf}/properties-service.xml" todir="${jboss.setting}/deploy" overwrite="true" filtering="true"> </copy>
         

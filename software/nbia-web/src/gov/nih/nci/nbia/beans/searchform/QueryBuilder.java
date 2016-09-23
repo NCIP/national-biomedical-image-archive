@@ -17,30 +17,22 @@ import gov.nih.nci.ncia.criteria.ConvolutionKernelCriteria;
 import gov.nih.nci.ncia.criteria.DateRangeCriteria;
 import gov.nih.nci.ncia.criteria.ImageModalityCriteria;
 import gov.nih.nci.ncia.criteria.ImageSliceThickness;
-import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeMeaningCriteria;
-import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicCodeValuePairCriteria;
-import gov.nih.nci.ncia.criteria.ImagingObservationCharacteristicQuantificationCriteria;
 import gov.nih.nci.ncia.criteria.KilovoltagePeakDistribution;
 import gov.nih.nci.ncia.criteria.ManufacturerCriteria;
 import gov.nih.nci.ncia.criteria.MinNumberOfStudiesCriteria;
 import gov.nih.nci.ncia.criteria.ModalityAndedSearchCriteria;
 import gov.nih.nci.ncia.criteria.ModelCriteria;
-import gov.nih.nci.ncia.criteria.NodeCriteria;
 import gov.nih.nci.ncia.criteria.NumFrameOptionCriteria;
 import gov.nih.nci.ncia.criteria.NumOfMonthsCriteria;
 import gov.nih.nci.ncia.criteria.PatientCriteria;
 import gov.nih.nci.ncia.criteria.SeriesDescriptionCriteria;
 import gov.nih.nci.ncia.criteria.SoftwareVersionCriteria;
 import gov.nih.nci.ncia.criteria.UsMultiModalityCriteria;
-import gov.nih.nci.nbia.beans.searchform.aim.AimSearchWorkflowBean;
-import gov.nih.nci.nbia.beans.searchform.aim.Quantification;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.util.StringUtil;
-import gov.nih.nci.ncia.search.NBIANode;
 
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * This used to be inside the SearchWorkflowBean.  This obejct is solely responsible
@@ -60,54 +52,11 @@ class QueryBuilder {
         	addAdvancedCriteria(searchBean, query);
         }
 
-        addAIMCriteria(searchBean.getAimSearchWorkflowBean(), query);
-
         return query;
 	}
 
 	////////////////////////////////////PRIVATE////////////////////////////////////////////////
-
-    private static void addAIMCriteria(AimSearchWorkflowBean searchBean, DICOMQuery query) {
-    	List<String> codeMeaningNames = searchBean.getSelectedCodeMeaningNames();
-
-        if(codeMeaningNames.size()>0) {
-
-			ImagingObservationCharacteristicCodeMeaningCriteria crit =
-				new ImagingObservationCharacteristicCodeMeaningCriteria();
-			crit.setImagingObservationCharacteristicCodeMeaningNames(codeMeaningNames);
-
-			query.setCriteria(crit);
-		}
-
-    	List<String> codeValuePairs = searchBean.getSelectedCodeValuePairNames();
-
-        if(codeValuePairs.size()>0) {
-
-			ImagingObservationCharacteristicCodeValuePairCriteria crit =
-				new ImagingObservationCharacteristicCodeValuePairCriteria();
-			crit.setImagingObservationCharacteristicCodeValuePairs(codeValuePairs);
-
-			query.setCriteria(crit);
-		}
-
-		List<Quantification> quantifications = searchBean.getQuantifications();
-        if(quantifications.size()>0) {
-
-            List<String> shortArmQ = new ArrayList<String>();
-            for(Quantification q : quantifications) {
-				shortArmQ.add(q.getName()+"="+q.getValue());
-		    }
-			ImagingObservationCharacteristicQuantificationCriteria crit =
-				new ImagingObservationCharacteristicQuantificationCriteria();
-			crit.setImagingObservationCharacteristicQuantifications(shortArmQ);
-
-			query.setCriteria(crit);
-		}
-    }
-
-    private static void addSimpleCriteria(SearchWorkflowBean searchBean,DICOMQuery query) {
-    	buildNodeCriteria(searchBean, query);
-        
+    private static void addSimpleCriteria(SearchWorkflowBean searchBean,DICOMQuery query) {        
     	// Setup number of previous studies criteria here
         if (!StringUtil.isEmpty(searchBean.getNumberStudies())) {
             MinNumberOfStudiesCriteria nsc = new MinNumberOfStudiesCriteria();
@@ -279,25 +228,6 @@ class QueryBuilder {
             svc.setSoftwareVersionObjects(selectedSoftwareVersions);
             query.setCriteria(svc);
         }
-    }
-
-
-	private static void buildNodeCriteria(SearchWorkflowBean searchBean, DICOMQuery query) {
-
-		List<NBIANode> selectedRemoteNodes = searchBean.getSelectedNodes();
-		if(selectedRemoteNodes.size()==0) {
-			return;
-		}
-		else {
-			NodeCriteria nodeCriteria = new NodeCriteria();
-			List<String> nodeUrls = new ArrayList<String>(selectedRemoteNodes.size());
-			for(NBIANode node : selectedRemoteNodes) {
-				nodeUrls.add(node.getURL());
-			}
-			nodeCriteria.setRemoteNodes(nodeUrls);
-    		query.setCriteria(nodeCriteria);
-
-		}
     }
 
 

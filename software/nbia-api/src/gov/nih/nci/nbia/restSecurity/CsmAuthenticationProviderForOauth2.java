@@ -10,7 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.authentication.BadCredentialsException;
+
 import gov.nih.nci.nbia.security.NCIASecurityManager;
+import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
 
 
@@ -19,8 +21,18 @@ public class CsmAuthenticationProviderForOauth2 implements AuthenticationProvide
 	    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 	        String name = authentication.getName();
 	        String password = authentication.getCredentials().toString();
-	        System.out.println("!!user name="+name);
-	        System.out.println("!!password="+password);
+	        String guestAccount  = NCIAConfig.getEnabledGuestAccount();
+	        System.out.println("--------"+NCIAConfig.getEnabledGuestAccount());
+	        System.out.println("--------"+NCIAConfig.getGuestUsername());
+	        if (guestAccount.equalsIgnoreCase("yes")){
+	        	if(NCIAConfig.getGuestUsername().equalsIgnoreCase(name)){
+		        	List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
+		            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+		            //Authentication auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
+		            Authentication auth = new UsernamePasswordAuthenticationToken(name, null, grantedAuths);
+		            return auth;
+	        	}
+	        }
 	        try {
 	        NCIASecurityManager mgr = (NCIASecurityManager)SpringApplicationContext.getBean("nciaSecurityManager");
 	        if(mgr.login(name, password)) {

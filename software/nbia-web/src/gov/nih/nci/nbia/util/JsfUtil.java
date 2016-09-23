@@ -8,8 +8,6 @@
 
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.ncia.search.NBIANode;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -112,24 +110,6 @@ public class JsfUtil {
     	}
     	return null;
     } 
-    
-    public static List<SelectItem> constructNodeSelectItems(List<NBIANode> nodes) {
-    	List<SelectItem> selectItemList = new ArrayList<SelectItem>();
-    	
-    	for(NBIANode node : nodes) {
-    		SelectItem item = new SelectItem();
-    		item.setLabel(node.getDisplayName());
-    		if(node.isLocal()) {
-    			item.setDescription("Local Node");
-    		}
-    		else {
-    			item.setDescription(node.getURL());
-    		}
-    		item.setValue(false);
-    		selectItemList.add(item);    		
-    	}
-    	return selectItemList;    	
-    }
     
     public static List<SelectItem> constructModalitySelectItems(Collection<String> strings, Map<String, String> modalityDescMap) {
     	List<SelectItem> selectItemList = new ArrayList<SelectItem>();

@@ -10,7 +10,7 @@ package gov.nih.nci.nbia.dynamicsearch;
 
 import gov.nih.nci.nbia.util.Util;
 import gov.nih.nci.nbia.AbstractDbUnitTestForJunit4;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.lookup.StudyNumberMap;
 

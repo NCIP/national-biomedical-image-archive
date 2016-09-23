@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 
 /**
  * Represents a Study for data transfer purposes
@@ -51,6 +53,7 @@ import java.util.List;
  * @author dietrichj
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StudyDTO implements Comparable<StudyDTO>  {
     
     private String studyId;

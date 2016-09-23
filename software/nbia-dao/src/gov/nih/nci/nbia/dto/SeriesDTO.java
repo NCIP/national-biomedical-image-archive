@@ -11,12 +11,14 @@ package gov.nih.nci.nbia.dto;
 import gov.nih.nci.nbia.util.UidDisplayUtil;
 
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * Represents a series for data transfer purposes
  *
  * @author dietrichj
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SeriesDTO implements Comparable<SeriesDTO>  {
     private static Logger logger = Logger.getLogger(SeriesDTO.class);
 
@@ -30,6 +32,7 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
     private boolean annotationsFlag;
     private Long annotationsSize = 0L;
     private String patientId;
+    private String patientPkId;
     private String studyId;
     private Integer studyPkId;
     private Long totalSizeForAllImagesInSeries;
@@ -39,7 +42,7 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
     private String manufacturerModelName;
     private String softwareVersion;
     private String maxFrameCount;
-
+    
     public Integer getNumberImages() {
         return numberImages;
     }
@@ -236,6 +239,14 @@ public class SeriesDTO implements Comparable<SeriesDTO>  {
 
 	public void setMaxFrameCount(String maxFrameCount) {
 		this.maxFrameCount = maxFrameCount;
+	}
+
+	public String getPatientPkId() {
+		return patientPkId;
+	}
+
+	public void setPatientPkId(String patientPkId) {
+		this.patientPkId = patientPkId;
 	}
 	
 }

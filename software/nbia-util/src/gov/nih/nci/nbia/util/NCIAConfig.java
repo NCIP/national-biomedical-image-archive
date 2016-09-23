@@ -91,9 +91,11 @@
 package gov.nih.nci.nbia.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import java.io.*;
 
 /**
  * Encapsulates the various NCIA configuration files
@@ -107,26 +109,54 @@ public class NCIAConfig {
      *
      */
      private static Logger logger = Logger.getLogger(NCIAConfig.class);
+     private static Properties properties;
+     static {
+    	 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    	 InputStream input = classLoader.getResourceAsStream("nbia.properties");
+    	 // ...
+    	 properties = new Properties();
+    	     	 
+    	 try {
+			properties.load(input);
+		
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     }
 
      public static boolean getShowCollectionSearchCriteria() {
-         String propertyValue = System.getProperty("show.collection.search.criteria");
+         String propertyValue = properties.getProperty("show.collection.search.criteria");
          checkProperty("show.collection.search.criteria", propertyValue);
          return Boolean.valueOf(propertyValue);
      }
 
      public static String getDatabaseType() {
-         String propertyValue = System.getProperty("database.type");
+         String propertyValue = properties.getProperty("database.type");
          checkProperty("database.type", propertyValue);
          return propertyValue;
      }
 
+     public static String getQCToolPropertyValue(String key){
+    	 String propertyValue = properties.getProperty(key);
+    	 checkProperty(key, propertyValue);
+    	 return propertyValue;
+    	 
+     }
+     
+     public static Integer getQCBatchNumberSelectSize() {
+         return getIntProperty( "qctool.batchNumberSelect.size");
+     }
+     
+     
     /**
      *  The Name of the Local Node
      *  Property: local_node_name
      *  File: ncia.properties
      */
     public static String getLocalNodeName() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.grid.local.node.name");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.grid.local.node.name");
         checkProperty("gov.nih.nci.ncia.grid.local.node.name", propertyValue);
         return propertyValue;
     }
@@ -157,7 +187,7 @@ public class NCIAConfig {
      *  File: ncia.properties
      */
     public static String getProtectionElementPrefix() {
-        String propertyValue = System.getProperty("protection_element_prefix");
+        String propertyValue = properties.getProperty("protection_element_prefix");
         checkProperty("protection_element_prefix", propertyValue);
         return propertyValue;
     }
@@ -168,7 +198,7 @@ public class NCIAConfig {
      *  File: ncia.properties
      */
     public static String getCsmApplicationName() {
-        String propertyValue = System.getProperty("csm_application_name");
+        String propertyValue = properties.getProperty("csm_application_name");
         checkProperty("csm_application_name", propertyValue);
         return propertyValue;
     }
@@ -188,7 +218,7 @@ public class NCIAConfig {
      *  File: ncia.properties
      */
     public static SimpleDateFormat getDateFormat() {
-        String propertyValue = System.getProperty("date_format");
+        String propertyValue = properties.getProperty("date_format");
         checkProperty("date_format", propertyValue);
         return new SimpleDateFormat(propertyValue);
     }
@@ -201,7 +231,7 @@ public class NCIAConfig {
      *  File: ncia.properties
      */
     public static boolean runNewDataFlagUpdate() {
-        String propertyValue = System.getProperty("runNewDataFlagUpdate");
+        String propertyValue = properties.getProperty("runNewDataFlagUpdate");
         checkProperty("runNewDataFlagUpdate", propertyValue);
         return Boolean.valueOf(propertyValue);
     }
@@ -229,7 +259,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getZipLocation() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.zip.location");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.zip.location");
         checkProperty("gov.nih.nci.ncia.zip.location", propertyValue);
         return propertyValue;
     }
@@ -241,7 +271,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getMessagingUrl() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.jboss.mq.url");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.jboss.mq.url");
         checkProperty("gov.nih.nci.ncia.jboss.mq.url", propertyValue);
         return propertyValue;
     }
@@ -253,7 +283,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getFtpLocation() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.ftp.location");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.ftp.location");
         checkProperty("gov.nih.nci.ncia.ftp.location", propertyValue);
         return propertyValue;
     }
@@ -264,7 +294,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getImageServerUrl() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.imaging.server.url");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.imaging.server.url");
         checkProperty("gov.nih.nci.ncia.imaging.server.url", propertyValue);
         return propertyValue;
     }
@@ -277,11 +307,35 @@ public class NCIAConfig {
      * This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getAdminEmailAddress() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.admin.email");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.admin.email");
         checkProperty("gov.nih.nci.ncia.admin.email", propertyValue);
         return propertyValue;
     }
+    
+    
+    /**
+     * Externalized Property!
+     * Property: show.anatomical.search.criteria
+     * This property is configured via the JBoss Property Service MDB (property-service.xml)
+     */
+    public static String getShowAnatomicalSearchCriteria() {
+        String propertyValue = properties.getProperty("show.anatomical.search.criteria");
+        checkProperty("show.anatomical.search.criteria", propertyValue);
+        return propertyValue;
+    }
+    
 
+    /**
+     * Externalized Property!
+     * Lookupmanager class
+     * Property: lookupManager.className
+     * This property is configured via the JBoss Property Service MDB (property-service.xml)
+     */
+    public static String getlookupManagerClassName() {
+        String propertyValue = properties.getProperty("lookupManager.className");
+        checkProperty("lookupManager.className", propertyValue);
+        return propertyValue;
+    }
     /**
      * Externalized Property!
      * Mail server host name
@@ -289,7 +343,7 @@ public class NCIAConfig {
      * This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getMailServerHostName() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.mail.server.host");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.mail.server.host");
         checkProperty("gov.nih.nci.ncia.mail.server.host", propertyValue);
         return propertyValue;
     }
@@ -301,7 +355,7 @@ public class NCIAConfig {
      * This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getInstallationSite() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.installationSite");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.installationSite");
         checkProperty("gov.nih.nci.ncia.installationSite", propertyValue);
         return propertyValue;
     }
@@ -314,7 +368,7 @@ public class NCIAConfig {
      */
 
     public static String getImagePathPattern() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.image.path.pattern");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.image.path.pattern");
         checkProperty("gov.nih.nci.ncia.image.path.pattern", propertyValue);
         return propertyValue;
     }
@@ -325,7 +379,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getMappedImagePathHead() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.mapped.image.path.head");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.mapped.image.path.head");
         checkProperty("gov.nih.nci.ncia.mapped.image.path.head", propertyValue);
         return propertyValue;
     }
@@ -336,7 +390,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getFTPHostAndPort() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.ftp.url");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.ftp.url");
         checkProperty("gov.nih.nci.ncia.ftp.url", propertyValue);
         return propertyValue;
     }
@@ -346,7 +400,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getMappedIRWLink() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.mapped.IRW.link");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.mapped.IRW.link");
         checkProperty("gov.nih.nci.ncia.mapped.IRW.link", propertyValue);
         return propertyValue;
     }
@@ -357,7 +411,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getMappedIRWVersion() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.mapped.IRW.version");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.mapped.IRW.version");
         checkProperty("gov.nih.nci.ncia.mapped.IRW.version", propertyValue);
         return propertyValue;
     }
@@ -368,7 +422,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getJBossPublicUrl() {
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.JBoss.publicUrl");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.JBoss.publicUrl");
         checkProperty("gov.nih.nci.ncia.JBoss.publicUrl", propertyValue);
         return propertyValue;
     }
@@ -380,7 +434,7 @@ public class NCIAConfig {
      *  to contain number of days that files are retained for FTP
      */
     public static String getFileRetentionPeriodInDays(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.fileRetentionPeriodInDays");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.fileRetentionPeriodInDays");
         checkProperty("gov.nih.nci.ncia.fileRetentionPeriodInDays", propertyValue);
         return propertyValue;
     }
@@ -392,7 +446,7 @@ public class NCIAConfig {
      *  to contain value whether guest account is enabled for the system.
      */
     public static String getGuestUsername(){
-        String propertyValue = System.getProperty("guest_username");
+        String propertyValue = properties.getProperty("guest_username");
         checkProperty("guest_username", propertyValue);
         return propertyValue;
     }
@@ -405,7 +459,7 @@ public class NCIAConfig {
      *  to contain value whether guest account is enabled for the system.
      */
     public static String getEnabledGuestAccount(){
-        String propertyValue = System.getProperty("enabled_guest_account");
+        String propertyValue = properties.getProperty("enabled_guest_account");
         checkProperty("enabled_guest_account", propertyValue);
         return propertyValue;
     }
@@ -416,7 +470,7 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getDownloadServerUrl(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.download.server.url");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.download.server.url");
         checkProperty("gov.nih.nci.ncia.download.server.url", propertyValue);
         return propertyValue;
     }
@@ -427,12 +481,12 @@ public class NCIAConfig {
      *  to contain value for the no of retry for downloading image.
      */
     public static String getNoOfRetry(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.download.no.retry");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.download.no.retry");
         checkProperty("gov.nih.nci.ncia.download.no.retry", propertyValue);
         return propertyValue;
     }
     public static boolean getEnableClassicDownload(){
-        String propertyValue = System.getProperty("enable_classic_download");
+        String propertyValue = properties.getProperty("enable_classic_download");
         checkProperty("enable_classic_download", propertyValue);
         return propertyValue.equalsIgnoreCase("yes") ? true : false;
     }
@@ -442,7 +496,7 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getRegistrationMailSubject() {
-        String propertyValue = System.getProperty("registration.email.subject");
+        String propertyValue = properties.getProperty("registration.email.subject");
         checkProperty("registration.email.subject", propertyValue);
         return propertyValue;
     }
@@ -452,13 +506,13 @@ public class NCIAConfig {
      *  This property is configured via the JBoss Property Service MDB (property-service.xml)
      */
     public static String getUsersGroupListEmailAddress() {
-        String propertyValue = System.getProperty("usergroup.list.email");
+        String propertyValue = properties.getProperty("usergroup.list.email");
         checkProperty("usergroup.list.email", propertyValue);
         return propertyValue;
     }
 
     public static String getUsersGroupListName() {
-        String propertyValue = System.getProperty("usergroup.list.name");
+        String propertyValue = properties.getProperty("usergroup.list.name");
         checkProperty("usergroup.list.name", propertyValue);
         return propertyValue;
     }
@@ -466,25 +520,25 @@ public class NCIAConfig {
 
 
     public static String getIndexServerURL() {
-        String propertyValue = System.getProperty("grid.index.url");
+        String propertyValue = properties.getProperty("grid.index.url");
         checkProperty("grid.index.url", propertyValue);
         return propertyValue;
     }
 
     public static String getLocalGridURI() {
-        String propertyValue = System.getProperty("local.grid.uri");
+        String propertyValue = properties.getProperty("local.grid.uri");
         checkProperty("local.grid.uri", propertyValue);
         return propertyValue;
     }
 
     public static String getDiscoverRemoteNodes() {
-        String propertyValue = System.getProperty("discover.remote.nodes");
+        String propertyValue = properties.getProperty("discover.remote.nodes");
         checkProperty("discover.remote.nodes", propertyValue);
         return propertyValue;
     }
 
     public static String getRemoteNodeCaGridVersion() {
-        String propertyValue = System.getProperty("remote.node.caGrid.version");
+        String propertyValue = properties.getProperty("remote.node.caGrid.version");
         checkProperty("remote.node.caGrid.version", propertyValue);
         return propertyValue;
     }
@@ -497,7 +551,7 @@ public class NCIAConfig {
 
 
     public static String getDiscoverPeriodInHrs() {
-        String propertyValue = System.getProperty("discover.period.in.hrs");
+        String propertyValue = properties.getProperty("discover.period.in.hrs");
         checkProperty("discover.period.in.hrs", propertyValue);
         return propertyValue;
     }
@@ -513,7 +567,7 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getEncryptionKey(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.encrypt.key");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.encrypt.key");
         checkProperty("gov.nih.nci.ncia.encrypt.key", propertyValue);
         return propertyValue;
     }
@@ -525,7 +579,7 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getWikiURL(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.wiki.context.sensitive.help.url");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.wiki.context.sensitive.help.url");
         checkProperty("gov.nih.nci.ncia.wiki.context.sensitive.help.url", propertyValue);
         return propertyValue;
     }
@@ -537,7 +591,7 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getSolrHome(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.solr.home");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.solr.home");
         if (propertyValue==null) propertyValue="/Apps/nbia/solr-home";
         checkProperty("gov.nih.nci.ncia.solr.home", propertyValue);
         return propertyValue;
@@ -549,7 +603,7 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getSolrUpdateInterval(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.solr.updateinterval");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.solr.updateinterval");
         checkProperty("gov.nih.nci.ncia.solr.updateinterval", propertyValue);
         return propertyValue;
     }
@@ -560,10 +614,63 @@ public class NCIAConfig {
      *  to contain value for the download servlet server url.
      */
     public static String getWorkflowUpdateInterval(){
-        String propertyValue = System.getProperty("gov.nih.nci.ncia.workflow.updateinterval");
+        String propertyValue = properties.getProperty("gov.nih.nci.ncia.workflow.updateinterval");
         checkProperty("gov.nih.nci.ncia.workflow.updateinterval", propertyValue);
         return propertyValue;
     }
+    
+    public static String getQctoolSearchResultsMaxNumberOfRows(){
+        String propertyValue = properties.getProperty("qctool.search.results.max.number.of.rows");
+        checkProperty("qctool.search.results.max.number.of.rows", propertyValue);
+        return propertyValue;
+    }
+    
+    public static String getQctoolSearchResultsCheckUncheckOption(){
+        String propertyValue = properties.getProperty("qctool.search.results.check.uncheck.option");
+        checkProperty("qctool.search.results.check.uncheck.option", propertyValue);
+        return propertyValue;
+    }
+    public static String getQctoolSearchResultsPerPageOption1(){
+        String propertyValue = properties.getProperty("qctool.search.results.per.page.option.1");
+        checkProperty("qctool.search.results.per.page.option.1", propertyValue);
+        return propertyValue;
+    }
+    public static String getQctoolSearchResultsPerPageOption2(){
+        String propertyValue = properties.getProperty("qctool.search.results.per.page.option.2");
+        checkProperty("qctool.search.results.per.page.option.2", propertyValue);
+        return propertyValue;
+    }
+    public static String getQctoolSearchResultsPerPageOption3(){
+        String propertyValue = properties.getProperty("qctool.search.results.per.page.option.3");
+        checkProperty("qctool.search.results.per.page.option.3", propertyValue);
+        return propertyValue;
+    }
+    public static String getQctoolSearchResultsPerPageOption4(){
+        String propertyValue = properties.getProperty("qctool.search.results.per.page.option.4");
+        checkProperty("qctool.search.results.per.page.option.4", propertyValue);
+        return propertyValue;
+    }
+    public static String getQctoolSearchResultsPerPageOption5(){
+        String propertyValue = properties.getProperty("qctool.search.results.per.page.option.5");
+        checkProperty("qctool.search.results.per.page.option.5", propertyValue);
+        return propertyValue;
+    }
+    public static String getQctoolSearchResultsPerPageOption6(){
+        String propertyValue = properties.getProperty("qctool.search.results.per.page.option.6");
+        checkProperty("qctool.search.results.per.page.option.6", propertyValue);
+        return propertyValue;
+    }
+    public static String getPatientSearcherServiceClassName(){
+        String propertyValue = properties.getProperty("patientSearcherService.className");
+        checkProperty("patientSearcherService.className", propertyValue);
+        return propertyValue;
+    }
+    public static String getDrilldownClassName(){
+        String propertyValue = properties.getProperty("drilldown.className");
+        checkProperty("drilldown.className", propertyValue);
+        return propertyValue;
+    }    
+    
     /**
      * Utility method for retrieving a property
      * Sets the value to -1 if not found or not an integer
@@ -576,7 +683,7 @@ public class NCIAConfig {
         int returnValue = -1;
         //grab the property
 
-        String value = System.getProperty(key);
+        String value = properties.getProperty(key);
         try {
             returnValue = Integer.parseInt(value);
         }catch(NumberFormatException nfe){
@@ -599,7 +706,7 @@ public class NCIAConfig {
         //set error value
         double  returnValue = -1;
         //grab the property
-        String value = System.getProperty(key);
+        String value = properties.getProperty(key);
         try {
             returnValue = Double.parseDouble(value);
         }catch(NumberFormatException nfe){

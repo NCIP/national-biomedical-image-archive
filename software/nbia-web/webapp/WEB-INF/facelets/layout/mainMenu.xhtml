@@ -236,7 +236,7 @@ L-->
       </td>   
     
     
-     <f:subview id="adminToolsView" rendered="#{securityBean.loggedIn and (securityBean.hasQaRole or securityBean.hasSuperCuratorRole or seriesDeletionBean.showDeletionLink or securityBean.hasCollectionDescRole)}">
+     <f:subview id="adminToolsView" rendered="#{securityBean.loggedIn and (securityBean.hasQaRole or securityBean.hasAdminRole or securityBean.hasSuperCuratorRole or seriesDeletionBean.showDeletionLink or securityBean.hasCollectionDescRole)}">
           
             <td class="mainMenuItem">
               <h:outputText value="Admin" />
@@ -328,8 +328,16 @@ L-->
 	   	                       action="#{savedQueryBean.manageSavedQueries}"
 	   	                       value="#{msg.menu_manageSavedQueries}"/>
 	   	        
-	      </li>
-	</f:subview>
+			</li>
+		   </f:subview>
+		   <f:subview id="ManageSavedQueryView" rendered="#{securityBean.hasAdminRole}">
+            <li>
+				<h:outputLink value="#{NCIAConfig.getImageServerUrl()}/nbia-uat/index.html">				
+					<h:outputText value="User Authorization Tool" />
+					<f:param name="accessToken" value="#{securityBean.tokenValue}" />
+				</h:outputLink>
+            </li>
+		   </f:subview>
     
     </ul>
     </td>

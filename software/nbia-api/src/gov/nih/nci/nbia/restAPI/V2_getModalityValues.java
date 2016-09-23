@@ -19,29 +19,12 @@
 package gov.nih.nci.nbia.restAPI;
 
 import java.util.List;
-import org.springframework.dao.DataAccessException;
-
-import gov.nih.nci.nbia.util.SiteData;
-import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.nbia.dao.GeneralSeriesDAO;
-import gov.nih.nci.nbia.restSecurity.AuthorizationService;
-import gov.nih.nci.nbia.restUtil.FormatOutput;
-
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.authentication.BadCredentialsException;
-
-import com.sun.jersey.api.client.ClientResponse.Status;
 
 @Path("/v2/getModalityValues")
 public class V2_getModalityValues extends getData {

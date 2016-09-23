@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -28,7 +29,8 @@ public class DirectoryBrowserPanel extends JPanel {
 		add(browseTextField);
 		add(browseButton);
 
-		browseTextField.setText(System.getProperty("java.io.tmpdir"));
+		//browseTextField.setText(System.getProperty("java.io.tmpdir"));
+		browseTextField.setText("");
 		browseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				actionBrowse();
@@ -56,12 +58,23 @@ public class DirectoryBrowserPanel extends JPanel {
         //
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 
-
-            browseTextField.setText(chooser.getSelectedFile().getPath());
+            browseTextField.setText(chooser.getSelectedFile().getPath());          
+            
         }
         else {
             System.out.println("No Selection ");
         }
+        
+        if (browseTextField.getText().trim().length() >= 3) {  //e.g  C:/
+        	if (DownloadManagerFrame.errorLabel.isVisible() == false)
+        	  DownloadManagerFrame.startButton.setEnabled(true);
+        }
+        else {
+        	
+        	DownloadManagerFrame.startButton.setEnabled(false);
+        	JOptionPane.showMessageDialog(this, "Please select a valid direcory to put the files...", "Destination-Directory", JOptionPane.WARNING_MESSAGE);
+        }
+        	
 	}
 
 

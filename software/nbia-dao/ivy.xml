@@ -88,11 +88,6 @@ L-->
                 conf="runtime->master"/>
 
     <dependency org="ncicb"
-                name="nbia-services-grid"
-                rev="latest.integration"
-                conf="compile->master;runtime"/>
-
-    <dependency org="ncicb"
                 name="nbia-util"
                 rev="latest.integration"
                 conf="compile->master;runtime"/>
@@ -331,11 +326,26 @@ L-->
                 rev="T32"
                 conf="compile->master;runtime->master"/>
     <dependency org="commons-lang" name="commons-lang" rev="2.6" conf="compile->master;runtime->master" />           
+    	<dependency org="org.codehaus.jackson" name="jackson-core-asl" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jackson" name="jackson-jaxrs" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jackson" name="jackson-mapper-asl" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jackson" name="jackson-xc" rev="1.9.2" conf="compile->master;runtime->master"/>
+		<dependency org="jdom" name="jdom" rev="1.0" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-client" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-core" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-json" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-server" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="com.sun.jersey" name="jersey-servlet" rev="1.17.1" conf="compile->master;runtime->master"/>
+		<dependency org="org.codehaus.jettison" name="jettison" rev="1.1" conf="compile->master;runtime->master"/>
+		<dependency org="javax.ws.rs" name="jsr311-api" rev="1.1.1" conf="compile->master;runtime->master"/>
+		<dependency org="org.springframework.security.oauth" name="spring-security-oauth2" rev="1.0.5.RELEASE" conf="compile->master;runtime->master"/>
 
     <!-- garbage from log4j as second order dependency -->
     <exclude org="javax.jms" module="jms"/>
     <exclude org="com.sun.jdmk" module="jmxtools"/>
     <exclude org="com.sun.jmx" module="jmxri"/>
+
+
 
   </dependencies>
 </ivy-module>

@@ -8,10 +8,10 @@
 
 package gov.nih.nci.nbia.util;
 
-import gov.nih.nci.ncia.search.PatientSearchResult;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
-import gov.nih.nci.ncia.search.StudySearchResult;
-import gov.nih.nci.ncia.search.StudySearchResultImpl;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResult;
+import gov.nih.nci.nbia.searchresult.StudySearchResultImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;

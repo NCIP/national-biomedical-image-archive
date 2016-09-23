@@ -12,19 +12,14 @@ import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.beans.savedquery.SavedQueryBean;
 import gov.nih.nci.nbia.beans.searchform.SearchWorkflowBean;
 import gov.nih.nci.nbia.beans.security.SecurityBean;
-import gov.nih.nci.nbia.dto.QcSearchResultDTO;
 import gov.nih.nci.nbia.exception.DuplicateQueryException;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.querystorage.QueryStorageManager;
-import gov.nih.nci.nbia.search.LocalNode;
-import gov.nih.nci.nbia.search.PatientSearchCompletionService;
 import gov.nih.nci.nbia.search.PatientSearchResults;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
-import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.SpringApplicationContext;
-import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,27 +80,6 @@ public class SearchResultBean {
 	public List<PatientResultWrapper> getPatientResults() {
 		return nodeTableWrappers.get(0).getPatients(); 		
 	}
-
-	
-    /**
-     * For an asynchronous query, this method is really "setting the results".
-     * The completion service is used to retrieve results for display once
-     * they are finally ready.
-     */
-    public void setPatientSearchResultsCompletionService(PatientSearchCompletionService results) {
-    	//setup the tables
-    	int numNodes = results.getNodesToSearch().size();
-    	
-    	nodeTableWrappers = new ArrayList<NodeTableWrapper>(numNodes);
-    	List<NBIANode> nodes = results.getNodesToSearch();
-    	for(NBIANode node : nodes) {
-    		NodeTableWrapper wrapper = new NodeTableWrapper(node, this);
-    		nodeTableWrappers.add(wrapper);
-    	}
-    	    	    	   
-    	this.waitForSearchResults(results);
-    }
-    
     
 	/**
 	 * Sets the patient results. This is really an important method....
@@ -124,9 +98,8 @@ public class SearchResultBean {
 			}
 
 			nodeTableWrappers = new ArrayList<NodeTableWrapper>(1);
-			NodeTableWrapper nodeTableWrapper = new NodeTableWrapper(LocalNode.getLocalNode(), this);
-			PatientSearchResults psr = new PatientSearchResults(LocalNode.getLocalNode(),
-					                                            results.toArray(new PatientSearchResult[]{}));
+			NodeTableWrapper nodeTableWrapper = new NodeTableWrapper(this);
+			PatientSearchResults psr = new PatientSearchResults(results.toArray(new PatientSearchResult[]{}));
 			nodeTableWrapper.setPatientSearchResults(psr);
 			nodeTableWrappers.add(nodeTableWrapper);
 		} 
@@ -144,18 +117,7 @@ public class SearchResultBean {
 		return patient;
 	}
 
-	
-	/**
-	 * After a patient is selected..... this tells whether the patient is
-	 * on the local box.  Don't invoke this before viewPatient(xxx).
-	 */
-	public boolean isLocal() {
-		//Cedara is not supported since 6.0.  So it is always false.
-		boolean showCedara = false;
-		return showCedara;
-	}
 
-	
 	/**
 	 * The query from "classic search" that is responsible for the current
 	 * results.
@@ -342,85 +304,13 @@ public class SearchResultBean {
      * results from a given node.  so two nodes search means two elements in this colleciton.
      */
 	private List<NodeTableWrapper> nodeTableWrappers = new ArrayList<NodeTableWrapper>();
-	
-	
-	private void addNodeResult(PatientSearchResults patientSearchResults) {
 
-		NodeTableWrapper foundWrapper = null;
-		
-		for(NodeTableWrapper wrapperIter : nodeTableWrappers) {	
-			if(wrapperIter.getNBIANode().getURL().equals(patientSearchResults.getNode().getURL())) {
-				foundWrapper = wrapperIter;
-				break;
-			}
-		}
-
-		foundWrapper.setPatientSearchResults(patientSearchResults);
-		
-	}
-    
-	/**
-	 * All the search requests are sent out in parallel.... wait for all of them
-	 * to be done.  This method can be called as-is from a waiter thread with push
-	 * ...that is if the push can work more reliably.
-	 */
-	private void waitForSearchResults(PatientSearchCompletionService completionService) {
-		try {    
-			System.out.println("#################"+completionService.getNodesToSearch().size());
-			List<NBIANode> noResponseNode = new ArrayList<NBIANode>();
-			for (NBIANode node : completionService.getNodesToSearch()) {
-				noResponseNode.add(node);
-			}
-			for(int i=0;i<completionService.getNodesToSearch().size();i++) {
-				try {
-					//this is a blocking call
-					Future<PatientSearchResults> future = completionService.getCompletionService().poll(NCIAConfig.getTimeoutInMin(), TimeUnit.MINUTES);
-					//	this is a blocking call
-					PatientSearchResults result = null;
-					if (future != null) {
-						result = future.get();
-						System.out.println("got response from node "+ result.getNode().getDisplayName() +" so remove it");
-						noResponseNode.remove(result.getNode()); // got response so remove it
-						logResult(result);
-						addNodeResult(result);
-					} 
-				} catch (CancellationException e) { 
-	                e.printStackTrace(); 
-	            } 
-
-				//pushToBrowser();
-			}
-			if(noResponseNode !=null && !noResponseNode.isEmpty()) {
-				//	check is there are any node from where, no response came with configurable minutes.
-				for (NBIANode node : noResponseNode) {
-					System.out.println("no response Node" +node.getDisplayName());
-					Exception searchError = new Exception("no response from node");
-					PatientSearchResults result = new PatientSearchResults(node, searchError);
-					logResult(result);
-					addNodeResult(result);
-				}
-			}			
-			
-			System.out.println("done waiting for results");
-		}
-//		catch(InterruptedException ie) {
-//			System.out.println("interrupted the async result waiter");
-//		}
-		catch(Exception ex) {
-			//shouldnt get here, the search result service should capture
-			//any exceptions and results a search result that indicates
-			//there was an error
-			ex.printStackTrace();
-		}		
-	}
-	
- 
     private static void logResult(PatientSearchResults result) {
 		if(result.getResults()!=null) {
-			System.out.println("PatientSearchResults num results:"+result.getResults().length + " - Node " + result.getNode().getDisplayName());
+			System.out.println("PatientSearchResults num results:"+result.getResults().length);
 		}   
 		if(result.getSearchError()!=null) {
-			System.out.println("PatientSearchResults error:"+result.getSearchError() + " - Node " + result.getNode().getDisplayName());
+			System.out.println("PatientSearchResults error:"+result.getSearchError());
 		}   
     }
     //for sorting

@@ -19,6 +19,7 @@ import gov.nih.nci.nbia.dynamicsearch.TableRelationships;
 import gov.nih.nci.nbia.factories.ApplicationFactory;
 import gov.nih.nci.nbia.lookup.LookupManager;
 import gov.nih.nci.nbia.lookup.LookupManagerFactory;
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.textsupport.SolrAllDocumentMetaData;
 import gov.nih.nci.nbia.textsupport.PatientTextSearchResultImpl;
@@ -32,7 +33,7 @@ import gov.nih.nci.nbia.xmlobject.DataGroup;
 import gov.nih.nci.nbia.xmlobject.DataSource;
 import gov.nih.nci.nbia.xmlobject.Element;
 import gov.nih.nci.nbia.xmlobject.SourceItem;
-import gov.nih.nci.ncia.search.PatientSearchResult;
+import gov.nih.nci.nbia.searchresult.PatientSearchResult;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -100,7 +101,8 @@ public class DynamicSearchBean {
 	protected String permissibleDataValue = "";
 
 	protected SourceItem defaultSourceItem = new SourceItem();
-
+    private String user;
+    private String token;
 	public String getPermissibleDataValue() {
 		return permissibleDataValue;
 	}
@@ -113,6 +115,8 @@ public class DynamicSearchBean {
 	{
 		SecurityBean sb = BeanManager.getSecurityBean();
 		String userName = sb.getUsername();
+		user=userName.trim();
+		token=sb.getTokenValue();
 		man = new AuthorizationManager(userName.trim());
 		authorizedSiteData = man.getAuthorizedSites();
 		seriesSecurityGroups = man.getAuthorizedSeriesSecurityGroups();
@@ -582,12 +586,7 @@ public class DynamicSearchBean {
 	{
 		String returnValue = "dynamicSearch";
 		if(criteria !=null && !criteria.isEmpty()) {
-			QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
-			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
-			qh.setQueryCriteria(criteria, relation, authorizedSiteData, seriesSecurityGroups);
-			qh.query();
-			List<PatientSearchResult> patients = qh.getPatients();
-
+			List<PatientSearchResult> patients = RESTUtil.getDynamicSearch(criteria, relation, token);
 			populateSearchResults(patients);
 		} else {
 			populateSearchResults(null);
@@ -601,54 +600,9 @@ public class DynamicSearchBean {
         srb.setFirstTimeText(false);
         System.out.println("********firstTime set false text search**********");
 		String returnValue = "freeTextSearch";
-		QueryHandler qh = (QueryHandler)SpringApplicationContext.getBean("queryHandler");
-		System.out.println("Searching Solr for"+textValue);
-		List<SolrAllDocumentMetaData> results = qh.searchSolr(textValue);
-		StringBuffer patientIDs = new StringBuffer();
-		Map<String, SolrAllDocumentMetaData> patientMap=new HashMap<String, SolrAllDocumentMetaData>();
-		for (SolrAllDocumentMetaData result : results)
-		{
-			patientIDs.append(result.getPatientId()+",");
-			patientMap.put(result.getPatientId(), result);
-		}
-		if (patientIDs.toString().length()<2) patientIDs.append("zzz33333###"); // no patients found
-		DynamicSearchCriteria dsc = new DynamicSearchCriteria();
-		dsc.setField("patientId");
-		dsc.setDataGroup("Patient");
-		Operator op = new Operator();
-		op.setValue("contains");
-		dsc.setOperator(op);
-		dsc.setValue(patientIDs.toString());
+		List<PatientSearchResult> patients = RESTUtil.getTextSearch(textValue, token);
+		populateSearchResults(patients);
 
-		criteria.clear();
-		criteria.add(dsc);
-
-
-		if(criteria !=null && !criteria.isEmpty()) {
-
-			qh.setStudyNumberMap(ApplicationFactory.getInstance().getStudyNumberMap());
-			qh.setQueryCriteria(criteria, "AND", authorizedSiteData, seriesSecurityGroups);
-			qh.query();
-			List<PatientSearchResult> patients = qh.getPatients();
-			List<PatientSearchResult> textPatients = new ArrayList<PatientSearchResult>();
-			for (PatientSearchResult patient:patients)
-			{
-				PatientTextSearchResult textResult=new PatientTextSearchResultImpl(patient);
-				SolrAllDocumentMetaData solrResult =  patientMap.get(textResult.getSubjectId());
-				if (solrResult==null)
-				{
-					System.out.println("******* can't find id in patient map " + textResult.getSubjectId());
-				} else
-				{
-					textResult.setHit(solrResult.getFoundValue());
-				    textPatients.add(textResult);
-				}
-			}
-
-			populateSearchResults(textPatients);
-		} else {
-			populateSearchResults(null);
-		}
 
 		return returnValue;
 	}

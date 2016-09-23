@@ -34,33 +34,11 @@ public class AnnotationRecognizerImpl implements AnnotationRecognizer {
 
 	public AnnotationSubmissionProcessor recognizeAnnotation(XmlObject file,
 			                                                 File storedFile) {
-
-        if(isAIMAnnotation(file)) {
-        	System.out.println("AIM annotation is recognized:"+aimAnnotationSubmissionProcessor);
-        	return aimAnnotationSubmissionProcessor;
-		}
-        else {
         	return traditionalAnnotationSubmissionProcessor;
-        }
 	}
 
 	////////////////////////////////////////PRIVATE//////////////////////////////////////
 	@Autowired
-	@Qualifier("aimAnnotationSubmissionProcessor")
-	private AnnotationSubmissionProcessor  aimAnnotationSubmissionProcessor;
-
-	@Autowired
 	@Qualifier("traditionalAnnotationSubmissionProcessor")
 	private AnnotationSubmissionProcessor  traditionalAnnotationSubmissionProcessor;
-
-	private boolean isAIMAnnotation(XmlObject file) {
-		Document document = file.getDocument();
-		Element documentElement = document.getDocumentElement();
-
-		System.out.println("isAim:"+documentElement.getLocalName()+","+documentElement.getNamespaceURI());
-
-		return documentElement.getLocalName().equals("ImageAnnotation") &&
-		       (documentElement.getNamespaceURI().equals("gme://caCORE.caCORE/3.2/edu.northwestern.radiology.AIM") ||
-                documentElement.getNamespaceURI().equals("gme://caCORE/3.2/edu.northwestern.radiology.AIM"));
-	}
 }

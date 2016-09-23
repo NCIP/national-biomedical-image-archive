@@ -243,9 +243,12 @@ public class PatientAccessDAOImpl extends AbstractDAO
 		Collection<GeneralSeriesSubDoc> seriesDocs= new ArrayList<GeneralSeriesSubDoc>();
 		for (GeneralSeries series : study.getGeneralSeriesCollection()){
 			GeneralSeriesSubDoc seriesDoc = new GeneralSeriesSubDoc();
-			if (series.getVisibility().equals(VisibilityStatus.VISIBLE))
+			if( (series.getVisibility().equals(VisibilityStatus.VISIBLE)) || (series.getVisibility().equals(VisibilityStatus.DOWNLOADABLE)) )
 			{
-			  log.info("*** series "+ series.getId()+" visible adding to index *****");
+			  log.info("*** In nbia-dao, PatientAccessDAOImpl:fillInSeries() - series-id  "+ series.getId()+" IS visible or downloadable - adding to index *****");
+		
+		System.out.println("===== In nbia-dao, PatientAccessDAOImpl:fillInSeries() - series-id  "+ series.getId()+" visible or downloadable - adding to index *****");
+		
 			  seriesDoc.setId(series.getId());
 			  seriesDoc.setModality(series.getModality());
 			  seriesDoc.setLaterality(series.getLaterality());
@@ -269,7 +272,8 @@ public class PatientAccessDAOImpl extends AbstractDAO
 			  seriesDocs.add(seriesDoc);
 			} else
 			{
-			  log.info("*** series "+ series.getId()+" not visible *****");
+			  log.info("*** series "+ series.getId()+" not visible or downloadable *****");
+			  System.out.println("===== series with series-id "+ series.getId()+" NOT visible or downloadable *****");
 			}
 		    
 		}

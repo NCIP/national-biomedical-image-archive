@@ -10,6 +10,8 @@ package gov.nih.nci.nbia.beans.security;
 
 import gov.nih.nci.nbia.beans.BeanManager;
 import gov.nih.nci.nbia.dao.LoginHistoryDAO;
+import gov.nih.nci.nbia.dto.ImageDTO;
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import gov.nih.nci.nbia.query.DICOMQuery;
 import gov.nih.nci.nbia.security.AuthorizationManager;
 import gov.nih.nci.nbia.security.NCIASecurityManager;
@@ -24,7 +26,7 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.apache.log4j.Logger;
 
 /**
@@ -45,6 +47,7 @@ public class SecurityBean {
 	private String newPassword1="";
 	private String newPassword2="";
 	private static final String LOGIN_FAIL = "loginFail";
+	private DefaultOAuth2AccessToken token;
 	private static final String PASSWORD_FIELD_JSF_ID = null;//"MAINbody:sideBarView:loginForm:pass";
 	                                                    //MAINbody:sideBarViewAsGuest:loginFormGuestEnabled:loginGuestEnabled:pass
 
@@ -192,13 +195,17 @@ public class SecurityBean {
 			if( anonymousLoginBean.getIsGuestEnabled() && username.equals(anonymousLoginBean.getGuestUserName())){
 				//bypass authentication for guest user
 				anonymousLoginBean.setGuestLoggedIn(true);
+				token=RESTUtil.getToken(username, password);
 				isInLDAP = true;
 				logger.info("bypass authentication for guest user");
 			}else{
 				isInLDAP = sm.login(uname, pass);
+				token=RESTUtil.getToken(username, password);
+				System.out.println(token);
 				logger.info("authentication registered user");
 			}
 			isInLocal = sm.isInLocalDB(username);
+			
 			if (isInLDAP && isInLocal) {
 				loggedIn = true;
 			}
@@ -366,6 +373,14 @@ public class SecurityBean {
 
 		return authMgr.hasRole(RoleType.SUPER_CURATOR);
 	}
+	
+	public boolean getHasAdminRole() {
+		if (authMgr == null) {
+			return false;
+		}
+
+		return authMgr.hasRole(RoleType.ADMIN);
+	}	
 
 	public boolean getHasDeletionRole() {
 		if (authMgr == null) {
@@ -502,5 +517,17 @@ public class SecurityBean {
 
 	public void setNewPassword2(String pass2) {
 		newPassword2 = pass2;
+	}
+	public String getTokenValue(){
+		if (token!=null){
+			if (token.isExpired())
+			{
+				token=RESTUtil.getToken(username, password);
+			}
+			return token.getValue();
+		}
+		else{
+			return null;
+		}
 	}
 }

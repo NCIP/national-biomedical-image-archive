@@ -14,7 +14,7 @@
 package gov.nih.nci.nbia.beans.basket;
 
 import gov.nih.nci.nbia.basket.Basket;
-import gov.nih.nci.nbia.basket.BasketSeriesItemBean;
+import gov.nih.nci.nbia.lookup.BasketSeriesItemBean;
 import gov.nih.nci.nbia.basket.BasketUtil;
 import gov.nih.nci.nbia.basket.DownloadRecorder;
 import gov.nih.nci.nbia.beans.BeanManager;
@@ -26,19 +26,20 @@ import gov.nih.nci.nbia.beans.security.SecurityBean;
 import gov.nih.nci.nbia.customserieslist.FileGenerator;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModel;
 import gov.nih.nci.nbia.datamodel.IcefacesRowColumnDataModelInterface;
-import gov.nih.nci.nbia.jms.ImageZippingMessage;
+import gov.nih.nci.nbia.executors.ImageZippingMessage;
+import gov.nih.nci.nbia.executors.AsynchonousServices;
+import gov.nih.nci.nbia.lookup.RESTUtil;
 import gov.nih.nci.nbia.search.DrillDown;
 import gov.nih.nci.nbia.search.DrillDownFactory;
 import gov.nih.nci.nbia.search.LocalDrillDown;
-import gov.nih.nci.nbia.util.DynamicJNLPGenerator;
+import gov.nih.nci.nbia.basket.DynamicJNLPGenerator;
 import gov.nih.nci.nbia.util.MessageUtil;
 import gov.nih.nci.nbia.util.NCIAConfig;
 import gov.nih.nci.nbia.util.NCIAConstants;
 import gov.nih.nci.nbia.util.SlideShowUtil;
 import gov.nih.nci.nbia.zip.ZipManager;
-import gov.nih.nci.ncia.search.ImageSearchResult;
-import gov.nih.nci.ncia.search.NBIANode;
-import gov.nih.nci.ncia.search.SeriesSearchResult;
+import gov.nih.nci.nbia.searchresult.ImageSearchResult;
+import gov.nih.nci.nbia.searchresult.SeriesSearchResult;
 
 import java.io.File;
 import java.io.Serializable;
@@ -59,15 +60,9 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.servlet.http.HttpServletRequest;
 
-import javax.annotation.Resource;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.Queue;
-import javax.jms.Session;
-import javax.jms.ObjectMessage;
+
+
+
 
 import org.apache.log4j.Logger;
 
@@ -86,11 +81,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     public static final String HIGHLIGHTED = "highlightedData";
     public static final String NOT_HIGHLIGHTED = "";
 
-	@Resource(mappedName = "java:/ConnectionFactory")
-	private ConnectionFactory connectionFactory;
+	//@Resource(mappedName = "java:/ConnectionFactory")
+	//private ConnectionFactory connectionFactory;
 
-	@Resource(mappedName = "java:/queue/imageQueue")
-    private Queue queue;
+	//@Resource(mappedName = "java:/queue/imageQueue")
+    //private Queue queue;
 
     /**
      *
@@ -149,7 +144,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	Map<String, Boolean> inBasketMap = new HashMap<String, Boolean>();
     	Map<String, BasketSeriesItemBean> seriesItemMap = basket.getSeriesItemMap();
     	for(BasketSeriesItemBean seriesItem : seriesItemMap.values()) {
-    		inBasketMap.put(seriesItem.getSeriesPkId()+"||"+seriesItem.getGridLocation(), Boolean.TRUE);
+    		inBasketMap.put(seriesItem.getSeriesPkId().toString(), Boolean.TRUE);
     	}
     	return inBasketMap;
     }
@@ -166,7 +161,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	Map<String, Boolean> inBasketMap = new HashMap<String, Boolean>();
     	Map<String, BasketSeriesItemBean> seriesItemMap = basket.getSeriesItemMap();
     	for(BasketSeriesItemBean seriesItem : seriesItemMap.values()) {
-    		inBasketMap.put(seriesItem.getPatientId()+"||"+seriesItem.getGridLocation(), Boolean.TRUE);
+    		inBasketMap.put(seriesItem.getPatientpk(), Boolean.TRUE);
     	}
     	return inBasketMap;
     }
@@ -276,16 +271,10 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
             for(String key: keys){
                 BasketSeriesItemBean bsib = seriesItemMap.get(key);
                 SeriesSearchResult seriesDTO = bsib.getSeriesSearchResult();
-                NBIANode node = seriesDTO.associatedLocation();
-                //if (node instanceof RemoteNode) {
-                //    RemoteNode location = RemoteNode.constructPartialRemoteNode(node.getDisplayName(),node.getURL());
-                //    seriesDTO.associateLocation(location);
-                //}
                 localSeriesDTOs.put(seriesDTO.getId().toString(),seriesDTO);
             }
             izm.setItems(localSeriesDTOs);
             izm.setIncludeAnnotation(getIncludeAnnotation());
-            izm.setNodeName(NCIAConfig.getLocalNodeName());
             fileName =  BasketUtil.generateFileName(sb.getUsername());
 
             // FTP Download
@@ -297,32 +286,7 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
 
             izm.setZipFilename(path + File.separator + sb.getUsername() + File.separator + fileName);
 
-			Connection connection = null;
-			try {
-				Destination destination = queue;
-
-				logger.debug("Sending messages to " + destination );
-				connection = connectionFactory.createConnection();
-				Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-				MessageProducer messageProducer = session.createProducer(destination);
-				connection.start();
-				ObjectMessage message = session.createObjectMessage(izm);
-				messageProducer.send(message);
-				logger.debug("message sent out");
-
-			} catch (JMSException e) {
-				e.printStackTrace();
-				logger.debug("A problem occurred during the delivery of online deletion message");
-				logger.debug("Go your the JBoss Application Server console or Server log to see the error stack trace");
-			} finally {
-				if (connection != null) {
-					try {
-						connection.close();
-					} catch (JMSException e) {
-						e.printStackTrace();
-					}
-				}
-        }
+            AsynchonousServices.performImageZipping(izm);
 
             hasBasketChangedSinceDownload = false;
 
@@ -526,7 +490,9 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
         try {
             this.series = theSeries;
             DrillDown drillDown = DrillDownFactory.getDrillDown();
-            thumbnailImageDto = drillDown.retrieveImagesForSeries(theSeries);
+            SecurityBean sb = BeanManager.getSecurityBean();
+			String userName = sb.getUsername();
+            thumbnailImageDto = drillDown.retrieveImagesForSeries(theSeries, userName);
             List<ImageResultWrapper> wrappers= computeWrapperList(Arrays.asList(thumbnailImageDto));
             imageList =  new ListDataModel(wrappers);
             icefacesDataModel = new IcefacesRowColumnDataModel(wrappers);
@@ -624,13 +590,10 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
             return null;
         }
 
-        DynamicJNLPGenerator djnlpg = new DynamicJNLPGenerator();
-        String jnlp = djnlpg.generate(sb.getUsername(),
-                                      sb.getPassword(),
-                                      NCIAConfig.getImageServerUrl()+"/ncia",
-                                      NCIAConfig.getDownloadServerUrl(),
-                                      getIncludeAnnotation(),
-                                      this.getSeriesItems(),currentTimeMillis, NCIAConfig.getNoOfRetry());
+
+        String jnlp = RESTUtil.getJNLP(this.getSeriesItems(), sb.getPassword(), getIncludeAnnotation(), sb.getTokenValue());
+        		
+
 
         ByteArrayResource bar = new ByteArrayResource(jnlp.getBytes());
         return bar;
@@ -674,15 +637,11 @@ public class BasketBean implements Serializable, IcefacesRowColumnDataModelInter
     	System.out.println("EnableCreateAList...  localSeries: " + localSeries);
         return (sb.getHasLoggedInAsRegisteredUser() && localSeries);
     }
+    
     public boolean getLocalSeriesList(){
     	List<BasketSeriesItemBean> seriesItems = getBasket().getSeriesItems();
-    	String localNodeName = NCIAConfig.getLocalNodeName();
     	List<BasketSeriesItemBean> localSeriesItems = new ArrayList<BasketSeriesItemBean>();
-        //System.out.println("localNodeName: " + localNodeName);
         for( BasketSeriesItemBean bsib : seriesItems){
-            if(!bsib.getLocationDisplayName().equals(localNodeName)){
-                continue;
-            }
             localSeriesItems.add(bsib);
         }
     	return localSeriesItems.size()>0 ? true:false;

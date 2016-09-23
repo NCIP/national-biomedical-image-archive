@@ -74,9 +74,6 @@ L-->
         <value>gov/nih/nci/nbia/internaldomain/Annotation.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/DeletionAuditTrail.hbm.xml</value>
         <value>gov/nih/nci/nbia/internaldomain/SubmissionHistory.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimImagingObservationCharacteristic.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/AimQuantification.hbm.xml</value>
-        <value>gov/nih/nci/nbia/internaldomain/ImageMarkup.hbm.xml</value>
       </list>
     </property>
 
@@ -108,12 +105,6 @@ L-->
    <bean id="annotationStorage" class="gov.nih.nci.nbia.annotations.AnnotationStorageImpl"/>
 
    <bean id="annotationRecognizer" class="gov.nih.nci.nbia.annotations.AnnotationRecognizerImpl"/>
-
-   <bean id="aimAnnotationSubmissionProcessor" class="gov.nih.nci.nbia.annotations.AimAnnotationSubmissionProcessor">
-     <property name="sessionFactory">
-       <ref bean="sessionFactory"/>
-     </property>
-   </bean>
 
    <bean id="traditionalAnnotationSubmissionProcessor" class="gov.nih.nci.nbia.annotations.TraditionalAnnotationSubmissionProcessor">
      <property name="sessionFactory">

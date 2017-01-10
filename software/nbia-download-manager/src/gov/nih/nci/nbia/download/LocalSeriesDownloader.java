@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ProxySelector;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -43,6 +44,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.ProxySelectorRoutePlanner;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -184,6 +186,7 @@ public class LocalSeriesDownloader extends AbstractSeriesDownloader {
 		HttpConnectionParams.setSoTimeout(httpParams, new Integer(12000));
 		ClientConnectionManager ccm = new ThreadSafeClientConnManager(schemeRegistry);
 		DefaultHttpClient httpClient = new DefaultHttpClient(ccm, httpParams);
+		httpClient.setRoutePlanner(new ProxySelectorRoutePlanner(schemeRegistry, ProxySelector.getDefault()));
 
 		// Additions by lrt for tcia -
 		// attempt to reduce errors going through a Coyote Point Equalizer load

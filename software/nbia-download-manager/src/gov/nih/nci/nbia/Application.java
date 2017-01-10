@@ -19,6 +19,7 @@ import gov.nih.nci.nbia.util.PropertyLoader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.ProxySelector;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -43,6 +44,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.ProxySelectorRoutePlanner;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -145,7 +147,7 @@ public class Application {
 
     private  static List<String> connectAndReadFromURL(URL url, String fileName) {
         List<String>  data = null;
-        HttpClient httpClient = null;
+        DefaultHttpClient httpClient = null;
         TrustStrategy easyStrategy = new TrustStrategy() {
             @Override
             public boolean isTrusted(X509Certificate[] certificate, String authType)
@@ -169,6 +171,7 @@ public class Application {
 	        HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
 	        HttpConnectionParams.setSoTimeout(httpParams,  new Integer(12000));
 	        httpClient = new DefaultHttpClient(ccm,httpParams);
+	        httpClient.setRoutePlanner(new ProxySelectorRoutePlanner(schemeRegistry, ProxySelector.getDefault()));
 	//        // Additions by lrt for tcia -
 	//        //    attempt to reduce errors going through a Coyote Point Equalizer load balance switch
 	        httpClient.getParams().setParameter("http.socket.timeout", new Integer(12000));
